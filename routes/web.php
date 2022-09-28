@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AutentikasiController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/login', [AutentikasiController::class, 'login'])->name('login');
+Route::post('/login', [AutentikasiController::class, 'postLogin'])->name('post.login');
+
+Route::middleware('auth.super-admin')->group(function(){
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 });
