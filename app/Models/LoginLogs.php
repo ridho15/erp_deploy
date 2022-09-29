@@ -12,7 +12,7 @@ class LoginLogs extends Model
     protected $table = 'login_logs';
     protected $fillable = [
         'id_user',
-        'device',
+        'devices',
         'token',
         'is_active',
     ];

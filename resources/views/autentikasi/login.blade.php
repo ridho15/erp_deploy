@@ -29,11 +29,12 @@
 				<div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-10 order-2 order-lg-1">
 					<div class="d-flex flex-center flex-column flex-lg-row-fluid">
 						<div class="w-lg-500px p-10">
-							<form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" data-kt-redirect-url="/../demo18/index.html" action="#">
+							<form class="form w-100" novalidate="novalidate" action="#" method="POST">
+                                @csrf
 								<div class="text-center mb-11">
-									<h1 class="text-dark fw-bolder mb-3">Sign In</h1>
+                                    <img src="{{ asset('/assets/images/icon.png') }}" style="width: 100px; height: 100px; object-fit: contain" alt="">
+									<h1 class="text-dark fw-bolder mb-3 mt-7">Sign In</h1>
 									<div class="text-gray-500 fw-semibold fs-6">Sign in with the given account</div>
-                                    {{ session('fail') }}
 								</div>
 								<div class="separator separator-content my-14">
 									<span class="w-150px text-gray-500 fw-semibold fs-7">With Username</span>
@@ -85,11 +86,11 @@
             $(document).ready(function () {
             });
 
-            if("{{ session('success') }}"){
+            if("{{ session()->has('success') }}"){
                 alertMessage(1, "{{ session('success') }}")
             }
 
-            if("{{ session('fail') }}"){
+            if("{{ session()->has('fail') }}"){
                 alertMessage(0, "{{ session('fail') }}")
             }
         </script>

@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AutentikasiController;
 use App\Http\Controllers\DashboardController;
-use App\Models\User;
+use App\Http\Controllers\WorkerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +25,9 @@ Route::post('/login', [AutentikasiController::class, 'postLogin'])->name('post.l
 
 Route::middleware('auth.super-admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::prefix('worker')->group(function(){
+        Route::get('/', [WorkerController::class, 'index'])->name('worker');
+    });
 });
 
 Route::get('insert', function () {

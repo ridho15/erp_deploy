@@ -46,7 +46,7 @@ class AutentikasiController extends Controller
             $token = $this->crypt->crypt(date('Y-m-d H:i:s'));
             $loginLogs = LoginLogs::create([
                 'id_user' => $user->id,
-                'device' => $_SERVER['HTTP_USER_AGENT'],
+                'devices' => $_SERVER['HTTP_USER_AGENT'],
                 'token' => $token,
                 'is_active' => 1
             ]);

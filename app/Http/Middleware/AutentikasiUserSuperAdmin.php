@@ -26,10 +26,10 @@ class AutentikasiUserSuperAdmin
             if($superUser){
                 return $next($request);
             }else{
-                return redirect()->back()->with('fail', 'Akses tidak diizinkan');
+                return redirect()->back()->with('fail', "Anda tidak memiliki akses");
             }
         }else{
-            return redirect()->back()->with('fail', 'Akses tidak diizinkan');
+            return redirect()->route('login');
         }
     }
 }
