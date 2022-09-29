@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AutentikasiController;
 use App\Http\Controllers\DashboardController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +23,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login', [AutentikasiController::class, 'login'])->name('login');
 Route::post('/login', [AutentikasiController::class, 'postLogin'])->name('post.login');
 
-Route::middleware('auth.super-admin')->group(function(){
+Route::middleware('auth.super-admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+});
+
+Route::get('insert', function () {
+    $user = new User();
+    $user->name = 'admin';
+    $user->username = 'admin';
+    $user->password = bcrypt('adminadmin');
+    $user->is_active = 1;
+    $user->id_tipe_user = 1;
+    $user->save();
 });
