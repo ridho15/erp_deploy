@@ -22,6 +22,16 @@ class User extends Model
         'password', 'token'
     ];
 
+    protected $appends = ['is_active_formatted'];
+
+    public function getIsActiveFormattedAttribute(){
+        if($this->is_active == 1){
+            return "<span class='badge badge-success'>Aktif</span>";
+        }else{
+            return "<span class='badge badge-danger'>Tidak Aktif</span>";
+        }
+    }
+
     public function tipeUser(){
         return $this->belongsTo(TipeUser::class, 'id_tipe_user');
     }
