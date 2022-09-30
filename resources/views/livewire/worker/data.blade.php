@@ -41,9 +41,15 @@
                                 <td>{{ $item->tipeUser->nama_tipe }}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit User">
+                                        <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Worker" wire:click="$emit('onClickEdit', {{ $item->id }})">
                                             <i class="bi bi-pencil-square"></i>
                                         </button>
+                                        <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Worker" wire:click="$emit('onClickHapus', {{ $item->id }})">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </button>
+                                        <a href="{{ route('worker.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Worker">
+                                            <i class="bi bi-info-circle-fill"></i>
+                                        </a>
                                     </div>
                                 </td>
                             </tr>
@@ -73,6 +79,14 @@
 
         Livewire.on('onClickEdit', (id) => {
             $('#modal_form').modal('show')
+            Livewire.emit('setDataUser', id)
+        })
+
+        Livewire.on('onClickHapus',async(id) => {
+            const response = await alertConfirm('Peringatan !', "Apakah kamu yakin ingin menghapus data ?");
+            if(response.isConfirmed == true){
+                Livewire.emit('hapusUser', id)
+            }
         })
 
         Livewire.on("finishDataUser", (status, message) => {

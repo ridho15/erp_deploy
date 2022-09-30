@@ -35,6 +35,12 @@ class Form extends Component
             $message = "Data tidak ditemukan";
             $this->emit('finishDataUser', 0, $message);
         }
+
+        $this->id_user = $user->id;
+        $this->username = $user->username;
+        $this->name = $user->name;
+        $this->is_active = $user->is_active;
+        $this->id_tipe_user = $user->id_tipe_user;
     }
 
     public function simpanDataUser(){
@@ -53,7 +59,7 @@ class Form extends Component
             'id_tipe_user.numeric' => 'Tipe user tidak valid !'
         ]);
 
-        $this->username = Str::slug($this->slug);
+        $this->username = Str::slug($this->username);
         $tipeUser = TipeUser::find($this->id_tipe_user);
         if(!$tipeUser){
             $message = 'Tipe user tidak ditemukan';
@@ -81,7 +87,7 @@ class Form extends Component
             'id' => $this->id_user
         ], $data);
 
-        $message = 'Berhasil manambahkan user baru';
+        $message = 'Berhasil manambahkan menyimpan data user';
         $this->emit('refreshUser');
         $this->resetInputFields();
         return $this->emit('finishSimpanData', 1, $message);

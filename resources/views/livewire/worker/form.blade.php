@@ -35,7 +35,7 @@
                         </div>
                         <div class="mb-5">
                             <label for="" class="form-label required">Password</label>
-                            <input type="password" class="form-control form-control-solid" name="password" wire:model="password" placeholder="Masukkan password" required>
+                            <input type="password" class="form-control form-control-solid" name="password" wire:model="password" placeholder="Masukkan password">
                             @error('password')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -66,7 +66,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-box-arrow-down"></i> Simpan</button>
                     </div>
                 </form>
             </div>
@@ -90,6 +90,7 @@
         })
 
         Livewire.on("finishSimpanData", (status, message) => {
+            $('#modal_form').modal('hide')
             alertMessage(status, message)
         })
     </script>
