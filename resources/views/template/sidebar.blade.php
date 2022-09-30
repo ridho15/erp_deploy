@@ -47,7 +47,7 @@
                                 </a>
                             </div>
                             <div class="menu-item">
-                                <a class="menu-link" href="javascript:">
+                                <a class="menu-link @if(in_array('supplier', $active)) active @endif" href="{{ route('supplier') }}" href="javascript:">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -55,7 +55,7 @@
                                 </a>
                             </div>
                             <div class="menu-item">
-                                <a class="menu-link" href="javascript:">
+                                <a class="menu-link @if(in_array('kostumer', $active)) active @endif" href="{{ route('kostumer') }}" href="javascript:">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -63,7 +63,7 @@
                                 </a>
                             </div>
                             <div class="menu-item">
-                                <a class="menu-link" href="javascript:">
+                                <a class="menu-link @if(in_array('barang', $active)) active @endif" href="{{ route('barang') }}" href="javascript:">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>

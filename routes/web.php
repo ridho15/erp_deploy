@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\AutentikasiController;
+use App\Http\Controllers\BarangController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KostumerController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\WorkerController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,4 +17,20 @@ Route::middleware('auth.super-admin')->group(function () {
         Route::get('/', [WorkerController::class, 'index'])->name('worker');
         Route::get('/detail/{id}', [WorkerController::class, 'detail'])->name('worker.detail');
     });
+
+    Route::prefix('supplier')->group(function(){
+        Route::get('/', [SupplierController::class, 'index'])->name('supplier');
+        Route::get('/detail/{id}', [SupplierController::class, 'detail'])->name('supplier.detail');
+    });
+
+    Route::prefix('kostumer')->group(function(){
+        Route::get('/', [KostumerController::class, 'index'])->name('kostumer');
+        Route::get('/detail/{id}', [KostumerController::class, 'detail'])->name('kostumer.detail');
+    });
+
+    Route::prefix('barang')->group(function(){
+        Route::get('/', [BarangController::class, 'index'])->name('barang');
+        Route::get('/detail/{id}', [BarangController::class, 'detail'])->name('barang.detail');
+    });
+
 });

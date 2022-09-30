@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class RemoveUniqueUsernameInUser extends Migration
+class ChangeColumnNameInBarangStockLogs extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class RemoveUniqueUsernameInUser extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('username');
+        Schema::table('barang_stock_logs', function (Blueprint $table) {
+            $table->renameColumn('id_produk', 'id_barang');
         });
     }
 
@@ -25,7 +25,7 @@ class RemoveUniqueUsernameInUser extends Migration
      */
     public function down()
     {
-        Schema::table('user', function (Blueprint $table) {
+        Schema::table('barang_stock_logs', function (Blueprint $table) {
             //
         });
     }
