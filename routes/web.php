@@ -25,17 +25,7 @@ Route::post('/login', [AutentikasiController::class, 'postLogin'])->name('post.l
 
 Route::middleware('auth.super-admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    Route::prefix('worker')->group(function(){
+    Route::prefix('worker')->group(function () {
         Route::get('/', [WorkerController::class, 'index'])->name('worker');
     });
-});
-
-Route::get('insert', function () {
-    $user = new User();
-    $user->name = 'admin';
-    $user->username = 'admin';
-    $user->password = bcrypt('adminadmin');
-    $user->is_active = 1;
-    $user->id_tipe_user = 1;
-    $user->save();
 });
