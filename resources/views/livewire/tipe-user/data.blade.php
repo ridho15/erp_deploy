@@ -2,12 +2,12 @@
     <div class="card shadow-sm">
         <div class="card-header">
             <h3 class="card-title">
-                Data Pekerja
+                Tipe User
             </h3>
-            <div class="card-toolbar">
+            {{-- <div class="card-toolbar">
                 <button class="btn btn-sm btn-outline btn-outline-primary" wire:click="$emit('onClickTambah')"><i
                         class="bi bi-plus-circle"></i> Tambah</button>
-            </div>
+            </div> --}}
         </div>
         <div class="card-body">
             <div class="text-center">
@@ -24,11 +24,8 @@
                     <thead>
                         <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
                             <th>No</th>
-                            <th>Nama</th>
-                            <th>Username</th>
-                            <th>Status Aktif</th>
-                            <th>Tipe User</th>
-                            <th>Aksi</th>
+                            <th>Nama Tipe</th>
+                            {{-- <th>Aksi</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -36,13 +33,8 @@
                         @foreach ($listUser as $index => $item)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ $item->name }}</td>
-                            <td>{{ $item->username }}</td>
-                            <td>
-                                <?= $item->is_active_formatted ?>
-                            </td>
-                            <td>{{ $item->tipeUser->nama_tipe }}</td>
-                            <td>
+                            <td>{{ $item->nama_tipe }}</td>
+                            {{-- <td>
                                 <div class="btn-group">
                                     <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip"
                                         data-bs-placement="top" title="Edit Worker"
@@ -60,7 +52,7 @@
                                         <i class="bi bi-info-circle-fill"></i>
                                     </a>
                                 </div>
-                            </td>
+                            </td> --}}
                         </tr>
                         @endforeach
                         @else
