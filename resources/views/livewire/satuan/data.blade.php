@@ -2,7 +2,7 @@
     <div class="card shadow-sm">
         <div class="card-header">
             <h3 class="card-title">
-                Data Pekerja
+                Sattuan
             </h3>
             <div class="card-toolbar">
                 <button class="btn btn-sm btn-outline btn-outline-primary" wire:click="$emit('onClickTambah')"><i
@@ -24,10 +24,8 @@
                     <thead>
                         <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
                             <th>No</th>
-                            <th>Nama</th>
-                            <th>Username</th>
-                            <th>Status Aktif</th>
-                            <th>Tipe User</th>
+                            <th>Nama Satuan</th>
+                            <th>Nilai</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -36,12 +34,8 @@
                         @foreach ($listUser as $index => $item)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ $item->name }}</td>
-                            <td>{{ $item->username }}</td>
-                            <td>
-                                <?= $item->is_active_formatted ?>
-                            </td>
-                            <td>{{ $item->tipeUser->nama_tipe }}</td>
+                            <td>{{ $item->nama_satuan }}</td>
+                            <td>{{ $item->nilai }}</td>
                             <td>
                                 <div class="btn-group">
                                     <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip"
@@ -54,11 +48,6 @@
                                         wire:click="$emit('onClickHapus', {{ $item->id }})">
                                         <i class="bi bi-trash-fill"></i>
                                     </button>
-                                    <a href="{{ route('worker.detail', ['id' => $item->id]) }}"
-                                        class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip"
-                                        data-bs-placement="top" title="Detail Worker">
-                                        <i class="bi bi-info-circle-fill"></i>
-                                    </a>
                                 </div>
                             </td>
                         </tr>

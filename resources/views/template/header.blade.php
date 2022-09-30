@@ -12,7 +12,7 @@
                     </span>
                 </button>
                 <a href="index.html">
-                    <img alt="Logo" src="assets/media/logos/default-small.svg" class="h-30px h-lg-35px" />
+                    <img alt="Logo" src="{{ asset('assets/media/logos/default-small.svg') }}" class="h-30px h-lg-35px" />
                 </a>
             </div>
             <div class="ms-5 ms-md-10 d-flex align-items-center">
@@ -55,7 +55,7 @@
                                     <h3 class="fs-5 text-muted m-0 pb-5" data-kt-search-element="category-title">Users</h3>
                                     <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
                                         <div class="symbol symbol-40px me-4">
-                                            <img src="assets/media/avatars/300-6.jpg" alt="" />
+                                            <img src="{{ asset('assets/media/avatars/300-6.jpg') }}" alt="" />
                                         </div>
                                         <div class="d-flex flex-column justify-content-start fw-semibold">
                                             <span class="fs-6 fw-semibold">Karina Clark</span>
@@ -64,7 +64,7 @@
                                     </a>
                                     <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
                                         <div class="symbol symbol-40px me-4">
-                                            <img src="assets/media/avatars/300-2.jpg" alt="" />
+                                            <img src="{{ asset('assets/media/avatars/300-2.jpg') }}" alt="" />
                                         </div>
                                         <div class="d-flex flex-column justify-content-start fw-semibold">
                                             <span class="fs-6 fw-semibold">Olivia Bold</span>
@@ -73,7 +73,7 @@
                                     </a>
                                     <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
                                         <div class="symbol symbol-40px me-4">
-                                            <img src="assets/media/avatars/300-9.jpg" alt="" />
+                                            <img src="{{ asset('assets/media/avatars/300-9.jpg') }}" alt="" />
                                         </div>
                                         <div class="d-flex flex-column justify-content-start fw-semibold">
                                             <span class="fs-6 fw-semibold">Ana Clark</span>
@@ -82,7 +82,7 @@
                                     </a>
                                     <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
                                         <div class="symbol symbol-40px me-4">
-                                            <img src="assets/media/avatars/300-14.jpg" alt="" />
+                                            <img src="{{ asset('assets/media/avatars/300-14.jpg') }}" alt="" />
                                         </div>
                                         <div class="d-flex flex-column justify-content-start fw-semibold">
                                             <span class="fs-6 fw-semibold">Nick Pitola</span>
@@ -91,7 +91,7 @@
                                     </a>
                                     <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
                                         <div class="symbol symbol-40px me-4">
-                                            <img src="assets/media/avatars/300-11.jpg" alt="" />
+                                            <img src="{{ asset('assets/media/avatars/300-11.jpg') }}" alt="" />
                                         </div>
                                         <div class="d-flex flex-column justify-content-start fw-semibold">
                                             <span class="fs-6 fw-semibold">Edward Kulnic</span>
@@ -102,7 +102,7 @@
                                     <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
                                         <div class="symbol symbol-40px me-4">
                                             <span class="symbol-label bg-light">
-                                                <img class="w-20px h-20px" src="assets/media/svg/brand-logos/volicity-9.svg" alt="" />
+                                                <img class="w-20px h-20px" src="{{ asset('assets/media/svg/brand-logos/volicity-9.svg') }}" alt="" />
                                             </span>
                                         </div>
                                         <div class="d-flex flex-column justify-content-start fw-semibold">
@@ -113,7 +113,7 @@
                                     <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
                                         <div class="symbol symbol-40px me-4">
                                             <span class="symbol-label bg-light">
-                                                <img class="w-20px h-20px" src="assets/media/svg/brand-logos/tvit.svg" alt="" />
+                                                <img class="w-20px h-20px" src="{{ asset('assets/media/svg/brand-logos/tvit.svg') }}" alt="" />
                                             </span>
                                         </div>
                                         <div class="d-flex flex-column justify-content-start fw-semibold">
@@ -124,7 +124,7 @@
                                     <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
                                         <div class="symbol symbol-40px me-4">
                                             <span class="symbol-label bg-light">
-                                                <img class="w-20px h-20px" src="assets/media/svg/misc/infography.svg" alt="" />
+                                                <img class="w-20px h-20px" src="{{ asset('assets/media/svg/misc/infography.svg') }}" alt="" />
                                             </span>
                                         </div>
                                         <div class="d-flex flex-column justify-content-start fw-semibold">
@@ -135,7 +135,7 @@
                                     <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
                                         <div class="symbol symbol-40px me-4">
                                             <span class="symbol-label bg-light">
-                                                <img class="w-20px h-20px" src="assets/media/svg/brand-logos/leaf.svg" alt="" />
+                                                <img class="w-20px h-20px" src="{{ asset('assets/media/svg/brand-logos/leaf.svg') }}" alt="" />
                                             </span>
                                         </div>
                                         <div class="d-flex flex-column justify-content-start fw-semibold">
@@ -146,7 +146,7 @@
                                     <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
                                         <div class="symbol symbol-40px me-4">
                                             <span class="symbol-label bg-light">
-                                                <img class="w-20px h-20px" src="assets/media/svg/brand-logos/tower.svg" alt="" />
+                                                <img class="w-20px h-20px" src="{{ asset('assets/media/svg/brand-logos/tower.svg') }}" alt="" />
                                             </span>
                                         </div>
                                         <div class="d-flex flex-column justify-content-start fw-semibold">
@@ -594,7 +594,7 @@
                     <div class="menu-item px-3">
                         <div class="menu-content d-flex align-items-center px-3">
                             <div class="symbol symbol-50px me-5">
-                                <img alt="Logo" src="assets/media/avatars/300-1.jpg" />
+                                <img alt="Logo" src="{{ asset('assets/media/avatars/300-1.jpg') }}" />
                             </div>
                             <div class="d-flex flex-column">
                                 <div class="fw-bold d-flex align-items-center fs-5">Max Smith
@@ -653,37 +653,37 @@
                         <a href="#" class="menu-link px-5">
                             <span class="menu-title position-relative">Language
                             <span class="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0">English
-                            <img class="w-15px h-15px rounded-1 ms-2" src="assets/media/flags/united-states.svg" alt="" /></span></span>
+                            <img class="w-15px h-15px rounded-1 ms-2" src="{{ asset('assets/media/flags/united-states.svg') }}" alt="" /></span></span>
                         </a>
                         <div class="menu-sub menu-sub-dropdown w-175px py-4">
                             <div class="menu-item px-3">
                                 <a href="account/settings.html" class="menu-link d-flex px-5 active">
                                 <span class="symbol symbol-20px me-4">
-                                    <img class="rounded-1" src="assets/media/flags/united-states.svg" alt="" />
+                                    <img class="rounded-1" src="{{ asset('assets/media/flags/united-states.svg') }}" alt="" />
                                 </span>English</a>
                             </div>
                             <div class="menu-item px-3">
                                 <a href="account/settings.html" class="menu-link d-flex px-5">
                                 <span class="symbol symbol-20px me-4">
-                                    <img class="rounded-1" src="assets/media/flags/spain.svg" alt="" />
+                                    <img class="rounded-1" src="{{ asset('assets/media/flags/spain.svg') }}" alt="" />
                                 </span>Spanish</a>
                             </div>
                             <div class="menu-item px-3">
                                 <a href="account/settings.html" class="menu-link d-flex px-5">
                                 <span class="symbol symbol-20px me-4">
-                                    <img class="rounded-1" src="assets/media/flags/germany.svg" alt="" />
+                                    <img class="rounded-1" src="{{ asset('assets/media/flags/germany.svg') }}" alt="" />
                                 </span>German</a>
                             </div>
                             <div class="menu-item px-3">
                                 <a href="account/settings.html" class="menu-link d-flex px-5">
                                 <span class="symbol symbol-20px me-4">
-                                    <img class="rounded-1" src="assets/media/flags/japan.svg" alt="" />
+                                    <img class="rounded-1" src="{{ asset('assets/media/flags/japan.svg') }}" alt="" />
                                 </span>Japanese</a>
                             </div>
                             <div class="menu-item px-3">
                                 <a href="account/settings.html" class="menu-link d-flex px-5">
                                 <span class="symbol symbol-20px me-4">
-                                    <img class="rounded-1" src="assets/media/flags/france.svg" alt="" />
+                                    <img class="rounded-1" src="{{ asset('assets/media/flags/france.svg') }}" alt="" />
                                 </span>French</a>
                             </div>
                         </div>

@@ -18,7 +18,7 @@
                             <span class="menu-title">Dashboard</span>
                         </a>
                     </div>
-                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if(in_array('worker', $active)) show @endif">
+                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if(in_array('worker' || 'tipeUser' || 'tipePembayaran' || 'satuan', $active)) show @endif">
                         <span class="menu-link @if(in_array('data-master', $active)) active @endif">
                             <span class="menu-icon">
                                 <span class="svg-icon svg-icon-2">
@@ -87,7 +87,7 @@
                                 </a>
                             </div>
                             <div class="menu-item">
-                                <a class="menu-link" href="javascript:">
+                                <a class="menu-link @if(in_array('satuan', $active)) active @endif" href="{{ route('satuan') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -95,7 +95,7 @@
                                 </a>
                             </div>
                             <div class="menu-item">
-                                <a class="menu-link" href="javascript:">
+                                <a class="menu-link @if(in_array('tipePembayaran', $active)) active @endif" href="{{ route('tipe_pembayaran') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -103,7 +103,7 @@
                                 </a>
                             </div>
                             <div class="menu-item">
-                                <a class="menu-link" href="javascript:">
+                                <a class="menu-link @if(in_array('tipeUser', $active)) active @endif" href="{{ route('tipe_user') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
