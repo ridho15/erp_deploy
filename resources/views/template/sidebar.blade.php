@@ -18,7 +18,7 @@
                             <span class="menu-title">Dashboard</span>
                         </a>
                     </div>
-                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if(in_array('worker', $active)) show @endif">
                         <span class="menu-link @if(in_array('data-master', $active)) active @endif">
                             <span class="menu-icon">
                                 <span class="svg-icon svg-icon-2">
@@ -37,7 +37,7 @@
                             <span class="menu-title">Data Master</span>
                             <span class="menu-arrow"></span>
                         </span>
-                        <div class="menu-sub menu-sub-accordion @if(in_array('worker', $active)) show @endif">
+                        <div class="menu-sub menu-sub-accordion">
                             <div class="menu-item">
                                 <a class="menu-link @if(in_array('worker', $active)) active @endif" href="{{ route('worker') }}">
                                     <span class="menu-bullet">
