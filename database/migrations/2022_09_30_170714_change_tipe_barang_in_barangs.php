@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnUsernameToUser extends Migration
+class ChangeTipeBarangInBarangs extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddColumnUsernameToUser extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('username');
+        Schema::table('barangs', function (Blueprint $table) {
+            $table->renameColumn('id_tipe_produk', 'tipe_barang');
+            $table->double('harga')->default(0);
         });
     }
 
@@ -25,7 +26,7 @@ class AddColumnUsernameToUser extends Migration
      */
     public function down()
     {
-        Schema::table('user', function (Blueprint $table) {
+        Schema::table('barangs', function (Blueprint $table) {
             //
         });
     }
