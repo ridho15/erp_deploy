@@ -12,7 +12,8 @@ class Data extends Component
     public $paginationTheme = 'bootstrap';
     public $listeners = [
         'refreshUser' => '$refresh',
-        'clickTambah'
+        'clickTambah',
+        'hapusUser'
     ];
     public $total_show = 10;
     public $cari;
@@ -36,12 +37,12 @@ class Data extends Component
         $user = User::find($id);
         if(!$user){
             $message = "Data tidak ditemukan";
-            return $this->emit('finishUser', 0, $message);
+            return $this->emit('finishDataUser', 0, $message);
         }
 
         $user->delete();
         $message = 'Berhasil menghapus data';
-        return $this->emit('finishUser', 1, $message);
+        return $this->emit('finishDataUser', 1, $message);
     }
 
     public function clickTambah(){
