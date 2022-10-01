@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\HelperController;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -19,14 +20,15 @@ class Barang extends Model
         'id_merk'
     ];
 
+    protected $appends = ['harga_formatted'];
+
+    public function getHargaFormattedAtrribute(){
+        return number_format($this->harga, 0, '.', ',');
+    }
+
     public function tipeBarang(){
-        if($this->tipe_barang == 1){
-            return "Pinjam";
-        }elseif($this->tipe_barang == 2){
-            return "Bisa dibeli";
-        }elseif($this->tipe_barang == 3){
-            return "Bisa dibeli atau Dipinjam";
-        }
+        $helper = new HelperController;
+        return $helper->getListTipeBarang()->where('tipe_barang', $this->tipe_barang)->first()['keterangan'];
     }
 
     public function merk(){

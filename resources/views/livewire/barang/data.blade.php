@@ -10,7 +10,7 @@
         </div>
         <div class="card-body">
             <div class="text-center">
-                @include('helper.simple-loading', ['target' => 'cari,refreshSupplier', 'message' => 'Memuat data...'])
+                @include('helper.simple-loading', ['target' => 'cari,hapusBarang', 'message' => 'Memuat data...'])
             </div>
             <div class="row mb-5">
                 <div class="col-md-3">
@@ -40,18 +40,18 @@
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ $item->merk ? $item->merk->nama_merk : '-' }}</td>
                                 <td>{{ $item->stock }}</td>
-                                <td>{{ $item->harga }}</td>
+                                <td>{{ $item->harga_formatted }}</td>
                                 <td>{{ $item->min_stock }}</td>
-                                <td>{{ $item->tipeBarang }}</td>
+                                <td>{{ $item->tipeBarang() }}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Customer" wire:click="$emit('onClickEdit', {{ $item->id }})">
+                                        <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Barang" wire:click="$emit('onClickEdit', {{ $item->id }})">
                                             <i class="bi bi-pencil-square"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Customer" wire:click="$emit('onClickHapus', {{ $item->id }})">
+                                        <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Barang" wire:click="$emit('onClickHapus', {{ $item->id }})">
                                             <i class="bi bi-trash-fill"></i>
                                         </button>
-                                        <a href="{{ route('kostumer.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Customer">
+                                        <a href="{{ route('kostumer.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Barang">
                                             <i class="bi bi-info-circle-fill"></i>
                                         </a>
                                     </div>
@@ -83,17 +83,17 @@
 
         Livewire.on('onClickEdit', (id) => {
             $('#modal_form').modal('show')
-            Livewire.emit('setDataKostumer', id)
+            Livewire.emit('setDataBarang', id)
         })
 
         Livewire.on('onClickHapus',async(id) => {
             const response = await alertConfirm('Peringatan !', "Apakah kamu yakin ingin menghapus data ?");
             if(response.isConfirmed == true){
-                Livewire.emit('hapusKostumer', id)
+                Livewire.emit('hapusBarang', id)
             }
         })
 
-        Livewire.on("finishDataKostumer", (status, message) => {
+        Livewire.on("finishDataBarang", (status, message) => {
             alertMessage(status, message)
         })
     </script>

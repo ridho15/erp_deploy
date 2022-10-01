@@ -5,17 +5,16 @@
                 <div class="modal-header">
                     <h3 class="modal-title">Form Barang</h3>
 
-                    <!--begin::Close-->
                     <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
                         <span class="svg-icon svg-icon-1">
                             <i class="bi bi-x-circle"></i>
                         </span>
                     </div>
-                    <!--end::Close-->
                 </div>
 
                 <form action="#" wire:submit.prevent="simpanDataBarang">
                     <div class="modal-body">
+                        @include('helper.alert-message')
                         <div class="text-center">
                             @include('helper.simple-loading', ['target' => 'simpanDataBarang', 'message' => 'Menyimpan data ...'])
                         </div>
@@ -23,18 +22,6 @@
                             <label for="" class="form-label required">Nama</label>
                             <input type="text" class="form-control form-control-solid" name="nama" wire:model="nama" placeholder="Masukkan nama" required>
                             @error('nama')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                        <div class="mb-5">
-                            <label for="" class="form-label required">Merk</label>
-                            <select name="id_merk" class="form-select form-select-solid" wire:model='id_merk' data-control="select2">
-                                <option value="">Pilih</option>
-                                @foreach ($listMerk as $item)
-                                    <option value="{{ $item->id }}">{{ $item->nama_merk }}</option>
-                                @endforeach
-                            </select>
-                            @error('id_merk')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
@@ -53,21 +40,35 @@
                             @enderror
                         </div>
                         <div class="mb-5">
-                            <label for="" class="form-label required">Tipe Barang</label>
-                            <select name="tip_barang" class="form-select form-select-solid" wire:model='tipe_barang' data-control="select2">
-                                <option value="">Pilih</option>
-                            </select>
+                            <label for="" class="form-label required">Minimal Stock</label>
+                            <input type="text" class="form-control form-control-solid" name="min_stock" wire:model="min_stock" placeholder="Masukkan stok" required>
                             @error('min_stock')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                        <div class="d-flex flex-stack w-lg-50">
-                            <label class="form-check form-switch form-check-custom form-check-solid">
-                                <input class="form-check-input" type="checkbox" value="1" wire:model="status" checked="checked"/>
-                                <span class="form-check-label fw-semibold text-muted">
-                                    Aktif
-                                </span>
-                            </label>
+                        <div class="mb-5">
+                            <label for="" class="form-label required">Tipe Barang</label>
+                            <select name="tipe_barang" class="form-select form-select-solid" wire:model='tipe_barang' data-control="select2">
+                                <option value="">Pilih</option>
+                                @foreach ($listTipeBarang as $item)
+                                    <option value="{{ $item['tipe_barang'] }}" @if($item['tipe_barang'] == $tipe_barang) selected @endif>{{ $item['keterangan'] }}</option>
+                                @endforeach
+                            </select>
+                            @error('tipe_barang')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="mb-5">
+                            <label for="" class="form-label">Merk</label>
+                            <select name="id_merk" class="form-select form-select-solid" wire:model='id_merk' data-placeholder="Pilih" data-control="select2">
+                                <option value="">Pilih</option>
+                                @foreach ($listMerk as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama_merk }}</option>
+                                @endforeach
+                            </select>
+                            @error('id_merk')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                     </div>
 
@@ -88,6 +89,12 @@
         });
 
         window.addEventListener('contentChange', function(){
+            $('select[name="tipe_barang"]').select2();
+            $('select[name="id_merk"]').select2();
+        })
+
+        $('select[name="tipe_barang"]').on('change', function(){
+            Livewire.emit('changeTipeBarang', $(this).val())
         })
 
         Livewire.on("finishSimpanData", (status, message) => {
