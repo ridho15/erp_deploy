@@ -16,6 +16,7 @@
 
                 <form action="#" wire:submit.prevent="simpanDataUser">
                     <div class="modal-body">
+                        @include('helper.alert-message')
                         <div class="text-center">
                             @include('helper.simple-loading', ['target' => 'simpanDataUser', 'message' => 'Menyimpan data ...'])
                         </div>

@@ -22,8 +22,8 @@ class Barang extends Model
 
     protected $appends = ['harga_formatted'];
 
-    public function getHargaFormattedAtrribute(){
-        return number_format($this->harga, 0, '.', ',');
+    public function getHargaFormattedAttribute(){
+        return 'Rp '.number_format($this->harga, 0, ',', '.');
     }
 
     public function tipeBarang(){
@@ -33,5 +33,9 @@ class Barang extends Model
 
     public function merk(){
         return $this->belongsTo(Merk::class, 'id_merk');
+    }
+
+    public function barangKategori(){
+        return $this->hasMany(BarangKategori::class, 'id_barang');
     }
 }

@@ -2,7 +2,7 @@
     <div class="card shadow-sm">
         <div class="card-header">
             <h3 class="card-title">
-                Data Barang
+                Data Kategori
             </h3>
             <div class="card-toolbar">
                 <button class="btn btn-sm btn-outline btn-outline-primary" wire:click="$emit('onClickTambah')"><i class="bi bi-plus-circle"></i> Tambah</button>
@@ -23,50 +23,45 @@
                  <thead>
                   <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
                    <th>No</th>
-                   <th>Nama</th>
-                   <th>Merek</th>
-                   <th>Stock</th>
-                   <th>Harga</th>
-                   <th>Minimal Stock</th>
-                   <th>Tipe Barang</th>
+                   <th>Nama Kategori</th>
+                   <th>Total Barang</th>
                    <th>Aksi</th>
                   </tr>
                  </thead>
                  <tbody>
-                    @if (count($listBarang) > 0)
-                        @foreach ($listBarang as $index => $item)
+                    @if (count($listKategori) > 0)
+                        @foreach ($listKategori as $index => $item)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
-                                <td>{{ $item->nama }}</td>
-                                <td>{{ $item->merk ? $item->merk->nama_merk : '-' }}</td>
-                                <td>{{ $item->stock }}</td>
-                                <td>{{ $item->harga_formatted }}</td>
-                                <td>{{ $item->min_stock }}</td>
-                                <td>{{ $item->tipeBarang() }}</td>
+                                <td>{{ $item->nama_kategori }}</td>
+                                <td>{{ $item->barangKategori->count() }}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Barang" wire:click="$emit('onClickEdit', {{ $item->id }})">
+                                        <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Kategori" wire:click="$emit('onClickEdit', {{ $item->id }})">
                                             <i class="bi bi-pencil-square"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Barang" wire:click="$emit('onClickHapus', {{ $item->id }})">
+                                        <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Kategori" wire:click="$emit('onClickHapus', {{ $item->id }})">
                                             <i class="bi bi-trash-fill"></i>
                                         </button>
-                                        <a href="{{ route('barang.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Barang">
-                                            <i class="bi bi-info-circle-fill"></i>
-                                        </a>
+                                        <button class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Barang Kategori" wire:click="$emit('onClickTambahBarang', {{ $item->id }})">
+                                            <i class="bi bi-plus"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Lihat Barang Kategori" wire:click="$emit('onClickLihatBarang', {{ $item->id }})">
+                                            <i class="bi bi-eye-fill"></i>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="8" class="text-center text-gray-500">Tidak ada data</td>
+                            <td colspan="4" class="text-center text-gray-500">Tidak ada data</td>
                         </tr>
                     @endif
                  </tbody>
                 </table>
             </div>
-            <div class="text-center">{{ $listBarang->links() }}</div>
+            <div class="text-center">{{ $listKategori->links() }}</div>
         </div>
     </div>
 </div>
@@ -83,18 +78,29 @@
 
         Livewire.on('onClickEdit', (id) => {
             $('#modal_form').modal('show')
-            Livewire.emit('setDataBarang', id)
+            Livewire.emit('setDataKategori', id)
         })
 
         Livewire.on('onClickHapus',async(id) => {
             const response = await alertConfirm('Peringatan !', "Apakah kamu yakin ingin menghapus data ?");
             if(response.isConfirmed == true){
-                Livewire.emit('hapusBarang', id)
+                Livewire.emit('hapusKategori', id)
             }
         })
 
-        Livewire.on("finishDataBarang", (status, message) => {
+        Livewire.on("finishDataKategori", (status, message) => {
+            $('.modal').modal('hide')
             alertMessage(status, message)
+        })
+
+        Livewire.on('onClickTambahBarang', (id) => {
+            Livewire.emit("setIdKategori", id)
+            $('#modal_tambah_barang_kategori').modal('show');
+        })
+
+        Livewire.on("onClickLihatBarang", (id) => {
+            Livewire.emit('setIdKategori', id)
+            $("#modal_kategori_barang").modal('show')
         })
     </script>
 @endpush

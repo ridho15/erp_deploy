@@ -60,7 +60,7 @@
                         </div>
                         <div class="mb-5">
                             <label for="" class="form-label">Merk</label>
-                            <select name="id_merk" class="form-select form-select-solid" wire:model='id_merk' data-placeholder="Pilih" data-control="select2">
+                            <select name="id_merk" class="form-select form-select-solid" wire:model='id_merk' data-dropdown-parent="#modal_form" data-placeholder="Pilih" data-control="select2">
                                 <option value="">Pilih</option>
                                 @foreach ($listMerk as $item)
                                     <option value="{{ $item->id }}">{{ $item->nama_merk }}</option>
@@ -95,6 +95,10 @@
 
         $('select[name="tipe_barang"]').on('change', function(){
             Livewire.emit('changeTipeBarang', $(this).val())
+        })
+
+        $('select[name="id_merk"]').on('change', function(){
+            Livewire.emit('changeMerk', $(this).val())
         })
 
         Livewire.on("finishSimpanData", (status, message) => {

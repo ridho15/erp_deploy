@@ -4,7 +4,9 @@ use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\AutentikasiController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KostumerController;
+use App\Http\Controllers\MerkController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\WorkerController;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +34,16 @@ Route::middleware('auth.super-admin')->group(function () {
     Route::prefix('barang')->group(function(){
         Route::get('/', [BarangController::class, 'index'])->name('barang');
         Route::get('/detail/{id}', [BarangController::class, 'detail'])->name('barang.detail');
+    });
+
+    Route::prefix('kategori')->group(function(){
+        Route::get('/', [KategoriController::class, 'index'])->name('kategori');
+        Route::get('/detail/{id}', [KategoriController::class, 'detail'])->name('kategori.detail');
+    });
+
+    Route::prefix('merk')->group(function(){
+        Route::get('/', [MerkController::class, 'index'])->name('merk');
+        Route::get('/detail/{id}', [MerkController::class, 'detail'])->name('merk.detail');
     });
 
     Route::prefix('master')->group(function () {

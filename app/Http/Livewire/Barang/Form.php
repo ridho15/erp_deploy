@@ -15,7 +15,7 @@ class Form extends Component
     {
         $this->helper = new HelperController;
     }
-    public $listeners = ['setDataBarang', 'simpanDataBarang', 'changeTipeBarang'];
+    public $listeners = ['setDataBarang', 'simpanDataBarang', 'changeTipeBarang', 'changeMerk'];
     public $id_barang;
     public $nama;
     public $harga;
@@ -162,5 +162,9 @@ class Form extends Component
 
     public function changeTipeBarang($tipeBarang){
         $this->tipe_barang = $tipeBarang;
+    }
+
+    public function changeMerk($id_merk){
+        $this->id_merk = $id_merk;
     }
 }
