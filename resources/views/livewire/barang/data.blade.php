@@ -26,6 +26,7 @@
                    <th>Nama</th>
                    <th>Merek</th>
                    <th>Stock</th>
+                   <th>Satuan</th>
                    <th>Harga</th>
                    <th>Minimal Stock</th>
                    <th>Tipe Barang</th>
@@ -40,6 +41,7 @@
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ $item->merk ? $item->merk->nama_merk : '-' }}</td>
                                 <td>{{ $item->stock }}</td>
+                                <td>{{ $item->satuan->nama_satuan }}</td>
                                 <td>{{ $item->harga_formatted }}</td>
                                 <td>{{ $item->min_stock }}</td>
                                 <td>{{ $item->tipeBarang() }}</td>
@@ -60,7 +62,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="8" class="text-center text-gray-500">Tidak ada data</td>
+                            <td colspan="9" class="text-center text-gray-500">Tidak ada data</td>
                         </tr>
                     @endif
                  </tbody>

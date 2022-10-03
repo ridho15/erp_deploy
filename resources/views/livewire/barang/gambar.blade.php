@@ -8,10 +8,18 @@
         </div>
     </div>
     <div class="card-body">
+        @include('helper.alert-message')
         @if (count($listBarangGambar) > 0)
-            @foreach ($listBarangGambar as $item)
-                <img src="{{ asset('storage' . $item->file) }}" alt="" class="" width="100" height="100" style="object-fit: cover">
-            @endforeach
+            <div class="d-flex align-items-center justify-content-start">
+                @foreach ($listBarangGambar as $item)
+                    <div class="position-relative image-hover me-2" wire:click="$emit('onClickHapusGambar', {{ $item->id }})">
+                        <div class="position-absolute w-100 h-100 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-trash-fill"></i>
+                        </div>
+                        <img src="{{ asset('storage' . $item->file) }}" alt="" class="" width="100" height="100" style="object-fit: cover">
+                    </div>
+                @endforeach
+            </div>
         @else
             <div class="text-center text-gray-500">Belum ada gambar</div>
         @endif
@@ -72,6 +80,13 @@
 
         Livewire.on('onClickTambahGambar', () => {
             $('#modal_tambah_gambar').modal('show')
+        })
+
+        Livewire.on("onClickHapusGambar", async (id) => {
+            const response = await alertConfirm("Peringatan !", "Apakah kamu yakin ingin menghapus gambar ?");
+            if(response.isConfirmed == true){
+                Livewire.emit('hapusGambar', id)
+            }
         })
     </script>
 @endpush

@@ -34,24 +34,24 @@
                         </div>
                         <div class="mb-5">
                             <label for="" class="form-label required">Stock</label>
-                            <input type="text" class="form-control form-control-solid" name="stock" wire:model="stock" placeholder="Masukkan stok" required>
+                            <input type="number" class="form-control form-control-solid" name="stock" wire:model="stock" placeholder="Masukkan stok" required>
                             @error('stock')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="mb-5">
                             <label for="" class="form-label required">Minimal Stock</label>
-                            <input type="text" class="form-control form-control-solid" name="min_stock" wire:model="min_stock" placeholder="Masukkan stok" required>
+                            <input type="number" class="form-control form-control-solid" name="min_stock" wire:model="min_stock" placeholder="Masukkan stok" required>
                             @error('min_stock')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="mb-5">
-                            <label for="" class="form-label required">Tipe Barang</label>
-                            <select name="tipe_barang" class="form-select form-select-solid" wire:model='tipe_barang' data-control="select2">
+                            <label for="" class="form-label">Tipe Barang</label>
+                            <select name="tipe_barang" class="form-select form-select-solid" wire:model='tipe_barang' data-dropdown-parent="#modal_form" data-placeholder="Pilih" data-control="select2">
                                 <option value="">Pilih</option>
                                 @foreach ($listTipeBarang as $item)
-                                    <option value="{{ $item['tipe_barang'] }}" @if($item['tipe_barang'] == $tipe_barang) selected @endif>{{ $item['keterangan'] }}</option>
+                                    <option value="{{ $item['tipe_barang'] }}">{{ $item['keterangan'] }}</option>
                                 @endforeach
                             </select>
                             @error('tipe_barang')
@@ -67,6 +67,18 @@
                                 @endforeach
                             </select>
                             @error('id_merk')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="mb-5">
+                            <label for="" class="form-label">Satuan</label>
+                            <select name="id_satuan" class="form-select form-select-solid" wire:model='id_satuan' data-dropdown-parent="#modal_form" data-placeholder="Pilih" data-control="select2">
+                                <option value="">Pilih</option>
+                                @foreach ($listSatuan as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama_satuan }}</option>
+                                @endforeach
+                            </select>
+                            @error('id_satuan')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
@@ -91,6 +103,7 @@
         window.addEventListener('contentChange', function(){
             $('select[name="tipe_barang"]').select2();
             $('select[name="id_merk"]').select2();
+            $('select[name="id_satuan"]').select2();
         })
 
         $('select[name="tipe_barang"]').on('change', function(){
@@ -99,6 +112,10 @@
 
         $('select[name="id_merk"]').on('change', function(){
             Livewire.emit('changeMerk', $(this).val())
+        })
+
+        $('select[name="id_satuan"]').on('change', function(){
+            Livewire.emit('changeSatuan', $(this).val())
         })
 
         Livewire.on("finishSimpanData", (status, message) => {
