@@ -38,4 +38,8 @@ class Barang extends Model
     public function barangKategori(){
         return $this->hasMany(BarangKategori::class, 'id_barang');
     }
+
+    public function barangGambar(){
+        return $this->hasMany(BarangGambar::class, 'id_barang');
+    }
 }

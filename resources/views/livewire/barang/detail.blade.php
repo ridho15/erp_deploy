@@ -1,4 +1,5 @@
 <div>
+    @include('helper.alert-message')
     <div class="row mb-7">
         <div class="col-md-4">
             Nama Barang

@@ -14,7 +14,7 @@
         <div class="card-body">
             @livewire('barang.detail', ['id_barang' => $barang->id])
             <hr>
-
+            @livewire('barang.gambar', ['id_barang' => $barang->id])
         </div>
     </div>
 
@@ -37,6 +37,12 @@
         $('.btn-tambah-kategori').on('click', function(){
             const id = $(this).data('id')
             Livewire.emit('setIdBarang', id)
+            $('#modal_tambah_barang_kategori').modal('show')
+        })
+
+        Livewire.on('finishDataBarang', (status, message) => {
+            $('.modal').modal('hide')
+            alertMessage(status, message)
         })
     </script>
 @endsection

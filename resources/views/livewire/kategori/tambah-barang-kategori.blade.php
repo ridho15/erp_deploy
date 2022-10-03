@@ -76,7 +76,7 @@
         })
 
         Livewire.on("finishSimpanData", (status, message) => {
-            $('#modal_form').modal('hide')
+            $('.modal').modal('hide')
             alertMessage(status, message)
         })
     </script>
