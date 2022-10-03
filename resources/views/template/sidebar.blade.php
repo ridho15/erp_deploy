@@ -71,7 +71,7 @@
                                 </a>
                             </div>
                             <div class="menu-item">
-                                <a class="menu-link" href="javascript:">
+                                <a class="menu-link @if(in_array('kategori', $active)) active @endif" href="{{ route('kategori') }}" href="javascript:">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -79,11 +79,11 @@
                                 </a>
                             </div>
                             <div class="menu-item">
-                                <a class="menu-link" href="javascript:">
+                                <a class="menu-link @if(in_array('merk', $active)) active @endif" href="{{ route('merk') }}" href="javascript:">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                    <span class="menu-title">Merk Barang</span>
+                                    <span class="menu-title">Merk</span>
                                 </a>
                             </div>
                             <div class="menu-item">

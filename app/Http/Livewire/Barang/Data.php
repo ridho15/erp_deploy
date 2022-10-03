@@ -11,6 +11,7 @@ class Data extends Component
 {
     use WithPagination;
     public $paginationTheme = 'bootstrap';
+    public $listeners = ['refreshDataBarang' => '$refresh','hapusBarang'];
     protected $listBarang;
     public $total_show;
     public $cari;

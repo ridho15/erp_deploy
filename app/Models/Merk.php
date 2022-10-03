@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Merk extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $table = 'merk';
+    protected $table = 'merks';
     protected $fillable = [
         'nama_merk'
     ];

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Barang;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Barang;
 use App\Models\BarangStockLog;
 use App\Models\Merk;
@@ -9,7 +10,12 @@ use Livewire\Component;
 
 class Form extends Component
 {
-    public $listeners = ['setDataBarang', 'simpanDataBarang'];
+    protected $helper;
+    function __construct()
+    {
+        $this->helper = new HelperController;
+    }
+    public $listeners = ['setDataBarang', 'simpanDataBarang', 'changeTipeBarang', 'changeMerk'];
     public $id_barang;
     public $nama;
     public $harga;
@@ -17,8 +23,14 @@ class Form extends Component
     public $tipe_barang;
     public $stock;
     public $min_stock;
+    public $listMerk;
+    public $listTipeBarang;
     public function render()
     {
+        $this->listMerk = Merk::get();
+        $this->listTipeBarang = $this->helper->getListTipeBarang();
+
+        $this->dispatchBrowserEvent('contentChange');
         return view('livewire.barang.form');
     }
 
@@ -66,6 +78,11 @@ class Form extends Component
             }
         }
 
+        if($this->stock < 0 || $this->min_stock < 0){
+            $message = "Stok atau minimal tidak boleh kurang dari 0";
+            return session()->flash('fail', $message);
+        }
+
         if($this->id_barang){
             $barang = Barang::find($this->id_barang);
             if(!$barang){
@@ -85,6 +102,7 @@ class Form extends Component
                     'tipe_perubahan' => $tipe_perubahan,
                     'tangga_perubahan' => now()
                 ]);
+
             }elseif($barang->stock > $this->stock){
                 $selisih = $barang->stock - $this->stock;
                 $tipe_perubahan = 2;
@@ -96,6 +114,19 @@ class Form extends Component
                     'tangga_perubahan' => now()
                 ]);
             }
+
+            $data['nama'] = $this->nama;
+            $data['harga'] = $this->harga;
+            $data['stock'] = $this->stock;
+            $data['min_stock'] = $this->min_stock;
+            $data['tipe_barang'] = $this->tipe_barang;
+            $barang->update($data);
+
+            $message = 'Berhasil mengupdate barang';
+            $this->resetInputFields();
+            $this->emit('refreshDataBarang');
+            $this->emit('finishSimpanData', 1, $message);
+            return session()->flash('success', $message);
         }else{
             $data['nama'] = $this->nama;
             $data['harga'] = $this->harga;
@@ -107,7 +138,7 @@ class Form extends Component
             $message = 'Berhasil menambah barang';
             $this->resetInputFields();
             $this->emit('refreshDataBarang');
-            $this->emit('finishSimpanBarang', 1, $message);
+            $this->emit('finishSimpanData', 1, $message);
             return session()->flash('success', $message);
         }
     }
@@ -127,5 +158,13 @@ class Form extends Component
         $this->tipe_barang = $barang->tipe_barang;
         $this->stock = $barang->stock;
         $this->min_stock = $barang->min_stock;
+    }
+
+    public function changeTipeBarang($tipeBarang){
+        $this->tipe_barang = $tipeBarang;
+    }
+
+    public function changeMerk($id_merk){
+        $this->id_merk = $id_merk;
     }
 }
