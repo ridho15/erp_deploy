@@ -493,20 +493,6 @@
             </div>
         </div>
         <div class="d-flex align-items-stretch flex-shrink-0">
-            <a href="#" class="btn btn-light-success me-1" data-bs-toggle="modal" data-bs-target="#kt_modal_create_project">Create</a>
-            <div class="d-flex align-items-center ms-1 ms-lg-3">
-                <div class="position-relative btn btn-color-gray-800 btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px" id="kt_drawer_chat_toggle">
-                    <span class="svg-icon svg-icon-1">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
-                            <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
-                            <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
-                            <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
-                        </svg>
-                    </span>
-                    <span class="bullet bullet-dot bg-danger h-6px w-6px position-absolute translate-middle top-0 start-50 animation-blink"></span>
-                </div>
-            </div>
             <div class="d-flex align-items-center ms-1 ms-lg-3">
                 <a href="#" class="btn btn-color-gray-800 btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px" data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
                     <span class="svg-icon theme-light-show svg-icon-2">
@@ -597,9 +583,10 @@
                                 <img alt="Logo" src="{{ asset('assets/media/avatars/300-1.jpg') }}" />
                             </div>
                             <div class="d-flex flex-column">
-                                <div class="fw-bold d-flex align-items-center fs-5">Max Smith
-                                <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span></div>
-                                <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">max@kt.com</a>
+                                <div class="fw-bold d-flex align-items-center fs-5">Administrator
+                                <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span>
+                            </div>
+                                <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">Admin</a>
                             </div>
                         </div>
                     </div>
@@ -649,45 +636,6 @@
                         <a href="account/statements.html" class="menu-link px-5">My Statements</a>
                     </div>
                     <div class="separator my-2"></div>
-                    <div class="menu-item px-5" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="right-start">
-                        <a href="#" class="menu-link px-5">
-                            <span class="menu-title position-relative">Language
-                            <span class="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0">English
-                            <img class="w-15px h-15px rounded-1 ms-2" src="{{ asset('assets/media/flags/united-states.svg') }}" alt="" /></span></span>
-                        </a>
-                        <div class="menu-sub menu-sub-dropdown w-175px py-4">
-                            <div class="menu-item px-3">
-                                <a href="account/settings.html" class="menu-link d-flex px-5 active">
-                                <span class="symbol symbol-20px me-4">
-                                    <img class="rounded-1" src="{{ asset('assets/media/flags/united-states.svg') }}" alt="" />
-                                </span>English</a>
-                            </div>
-                            <div class="menu-item px-3">
-                                <a href="account/settings.html" class="menu-link d-flex px-5">
-                                <span class="symbol symbol-20px me-4">
-                                    <img class="rounded-1" src="{{ asset('assets/media/flags/spain.svg') }}" alt="" />
-                                </span>Spanish</a>
-                            </div>
-                            <div class="menu-item px-3">
-                                <a href="account/settings.html" class="menu-link d-flex px-5">
-                                <span class="symbol symbol-20px me-4">
-                                    <img class="rounded-1" src="{{ asset('assets/media/flags/germany.svg') }}" alt="" />
-                                </span>German</a>
-                            </div>
-                            <div class="menu-item px-3">
-                                <a href="account/settings.html" class="menu-link d-flex px-5">
-                                <span class="symbol symbol-20px me-4">
-                                    <img class="rounded-1" src="{{ asset('assets/media/flags/japan.svg') }}" alt="" />
-                                </span>Japanese</a>
-                            </div>
-                            <div class="menu-item px-3">
-                                <a href="account/settings.html" class="menu-link d-flex px-5">
-                                <span class="symbol symbol-20px me-4">
-                                    <img class="rounded-1" src="{{ asset('assets/media/flags/france.svg') }}" alt="" />
-                                </span>French</a>
-                            </div>
-                        </div>
-                    </div>
                     <div class="menu-item px-5 my-1">
                         <a href="account/settings.html" class="menu-link px-5">Account Settings</a>
                     </div>
@@ -695,9 +643,6 @@
                         <a href="authentication/layouts/corporate/sign-in.html" class="menu-link px-5">Sign Out</a>
                     </div>
                 </div>
-            </div>
-            <div class="d-flex align-items-center ms-1 ms-lg-3">
-                <div class="btn btn-icon btn-danger position-relative w-30px h-30px w-md-40px h-md-40px" id="kt_drawer_chat_toggle">3</div>
             </div>
         </div>
     </div>
