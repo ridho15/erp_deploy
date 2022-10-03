@@ -17,7 +17,8 @@ class Barang extends Model
         'stock',
         'min_stock',
         'harga',
-        'id_merk'
+        'id_merk',
+        'id_satuan'
     ];
 
     protected $appends = ['harga_formatted'];
@@ -41,5 +42,9 @@ class Barang extends Model
 
     public function barangGambar(){
         return $this->hasMany(BarangGambar::class, 'id_barang');
+    }
+
+    public function satuan(){
+        return $this->belongsTo(Satuan::class, 'id_satuan');
     }
 }

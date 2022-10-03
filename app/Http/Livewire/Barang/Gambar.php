@@ -9,7 +9,7 @@ use Livewire\WithFileUploads;
 class Gambar extends Component
 {
     use WithFileUploads;
-    public $listeners = ['refreshDataBarang' => '$refresh' ,'simpanDataGambar'];
+    public $listeners = ['refreshDataBarang' => '$refresh' ,'simpanDataGambar', 'hapusGambar'];
     public $id_barang;
     public $listBarangGambar;
     public $file;
@@ -55,5 +55,18 @@ class Gambar extends Component
 
     public function resetInputFields(){
         $this->file = null;
+    }
+
+    public function hapusGambar($id){
+        $barangGambar = BarangGambar::find($id);
+        if(!$barangGambar){
+            $message = "Gambar tidak ditemukan !";
+
+            return session()->flash('fail', $message);
+        }
+
+        $barangGambar->delete();
+        $message = "Gambar berhasil di hapus";
+        return session()->flash('success', $message);
     }
 }

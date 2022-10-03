@@ -20,4 +20,29 @@ class HelperController extends Controller
             ]),
         ]);
     }
+
+    public function getListStatusOrder(){
+        return collect([
+            collect([
+                'status_order' => '1',
+                'keterangan' => 'Sedang Diajukan'
+            ]),
+            collect([
+                'status_order' => '2',
+                'keterangan' => 'Sedang Diproses'
+            ]),
+            collect([
+                'status_order' => '3',
+                'keterangan' => 'Dalam Pengiriman'
+            ]),
+            collect([
+                'status_order' => '4',
+                'keterangan' => 'Selesai'
+            ]),
+            collect([
+                'status_order' => '0',
+                'keterangan' => 'Dibatalkan / Ditolak'
+            ]),
+        ]);
+    }
 }

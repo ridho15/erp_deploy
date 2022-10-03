@@ -4,9 +4,11 @@ use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\AutentikasiController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FormPekerjaanController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KostumerController;
 use App\Http\Controllers\MerkController;
+use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\WorkerController;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +18,11 @@ Route::post('/login', [AutentikasiController::class, 'postLogin'])->name('post.l
 
 Route::middleware('auth.super-admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::prefix('form-pekerjaan')->group(function(){
+        Route::get('/', [FormPekerjaanController::class, 'index'])->name('form-pekerjaan');
+    });
+
     Route::prefix('worker')->group(function () {
         Route::get('/', [WorkerController::class, 'index'])->name('worker');
         Route::get('/detail/{id}', [WorkerController::class, 'detail'])->name('worker.detail');
@@ -23,6 +30,7 @@ Route::middleware('auth.super-admin')->group(function () {
 
     Route::prefix('supplier')->group(function(){
         Route::get('/', [SupplierController::class, 'index'])->name('supplier');
+        Route::get('/order', [SupplierController::class, 'order'])->name('supplier.order');
         Route::get('/detail/{id}', [SupplierController::class, 'detail'])->name('supplier.detail');
     });
 
@@ -46,9 +54,12 @@ Route::middleware('auth.super-admin')->group(function () {
         Route::get('/detail/{id}', [MerkController::class, 'detail'])->name('merk.detail');
     });
 
-    Route::prefix('master')->group(function () {
-        Route::get('/tipe_user', [AttributeController::class, 'tipeUser'])->name('tipe_user');
-        Route::get('/satuan', [AttributeController::class, 'satuan'])->name('satuan');
+    Route::prefix('tipe-user')->group(function(){
+        Route::get('/', [AttributeController::class, 'tipeUser'])->name('tipe_user');
+    });
+
+    Route::prefix('satuan')->group(function(){
+        Route::get('/', [AttributeController::class, 'satuan'])->name('satuan');
     });
 
     Route::prefix('payment')->group(function () {
