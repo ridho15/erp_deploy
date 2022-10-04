@@ -36,7 +36,7 @@
                     </div>
 
                     <div class="menu-item">
-                        <a class="menu-link" href="{{ route('supplier.order') }}" target="blank">
+                        <a class="menu-link @if(in_array('supplier-order', $active))  active @endif" href="{{ route('supplier.order') }}" target="blank">
                             <span class="menu-icon">
                                 <span class="svg-icon svg-icon-2">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -51,7 +51,7 @@
                             <span class="menu-title">Supplier Order</span>
                         </a>
                     </div>
-                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if(in_array('worker' || 'tipeUser' || 'tipePembayaran' || 'satuan', $active)) show @endif">
+                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if(in_array('data-master', $active)) show @endif">
                         <span class="menu-link @if(in_array('data-master', $active)) active @endif">
                             <span class="menu-icon">
                                 <span class="svg-icon svg-icon-2">
