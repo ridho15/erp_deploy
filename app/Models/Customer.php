@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class Customer extends Model
+{
+    use HasFactory, SoftDeletes;
+    protected $table = 'customers';
+    protected $fillable = [
+        'nama',
+        'no_hp',
+        'email',
+        'alamat',
+        'status',
+    ];
+
+    protected $appends = ['status_formatted'];
+
+    public function getStatusFormattedAttribute(){
+        if($this->status == 1){
+            return "<span class='badge badge-success'>Aktif</span>";
+        }else{
+            return "<span class='badge badge-secondary'>Tidak Aktif</span>";
+        }
+    }
+}

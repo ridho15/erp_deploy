@@ -1,0 +1,14 @@
+hr{
+    opacity: 0.1 !important;
+}
+
+.image-hover div{
+    /* background-color: rgba(0, 0, 0, 0); */
+    opacity: 0;
+}
+
+.image-hover:hover div{
+    background-color: rgba(0, 0, 0, 0.3);
+    opacity: 1;
+    cursor: pointer;
+}
