@@ -1,4 +1,5 @@
 <div>
+    @include('helper.alert-message')
     <div class="row mb-3">
         <div class="col-md-3">
             @include('helper.form-pencarian', ['model' => 'cari'])
@@ -23,21 +24,24 @@
             @if (count($listSupplierOrder) > 0)
                 @foreach ($listSupplierOrder as $index => $item)
                     <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $item->name }}</td>
-                        <td>{{ $item->email }}</td>
-                        <td>{{ $item->no_hp }}</td>
-                        <td>{{ $item->alamat }}</td>
+                        <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
+                        <td>{{ $item->supplier->name }}</td>
+                        <td>{{ $item->user->name }}</td>
+                        <td>{{ $item->status_order_formatted }}</td>
+                        <td>{{ $item->total_harga_formatted }}</td>
+                        <td>{{ $item->tanggal_order_formatted }}</td>
+                        <td>{{ $item->tipePembayaran->nama_tipe }}</td>
+                        <td>{{ $item->keterangan }}</td>
                         <td></td>
                         <td>
                             <div class="btn-group">
-                                <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Supplier" wire:click="$emit('onClickEdit', {{ $item->id }})">
+                                <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Supplier Order" wire:click="$emit('onClickEdit', {{ $item->id }})">
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
-                                <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Supplier" wire:click="$emit('onClickHapus', {{ $item->id }})">
+                                <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Supplier Order" wire:click="$emit('onClickHapus', {{ $item->id }})">
                                     <i class="bi bi-trash-fill"></i>
                                 </button>
-                                <a href="{{ route('supplier.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Supplier">
+                                <a href="{{ route('supplier.order-detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Kelola Supplier Order">
                                     <i class="bi bi-info-circle-fill"></i>
                                 </a>
                             </div>
@@ -46,7 +50,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td colspan="10" class="text-center text-gray-500">Tidak ada data</td>
+                    <td colspan="9" class="text-center text-gray-500">Tidak ada data</td>
                 </tr>
             @endif
          </tbody>
@@ -54,3 +58,27 @@
     </div>
     <div class="text-center">{{ $listSupplierOrder->links() }}</div>
 </div>
+
+@push('js')
+    <script>
+        $(document).ready(function () {
+
+        });
+
+        Livewire.on('onClickEdit', (id) =>{
+            Livewire.emit('setDataSupplierOrder', id)
+            $('#modal_form_order').modal('show')
+        })
+
+        Livewire.on('onClickHapus', async (id) => {
+            const response = await alertConfirm('Peringatan !', 'Apakah kamu yakin ingin menghapus data ini ?');
+            if(response.isConfirmed == true){
+                Livewire.emit('hapusSupplierOrder', id)
+            }
+        })
+
+        Livewire.on('finishSupplierOrder', (status, message) =>{
+            alertMessage(status, message)
+        })
+    </script>
+@endpush

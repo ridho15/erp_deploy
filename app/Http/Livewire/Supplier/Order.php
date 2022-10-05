@@ -10,7 +10,11 @@ class Order extends Component
 {
     use WithPagination;
     public $paginationTheme = 'bootstrap';
-    public $listeners = ['setIdSupplier', 'refreshSupplierOrder' => '$refresh'];
+    public $listeners = [
+        'setIdSupplier',
+        'refreshSupplierOrder' => '$refresh',
+        'hapusSupplierOrder',
+    ];
     public $total_show = 10;
     public $cari;
     public $id_supplier;
@@ -23,7 +27,7 @@ class Order extends Component
             })->orWhereHas('tipePembayaran', function($query){
                 $query->where('nama_tipe', 'LIKE', '%' . $this->cari . '%');
             });
-        })->where('id_supplier', $this->id_supplier)->paginate($this->total_show);
+        })->orWhere('id_supplier', $this->id_supplier)->paginate($this->total_show);
         $data['listSupplierOrder'] = $this->listSupplierOrder;
         return view('livewire.supplier.order', $data);
     }
@@ -33,5 +37,18 @@ class Order extends Component
 
     public function setIdSupplier($id_supplier){
         $this->id_supplier = $id_supplier;
+    }
+
+    public function hapusSupplierOrder($id){
+        $supplierOrder = SupplierOrder::find($id);
+        if(!$supplierOrder){
+            $message = "Data supplier order tidak ditemukan !";
+            return session()->flash('fail', $message);
+        }
+
+        $supplierOrder->delete();
+        $message = "Data supplier order berhasil di hapus";
+        $this->emit('finishSupplierOrder',1, $message);
+        return session()->flash('success', $message);
     }
 }
