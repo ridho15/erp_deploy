@@ -21,6 +21,7 @@ Route::middleware('auth.super-admin')->group(function () {
 
     Route::prefix('form-pekerjaan')->group(function(){
         Route::get('/', [FormPekerjaanController::class, 'index'])->name('form-pekerjaan');
+        Route::get('/detail/{id}', [FormPekerjaanController::class, 'detail'])->name('form-pekerjaan.detail');
     });
 
     Route::prefix('worker')->group(function () {

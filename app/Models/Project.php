@@ -20,6 +20,20 @@ class Project extends Model
         'total_harga',
     ];
 
+    protected $appends = ['diketahui_pelanggan_formatted', 'total_harga_formatted'];
+
+    public function getDiketahuiPelangganFormattedAttribute(){
+        if($this->diketahui_pelanggan == 1){
+            return "Diketahui";
+        }else{
+            return "Tidak Diketahui";
+        }
+    }
+
+    public function getTotalHargaFormattedAttribute(){
+        return 'Rp ' . number_format($this->total_harga, 0,',','.');
+    }
+
     public function customer(){
         return $this->belongsTo(Kostumer::class, 'id_customer');
     }
