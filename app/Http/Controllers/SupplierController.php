@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Supplier;
+use App\Models\SupplierOrder;
 use Illuminate\Http\Request;
 
 class SupplierController extends Controller
@@ -35,5 +36,18 @@ class SupplierController extends Controller
         $data['breadCrumb'] = ["Supplier", "Order", 'Data'];
 
         return view('supplier.order', $data);
+    }
+
+    public function orderDetail($id){
+        $supplierOrder = SupplierOrder::find($id);
+        if(!$supplierOrder){
+            return redirect()->back()->with('fail', 'Supplier Order tidak ditemukan');
+        }
+
+        $data['title'] = ['Kelola Data Supplier Order'];
+        $data['active'] = ['supplier-order'];
+        $data['breadCrumb'] = ['Supplier', 'Order', 'Data', 'Kelola'];
+        $data['supplierOrder'] = $supplierOrder;
+        return view('supplier.order-detail', $data);
     }
 }

@@ -74,9 +74,6 @@
 
         });
 
-        window.addEventListener('contentChange', function(){
-        })
-
         Livewire.on("finishSimpanData", (status, message) => {
             $('#modal_form').modal('hide')
             alertMessage(status, message)

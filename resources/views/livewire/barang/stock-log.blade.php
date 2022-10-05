@@ -1,6 +1,6 @@
 <div>
     <div class="card-header">
-        <h3 class="card-title">Gambar Stock Log</h3>
+        <h3 class="card-title">List Stock Log</h3>
         <div class="card-toolbar">
             <button class="btn btn-sm btn-outline btn-outline-primary" wire:click="$emit('onClickEditStock')" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Gambar">
                 <i class="bi bi-plus"></i> Ubah Stock

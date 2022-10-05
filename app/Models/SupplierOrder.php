@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\HelperController;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -21,7 +22,7 @@ class SupplierOrder extends Model
         'id_tipe_pembayaran',
     ];
 
-    protected $appends = ['tanggal_order_formatted', 'status_order_formatted'];
+    protected $appends = ['tanggal_order_formatted', 'status_order_formatted', 'total_harga_formatted'];
 
     public function getTanggalOrderFormattedAttribute(){
         $carbon = Carbon::parse($this->tanggal_order)->locale('id')->isoFormat('dddd, DD MMMM YYYY');
@@ -29,7 +30,19 @@ class SupplierOrder extends Model
     }
 
     public function getStatusOrderFormattedAttribute(){
+        $helper = new HelperController;
+        $statusOrder = $helper->getListStatusOrder()->where('status_order', $this->status_order)->first()['keterangan'];
 
+        return $statusOrder;
+    }
+
+    public function getTotalHargaFormattedAttribute(){
+        $formatTotalHarga = 'Rp ' . number_format($this->total_harga, 0, ',','.');
+        return $formatTotalHarga;
+    }
+
+    public function detail(){
+        return $this->hasMany(SupplierOrderDetail::class, 'id_supplier_order');
     }
 
     public function supplier(){
