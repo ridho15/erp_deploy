@@ -58,6 +58,9 @@
                                     Diketahui Pelanggan
                                 </span>
                             </label>
+                            @error('diketahui_pelanggan')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                     </div>
 
@@ -83,7 +86,8 @@
 
         $('select[name="id_customer"]').on('change', function(){
             // Livewire.emit('changeCustomer', $(this).val())
-            @this.set('id_customer', $(this).val())
+            // @this.set('id_customer', $(this).val())
+            Livewire.emit('changeCustomer', $(this).val())
         })
 
         Livewire.on('finishSimpanData', (status, message) => {

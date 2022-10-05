@@ -20,6 +20,16 @@ class ProjectDetail extends Model
         'jam_selesai'
     ];
 
+    protected $appends = ['status_formatted'];
+
+    public function getStatusFormattedAttribute(){
+        if($this->status == 1){
+            return "<span class='badge badge-success'>Selesai</span>";
+        }else{
+            return "<span class='badge badge-secondary'>Belum Selesai</span>";
+        }
+    }
+
     public function project(){
         return $this->belongsTo(Project::class, 'id_project');
     }
