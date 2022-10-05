@@ -20,7 +20,7 @@
                         </div>
                         <div class="mb-5">
                             <label for="" class="form-label">Customer</label>
-                            <select name="id_customer" wire:model="id_customer" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih">
+                            <select name="id_customer" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" wire:model="id_customer" data-placeholder="Pilih">
                                 <option value="">Pilih</option>
                                 @foreach ($listCustomer as $item)
                                     <option value="{{ $item->id }}">{{ $item->nama }}</option>
@@ -31,8 +31,8 @@
                             @enderror
                         </div>
                         <div class="mb-5">
-                            <label for="" class="form-label">Nama Project</label>
-                            <input type="text" class="form-control form-control-solid" name="nama_project" wire:model="nama_project" placeholder="Masukkan nama project">
+                            <label for="" class="form-label required">Nama Project</label>
+                            <input type="text" class="form-control form-control-solid" name="nama_project" wire:model="nama_project" placeholder="Masukkan nama project" required>
                             @error('nama_project')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -45,7 +45,7 @@
                             @enderror
                         </div>
                         <div class="mb-5">
-                            <label for="" class="form-label">Alamat Project</label>
+                            <label for="" class="form-label">Keterangan Project</label>
                             <textarea name="keterangan_project" wire:model="keterangan_project" class="form-control form-control-solid" placeholder="Masukkan keterangan"></textarea>
                             @error('keterangan_project')
                                 <small class="text-danger">{{ $message }}</small>
@@ -82,7 +82,8 @@
         })
 
         $('select[name="id_customer"]').on('change', function(){
-
+            // Livewire.emit('changeCustomer', $(this).val())
+            @this.set('id_customer', $(this).val())
         })
 
         Livewire.on('finishSimpanData', (status, message) => {
