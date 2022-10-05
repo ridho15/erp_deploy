@@ -1,7 +1,8 @@
 @extends('template.layout')
 
 @section('content')
-
+    @livewire('form-pekerjaan.data')
+    @livewire('form-pekerjaan.form')
 @endsection
 
 

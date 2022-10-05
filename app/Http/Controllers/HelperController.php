@@ -21,6 +21,19 @@ class HelperController extends Controller
         ]);
     }
 
+    public function getListStatusBarang(){
+        return collect([
+            collect([
+                'status_barang' => 1,
+                'keterangan' => 'Dipinjam'
+            ]),
+            collect([
+                'status_barang' => 2,
+                'keterangan' => 'Diminta'
+            ]),
+        ]);
+    }
+
     public function getListStatusOrder(){
         return collect([
             collect([
