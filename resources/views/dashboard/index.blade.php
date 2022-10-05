@@ -939,32 +939,6 @@
             <!--end::Brand-->
             <!--begin::Toolbar wrapper-->
             <div class="d-flex align-items-stretch flex-shrink-0">
-                <!--begin::Button-->
-                <a href="#" class="btn btn-light-success me-1" data-bs-toggle="modal"
-                    data-bs-target="#kt_modal_create_project">Create</a>
-                <!--end::Button-->
-                <!--begin::Activities-->
-                <div class="d-flex align-items-center ms-1 ms-lg-3">
-                    <!--begin::drawer toggle-->
-                    <div class="position-relative btn btn-color-gray-800 btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px"
-                        id="kt_drawer_chat_toggle">
-                        <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                        <span class="svg-icon svg-icon-1">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
-                                <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
-                                <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
-                                <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
-                            </svg>
-                        </span>
-                        <!--end::Svg Icon-->
-                        <span
-                            class="bullet bullet-dot bg-danger h-6px w-6px position-absolute translate-middle top-0 start-50 animation-blink"></span>
-                    </div>
-                    <!--end::drawer toggle-->
-                </div>
-                <!--end::Activities-->
                 <!--begin::Theme mode-->
                 <div class="d-flex align-items-center ms-1 ms-lg-3">
                     <!--begin::Menu toggle-->
@@ -1310,14 +1284,6 @@
                     <!--end::Menu wrapper-->
                 </div>
                 <!--end::User menu-->
-                <!--begin::Chat-->
-                <div class="d-flex align-items-center ms-1 ms-lg-3">
-                    <!--begin::Drawer wrapper-->
-                    <div class="btn btn-icon btn-danger position-relative w-30px h-30px w-md-40px h-md-40px"
-                        id="kt_drawer_chat_toggle">3</div>
-                    <!--end::Drawer wrapper-->
-                </div>
-                <!--end::Chat-->
             </div>
             <!--end::Toolbar wrapper-->
         </div>
