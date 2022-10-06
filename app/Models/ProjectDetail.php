@@ -56,4 +56,8 @@ class ProjectDetail extends Model
     public function user(){
         return $this->belongsTo(User::class, 'id_user');
     }
+
+    public function projectDetailBarang(){
+        return $this->hasMany(ProjectDetailBarang::class, 'id_project_detail');
+    }
 }

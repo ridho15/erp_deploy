@@ -1,5 +1,5 @@
 <head>
-    <title>PT.Mitra Global Kencana</title>
+    <title>{{ $title }} | PT.Mitra Global Kencana</title>
     <meta charset="utf-8" />
     <meta name="description" content="PT.Mitra Global Kencana" />
     <meta name="keywords" content="PT.Mitra Global Kencana" />

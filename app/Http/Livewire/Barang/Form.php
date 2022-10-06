@@ -124,7 +124,6 @@ class Form extends Component
 
             $data['nama'] = $this->nama;
             $data['harga'] = $this->harga;
-            $data['stock'] = $this->stock;
             $data['min_stock'] = $this->min_stock;
             $data['tipe_barang'] = $this->tipe_barang;
             $data['id_satuan'] = $this->id_satuan;

@@ -9,6 +9,7 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KostumerController;
 use App\Http\Controllers\MerkController;
 use App\Http\Controllers\PembayaranController;
+use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\WorkerController;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,11 @@ Route::middleware('auth.super-admin')->group(function () {
         Route::get('/order', [SupplierController::class, 'order'])->name('supplier.order');
         Route::get('/order/{id}', [SupplierController::class, 'orderDetail'])->name('supplier.order-detail');
         Route::get('/detail/{id}', [SupplierController::class, 'detail'])->name('supplier.detail');
+    });
+
+    Route::prefix('quotation')->group(function(){
+        Route::get('/', [QuotationController::class, 'index'])->name('quotation');
+        Route::get('/detail/{id}', [QuotationController::class, 'detail'])->name('quotation.detail');
     });
 
     Route::prefix('kostumer')->group(function(){

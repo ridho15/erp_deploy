@@ -33,6 +33,7 @@
                    <th>Diketahui Pelanggan</th>
                    <th>Total Barang</th>
                    <th>Total Harga</th>
+                   <th>Status</th>
                    <th>Aksi</th>
                   </tr>
                  </thead>
@@ -48,6 +49,7 @@
                                 <td>{{ $item->diketahui_pelanggan_formatted ?? '-' }}</td>
                                 <td>{{ $item->total_barang }}</td>
                                 <td>{{ $item->total_harga }}</td>
+                                <td><?= $item->status_formatted ?></td>
                                 <td>
                                     <div class="btn-group">
                                         <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Project" wire:click="$emit('onClickEdit', {{ $item->id }})">

@@ -4,17 +4,23 @@ namespace App\Http\Livewire\FormPekerjaan;
 
 use App\Models\Customer;
 use App\Models\Project;
+use App\Models\Quotation;
 use Livewire\Component;
 
 class Form extends Component
 {
-    public $listeners = ['simpanDataProject', 'setDataProject', 'changeCustomer'];
+    public $listeners = [
+        'simpanDataProject',
+        'setDataProject',
+        'changeCustomer'
+    ];
     public $id_project;
     public $nama_project;
     public $id_customer;
     public $alamat_project;
     public $keterangan_project;
     public $diketahui_pelanggan;
+    public $status;
 
     public $listCustomer;
     public function render()
@@ -50,7 +56,7 @@ class Form extends Component
                 return session()->flash('fail', $message);
             }
         }
-        Project::updateOrCreate([
+        $project = Project::updateOrCreate([
             'id' => $this->id_project
         ], [
             'nama_project' => $this->nama_project,
@@ -58,9 +64,21 @@ class Form extends Component
             'alamat_project' => $this->alamat_project,
             'keterangan_project' => $this->keterangan_project,
             'diketahui_pelanggan' => $this->diketahui_pelanggan ? 1 : 0,
+            'status' => $this->status ? 1 : 0
         ]);
 
-        $message = "Berhasil menyimpan data project";
+        if($this->status == 1){
+            Quotation::updateOrCreate([
+                'id_project' => $project->id,
+            ], [
+                'id_project' => $project->id,
+                'status_respons' => 0,
+            ]);
+            $message = "Berhasil menyimpan data. Silahkan check quotation untuk melakukan pengiriman quotation ke pelanggan";
+        }else{
+            $message = "Berhasil menyimpan data project";
+        }
+
         $this->resetInputFields();
         $this->emit('refreshDataProject');
         $this->emit('finishSimpanData', 1, $message);
@@ -75,6 +93,7 @@ class Form extends Component
         $this->alamat_project = null;
         $this->keterangan_project = null;
         $this->diketahui_pelanggan = null;
+        $this->status = null;
     }
 
     public function setDataProject($id){
@@ -90,6 +109,7 @@ class Form extends Component
         $this->alamat_project = $project->alamat_project;
         $this->keterangan_project = $project->keterangan_project;
         $this->diketahui_pelanggan = $project->diketahui_pelanggan;
+        $this->status = $project->status;
     }
 
     public function changeCustomer($id_customer){

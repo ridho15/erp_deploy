@@ -47,4 +47,12 @@
             : <span class="fw-bold">{{ $project->total_harga_formatted }}</span>
         </div>
     </div>
+    <div class="row mb-5">
+        <div class="col-md-4">
+            Total Harga
+        </div>
+        <div class="col-md">
+            : <?= $project->status_formatted ?>
+        </div>
+    </div>
 </div>

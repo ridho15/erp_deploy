@@ -58,4 +58,22 @@ class HelperController extends Controller
             ]),
         ]);
     }
+
+    public function getListStatusResponse(){
+        return collect([
+            collect([
+                'status_response' => '1',
+                'keterangan' => "Sudah diresponse",
+            ]),collect([
+                'status_response' => '2',
+                'keterangan' => "Belum diresponse",
+            ]),collect([
+                'status_response' => '0',
+                'keterangan' => "Belum dikirim",
+            ]),collect([
+                'status_response' => '3',
+                'keterangan' => "Tidak diresponse",
+            ])
+            ]);
+    }
 }
