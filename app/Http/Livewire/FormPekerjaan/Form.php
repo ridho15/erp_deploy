@@ -34,14 +34,12 @@ class Form extends Component
             'id_customer' => 'nullable|numeric',
             'alamat_project' => 'nullable|string',
             'keterangan_project' => 'nullable|string',
-            'diketahui_pelanggan' => 'nullable|numeric'
         ], [
             'nama_project.required' => 'Nama project tidak boleh kosong',
             'nama_project.string' => 'Nama project tidak valid !',
             'id_customer.numeric' => 'Customer tidak valid !',
             'alamat_project.string' => 'Alamat project tidak valid !',
             'keterangan_project.string' => 'Keterangan project tidak valid !',
-            'diketahui_pelanggan.numeric' => 'Acc Pelanggan tidak valid !'
         ]);
 
         // Check Customer
