@@ -57,4 +57,20 @@ class AutentikasiController extends Controller
             return redirect()->route('dashboard')->with('success', 'Login Berhasil');
         }
     }
+
+    public function logout(){
+        $loginLogs = LoginLogs::where('id_user', session()->get('id_user'))
+        ->where('token', session()->get('token'))
+        ->first();
+        if($loginLogs){
+            $loginLogs->update([
+                'is_active' => 0
+            ]);
+        }
+
+        session()->forget('id_user');
+        session()->forget('token');
+
+        return redirect()->route('login')->with('success', 'Logout Berhasil');
+    }
 }

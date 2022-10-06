@@ -12,7 +12,7 @@ class Gambar extends Component
     public $listeners = ['refreshDataBarang' => '$refresh' ,'simpanDataGambar', 'hapusGambar'];
     public $id_barang;
     public $listBarangGambar;
-    public $file;
+    public $gambar = [];
     public function render()
     {
         $this->listBarangGambar = BarangGambar::where('id_barang', $this->id_barang)->get();
@@ -25,15 +25,8 @@ class Gambar extends Component
 
     public function simpanDataGambar(){
         $this->validate([
-            'file' => 'required|max:10240',
-            // 'file.*' => 'required|mimes:jpg,png,jpeg,gif,svg|max:10240'
-        ], [
-            'file.required' => 'File tidak boleh kosong',
-            'file.mimes' => 'File tidak valid !',
-            // 'file.*.required' => "File tidak boleh kosong",
-            // 'file.*.mimes' => 'File tidak valid !',
-            // 'file.*.max' => 'File terlalu besar',
-            'file.max' => 'File terlalu besar'
+            'gambar.*' => 'image|max:2048',
+            'file.*' => 'required|mimes:jpg,png,jpeg,gif,svg|max:10240'
         ]);
 
         if($this->file){

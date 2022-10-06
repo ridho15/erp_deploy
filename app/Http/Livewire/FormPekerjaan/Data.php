@@ -16,7 +16,7 @@ class Data extends Component
     }
     use WithPagination;
     public $paginationTheme = 'bootstrap';
-    public $listeners = ['refreshDataProject' => '$refresh'];
+    public $listeners = ['refreshDataProject' => '$refresh', 'hapusDataProject'];
     public $total_show = 10;
     public $cari;
     protected $listProject;
@@ -36,5 +36,18 @@ class Data extends Component
 
     public function mount(){
 
+    }
+
+    public function hapusDataProject($id){
+        $project = Project::find($id);
+        if(!$project){
+            $message = "Project tidak ditemukan";
+            return session()->flash('fail', $message);
+        }
+
+        $project->delete();
+        $message = "Berhasil menghapus data project";
+        $this->emit('finishRefreshProject', 1,$message);
+        return session()->flash('success', $message);
     }
 }
