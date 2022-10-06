@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [AutentikasiController::class, 'login'])->name('login');
 Route::post('/login', [AutentikasiController::class, 'postLogin'])->name('post.login');
+Route::get('/logout', [AutentikasiController::class, 'logout'])->name('logout');
 
 Route::middleware('auth.super-admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');

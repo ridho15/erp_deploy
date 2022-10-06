@@ -5,13 +5,19 @@
             <i class="bi bi-plus-circle"></i> Tambah
         </button>
     </div>
+    @include('helper.alert-message')
     @if (count($listProjectFoto) > 0)
         <div class="row mt-5">
             @foreach ($listProjectFoto as $item)
                 <div class="col-md-3">
-                    <a href="{{ asset('storage' . $item->file) }}" class="glightbox">
-                        <img src="{{ asset('storage' . $item->file) }}" alt="Foto" class="img-fluid">
-                    </a>
+                    <div class="image-hover position-relative">
+                        <div class="position-absolute w-25 h-25 d-flex align-items-center justify-content-center py-3" wire:click="$emit('onClickHapusFoto', {{ $item->id }})">
+                            <i class="bi bi-trash-fill text-danger"></i>
+                        </div>
+                        <a href="{{ asset('storage' . $item->file) }}" class="glightbox">
+                            <img src="{{ asset('storage' . $item->file) }}" alt="Foto" class="img-fluid">
+                        </a>
+                    </div>
                 </div>
             @endforeach
         </div>
@@ -78,6 +84,13 @@
 
         Livewire.on('onClickTambahFoto', () => {
             $('#modal_tambah_foto').modal('show')
+        })
+
+        Livewire.on('onClickHapusFoto', async(id) => {
+            const response = await alertConfirm('Peringatan !', 'Apakah kamu yakin ingin menghapus foto ?')
+            if(response.isConfirmed == true){
+                Livewire.emit('hapusFoto', id)
+            }
         })
     </script>
 @endpush

@@ -58,4 +58,16 @@ class Foto extends Component
     public function resetInputFields(){
         $this->file = null;
     }
+
+    public function hapusFoto($id){
+        $projectFoto = ProjectFoto::find($id);
+        if(!$projectFoto){
+            $message = "Foto tidak ditemukan";
+            return session()->flash('fail', $message);
+        }
+
+        $projectFoto->delete();
+        $message = "Foto berhasil di hapus";
+        return session()->flash('success', $message);
+    }
 }
