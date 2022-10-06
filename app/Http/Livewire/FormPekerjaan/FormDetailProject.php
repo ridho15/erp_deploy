@@ -41,14 +41,13 @@ class FormDetailProject extends Component
     }
 
     public function simpanDataProjectDetail(){
-        dd($this->jam_mulai);
         $this->validate([
             'id_project' => 'required|numeric',
             'nama_pekerjaan' => 'required|string',
             'id_user' => 'required|numeric',
             'keterangan' => 'nullable|string',
-            'jam_mulai' => 'nullable|date_format: Y-m-d H:i',
-            'jam_selesai' => 'nullable|date_format: Y-m-d H:i',
+            'jam_mulai' => 'nullable|string',
+            'jam_selesai' => 'nullable|string',
         ], [
             'id_project.required' => 'Project tidak valid !',
             'id_project.numeric' => 'Project tidak valid !',
@@ -57,8 +56,8 @@ class FormDetailProject extends Component
             'id_user.required' => 'Pekerja Belum dipilih',
             'id_user.numeric' => 'Pekerja tidak valid !',
             'keterangan.string' => 'Keterangan tidak valid !',
-            'jam_mulai.date_format' => 'Waktu mulai tidak valid !',
-            'jam_selesai.date_format' => 'Waktu selesai tidak valid !'
+            'jam_mulai.string' => 'Waktu mulai tidak valid !',
+            'jam_selesai.string' => 'Waktu selesai tidak valid !'
         ]);
 
         // Check Project

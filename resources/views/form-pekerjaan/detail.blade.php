@@ -16,11 +16,14 @@
             @livewire('form-pekerjaan.detail', ['id_project' => $project->id])
             <hr>
             @livewire('form-pekerjaan.list-detail', ['id_project' => $project->id])
+            <hr>
+            @livewire('form-pekerjaan.foto', ['id_project' => $project->id])
         </div>
     </div>
 
     @livewire('form-pekerjaan.form')
     @livewire('form-pekerjaan.form-detail-project')
+    @livewire('form-pekerjaan.project-detail-barang')
 @endsection
 
 @section('js')

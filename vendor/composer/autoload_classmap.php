@@ -34,6 +34,7 @@ return array(
     'App\\Http\\Livewire\\FormPekerjaan\\Form' => $baseDir . '/app/Http/Livewire/FormPekerjaan/Form.php',
     'App\\Http\\Livewire\\FormPekerjaan\\FormDetailProject' => $baseDir . '/app/Http/Livewire/FormPekerjaan/FormDetailProject.php',
     'App\\Http\\Livewire\\FormPekerjaan\\ListDetail' => $baseDir . '/app/Http/Livewire/FormPekerjaan/ListDetail.php',
+    'App\\Http\\Livewire\\FormPekerjaan\\ProjectDetailBarang' => $baseDir . '/app/Http/Livewire/FormPekerjaan/ProjectDetailBarang.php',
     'App\\Http\\Livewire\\Kategori\\Barang' => $baseDir . '/app/Http/Livewire/Kategori/Barang.php',
     'App\\Http\\Livewire\\Kategori\\Data' => $baseDir . '/app/Http/Livewire/Kategori/Data.php',
     'App\\Http\\Livewire\\Kategori\\Form' => $baseDir . '/app/Http/Livewire/Kategori/Form.php',

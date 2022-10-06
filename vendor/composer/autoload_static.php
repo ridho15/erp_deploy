@@ -560,6 +560,7 @@ class ComposerStaticInitb386b788fea8f41f165dec6722ac0e59
         'App\\Http\\Livewire\\FormPekerjaan\\Form' => __DIR__ . '/../..' . '/app/Http/Livewire/FormPekerjaan/Form.php',
         'App\\Http\\Livewire\\FormPekerjaan\\FormDetailProject' => __DIR__ . '/../..' . '/app/Http/Livewire/FormPekerjaan/FormDetailProject.php',
         'App\\Http\\Livewire\\FormPekerjaan\\ListDetail' => __DIR__ . '/../..' . '/app/Http/Livewire/FormPekerjaan/ListDetail.php',
+        'App\\Http\\Livewire\\FormPekerjaan\\ProjectDetailBarang' => __DIR__ . '/../..' . '/app/Http/Livewire/FormPekerjaan/ProjectDetailBarang.php',
         'App\\Http\\Livewire\\Kategori\\Barang' => __DIR__ . '/../..' . '/app/Http/Livewire/Kategori/Barang.php',
         'App\\Http\\Livewire\\Kategori\\Data' => __DIR__ . '/../..' . '/app/Http/Livewire/Kategori/Data.php',
         'App\\Http\\Livewire\\Kategori\\Form' => __DIR__ . '/../..' . '/app/Http/Livewire/Kategori/Form.php',

@@ -1,4 +1,7 @@
 <div>
+    <h4 class="card-title mb-5">
+        Detail Pekerjaan
+    </h4>
     @include('helper.alert-message')
     <div class="text-center">
         @include('helper.simple-loading', ['target' => 'cari', 'message' => 'Sedang mencari data ...'])
@@ -37,8 +40,8 @@
                         <td>{{ $item->nama_pekerjaan }}</td>
                         <td>{{ $item->user->name }}</td>
                         <td>{{ $item->keterangan }}</td>
-                        <td>{{ $item->jam_mulai }}</td>
-                        <td>{{ $item->jam_selesai }}</td>
+                        <td>{{ $item->jam_mulai_formatted }}</td>
+                        <td>{{ $item->jam_selesai_formatted }}</td>
                         <td><?= $item->status_formatted ?></td>
                         <td>
                             <div class="btn-group">
@@ -48,9 +51,9 @@
                                 <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Project" wire:click="$emit('onClickHapus', {{ $item->id }})">
                                     <i class="bi bi-trash-fill"></i>
                                 </button>
-                                <a href="{{ route('form-pekerjaan.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Project">
+                                <button class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Pekerjaan" wire:click="$emit('onClickProjectDetailBarang', {{ $item->id }})">
                                     <i class="bi bi-info-circle-fill"></i>
-                                </a>
+                                </button>
                             </div>
                         </td>
                     </tr>
@@ -80,6 +83,18 @@
         Livewire.on('onClickEdit', (id) => {
             Livewire.emit('setDataProjectDetail', id)
             $('#modal_form_project_detail').modal('show')
+        })
+
+        Livewire.on('onClickHapus', async(id) => {
+            const response = await alertConfirm("Peringatan !", "Apakah kamu yakin ingin menghapus data !");
+            if(response.isConfirmed == true){
+                Livewire.emit('hapusProjectDetail', id)
+            }
+        })
+
+        Livewire.on('onClickProjectDetailBarang', (id) => {
+            Livewire.emit('getListProjectDetailBarang', id)
+            $("#modal_project_detail_barang").modal('show')
         })
     </script>
 @endpush
