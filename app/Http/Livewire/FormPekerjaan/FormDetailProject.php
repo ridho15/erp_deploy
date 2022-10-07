@@ -82,7 +82,7 @@ class FormDetailProject extends Component
             'id_user' => $this->id_user,
             'keterangan' => $this->keterangan,
             'jam_mulai' => $this->jam_mulai,
-            'jam_selesai' => $this->jam_selesai,
+            'jam_selesai' => $this->status ? $this->jam_selesai : null,
             'status' => $this->status ? 1 : 0
         ]);
 

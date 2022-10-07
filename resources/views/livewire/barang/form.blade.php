@@ -34,7 +34,7 @@
                         </div>
                         <div class="mb-5">
                             <label for="" class="form-label required">Stock</label>
-                            <input type="number" class="form-control form-control-solid" name="stock" wire:model="stock" placeholder="Masukkan stok" required>
+                            <input type="number" class="form-control form-control-solid" name="stock" wire:model="stock" placeholder="Masukkan stok" disabled required>
                             @error('stock')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror

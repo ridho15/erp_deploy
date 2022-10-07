@@ -11,8 +11,8 @@
                         </svg>
                     </span>
                 </button>
-                <a href="index.html">
-                    <img alt="Logo" src="{{ asset('assets/media/logos/default-small.svg') }}" class="h-30px h-lg-35px" />
+                <a href="{{ route('dashboard') }}">
+                    <img alt="Logo" src="{{ asset('/assets/images/icon.png') }}" class="h-30px h-lg-35px" />
                 </a>
             </div>
             <div class="ms-5 ms-md-10 d-flex align-items-center">

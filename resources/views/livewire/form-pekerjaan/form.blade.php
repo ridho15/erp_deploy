@@ -51,16 +51,33 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                        <div class="d-flex flex-stack w-lg-50">
-                            <label class="form-check form-switch form-check-custom form-check-solid">
-                                <input class="form-check-input" name="diketahui_pelanggan" type="checkbox" value="1" wire:model="diketahui_pelanggan" checked="checked"/>
-                                <span class="form-check-label fw-semibold text-muted">
-                                    Diketahui Pelanggan
-                                </span>
-                            </label>
-                            @error('diketahui_pelanggan')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
+                        <div class="row">
+                            <div class="col-md">
+                                <div class="d-flex flex-stack w-lg-50">
+                                    <label class="form-check form-switch form-check-custom form-check-solid">
+                                        <input class="form-check-input" name="diketahui_pelanggan" type="checkbox" value="1" wire:model="diketahui_pelanggan" checked="checked"/>
+                                        <span class="form-check-label fw-semibold text-muted">
+                                            Diketahui Pelanggan
+                                        </span>
+                                    </label>
+                                    @error('diketahui_pelanggan')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="d-flex flex-stack w-lg-50">
+                                    <label class="form-check form-switch form-check-custom form-check-solid">
+                                        <input class="form-check-input" name="status" type="checkbox" value="1" wire:model="status" checked="checked"/>
+                                        <span class="form-check-label fw-semibold text-muted">
+                                            Status Selesai
+                                        </span>
+                                    </label>
+                                    @error('status')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
                     </div>
 

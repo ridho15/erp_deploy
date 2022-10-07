@@ -7,6 +7,7 @@ use Livewire\Component;
 
 class Detail extends Component
 {
+    public $listeners = ['refreshProject' => '$refresh'];
     public $id_project;
     public $project;
     public function render()

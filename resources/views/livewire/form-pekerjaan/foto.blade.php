@@ -11,7 +11,7 @@
             @foreach ($listProjectFoto as $item)
                 <div class="col-md-3">
                     <div class="image-hover position-relative">
-                        <div class="position-absolute w-25 h-25 d-flex align-items-center justify-content-center py-3" wire:click="$emit('onClickHapusFoto', {{ $item->id }})">
+                        <div class="position-absolute w-25 h-25 d-flex align-items-center justify-content-center py-3 rounded-circle" wire:click="$emit('onClickHapusFoto', {{ $item->id }})">
                             <i class="bi bi-trash-fill text-danger"></i>
                         </div>
                         <a href="{{ asset('storage' . $item->file) }}" class="glightbox">

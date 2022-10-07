@@ -13,7 +13,7 @@
                 <div class="modal-body">
                     @include('helper.alert-message')
                     <div class="text-center">
-                        @include('helper.simple-loading', ['target' => 'simpanDataProject', 'message' => 'Menyimpan data ...'])
+                        @include('helper.simple-loading', ['target' => 'simpanDataProject,setProjectDetailBarang', 'message' => 'Menyimpan data ...'])
                     </div>
                     <div class="row mb-5">
                         <div class="col-md-4">
@@ -94,7 +94,10 @@
                                         <td>{{ $item->status_barang_formatted }}</td>
                                         <td>
                                             <div class="btn-group">
-                                                <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Project" wire:click="$emit('onClickHapusBarang', {{ $item->id }})">
+                                                <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Penggunaan Barang" wire:click="setProjectDetailBarang({{ $item->id }})">
+                                                    <i class="bi bi-pencil-square"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Penggunaan Barang" wire:click="$emit('onClickHapusBarang', {{ $item->id }})">
                                                     <i class="bi bi-trash-fill"></i>
                                                 </button>
                                             </div>

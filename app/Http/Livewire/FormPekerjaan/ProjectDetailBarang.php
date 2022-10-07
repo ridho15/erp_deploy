@@ -4,6 +4,7 @@ namespace App\Http\Livewire\FormPekerjaan;
 
 use App\Http\Controllers\HelperController;
 use App\Models\Barang;
+use App\Models\Project;
 use App\Models\ProjectDetail;
 use App\Models\ProjectDetailBarang as ModelsProjectDetailBarang;
 use Livewire\Component;
@@ -21,7 +22,8 @@ class ProjectDetailBarang extends Component
         'simpanBarang',
         'changeBarang',
         'changeStatusBarang',
-        'hapusBarangProject'
+        'hapusBarangProject',
+        'setProjectDetailBarang',
     ];
     public $id_project_detail_barang;
     public $id_project_detail;
@@ -109,15 +111,39 @@ class ProjectDetailBarang extends Component
             'qty' => $this->qty
         ]);
 
+        $this->updateProject();
         $message = "Berhasil menyimpan barang ke pekerjaan";
+        $this->tambahBarang = false;
         $this->resetInputFields();
         return session()->flash('success', $message);
+    }
+
+    public function updateProject(){
+        $project = Project::whereHas('projectDetail', function($query){
+            $query->where('id', $this->id_project_detail);
+        })->first();
+
+        $total_barang = 0;
+        $total_harga = 0;
+        foreach ($project->projectDetail as $item) {
+            foreach ($item->projectDetailBarang as $projectDetailBarang) {
+                $total_harga += $projectDetailBarang->barang->harga * $projectDetailBarang->qty;
+                $total_barang ++;
+            }
+        }
+
+        $project->update([
+            'total_barang' => $total_barang,
+            'total_harga' => $total_harga
+        ]);
+        $this->emit('refreshProject');
     }
 
     public function resetInputFields(){
         $this->id_project_detail_barang = null;
         $this->id_barang = null;
         $this->status_barang = null;
+        $this->qty = null;
     }
 
     public function changeBarang($id_barang){
@@ -138,5 +164,19 @@ class ProjectDetailBarang extends Component
         $projectDetailBarang->delete();
         $message = "Berhasil menghapus barang dari project";
         return session()->flash('success', $message);
+    }
+
+    public function setProjectDetailBarang($id){
+        $this->tambahBarang = true;
+        $projectDetailBarang = ModelsProjectDetailBarang::find($id);
+        if(!$projectDetailBarang){
+            $message = "Data tidak ditemukan !";
+            return session()->flash('fail', $message);
+        }
+
+        $this->id_project_detail_barang = $projectDetailBarang->id;
+        $this->id_barang = $projectDetailBarang->id_barang;
+        $this->qty = $projectDetailBarang->qty;
+        $this->status_barang = $projectDetailBarang->status_barang;
     }
 }
