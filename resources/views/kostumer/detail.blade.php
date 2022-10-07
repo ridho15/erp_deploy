@@ -16,7 +16,7 @@
         <div class="card-body">
             @livewire('kostumer.order', ['id_supplier' => $kostumer->id])
             <hr>
-            @livewire('kostumer.order-details', ['id_supplier' => $kostumer->id])
+            {{-- @livewire('kostumer.order-details', ['id_supplier_order' => $kostumer->id]) --}}
         </div>
     </div>
 

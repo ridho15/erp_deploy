@@ -43,6 +43,8 @@ return array(
     'App\\Http\\Livewire\\Kategori\\TambahBarangKategori' => $baseDir . '/app/Http/Livewire/Kategori/TambahBarangKategori.php',
     'App\\Http\\Livewire\\Kostumer\\Data' => $baseDir . '/app/Http/Livewire/Kostumer/Data.php',
     'App\\Http\\Livewire\\Kostumer\\Form' => $baseDir . '/app/Http/Livewire/Kostumer/Form.php',
+    'App\\Http\\Livewire\\Kostumer\\Order' => $baseDir . '/app/Http/Livewire/Kostumer/Order.php',
+    'App\\Http\\Livewire\\Kostumer\\OrderDetails' => $baseDir . '/app/Http/Livewire/Kostumer/OrderDetails.php',
     'App\\Http\\Livewire\\Merk\\Data' => $baseDir . '/app/Http/Livewire/Merk/Data.php',
     'App\\Http\\Livewire\\Merk\\Form' => $baseDir . '/app/Http/Livewire/Merk/Form.php',
     'App\\Http\\Livewire\\Quotation\\Data' => $baseDir . '/app/Http/Livewire/Quotation/Data.php',

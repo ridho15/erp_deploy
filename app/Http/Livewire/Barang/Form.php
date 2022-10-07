@@ -12,10 +12,12 @@ use Livewire\Component;
 class Form extends Component
 {
     protected $helper;
-    function __construct()
+
+    public function __construct()
     {
-        $this->helper = new HelperController;
+        $this->helper = new HelperController();
     }
+
     public $listeners = ['setDataBarang', 'simpanDataBarang', 'changeTipeBarang', 'changeMerk', 'changeSatuan'];
     public $id_barang;
     public $nama;
@@ -28,6 +30,7 @@ class Form extends Component
     public $listMerk;
     public $listTipeBarang;
     public $listSatuan;
+
     public function render()
     {
         $this->listMerk = Merk::get();
@@ -35,14 +38,16 @@ class Form extends Component
         $this->listSatuan = Satuan::get();
 
         $this->dispatchBrowserEvent('contentChange');
+
         return view('livewire.barang.form');
     }
 
-    public function mount(){
-
+    public function mount()
+    {
     }
 
-    public function resetInputFields(){
+    public function resetInputFields()
+    {
         $this->id_barang = null;
         $this->nama = null;
         $this->harga = null;
@@ -52,7 +57,8 @@ class Form extends Component
         $this->min_stock = null;
     }
 
-    public function simpanDataBarang(){
+    public function simpanDataBarang()
+    {
         $this->validate([
             'nama' => 'required|string',
             'harga' => 'required|numeric',
@@ -60,7 +66,7 @@ class Form extends Component
             'tipe_barang' => 'required|numeric',
             'stock' => 'required|numeric',
             'min_stock' => 'required|numeric',
-            'id_satuan' => 'required|numeric'
+            'id_satuan' => 'required|numeric',
         ], [
             'nama.required' => 'Nama tidak boleh kosong',
             'nama.string' => 'Nama tidak valid !',
@@ -74,31 +80,33 @@ class Form extends Component
             'min_stock.required' => 'Minimal Stock Barang tidak boleh kosong',
             'min_stock.numeric' => 'Minimal Stock Barang tidak valid !',
             'id_satuan.required' => 'Satuan Belum dipilih',
-            'id_satuan.numeric' => 'Satuan tidak valid'
+            'id_satuan.numeric' => 'Satuan tidak valid',
         ]);
 
         // Check Merk
-        if($this->id_merk){
+        if ($this->id_merk) {
             $merk = Merk::find($this->id_merk);
-            if($merk){
+            if ($merk) {
                 $data['id_merk'] = $this->id_merk;
             }
         }
 
-        if($this->stock < 0 || $this->min_stock < 0){
-            $message = "Stok atau minimal tidak boleh kurang dari 0";
+        if ($this->stock < 0 || $this->min_stock < 0) {
+            $message = 'Stok atau minimal tidak boleh kurang dari 0';
+
             return session()->flash('fail', $message);
         }
 
-        if($this->id_barang){
+        if ($this->id_barang) {
             $barang = Barang::find($this->id_barang);
-            if(!$barang){
-                $message = "Barang tidak ditemukan";
+            if (!$barang) {
+                $message = 'Barang tidak ditemukan';
                 $this->emit('finishDataBarang', 0, $message);
+
                 return session()->flash('fail', $message);
             }
 
-            if($barang->stock < $this->stock){
+            if ($barang->stock < $this->stock) {
                 $selisih = $this->stock - $barang->stock;
                 $tipe_perubahan = 1;
 
@@ -107,10 +115,9 @@ class Form extends Component
                     'stock_awal' => $barang->stock,
                     'perubahan' => $selisih,
                     'tipe_perubahan' => $tipe_perubahan,
-                    'tanggal_perubahan' => now()
+                    'tanggal_perubahan' => now(),
                 ]);
-
-            }elseif($barang->stock > $this->stock){
+            } elseif ($barang->stock > $this->stock) {
                 $selisih = $barang->stock - $this->stock;
                 $tipe_perubahan = 2;
                 BarangStockLog::create([
@@ -118,7 +125,7 @@ class Form extends Component
                     'stock_awal' => $barang->stock,
                     'perubahan' => $selisih,
                     'tipe_perubahan' => $tipe_perubahan,
-                    'tanggal_perubahan' => now()
+                    'tanggal_perubahan' => now(),
                 ]);
             }
 
@@ -133,8 +140,9 @@ class Form extends Component
             $this->resetInputFields();
             $this->emit('refreshDataBarang');
             $this->emit('finishSimpanData', 1, $message);
+
             return session()->flash('success', $message);
-        }else{
+        } else {
             $data['nama'] = $this->nama;
             $data['harga'] = $this->harga;
             $data['stock'] = $this->stock;
@@ -147,15 +155,18 @@ class Form extends Component
             $this->resetInputFields();
             $this->emit('refreshDataBarang');
             $this->emit('finishSimpanData', 1, $message);
+
             return session()->flash('success', $message);
         }
     }
 
-    public function setDataBarang($id){
+    public function setDataBarang($id)
+    {
         $barang = Barang::find($id);
-        if(!$barang){
+        if (!$barang) {
             $message = 'Barang tidak ditemukan';
             $this->emit('finishRefreshBarang', 0, $message);
+
             return session()->flash('fail', $message);
         }
 
@@ -169,15 +180,18 @@ class Form extends Component
         $this->id_satuan = $barang->id_satuan;
     }
 
-    public function changeTipeBarang($tipeBarang){
+    public function changeTipeBarang($tipeBarang)
+    {
         $this->tipe_barang = $tipeBarang;
     }
 
-    public function changeMerk($id_merk){
+    public function changeMerk($id_merk)
+    {
         $this->id_merk = $id_merk;
     }
 
-    public function changeSatuan($id_satuan){
+    public function changeSatuan($id_satuan)
+    {
         $this->id_satuan = $id_satuan;
     }
 }

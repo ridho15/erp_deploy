@@ -18,10 +18,10 @@ class OrderDetails extends Component
 
     public function render()
     {
-        $this->listSupplierOrderDetail = CustomerOrderDetail::where('id_supplier_order', $this->id_supplier_order)->paginate($this->total_show);
+        $this->listSupplierOrderDetail = CustomerOrderDetail::where('id_customer_order', $this->id_supplier_order)->paginate($this->total_show);
         $data['listSupplierOrderDetail'] = $this->listSupplierOrderDetail;
 
-        return view('livewire.supplier.order-detail-list', $data);
+        return view('livewire.kostumer.order-details', $data);
     }
 
     public function mount($id_supplier_order)

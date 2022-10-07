@@ -569,6 +569,8 @@ class ComposerStaticInitb386b788fea8f41f165dec6722ac0e59
         'App\\Http\\Livewire\\Kategori\\TambahBarangKategori' => __DIR__ . '/../..' . '/app/Http/Livewire/Kategori/TambahBarangKategori.php',
         'App\\Http\\Livewire\\Kostumer\\Data' => __DIR__ . '/../..' . '/app/Http/Livewire/Kostumer/Data.php',
         'App\\Http\\Livewire\\Kostumer\\Form' => __DIR__ . '/../..' . '/app/Http/Livewire/Kostumer/Form.php',
+        'App\\Http\\Livewire\\Kostumer\\Order' => __DIR__ . '/../..' . '/app/Http/Livewire/Kostumer/Order.php',
+        'App\\Http\\Livewire\\Kostumer\\OrderDetails' => __DIR__ . '/../..' . '/app/Http/Livewire/Kostumer/OrderDetails.php',
         'App\\Http\\Livewire\\Merk\\Data' => __DIR__ . '/../..' . '/app/Http/Livewire/Merk/Data.php',
         'App\\Http\\Livewire\\Merk\\Form' => __DIR__ . '/../..' . '/app/Http/Livewire/Merk/Form.php',
         'App\\Http\\Livewire\\Quotation\\Data' => __DIR__ . '/../..' . '/app/Http/Livewire/Quotation/Data.php',

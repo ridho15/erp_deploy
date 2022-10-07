@@ -66,7 +66,7 @@
     </div>
     <div class="text-center">{{ $listSupplierOrderDetail->links() }}</div>
 
-    @livewire('supplier.order-detail-form', ['id_supplier_order' => $id_supplier_order])
+    {{-- @livewire('supplier.order-detail-form', ['id_supplier_order' => $id_supplier_order]) --}}
 </div>
 
 @push('js')
