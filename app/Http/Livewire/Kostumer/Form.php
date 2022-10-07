@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Livewire\Kostumer;
 
 use App\Models\Kostumer;
@@ -13,16 +14,18 @@ class Form extends Component
     public $no_hp;
     public $alamat;
     public $status;
+
     public function render()
     {
-        return view('livewire.Kostumer.form');
+        return view('livewire.kostumer.form');
     }
 
-    public function mount(){
-
+    public function mount()
+    {
     }
 
-    public function simpanDataKostumer(){
+    public function simpanDataKostumer()
+    {
         $this->validate([
             'nama' => 'required|string',
             'email' => 'required|email',
@@ -37,27 +40,29 @@ class Form extends Component
             'no_hp.numeric' => 'Nomor Hp tidak valid !',
             'no_hp.digits_between' => 'Nomor HP tidak sesuai ketentuan !',
             'alamat.required' => 'Alamat tidak boleh kosong',
-            'alamat.string' => "Alamat tidak valid !"
+            'alamat.string' => 'Alamat tidak valid !',
         ]);
 
         Kostumer::updateOrCreate([
-            'id' => $this->id_kostumer
+            'id' => $this->id_kostumer,
         ], [
             'nama' => $this->nama,
             'email' => $this->email,
             'no_hp' => $this->no_hp,
             'alamat' => $this->alamat,
-            'status' => $this->status ? 1 : 0
+            'status' => $this->status ? 1 : 0,
         ]);
 
         $message = 'Berhasil menyimpan data customer';
         $this->resetInputFields();
         $this->emit('finishSimpanData', 1, $message);
         $this->emit('refreshDataKostumer');
+
         return session()->flash('success', $message);
     }
 
-    public function resetInputFields(){
+    public function resetInputFields()
+    {
         $this->id_kostumer = null;
         $this->nama = null;
         $this->email = null;
@@ -66,11 +71,13 @@ class Form extends Component
         $this->status = null;
     }
 
-    public function setDataKostumer($id){
+    public function setDataKostumer($id)
+    {
         $kostumer = Kostumer::find($id);
-        if(!$kostumer){
-            $message = "Data Customer tidak ditemukan";
+        if (!$kostumer) {
+            $message = 'Data Customer tidak ditemukan';
             $this->emit('finishDataKostumer', 0, $message);
+
             return session()->flash('fail', $message);
         }
 
