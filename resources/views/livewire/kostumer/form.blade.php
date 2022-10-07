@@ -29,7 +29,7 @@
                         </div>
                         <div class="mb-5">
                             <label for="" class="form-label required">Nomor Hp</label>
-                            <input type="text" class="form-control form-control-solid" name="no_hp" wire:model="no_hp" placeholder="Masukkan nomor Hp" required>
+                            <input type="text" class="form-control form-control-solid" name="no_hp" wire:model="no_hp" placeholder="Ex: 0823 1234 5678" required>
                             @error('no_hp')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
