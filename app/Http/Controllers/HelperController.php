@@ -38,23 +38,28 @@ class HelperController extends Controller
         return collect([
             collect([
                 'status_order' => '1',
-                'keterangan' => 'Sedang Diajukan'
+                'keterangan' => 'Sedang Diajukan',
+                'badge' => "<span class='badge badge-primary'>Sedang Diajukan</span>"
             ]),
             collect([
                 'status_order' => '2',
-                'keterangan' => 'Sedang Diproses'
+                'keterangan' => 'Sedang Diproses',
+                'badge' => "<span class='badge badge-warning'>Sedang Diproses</span>"
             ]),
             collect([
                 'status_order' => '3',
-                'keterangan' => 'Dalam Pengiriman'
+                'keterangan' => 'Dalam Pengiriman',
+                'badge' => "<span class='badge badge-warning'>Dalam Pengiriman</span>"
             ]),
             collect([
                 'status_order' => '4',
-                'keterangan' => 'Selesai'
+                'keterangan' => 'Selesai',
+                'badge' => "<span class='badge badge-success'>Selesai</span>"
             ]),
             collect([
                 'status_order' => '0',
-                'keterangan' => 'Dibatalkan / Ditolak'
+                'keterangan' => 'Dibatalkan / Ditolak',
+                'badge' => "<span class='badge badge-danger'>Dibatalkan / Ditolak</span>"
             ]),
         ]);
     }
@@ -64,15 +69,19 @@ class HelperController extends Controller
             collect([
                 'status_response' => '1',
                 'keterangan' => "Sudah diresponse",
+                'badge' => "<span class='badge badge-success'>Sudah diresponse</span>"
             ]),collect([
                 'status_response' => '2',
                 'keterangan' => "Belum diresponse",
+                'badge' => "<span class='badge badge-secondary'>Belum diproses</span>"
             ]),collect([
                 'status_response' => '0',
                 'keterangan' => "Belum dikirim",
+                'badge' => "<span class='badge badge-warning'>Belum dikirim</span>"
             ]),collect([
                 'status_response' => '3',
                 'keterangan' => "Tidak diresponse",
+                'badge' => "<span class='badge badge-danger'>Tidak diresponse</span>"
             ])
             ]);
     }

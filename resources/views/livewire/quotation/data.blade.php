@@ -46,7 +46,7 @@
                                         {{-- <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Hapus" wire:click="$emit('onClickHapus', {{ $item->id }})">
                                             <i class="bi bi-trash-fill"></i>
                                         </button> --}}
-                                        <a href="{{ route('quotation.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Barang">
+                                        <a href="{{ route('quotation.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Quotation">
                                             <i class="bi bi-info-circle-fill"></i>
                                         </a>
                                     </div>

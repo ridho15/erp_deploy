@@ -20,7 +20,7 @@ class StockLog extends Component
     public $barang;
     public function render()
     {
-        $this->listStockLog = BarangStockLog::where('id_barang', $this->id_barang)->paginate($this->total_show);
+        $this->listStockLog = BarangStockLog::where('id_barang', $this->id_barang)->orderBy('tanggal_perubahan', 'DESC')->paginate($this->total_show);
         $data['listStockLog'] = $this->listStockLog;
         return view('livewire.barang.stock-log', $data);
     }

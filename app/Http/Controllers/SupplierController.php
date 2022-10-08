@@ -44,7 +44,7 @@ class SupplierController extends Controller
             return redirect()->back()->with('fail', 'Supplier Order tidak ditemukan');
         }
 
-        $data['title'] = ['Kelola Data Supplier Order'];
+        $data['title'] = 'Kelola Data Supplier Order';
         $data['active'] = ['supplier-order'];
         $data['breadCrumb'] = ['Supplier', 'Order', 'Data', 'Kelola'];
         $data['supplierOrder'] = $supplierOrder;

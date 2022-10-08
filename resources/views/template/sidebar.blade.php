@@ -19,7 +19,7 @@
                         </a>
                     </div>
                     <div class="menu-item">
-                        <a class="menu-link @if(in_array('form-pekerjaan', $active)) active @endif" href="{{ route('form-pekerjaan') }}" target="blank">
+                        <a class="menu-link @if(in_array('form-pekerjaan', $active)) active @endif" href="{{ route('form-pekerjaan') }}">
                             <span class="menu-icon">
                                 <span class="svg-icon svg-icon-2">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
