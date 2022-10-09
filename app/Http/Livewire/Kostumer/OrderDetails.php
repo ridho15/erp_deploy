@@ -2,45 +2,24 @@
 
 namespace App\Http\Livewire\Kostumer;
 
-use App\Models\CustomerOrderDetail;
+use App\Models\CustomerOrder;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class OrderDetails extends Component
 {
-    use WithPagination;
-    public $paginationTheme = 'bootstrap';
-    public $listeners = ['refreshSupplierOrderDetail' => '$refresh', 'hapusBarangOrder'];
-    public $id_supplier_order;
-    protected $listSupplierOrderDetail;
-    public $cari;
-    public $total_show = 10;
+    public $listeners = ['refreshSupplierOrder' => '$refresh'];
+    public $id_kostumer_order;
+    public $kostumerOrder;
 
     public function render()
     {
-        $this->listSupplierOrderDetail = CustomerOrderDetail::where('id_customer_order', $this->id_supplier_order)->paginate($this->total_show);
-        $data['listSupplierOrderDetail'] = $this->listSupplierOrderDetail;
+        $this->kostumerOrder = CustomerOrder::find($this->id_kostumer_order);
 
-        return view('livewire.kostumer.order-details', $data);
+        return view('livewire.kostumer.order-details');
     }
 
-    public function mount($id_supplier_order)
+    public function mount($id_kostumer_order)
     {
-        $this->id_supplier_order = $id_supplier_order;
-    }
-
-    public function hapusBarangOrder($id)
-    {
-        $supplierOderDetail = CustomerOrderDetail::find($id);
-        if (!$supplierOderDetail) {
-            $message = 'Data Barang Order tidak ditemukan !';
-
-            return session()->flash('fail', $message);
-        }
-
-        $supplierOderDetail->delete();
-        $message = 'Berhasil menghapus barang dari order';
-
-        return session()->flash('success', $message);
+        $this->id_kostumer_order = $id_kostumer_order;
     }
 }

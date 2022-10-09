@@ -19,36 +19,43 @@ class Order extends Component
     public $cari;
     public $id_supplier;
     protected $listSupplierOrder;
+
     public function render()
     {
-        $this->listSupplierOrder = SupplierOrder::where(function($query){
-            $query->whereHas('user', function($query){
-                $query->where('name', 'LIKE', '%' . $this->cari . '%');
-            })->orWhereHas('tipePembayaran', function($query){
-                $query->where('nama_tipe', 'LIKE', '%' . $this->cari . '%');
+        $this->listSupplierOrder = SupplierOrder::where(function ($query) {
+            $query->whereHas('user', function ($query) {
+                $query->where('name', 'LIKE', '%'.$this->cari.'%');
+            })->orWhereHas('tipePembayaran', function ($query) {
+                $query->where('nama_tipe', 'LIKE', '%'.$this->cari.'%');
             });
         })->orWhere('id_supplier', $this->id_supplier)->paginate($this->total_show);
         $data['listSupplierOrder'] = $this->listSupplierOrder;
+
         return view('livewire.supplier.order', $data);
     }
 
-    public function mount(){
+    public function mount()
+    {
     }
 
-    public function setIdSupplier($id_supplier){
+    public function setIdSupplier($id_supplier)
+    {
         $this->id_supplier = $id_supplier;
     }
 
-    public function hapusSupplierOrder($id){
+    public function hapusSupplierOrder($id)
+    {
         $supplierOrder = SupplierOrder::find($id);
-        if(!$supplierOrder){
-            $message = "Data supplier order tidak ditemukan !";
+        if (!$supplierOrder) {
+            $message = 'Data supplier order tidak ditemukan !';
+
             return session()->flash('fail', $message);
         }
 
         $supplierOrder->delete();
-        $message = "Data supplier order berhasil di hapus";
-        $this->emit('finishSupplierOrder',1, $message);
+        $message = 'Data supplier order berhasil di hapus';
+        $this->emit('finishSupplierOrder', 1, $message);
+
         return session()->flash('success', $message);
     }
 }

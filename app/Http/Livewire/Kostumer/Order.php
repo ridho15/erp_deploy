@@ -12,19 +12,20 @@ class Order extends Component
     use WithPagination;
     public $paginationTheme = 'bootstrap';
     public $listeners = [
-        'setIdSupplier',
-        'refreshSupplierOrder' => '$refresh',
-        'hapusSupplierOrder',
+        'setIdKostumer',
+        'refreshKostumerOrder' => '$refresh',
+        'hapusKostumerOrder',
+        'finishSupplierOrder',
     ];
     public $total_show = 10;
     public $cari;
-    public $id_supplier;
+    public $id_kostumer;
     public $kostumer;
-    protected $listSupplierOrder;
+    protected $listKostumerOrder;
 
     public function render()
     {
-        $this->listSupplierOrder = CustomerOrder::where(function ($query) {
+        $this->listKostumerOrder = CustomerOrder::where(function ($query) {
             $query->whereHas('user', function ($query) {
                 $query->where('name', 'LIKE', '%'.$this->cari.'%');
             })->orWhereHas('CustomerOrderDetail', function ($query) {
@@ -32,36 +33,42 @@ class Order extends Component
                     $q->where('nama', 'LIKE', '%'.$this->cari.'%');
                 });
             });
-        })->orWhere('id_customer', $this->id_supplier)->paginate($this->total_show);
-        $this->kostumer = Customer::find($this->id_supplier);
-        $data['listSupplierOrder'] = $this->listSupplierOrder;
+        })->orWhere('id_customer', $this->id_kostumer)->paginate($this->total_show);
+        $this->kostumer = Customer::find($this->id_kostumer);
+        $data['listKostumerOrder'] = $this->listKostumerOrder;
         $data['kostumer'] = $this->kostumer;
 
         return view('livewire.kostumer.order', $data);
     }
 
-    public function mount()
+    public function mount($id_customer)
     {
+        $this->id_kostumer = $id_customer;
     }
 
-    public function setIdSupplier($id_supplier)
+    public function setIdKostumer($id_kostumer)
     {
-        $this->id_supplier = $id_supplier;
+        $this->id_kostumer = $id_kostumer;
     }
 
-    public function hapusSupplierOrder($id)
+    public function hapusKostumerOrder($id)
     {
-        $supplierOrder = CustomerOrder::find($id);
-        if (!$supplierOrder) {
+        $KostumerOrder = CustomerOrder::find($id);
+        if (!$KostumerOrder) {
             $message = 'Data Order tidak ditemukan !';
 
             return session()->flash('fail', $message);
         }
 
-        $supplierOrder->delete();
+        $KostumerOrder->delete();
         $message = 'Data Order berhasil di hapus';
-        $this->emit('finishSupplierOrder', 1, $message);
+        // $this->emit('finishSupplierOrder', 1, $message);
 
         return session()->flash('success', $message);
+    }
+
+    public function setDataKostumer($id)
+    {
+        dd($id);
     }
 }

@@ -3,7 +3,7 @@
     <div class="">
         <div class="row mb-5">
             <div class="col-md-5">
-                Nama Supplier
+                Nama Kostumer
             </div>
             <div class="col-md">
                 : <span class="fw-bold">{{ $kostumer->nama }}</span>
@@ -47,41 +47,45 @@
         <div class="col-md-3">
             @include('helper.form-pencarian', ['model' => 'cari'])
         </div>
+        <div class="col-md-9 d-flex justify-content-end">
+            <button class="btn btn-sm btn-outline btn-outline-info btn-tambah-barang me-2" wire:click="$emit('onClickTambah')"><i class="bi bi-plus"></i> Tambah Order</button>
+        </div>
     </div>
     <div class="table-responsive">
         <table class="table table-rounded table-striped border gy-7 gs-7">
-         <thead>
-          <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
-           <th>No</th>
-           <th>Kostumer</th>
-           <th>User</th>
-           <th>Status Order</th>
-           <th>Total Produk</th>
-           <th>Total Harga</th>
-           <th>Keterangan</th>
-           <th>Aksi</th>
-          </tr>
-         </thead>
-         <tbody>
-            @if (count($listSupplierOrder) > 0)
-                @foreach ($listSupplierOrder as $index => $item)
+            <thead>
+                <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
+                <th>No</th>
+                <th>User</th>
+                <th>Status Order</th>
+                <th>Total Produk</th>
+                <th>Total Harga</th>
+                <th>Keterangan</th>
+                <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+            @if (count($listKostumerOrder) > 0)
+                @foreach ($listKostumerOrder as $index => $item)
                     <tr>
                         <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
-                        <td>{{ $item->customer->name }}</td>
                         <td>{{ $item->user->name }}</td>
-                        <td>{{ $item->status_order_formatted }}</td>
+                        <td>
+                                <span class="badge badge-light-@if ($item->status_order == 1)warning @elseif($item->status_order == 2)primary @elseif($item->status_order == 3)info @elseif($item->status_order == 4)success  @elseif($item->status_order == 0)danger @endif">{{ $item->status_order_formatted }}</span>
+                        </td>
+                        <td>{{ $item->total_produk }}</td>
                         <td>{{ $item->total_harga_formatted }}</td>
                         <td>{{ $item->keterangan }}</td>
                         <td></td>
                         <td>
                             <div class="btn-group">
-                                <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Supplier Order" wire:click="$emit('onClickEdit', {{ $item->id }})">
+                                <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Kostumer Order" wire:click="$emit('onClickEdit', {{ $item->id }})">
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
-                                <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Supplier Order" wire:click="$emit('onClickHapus', {{ $item->id }})">
+                                <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Kostumer Order" wire:click="$emit('onClickHapus', {{ $item->id }})">
                                     <i class="bi bi-trash-fill"></i>
                                 </button>
-                                <a href="{{ route('supplier.order-detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Kelola Supplier Order">
+                                <a href="{{ route('kostumer.order-detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Kelola Kostumer Order">
                                     <i class="bi bi-info-circle-fill"></i>
                                 </a>
                             </div>
@@ -96,7 +100,7 @@
          </tbody>
         </table>
     </div>
-    <div class="text-center">{{ $listSupplierOrder->links() }}</div>
+    <div class="text-center">{{ $listKostumerOrder->links() }}</div>
 </div>
 
 @push('js')
@@ -105,15 +109,19 @@
 
         });
 
+        Livewire.on('onClickTambah', () => {
+            $('#modal_form_order').modal('show')
+        })
+
         Livewire.on('onClickEdit', (id) =>{
-            Livewire.emit('setDataSupplierOrder', id)
+            Livewire.emit('setDataKostumerOrder', id)
             $('#modal_form_order').modal('show')
         })
 
         Livewire.on('onClickHapus', async (id) => {
             const response = await alertConfirm('Peringatan !', 'Apakah kamu yakin ingin menghapus data ini ?');
             if(response.isConfirmed == true){
-                Livewire.emit('hapusSupplierOrder', id)
+                Livewire.emit('hapusKostumerOrder', id)
             }
         })
 
