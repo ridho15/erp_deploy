@@ -22,7 +22,7 @@ class FormOrder extends Component
         'simpanDataKostumerOrder',
         'changeBarang',
         'changeStatusOrder',
-        'setDataSupplierOrder',
+        'setDataKostumerOrder',
     ];
     public $id_kostumer_order;
     public $id_kostumer;
@@ -84,7 +84,7 @@ class FormOrder extends Component
 
         $message = 'Berhasil menyimpan data kostumer order';
         $this->resetInputFields();
-        $this->emit('refreshKostumerOrder');
+        $this->emit('refreshSupplierOrder');
         $this->emit('finishSimpanData', 1, $message);
 
         return session()->flash('success', $message);
@@ -109,9 +109,9 @@ class FormOrder extends Component
         $this->id_barang = $id;
     }
 
-    public function setDataKostumerOrder($id_kostumer_order)
+    public function setDataKostumerOrder($id)
     {
-        $kostumerOrder = CustomerOrder::find($id_kostumer_order);
+        $kostumerOrder = CustomerOrder::find($id);
         if (!$kostumerOrder) {
             $message = 'Data Kostumer Order tidak ditemukan';
 

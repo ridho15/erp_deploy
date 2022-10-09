@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    {{-- @livewire('supplier.form-order') --}}
+    @livewire('kostumer.form-order', ['id' => $kostumerOrder->id_customer])
 @endsection
 
 @section('js')

@@ -50,7 +50,7 @@
                                 wire:click="$emit('onClickHapusBarang', {{ $item->id }})">
                                 <i class="bi bi-trash-fill"></i>
                             </button>
-                            <a href="{{ route('barang.detail', ['id' => $item->id_barang]) }}"
+                            <a href="{{ route('barang.detail', ['id' => $item->id_produk]) }}"
                                 class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top"
                                 title="Data Barang">
                                 <i class="bi bi-info-circle-fill"></i>
@@ -69,7 +69,7 @@
     </div>
     <div class="text-center">{{ $listKostumerOrderDetail->links() }}</div>
 
-    {{-- @livewire('supplier.order-detail-form', ['id_kostumer_order' => $id_kostumer_order]) --}}
+    @livewire('kostumer.order-detail-form', ['id_kostumer_order' => $id_kostumer_order])
 </div>
 
 @push('js')

@@ -13,7 +13,7 @@ class Order extends Component
     public $paginationTheme = 'bootstrap';
     public $listeners = [
         'setIdKostumer',
-        'refreshKostumerOrder' => '$refresh',
+        'refreshSupplierOrder' => '$refresh',
         'hapusKostumerOrder',
         'finishSupplierOrder',
     ];
@@ -44,6 +44,7 @@ class Order extends Component
     public function mount($id_customer)
     {
         $this->id_kostumer = $id_customer;
+        $this->kostumer = Customer::find($id_customer);
     }
 
     public function setIdKostumer($id_kostumer)
@@ -65,10 +66,5 @@ class Order extends Component
         // $this->emit('finishSupplierOrder', 1, $message);
 
         return session()->flash('success', $message);
-    }
-
-    public function setDataKostumer($id)
-    {
-        dd($id);
     }
 }
