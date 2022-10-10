@@ -20,6 +20,7 @@
     </div>
     @livewire('form-pekerjaan.project-detail-barang')
     @livewire('form-pekerjaan.form-uraian-pekerjaan')
+    @livewire('form-pekerjaan.project-detail-sub-foto')
 @endsection
 
 @section('js')

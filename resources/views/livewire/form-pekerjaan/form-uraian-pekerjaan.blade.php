@@ -16,7 +16,7 @@
                     <div class="modal-body">
                         @include('helper.alert-message')
                         <div class="text-center">
-                            @include('helper.simple-loading', ['target' => null, 'message' => 'Menyimpan data ...'])
+                            @include('helper.simple-loading', ['target' => 'simpanProjectDetailSub', 'message' => 'Menyimpan data ...'])
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-5">

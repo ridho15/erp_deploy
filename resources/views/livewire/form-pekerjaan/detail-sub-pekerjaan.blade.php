@@ -64,6 +64,9 @@
                                     <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Pekerjaan" wire:click="$emit('onClickHapus', {{ $item->id }})">
                                         <i class="bi bi-trash-fill"></i>
                                     </button>
+                                    <button class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Lihat Foto" wire:click="$emit('onClickDetailFoto', {{ $item->id }})">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -103,6 +106,11 @@
             if(response.isConfirmed == true){
                 Livewire.emit('hapusProjectDetailSub', id)
             }
+        })
+
+        Livewire.on('onClickDetailFoto', (id) => {
+            Livewire.emit('setDetailFoto', id)
+            $('#modal_project_detail_sub_foto').modal('show')
         })
     </script>
 @endpush

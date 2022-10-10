@@ -12,10 +12,14 @@ class DetailSubPekerjaan extends Component
     public $id_project_detail;
     public $listProjectDetailSub;
     public $projectDetail;
+    public $cari;
     public function render()
     {
         $this->projectDetail = ProjectDetail::find($this->id_project_detail);
-        $this->listProjectDetailSub = ProjectDetailSub::where('id_project_detail', $this->id_project_detail)->get();
+        $this->listProjectDetailSub = ProjectDetailSub::where(function($query){
+            $query->where('nama_sub_pekerjaan', 'LIKE', '%' . $this->cari . '%');
+        })
+        ->where('id_project_detail', $this->id_project_detail)->get();
         return view('livewire.form-pekerjaan.detail-sub-pekerjaan');
     }
 
