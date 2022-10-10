@@ -23,7 +23,6 @@
            <th>No</th>
            <th>Nama Project</th>
            <th>Nama Pekerjaan</th>
-           <th>Pekerja</th>
            <th>Keterangan</th>
            <th>Mulai</th>
            <th>Selesai</th>
@@ -38,7 +37,6 @@
                         <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
                         <td>{{ $item->project->nama_project }}</td>
                         <td>{{ $item->nama_pekerjaan }}</td>
-                        <td>{{ $item->user->name }}</td>
                         <td>{{ $item->keterangan }}</td>
                         <td>{{ $item->jam_mulai_formatted }}</td>
                         <td>{{ $item->jam_selesai_formatted }}</td>
@@ -51,9 +49,9 @@
                                 <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Project" wire:click="$emit('onClickHapus', {{ $item->id }})">
                                     <i class="bi bi-trash-fill"></i>
                                 </button>
-                                <button class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Pekerjaan" wire:click="$emit('onClickProjectDetailBarang', {{ $item->id }})">
+                                <a href="{{ route('form-pekerjaan.pekerjaan-detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Pekerjaan">
                                     <i class="bi bi-info-circle-fill"></i>
-                                </button>
+                                </a>
                             </div>
                         </td>
                     </tr>
@@ -90,11 +88,6 @@
             if(response.isConfirmed == true){
                 Livewire.emit('hapusProjectDetail', id)
             }
-        })
-
-        Livewire.on('onClickProjectDetailBarang', (id) => {
-            Livewire.emit('getListProjectDetailBarang', id)
-            $("#modal_project_detail_barang").modal('show')
         })
     </script>
 @endpush

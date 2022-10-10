@@ -33,46 +33,9 @@
                             @enderror
                         </div>
                         <div class="mb-5">
-                            <label for="" class="form-label required">Pekerja</label>
-                            <select name="id_user" wire:model="id_user" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form_project_detail" data-placeholder="Pilih" required>
-                                <option value="">Pilih</option>
-                                @foreach ($listPekerja as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }} - {{ $item->tipeUser->nama_tipe }}</option>
-                                @endforeach
-                            </select>
-                            @error('id_user')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                        <div class="mb-5">
                             <label for="" class="form-label">Keterangan</label>
                             <textarea name="keterangan" wire:model="keterangan" class="form-control form-control-solid" placeholder="Masukkan keterangan"></textarea>
                             @error('keterangan')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                        <div class="mb-5">
-                            <label for="" class="form-label">Waktu Mulai</label>
-                            <input type="text" class="form-control form-control-solid" name="jam_mulai" wire:model="jam_mulai" placeholder="Masukkan jam mulai">
-                            @error('jam_mulai')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                        <div class="mb-5">
-                            <label for="" class="form-label">Waktu Selesai</label>
-                            <input type="text" class="form-control form-control-solid" name="jam_selesai" wire:model="jam_selesai" placeholder="Masukkan jam mulai">
-                            @error('jam_selesai')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                        <div class="d-flex flex-stack w-lg-50">
-                            <label class="form-check form-switch form-check-custom form-check-solid">
-                                <input class="form-check-input" name="diketahui_pelanggan" type="checkbox" value="1" wire:model="status" checked="checked"/>
-                                <span class="form-check-label fw-semibold text-muted">
-                                    Selesai
-                                </span>
-                            </label>
-                            @error('status')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
@@ -111,6 +74,11 @@
 
         $('select[name="id_user"]').on('change', function(){
             @this.set('id_user', $(this).val())
+        })
+
+        Livewire.on("finishSimpanData", (status, message) => {
+            $('.modal').modal('hide')
+            alertMessage(status, message)
         })
     </script>
 @endpush

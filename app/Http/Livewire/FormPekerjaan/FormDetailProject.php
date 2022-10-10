@@ -18,15 +18,11 @@ class FormDetailProject extends Component
     public $id_project;
     public $nama_pekerjaan;
     public $status;
-    public $id_user;
     public $keterangan;
-    public $jam_mulai;
-    public $jam_selesai;
     public $project;
     public $listPekerja;
     public function render()
     {
-        $this->listPekerja = User::get();
         $this->project = Project::find($this->id_project);
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.form-pekerjaan.form-detail-project');
@@ -44,33 +40,19 @@ class FormDetailProject extends Component
         $this->validate([
             'id_project' => 'required|numeric',
             'nama_pekerjaan' => 'required|string',
-            'id_user' => 'required|numeric',
             'keterangan' => 'nullable|string',
-            'jam_mulai' => 'nullable|string',
-            'jam_selesai' => 'nullable|string',
         ], [
             'id_project.required' => 'Project tidak valid !',
             'id_project.numeric' => 'Project tidak valid !',
             'nama_pekerjaan.required' => 'Nama pekerjaan tidak boleh kosong',
             'nama_pekerjaan.string' => 'Nama pekerjaan tidak valid !',
-            'id_user.required' => 'Pekerja Belum dipilih',
-            'id_user.numeric' => 'Pekerja tidak valid !',
             'keterangan.string' => 'Keterangan tidak valid !',
-            'jam_mulai.string' => 'Waktu mulai tidak valid !',
-            'jam_selesai.string' => 'Waktu selesai tidak valid !'
         ]);
 
         // Check Project
         $project = Project::find($this->id_project);
         if(!$project){
             $message = "Data project tidak ditemukan !";
-            return session()->flash('fail', $message);
-        }
-
-        // Check Pekerja
-        $user = User::find($this->id_user);
-        if(!$user){
-            $message = "Data pekerja tidak ditemukan !";
             return session()->flash('fail', $message);
         }
 
@@ -81,9 +63,6 @@ class FormDetailProject extends Component
             'nama_pekerjaan' => $this->nama_pekerjaan,
             'id_user' => $this->id_user,
             'keterangan' => $this->keterangan,
-            'jam_mulai' => $this->jam_mulai,
-            'jam_selesai' => $this->status ? $this->jam_selesai : null,
-            'status' => $this->status ? 1 : 0
         ]);
 
         $message = "Berhasil menyimpan data project detail";

@@ -6,16 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ProjectFoto extends Model
+class Kondisi extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $table = 'project_fotos';
+    protected $table = 'kondisi';
     protected $fillable = [
-        'file',
-        'id_project_detail',
+        'kode',
+        'keterangan'
     ];
-
-    public function projectDetail(){
-        return $this->belongsTo(ProjectDetail::class, 'id_project_detail');
-    }
 }

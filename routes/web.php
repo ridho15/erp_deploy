@@ -6,6 +6,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FormPekerjaanController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\KondisiController;
 use App\Http\Controllers\KostumerController;
 use App\Http\Controllers\MerkController;
 use App\Http\Controllers\PembayaranController;
@@ -24,6 +25,7 @@ Route::middleware('auth.super-admin')->group(function () {
     Route::prefix('form-pekerjaan')->group(function () {
         Route::get('/', [FormPekerjaanController::class, 'index'])->name('form-pekerjaan');
         Route::get('/detail/{id}', [FormPekerjaanController::class, 'detail'])->name('form-pekerjaan.detail');
+        Route::get('/pekerjaan-detail/{id}', [FormPekerjaanController::class, 'detailPekerjaan'])->name('form-pekerjaan.pekerjaan-detail');
     });
 
     Route::prefix('worker')->group(function () {
@@ -74,5 +76,9 @@ Route::middleware('auth.super-admin')->group(function () {
 
     Route::prefix('payment')->group(function () {
         Route::get('/', [PembayaranController::class, 'index'])->name('tipe_pembayaran');
+    });
+
+    Route::prefix('kondisi')->group(function(){
+        Route::get('/', [KondisiController::class, 'index'])->name('kondisi');
     });
 });

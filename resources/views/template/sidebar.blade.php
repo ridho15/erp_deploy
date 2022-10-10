@@ -155,6 +155,14 @@
                                     <span class="menu-title">Tipe User</span>
                                 </a>
                             </div>
+                            <div class="menu-item">
+                                <a class="menu-link @if(in_array('kondisi', $active)) active @endif" href="{{ route('kondisi') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Kondisi</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
