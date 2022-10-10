@@ -31,8 +31,7 @@ class SupplierOrder extends Model
 
     public function getStatusOrderFormattedAttribute(){
         $helper = new HelperController;
-        $statusOrder = $helper->getListStatusOrder()->where('status_order', $this->status_order)->first()['keterangan'];
-
+        $statusOrder = $helper->getListStatusOrder()->where('status_order', $this->status_order)->first();
         return $statusOrder;
     }
 

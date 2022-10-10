@@ -21,7 +21,7 @@
             Status Order
         </div>
         <div class="col-md">
-            : <span class="fw-bold">{{ $supplierOrder->status_order_formatted }}</span>
+            : <span class="fw-bold"><?= $supplierOrder->status_order_formatted['badge'] ?></span>
         </div>
     </div>
     <div class="row mb-7">
@@ -57,3 +57,15 @@
         </div>
     </div>
 </div>
+
+@push('js')
+    <script>
+        $(document).ready(function () {
+
+        });
+
+        Livewire.on('statusOrderFinish', (status, message) => {
+            alertMessage(status,message)
+        })
+    </script>
+@endpush

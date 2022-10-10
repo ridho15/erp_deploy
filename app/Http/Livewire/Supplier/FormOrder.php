@@ -41,7 +41,7 @@ class FormOrder extends Component
     public function render()
     {
         $this->listSupplier = Supplier::get();
-        $this->listStatusOrder = $this->helper->getListStatusOrder();
+        $this->listStatusOrder = $this->helper->getListStatusOrder()->where('status_order', '!=', 4);
         $this->listTipePembayaran = TipePembayaran::get();
         $this->dispatchBrowserEvent('contentChange');
 
@@ -157,4 +157,6 @@ class FormOrder extends Component
         $this->keterangan = $supplierOrder->keterangan;
         $this->id_tipe_pembayaran = $supplierOrder->id_tipe_pembayaran;
     }
+
+
 }

@@ -26,3 +26,17 @@ async function alertConfirm(title, message){
 
       return response
 }
+
+async function alertConfirmCustom(title, message, textYes){
+    const response = await Swal.fire({
+        title: title,
+        text: message,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: textYes
+      });
+
+      return response
+}
