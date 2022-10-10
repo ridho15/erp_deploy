@@ -61,8 +61,9 @@ class FormDetailProject extends Component
         ], [
             'id_project' => $this->id_project,
             'nama_pekerjaan' => $this->nama_pekerjaan,
-            'id_user' => $this->id_user,
             'keterangan' => $this->keterangan,
+            'jam_mulai' => now(),
+            'status' => 0
         ]);
 
         $message = "Berhasil menyimpan data project detail";

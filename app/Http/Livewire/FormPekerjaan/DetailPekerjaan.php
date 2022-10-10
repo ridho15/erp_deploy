@@ -8,6 +8,7 @@ use Livewire\Component;
 
 class DetailPekerjaan extends Component
 {
+    public $listeners = ['finishProjectDetail'];
     public $id_project_detail;
     public $projectDetail;
     public $listPekerja;
@@ -20,5 +21,21 @@ class DetailPekerjaan extends Component
 
     public function mount($id_project_detail){
         $this->id_project_detail = $id_project_detail;
+    }
+
+    public function finishProjectDetail($id){
+        $projectDetail = ProjectDetail::find($id);
+        if(!$projectDetail){
+            $message = "Data tidak ditemukan !";
+            return session()->flash('fail', $message);
+        }
+
+        $projectDetail->update([
+            'status' => 1,
+            'jam_selesai' => now()
+        ]);
+
+        $message = "Berhasil mensubmit pekerjaan";
+        return session()->flash('success', $message);
     }
 }

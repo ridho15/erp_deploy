@@ -10,10 +10,11 @@ use Livewire\WithFileUploads;
 class ProjectDetailSubFoto extends Component
 {
     use WithFileUploads;
-    public $listeners = ['setProjectDetailSubFoto', 'hapusFoto'];
+    public $listeners = ['simpanFoto', 'hapusFoto', 'changeShowForm', 'setDetailFoto'];
     public $id_project_detail_sub;
     public $foto;
     public $file;
+    public $showForm = false;
     public $listFoto = [];
     public function render()
     {
@@ -24,7 +25,7 @@ class ProjectDetailSubFoto extends Component
     public function mount(){
     }
 
-    public function setProjectDetailSubFoto($id){
+    public function setDetailFoto($id){
         $projectDetailSub = ProjectDetailSub::find($id);
         if(!$projectDetailSub){
             $message = "Data tidak ditemukan !";
@@ -35,7 +36,7 @@ class ProjectDetailSubFoto extends Component
     }
 
     public function hapusFoto($id){
-        $projectDetailSubFoto = ProjectDetailSubFoto::find($id);
+        $projectDetailSubFoto = ModelsProjectDetailSubFoto::find($id);
         if(!$projectDetailSubFoto){
             $message = "Data Foto tidak ditemukan !";
             return session()->flash('fail', $message);
@@ -43,6 +44,39 @@ class ProjectDetailSubFoto extends Component
 
         $projectDetailSubFoto->delete();
         $message = "Berhasil menghapus foto";
-        return session()->flash('fail', $message);
+        return session()->flash('success', $message);
+    }
+
+    public function changeShowForm(){
+        $this->showForm = !$this->showForm;
+    }
+
+    public function simpanFoto(){
+        $this->validate([
+            'file.*' => 'required|image|mimes:jpg,png,jpeg|max:10240'
+        ], [
+            'file.*.required' => 'File tidak boleh kosong',
+            'file.*.image' => 'File tidak valid !',
+            'file.*.max' => 'File terlalu besar'
+        ]);
+
+        if($this->file){
+            foreach ($this->file as $index => $item) {
+                $path = $item->store('public/asset/foto_pekerjaan');
+                $path = str_replace('public', '', $path);
+                ModelsProjectDetailSubFoto::create([
+                    'id_project_detail_sub' => $this->id_project_detail_sub,
+                    'file' => $path
+                ]);
+            }
+        }
+
+        $message = "Berhasil menyimpan gambar";
+        $this->resetInputFields();
+        return session()->flash('success', $message);
+    }
+
+    public function resetInputFields(){
+        $this->file = null;
     }
 }
