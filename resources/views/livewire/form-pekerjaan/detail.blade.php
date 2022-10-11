@@ -49,7 +49,7 @@
     </div>
     <div class="row mb-5">
         <div class="col-md-4">
-            Total Harga
+            Status
         </div>
         <div class="col-md">
             : <?= $project->status_formatted ?>

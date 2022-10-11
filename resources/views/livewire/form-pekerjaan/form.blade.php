@@ -51,7 +51,7 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="col-md">
                                 <div class="d-flex flex-stack w-lg-50">
                                     <label class="form-check form-switch form-check-custom form-check-solid">
@@ -78,7 +78,7 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <div class="modal-footer">

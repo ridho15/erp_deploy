@@ -2,9 +2,11 @@
     <div class="card-header">
         <h3 class="card-title">Uraian Pekerjaan</h3>
         <div class="card-toolbar">
-            <button class="btn btn-sm btn-outline btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Uraian Pekerjaan" wire:click="$emit('onClickTambahUraianPekerjaan', {{ $projectDetail->id }})">
-                <i class="bi bi-plus-circle"></i> Tambah
-            </button>
+            @if ($projectDetail->status == 0)
+                <button class="btn btn-sm btn-outline btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Uraian Pekerjaan" wire:click="$emit('onClickTambahUraianPekerjaan', {{ $projectDetail->id }})">
+                    <i class="bi bi-plus-circle"></i> Tambah
+                </button>
+            @endif
         </div>
     </div>
     <div class="card-body">
@@ -58,10 +60,10 @@
                             <td>{{ $item->keterangan }}</td>
                             <td>
                                 <div class="btn-group">
-                                    <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Pekerjaan" wire:click="$emit('onClickEdit', {{ $item->id }})">
+                                    <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Pekerjaan" wire:click="$emit('onClickEdit', {{ $item->id }})" @if($projectDetail->status == 1) disabled @endif>
                                         <i class="bi bi-pencil-square"></i>
                                     </button>
-                                    <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Pekerjaan" wire:click="$emit('onClickHapus', {{ $item->id }})">
+                                    <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Pekerjaan" wire:click="$emit('onClickHapus', {{ $item->id }})" @if($projectDetail->status == 1) disabled @endif>
                                         <i class="bi bi-trash-fill"></i>
                                     </button>
                                     <button class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Lihat Foto" wire:click="$emit('onClickDetailFoto', {{ $item->id }})">
