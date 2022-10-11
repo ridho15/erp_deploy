@@ -3,6 +3,7 @@
         <div class="hover-scroll-overlay-y my-5 me-n4 pe-4" id="kt_aside_menu_wrapper" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_aside_footer" data-kt-scroll-wrappers="#kt_aside, #kt_aside_menu" data-kt-scroll-offset="2px">
             <div class="menu menu-column menu-sub-indention menu-active-bg menu-state-primary menu-title-gray-700 fs-6 menu-rounded w-100 fw-semibold" id="#kt_aside_menu" data-kt-menu="true">
                 <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion">
+                    @if (session()->get('id_tipe_user') == 1)
                     <div class="menu-item">
                         <a class="menu-link @if(in_array('dashboard', $active)) active @endif" href="{{ route('dashboard') }}">
                             <span class="menu-icon">
@@ -18,6 +19,7 @@
                             <span class="menu-title">Dashboard</span>
                         </a>
                     </div>
+                    @endif
                     <div class="menu-item">
                         <a class="menu-link @if(in_array('form-pekerjaan', $active)) active @endif" href="{{ route('form-pekerjaan') }}">
                             <span class="menu-icon">
@@ -34,7 +36,7 @@
                             <span class="menu-title">Form Pekerjaan</span>
                         </a>
                     </div>
-
+                    @if (session()->get('id_tipe_user') == 1)
                     <div class="menu-item">
                         <a class="menu-link @if(in_array('supplier-order', $active))  active @endif" href="{{ route('supplier.order') }}">
                             <span class="menu-icon">
@@ -50,6 +52,8 @@
                             <span class="menu-title">Supplier Order</span>
                         </a>
                     </div>
+                    @endif
+                    @if (session()->get('id_tipe_user') == 1)
                     <div class="menu-item">
                         <a class="menu-link @if(in_array('quotation', $active))  active @endif" href="{{ route('quotation') }}">
                             <span class="menu-icon">
@@ -195,6 +199,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>
