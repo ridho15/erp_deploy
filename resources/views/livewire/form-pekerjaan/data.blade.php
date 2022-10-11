@@ -48,7 +48,7 @@
                                 <td>{{ $item->keterangan_project ?? '-' }}</td>
                                 <td>{{ $item->diketahui_pelanggan_formatted ?? '-' }}</td>
                                 <td>{{ $item->total_barang }}</td>
-                                <td>{{ $item->total_harga }}</td>
+                                <td>{{ $item->total_harga_formatted }}</td>
                                 <td><?= $item->status_formatted ?></td>
                                 <td>
                                     <div class="btn-group">

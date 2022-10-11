@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\ProjectDetail;
 use Illuminate\Http\Request;
 
 class FormPekerjaanController extends Controller
@@ -28,4 +29,19 @@ class FormPekerjaanController extends Controller
 
         return view('form-pekerjaan.detail', $data);
     }
+
+    public function detailPekerjaan($id){
+        $data['title'] = "Pekerjaan Detail";
+        $data['active'] = ['form-pekerjaan', 'Detail Pekerjaan'];
+        $data['breadCrumb'] = ['Form Pekerjaan', 'Detail Pekerjaan'];
+
+        $projectDetail = ProjectDetail::find($id);
+        if(!$projectDetail){
+            return redirect()->back()->with('fail', "Pekerjaan tidak ditemukan !");
+        }
+
+        $data['projectDetail'] = $projectDetail;
+        return view('form-pekerjaan.detail-pekerjaan', $data);
+    }
 }
+

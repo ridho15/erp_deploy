@@ -21,6 +21,7 @@ class Form extends Component
     public $keterangan_project;
     public $diketahui_pelanggan;
     public $status;
+    public $nomor_lift;
 
     public $listCustomer;
     public function render()
@@ -40,12 +41,14 @@ class Form extends Component
             'id_customer' => 'nullable|numeric',
             'alamat_project' => 'nullable|string',
             'keterangan_project' => 'nullable|string',
+            'nomor_lift' => 'nullable|string'
         ], [
             'nama_project.required' => 'Nama project tidak boleh kosong',
             'nama_project.string' => 'Nama project tidak valid !',
             'id_customer.numeric' => 'Customer tidak valid !',
             'alamat_project.string' => 'Alamat project tidak valid !',
             'keterangan_project.string' => 'Keterangan project tidak valid !',
+            'nomor_lift.string' => 'Nomor lift tidak valid !'
         ]);
 
         // Check Customer
@@ -64,7 +67,8 @@ class Form extends Component
             'alamat_project' => $this->alamat_project,
             'keterangan_project' => $this->keterangan_project,
             'diketahui_pelanggan' => $this->diketahui_pelanggan ? 1 : 0,
-            'status' => $this->status ? 1 : 0
+            'status' => $this->status ? 1 : 0,
+            'nomor_lift' => $this->nomor_lift
         ]);
 
         if($this->status == 1){

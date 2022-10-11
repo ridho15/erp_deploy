@@ -12,10 +12,10 @@ class ProjectFoto extends Model
     protected $table = 'project_fotos';
     protected $fillable = [
         'file',
-        'id_project',
+        'id_project_detail',
     ];
 
-    public function project(){
-        return $this->belongsTo(Project::class, 'id_project');
+    public function projectDetail(){
+        return $this->belongsTo(ProjectDetail::class, 'id_project_detail');
     }
 }

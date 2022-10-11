@@ -4,11 +4,14 @@ use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\AutentikasiController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FormMasterController;
 use App\Http\Controllers\FormPekerjaanController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\KondisiController;
 use App\Http\Controllers\KostumerController;
 use App\Http\Controllers\MerkController;
 use App\Http\Controllers\PembayaranController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\WorkerController;
@@ -26,6 +29,16 @@ Route::middleware('auth.user')->group(function () {
     Route::prefix('form-pekerjaan')->group(function () {
         Route::get('/', [FormPekerjaanController::class, 'index'])->name('form-pekerjaan');
         Route::get('/detail/{id}', [FormPekerjaanController::class, 'detail'])->name('form-pekerjaan.detail');
+        Route::get('/pekerjaan-detail/{id}', [FormPekerjaanController::class, 'detailPekerjaan'])->name('form-pekerjaan.pekerjaan-detail');
+    });
+
+    Route::prefix('project')->group(function(){
+        Route::get('/', [ProjectController::class, 'index'])->name('project');
+    });
+
+    Route::prefix('form')->group(function(){
+        Route::get('/', [FormMasterController::class, 'index'])->name('form');
+        Route::get('/detail/{id}', [FormMasterController::class, 'detail'])->name('form.detail');
     });
 
     Route::middleware('auth.super-admin')->group(function () {
@@ -80,5 +93,9 @@ Route::middleware('auth.user')->group(function () {
         Route::prefix('payment')->group(function () {
             Route::get('/', [PembayaranController::class, 'index'])->name('tipe_pembayaran');
         });
+    });
+
+    Route::prefix('kondisi')->group(function(){
+        Route::get('/', [KondisiController::class, 'index'])->name('kondisi');
     });
 });

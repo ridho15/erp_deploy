@@ -21,12 +21,10 @@ class ListDetail extends Component
     public function render()
     {
         $this->listProjectDetail = ProjectDetail::where(function($query){
-            $query->where('nama_pekerjaan', 'LIKE', '%' . $this->total_show . '%')
-            ->orWhere('keterangan', 'LIKE', '%' . $this->cari . '%')
-            ->orWhereHas('user', function($query){
-                $query->where('name', 'LIKE', '%' . $this->cari . '%');
-            });
-        })->paginate($this->total_show);
+            $query->where('nama_pekerjaan', 'LIKE', '%' . $this->cari . '%')
+            ->orWhere('keterangan', 'LIKE', '%' . $this->cari . '%');
+        })
+        ->where('id_project', $this->id_project)->paginate($this->total_show);
         $data['listProjectDetail'] = $this->listProjectDetail;
         return view('livewire.form-pekerjaan.list-detail', $data);
     }

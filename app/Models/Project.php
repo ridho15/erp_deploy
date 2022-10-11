@@ -18,6 +18,7 @@ class Project extends Model
         'diketahui_pelanggan',
         'total_barang',
         'total_harga',
+        'nomor_lift',
         'status'
     ];
 

@@ -90,6 +90,22 @@
                         </span>
                         <div class="menu-sub menu-sub-accordion">
                             <div class="menu-item">
+                                <a class="menu-link @if(in_array('project', $active)) active @endif" href="{{ route('project') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Project</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link @if(in_array('form', $active)) active @endif" href="{{ route('form') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Form</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
                                 <a class="menu-link @if(in_array('worker', $active)) active @endif" href="{{ route('worker') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
@@ -159,6 +175,14 @@
                                         <span class="bullet bullet-dot"></span>
                                     </span>
                                     <span class="menu-title">Tipe User</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link @if(in_array('kondisi', $active)) active @endif" href="{{ route('kondisi') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Kondisi</span>
                                 </a>
                             </div>
                         </div>

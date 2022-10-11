@@ -17,7 +17,6 @@
             <hr>
             @livewire('form-pekerjaan.list-detail', ['id_project' => $project->id])
             <hr>
-            @livewire('form-pekerjaan.foto', ['id_project' => $project->id])
         </div>
     </div>
 

@@ -15,7 +15,6 @@ class ProjectDetail extends Model
         'id_project',
         'nama_pekerjaan',
         'status',
-        'id_user',
         'keterangan',
         'jam_mulai',
         'jam_selesai'
@@ -51,10 +50,6 @@ class ProjectDetail extends Model
 
     public function project(){
         return $this->belongsTo(Project::class, 'id_project');
-    }
-
-    public function user(){
-        return $this->belongsTo(User::class, 'id_user');
     }
 
     public function projectDetailBarang(){
