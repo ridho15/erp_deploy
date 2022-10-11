@@ -11,35 +11,39 @@ use Illuminate\Support\Facades\Validator;
 class AutentikasiController extends Controller
 {
     public $crypt;
-    function __construct()
+
+    public function __construct()
     {
-        $this->crypt = new CryptController;
+        $this->crypt = new CryptController();
     }
-    public function login(){
+
+    public function login()
+    {
         return view('autentikasi.login');
     }
 
-    public function postLogin(Request $request){
+    public function postLogin(Request $request)
+    {
         $data = $request->only('username', 'password');
         $validate = Validator::make($data, [
             'username' => 'required|string',
-            'password' => 'required|string'
+            'password' => 'required|string',
         ], [
             'username.required' => 'Username tidak boleh kosong',
             'username.string' => 'Username tidak valid !',
             'password.required' => 'Password tidak boleh kosong',
-            'password.string' => 'Password tidak valid !'
+            'password.string' => 'Password tidak valid !',
         ]);
 
-        if($validate->fails()){
+        if ($validate->fails()) {
             return redirect()->back()->with('fail', $validate->errors()->all()[0]);
         }
 
         $user = User::where('username', $data['username'])->first();
-        if(!$user){
-            return redirect()->back()->with('fail', 'User dengan username ' . $data['username'] . ' tidak ditemukan silahkan hubungi administrator');
-        }else{
-            if(!Hash::check($data['password'], $user->password)){
+        if (!$user) {
+            return redirect()->back()->with('fail', 'User dengan username '.$data['username'].' tidak ditemukan silahkan hubungi administrator');
+        } else {
+            if (!Hash::check($data['password'], $user->password)) {
                 return redirect()->back()->with('fail', 'Password salah. silahkan ulangi !');
             }
 
@@ -48,23 +52,33 @@ class AutentikasiController extends Controller
                 'id_user' => $user->id,
                 'devices' => $_SERVER['HTTP_USER_AGENT'],
                 'token' => $token,
-                'is_active' => 1
+                'is_active' => 1,
             ]);
+
+            if ($user->id_tipe_user == 4) {
+                $request->session()->put('id_user', $loginLogs->id_user);
+                $request->session()->put('token', $loginLogs->token);
+                $request->session()->put('id_tipe_user', $user->id_tipe_user);
+
+                return redirect()->route('pekerja.dashboard');
+            }
 
             $request->session()->put('id_user', $loginLogs->id_user);
             $request->session()->put('token', $loginLogs->token);
+            $request->session()->put('id_tipe_user', $user->id_tipe_user);
 
             return redirect()->route('dashboard')->with('success', 'Login Berhasil');
         }
     }
 
-    public function logout(){
+    public function logout()
+    {
         $loginLogs = LoginLogs::where('id_user', session()->get('id_user'))
         ->where('token', session()->get('token'))
         ->first();
-        if($loginLogs){
+        if ($loginLogs) {
             $loginLogs->update([
-                'is_active' => 0
+                'is_active' => 0,
             ]);
         }
 

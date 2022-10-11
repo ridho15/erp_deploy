@@ -18,6 +18,10 @@ Route::get('/login', [AutentikasiController::class, 'login'])->name('login');
 Route::post('/login', [AutentikasiController::class, 'postLogin'])->name('post.login');
 Route::get('/logout', [AutentikasiController::class, 'logout'])->name('logout');
 
+Route::middleware('auth.pekerja')->prefix('pekerja')->group(function () {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('pekerja.dashboard');
+});
+
 Route::middleware('auth.super-admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 

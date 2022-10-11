@@ -63,6 +63,7 @@
                             <span class="menu-title">Quotation</span>
                         </a>
                     </div>
+                    @if (session()->get('id_tipe_user') == 1)
                     <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if(in_array('data-master', $active)) show @endif">
                         <span class="menu-link @if(in_array('data-master', $active)) active @endif">
                             <span class="menu-icon">
@@ -157,6 +158,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>
