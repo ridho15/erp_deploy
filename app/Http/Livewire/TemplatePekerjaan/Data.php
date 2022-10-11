@@ -10,7 +10,7 @@ class Data extends Component
 {
     use WithPagination;
     public $paginationTheme = 'bootstrap';
-    public $listeners = [];
+    public $listeners = ['hapusTemplatePekerjaan', 'refreshTemplatePekerjaan' => '$refresh'];
     public $total_show = 10;
     public $cari;
     protected $listTemplatePekerjaan;
@@ -27,5 +27,18 @@ class Data extends Component
 
     public function mount($id_form_master = null){
         $this->id_form_master = $id_form_master;
+    }
+
+    public function hapusTemplatePekerjaan($id){
+        $templatePekerjaan = TemplatePekerjaan::find($id);
+        if(!$templatePekerjaan){
+            $message = "Data tidak ditemukan !";
+            return session()->flash('fail', $message);
+        }
+
+        $templatePekerjaan->delete();
+        $message = "Data berhasil dihapus";
+        $this->emit('finishRefreshData', 1, $message);
+        return session()->flash('success', $message);
     }
 }

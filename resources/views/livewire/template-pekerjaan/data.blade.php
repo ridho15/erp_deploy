@@ -8,6 +8,7 @@
         </div>
     </div>
     <div class="card-body">
+        @include('helper.alert-message')
         <div class="text-center">
             @include('helper.simple-loading', ['target' => 'cari,hapusTemplatePekerjaan', 'message' => 'Memuat data...'])
         </div>
@@ -37,7 +38,7 @@
                         <tr class="fw-bold">
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $item->nama_pekerjaan }}</td>
-                            <td>{{ $item->keterangan }}</td>
+                            <td>{{ $item->keterangan ?? '-' }}</td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -45,8 +46,14 @@
                             <td></td>
                             <td>
                                 <div class="btn-group">
-                                    <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Template Pekerjaan" wire:click="'$emit('onClickTemplatePekerjaan', {{ $item->id }})'">
+                                    <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Template Pekerjaan" wire:click="$emit('onClickEditTemplatePekerjaan', {{ $item->id }})">
                                         <i class="bi bi-pencil-square"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Template Pekerjaan" wire:click="$emit('onClickHapusTemplatePekerjaan', {{ $item->id }})">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Uraian Pekerjaan" wire:click="$emit('onClickTambahUraianPekerjaan', {{ $item->id }})">
+                                        <i class="bi bi-plus-circle"></i>
                                     </button>
                                 </div>
                             </td>
@@ -54,17 +61,20 @@
                         @foreach ($item->detail as $nomor => $detail)
                             <tr>
                                 <td>{{ $nomor + 1 }}</td>
-                                <td>{{ $detail->nama_pekerjaan }}</td>
-                                <td>{{ $detail->checklist_1_bulan }}</td>
-                                <td>{{ $detail->checklist_2_bulan }}</td>
-                                <td>{{ $detail->checklist_3_bulan }}</td>
-                                <td>{{ $detail->checklist_6_bulan }}</td>
-                                <td>{{ $detail->checklist_1_tahun }}</td>
                                 <td>{{ $detail->keterangan }}</td>
+                                <td>{{ $detail->nama_pekerjaan }}</td>
+                                <td><?= $detail->checklist_1_bulan == 1 ? '<i class="bi bi-check-circle-fill text-success fs-1"></i>' : '<i class="bi bi-x-circle-fill text-danger fs-1"></i>' ?></td>
+                                <td><?= $detail->checklist_2_bulan == 1 ? '<i class="bi bi-check-circle-fill text-success fs-1"></i>' : '<i class="bi bi-x-circle-fill text-danger fs-1"></i>' ?></td>
+                                <td><?= $detail->checklist_3_bulan == 1 ? '<i class="bi bi-check-circle-fill text-success fs-1"></i>' : '<i class="bi bi-x-circle-fill text-danger fs-1"></i>' ?></td>
+                                <td><?= $detail->checklist_6_bulan == 1 ? '<i class="bi bi-check-circle-fill text-success fs-1"></i>' : '<i class="bi bi-x-circle-fill text-danger fs-1"></i>' ?></td>
+                                <td><?= $detail->checklist_1_tahun == 1 ? '<i class="bi bi-check-circle-fill text-success fs-1"></i>' : '<i class="bi bi-x-circle-fill text-danger fs-1"></i>' ?></td>
                                 <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Template Pekerjaan">
+                                        <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Detail Pekerjaan" wire:click="$emit('onClickEditDetailPekerjaan', {{ $detail->id }})">
                                             <i class="bi bi-pencil-square"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Detail Pekerjaan" wire:click="$emit('onClickHapusDetailPekerjaan', {{ $detail->id }})">
+                                            <i class="bi bi-trash-fill"></i>
                                         </button>
                                     </div>
                                 </td>
@@ -83,6 +93,7 @@
     </div>
 
     @livewire('template-pekerjaan.form')
+    @livewire('template-pekerjaan.form-detail')
 </div>
 
 @push('js')
@@ -96,8 +107,33 @@
             $('#modal_form.template-pekerjaan').modal('show')
         })
 
-        Livewire.on('onClickEditTemplatePekerjaan', () => {
-            // Livewire.emit('')
+        Livewire.on('onClickEditTemplatePekerjaan', (id) => {
+            Livewire.emit('setDataTemplatePekerjaan', id)
+            $('#modal_form.template-pekerjaan').modal('show')
+        })
+
+        Livewire.on('onClickHapusTemplatePekerjaan', async(id) => {
+            const response = await alertConfirm('Peringatan !', 'Apakah kamu yakin ingin menghapus data ?')
+            if(response.isConfirmed == true){
+                Livewire.emit('hapusTemplatePekerjaan', id)
+            }
+        })
+
+        Livewire.on('onClickEditDetailPekerjaan', (id) => {
+            Livewire.emit('setDetailPekerjaan', id)
+            $('#modal_form_detail_pekerjaan').modal('show')
+        })
+
+        Livewire.on('onClickHapusDetailPekerjaan', async (id) => {
+            const response = await alertConfirm('Peringatan !', 'Apakah kamu yakin ingin menghapus data?')
+            if(response.isConfirmed == true){
+                Livewire.emit('hapusDetailPekerjaan', id)
+            }
+        })
+
+        Livewire.on('onClickTambahUraianPekerjaan', (id) => {
+            Livewire.emit('setIdTemplatePekerjaan', id)
+            $('#modal_form_detail_pekerjaan').modal('show')
         })
     </script>
 @endpush

@@ -8,7 +8,11 @@ use Livewire\Component;
 
 class Form extends Component
 {
-    public $listeners = ['setIdFormMaster', 'simpanTemplatePekerjaan'];
+    public $listeners = [
+        'setIdFormMaster',
+        'simpanTemplatePekerjaan',
+        'setDataTemplatePekerjaan'
+    ];
     public $listFormMaster = [];
     public $id_template_pekerjaan;
     public $id_form_master;
@@ -68,5 +72,18 @@ class Form extends Component
         $this->nama_pekerjaan = null;
         $this->keterangan = null;
         $this->id_form_master = null;
+    }
+
+    public function setDataTemplatePekerjaan($id){
+        $templatePekerjaan = TemplatePekerjaan::find($id);
+        if(!$templatePekerjaan){
+            $message = "Data tidak ditemukan !";
+            return session()->flash('fail', $message);
+        }
+
+        $this->id_template_pekerjaan = $templatePekerjaan->id;
+        $this->nama_pekerjaan = $templatePekerjaan->nama_pekerjaan;
+        $this->keterangan = $templatePekerjaan->keterangan;
+        $this->id_form_master = $templatePekerjaan->id_form_master;
     }
 }

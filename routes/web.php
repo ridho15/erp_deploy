@@ -9,6 +9,7 @@ use App\Http\Controllers\FormPekerjaanController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KondisiController;
 use App\Http\Controllers\KostumerController;
+use App\Http\Controllers\ManagementTugasController;
 use App\Http\Controllers\MerkController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\ProjectController;
@@ -28,6 +29,10 @@ Route::middleware('auth.super-admin')->group(function () {
         Route::get('/', [FormPekerjaanController::class, 'index'])->name('form-pekerjaan');
         Route::get('/detail/{id}', [FormPekerjaanController::class, 'detail'])->name('form-pekerjaan.detail');
         Route::get('/pekerjaan-detail/{id}', [FormPekerjaanController::class, 'detailPekerjaan'])->name('form-pekerjaan.pekerjaan-detail');
+    });
+
+    Route::prefix('management-tugas')->group(function(){
+        Route::get('/', [ManagementTugasController::class, 'index'])->name('management-tugas');
     });
 
     Route::prefix('project')->group(function(){
