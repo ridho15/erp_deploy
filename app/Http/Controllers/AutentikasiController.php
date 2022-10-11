@@ -60,7 +60,7 @@ class AutentikasiController extends Controller
                 $request->session()->put('token', $loginLogs->token);
                 $request->session()->put('id_tipe_user', $user->id_tipe_user);
 
-                return redirect()->route('pekerja.dashboard');
+                return redirect()->route('form-pekerjaan');
             }
 
             $request->session()->put('id_user', $loginLogs->id_user);

@@ -6,7 +6,7 @@ use App\Models\LoginLogs;
 use Closure;
 use Illuminate\Http\Request;
 
-class AutentikasiPekerja
+class AutentikasiUser
 {
     /**
      * Handle an incoming request.
@@ -21,16 +21,10 @@ class AutentikasiPekerja
         ->where('token', $request->session()->get('token'))
         ->where('is_active', 1)
         ->first();
-
         if ($loginLogs) {
-            $superUser = $loginLogs->user->tipeUser->nama_tipe == 'Worker';
-            if ($superUser) {
-                return $next($request);
-            } else {
-                return redirect()->back()->with('fail', 'Akses tidak diizinkan');
-            }
+            return $next($request);
         } else {
-            return redirect()->back()->with('fail', 'Akses tidak diizinkan');
+            return redirect()->back()->with('fail', 'Sesi anda berakhir');
         }
     }
 }
