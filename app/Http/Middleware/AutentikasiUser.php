@@ -24,7 +24,8 @@ class AutentikasiUser
         if ($loginLogs) {
             return $next($request);
         } else {
-            return redirect()->back()->with('fail', 'Sesi anda berakhir');
+            return redirect()->route('login')->with('fail', 'Sesi anda berakhir');
+            // return redirect()->back()->with('fail', 'Sesi anda berakhir');
         }
     }
 }
