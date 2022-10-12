@@ -2,16 +2,13 @@
     <div class="card shadow-sm">
         <div class="card-header">
             <h3 class="card-title">
-                Data Laporan Pekerjaan
+                Daftar Tugas
             </h3>
-            <div class="card-toolbar">
-                <button class="btn btn-sm btn-outline btn-outline-primary" wire:click="$emit('onClickTambah')"><i class="bi bi-plus-circle"></i> Tambah</button>
-            </div>
         </div>
         <div class="card-body">
             @include('helper.alert-message')
             <div class="text-center">
-                @include('helper.simple-loading', ['target' => 'cari,hapusManagementTugas', 'message' => 'Memuat data...'])
+                @include('helper.simple-loading', ['target' => 'cari', 'message' => 'Memuat data...'])
             </div>
             <div class="row mb-5">
                 <div class="col-md-3">
@@ -51,18 +48,20 @@
                                 <td>{{ $item->jam_mulai_formatted ?? '-' }}</td>
                                 <td>{{ $item->jam_selesai_formatted ?? '-' }}</td>
                                 <td>{{ $item->keterangan ?? '-' }}</td>
-                                <td>{{ $item->signature ?? '-' }}</td>
+                                <td>
+                                    @if ($item->signature)
+                                        <img src="{{ asset('storage/' . $item->signature) }}" class="img-fluid" alt="">
+                                    @else
+                                        <div class="text-center text-gray-500">
+                                            Belum ditanda tangan
+                                        </div>
+                                    @endif
+                                </td>
                                 <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Management Tugas" wire:click="$emit('onClickEdit', {{ $item->id }})">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Management Tugas" wire:click="$emit('onClickHapus', {{ $item->id }})">
-                                            <i class="bi bi-trash-fill"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Lihat Barang Kategori" wire:click="$emit('onClickLihatBarang', {{ $item->id }})">
+                                        <a href="{{ route('daftar-tugas.kelola', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Kelola Tugas">
                                             <i class="bi bi-eye-fill"></i>
-                                        </button>
+                                        </a>
                                     </div>
                                 </td>
                             </tr>

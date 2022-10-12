@@ -33,13 +33,6 @@
                             @enderror
                         </div>
                         <div class="mb-5">
-                            <label for="" class="form-label required">Stock</label>
-                            <input type="number" class="form-control form-control-solid" name="stock" wire:model="stock" placeholder="Masukkan stok" disabled required>
-                            @error('stock')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                        <div class="mb-5">
                             <label for="" class="form-label required">Minimal Stock</label>
                             <input type="number" class="form-control form-control-solid" name="min_stock" wire:model="min_stock" placeholder="Masukkan stok" required>
                             @error('min_stock')
@@ -47,14 +40,14 @@
                             @enderror
                         </div>
                         <div class="mb-5">
-                            <label for="" class="form-label">Tipe Barang</label>
-                            <select name="tipe_barang" class="form-select form-select-solid" wire:model='tipe_barang' data-dropdown-parent="#modal_form" data-placeholder="Pilih" data-control="select2">
+                            <label for="" class="form-label requried">Tipe Barang</label>
+                            <select name="id_tipe_barang" class="form-select form-select-solid" wire:model='id_tipe_barang' data-dropdown-parent="#modal_form" data-placeholder="Pilih" data-control="select2">
                                 <option value="">Pilih</option>
                                 @foreach ($listTipeBarang as $item)
-                                    <option value="{{ $item['tipe_barang'] }}">{{ $item['keterangan'] }}</option>
+                                    <option value="{{ $item->id }}">{{ $item->tipe_barang }}</option>
                                 @endforeach
                             </select>
-                            @error('tipe_barang')
+                            @error('id_tipe_barang')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
@@ -101,12 +94,12 @@
         });
 
         window.addEventListener('contentChange', function(){
-            $('select[name="tipe_barang"]').select2();
+            $('select[name="id_tipe_barang"]').select2();
             $('select[name="id_merk"]').select2();
             $('select[name="id_satuan"]').select2();
         })
 
-        $('select[name="tipe_barang"]').on('change', function(){
+        $('select[name="id_tipe_barang"]').on('change', function(){
             Livewire.emit('changeTipeBarang', $(this).val())
         })
 
