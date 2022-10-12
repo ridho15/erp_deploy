@@ -3,6 +3,7 @@
 use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\AutentikasiController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\DaftarTugasController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FormMasterController;
 use App\Http\Controllers\FormPekerjaanController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\TipeBarangController;
 use App\Http\Controllers\WorkerController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +37,11 @@ Route::middleware('auth.user')->group(function () {
 
     Route::prefix('management-tugas')->group(function(){
         Route::get('/', [ManagementTugasController::class, 'index'])->name('management-tugas');
+    });
+
+    Route::prefix('daftar-tugas')->group(function(){
+        Route::get('/', [DaftarTugasController::class, 'index'])->name('daftar-tugas');
+        Route::get('/kelola/{id}', [DaftarTugasController::class, 'kelola'])->name('daftar-tugas.kelola');
     });
 
     Route::prefix('project')->group(function(){
@@ -85,6 +92,10 @@ Route::middleware('auth.user')->group(function () {
         Route::prefix('merk')->group(function () {
             Route::get('/', [MerkController::class, 'index'])->name('merk');
             Route::get('/detail/{id}', [MerkController::class, 'detail'])->name('merk.detail');
+        });
+
+        Route::prefix('tipe-barang')->group(function () {
+            Route::get('/', [TipeBarangController::class, 'index'])->name('tipe-barang');
         });
 
         Route::prefix('tipe-user')->group(function () {

@@ -13,23 +13,18 @@ class Barang extends Model
     protected $table = 'barangs';
     protected $fillable = [
         'nama',
-        'tipe_barang',
         'stock',
         'min_stock',
         'harga',
         'id_merk',
-        'id_satuan'
+        'id_satuan',
+        'id_tipe_barang'
     ];
 
     protected $appends = ['harga_formatted'];
 
     public function getHargaFormattedAttribute(){
         return 'Rp '.number_format($this->harga, 0, ',', '.');
-    }
-
-    public function tipeBarang(){
-        $helper = new HelperController;
-        return $helper->getListTipeBarang()->where('tipe_barang', $this->tipe_barang)->first()['keterangan'];
     }
 
     public function merk(){
@@ -54,5 +49,9 @@ class Barang extends Model
 
     public function barangStockLog(){
         return $this->hasMany(BarangStockLog::class, 'id_barang');
+    }
+
+    public function tipeBarang(){
+        return $this->belongsTo(TipeBarang::class, 'id_tipe_barang');
     }
 }

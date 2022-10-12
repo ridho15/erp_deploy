@@ -13,7 +13,7 @@
             Tipe Barang
         </div>
         <div class="col-md">
-            : <span class="fw-bold">{{ $barang->tipeBarang() }}</span>
+            : <span class="fw-bold">{{ $barang->tipeBarang->tipe_barang }}</span>
         </div>
     </div>
     <div class="row mb-7">

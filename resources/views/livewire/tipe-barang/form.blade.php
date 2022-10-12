@@ -3,7 +3,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">Form Kategori</h3>
+                    <h3 class="modal-title">Form Tipe Barang</h3>
 
                     <!--begin::Close-->
                     <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
@@ -14,16 +14,16 @@
                     <!--end::Close-->
                 </div>
 
-                <form action="#" wire:submit.prevent="simpanDataKategori">
+                <form action="#" wire:submit.prevent="simpanTipeBarang">
                     <div class="modal-body">
                         @include('helper.alert-message')
                         <div class="text-center">
-                            @include('helper.simple-loading', ['target' => 'simpanDataKategori', 'message' => 'Menyimpan data ...'])
+                            @include('helper.simple-loading', ['target' => 'simpanTipeBarang', 'message' => 'Menyimpan data ...'])
                         </div>
                         <div class="mb-5">
-                            <label for="" class="form-label required">Nama</label>
-                            <input type="text" class="form-control form-control-solid" name="nama_kategori" wire:model="nama_kategori" placeholder="Masukkan nama kategori" required>
-                            @error('nama_kategori')
+                            <label for="" class="form-label required">Nama Tipe Barang</label>
+                            <input type="text" class="form-control form-control-solid" name="tipe_barang" wire:model="tipe_barang" placeholder="Masukkan nama tipe barang" required>
+                            @error('tipe_barang')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
@@ -45,12 +45,8 @@
 
         });
 
-        window.addEventListener('contentChange', function(){
-        })
-
-        Livewire.on("finishSimpanData", (status, message) => {
+        Livewire.on('finishSimpanData', (status, message) => {
             $('.modal').modal('hide')
-            console.log('testing');
             alertMessage(status, message)
         })
     </script>
