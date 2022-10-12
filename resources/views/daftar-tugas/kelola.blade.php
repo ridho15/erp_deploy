@@ -158,58 +158,8 @@
         <div class="tab-pane fade" id="laporan_sparepart" role="tabpanel">
             @livewire('daftar-tugas.laporan-sparepart', ['id_laporan_pekerjaan' => $laporanPekerjaan->id])
         </div>
-        <div class="tab-pane fade" id="laporan_perawatan_lift" role="tabpanel">
-            <div class="card shadow-sm" role="tabpanel">
-                <div class="card-header">
-                    <h3 class="card-title">
-                        Laporan Perawatan Lift
-                    </h3>
-                    <div class="card-toolbar">
-
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row mb-5">
-                        <div class="col-md mb-5">
-                            <label for="" class="form-label">Tanggal</label>
-                            <input type="text" class="form-control form-control-solid" name="tanggal" placeholder="Masukkan tanggal" disabled>
-                        </div>
-                        <div class="col-md mb-5">
-                            <label for="" class="form-label">Jam Mulai</label>
-                            <input type="text" class="form-control form-control-solid" name="jam_mulai" placeholder="Masukkan waktu" disabled>
-                        </div>
-                        <div class="col-md mb-5">
-                            <label for="" class="form-label">Jam Selesai</label>
-                            <input type="text" class="form-control form-control-solid" name="jam_selesai" placeholder="Masukkan waktu" disabled>
-                        </div>
-                    </div>
-                    <div class="row mb-5">
-                        <div class="mb-5 col-md-6">
-                            <label for="" class="form-label required">Keterangan Pekerja / Catatan Teknisi</label>
-                            <textarea name="keterangan" class="form-control form-control-solid" placeholder="Masukkan keterangan / Catatan" cols="30" rows="5"></textarea>
-                        </div>
-
-                        <div class="mb-5 col-md-6">
-                            <label for="" class="form-label required">Keterangan Client / Pelanggan</label>
-                            <textarea name="catatan_pelanggan" class="form-control form-control-solid" placeholder="Masukkan keterangan / Catatan" cols="30" rows="5"></textarea>
-                        </div>
-                    </div>
-                    <label for="" class="form-label">Upload Foto</label>
-                    <div class="border rounded text-center py-5">
-                        <label for="upload_file" class="btn btn-sm btn-icon btn-outline btn-outline-dashed btn-outline-primary btn-active-light-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Upload Foto">
-                            <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2022-10-09-043348/core/html/src/media/icons/duotune/general/gen035.svg-->
-                            <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor"/>
-                                <rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)" fill="currentColor"/>
-                                <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="currentColor"/>
-                                </svg>
-                            </span>
-                            <!--end::Svg Icon-->
-                        </label>
-                        <input type="file" hidden accept="image/*" multiple id="upload_file">
-                    </div>
-                </div>
-            </div>
+        <div class="tab-page fade" id="laporan_perawatan_lift" role="tabpanel">
+            @livewire('daftar-tugas.laporan-perawatan-lift', ['id_laporan_pekerjaan' => $laporanPekerjaan->id])
         </div>
     </div>
 @endsection

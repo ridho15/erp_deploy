@@ -5,12 +5,62 @@
                 Laporan Penggunaan Barang
             </h3>
             <div class="card-toolbar">
-                <button class="btn btn-sm btn-outline btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Spareparts" wire:click="$emit('onClickTambahBarang')">
+                <button class="btn btn-sm btn-outline btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Spareparts" wire:click="changeTambahBarang">
                     <i class="bi bi-plus-circle"></i> Tambah
                 </button>
             </div>
         </div>
         <div class="card-body">
+            @if ($tambahBarang)
+                <form action="#" method="POST" wire:submit.prevent="simpanLaporanPekerjaanBarang">
+                    <div class="text-center">
+                        @include('helper.simple-loading', ['target' => 'simpanLaporanPekerjaanBarang', 'message' => 'Sedang menyimpan data ...'])
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-md-3 mb-5">
+                            <label for="" class="form-label required">Barang / Sparepart</label>
+                            <select name="id_barang" wire:model="id_barang" class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih Barang" required>
+                                <option value="">Pilih</option>
+                                @foreach ($listBarang as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                @endforeach
+                            </select>
+                            @error('id_barang')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="col-md-3 mb-5">
+                            <label for="" class="form-label required">Jumlah / Qty</label>
+                            <input type="number" class="form-control form-control-solid" name="qty" wire:model="qty" placeholder="Masukkan jumlah" required>
+                            @error('qty')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="col-md-3 mb-5">
+                            <label for="" class="form-label">Catatan Teknisi</label>
+                            <textarea name="catatan_teknisi" wire:model="catatan_teknisi" class="form-control form-control-solid" placeholder="Masukkan catatan"></textarea>
+                            @error('catatan_teknisi')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="col-md-3 mb-5">
+                            <label for="" class="form-label">Keterangan Customer</label>
+                            <textarea name="keterangan_customer" wire:model="keterangan_customer" class="form-control form-control-solid" placeholder="Masukkan catatan"></textarea>
+                            @error('keterangan_customer')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row justify-content-end mb-5">
+                        <div class="col-md-3 text-end">
+                            <button type="submit" class="btn btn-sm btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Simpan Barang Ke Laporan">
+                                <i class="fa-solid fa-floppy-disk"></i> Simpan
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            @endif
+            @include('helper.alert-message')
             <div class="text-center">
                 @include('helper.simple-loading', ['target' => 'cari,hapusBarang', 'message' => 'Memuat data...'])
             </div>
@@ -30,6 +80,8 @@
                    <th>Harga</th>
                    <th>Satuan</th>
                    <th>Qty</th>
+                   <th>Catatan Teknisi</th>
+                   <th>Keterangan Customer</th>
                    <th>Aksi</th>
                   </tr>
                  </thead>
@@ -42,14 +94,16 @@
 
                                 <td>{{ $item->barang->tipeBarang->tipe_barang }}</td>
                                 <td>{{ $item->barang->harga_formatted }}</td>
-                                <td>{{ $item->barang->satuan }}</td>
+                                <td>{{ $item->barang->satuan->nama_satuan }}</td>
                                 <td>{{ $item->qty }}</td>
+                                <td>{{ $item->catatan_teknisi }}</td>
+                                <td>{{ $item->keterangan_customer }}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Kategori" wire:click="$emit('onClickEdit', {{ $item->id }})">
+                                        <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Kategori" wire:click="$emit('onClickEditBarang', {{ $item->id }})">
                                             <i class="bi bi-pencil-square"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Kategori" wire:click="$emit('onClickHapus', {{ $item->id }})">
+                                        <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Kategori" wire:click="$emit('onClickHapusBarang', {{ $item->id }})">
                                             <i class="bi bi-trash-fill"></i>
                                         </button>
                                     </div>
@@ -74,13 +128,20 @@
 
         });
 
-        Livewire.on('onClickTambahBarang', () => {
-            $('#modal_form_barang').modal('show')
+        window.addEventListener('contentChange', function(){
+            refreshSelect2();
         })
+
+        function refreshSelect2(){
+            $('select[name="id_barang"]').select2();
+            $('select[name="id_barang"]').on('change', function(){
+                @this.set('id_barang', $(this).val())
+            })
+        }
 
         Livewire.on('onClickEditBarang', (id) => {
             Livewire.emit('setDataLaporanPekerjaanBarang', id)
-            $('#modal_form_barang').modal('show')
+            @this.set('tambahBarang', true)
         })
 
         Livewire.on('onClickHapusBarang', async(id) => {
@@ -88,6 +149,10 @@
             if(response.isConfirmed == true){
                 Livewire.emit('hapusLaporanPekerjaanBarang', id)
             }
+        })
+
+        Livewire.on("finishSimpanData", (status, message) => {
+            alertMessage(status, message);
         })
     </script>
 @endpush

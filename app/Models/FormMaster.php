@@ -15,4 +15,8 @@ class FormMaster extends Model
         'nama',
         'keterangan'
     ];
+
+    public function templatePekerjaan(){
+        return $this->hasMany(TemplatePekerjaan::class, 'id_form_master');
+    }
 }
