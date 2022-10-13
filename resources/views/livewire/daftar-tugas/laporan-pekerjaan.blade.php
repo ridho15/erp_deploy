@@ -100,9 +100,9 @@
                         <textarea name="keterangan_foto" wire:model="keterangan_foto" class="form-control form-control-solid" placeholder="Masukkan keterangan foto" cols="30" rows="5"></textarea>
                     </div>
                 </div>
-                <div class="row justify-content-end align-items-center mb-5">
-                    <div class="col-md-8">
-                        <div class="w-100 border rounded px-5 py-3 d-flex">
+                <div class="row justify-content-end align-items-start mb-5">
+                    <div class="col-md-8 pt-10 mb-5">
+                        <div class="w-100 border rounded px-5 py-3 d-flex flex-wrap">
                             @if (count($laporanPekerjaan->laporanPekerjaanFoto) > 0)
                                 @foreach ($laporanPekerjaan->laporanPekerjaanFoto as $item)
                                     <div class="image-hover border rounded position-relative text-center m-2">
@@ -119,10 +119,10 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col-md-4 text-center">
+                    <div class="col-md-4 text-center mb-5">
                         <label for="" class="form-label">Tanda Tangan</label>
                         <div class="position-relative">
-                            <canvas id="signature-pad" class="signature-pad border rounded" style="height: 200px; width: 400px"></canvas>
+                            <canvas id="signature-pad" class="signature-pad border rounded w-100" style="height: 200px;"></canvas>
                         </div>
                         <div class="d-flex align-items-center justify-content-center mb-5">
                             <button type="button" class="btn btn-sm btn-icon btn-outline btn-outline-danger mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Clear" wire:click="$emit('onClickClear')">
