@@ -31,6 +31,7 @@ class Form extends Component
     public $listMerk;
     public $listTipeBarang;
     public $listSatuan;
+    public $deskripsi;
 
     public function render()
     {
@@ -66,7 +67,8 @@ class Form extends Component
             'id_merk' => 'nullable|numeric',
             'min_stock' => 'required|numeric',
             'id_satuan' => 'required|numeric',
-            'id_tipe_barang' => 'required|numeric'
+            'id_tipe_barang' => 'required|numeric',
+            'deskripsi' => 'nullable|string',
         ], [
             'nama.required' => 'Nama tidak boleh kosong',
             'nama.string' => 'Nama tidak valid !',
@@ -78,7 +80,8 @@ class Form extends Component
             'id_satuan.required' => 'Satuan Belum dipilih',
             'id_satuan.numeric' => 'Satuan tidak valid',
             'id_tipe_barang.required' => 'Tipe barang belum dipilih',
-            'id_tipe_barang.numeric' => 'Tipe barang tidak valid !'
+            'id_tipe_barang.numeric' => 'Tipe barang tidak valid !',
+            'deskripsi.string' => 'Deskripsi barang tidak valid !'
         ]);
 
         // Check Merk
@@ -112,6 +115,7 @@ class Form extends Component
         $data['id_satuan'] = $this->id_satuan;
         $data['id_merk'] = $this->id_merk;
         $data['id_tipe_barang'] = $this->id_tipe_barang;
+        $data['deskripsi'] = $this->deskripsi;
 
         Barang::updateOrCreate([
             'id' => $this->id_barang
@@ -143,6 +147,7 @@ class Form extends Component
         $this->min_stock = $barang->min_stock;
         $this->id_satuan = $barang->id_satuan;
         $this->id_tipe_barang = $barang->id_tipe_barang;
+        $this->deskripsi = $barang->deskripsi;
     }
 
     public function changeTipeBarang($id_tipe_barang)

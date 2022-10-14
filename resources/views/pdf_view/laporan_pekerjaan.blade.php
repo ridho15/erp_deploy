@@ -100,9 +100,9 @@
     <div class="table-responsive">
         <table class="table">
             <tr style="width: 30%">
-                <td>Tanggal : {{ date('Y-m-d', strtotime($laporanPekerjaan->jam_mulai)) }}</td>
-                <td>Jam Datang : {{ date('H:i', strtotime($laporanPekerjaan->jam_mulai)) }}</td>
-                <td>Jam Selesai : {{ date('Y-m-d', strtotime($laporanPekerjaan->jam_selesai)) }}</td>
+                <td>Tanggal : {{ $laporanPekerjaan->jam_mulai ? date('Y-m-d', strtotime($laporanPekerjaan->jam_mulai)) : null }}</td>
+                <td>Jam Datang : {{ $laporanPekerjaan->jam_mulai ? date('H:i', strtotime($laporanPekerjaan->jam_mulai)) : null }}</td>
+                <td>Jam Selesai : {{ $laporanPekerjaan->jam_selesai ? date('H:i', strtotime($laporanPekerjaan->jam_selesai)) : null }}</td>
             </tr>
             <tr style="width: 30%">
                 <td>Diketahui Oleh,</td>
@@ -195,11 +195,11 @@
         <table class="table">
             <thead style="border: 1px solid black">
                 <tr>
-                    <td rowspan="2">NO</td>
-                    <td rowspan="2">URAIAN PEKERJAAN</td>
-                    <td rowspan="2">KONDISI</td>
-                    <td rowspan="1" colspan="5">CHECKLIST</td>
-                    <td rowspan="2">KETERANGAN</td>
+                    <td rowspan="2" class="align-items-center">NO</td>
+                    <td rowspan="2" class="align-items-center">URAIAN PEKERJAAN</td>
+                    <td rowspan="2" class="align-items-center">KONDISI</td>
+                    <td rowspan="1" colspan="5" class="text-center align-items-center">CHECKLIST</td>
+                    <td rowspan="2" class="align-items-center">KETERANGAN</td>
                 </tr>
                 <tr>
                     <td>1 Bulan</td>
@@ -225,7 +225,9 @@
                     @foreach ($item->detail as $index => $detail)
                         @php
                             $laporanPekerjaanChecklist = count($laporanPekerjaan->laporanPekerjaanChecklist) > 0 ? $laporanPekerjaan->laporanPekerjaanChecklist : null;
-                            $laporanPekerjaanChecklist = $laporanPekerjaanChecklist->where('id_template_pekerjaan_detail', $detail->id)->first();
+                            if ($laporanPekerjaanChecklist) {
+                                $laporanPekerjaanChecklist = $laporanPekerjaanChecklist->where('id_template_pekerjaan_detail', $detail->id)->first();
+                            }
                         @endphp
                         <tr>
                             <td>{{ $index + 1 }}</td>

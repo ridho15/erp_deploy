@@ -18,7 +18,8 @@ class Barang extends Model
         'harga',
         'id_merk',
         'id_satuan',
-        'id_tipe_barang'
+        'id_tipe_barang',
+        'deskripsi'
     ];
 
     protected $appends = ['harga_formatted'];

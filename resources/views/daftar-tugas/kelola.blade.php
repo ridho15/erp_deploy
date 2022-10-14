@@ -6,6 +6,9 @@
                 Informasi Tugas
             </h3>
             <div class="card-toolbar">
+                <a href="{{ route('management-tugas.export', ['id' => $laporanPekerjaan->id]) }}" class="btn btn-sm btn-outline btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Cetak PDF">
+                    <i class="bi bi-printer"></i> Cetak
+                </a>
             </div>
         </div>
         <div class="card-body">

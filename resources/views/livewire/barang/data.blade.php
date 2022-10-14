@@ -30,6 +30,7 @@
                    <th>Harga</th>
                    <th>Minimal Stock</th>
                    <th>Tipe Barang</th>
+                   <th>Deskripsi</th>
                    <th>Aksi</th>
                   </tr>
                  </thead>
@@ -45,6 +46,7 @@
                                 <td>{{ $item->harga_formatted }}</td>
                                 <td>{{ $item->min_stock }}</td>
                                 <td>{{ $item->tipeBarang->tipe_barang }}</td>
+                                <td>{{ $item->deskripsi }}</td>
                                 <td>
                                     <div class="btn-group">
                                         <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Barang" wire:click="$emit('onClickEdit', {{ $item->id }})">

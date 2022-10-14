@@ -18,11 +18,16 @@ use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TipeBarangController;
 use App\Http\Controllers\WorkerController;
+use App\Models\Quotation;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('testing')->group(function(){
     Route::get('/', [DashboardController::class,'testing'])->name('testing');
     Route::get('/export-pdf', [DashboardController::class, 'exportPdf'])->name('testing.export-pdf');
+    Route::get('/view-mail', function(){
+        $data['quotation'] = Quotation::find(3);
+        return view('mail.send-quotation', $data);
+    });
 });
 Route::get('/testing', [DashboardController::class, 'testing'])->name('testing');
 Route::get('/login', [AutentikasiController::class, 'login'])->name('login');

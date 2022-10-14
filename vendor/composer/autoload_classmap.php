@@ -139,6 +139,7 @@ return array(
     'App\\Models\\ProjectFoto' => $baseDir . '/app/Models/ProjectFoto.php',
     'App\\Models\\ProjectV2' => $baseDir . '/app/Models/ProjectV2.php',
     'App\\Models\\Quotation' => $baseDir . '/app/Models/Quotation.php',
+    'App\\Models\\QuotationDetail' => $baseDir . '/app/Models/QuotationDetail.php',
     'App\\Models\\QuotationSendLog' => $baseDir . '/app/Models/QuotationSendLog.php',
     'App\\Models\\Satuan' => $baseDir . '/app/Models/Satuan.php',
     'App\\Models\\StatusBarang' => $baseDir . '/app/Models/StatusBarang.php',
