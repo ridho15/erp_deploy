@@ -20,6 +20,11 @@ use App\Http\Controllers\TipeBarangController;
 use App\Http\Controllers\WorkerController;
 use Illuminate\Support\Facades\Route;
 
+Route::prefix('testing')->group(function(){
+    Route::get('/', [DashboardController::class,'testing'])->name('testing');
+    Route::get('/export-pdf', [DashboardController::class, 'exportPdf'])->name('testing.export-pdf');
+});
+Route::get('/testing', [DashboardController::class, 'testing'])->name('testing');
 Route::get('/login', [AutentikasiController::class, 'login'])->name('login');
 Route::post('/login', [AutentikasiController::class, 'postLogin'])->name('post.login');
 Route::get('/logout', [AutentikasiController::class, 'logout'])->name('logout');
@@ -37,6 +42,8 @@ Route::middleware('auth.user')->group(function () {
 
     Route::prefix('management-tugas')->group(function(){
         Route::get('/', [ManagementTugasController::class, 'index'])->name('management-tugas');
+        Route::get('/detail/{id}', [ManagementTugasController::class, 'detail'])->name('management-tugas.detail');
+        Route::get('/export/{id}', [ManagementTugasController::class, 'export'])->name('management-tugas.export');
     });
 
     Route::prefix('daftar-tugas')->group(function(){
