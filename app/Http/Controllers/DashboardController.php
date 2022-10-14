@@ -17,6 +17,7 @@ class DashboardController extends Controller
     }
 
     public function testing(){
+        return date('m');
         $data['title'] = 'Dashboard Admin | ERP';
         $data['active'] = ['dashboard'];
         $data['breadCrumb'] = ['Dashbord', 'Data'];
@@ -32,7 +33,7 @@ class DashboardController extends Controller
         $data['breadCrumb'] = ['Dashbord', 'Data'];
         $data['listKategori'] = Kategori::get();
         view()->share('listKategori', $data);
-        $pdf = Pdf::loadView('pdf_view.kategori', $data);
+        $pdf = Pdf::loadView('pdf_view.quotation', $data);
         return $pdf->download('pdf_file.pdf');
     }
 }

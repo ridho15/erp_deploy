@@ -1,6 +1,6 @@
 <div>
     <div wire:ignore.self class="modal fade barang" tabindex="-1" id="modal_form">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title">Form Quotation</h3>
@@ -75,10 +75,17 @@
                             </div>
                         </div>
                         <hr class="my-5">
-                        <div class="mb-5">
+                        <div class="mb-5" wire:ignore>
                             <label for="" class="form-label">Keterangan</label>
                             <textarea name="keterangan" wire:model="keterangan" class="form-control form-control-solid" placeholder="Masukkan keterangan"></textarea>
                             @error('keterangan')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="mb-5">
+                            <label for="" class="form-label">Perihal</label>
+                            <textarea name="hal" class="form-control form-control-solid" wire:model="hal" placeholder="Masukkan perihal"></textarea>
+                            @error('hal')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
@@ -124,6 +131,20 @@
     <script>
         $(document).ready(function () {
 
+        });
+
+        tinymce.init({
+            selector: 'textarea[name="keterangan"]',
+            forced_root_block: false,
+            setup: function(editor){
+                editor.on('init change', function(){
+                    editor.save()
+                });
+                editor.on('change', function(e){
+                    // @this.set('keterangan', editor.getContent())
+                    Livewire.emit('changeKeterangan', editor.getContent())
+                })
+            }
         });
 
         window.addEventListener('contentChange', function(){

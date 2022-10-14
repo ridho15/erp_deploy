@@ -22,7 +22,7 @@ class Barang extends Model
         'deskripsi'
     ];
 
-    protected $appends = ['harga_formatted'];
+    protected $appends = ['harga_formatted', 'sku'];
 
     public function getHargaFormattedAttribute(){
         return 'Rp '.number_format($this->harga, 0, ',', '.');
@@ -54,5 +54,10 @@ class Barang extends Model
 
     public function tipeBarang(){
         return $this->belongsTo(TipeBarang::class, 'id_tipe_barang');
+    }
+
+    public function getSkuAttribute(){
+        $helper = new HelperController;
+        return "B" . $helper->format_num($this->id);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\HelperController;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,21 +17,13 @@ class Quotation extends Model
         'id_laporan_pekerjaan',
         'status',
         'keterangan',
-        'file'
+        'file',
+        'hal'
     ];
 
-    protected $appends = ['status_formatted'];
+    protected $appends = ['status_formatted', 'no_ref', 'updated_at_formatted'];
 
     public function getStatusFormattedAttribute(){
-        // if($this->status_response == 1){
-        //     return "<span class='badge badge-success'>Sudah Diresponse</span>";
-        // }elseif($this->status_response == 0){
-        //     return "<span class='badge badge-secondary'>Belum Dikirim</span>";
-        // }elseif($this->status_response == 2){
-        //     return "<span class='badge badge-info'>Belum Diresponse</span>";
-        // }elseif($this->status_response == 3){
-        //     return "<span class='badge badge-danger'>Tidak Diresponse</span>";
-        // }
         $expiredTime = Carbon::parse($this->created_at)->addDays(3);
         $now = Carbon::now();
         if ($this->status == 0 && strtotime($expiredTime) > strtotime($now)) {
@@ -48,5 +41,17 @@ class Quotation extends Model
 
     public function quotationDetail(){
         return $this->hasMany(QuotationDetail::class, 'id_quotation');
+    }
+
+    public function getNoRefAttribute(){
+        $helper = new HelperController;
+        $bulan = date('m', strtotime($this->created_at));
+        $tahun = date('y', strtotime($this->created_at));
+        return $helper->format_num($this->id, 3) . '/QT/MGK/' . $helper->format_romawi($bulan) . '/' . $tahun;
+    }
+
+    public function getUpdatedAtFormattedAttribute(){
+        $carbon = Carbon::parse($this->updated_at)->locale('id')->isoFormat('DD MMMM YYYY');
+        return $carbon;
     }
 }

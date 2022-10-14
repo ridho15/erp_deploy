@@ -30,6 +30,7 @@
                    <th>No Hp Pelanggan</th>
                    <th>Status</th>
                    <th>Keterangan</th>
+                   <th>Hal</th>
                    <th>File</th>
                    <th>Aksi</th>
                   </tr>
@@ -45,7 +46,8 @@
                                 <td>{{ $item->laporanPekerjaan->customer->email }}</td>
                                 <td>{{ $item->laporanPekerjaan->customer->no_hp }}</td>
                                 <td><?= $item->status_formatted ?></td>
-                                <td>{{ $item->tipePembayaran? $item->tipePembayaran->nama_tipe : '-' }}</td>
+                                <td><?= $item->keterangan ?></td>
+                                <td>{{ $item->hal }}</td>
                                 <td>
                                     @if ($item->file)
                                         <a href="{{ $item->file ? asset('storage' . $item->file) : '#' }}" class="btn btn-icon btn-sm btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Dowload File" target="blank">
@@ -59,11 +61,14 @@
                                 </td>
                                 <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Quotation" wire:click="$emit('onClickEdit', {{ $item->id }})">
+                                        <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Quotation" wire:click="$emit('onClickEdit', {{ $item }})">
                                             <i class="bi bi-pencil-square"></i>
                                         </button>
                                         <a href="{{ route('quotation.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Quotation">
                                             <i class="bi bi-info-circle-fill"></i>
+                                        </a>
+                                        <a href="{{ route('quotation.export', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Export Quotation">
+                                            <i class="bi bi-printer"></i>
                                         </a>
                                         <button class="btn btn-sm btn-danger btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Kirim Quotation Ke Email Pelanggan" wire:click="$emit('onClickSend', {{ $item->id }})">
                                             <i class="fa-solid fa-paper-plane"></i>
@@ -86,9 +91,11 @@
 </div>
 
 @push('js')
+    <script src="https://cdn.tiny.cloud/1/nvlmmvucpbse1gtq3xttm573xnabu23ppo0pbknjx49633ka/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
-        Livewire.on('onClickEdit', (id) => {
-            Livewire.emit('setDataQuotation', id)
+        Livewire.on('onClickEdit', (item) => {
+            tinymce.activeEditor.setContent(item.keterangan ? item.keterangan : '')
+            Livewire.emit('setDataQuotation', item.id)
             $('#modal_form').modal('show')
         })
 

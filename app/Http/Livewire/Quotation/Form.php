@@ -20,7 +20,8 @@ class Form extends Component
         'simpanDataQuotation',
         'updateDataQuotation',
         'setDataQuotation',
-        'onClickHapusFile'
+        'onClickHapusFile',
+        'changeKeterangan',
     ];
     public $id_quotation;
     public $id_project;
@@ -30,6 +31,7 @@ class Form extends Component
     public $listTipePembayaran;
     public $file;
     public $keterangan;
+    public $hal;
     public $quotation;
     public function render()
     {
@@ -86,12 +88,14 @@ class Form extends Component
             'id_quotation' => 'required|numeric',
             'keterangan' => 'nullable|string',
             'file' => 'nullable|mimes:pdf,docx,xlsx|max:10240',
+            'hal' => 'nullable|string',
         ], [
             'id_quotation.required' => 'Quotation tidak valid !',
             'id_quotation.numeric' => 'Quotation tidak valid !',
             'keterangan.string' => 'Keterangan tidak valid !',
             'file.mimes' => 'File tidak valid !',
-            'file.max' => 'Ukuran file terlalu besar, maximal 10Mb'
+            'file.max' => 'Ukuran file terlalu besar, maximal 10Mb',
+            'hal.string' => 'Perihal tidak valid !'
         ]);
 
         $quotation = Quotation::find($this->id_quotation);
@@ -102,6 +106,7 @@ class Form extends Component
         }
 
         $data['keterangan'] = $this->keterangan;
+        $data['hal'] = $this->hal;
         if($this->file){
             $path = $this->file->store('public/quotation_file');
             $path = str_replace('public', '', $path);
@@ -140,5 +145,9 @@ class Form extends Component
 
     public function onClickHapusFile(){
         $this->file = null;
+    }
+
+    public function changeKeterangan($keterangan){
+        $this->keterangan = $keterangan;
     }
 }

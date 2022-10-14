@@ -25,7 +25,10 @@ class LaporanPekerjaan extends Model
         'catatan_pelanggan'
     ];
 
-    protected $appends = ['jam_mulai_formatted', 'jam_selesai_formatted'];
+    protected $appends = [
+        'jam_mulai_formatted',
+        'jam_selesai_formatted'
+    ];
 
     public function getJamMulaiFormattedAttribute(){
         if($this->jam_mulai){

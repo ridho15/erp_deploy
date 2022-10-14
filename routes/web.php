@@ -83,6 +83,7 @@ Route::middleware('auth.user')->group(function () {
         Route::prefix('quotation')->group(function () {
             Route::get('/', [QuotationController::class, 'index'])->name('quotation');
             Route::get('/detail/{id}', [QuotationController::class, 'detail'])->name('quotation.detail');
+            Route::get('/export/{id}', [QuotationController::class, 'export'])->name('quotation.export');
         });
 
         Route::prefix('kostumer')->group(function () {
