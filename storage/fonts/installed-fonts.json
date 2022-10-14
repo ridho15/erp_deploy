@@ -1,0 +1,36 @@
+{
+    "inter": {
+        "300": "C:\\laragon\\www\\erp_deploy\\storage\\fonts\/inter_300_e9871fa4d96b94b3e0f0e69d61a899d3",
+        "normal": "C:\\laragon\\www\\erp_deploy\\storage\\fonts\/inter_normal_72162fc38f7a9b7708ce9b52537823e1",
+        "500": "C:\\laragon\\www\\erp_deploy\\storage\\fonts\/inter_500_96eb9565dc629712e5fdf2634a1560c9",
+        "600": "C:\\laragon\\www\\erp_deploy\\storage\\fonts\/inter_600_c0a9e5f9081a5ae196037115674a957c",
+        "bold": "inter_bold_cbd71dae585ea51627faec68dc3982cf"
+    },
+    "line awesome brands": {
+        "normal": "line_awesome_brands_normal_549d341f09e7032921b9383937a100d2"
+    },
+    "line awesome free": {
+        "normal": "C:\\laragon\\www\\erp_deploy\\storage\\fonts\/line_awesome_free_normal_5f9724c3fe633251b1f58de756c24a59",
+        "900": "line_awesome_free_900_32a9274fe2c8122650301d642948e3b2"
+    },
+    "font awesome 6 brands": {
+        "normal": "font_awesome_6_brands_normal_dfdebe07e19db0410c42f3234e231cb3"
+    },
+    "font awesome 6 free": {
+        "normal": "C:\\laragon\\www\\erp_deploy\\storage\\fonts\/font_awesome_6_free_normal_7f3c5a08a22eb93704348e96098f5faf",
+        "900": "font_awesome_6_free_900_e880c9003e6559a000b06c8dd799e532"
+    },
+    "font awesome 5 brands": {
+        "normal": "font_awesome_5_brands_normal_dfdebe07e19db0410c42f3234e231cb3"
+    },
+    "font awesome 5 free": {
+        "900": "C:\\laragon\\www\\erp_deploy\\storage\\fonts\/font_awesome_5_free_900_e880c9003e6559a000b06c8dd799e532",
+        "normal": "font_awesome_5_free_normal_7f3c5a08a22eb93704348e96098f5faf"
+    },
+    "fontawesome": {
+        "normal": "fontawesome_normal_0d7a904cdfe297309221376c5d705509"
+    },
+    "fonticon": {
+        "normal": "fonticon_normal_d07b5f1b1e347f3c55e32d933142c082"
+    }
+}

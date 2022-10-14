@@ -2,7 +2,7 @@
     <div class="card shadow-sm">
         <div class="card-header">
             <h3 class="card-title">
-                Data Laporan Pekerjaan
+                Data Management Tugas
             </h3>
             <div class="card-toolbar">
                 <button class="btn btn-sm btn-outline btn-outline-primary" wire:click="$emit('onClickTambah')"><i class="bi bi-plus-circle"></i> Tambah</button>
@@ -51,18 +51,23 @@
                                 <td>{{ $item->jam_mulai_formatted ?? '-' }}</td>
                                 <td>{{ $item->jam_selesai_formatted ?? '-' }}</td>
                                 <td>{{ $item->keterangan ?? '-' }}</td>
-                                <td>{{ $item->signature ?? '-' }}</td>
+                                <td>
+                                    <img src="{{ $item->signature ? asset('storage' . $item->signature) : null }}" class="img-fluid" alt="">
+                                </td>
                                 <td>
                                     <div class="btn-group">
+                                        <a href="{{ route('management-tugas.export', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Management Tugas">
+                                            <i class="bi bi-printer"></i>
+                                        </a>
                                         <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Management Tugas" wire:click="$emit('onClickEdit', {{ $item->id }})">
                                             <i class="bi bi-pencil-square"></i>
                                         </button>
                                         <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Management Tugas" wire:click="$emit('onClickHapus', {{ $item->id }})">
                                             <i class="bi bi-trash-fill"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Lihat Barang Kategori" wire:click="$emit('onClickLihatBarang', {{ $item->id }})">
+                                        <a href="{{ route('management-tugas.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Lihat Detail Pekerjaan">
                                             <i class="bi bi-eye-fill"></i>
-                                        </button>
+                                        </a>
                                     </div>
                                 </td>
                             </tr>
