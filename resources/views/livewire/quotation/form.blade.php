@@ -12,33 +12,99 @@
                     </div>
                 </div>
 
-                <form action="#" wire:submit.prevent="simpanDataQuotation">
+                <form action="#" wire:submit.prevent="updateDataQuotation">
                     <div class="modal-body">
                         @include('helper.alert-message')
                         <div class="text-center">
-                            @include('helper.simple-loading', ['target' => 'simpanDataQuotation', 'message' => 'Menyimpan data ...'])
+                            @include('helper.simple-loading', ['target' => 'updateDataQuotation', 'message' => 'Menyimpan data ...'])
                         </div>
+                        <div class="row mb-5">
+                            <div class="col-md-4 col-4">
+                                Kode Project
+                            </div>
+                            <div class="col-md-8 col-8">
+                                : <span class="fw-bold">{{ $quotation? $quotation->laporanPekerjaan->project->kode : null }}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-5">
+                            <div class="col-md-4 col-4">
+                                Nama Project
+                            </div>
+                            <div class="col-md-8 col-8">
+                                : <span class="fw-bold">{{ $quotation? $quotation->laporanPekerjaan->project->nama : null }}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-5">
+                            <div class="col-md-4 col-4">
+                                Pelanggan
+                            </div>
+                            <div class="col-md-8 col-8">
+                                : <span class="fw-bold">{{ $quotation? $quotation->laporanPekerjaan->customer->nama : null }}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-5">
+                            <div class="col-md-4 col-4">
+                                Email Pelanggan
+                            </div>
+                            <div class="col-md-8 col-8">
+                                : <span class="fw-bold">{{ $quotation? $quotation->laporanPekerjaan->customer->email : null }}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-5">
+                            <div class="col-md-4 col-4">
+                                No Hp Pelanggan
+                            </div>
+                            <div class="col-md-8 col-8">
+                                : <span class="fw-bold">{{ $quotation? $quotation->laporanPekerjaan->customer->no_hp : null }}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-5">
+                            <div class="col-md-4 col-4">
+                                Keterangan
+                            </div>
+                            <div class="col-md-8 col-8">
+                                : <span class="fw-bold">{{ $quotation? $quotation->keterangan : '-' }}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-5">
+                            <div class="col-md-4 col-4">
+                                Status
+                            </div>
+                            <div class="col-md-8 col-8">
+                                : <span class="fw-bold"><?= $quotation? $quotation->status_formatted : null ?></span>
+                            </div>
+                        </div>
+                        <hr class="my-5">
                         <div class="mb-5">
-                            <label for="" class="form-label required">Status Response</label>
-                            <select name="status_response" class="form-select form-select-solid" wire:model="status_response" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih" required>
-                                <option value="">Pilih</option>
-                                @foreach ($listStatusResponse as $item)
-                                    <option value="{{ $item['status_response'] }}">{{ $item['keterangan'] }}</option>
-                                @endforeach
-                            </select>
-                            @error('status_response')
+                            <label for="" class="form-label">Keterangan</label>
+                            <textarea name="keterangan" wire:model="keterangan" class="form-control form-control-solid" placeholder="Masukkan keterangan"></textarea>
+                            @error('keterangan')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                        <div class="mb-5">
-                            <label for="" class="form-label required">Tipe Pembayaran</label>
-                            <select name="id_tipe_pembayaran" class="form-select form-select-solid" wire:model="id_tipe_pembayaran" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih" required>
-                                <option value="">Pilih</option>
-                                @foreach ($listTipePembayaran as $item)
-                                    <option value="{{ $item->id }}">{{ $item->nama_tipe }}</option>
-                                @endforeach
-                            </select>
-                            @error('id_tipe_pembayaran')
+                        <div class="mb-5"
+                            x-data="{ isUploading: false, progress: 0 }"
+                            x-on:livewire-upload-start="isUploading = true"
+                            x-on:livewire-upload-finish="isUploading = false, progress = 0"
+                            x-on:livewire-upload-error="isUploading = false"
+                            x-on:livewire-upload-progress="progress = $event.detail.progress"
+                        >
+                            <label for="" class="form-label">File</label>
+                            <input type="file" name="file" wire:model="file" accept="application/pdf,application/vnd.ms-excel,.docx" id="pilih_file" hidden>
+                            <div class="text-center">
+                                <label for="pilih_file" class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-light-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Upload File">
+                                    <i class="fa-solid fa-file"></i> Pilih File
+                                </label>
+                            </div>
+                            <div x-show="isUploading" class="progress mt-5">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" x-bind:style="`width: ${progress}%`"></div>
+                            </div>
+                            <div class="text-center">
+                                @if ($file)
+                                    {{ $file->getClientOriginalName() }} <span class="text-danger mx-2" style="cursor: pointer" wire:click="onClickHapusFile"><i class="fa-solid fa-trash-can text-danger fs-2"></i></span>
+                                @endif
+                            </div>
+                            @error('file')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
@@ -62,6 +128,11 @@
 
         window.addEventListener('contentChange', function(){
 
+        })
+
+        Livewire.on('finishSimpanData', (status, message) => {
+            $('.modal').modal('hide')
+            alertMessage(status, message);
         })
     </script>
 @endpush

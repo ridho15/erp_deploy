@@ -59,6 +59,9 @@
                                 </td>
                                 <td>
                                     <div class="btn-group">
+                                        <a href="{{ route('management-tugas.export', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Export PDF">
+                                            <i class="bi bi-printer"></i>
+                                        </a>
                                         <a href="{{ route('daftar-tugas.kelola', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Kelola Tugas">
                                             <i class="bi bi-eye-fill"></i>
                                         </a>

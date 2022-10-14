@@ -3,7 +3,10 @@
 namespace App\Http\Livewire\DaftarTugas;
 
 use App\Models\LaporanPekerjaan as ModelsLaporanPekerjaan;
+use App\Models\LaporanPekerjaanBarang;
 use App\Models\LaporanPekerjaanFoto;
+use App\Models\Quotation;
+use App\Models\QuotationDetail;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -74,9 +77,11 @@ class LaporanPekerjaan extends Component
             $this->jam_selesai = now();
             $data['signature'] = $this->signature;
             $data['jam_selesai'] = $this->jam_selesai;
+            $laporanPekerjaan->update($data);
+            $this->createQuotation();
+        }else{
+            $laporanPekerjaan->update($data);
         }
-
-        $laporanPekerjaan->update($data);
 
         if($this->foto){
             foreach ($this->foto as $item) {
@@ -98,6 +103,30 @@ class LaporanPekerjaan extends Component
 
     public function hapusFotoByIndex($index){
         unset($this->foto[$index]);
+    }
+
+    public function createQuotation(){
+        $listSparepart = LaporanPekerjaanBarang::where('id_laporan_pekerjaan', $this->id_laporan_pekerjaan)->get();
+        $laporanPekerjaan = ModelsLaporanPekerjaan::find($this->id_laporan_pekerjaan);
+        $quotation = Quotation::updateOrCreate([
+            'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan
+        ], [
+            'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan,
+            'status' => 0,
+        ]);
+
+        if($laporanPekerjaan->jam_selesai != null && $laporanPekerjaan->signature != null){
+            foreach ($listSparepart as $item) {
+                QuotationDetail::create([
+                    'id_quotation' => $quotation->id,
+                    'id_barang' => $item->id_barang,
+                    'harga' => $item->barang->harga,
+                    'qty' => $item->qty,
+                    'id_satuan' => $item->barang->id_satuan,
+                    'deskripsi' => $item->barang->deskripsi
+                ]);
+            }
+        }
     }
 
     public function resetInputFields(){
