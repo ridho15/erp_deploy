@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\CPU\Helpers;
 use App\Models\LoginLogs;
 use App\Models\User;
+use App\Models\UserLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -55,17 +57,26 @@ class AutentikasiController extends Controller
                 'is_active' => 1,
             ]);
 
-            if ($user->id_tipe_user == 4) {
-                $request->session()->put('id_user', $loginLogs->id_user);
-                $request->session()->put('token', $loginLogs->token);
-                $request->session()->put('id_tipe_user', $user->id_tipe_user);
+            $agent = Helpers::regexUserAgent($request->header('user-agent'));
+            $version = $agent['browser'].' '.$agent['version'];
 
-                return redirect()->route('form-pekerjaan');
-            }
+            $user_logs = UserLog::create([
+                'id_user' => $user->id,
+                'status' => 1,
+                'user_agent' => $version ? $version : 'undetected',
+                'lastLogin' => now(),
+                'lastPasswordChange' => null,
+                'last_ip' => $request->ip(),
+            ]);
 
             $request->session()->put('id_user', $loginLogs->id_user);
             $request->session()->put('token', $loginLogs->token);
             $request->session()->put('id_tipe_user', $user->id_tipe_user);
+            $request->session()->put('user_log_id', $user_logs->id);
+
+            if ($user->id_tipe_user == 4) {
+                return redirect()->route('form-pekerjaan');
+            }
 
             return redirect()->route('dashboard')->with('success', 'Login Berhasil');
         }

@@ -25,5 +25,6 @@
 			</span>
 		</div>
 		@include('template.script')
+        @stack('script')
 	</body>
 </html>

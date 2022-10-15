@@ -11,7 +11,11 @@ class UserLog extends Model
     protected $table = 'user_logs';
     protected $fillable = [
         'id_user',
-        'status'
+        'status',
+        'user_agent',
+        'lastLogin',
+        'lastPasswordChange',
+        'last_ip'
     ];
 
     public function user(){

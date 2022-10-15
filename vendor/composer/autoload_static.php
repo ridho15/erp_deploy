@@ -38,6 +38,7 @@ class ComposerStaticInitb386b788fea8f41f165dec6722ac0e59
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
         '40275907c8566c390185147049ef6e5d' => __DIR__ . '/..' . '/livewire/livewire/src/helpers.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
+        '37efcf4b38f2e77789b09da04b892bff' => __DIR__ . '/../..' . '/app/CPU/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -573,6 +574,7 @@ class ComposerStaticInitb386b788fea8f41f165dec6722ac0e59
     );
 
     public static $classMap = array (
+        'App\\CPU\\Helpers' => __DIR__ . '/../..' . '/app/CPU/Helpers.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\AttributeController' => __DIR__ . '/../..' . '/app/Http/Controllers/AttributeController.php',
