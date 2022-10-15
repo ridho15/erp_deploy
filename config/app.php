@@ -1,11 +1,5 @@
 <?php
-if(env('APP_SET') == 'dayat'){
-    $asset = 'http://erp.test';
-}elseif(env('APP_SET') == 'server'){
-    $asset = 'http://erp.howsit-web.com';
-}else{
-    $asset = 'http://erp_deploy.test';
-}
+
 return [
 
     /*
@@ -60,7 +54,7 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
-    'asset_url' => $asset,
+    'asset_url' => env('ASSET_URL', 'http://erp_deploy.test'),
 
     /*
     |--------------------------------------------------------------------------
