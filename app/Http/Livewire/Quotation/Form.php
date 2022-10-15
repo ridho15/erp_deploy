@@ -6,21 +6,33 @@ use App\Http\Controllers\HelperController;
 use App\Models\Quotation;
 use App\Models\TipePembayaran;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Form extends Component
 {
+    use WithFileUploads;
     protected $helper;
     function __construct()
     {
         $this->helper = new HelperController;
     }
-    public $listeners = ['simpanDataQuotation', 'setDataQuotation'];
+    public $listeners = [
+        'simpanDataQuotation',
+        'updateDataQuotation',
+        'setDataQuotation',
+        'onClickHapusFile',
+        'changeKeterangan',
+    ];
     public $id_quotation;
     public $id_project;
     public $status_response;
     public $id_tipe_pembayaran;
     public $listStatusResponse;
     public $listTipePembayaran;
+    public $file;
+    public $keterangan;
+    public $hal;
+    public $quotation;
     public function render()
     {
         $this->listTipePembayaran = TipePembayaran::get();
@@ -71,6 +83,44 @@ class Form extends Component
         return session()->flash('success', $message);
     }
 
+    public function updateDataQuotation(){
+        $this->validate([
+            'id_quotation' => 'required|numeric',
+            'keterangan' => 'nullable|string',
+            'file' => 'nullable|mimes:pdf,docx,xlsx|max:10240',
+            'hal' => 'nullable|string',
+        ], [
+            'id_quotation.required' => 'Quotation tidak valid !',
+            'id_quotation.numeric' => 'Quotation tidak valid !',
+            'keterangan.string' => 'Keterangan tidak valid !',
+            'file.mimes' => 'File tidak valid !',
+            'file.max' => 'Ukuran file terlalu besar, maximal 10Mb',
+            'hal.string' => 'Perihal tidak valid !'
+        ]);
+
+        $quotation = Quotation::find($this->id_quotation);
+        if(!$quotation){
+            $message = "Data quotation tidak ditemukan !";
+            $this->emit('finishSimpanData', 0, $message);
+            return session()->flash('fail', $message);
+        }
+
+        $data['keterangan'] = $this->keterangan;
+        $data['hal'] = $this->hal;
+        if($this->file){
+            $path = $this->file->store('public/quotation_file');
+            $path = str_replace('public', '', $path);
+            $data['file'] = $path;
+        }
+        $quotation->update($data);
+
+        $message = "Berhasil mengupdate data quotation";
+        $this->resetInputFields();
+        $this->emit('finishSimpanData', 1, $message);
+        $this->emit('refreshQuotation');
+        return session()->flash('success', $message);
+    }
+
     public function setDataQuotation($id){
         $quotation = Quotation::find($id);
         if(!$quotation){
@@ -83,5 +133,21 @@ class Form extends Component
         $this->id_project = $quotation->id_project;
         $this->status_reponse = $quotation->status_response;
         $this->id_tipe_pembayaran = $quotation->id_tipe_pembayaran;
+        $this->quotation = $quotation;
+    }
+
+    public function resetInputFields(){
+        $this->quotation = null;
+        $this->id_quotation = null;
+        $this->file = null;
+        $this->keterangan = null;
+    }
+
+    public function onClickHapusFile(){
+        $this->file = null;
+    }
+
+    public function changeKeterangan($keterangan){
+        $this->keterangan = $keterangan;
     }
 }

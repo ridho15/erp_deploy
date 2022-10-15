@@ -12,3 +12,20 @@ hr{
     opacity: 1;
     cursor: pointer;
 }
+
+.signature-pad {
+    left: 0;
+    top: 0;
+    width: 400px;
+    height:200px;
+}
+
+.wrapper {
+    position: relative;
+    height: 200px;
+    width: 400px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

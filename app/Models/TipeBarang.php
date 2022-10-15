@@ -13,4 +13,8 @@ class TipeBarang extends Model
     protected $fillable = [
         'tipe_barang'
     ];
+
+    public function barang(){
+        return $this->hasMany(Barang::class, 'id_tipe_barang');
+    }
 }

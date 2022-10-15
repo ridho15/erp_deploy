@@ -9,6 +9,7 @@
             </div>
         </div>
         <div class="card-body">
+            @include('helper.alert-message')
             <div class="text-center">
                 @include('helper.simple-loading', ['target' => 'cari,hapusBarang', 'message' => 'Memuat data...'])
             </div>

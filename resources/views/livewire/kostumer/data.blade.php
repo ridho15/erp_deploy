@@ -23,6 +23,7 @@
                  <thead>
                   <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
                    <th>No</th>
+                   <th>Kode</th>
                    <th>Nama</th>
                    <th>Email</th>
                    <th>Nomor HP</th>

@@ -3,20 +3,33 @@
 use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\AutentikasiController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\DaftarTugasController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FormMasterController;
 use App\Http\Controllers\FormPekerjaanController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KondisiController;
 use App\Http\Controllers\KostumerController;
+use App\Http\Controllers\ManagementTugasController;
 use App\Http\Controllers\MerkController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\TipeBarangController;
 use App\Http\Controllers\WorkerController;
+use App\Models\Quotation;
 use Illuminate\Support\Facades\Route;
 
+Route::prefix('testing')->group(function(){
+    Route::get('/', [DashboardController::class,'testing'])->name('testing');
+    Route::get('/export-pdf', [DashboardController::class, 'exportPdf'])->name('testing.export-pdf');
+    Route::get('/view-mail', function(){
+        $data['quotation'] = Quotation::find(3);
+        return view('mail.send-quotation', $data);
+    });
+});
+Route::get('/testing', [DashboardController::class, 'testing'])->name('testing');
 Route::get('/login', [AutentikasiController::class, 'login'])->name('login');
 Route::post('/login', [AutentikasiController::class, 'postLogin'])->name('post.login');
 Route::get('/logout', [AutentikasiController::class, 'logout'])->name('logout');
@@ -30,6 +43,17 @@ Route::middleware('auth.user')->group(function () {
         Route::get('/', [FormPekerjaanController::class, 'index'])->name('form-pekerjaan');
         Route::get('/detail/{id}', [FormPekerjaanController::class, 'detail'])->name('form-pekerjaan.detail');
         Route::get('/pekerjaan-detail/{id}', [FormPekerjaanController::class, 'detailPekerjaan'])->name('form-pekerjaan.pekerjaan-detail');
+    });
+
+    Route::prefix('management-tugas')->group(function(){
+        Route::get('/', [ManagementTugasController::class, 'index'])->name('management-tugas');
+        Route::get('/detail/{id}', [ManagementTugasController::class, 'detail'])->name('management-tugas.detail');
+        Route::get('/export/{id}', [ManagementTugasController::class, 'export'])->name('management-tugas.export');
+    });
+
+    Route::prefix('daftar-tugas')->group(function(){
+        Route::get('/', [DaftarTugasController::class, 'index'])->name('daftar-tugas');
+        Route::get('/kelola/{id}', [DaftarTugasController::class, 'kelola'])->name('daftar-tugas.kelola');
     });
 
     Route::prefix('project')->group(function(){
@@ -59,6 +83,7 @@ Route::middleware('auth.user')->group(function () {
         Route::prefix('quotation')->group(function () {
             Route::get('/', [QuotationController::class, 'index'])->name('quotation');
             Route::get('/detail/{id}', [QuotationController::class, 'detail'])->name('quotation.detail');
+            Route::get('/export/{id}', [QuotationController::class, 'export'])->name('quotation.export');
         });
 
         Route::prefix('kostumer')->group(function () {
@@ -80,6 +105,10 @@ Route::middleware('auth.user')->group(function () {
         Route::prefix('merk')->group(function () {
             Route::get('/', [MerkController::class, 'index'])->name('merk');
             Route::get('/detail/{id}', [MerkController::class, 'detail'])->name('merk.detail');
+        });
+
+        Route::prefix('tipe-barang')->group(function () {
+            Route::get('/', [TipeBarangController::class, 'index'])->name('tipe-barang');
         });
 
         Route::prefix('tipe-user')->group(function () {

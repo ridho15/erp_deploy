@@ -1,5 +1,11 @@
 <?php
-
+if(env('APP_SET') == 'dayat'){
+    $asset = env('ASSET_URL', 'http://erp.test');
+}elseif(env('APP_SET') == 'server'){
+    $asset = env('ASSET_URL', 'http://erp.alfajricollection.com');
+}else{
+    $asset = env('ASSET_URL', 'http://erp_deploy.test');
+}
 return [
 
     /*
@@ -13,7 +19,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'PT.Mitra Global Kencana'),
 
     /*
     |--------------------------------------------------------------------------
@@ -54,7 +60,9 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
-    'asset_url' => env('ASSET_URL', null),
+
+
+    'asset_url' => $asset,
 
     /*
     |--------------------------------------------------------------------------
@@ -67,7 +75,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Jakarta',
 
     /*
     |--------------------------------------------------------------------------
@@ -80,7 +88,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'id',
 
     /*
     |--------------------------------------------------------------------------
@@ -93,7 +101,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'id',
 
     /*
     |--------------------------------------------------------------------------
@@ -106,7 +114,7 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    'faker_locale' => 'id_ID',
 
     /*
     |--------------------------------------------------------------------------
@@ -174,7 +182,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        \Barryvdh\DomPDF\ServiceProvider::class,
     ],
 
     /*
@@ -229,7 +237,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'PDF' => \Barryvdh\DomPDF\Facade::class,
     ],
 
 ];
