@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Quotation;
 use App\Models\QuotationDetail;
+use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
@@ -38,6 +39,7 @@ class QuotationController extends Controller
             return redirect()->back()->with('fail', 'Data quotation tidak ditemukan');
         }
         $data['quotation'] = $quotation;
+        $data['user'] = User::find(session()->get('id_user'));
         $pdf = Pdf::loadView('pdf_view.quotation', $data);
         return $pdf->download('quotation_' . strtotime(now()) . '.pdf');
         return view('pdf_view.quotation', $data);

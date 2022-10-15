@@ -8,10 +8,10 @@ use Livewire\Component;
 class SendLog extends Component
 {
     public $id_quotation;
-    public $listQuotationSendLog;
+    public $listQuotationSendLog = [];
     public function render()
     {
-        $this->listQuotationSendLog = QuotationSendLog::where('id_quotation', $this->id_quotation);
+        $this->listQuotationSendLog = QuotationSendLog::where('id_quotation', $this->id_quotation)->get();
         return view('livewire.quotation.send-log');
     }
 

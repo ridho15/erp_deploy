@@ -15,7 +15,8 @@ class User extends Model
         'username',
         'password',
         'is_active',
-        'id_tipe_user'
+        'id_tipe_user',
+        'jabatan'
     ];
 
     protected $hidden = [

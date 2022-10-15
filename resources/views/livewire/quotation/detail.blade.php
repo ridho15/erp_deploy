@@ -30,7 +30,7 @@
             </div>
             <div class="col-md-6">
                 <label for="" class="form-label required">Qty / Jumlah</label>
-                <input type="number" class="form-control form-control-solid" name="qty" wire:model="qty" placeholder="Masukkan jumlah" required>
+                <input type="number" class="form-control form-control-solid" name="qty" wire:model="qty" wire:change="changeQty" placeholder="Masukkan jumlah" required>
                 @error('qty')
                     <small class="text-danger">{{ $message }}</small>
                 @enderror

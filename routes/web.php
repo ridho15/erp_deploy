@@ -13,6 +13,7 @@ use App\Http\Controllers\KostumerController;
 use App\Http\Controllers\ManagementTugasController;
 use App\Http\Controllers\MerkController;
 use App\Http\Controllers\PembayaranController;
+use App\Http\Controllers\PreOrderController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\SupplierController;
@@ -54,6 +55,11 @@ Route::middleware('auth.user')->group(function () {
     Route::prefix('daftar-tugas')->group(function(){
         Route::get('/', [DaftarTugasController::class, 'index'])->name('daftar-tugas');
         Route::get('/kelola/{id}', [DaftarTugasController::class, 'kelola'])->name('daftar-tugas.kelola');
+    });
+
+    Route::prefix('pre-order')->group(function(){
+        Route::get('/', [PreOrderController::class, 'index'])->name('pre-order');
+        Route::get('/detail/{id}', [PreOrderController::class, 'detail'])->name('pre-order.detail');
     });
 
     Route::prefix('project')->group(function(){

@@ -103,8 +103,8 @@
         <br>
         <br>
         <br>
-        <span style="font-weight: bold;">Nama : </span><br>
-        <span>Position : </span>
+        <span style="font-weight: bold;">Nama : {{ $user->name }}</span><br>
+        <span>Position : {{ $user->jabatan }}</span>
     </div>
 </body>
 </html>

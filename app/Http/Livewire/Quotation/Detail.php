@@ -13,7 +13,8 @@ class Detail extends Component
         'hapusDataBarang',
         'simpanDataBarang',
         'setDataBarang',
-        'changeTambahBarang'
+        'changeTambahBarang',
+        'changeQty'
     ];
     public $id_quotation;
     public $quotation;
@@ -108,5 +109,15 @@ class Detail extends Component
 
     public function changeTambahBarang(){
         $this->tambahBarang = !$this->tambahBarang;
+    }
+
+    public function changeQty(){
+        if($this->qty && $this->id_barang){
+            $this->barang = Barang::find($this->id_barang);
+            if($this->qty > $this->barang->stock){
+                $message = "Stock tidak cukup";
+                return session()->flash('fail', $message);
+            }
+        }
     }
 }

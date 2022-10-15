@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -15,6 +16,13 @@ class QuotationSendLog extends Model
         'id_user',
         'tanggal'
     ];
+
+    protected $appends = ['tanggal_formatted'];
+
+    public function getTanggalFormattedAttribute(){
+        $carbon = Carbon::parse($this->tanggal)->locale('id')->isoFormat('dddd, DD MMMM YYYY');
+        return $carbon;
+    }
 
     public function quotation(){
         return $this->belongsTo(Quotation::class, 'id_quotation');
