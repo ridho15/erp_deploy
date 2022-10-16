@@ -15,6 +15,7 @@ class Quotation extends Model
     protected $table = 'quotations';
     protected $fillable = [
         'id_laporan_pekerjaan',
+        'id_customer',
         'status',
         'keterangan',
         'file',
@@ -41,6 +42,10 @@ class Quotation extends Model
 
     public function quotationDetail(){
         return $this->hasMany(QuotationDetail::class, 'id_quotation');
+    }
+
+    public function customer(){
+        return $this->belongsTo(Customer::class, 'id_customer');
     }
 
     public function getNoRefAttribute(){

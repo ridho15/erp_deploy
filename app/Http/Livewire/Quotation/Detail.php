@@ -65,7 +65,32 @@ class Detail extends Component
         $barang = Barang::find($this->id_barang);
         if(!$barang){
             $message = "Data barang tidak ditemukan !";
-            $this->emit('finishRefreshBarang', 1, $message);
+            $this->emit('finishRefreshBarang', 0, $message);
+            return session()->flash('fail', $message);
+        }
+
+        if($this->qty <= 0){
+            $message = "Jumlah 0 tidak berlaku. minimal 1";
+            $this->emit('finishRefreshBarang', 0, $message);
+            return session()->flash('fail', $message);
+        }
+
+        // checkstock yang sudah digunakan
+        $quotationDetail = QuotationDetail::where('id_barang', $this->id_barang)
+        ->where('id_quotation', $this->id_quotation)->get();
+        $stockTerpakai = 0;
+        foreach ($quotationDetail as $item) {
+            $stockTerpakai += $item->qty;
+        }
+        $stockTerpakai += $this->qty;
+
+        if($this->id_quotation_detail != null){
+            $stockTerpakai = $this->qty;
+        }
+
+        if($stockTerpakai > $barang->stock){
+            $message = "Stock tidak cukup";
+            $this->emit('finishRefreshBarang', 0, $message);
             return session()->flash('fail', $message);
         }
 

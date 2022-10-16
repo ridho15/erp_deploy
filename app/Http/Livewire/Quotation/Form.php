@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Quotation;
 
 use App\Http\Controllers\HelperController;
+use App\Models\Customer;
 use App\Models\Quotation;
 use App\Models\TipePembayaran;
 use Livewire\Component;
@@ -22,21 +23,20 @@ class Form extends Component
         'setDataQuotation',
         'onClickHapusFile',
         'changeKeterangan',
+        'changeCustomer'
     ];
     public $id_quotation;
     public $id_project;
     public $status_response;
-    public $id_tipe_pembayaran;
-    public $listStatusResponse;
-    public $listTipePembayaran;
+    public $id_customer;
     public $file;
     public $keterangan;
     public $hal;
     public $quotation;
+    public $listCustomer;
     public function render()
     {
-        $this->listTipePembayaran = TipePembayaran::get();
-        $this->listStatusResponse = $this->helper->getListStatusResponse();
+        $this->listCustomer = Customer::get();
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.quotation.form');
     }
@@ -125,7 +125,7 @@ class Form extends Component
         $quotation = Quotation::find($id);
         if(!$quotation){
             $message = "Data quotation tidak ditemukan !";
-
+            $this->emit('finishSimpanData', 0, $message);
             return session()->flash('fail', $message);
         }
 
@@ -134,6 +134,7 @@ class Form extends Component
         $this->status_reponse = $quotation->status_response;
         $this->id_tipe_pembayaran = $quotation->id_tipe_pembayaran;
         $this->quotation = $quotation;
+        $this->keterangan = $quotation->keterangan;
     }
 
     public function resetInputFields(){
@@ -149,5 +150,51 @@ class Form extends Component
 
     public function changeKeterangan($keterangan){
         $this->keterangan = $keterangan;
+    }
+
+    public function changeCustomer($id_customer){
+        $this->id_customer = $id_customer;
+    }
+
+    public function simpanDataQuotation(){
+        $this->validate([
+            'id_customer' => 'required|numeric',
+            'keterangan' => 'nullable|string',
+            'hal' => 'nullable|string',
+            'file' => 'nullable|mimes:pdf,docx,xlsx|max:10240',
+        ], [
+            'id_customer.required' => 'Data customer tidak valid !',
+            'id_customer.numeric' => 'Data customer tidak valid !',
+            'keterangan.string' => 'Keterangan tidak valid !',
+            'file.mimes' => 'File tidak valid !',
+            'file.max' => 'Ukuran file terlalu besar, maximal 10Mb',
+            'hal.string' => 'Perihal tidak valid !'
+        ]);
+
+        // Check data customer
+        $customer = Customer::find($this->id_customer);
+        if(!$customer){
+            $message = "Data customer tidak ditemukan !";
+            $this->emit('finishSimpanData', 0, $message);
+            return session()->flash('fail', $message);
+        }
+
+        $data['id_customer'] = $this->id_customer;
+        $data['keterangan'] = $this->keterangan;
+        $data['hal'] = $this->hal;
+        if($this->file){
+            $path = $this->file->store('public/quotation_file');
+            $path = str_replace('public', '', $path);
+            $data['file'] = $path;
+        }
+
+        Quotation::updateOrCreate([
+            'id' => $this->id_quotation
+        ],$data);
+
+        $message = "Berhasil menyimpan data quotation";
+        $this->resetInputFields();
+        $this->emit('finishSimpanData', 1, $message);
+        return session()->flash('success', $message);
     }
 }

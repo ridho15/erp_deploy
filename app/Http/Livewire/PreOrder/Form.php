@@ -4,7 +4,9 @@ namespace App\Http\Livewire\PreOrder;
 
 use App\Models\Customer;
 use App\Models\PreOrder;
+use App\Models\PreOrderDetail;
 use App\Models\Quotation;
+use App\Models\QuotationDetail;
 use App\Models\TipePembayaran;
 use Livewire\Component;
 
@@ -84,9 +86,23 @@ class Form extends Component
         $data['id_customer'] = $this->id_customer;
         $data['keterangan'] = $this->keterangan;
 
-        PreOrder::updateOrCreate([
+        $preOrder = PreOrder::updateOrCreate([
             'id' => $this->id_pre_order
         ], $data);
+
+        if($this->id_quotation && $this->id_pre_order == null){
+            $listQuotationDetail = QuotationDetail::where('id_quotation', $this->id_quotation)->get();
+            foreach ($listQuotationDetail as $item) {
+                PreOrderDetail::create([
+                    'id_pre_order' => $preOrder->id,
+                    'id_barang' => $item->id_barang,
+                    'harga' => $item->harga,
+                    'qty' => $item->qty,
+                    'id_satuan' => $item->id_satuan,
+                    'keterangan' => $item->deskripsi
+                ]);
+            }
+        }
         $message = "Berhasil menyimpan data";
         $this->resetInputFields();
         $this->emit('refreshPreOrder');
