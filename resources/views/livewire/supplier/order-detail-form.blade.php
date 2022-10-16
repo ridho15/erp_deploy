@@ -40,7 +40,7 @@
                         </div>
                         <div class="mb-5">
                             <label for="" class="form-label required">Status Order</label>
-                            <select name="status_order" wire:model="status_order" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form_order_detail" data-placeholder="Pilih" required>
+                            <select name="status_order" wire:model="status_order" class="form-select form-select-solid supplier-order-detail" data-control="select2" data-dropdown-parent="#modal_form_order_detail" data-placeholder="Pilih" required>
                                 <option value="">Pilih</option>
                                 @foreach ($listStatusOrder as $item)
                                     <option value="{{ $item['status_order'] }}">{{ $item['keterangan'] }}</option>
@@ -72,21 +72,24 @@
 @push('js')
     <script>
         $(document).ready(function () {
-
+            refreshSelect()
         });
 
         window.addEventListener('contentChange', function(){
+            refreshSelect()
+        })
+
+        function refreshSelect(){
             $('select[name="id_barang"]').select2()
-            $('select[name="status_order"]').select2()
-        })
+            $('.supplier-order-detail').select2()
+            $('select[name="id_barang"]').on('change', function(){
+                Livewire.emit('changeBarang', $(this).val())
+            })
 
-        $('select[name="id_barang"]').on('change', function(){
-            Livewire.emit('changeBarang', $(this).val())
-        })
-
-        $('select[name="status_order"]').on('change', function(){
-            Livewire.emit('statusOrderChange', $(this).val())
-        })
+            $('.supplier-order-detail').on('change', function(){
+                Livewire.emit('statusOrderChange', $(this).val())
+            })
+        }
 
         Livewire.on('finishSimpanData', (status, message) => {
             $('.modal').modal('hide');

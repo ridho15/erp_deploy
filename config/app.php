@@ -1,10 +1,11 @@
 <?php
+
 if(env('APP_SET') == 'dayat'){
     $asset = env('ASSET_URL', 'http://erp.test');
 }elseif(env('APP_SET') == 'server'){
     $asset = env('ASSET_URL', 'https://erp.alfajricollection.com');
 }else{
-    $asset = env('ASSET_URL', 'http://erp_deploy.test');
+    $asset = env('ASSET_URL', 'https://erp.medialatihan.com/master/public');
 }
 return [
 
@@ -58,9 +59,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
-
-
+    'url' => env('APP_URL', 'https://erp.medialatihan.com'),
 
     'asset_url' => $asset,
 

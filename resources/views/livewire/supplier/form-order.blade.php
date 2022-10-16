@@ -41,7 +41,7 @@
                         </div>
                         <div class="mb-5">
                             <label for="" class="form-label required">Status Order</label>
-                            <select name="status_order" class="form-select form-select-solid" wire:model="status_order" data-control="select2" data-dropdown-parent="#modal_form_order" data-placeholder="Pilih" required>
+                            <select name="status_order" class="form-select form-select-solid supplier-order" wire:model="status_order" data-control="select2" data-dropdown-parent="#modal_form_order" data-placeholder="Pilih" required>
                                 <option value="">Pilih</option>
                                 @foreach ($listStatusOrder as $item)
                                     <option value="{{ $item['status_order'] }}" @if($item['status_order'] == $status_order) selected @endif>{{ $item['keterangan'] }}</option>
@@ -85,26 +85,31 @@
     <script>
         $(document).ready(function () {
             $('input[name="tanggal_order"]').flatpickr()
+            refreshSelect()
         });
 
         window.addEventListener('contentChange', function(){
+            refreshSelect();
+        })
+
+        function refreshSelect(){
             $('input[name="tanggal_order"]').flatpickr()
             $('select[name="id_supplier"]').select2()
-            $('select[name="status_order"]').select2()
+            // $('select[name="status_order"]').select2()
+            $('.supplier-order').select2()
             $('select[name="id_tipe_pembayaran"]').select2()
-        })
+            $('select[name="id_supplier"]').on('change', function(){
+                Livewire.emit('changeSupplier', $(this).val())
+            })
 
-        $('select[name="id_supplier"]').on('change', function(){
-            Livewire.emit('changeSupplier', $(this).val())
-        })
+            $('.supplier-order').on('change', function(){
+                Livewire.emit('changeStatusOrder', $(this).val())
+            })
 
-        $('select[name="status_order"]').on('change', function(){
-            Livewire.emit('changeStatusOrder', $(this).val())
-        })
-
-        $('select[name="id_tipe_pembayaran"]').on('change', function(){
-            Livewire.emit('changeTipePembayaran', $(this).val())
-        })
+            $('select[name="id_tipe_pembayaran"]').on('change', function(){
+                Livewire.emit('changeTipePembayaran', $(this).val())
+            })
+        }
 
         Livewire.on("finishSimpanData", (status, message) => {
             $('.modal').modal('hide')

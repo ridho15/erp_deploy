@@ -15,7 +15,12 @@ class OrderDetailForm extends Component
     {
         $this->helper = new HelperController;
     }
-    public $listeners = ['simpanDataOrderBarang', 'changeBarang', 'statusOrderChange', 'setDataSupplierOrderDetail'];
+    public $listeners = [
+        'simpanDataOrderBarang',
+        'changeBarang',
+        'statusOrderChange',
+        'setDataSupplierOrderDetail'
+    ];
     public $id_supplier_order;
     public $id_supplier_order_detail;
     public $id_barang;
