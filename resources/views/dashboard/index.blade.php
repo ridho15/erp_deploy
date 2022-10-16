@@ -110,7 +110,7 @@
                                 <!--end::Info-->
                             </div>
                             <div class="d-flex flex-row">
-                                <a href="javascript:" class="icon-cog" data-bs-toggle="tooltip" title="Pengaturan Profil">
+                                <a href="{{ route('profile.edit') }}" class="icon-cog" data-bs-toggle="tooltip" title="Pengaturan Profil">
                                     <i class="fa-solid fa-cog fs-15"></i>
                                 </a>
                             </div>
