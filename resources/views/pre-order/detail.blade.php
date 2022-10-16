@@ -1,28 +1,7 @@
 @extends('template.layout')
 
 @section('content')
-    <div class="card shadow-sm">
-        <div class="card-header">
-            <h3 class="card-title">
-                Detail Pre Order
-            </h3>
-            <div class="card-toolbar">
-                <button class="btn btn-sm btn-outline btn-outline-success btn-edit" data-item="{{ $preOrder }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Pre Order">
-                    <i class="bi bi-pencil-square"></i> Edit
-                </button>
-            </div>
-        </div>
-        <div class="card-body">
-            <div class="row mb-5">
-                <div class="col-md-4">
-                    @livewire('pre-order.detail', ['id_pre_order' => $preOrder->id])
-                </div>
-                <div class="col-md-8">
-                    @livewire('pre-order.detail-barang', ['id_pre_order' => $preOrder->id])
-                </div>
-            </div>
-        </div>
-    </div>
+    @livewire('pre-order.detail', ['id_pre_order' => $preOrder->id])
 
     @livewire('pre-order.form')
 @endsection
@@ -39,6 +18,15 @@
             tinymce.activeEditor.setContent(item.keterangan ? item.keterangan : '');
             Livewire.emit('setDataPreOrder', item.id)
             $('#modal_form').modal('show')
+        })
+
+        $('.btn-proses').on('click', async function(){
+            const id = $(this).data('id')
+            const status = $(this).data('status')
+            const response = await alertConfirmCustom("Pemberitahuan", 'Apakah kamu yakin ingin merubah status Pre Order ?', "Ya")
+            if(response.isConfirmed == true){
+                Livewire.emit('changeStatusPreOrder', id, status)
+            }
         })
     </script>
 @endsection

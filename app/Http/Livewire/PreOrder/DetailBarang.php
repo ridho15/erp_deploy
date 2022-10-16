@@ -12,7 +12,8 @@ class DetailBarang extends Component
         'changeTambahBarang',
         'simpanBarang',
         'hapusBarang',
-        'setBarang'
+        'setBarang',
+        'changeKeterangan'
     ];
     public $id_pre_order;
     public $id_barang;
@@ -36,6 +37,7 @@ class DetailBarang extends Component
         if($this->id_barang){
             $this->barang = Barang::find($this->id_barang);
         }
+        $this->dispatchBrowserEvent('contentChange');
         return view('livewire.pre-order.detail-barang');
     }
 
@@ -61,14 +63,15 @@ class DetailBarang extends Component
         ]);
 
         // Check Data Barang
-        $barang = Barang::find($this->id);
+        $barang = Barang::find($this->id_barang);
         if(!$barang){
             $message = "Data barang tidak ditemukan / tidak valid !";
             return session()->flash('fail', $message);
         }
 
-        if($this->qty < $barang->stock){
+        if($this->qty > $barang->stock){
             $message = "Stock tidak mencukupi";
+            $this->emit('finishRefreshData', 0, $message);
             return session()->flash('fail', $message);
         }
 
@@ -96,5 +99,38 @@ class DetailBarang extends Component
         $this->barang = null;
         $this->qty = null;
         $this->keterangan = null;
+    }
+
+    public function changeKeterangan($keterangan){
+        $this->keterangan = $keterangan;
+    }
+
+    public function setBarang($id){
+        $this->tambahBarang = true;
+        $preOrderDetail = PreOrderDetail::find($id);
+        if(!$preOrderDetail){
+            $message = "Data tidak ditemukan";
+            $this->emit('finishRefreshData', 0, $message);
+            return session()->flash('fail', $message);
+        }
+
+        $this->id_pre_order_detail = $preOrderDetail->id;
+        $this->id_barang = $preOrderDetail->id_barang;
+        $this->qty = $preOrderDetail->qty;
+        $this->keterangan = $preOrderDetail->keterangan;
+    }
+
+    public function hapusBarang($id){
+        $preOrderDetail = PreOrderDetail::find($id);
+        if(!$preOrderDetail){
+            $message = "Data Order barang tidak ditemukan !";
+            $this->emit('finishRefreshData', 0, $message);
+            return session()->flash('fail', $message);
+        }
+
+        $preOrderDetail->delete();
+        $message = "Berhasil menghapus data order barang";
+        $this->emit('finishRefreshData', 1, $message);
+        return session()->flash('success', $message);
     }
 }

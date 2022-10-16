@@ -14,6 +14,7 @@
            <th>Supplier</th>
            <th>Barang</th>
            <th>Merk</th>
+           <th>Tipe Barang</th>
            <th>Satuan</th>
            <th>Harga</th>
            <th>Aksi</th>
@@ -27,9 +28,10 @@
                         <td>{{ $item->supplier->name }}</td>
                         <td>{{ $item->barang->nama }}</td>
                         <td>{{ $item->barang->merk ? $item->barang->merk->nama_merk : '-' }}</td>
+                        <td>{{ $item->barang->tipeBarang->tipe_barang }}</td>
                         <td>{{ $item->barang->satuan->nama_satuan }}</td>
                         <td>{{ $item->barang->harga_formatted }}</td>
-                        <td>{{ $item->barang->tipeBarang() }}</td>
+                        <td></td>
                         <td>
                             <div class="btn-group">
                                 <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Barang" wire:click="$emit('onClickHapusSupplierBarang', {{ $item->id }})">
