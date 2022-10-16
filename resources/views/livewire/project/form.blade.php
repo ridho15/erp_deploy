@@ -88,13 +88,21 @@
 
 @push('js')
     <script>
-        window.addEventListener('contentChange', function(){
+        $(document).ready(function () {
+            refreshSelect()
+        });
+
+        function refreshSelect(){
             $('select[name="id_customer"]').select2()
+
+            $('select[name="id_customer"]').on('change', function(){
+                @this.set('id_customer', $(this).val())
+            })
+        }
+        window.addEventListener('contentChange', function(){
+            refreshSelect()
         })
 
-        $('select[name="id_customer"]').on('change', function(){
-            @this.set('id_customer', $(this).val())
-        })
         Livewire.on('finishSimpanData', (status, message) => {
             $('.modal').modal('hide')
             alertMessage(status, message)

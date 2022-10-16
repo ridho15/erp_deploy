@@ -54,7 +54,13 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-
+                        <div class="mb-5">
+                            <label for="" class="form-label">Jabatan</label>
+                            <input type="text" name="jabatan" wire:model="jabatan" class="form-control form-control-solid" placeholder="Masukkan jabatan">
+                            @error('jabatan')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
                         <div class="d-flex flex-stack w-lg-50">
                             <label class="form-check form-switch form-check-custom form-check-solid">
                                 <input class="form-check-input" type="checkbox" value="1" wire:model="is_active" checked="checked"/>

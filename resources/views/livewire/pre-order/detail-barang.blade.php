@@ -143,6 +143,7 @@
             <th>Harga</th>
             <th>Satuan</th>
             <th>Keterangan</th>
+            <th>Subtotal</th>
             <th>Aksi</th>
         </tr>
         </thead>
@@ -157,15 +158,18 @@
                         <td>{{ $item->harga_formatted }}</td>
                         <td>{{ $item->satuan->nama_satuan }}</td>
                         <td><?= $item->keterangan ?></td>
+                        <td>{{ $item->sub_total_formatted }}</td>
                         <td>
-                            <div class="btn-group">
-                                <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Pre Order Barang" wire:click="$emit('onClickEditBarang', {{ $item }})">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                                <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Pre Order barang" wire:click="$emit('onClickHapusBarang', {{ $item->id }})">
-                                    <i class="bi bi-trash-fill"></i>
-                                </button>
-                            </div>
+                            @if ($item->preOrder->status == 1)
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Pre Order Barang" wire:click="$emit('onClickEditBarang', {{ $item }})">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Pre Order barang" wire:click="$emit('onClickHapusBarang', {{ $item->id }})">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </button>
+                                </div>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

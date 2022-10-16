@@ -28,6 +28,7 @@
                             <th>Username</th>
                             <th>Status Aktif</th>
                             <th>Tipe User</th>
+                            <th>Jabatan</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -42,6 +43,7 @@
                                 <?= $item->is_active_formatted ?>
                             </td>
                             <td>{{ $item->tipeUser->nama_tipe }}</td>
+                            <td>{{ $item->jabatan }}</td>
                             <td>
                                 <div class="btn-group">
                                     <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip"

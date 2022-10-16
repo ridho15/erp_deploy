@@ -9,6 +9,7 @@ use Livewire\Component;
 class DetailBarang extends Component
 {
     public $listeners = [
+        'refreshPreOrderDetail' => '$refresh',
         'changeTambahBarang',
         'simpanBarang',
         'hapusBarang',

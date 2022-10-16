@@ -15,6 +15,7 @@ class Form extends Component
     public $name;
     public $username;
     public $password;
+    public $jabatan;
     public $is_active;
     public $id_tipe_user;
     public $listTipeUser;
@@ -41,6 +42,7 @@ class Form extends Component
         $this->name = $user->name;
         $this->is_active = $user->is_active;
         $this->id_tipe_user = $user->id_tipe_user;
+        $this->jabatan = $user->jabatan;
     }
 
     public function simpanDataUser(){
@@ -48,7 +50,8 @@ class Form extends Component
             'name' => 'required|string',
             'username' => 'required|string',
             'password' => 'nullable|string',
-            'id_tipe_user' => 'required|numeric'
+            'id_tipe_user' => 'required|numeric',
+            'jabatan' => 'required|string'
         ],[
             'name.required' => 'Nama tidak boleh kosong',
             'name.string' => 'Nama tidak valid !',
@@ -56,7 +59,8 @@ class Form extends Component
             'username.string' => 'Username tidak valid !',
             'password.string' => 'Password tidak valid !',
             'id_tipe_user.required' => 'Tipe User tidak boleh kosong',
-            'id_tipe_user.numeric' => 'Tipe user tidak valid !'
+            'id_tipe_user.numeric' => 'Tipe user tidak valid !',
+            'jabatan.string' => 'Jabatan tidak valid !',
         ]);
 
         $this->username = Str::slug($this->username);
@@ -75,6 +79,7 @@ class Form extends Component
         }
         $data['name'] = $this->name;
         $data['username'] = Str::slug($this->username);
+        $data['jabatan'] = $this->jabatan;
         if($this->id_user == null && $this->password == null){
             $message = "Password harus diisi";
             return $this->emit('finishDataUser', 0, $message);
@@ -100,5 +105,6 @@ class Form extends Component
         $this->password = null;
         $this->is_active = null;
         $this->id_tipe_user = null;
+        $this->jabatan = null;
     }
 }
