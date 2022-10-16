@@ -32,12 +32,21 @@
                             <span>Menteng, Jakarta Pusat</span> <br>
                         </div>
                         <br>
-                        <div>
-                            <span style="font-weight: bold">Up : {{ $quotation->laporanPekerjaan->customer->nama }}</span><br>
-                            <span style="font-weight: bold">Email : {{ $quotation->laporanPekerjaan->customer->email }}</span><br>
-                            <span style="font-weight: bold">No Hp : {{ $quotation->laporanPekerjaan->customer->no_hp }}</span><br>
-                            <span style="font-weight: bold">Alamat : {{ $quotation->laporanPekerjaan->customer->alamat }}</span><br>
-                        </div>
+                        @if ($quotation->laporanPekerjaan)
+                            <div>
+                                <span style="font-weight: bold">Up : {{ $quotation->laporanPekerjaan->customer->nama }}</span><br>
+                                <span style="font-weight: bold">Email : {{ $quotation->laporanPekerjaan->customer->email }}</span><br>
+                                <span style="font-weight: bold">No Hp : {{ $quotation->laporanPekerjaan->customer->no_hp }}</span><br>
+                                <span style="font-weight: bold">Alamat : {{ $quotation->laporanPekerjaan->customer->alamat }}</span><br>
+                            </div>
+                        @elseif($quotation->customer)
+                            <div>
+                                <span style="font-weight: bold">Up : {{ $quotation->customer->nama }}</span><br>
+                                <span style="font-weight: bold">Email : {{ $quotation->customer->email }}</span><br>
+                                <span style="font-weight: bold">No Hp : {{ $quotation->customer->no_hp }}</span><br>
+                                <span style="font-weight: bold">Alamat : {{ $quotation->customer->alamat }}</span><br>
+                            </div>
+                        @endif
                         <br>
                         <div>
                             <span>Dengan Hormat,</span><br>

@@ -50,11 +50,18 @@ class Data extends Component
             $this->emit('finishRefreshData',0, $mesasge);
             return session()->flash('fail', $mesasge);
         }
-
-        Mail::to($quotation->laporanPekerjaan->customer->email)->send(new SendQuotationMail($id));
-        $quotation->update([
-            'status' => 1,
-        ]);
+        $email = null;
+        if($quotation->laporanPekerjaan){
+            $email = $quotation->laporanPekerjaan->customer->email;
+        }elseif($quotation->customer){
+            $email = $quotation->customer->email;
+        }
+        if ($email) {
+            Mail::to($email)->send(new SendQuotationMail($id));
+            $quotation->update([
+                'status' => 1,
+            ]);
+        }
         QuotationSendLog::create([
             'id_quotation' => $quotation->id,
             'id_user' => session()->get('id_user'),
