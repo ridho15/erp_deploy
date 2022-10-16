@@ -47,12 +47,14 @@
                         <td>{{ $item->keterangan }}</td>
                         <td>
                             <div class="btn-group">
-                                <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Supplier Order Barang" wire:click="$emit('onClickEditOrderBarang', {{ $item->id }})">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                                <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Barang Supplier" wire:click="$emit('onClickHapusBarang', {{ $item->id }})">
-                                    <i class="bi bi-trash-fill"></i>
-                                </button>
+                                @if ($item->supplierOrder->status_order == 1)
+                                    <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Supplier Order Barang" wire:click="$emit('onClickEditOrderBarang', {{ $item->id }})">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Barang Supplier" wire:click="$emit('onClickHapusBarang', {{ $item->id }})">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </button>
+                                @endif
                                 <a href="{{ route('barang.detail', ['id' => $item->id_barang]) }}" class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Data Barang">
                                     <i class="bi bi-info-circle-fill"></i>
                                 </a>

@@ -40,11 +40,29 @@
                         @foreach ($listQuotation as $index => $item)
                             <tr>
                                 <td>{{ ($page - 1) * $total_show  + $index + 1 }}</td>
-                                <td>{{ $item->laporanPekerjaan->project->kode }}</td>
-                                <td>{{ $item->laporanPekerjaan->project->nama }}</td>
-                                <td>{{ $item->laporanPekerjaan->customer->nama }}</td>
-                                <td>{{ $item->laporanPekerjaan->customer->email }}</td>
-                                <td>{{ $item->laporanPekerjaan->customer->no_hp }}</td>
+                                <td>{{ $item->laporanPekerjaan ? $item->laporanPekerjaan->project->kode : '-' }}</td>
+                                <td>{{ $item->laporanPekerjaan ? $item->laporanPekerjaan->project->nama : '-' }}</td>
+                                <td>
+                                    @if ($item->laporanPekerjaan)
+                                        {{ $item->laporanPekerjaan->customer->kode }} {{ $item->laporanPekerjaan->customer->nama }}
+                                    @elseif($item->customer)
+                                        {{ $item->customer->kode }} {{ $item->customer->nama }}
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($item->laporanPekerjaan)
+                                        {{ $item->laporanPekerjaan->customer->email }}
+                                    @elseif($item->customer)
+                                        {{ $item->customer->email }}
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($item->laporanPekerjaan)
+                                        {{ $item->laporanPekerjaan->customer->no_hp }}
+                                    @elseif($item->customer)
+                                        {{ $item->customer->no_hp }}
+                                    @endif
+                                </td>
                                 <td><?= $item->status_formatted ?></td>
                                 <td><?= $item->keterangan ?></td>
                                 <td>{{ $item->hal }}</td>
@@ -100,7 +118,7 @@
         })
 
         Livewire.on('onClickTambah', () => {
-
+            $('#modal_form_manual').modal('show')
         })
 
         Livewire.on('onClickSend', async(id) => {

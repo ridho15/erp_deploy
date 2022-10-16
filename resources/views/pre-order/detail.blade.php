@@ -13,20 +13,6 @@
 
         });
 
-        $('.btn-edit').on('click', function(){
-            const item = $(this).data('item');
-            tinymce.activeEditor.setContent(item.keterangan ? item.keterangan : '');
-            Livewire.emit('setDataPreOrder', item.id)
-            $('#modal_form').modal('show')
-        })
 
-        $('.btn-proses').on('click', async function(){
-            const id = $(this).data('id')
-            const status = $(this).data('status')
-            const response = await alertConfirmCustom("Pemberitahuan", 'Apakah kamu yakin ingin merubah status Pre Order ?', "Ya")
-            if(response.isConfirmed == true){
-                Livewire.emit('changeStatusPreOrder', id, status)
-            }
-        })
     </script>
 @endsection

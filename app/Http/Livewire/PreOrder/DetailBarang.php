@@ -9,6 +9,7 @@ use Livewire\Component;
 class DetailBarang extends Component
 {
     public $listeners = [
+        'refreshPreOrderDetail' => '$refresh',
         'changeTambahBarang',
         'simpanBarang',
         'hapusBarang',
@@ -69,7 +70,20 @@ class DetailBarang extends Component
             return session()->flash('fail', $message);
         }
 
-        if($this->qty > $barang->stock){
+        // Check Stock yang sudah digunakan
+        $listPreOrderDetailBarang = PreOrderDetail::where('id_barang', $this->id_barang)
+        ->where('id_pre_order', $this->id_pre_order)->get();
+        $stockTerpakai = 0;
+        foreach ($listPreOrderDetailBarang as $item) {
+            $stockTerpakai += $item->qty;
+        }
+        $stockTerpakai += $this->qty;
+
+        if($this->id_pre_order_detail != null){
+            $stockTerpakai = $this->qty;
+        }
+
+        if($stockTerpakai > $barang->stock){
             $message = "Stock tidak mencukupi";
             $this->emit('finishRefreshData', 0, $message);
             return session()->flash('fail', $message);

@@ -23,7 +23,12 @@
                                 Kode Project
                             </div>
                             <div class="col-md-8 col-8">
-                                : <span class="fw-bold">{{ $quotation? $quotation->laporanPekerjaan->project->kode : null }}</span>
+                                : <span class="fw-bold"></span>
+                                <span class="fw-bold">
+                                    @if ($quotation && $quotation->laporanPekerjaan)
+                                        {{ $quotation->laporanPekerjaan->project->kode }}
+                                    @endif
+                                </span>
                             </div>
                         </div>
                         <div class="row mb-5">
@@ -31,7 +36,7 @@
                                 Nama Project
                             </div>
                             <div class="col-md-8 col-8">
-                                : <span class="fw-bold">{{ $quotation? $quotation->laporanPekerjaan->project->nama : null }}</span>
+                                : <span class="fw-bold">{{ $quotation && $quotation->laporanPekerjaan? $quotation->laporanPekerjaan->project->nama : null }}</span>
                             </div>
                         </div>
                         <div class="row mb-5">
@@ -39,7 +44,13 @@
                                 Pelanggan
                             </div>
                             <div class="col-md-8 col-8">
-                                : <span class="fw-bold">{{ $quotation? $quotation->laporanPekerjaan->customer->nama : null }}</span>
+                                : <span class="fw-bold">
+                                    @if ($quotation && $quotation->laporanPekerjaan)
+                                        {{ $quotation->laporanPekerjaan->customer->kode }} {{ $quotation->laporanPekerjaan->customer->nama }}
+                                    @elseif($quotation && $quotation->customer)
+                                        {{ $quotation->customer->kode }} {{ $quotation->customer->nama }}
+                                    @endif
+                                </span>
                             </div>
                         </div>
                         <div class="row mb-5">
@@ -47,7 +58,13 @@
                                 Email Pelanggan
                             </div>
                             <div class="col-md-8 col-8">
-                                : <span class="fw-bold">{{ $quotation? $quotation->laporanPekerjaan->customer->email : null }}</span>
+                                : <span class="fw-bold">
+                                    @if ($quotation && $quotation->laporanPekerjaan)
+                                        {{ $quotation->laporanPekerjaan->customer->email }}
+                                    @elseif($quotation && $quotation->customer)
+                                        {{ $quotation->customer->email }}
+                                    @endif
+                                </span>
                             </div>
                         </div>
                         <div class="row mb-5">
@@ -55,7 +72,13 @@
                                 No Hp Pelanggan
                             </div>
                             <div class="col-md-8 col-8">
-                                : <span class="fw-bold">{{ $quotation? $quotation->laporanPekerjaan->customer->no_hp : null }}</span>
+                                : <span class="fw-bold">
+                                    @if ($quotation && $quotation->laporanPekerjaan)
+                                        {{ $quotation->laporanPekerjaan->customer->no_hp }}
+                                    @elseif($quotation && $quotation->customer)
+                                        {{ $quotation->customer->no_hp }}
+                                    @endif
+                                </span>
                             </div>
                         </div>
                         <div class="row mb-5">
@@ -63,7 +86,15 @@
                                 Keterangan
                             </div>
                             <div class="col-md-8 col-8">
-                                : <span class="fw-bold">{{ $quotation? $quotation->keterangan : '-' }}</span>
+                                : <span class="fw-bold"><?= $quotation ? $quotation->keterangan : '-' ?></span>
+                            </div>
+                        </div>
+                        <div class="row mb-5">
+                            <div class="col-md-4 col-4">
+                                Hal
+                            </div>
+                            <div class="col-md-8 col-8">
+                                : <span class="fw-bold"><?= $quotation ? $quotation->hal : '-' ?></span>
                             </div>
                         </div>
                         <div class="row mb-5">
@@ -71,10 +102,92 @@
                                 Status
                             </div>
                             <div class="col-md-8 col-8">
-                                : <span class="fw-bold"><?= $quotation? $quotation->status_formatted : null ?></span>
+                                : <span class="fw-bold"><?= $quotation && $quotation->laporanPekerjaan? $quotation->status_formatted : null ?></span>
                             </div>
                         </div>
                         <hr class="my-5">
+                        <div class="mb-5" wire:ignore>
+                            <label for="" class="form-label">Keterangan</label>
+                            <textarea name="keterangan" wire:model="keterangan" class="form-control form-control-solid" placeholder="Masukkan keterangan"></textarea>
+                            @error('keterangan')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="mb-5">
+                            <label for="" class="form-label">Perihal</label>
+                            <textarea name="hal" class="form-control form-control-solid" wire:model="hal" placeholder="Masukkan perihal"></textarea>
+                            @error('hal')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="mb-5"
+                            x-data="{ isUploading: false, progress: 0 }"
+                            x-on:livewire-upload-start="isUploading = true"
+                            x-on:livewire-upload-finish="isUploading = false, progress = 0"
+                            x-on:livewire-upload-error="isUploading = false"
+                            x-on:livewire-upload-progress="progress = $event.detail.progress"
+                        >
+                            <label for="" class="form-label">File</label>
+                            <input type="file" name="file" wire:model="file" accept="application/pdf,application/vnd.ms-excel,.docx" id="pilih_file" hidden>
+                            <div class="text-center">
+                                <label for="pilih_file" class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-light-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Upload File">
+                                    <i class="fa-solid fa-file"></i> Pilih File
+                                </label>
+                            </div>
+                            <div x-show="isUploading" class="progress mt-5">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" x-bind:style="`width: ${progress}%`"></div>
+                            </div>
+                            <div class="text-center">
+                                @if ($file)
+                                    {{ $file->getClientOriginalName() }} <span class="text-danger mx-2" style="cursor: pointer" wire:click="onClickHapusFile"><i class="fa-solid fa-trash-can text-danger fs-2"></i></span>
+                                @endif
+                            </div>
+                            @error('file')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-box-arrow-down"></i> Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div wire:ignore.self class="modal fade barang" tabindex="-1" id="modal_form_manual">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Form Quotation</h3>
+
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                        <span class="svg-icon svg-icon-1">
+                            <i class="bi bi-x-circle"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <form action="#" wire:submit.prevent="simpanDataQuotation">
+                    <div class="modal-body">
+                        @include('helper.alert-message')
+                        <div class="text-center">
+                            @include('helper.simple-loading', ['target' => 'file,simpanDataQuotation', 'message' => 'Menyimpan data ...'])
+                        </div>
+                        <div class="mb-5">
+                            <label for="" class="form-label required">Customer</label>
+                            <select name="id_customer" wire:model="id_customer" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form_manual" data-placehoder="Pilih" required>
+                                <option value="">Pilih</option>
+                                @foreach ($listCustomer as $item)
+                                    <option value="{{ $item->id }}">{{ $item->kode }} {{ $item->nama }}</option>
+                                @endforeach
+                            </select>
+                            @error('id_customer')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
                         <div class="mb-5" wire:ignore>
                             <label for="" class="form-label">Keterangan</label>
                             <textarea name="keterangan" wire:model="keterangan" class="form-control form-control-solid" placeholder="Masukkan keterangan"></textarea>
@@ -130,8 +243,16 @@
 @push('js')
     <script>
         $(document).ready(function () {
-
+            refreshSelect()
         });
+
+        function refreshSelect(){
+            $('select[name="id_customer"]').select2();
+
+            $('select[name="id_customer"]').on('change', function(){
+                Livewire.emit('changeCustomer', $(this).val())
+            })
+        }
 
         tinymce.init({
             selector: 'textarea[name="keterangan"]',
@@ -141,14 +262,13 @@
                     editor.save()
                 });
                 editor.on('change', function(e){
-                    // @this.set('keterangan', editor.getContent())
                     Livewire.emit('changeKeterangan', editor.getContent())
                 })
             }
         });
 
         window.addEventListener('contentChange', function(){
-
+            refreshSelect()
         })
 
         Livewire.on('finishSimpanData', (status, message) => {

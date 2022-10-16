@@ -33,7 +33,7 @@
                         </div>
                         <div class="mb-5">
                             <label for="" class="form-label required">Nama Pekerjaan</label>
-                            <input type="text" class="form-control form-control-solid" name="nama_pekerjaan" wire:model="nama_pekerjaan" placeholder="Masukkan nama kategori" required>
+                            <input type="text" class="form-control form-control-solid" name="nama_pekerjaan" wire:model="nama_pekerjaan" placeholder="Masukkan nama pekerjaan" required>
                             @error('nama_pekerjaan')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror

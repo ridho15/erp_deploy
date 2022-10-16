@@ -21,6 +21,7 @@ class Form extends Component
     public function render()
     {
         $this->listCustomer = Customer::get();
+        $this->dispatchBrowserEvent('contentChange');
         return view('livewire.project.form');
     }
 

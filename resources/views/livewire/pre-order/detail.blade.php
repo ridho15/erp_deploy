@@ -7,9 +7,16 @@
             <button class="btn btn-sm btn-outline btn-outline-success btn-edit mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Pre Order" wire:click="$emit('onClickEditPreOrder', {{ $preOrder }})">
                 <i class="bi bi-pencil-square"></i> Edit
             </button>
+            <button class="btn btn-sm btn-danger mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Batalkan Pre Order" wire:click="$emit('onClickBatalPreOrder', {{ $preOrder->id }})">
+                <i class="fa-solid fa-ban"></i> Batalkan
+            </button>
             @if ($preOrder->status == 1)
-                <button class="btn btn-sm btn-outline btn-outline-warning btn-proses mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Pre Order" wire:click="$emit('onClickChangeStatus', {{ $id_pre_order }}, 2)">
+                <button class="btn btn-sm btn-warning btn-proses mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Pre Order" wire:click="$emit('onClickChangeStatus', {{ $id_pre_order }}, 2)">
                     <i class="fa-solid fa-rotate"></i> Proses
+                </button>
+            @elseif($preOrder->status == 2)
+                <button class="btn btn-sm btn-success btn-proses mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Pre Order Selesai" wire:click="$emit('onClickSelesai', {{ $id_pre_order }}, 3)">
+                    <i class="fa-solid fa-circle-check"></i> Selesai
                 </button>
             @endif
         </div>
@@ -98,9 +105,23 @@
         })
 
         Livewire.on('onClickChangeStatus', async (id, status) => {
-            const response = await alertConfirmCustom("Pemberitahuan", 'Apakah kamu yakin ingin merubah status Pre Order ?', "Ya")
+            const response = await alertConfirmCustom("Pemberitahuan", 'Apakah kamu yakin ingin merubah status Pre Order ?', "Ya, Proses")
             if(response.isConfirmed == true){
                 Livewire.emit('changeStatusPreOrder', id, status)
+            }
+        })
+
+        Livewire.on('onClickBatalPreOrder', async(id) => {
+            const response = await alertConfirmCustom('Peringatan !', "Apakah kamu yakin ingin membatalkan Pre Order ? ", "Ya, Batalkan");
+            if(response.isConfirmed == true){
+                Livewire.emit('changeStatusPreOrder', id, 0)
+            }
+        })
+
+        Livewire.on('onClickSelesai', async (id, status) => {
+            const response = await alertConfirmCustom('Peringatan !', 'Apakah kamu yakin ingin menyudahi proses Pre Order ?', 'Ya, Selesai');
+            if(response.isConfirmed == true){
+                Livewire.emit('preOrderSelesai', id, status)
             }
         })
     </script>
