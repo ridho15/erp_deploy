@@ -3,6 +3,14 @@
     <div class="">
         <div class="row mb-5">
             <div class="col-md-5">
+                Kode
+            </div>
+            <div class="col-md-5">
+                : <span class="fw-bold">{{ $kostumer->kode }}</span>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-md-5">
                 Nama Kostumer
             </div>
             <div class="col-md">

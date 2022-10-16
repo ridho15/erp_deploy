@@ -37,6 +37,7 @@
                         @foreach ($listKostumer as $index => $item)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
+                                <td>{{ $item->kode }}</td>
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ $item->email }}</td>
                                 <td>{{ $item->no_hp }}</td>
@@ -59,7 +60,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="7" class="text-center text-gray-500">Tidak ada data</td>
+                            <td colspan="8" class="text-center text-gray-500">Tidak ada data</td>
                         </tr>
                     @endif
                  </tbody>

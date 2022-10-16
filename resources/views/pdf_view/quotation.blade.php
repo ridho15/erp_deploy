@@ -18,11 +18,23 @@
     <table>
         <tr>
             <td class="fw-bold">Up</td>
-            <td class="fw-bold">: {{ $quotation->laporanPekerjaan->customer->nama }} - {{ $quotation->laporanPekerjaan->customer->no_hp }}</td>
+            <td class="fw-bold">:
+                @if ($quotation->laporanPekerjaan)
+                    {{ $quotation->laporanPekerjaan->customer->nama }} - {{ $quotation->laporanPekerjaan->customer->no_hp }}
+                @elseif($quotation->customer)
+                    {{ $quotation->customer->nama }} - {{ $quotation->customer->no_hp }}
+                @endif
+            </td>
         </tr>
         <tr>
             <td class="fw-bold">Email</td>
-            <td class="fw-bold">: {{ $quotation->laporanPekerjaan->customer->email }}</td>
+            <td class="fw-bold">:
+                @if ($quotation->laporanPekerjaan)
+                    {{ $quotation->laporanPekerjaan->customer->email }}
+                @elseif($quotation->customer)
+                    {{ $quotation->customer->email }}
+                @endif
+            </td>
         </tr>
         <tr>
             <td class="fw-bold">Hal</td>
