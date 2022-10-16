@@ -167,7 +167,7 @@
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                    <span class="menu-title">Data Kustomer</span>
+                                    <span class="menu-title">Data Customer</span>
                                 </a>
                             </div>
                             <div class="menu-item">
