@@ -6,6 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\CPU\\Helpers' => $baseDir . '/app/CPU/Helpers.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\AttributeController' => $baseDir . '/app/Http/Controllers/AttributeController.php',
@@ -422,9 +423,9 @@ return array(
     'Doctrine\\Common\\Cache\\Psr6\\DoctrineProvider' => $vendorDir . '/doctrine/cache/lib/Doctrine/Common/Cache/Psr6/DoctrineProvider.php',
     'Doctrine\\Common\\Cache\\Psr6\\InvalidArgument' => $vendorDir . '/doctrine/cache/lib/Doctrine/Common/Cache/Psr6/InvalidArgument.php',
     'Doctrine\\Common\\Cache\\Psr6\\TypedCacheItem' => $vendorDir . '/doctrine/cache/lib/Doctrine/Common/Cache/Psr6/TypedCacheItem.php',
-    'Doctrine\\Common\\EventArgs' => $vendorDir . '/doctrine/event-manager/lib/Doctrine/Common/EventArgs.php',
-    'Doctrine\\Common\\EventManager' => $vendorDir . '/doctrine/event-manager/lib/Doctrine/Common/EventManager.php',
-    'Doctrine\\Common\\EventSubscriber' => $vendorDir . '/doctrine/event-manager/lib/Doctrine/Common/EventSubscriber.php',
+    'Doctrine\\Common\\EventArgs' => $vendorDir . '/doctrine/event-manager/src/EventArgs.php',
+    'Doctrine\\Common\\EventManager' => $vendorDir . '/doctrine/event-manager/src/EventManager.php',
+    'Doctrine\\Common\\EventSubscriber' => $vendorDir . '/doctrine/event-manager/src/EventSubscriber.php',
     'Doctrine\\Common\\Lexer\\AbstractLexer' => $vendorDir . '/doctrine/lexer/lib/Doctrine/Common/Lexer/AbstractLexer.php',
     'Doctrine\\DBAL\\ArrayParameters\\Exception' => $vendorDir . '/doctrine/dbal/src/ArrayParameters/Exception.php',
     'Doctrine\\DBAL\\ArrayParameters\\Exception\\MissingNamedParameter' => $vendorDir . '/doctrine/dbal/src/ArrayParameters/Exception/MissingNamedParameter.php',
