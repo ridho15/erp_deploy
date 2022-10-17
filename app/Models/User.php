@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
+    use SoftDeletes;
     protected $table = 'users';
     protected $fillable = [
         'name',
@@ -16,24 +17,29 @@ class User extends Model
         'password',
         'is_active',
         'id_tipe_user',
-        'jabatan'
+        'jabatan',
+        'email',
+        'phone',
+        'foto',
     ];
 
     protected $hidden = [
-        'password', 'token'
+        'password', 'token',
     ];
 
     protected $appends = ['is_active_formatted'];
 
-    public function getIsActiveFormattedAttribute(){
-        if($this->is_active == 1){
+    public function getIsActiveFormattedAttribute()
+    {
+        if ($this->is_active == 1) {
             return "<span class='badge badge-success'>Aktif</span>";
-        }else{
+        } else {
             return "<span class='badge badge-danger'>Tidak Aktif</span>";
         }
     }
 
-    public function tipeUser(){
+    public function tipeUser()
+    {
         return $this->belongsTo(TipeUser::class, 'id_tipe_user');
     }
 }

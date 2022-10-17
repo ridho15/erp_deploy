@@ -206,7 +206,7 @@
                                             </span>
                                             <!--end::Svg Icon-->
                                             @if ($log->lastPasswordChange)
-                                                @php($dated = Carbon\Carbon::parse($log->lastPasswordChange)->isoFormat('dddd, D MMMM Y'))
+                                                @php($dated = Carbon\Carbon::parse($log->lastPasswordChange)->isoFormat('dddd, D MMMM Y - H:m'))
                                                 <div class="fs-2 fw-bold counted" data-kt-countup="true"
                                                     data-kt-countup-value="4500" data-kt-countup-prefix="$"
                                                     data-kt-initialized="1">{{ App\CPU\Helpers::dateChange($dated) }}</div>
