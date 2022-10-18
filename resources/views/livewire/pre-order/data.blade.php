@@ -93,7 +93,7 @@
         Livewire.on('onClickHapus', async(id) =>{
             const response = await alertConfirm('Peringatan !', 'Apakah kamu yakin ingin menghapus data ?')
             if(response.isConfirmed == true){
-                Livewire.emit('hapusPreOrder');
+                Livewire.emit('hapusPreOrder', id);
             }
         })
 

@@ -9,7 +9,7 @@
             @include('helper.form-pencarian', ['model' => 'cari'])
         </div>
         <div class="col-md-8 text-end">
-            <button class="btn btn-sm btn-outline btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Barang" wire:click="changeTambahBarang">
+            <button class="btn btn-sm btn-outline btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Barang" wire:click="changeTambahBarang" @if($preOrder->status == 0 || $preOrder->status == 3) disabled @endif>
                 <i class="bi bi-plus-circle"></i> Tambah
             </button>
         </div>

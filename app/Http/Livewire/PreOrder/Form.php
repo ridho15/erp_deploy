@@ -5,6 +5,7 @@ namespace App\Http\Livewire\PreOrder;
 use App\Models\Customer;
 use App\Models\PreOrder;
 use App\Models\PreOrderDetail;
+use App\Models\PreOrderLog;
 use App\Models\Quotation;
 use App\Models\QuotationDetail;
 use App\Models\TipePembayaran;
@@ -103,6 +104,12 @@ class Form extends Component
                 ]);
             }
         }
+
+        PreOrderLog::create([
+            'id_pre_order' => $preOrder->id,
+            'tanggal' => now(),
+            'status' => 1
+        ]);
         $message = "Berhasil menyimpan data";
         $this->resetInputFields();
         $this->emit('refreshPreOrder');

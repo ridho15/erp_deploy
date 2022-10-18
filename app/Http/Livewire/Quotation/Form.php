@@ -195,6 +195,7 @@ class Form extends Component
         $message = "Berhasil menyimpan data quotation";
         $this->resetInputFields();
         $this->emit('finishSimpanData', 1, $message);
+        $this->emit('refreshQuotation');
         return session()->flash('success', $message);
     }
 }

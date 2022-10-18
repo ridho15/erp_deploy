@@ -31,6 +31,6 @@ class SendQuotationMail extends Mailable
     public function build()
     {
         $data['quotation'] = $this->quotation;
-        return $this->view('mail.send-quotation', $data);
+        return $this->from('coba@medialatihan.com')->view('mail.send-quotation', $data);
     }
 }

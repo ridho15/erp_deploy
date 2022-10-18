@@ -5,6 +5,7 @@ namespace App\Http\Livewire\PreOrder;
 use App\Models\Barang;
 use App\Models\BarangStockLog;
 use App\Models\PreOrder;
+use App\Models\PreOrderLog;
 use Livewire\Component;
 
 class Detail extends Component
@@ -34,7 +35,14 @@ class Detail extends Component
             'status' => $status
         ]);
 
+        PreOrderLog::create([
+            'id_pre_order' => $preOrder->id,
+            'tanggal' => now(),
+            'status' => $status
+        ]);
+
         $message = "Pre Order berhasil di update";
+        $this->emit('refreshPreOrderLog');
         $this->emit('finishRefreshData', 1, $message);
         return session()->flash('success', $message);
     }
@@ -72,7 +80,14 @@ class Detail extends Component
             'status' => 3
         ]);
 
+        PreOrderLog::create([
+            'id_pre_order' => $preOrder->id,
+            'tanggal' => now(),
+            'status' => 3
+        ]);
+
         $message = "Berhasil menyimpan data dan mengupdate stock barang";
+        $this->emit('refreshPreOrderLog');
         $this->emit('refreshPreOrderDetail');
         $this->emit('finishRefreshData', 1, $message);
         return session()->flash('success', $message);

@@ -30,7 +30,6 @@ Route::prefix('testing')->group(function(){
         return view('mail.send-quotation', $data);
     });
 });
-Route::get('/testing', [DashboardController::class, 'testing'])->name('testing');
 Route::get('/login', [AutentikasiController::class, 'login'])->name('login');
 Route::post('/login', [AutentikasiController::class, 'postLogin'])->name('post.login');
 Route::get('/logout', [AutentikasiController::class, 'logout'])->name('logout');
