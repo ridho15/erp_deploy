@@ -3,6 +3,8 @@
 namespace App\Http\Livewire\Profil;
 
 use App\Models\User;
+use App\Models\UserLog;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -10,7 +12,7 @@ class Data extends Component
 {
     use WithPagination;
     public $paginationTheme = 'bootstrap';
-    public $listeners = ['simpanProfile', 'refreshProfile' => '$refresh'];
+    public $listeners = ['simpanProfile', 'refreshProfile' => '$refresh', 'changePassword'];
     public $total_show = 10;
     public $cari;
 
@@ -20,6 +22,9 @@ class Data extends Component
     public $phone;
     public $email;
     public $foto;
+    public $oldPassword;
+    public $newPassword;
+    public $c_newPassword;
     protected $profile;
 
     public function render()
@@ -30,6 +35,7 @@ class Data extends Component
     public function mount()
     {
         $this->profile = User::find(session()->get('id_user'));
+        $this->dispatchBrowserEvent('contentChange');
         $this->setProfile();
     }
 
@@ -74,5 +80,50 @@ class Data extends Component
         $this->emit('finishRefreshData', 1, $message);
 
         return session()->flash('success', $message);
+    }
+
+    public function resetFields()
+    {
+        $this->oldPassword = '';
+        $this->newPassword = '';
+        $this->c_newPassword = '';
+    }
+
+    public function changePassword()
+    {
+        $this->validate([
+            'newPassword' => 'min:8',
+        ], [
+            'newPassword.min' => 'Password minimal 8 Karakter!',
+        ]);
+        $user = User::where('username', $this->username)->first();
+
+        if (!Hash::check($this->oldPassword, $user->password)) {
+            if ($this->newPassword == $this->c_newPassword) {
+                $user->password = Hash::make($this->newPassword);
+                $user->lastPasswordChange = now();
+
+                UserLog::create([
+                    'id_user' => $user->id,
+                    'status' => 0,
+                    'user_agent' => 'changed password',
+                    'lastLogin' => now(),
+                    'lastPasswordChange' => now(),
+                    'last_ip' => 'unset',
+                ]);
+
+                $user->save();
+                $message = 'Password berhasil diganti!';
+                $this->resetFields();
+                $this->emit('finishSimpanData', 1, $message);
+            } else {
+                $message = 'Konfirmasi password baru tidak sama!';
+                $this->emit('finishSimpanData', 2, $message);
+            }
+        } else {
+            $message = 'Password lama salah!';
+            $this->resetFields();
+            $this->emit('finishSimpanData', 2, $message);
+        }
     }
 }

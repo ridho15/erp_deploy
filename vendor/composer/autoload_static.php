@@ -648,6 +648,7 @@ class ComposerStaticInitb386b788fea8f41f165dec6722ac0e59
         'App\\Http\\Livewire\\PreOrder\\Detail' => __DIR__ . '/../..' . '/app/Http/Livewire/PreOrder/Detail.php',
         'App\\Http\\Livewire\\PreOrder\\DetailBarang' => __DIR__ . '/../..' . '/app/Http/Livewire/PreOrder/DetailBarang.php',
         'App\\Http\\Livewire\\PreOrder\\Form' => __DIR__ . '/../..' . '/app/Http/Livewire/PreOrder/Form.php',
+        'App\\Http\\Livewire\\Profil\\Data' => __DIR__ . '/../..' . '/app/Http/Livewire/Profil/Data.php',
         'App\\Http\\Livewire\\Project\\Data' => __DIR__ . '/../..' . '/app/Http/Livewire/Project/Data.php',
         'App\\Http\\Livewire\\Project\\Form' => __DIR__ . '/../..' . '/app/Http/Livewire/Project/Form.php',
         'App\\Http\\Livewire\\Quotation\\Data' => __DIR__ . '/../..' . '/app/Http/Livewire/Quotation/Data.php',

@@ -449,7 +449,7 @@
                 <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse"
                     data-bs-target="#kt_account_signin_method">
                     <div class="card-title m-0">
-                        <h3 class="fw-bold m-0">Metode Login</h3>
+                        <h3 class="fw-bold m-0">Ganti Password</h3>
                     </div>
                 </div>
                 <!--end::Card header-->
@@ -457,62 +457,6 @@
                 <div id="kt_account_settings_signin_method" class="collapse show">
                     <!--begin::Card body-->
                     <div class="card-body border-top p-9">
-                        <!--begin::Email Address-->
-                        <div class="d-flex flex-wrap align-items-center">
-                            <!--begin::Label-->
-                            <div id="kt_signin_email">
-                                <div class="fs-6 fw-bold mb-1">Email Address</div>
-                                <div class="fw-semibold text-gray-600">support@keenthemes.com</div>
-                            </div>
-                            <!--end::Label-->
-                            <!--begin::Edit-->
-                            <div id="kt_signin_email_edit" class="flex-row-fluid d-none">
-                                <!--begin::Form-->
-                                <form id="kt_signin_change_email"
-                                    class="form fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate">
-                                    <div class="row mb-6">
-                                        <div class="col-lg-6 mb-4 mb-lg-0">
-                                            <div class="fv-row mb-0 fv-plugins-icon-container">
-                                                <label for="emailaddress" class="form-label fs-6 fw-bold mb-3">Enter New
-                                                    Email Address</label>
-                                                <input type="email"
-                                                    class="form-control form-control-lg form-control-solid"
-                                                    id="emailaddress" placeholder="Email Address" name="emailaddress"
-                                                    value="support@keenthemes.com">
-                                                <div class="fv-plugins-message-container invalid-feedback"></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="fv-row mb-0 fv-plugins-icon-container">
-                                                <label for="confirmemailpassword"
-                                                    class="form-label fs-6 fw-bold mb-3">Confirm Password</label>
-                                                <input type="password"
-                                                    class="form-control form-control-lg form-control-solid"
-                                                    name="confirmemailpassword" id="confirmemailpassword">
-                                                <div class="fv-plugins-message-container invalid-feedback"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex">
-                                        <button id="kt_signin_submit" type="button"
-                                            class="btn btn-primary me-2 px-6">Update Email</button>
-                                        <button id="kt_signin_cancel" type="button"
-                                            class="btn btn-color-gray-400 btn-active-light-primary px-6">Cancel</button>
-                                    </div>
-                                </form>
-                                <!--end::Form-->
-                            </div>
-                            <!--end::Edit-->
-                            <!--begin::Action-->
-                            <div id="kt_signin_email_button" class="ms-auto">
-                                <button class="btn btn-light btn-active-light-primary">Change Email</button>
-                            </div>
-                            <!--end::Action-->
-                        </div>
-                        <!--end::Email Address-->
-                        <!--begin::Separator-->
-                        <div class="separator separator-dashed my-6"></div>
-                        <!--end::Separator-->
                         <!--begin::Password-->
                         <div class="d-flex flex-wrap align-items-center mb-10">
                             <!--begin::Label-->
@@ -521,58 +465,61 @@
                                 <div class="fw-semibold text-gray-600">************</div>
                             </div>
                             <!--end::Label-->
-                            <!--begin::Edit-->
-                            <div id="kt_signin_password_edit" class="flex-row-fluid d-none">
-                                <!--begin::Form-->
-                                <form id="kt_signin_change_password"
-                                    class="form fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate">
-                                    <div class="row mb-1">
-                                        <div class="col-lg-4">
-                                            <div class="fv-row mb-0 fv-plugins-icon-container">
-                                                <label for="currentpassword"
-                                                    class="form-label fs-6 fw-bold mb-3">Current Password</label>
-                                                <input type="password"
-                                                    class="form-control form-control-lg form-control-solid"
-                                                    name="currentpassword" id="currentpassword">
-                                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            <!--begin::Modal-->
+                            <div class="modal fade" wire:ignore.self tabindex="-1" id="password_change"
+                                wire:submit.prevent="changePassword">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">Penggantian Password</h3>
+
+                                            <!--begin::Close-->
+                                            <div class="btn btn-icon btn-sm btn-active-light-primary ms-2"
+                                                data-bs-dismiss="modal" aria-label="Close">
+                                                <span class="svg-icon svg-icon-1"></span>
                                             </div>
+                                            <!--end::Close-->
                                         </div>
-                                        <div class="col-lg-4">
-                                            <div class="fv-row mb-0 fv-plugins-icon-container">
-                                                <label for="newpassword" class="form-label fs-6 fw-bold mb-3">New
-                                                    Password</label>
-                                                <input type="password"
-                                                    class="form-control form-control-lg form-control-solid"
-                                                    name="newpassword" id="newpassword">
-                                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                                        <form action="#" wire:submit.prevent="changePassword">
+                                            <div class="modal-body">
+                                                <div class="input-group mb-5">
+                                                    <span class="input-group-text" id="basic-addon1">Password
+                                                        lama</span>
+                                                    <input type="password" class="form-control" required
+                                                        wire:model="oldPassword" />
+                                                </div>
+                                                @error('newPassword')
+                                                <small class="text-danger mb-5" style="margin-top: -10px;">{{ $message }}</small>
+                                                @enderror
+
+                                                <div class="input-group mb-5">
+                                                    <span class="input-group-text" id="basic-addon1">Password
+                                                        Baru</span>
+                                                    <input type="password" class="form-control" required
+                                                        wire:model="newPassword" />
+
+                                                </div>
+                                                <div class="input-group mb-5">
+                                                    <span class="input-group-text" id="basic-addon1">Ulangi Password
+                                                        Baru</span>
+                                                    <input type="password" class="form-control" required
+                                                        wire:model="c_newPassword" />
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="fv-row mb-0 fv-plugins-icon-container">
-                                                <label for="confirmpassword"
-                                                    class="form-label fs-6 fw-bold mb-3">Confirm New Password</label>
-                                                <input type="password"
-                                                    class="form-control form-control-lg form-control-solid"
-                                                    name="confirmpassword" id="confirmpassword">
-                                                <div class="fv-plugins-message-container invalid-feedback"></div>
+
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary">Simpan Password
+                                                    baru</button>
                                             </div>
-                                        </div>
+                                        </form>
                                     </div>
-                                    <div class="form-text mb-5">Password must be at least 8 character and contain
-                                        symbols</div>
-                                    <div class="d-flex">
-                                        <button id="kt_password_submit" type="button"
-                                            class="btn btn-primary me-2 px-6">Update Password</button>
-                                        <button id="kt_password_cancel" type="button"
-                                            class="btn btn-color-gray-400 btn-active-light-primary px-6">Cancel</button>
-                                    </div>
-                                </form>
-                                <!--end::Form-->
+                                </div>
                             </div>
-                            <!--end::Edit-->
+                            <!--end::Modal-->
                             <!--begin::Action-->
                             <div id="kt_signin_password_button" class="ms-auto">
-                                <button class="btn btn-light btn-active-light-primary">Reset Password</button>
+                                <button class="btn btn-light btn-active-light-primary"
+                                    wire:click="$emit('onClickUbah')">Ganti Password</button>
                             </div>
                             <!--end::Action-->
                         </div>
@@ -581,20 +528,22 @@
                     <!--end::Card body-->
                 </div>
                 <!--end::Content-->
-                <div class="card-footer d-flex justify-content-end py-6 px-9">
-                    <button type="reset" class="btn btn-light btn-active-light-primary me-2">Discard</button>
-                    <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Save
-                        Changes</button>
-                </div>
             </div>
         </div>
         <!--end::Post-->
     </div>
 </div>
 @push('js')
-    <script>
-        Livewire.on('finishSimpanData', (status, message) => {
+<script>
+    Livewire.on('finishSimpanData', (status, message) => {
             alertMessage(status, message)
         })
-    </script>
+    Livewire.on('onClickUbah', () => {
+        $('#password_change').modal('show')
+    })
+    Livewire.on('finishSimpanData', (status, message) => {
+            $('.modal').modal('hide')
+            alertMessage(status, message);
+    })
+</script>
 @endpush

@@ -80,6 +80,7 @@ return array(
     'App\\Http\\Livewire\\PreOrder\\Detail' => $baseDir . '/app/Http/Livewire/PreOrder/Detail.php',
     'App\\Http\\Livewire\\PreOrder\\DetailBarang' => $baseDir . '/app/Http/Livewire/PreOrder/DetailBarang.php',
     'App\\Http\\Livewire\\PreOrder\\Form' => $baseDir . '/app/Http/Livewire/PreOrder/Form.php',
+    'App\\Http\\Livewire\\Profil\\Data' => $baseDir . '/app/Http/Livewire/Profil/Data.php',
     'App\\Http\\Livewire\\Project\\Data' => $baseDir . '/app/Http/Livewire/Project/Data.php',
     'App\\Http\\Livewire\\Project\\Form' => $baseDir . '/app/Http/Livewire/Project/Form.php',
     'App\\Http\\Livewire\\Quotation\\Data' => $baseDir . '/app/Http/Livewire/Quotation/Data.php',

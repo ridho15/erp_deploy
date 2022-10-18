@@ -64,7 +64,7 @@
                             <td colspan="8" class="text-center text-gray-500">Tidak ada data</td>
                         </tr>
                     @endif
-                 </tbody>
+                </tbody>
                 </table>
             </div>
             <div class="text-center">{{ $listPreOrder->links() }}</div>
