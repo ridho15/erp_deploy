@@ -27,6 +27,7 @@ return array(
     'App\\Http\\Controllers\\MerkController' => $baseDir . '/app/Http/Controllers/MerkController.php',
     'App\\Http\\Controllers\\PembayaranController' => $baseDir . '/app/Http/Controllers/PembayaranController.php',
     'App\\Http\\Controllers\\PreOrderController' => $baseDir . '/app/Http/Controllers/PreOrderController.php',
+    'App\\Http\\Controllers\\ProfileController' => $baseDir . '/app/Http/Controllers/ProfileController.php',
     'App\\Http\\Controllers\\ProjectController' => $baseDir . '/app/Http/Controllers/ProjectController.php',
     'App\\Http\\Controllers\\QuotationController' => $baseDir . '/app/Http/Controllers/QuotationController.php',
     'App\\Http\\Controllers\\SupplierController' => $baseDir . '/app/Http/Controllers/SupplierController.php',

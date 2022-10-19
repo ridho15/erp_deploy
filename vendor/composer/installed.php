@@ -463,7 +463,11 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
+<<<<<<< HEAD
             'reference' => 'ad1d206d4e1986212aba91f5cc15b30729c1b475',
+=======
+            'reference' => '062d2ef15c47b734847ea707fad24fa92d198642',
+>>>>>>> ca0fd2901570274e090fdf917c9707d54557b5d5
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -1344,12 +1348,12 @@
             'dev_requirement' => false,
         ),
         'vlucas/phpdotenv' => array(
-            'pretty_version' => 'v5.4.1',
-            'version' => '5.4.1.0',
+            'pretty_version' => 'v5.5.0',
+            'version' => '5.5.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../vlucas/phpdotenv',
             'aliases' => array(),
-            'reference' => '264dce589e7ce37a7ba99cb901eed8249fbec92f',
+            'reference' => '1a7ea2afc49c3ee6d87061f5a233e3a035d0eae7',
             'dev_requirement' => false,
         ),
         'voku/portable-ascii' => array(

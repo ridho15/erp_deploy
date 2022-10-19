@@ -16,8 +16,8 @@
 <script src="{{ asset('/assets/js/custom/utilities/modals/users-search.js') }}"></script>
 <script src="{{ asset('/assets/js/glightbox.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
-<script src="{{ asset('/assets/js/alpine.min.js') }}"></script>
 <script src="{{ asset('/assets/js/custom.js') }}"></script>
+<script src="{{ asset('/assets/js/alpine.min.js') }}"></script>
 @yield('js')
 @livewireScripts
 @stack('js')

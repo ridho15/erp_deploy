@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ModifyColumnIdLaporanPekerjaanInQuotation extends Migration
+class AddColumnLastChangePasswordToTableUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class ModifyColumnIdLaporanPekerjaanInQuotation extends Migration
      */
     public function up()
     {
-        Schema::table('quotations', function (Blueprint $table) {
-            $table->integer('id_laporan_pekerjaan')->nullable()->change();
+        Schema::table('users', function (Blueprint $table) {
+            $table->dateTime('lastPasswordChange')->nullable();
         });
     }
 
@@ -25,8 +25,7 @@ class ModifyColumnIdLaporanPekerjaanInQuotation extends Migration
      */
     public function down()
     {
-        Schema::table('quotation', function (Blueprint $table) {
-            //
+        Schema::table('users', function (Blueprint $table) {
         });
     }
 }

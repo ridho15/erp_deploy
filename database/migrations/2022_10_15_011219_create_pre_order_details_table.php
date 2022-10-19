@@ -17,7 +17,6 @@ class CreatePreOrderDetailsTable extends Migration
             $table->id();
             $table->integer('id_pre_order');
             $table->integer('id_barang');
-            $table->integer('status');
             $table->integer('harga');
             $table->integer('qty');
             $table->integer('id_satuan');

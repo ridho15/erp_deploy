@@ -27,7 +27,7 @@
     },
     "autoload": {
         "files": [
-            "app/CPU/helpers.php"
+            "app/CPU/Helpers.php"
         ],
         "psr-4": {
             "App\\": "app/",
