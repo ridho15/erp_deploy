@@ -89,6 +89,8 @@
                 @livewire('pre-order.detail-barang', ['id_pre_order' => $preOrder->id])
             </div>
         </div>
+        <hr>
+        @livewire('pre-order.log', ['id_pre_order' => $preOrder->id])
     </div>
 </div>
 

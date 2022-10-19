@@ -15,8 +15,21 @@ class LaporanPekerjaanBarang extends Model
         'id_barang',
         'catatan_teknisi',
         'keterangan_customer',
-        'qty'
+        'qty',
+        'status'
     ];
+
+    protected $appends = ['status_formatted'];
+
+    public function getStatusFormattedAttribute(){
+        if($this->status == 1){
+            return '<span class="badge badge-info">Diminta</span>';
+        }elseif($this->status == 2){
+            return '<span class="badge badge-success">Dipinjam</span>';
+        }elseif($this->status == 0){
+            return '<span class="badge badge-danger">Diabaikan</span>';
+        }
+    }
 
     public function laporanPekerjaan(){
         return $this->belongsTo(LaporanPekerjaan::class, 'id_laporan_pekerjaan');

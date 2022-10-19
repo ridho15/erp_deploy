@@ -1,5 +1,5 @@
 <div>
-    <div wire:ignore.self class="modal fade" tabindex="-1" id="modal_form">
+    <div wire:ignore.self class="modal fade form-master" tabindex="-1" id="modal_form">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -16,6 +16,7 @@
 
                 <form action="#" wire:submit.prevent="simpanForm">
                     <div class="modal-body">
+                        @include('helper.alert-message')
                         <div class="text-center">
                             @include('helper.simple-loading', ['target' => 'simpanForm', 'message' => 'Menyimpan data ...'])
                         </div>

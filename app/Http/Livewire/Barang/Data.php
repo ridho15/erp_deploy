@@ -23,7 +23,6 @@ class Data extends Component
             ->orWhere('stock', 'LIKE' ,'%' . $this->cari . '%')
             ->orWhere('min_stock', 'LIKE' ,'%' . $this->cari . '%');
         })->paginate($this->total_show);
-
         $data['listBarang'] = $this->listBarang;
         return view('livewire.barang.data', $data);
     }

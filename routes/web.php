@@ -7,6 +7,7 @@ use App\Http\Controllers\DaftarTugasController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FormMasterController;
 use App\Http\Controllers\FormPekerjaanController;
+use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KondisiController;
 use App\Http\Controllers\KostumerController;
@@ -32,7 +33,6 @@ Route::prefix('testing')->group(function () {
         return view('mail.send-quotation', $data);
     });
 });
-Route::get('/testing', [DashboardController::class, 'testing'])->name('testing');
 Route::get('/login', [AutentikasiController::class, 'login'])->name('login');
 Route::post('/login', [AutentikasiController::class, 'postLogin'])->name('post.login');
 Route::get('/logout', [AutentikasiController::class, 'logout'])->name('logout');
@@ -65,7 +65,11 @@ Route::middleware('auth.user')->group(function () {
         Route::get('/detail/{id}', [PreOrderController::class, 'detail'])->name('pre-order.detail');
     });
 
-    Route::prefix('project')->group(function () {
+    Route::prefix('inventory')->group(function(){
+        Route::get('/', [InventoryController::class, 'index'])->name('inventory');
+    });
+
+    Route::prefix('project')->group(function(){
         Route::get('/', [ProjectController::class, 'index'])->name('project');
     });
 

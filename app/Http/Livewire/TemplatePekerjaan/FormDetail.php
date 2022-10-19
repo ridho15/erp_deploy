@@ -39,22 +39,12 @@ class FormDetail extends Component
         $this->validate([
             'id_template_pekerjaan' => 'required|numeric',
             'nama_pekerjaan' => 'required|string',
-            'checklist_1_bulan' => 'nullable|numeric',
-            'checklist_2_bulan' => 'nullable|numeric',
-            'checklist_3_bulan' => 'nullable|numeric',
-            'checklist_6_bulan' => 'nullable|numeric',
-            'checklist_1_tahun' => 'nullable|numeric',
             'keterangan' => 'nullable|string',
         ], [
             'id_template_pekerjaan.required' => 'Induk Pekerjaan belum dipilih',
             'id_template_pekerjaan.numeric' => 'Induk Pekerjaan tidak valid !',
             'nama_pekerjaan.required' => 'Nama pekerjaan tidak boleh kosong',
             'nama_pekerjaan.string' => 'Nama pekerjaan tidak valid !',
-            'checklist_1_bulan.numeric' => 'Checklist 1 Bulan tidak valid !',
-            'checklist_2_bulan.numeric' => 'Checklist 2 Bulan tidak valid !',
-            'checklist_3_bulan.numeric' => 'Checklist 3 Bulan tidak valid !',
-            'checklist_6_bulan.numeric' => 'Checklist 6 Bulan tidak valid !',
-            'checklist_1_tahun.numeric' => 'Checklist 1 tahun tidak valid !',
         ]);
 
         $templatePekerjaan = TemplatePekerjaan::find($this->id_template_pekerjaan);

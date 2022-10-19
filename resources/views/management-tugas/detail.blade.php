@@ -224,6 +224,7 @@
                          <thead>
                           <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
                            <th>No</th>
+                           <th>SKU</th>
                            <th>Nama Barang</th>
                            <th>Satuan</th>
                            <th>Harga</th>
@@ -235,6 +236,7 @@
                                 @foreach ($laporanPekerjaan->laporanPekerjaanBarang as $index => $item)
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
+                                        <td>{{ $item->barang->sku }}</td>
                                         <td>{{ $item->barang->nama }}</td>
                                         <td>{{ $item->barang->satuan->nama_satuan }}</td>
                                         <td>{{ $item->barang->harga_formatted }}</td>
