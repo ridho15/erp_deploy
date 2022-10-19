@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb386b788fea8f41f165dec6722ac0e59
+class ComposerStaticInitc44cf7957c158d58ee2873399578231c
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -997,6 +997,9 @@ class ComposerStaticInitb386b788fea8f41f165dec6722ac0e59
         'Doctrine\\Common\\Cache\\Psr6\\DoctrineProvider' => __DIR__ . '/..' . '/doctrine/cache/lib/Doctrine/Common/Cache/Psr6/DoctrineProvider.php',
         'Doctrine\\Common\\Cache\\Psr6\\InvalidArgument' => __DIR__ . '/..' . '/doctrine/cache/lib/Doctrine/Common/Cache/Psr6/InvalidArgument.php',
         'Doctrine\\Common\\Cache\\Psr6\\TypedCacheItem' => __DIR__ . '/..' . '/doctrine/cache/lib/Doctrine/Common/Cache/Psr6/TypedCacheItem.php',
+        'Doctrine\\Common\\EventArgs' => __DIR__ . '/..' . '/doctrine/event-manager/src/EventArgs.php',
+        'Doctrine\\Common\\EventManager' => __DIR__ . '/..' . '/doctrine/event-manager/src/EventManager.php',
+        'Doctrine\\Common\\EventSubscriber' => __DIR__ . '/..' . '/doctrine/event-manager/src/EventSubscriber.php',
         'Doctrine\\Common\\Lexer\\AbstractLexer' => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer/AbstractLexer.php',
         'Doctrine\\DBAL\\ArrayParameters\\Exception' => __DIR__ . '/..' . '/doctrine/dbal/src/ArrayParameters/Exception.php',
         'Doctrine\\DBAL\\ArrayParameters\\Exception\\MissingNamedParameter' => __DIR__ . '/..' . '/doctrine/dbal/src/ArrayParameters/Exception/MissingNamedParameter.php',
@@ -6367,10 +6370,10 @@ class ComposerStaticInitb386b788fea8f41f165dec6722ac0e59
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb386b788fea8f41f165dec6722ac0e59::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb386b788fea8f41f165dec6722ac0e59::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitb386b788fea8f41f165dec6722ac0e59::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitb386b788fea8f41f165dec6722ac0e59::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitc44cf7957c158d58ee2873399578231c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitc44cf7957c158d58ee2873399578231c::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitc44cf7957c158d58ee2873399578231c::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitc44cf7957c158d58ee2873399578231c::$classMap;
 
         }, null, ClassLoader::class);
     }

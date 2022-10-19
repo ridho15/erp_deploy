@@ -9,24 +9,33 @@
                     <a class="nav-link active" data-bs-toggle="tab" href="#stock_barang">Stock Barang</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_6">Barang Dipinjam</a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#barang_diminta">Barang Diminta</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_5">Barang Terjual</a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#barang_dipinjam">Barang Dipinjam</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_6">Barang Masuk</a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#barang_terjual">Barang Terjual</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#barang_masuk">Barang Masuk</a>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="stock_barang" role="tabpanel">
                     @livewire('inventory.stock-barang')
                 </div>
-                <div class="tab-pane fade" id="kt_tab_pane_5" role="tabpanel">
-                    ...
+                <div class="tab-pane fade" id="barang_diminta" role="tabpanel">
+                    @livewire('inventory.barang-diminta')
                 </div>
-                <div class="tab-pane fade" id="kt_tab_pane_6" role="tabpanel">
-                    ...
+                <div class="tab-pane fade" id="barang_dipinjam" role="tabpanel">
+                    @livewire('inventory.barang-dipinjam')
+                </div>
+                <div class="tab-pane fade" id="barang_terjual" role="tabpanel">
+                    @livewire('inventory.barang-terjual')
+                </div>
+                <div class="tab-pane fade" id="barang_masuk" role="tabpanel">
+                    @livewire('inventory.barang-masuk')
                 </div>
             </div>
         </div>

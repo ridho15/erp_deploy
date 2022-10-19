@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\HelperController;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -26,9 +27,15 @@ class LaporanPekerjaan extends Model
     ];
 
     protected $appends = [
+        'kode_pekerjaan',
         'jam_mulai_formatted',
         'jam_selesai_formatted'
     ];
+
+    public function getKodePekerjaanAttribute(){
+        $helper = new HelperController;
+        return 'PK' . $helper->format_num($this->id);
+    }
 
     public function getJamMulaiFormattedAttribute(){
         if($this->jam_mulai){

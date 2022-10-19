@@ -23,6 +23,7 @@
                  <thead>
                   <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
                    <th>No</th>
+                   <th>SKU</th>
                    <th>Nama</th>
                    <th>Merek</th>
                    <th>Stock</th>
@@ -39,6 +40,7 @@
                         @foreach ($listBarang as $index => $item)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
+                                <td>{{ $item->sku }}</td>
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ $item->merk ? $item->merk->nama_merk : '-' }}</td>
                                 <td>{{ $item->stock }}</td>

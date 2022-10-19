@@ -24,6 +24,7 @@ class LaporanSparepart extends Component
     public $cari;
     public $tambahBarang = false;
     public $listBarang = [];
+    public $barang;
     public function render()
     {
         $this->listBarang = Barang::get();
@@ -32,6 +33,9 @@ class LaporanSparepart extends Component
                 $query->where('nama', 'LIKE', '%' . $this->cari . '%');
             });
         })->where('id_laporan_pekerjaan', $this->id_laporan_pekerjaan)->get();
+        if($this->id_barang){
+            $this->barang = Barang::find($this->id_barang);
+        }
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.daftar-tugas.laporan-sparepart');
     }
@@ -96,7 +100,25 @@ class LaporanSparepart extends Component
         }
 
         if($this->qty <= 0){
-            $message = "Jumlah terlalu rendah, minimal 1";
+            $message = "Jumlah barang tidak boleh 0 atau lebih rendah dari 0";
+            return session()->flash('fail', $message);
+        }
+
+        $laporanPekerjaanBarang = LaporanPekerjaanBarang::where('id_barang', $this->id_barang)
+        ->where('id_laporan_pekerjaan', $this->id_laporan_pekerjaan)->get();
+        $stockDiminta = 0;
+        foreach ($laporanPekerjaanBarang as $key => $value) {
+            $stockDiminta += $value->qty;
+        }
+
+        if($this->id_laporan_pekerjaan_barang){
+            $stockDiminta = $this->qty;
+        }else{
+            $stockDiminta += $this->qty;
+        }
+
+        if($stockDiminta > $barang->stock){
+            $message = "Jumlah yang diminta lebih besar dari stock, silahkan hubungi warehouse";
             return session()->flash('fail', $message);
         }
 
@@ -107,7 +129,8 @@ class LaporanSparepart extends Component
             'id_barang' => $this->id_barang,
             'qty' => $this->qty,
             'keterangan_customer' => $this->keterangan_customer,
-            'catatan_teknisi' => $this->catatan_teknisi
+            'catatan_teknisi' => $this->catatan_teknisi,
+            'status' => 1
         ]);
 
         $message = "Laporan Data barang berhasil di simpan";
@@ -122,5 +145,6 @@ class LaporanSparepart extends Component
         $this->id_barang = null;
         $this->keterangan_customer = null;
         $this->catatan_teknisi = null;
+        $this->qty = null;
     }
 }

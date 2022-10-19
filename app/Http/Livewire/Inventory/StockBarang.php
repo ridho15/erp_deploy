@@ -9,6 +9,7 @@ use Livewire\WithPagination;
 class StockBarang extends Component
 {
     use WithPagination;
+    public $listeners = ['refreshStockBarang' => '$refresh'];
     public $paginationTheme = 'bootstrap';
     public $cari;
     public $total_show = 10;
