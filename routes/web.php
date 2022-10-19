@@ -18,6 +18,7 @@ use App\Http\Controllers\PreOrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\QuotationController;
+use App\Http\Controllers\RescheduleController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TipeBarangController;
 use App\Http\Controllers\WorkerController;
@@ -58,6 +59,10 @@ Route::middleware('auth.user')->group(function () {
     Route::prefix('daftar-tugas')->group(function () {
         Route::get('/', [DaftarTugasController::class, 'index'])->name('daftar-tugas');
         Route::get('/kelola/{id}', [DaftarTugasController::class, 'kelola'])->name('daftar-tugas.kelola');
+    });
+
+    Route::prefix('reschedule')->group(function(){
+        Route::get('/', [RescheduleController::class, 'index'])->name('reschedule');
     });
 
     Route::prefix('pre-order')->group(function () {

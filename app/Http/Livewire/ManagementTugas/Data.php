@@ -10,7 +10,10 @@ class Data extends Component
 {
     use WithPagination;
     public $paginationTheme = 'bootstrap';
-    public $listeners = ['refreshManagementTugas' => '$refresh', 'hapusManagementTugas'];
+    public $listeners = [
+        'refreshManagementTugas' => '$refresh',
+        'hapusManagementTugas'
+    ];
     public $total_show = 10;
     public $cari;
     protected $listLaporanPekerjaan;

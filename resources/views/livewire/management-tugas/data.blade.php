@@ -59,12 +59,17 @@
                                         <a href="{{ route('management-tugas.export', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Management Tugas">
                                             <i class="bi bi-printer"></i>
                                         </a>
-                                        <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Management Tugas" wire:click="$emit('onClickEdit', {{ $item->id }})">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Management Tugas" wire:click="$emit('onClickHapus', {{ $item->id }})">
-                                            <i class="bi bi-trash-fill"></i>
-                                        </button>
+                                        @if ($item->jam_selesai == null && $item->signatur == null)
+                                            <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Management Tugas" wire:click="$emit('onClickEdit', {{ $item->id }})">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Management Tugas" wire:click="$emit('onClickHapus', {{ $item->id }})">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Atur Jadwal Tugas" wire:click="$emit('onClickAturJadwal', {{ $item->id }})">
+                                                <i class="bi bi-stopwatch"></i>
+                                            </button>
+                                        @endif
                                         <a href="{{ route('management-tugas.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Lihat Detail Pekerjaan">
                                             <i class="bi bi-eye-fill"></i>
                                         </a>
@@ -110,6 +115,11 @@
             if(response.isConfirmed == true){
                 Livewire.emit('hapusManagementTugas', id)
             }
+        })
+
+        Livewire.on('onClickAturJadwal', (id) => {
+            Livewire.emit('setDataLaporanPekerjaan', id)
+            $('#modal_atur_jadwal').modal('show');
         })
     </script>
 @endpush
