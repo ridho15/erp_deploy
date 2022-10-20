@@ -85,14 +85,21 @@ class Detail extends Component
         $stockTerpakai += $this->qty;
 
         if($this->id_quotation_detail != null){
-            $stockTerpakai = $this->qty;
+            $quotationDetail = QuotationDetail::find($this->id_quotation_detail);
+            if($this->qty != $quotationDetail->qty){
+                if($this->qty > ($barang->stock + $quotationDetail->qty)){
+                    $message = "Stock tidak mencukupi. silahkan hubungi warehouse";
+                    return session()->flash('fail', $message);
+                }
+            }
+        }else{
+            if($stockTerpakai > $barang->stock){
+                $message = "Stock tidak cukup";
+                $this->emit('finishRefreshBarang', 0, $message);
+                return session()->flash('fail', $message);
+            }
         }
 
-        if($stockTerpakai > $barang->stock){
-            $message = "Stock tidak cukup";
-            $this->emit('finishRefreshBarang', 0, $message);
-            return session()->flash('fail', $message);
-        }
 
         QuotationDetail::updateOrCreate([
             'id' => $this->id_quotation_detail

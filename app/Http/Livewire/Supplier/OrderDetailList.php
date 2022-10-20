@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Supplier;
 
+use App\Models\SupplierOrder;
 use App\Models\SupplierOrderDetail;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -13,11 +14,13 @@ class OrderDetailList extends Component
     public $listeners = ['refreshSupplierOrderDetail' => '$refresh', 'hapusBarangOrder'];
     public $id_supplier_order;
     protected $listSupplierOrderDetail;
+    public $supplierOrder;
     public $cari;
     public $total_show = 10;
     public function render()
     {
         $this->listSupplierOrderDetail = SupplierOrderDetail::where('id_supplier_order', $this->id_supplier_order)->paginate($this->total_show);
+        $this->supplierOrder = SupplierOrder::find($this->id_supplier_order);
         $data['listSupplierOrderDetail'] = $this->listSupplierOrderDetail;
         return view('livewire.supplier.order-detail-list', $data);
     }

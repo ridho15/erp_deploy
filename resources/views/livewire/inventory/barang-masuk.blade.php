@@ -17,7 +17,7 @@
             <th>SKU</th>
             <th>Nama</th>
             <th>Satuan</th>
-            <th>Terjual</th>
+            <th>Masuk</th>
             <th>Tanggal</th>
             </tr>
             </thead>
@@ -28,9 +28,9 @@
                         <td>{{ $index + 1 }}</td>
                         <td>{{ $item->barang->sku }}</td>
                         <td>{{ $item->barang->nama }}</td>
-                        <td>{{ $item->satuan->nama_satuan }}</td>
-                        <td>{{ $item->qty }}</td>
-                        <td>{{ $item->tanggal_formatted }}</td>
+                        <td>{{ $item->barang->satuan->nama_satuan }}</td>
+                        <td>{{ $item->perubahan }}</td>
+                        <td>{{ $item->tanggal_perubahan_formatted }}</td>
                     </tr>
                 @endforeach
             @else

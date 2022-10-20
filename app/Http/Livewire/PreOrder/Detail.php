@@ -63,17 +63,17 @@ class Detail extends Component
                 return session()->flash('fail', $message);
             }
 
-            BarangStockLog::create([
-                'id_barang' => $barang->id,
-                'stock_awal' => $barang->stock,
-                'perubahan' => $item->qty,
-                'tipe_perubahan' => 2,
-                'tanggal_perubahan' => now()
-             ]);
-
-            $barang->update([
-                'stock' => $barang->stock - $item->qty
-            ]);
+            if ($preOrder->id_quotation == null) {
+                $barang->barangStockChange($item->qty, 4);
+            }else{
+                BarangStockLog::create([
+                    'id_barang' => $item->id_barang,
+                    'stock_awal' => $item->barang->stock + $item->qty,
+                    'perubahan' => $item->qty,
+                    'tanggal_perubahan' => now(),
+                    'id_tipe_perubahan_stock' => 4
+                ]);
+            }
         }
 
         $preOrder->update([
