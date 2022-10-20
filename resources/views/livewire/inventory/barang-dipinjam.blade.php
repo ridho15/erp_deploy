@@ -7,8 +7,12 @@
         <div class="col-md-3">
             @include('helper.form-pencarian', ['model' => 'cari'])
         </div>
+        <div class="col-md text-end">
+            <button class="btn btn-sm btn-outline btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Peminjaman Barang" wire:click="$emit('onClickTambahPeminjamanBarang')">
+                <i class="bi bi-plus-circle"></i> Tambah
+            </button>
+        </div>
     </div>
-
     <div class="table-responsive">
         <table class="table table-rounded table-striped border gy-7 gs-7">
             <thead>
@@ -42,7 +46,7 @@
                         <td><?= $item->status_formatted ?></td>
                         <td>
                             <div class="btn-group">
-                                <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Batalkan Peminjaman Barang" wire:click="$emit('onClickBatalkan', {{ $item->id }})">
+                                <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Kembalikan Barang Kegudang" wire:click="$emit('onClickBatalkan', {{ $item->id }})">
                                     <i class="bi bi-x-circle"></i>
                                 </button>
                             </div>
@@ -58,12 +62,196 @@
         </table>
     </div>
     <div class="text-center">{{ $listBarangDipinjam->links() }}</div>
+
+    <div wire:ignore.self class="modal fade kostumer" tabindex="-1" id="modal_tambah_peminjaman_barang">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Form Peminjaman Barang</h3>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                        <span class="svg-icon svg-icon-1">
+                            <i class="bi bi-x-circle"></i>
+                        </span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <form action="#" wire:submit.prevent="simpanDataPeminjamanBarang">
+
+                    <div class="modal-body">
+                        <div class="row mb-5">
+                            @if ($laporanPekerjaan)
+                                <div class="col-md-6">
+                                    <div class="row mb-5">
+                                        <div class="col-md-4 col-4">
+                                            Kode Pekerjaan
+                                        </div>
+                                        <div class="col-md-8 col-8">
+                                            : <span class="fw-bold">{{ $laporanPekerjaan->kode_pekerjaan }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-5">
+                                        <div class="col-md-4 col-4">
+                                            Project
+                                        </div>
+                                        <div class="col-md-8 col-8">
+                                            : <span class="fw-bold">({{ $laporanPekerjaan->project->kode }}) {{ $laporanPekerjaan->project->nama }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-5">
+                                        <div class="col-md-4 col-4">
+                                            Merk
+                                        </div>
+                                        <div class="col-md-8 col-8">
+                                            : <span class="fw-bold">({{ $laporanPekerjaan->merk->nama_merk }})</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-5">
+                                        <div class="col-md-4 col-4">
+                                            Nomor Lift
+                                        </div>
+                                        <div class="col-md-8 col-8">
+                                            : <span class="fw-bold">({{ $laporanPekerjaan->nomor_lift }})</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                            @if ($barang)
+                            <div class="col-md-6">
+                                <div class="row mb-5">
+                                    <div class="col-md-4 col-4">
+                                        SKU
+                                    </div>
+                                    <div class="col-md-8 col-8">
+                                        : <span class="fw-bold">{{ $laporanPekerjaan->kode_pekerjaan }}</span>
+                                    </div>
+                                </div>
+                                <div class="row mb-5">
+                                    <div class="col-md-4 col-4">
+                                        Barang
+                                    </div>
+                                    <div class="col-md-8 col-8">
+                                        : <span class="fw-bold">{{ $barang->nama }}</span>
+                                    </div>
+                                </div>
+                                <div class="row mb-5">
+                                    <div class="col-md-4 col-4">
+                                        Satuan
+                                    </div>
+                                    <div class="col-md-8 col-8">
+                                        : <span class="fw-bold">{{ $barang->satuan->nama_satuan }}</span>
+                                    </div>
+                                </div>
+                                <div class="row mb-5">
+                                    <div class="col-md-4 col-4">
+                                        Tipe Barang
+                                    </div>
+                                    <div class="col-md-8 col-8">
+                                        : <span class="fw-bold">{{ $barang->tipeBarang->tipe_barang }}</span>
+                                    </div>
+                                </div>
+                                <div class="row mb-5">
+                                    <div class="col-md-4 col-4">
+                                        Harga
+                                    </div>
+                                    <div class="col-md-8 col-8">
+                                        : <span class="fw-bold">{{ $barang->harga_formatted }}</span>
+                                    </div>
+                                </div>
+                                <div class="row mb-5">
+                                    <div class="col-md-4 col-4">
+                                        Stock
+                                    </div>
+                                    <div class="col-md-8 col-8">
+                                        : <span class="fw-bold">{{ $barang->stock }}</span>
+                                    </div>
+                                </div>
+                                <div class="row mb-5">
+                                    <div class="col-md-4 col-4">
+                                        Deskripsi
+                                    </div>
+                                    <div class="col-md-8 col-8">
+                                        : <?= $barang->deskripsi ?>
+                                    </div>
+                                </div>
+                                <div class="row mb-5">
+                                    <div class="col-md-4 col-4">
+                                        Sub Total
+                                    </div>
+                                    <div class="col-md-8 col-8">
+                                        : <span class="fw-bold">Rp. {{ number_format($subTotal,0,',','.') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+                        </div>
+                        @include('helper.alert-message')
+                        <div class="text-center">
+                            @include('helper.simple-loading', ['target' => 'simpanDataPeminjamanBarang', 'message' => 'Menyimpan data ...'])
+                        </div>
+                        <div class="row mb-5">
+                            <div class="mb-5 col-md-4">
+                                <label for="" class="form-label required">Pekerjaan</label>
+                                <select name="id_laporan_pekerjaan" wire:model="id_laporan_pekerjaan" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_tambah_peminjaman_barang" data-placeholder="Pilih" required>
+                                    <option value="">Pilih</option>
+                                    @foreach ($listLaporanPekerjaan as $item)
+                                        <option value="{{ $item->id }}">{{ $item->kode_pekerjaan }} {{ $item->project->nama }}</option>
+                                    @endforeach
+                                </select>
+                                @error('id_laporan_pekerjaan')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-5 col-md-4">
+                                <label for="" class="form-label required">Barang</label>
+                                <select name="id_barang" wire:model="id_barang" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_tambah_peminjaman_barang" data-placeholder="Pilih" required>
+                                    <option value="">Pilih</option>
+                                    @foreach ($listBarang as $item)
+                                        <option value="{{ $item->id }}">{{ $item->sku }} {{ $item->nama }}</option>
+                                    @endforeach
+                                </select>
+                                @error('id_barang')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-5 col-md-4">
+                                <label for="" class="form-label required">Jumlah</label>
+                                <input type="number" name="qty" wire:model="qty" class="form-control form-control-solid" placeholder="Masukan jumlah barang" required>
+                                @error('qty')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-box-arrow-down"></i> Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 @push('js')
     <script>
         $(document).ready(function () {
 
+        });
+
+        window.addEventListener('contentChange', function(){
+            $('select[name="id_laporan_pekerjaan"]').select2();
+            $('select[name="id_barang"]').select2();
+        })
+
+        $('select[name="id_laporan_pekerjaan"]').on('change', function(){
+            @this.set('id_laporan_pekerjaan', $(this).val())
+        });
+
+        $('select[name="id_barang"]').on('change', function(){
+            @this.set('id_barang', $(this).val())
         });
 
         Livewire.on('onClickBatalkan', async (id) => {
@@ -76,6 +264,10 @@
         Livewire.on('finishSimpanData', (status, message) => {
             $('.modal').modal('hide')
             alertMessage(status, message);
+        })
+
+        Livewire.on('onClickTambahPeminjamanBarang', () => {
+            $('#modal_tambah_peminjaman_barang').modal('show');
         })
     </script>
 @endpush

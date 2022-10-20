@@ -61,10 +61,6 @@ Route::middleware('auth.user')->group(function () {
         Route::get('/kelola/{id}', [DaftarTugasController::class, 'kelola'])->name('daftar-tugas.kelola');
     });
 
-    Route::prefix('reschedule')->group(function(){
-        Route::get('/', [RescheduleController::class, 'index'])->name('reschedule');
-    });
-
     Route::prefix('pre-order')->group(function () {
         Route::get('/', [PreOrderController::class, 'index'])->name('pre-order');
         Route::get('/detail/{id}', [PreOrderController::class, 'detail'])->name('pre-order.detail');
