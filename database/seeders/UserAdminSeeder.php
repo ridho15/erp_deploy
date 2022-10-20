@@ -34,5 +34,15 @@ class UserAdminSeeder extends Seeder
             'is_active' => 1,
             'id_tipe_user' => 1,
         ]);
+
+        User::updateOrCreate([
+            'username' => 'admin'
+        ], [
+            'username' => 'admin',
+            'password' => Hash::make('adminadmin'),
+            'name' => 'Admin',
+            'is_active' => 1,
+            'id_tipe_user' => 1,
+        ]);
     }
 }

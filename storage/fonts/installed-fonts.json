@@ -7,30 +7,30 @@
         "bold": "inter_bold_cbd71dae585ea51627faec68dc3982cf"
     },
     "line awesome brands": {
-        "normal": "line_awesome_brands_normal_549d341f09e7032921b9383937a100d2"
+        "normal": "line_awesome_brands_normal_69e39be9cf6e00fa5abd69d36261118b"
     },
     "line awesome free": {
-        "normal": "C:\\laragon\\www\\erp_deploy\\storage\\fonts\/line_awesome_free_normal_5f9724c3fe633251b1f58de756c24a59",
-        "900": "line_awesome_free_900_32a9274fe2c8122650301d642948e3b2"
+        "normal": "\/home\/u1605090\/public_html\/erp_deploy\/master\/storage\/fonts\/line_awesome_free_normal_a66219118ab311fb0648a17719ef1fe6",
+        "900": "line_awesome_free_900_5cb9760955e9a48c94c8e5cac70375d8"
     },
     "font awesome 6 brands": {
-        "normal": "font_awesome_6_brands_normal_dfdebe07e19db0410c42f3234e231cb3"
+        "normal": "font_awesome_6_brands_normal_7c2e21a2289a99d1b158e26f9e40115a"
     },
     "font awesome 6 free": {
-        "normal": "C:\\laragon\\www\\erp_deploy\\storage\\fonts\/font_awesome_6_free_normal_7f3c5a08a22eb93704348e96098f5faf",
-        "900": "font_awesome_6_free_900_e880c9003e6559a000b06c8dd799e532"
+        "normal": "\/home\/u1605090\/public_html\/erp_deploy\/master\/storage\/fonts\/font_awesome_6_free_normal_33563835c4c38ac29744c4f197dac99a",
+        "900": "font_awesome_6_free_900_7a27ca82ffc46b9343b88d312f62d257"
     },
     "font awesome 5 brands": {
-        "normal": "font_awesome_5_brands_normal_dfdebe07e19db0410c42f3234e231cb3"
+        "normal": "font_awesome_5_brands_normal_7c2e21a2289a99d1b158e26f9e40115a"
     },
     "font awesome 5 free": {
-        "900": "C:\\laragon\\www\\erp_deploy\\storage\\fonts\/font_awesome_5_free_900_e880c9003e6559a000b06c8dd799e532",
-        "normal": "font_awesome_5_free_normal_7f3c5a08a22eb93704348e96098f5faf"
+        "900": "\/home\/u1605090\/public_html\/erp_deploy\/master\/storage\/fonts\/font_awesome_5_free_900_7a27ca82ffc46b9343b88d312f62d257",
+        "normal": "font_awesome_5_free_normal_33563835c4c38ac29744c4f197dac99a"
     },
     "fontawesome": {
-        "normal": "fontawesome_normal_0d7a904cdfe297309221376c5d705509"
+        "normal": "fontawesome_normal_9f46c7c604136ba5c401f50a2bf55f5d"
     },
     "fonticon": {
-        "normal": "fonticon_normal_d07b5f1b1e347f3c55e32d933142c082"
+        "normal": "fonticon_normal_4280b7d1ed5374b5b239077e310d5032"
     }
 }
