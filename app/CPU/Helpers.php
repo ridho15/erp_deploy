@@ -4,9 +4,25 @@ namespace App\CPU;
 
 use App\Models\TipeUser;
 use App\Models\UserLog;
+use App\Models\WebConfig;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class Helpers
 {
+    public static function config($name)
+    {
+        $response = '';
+        $config = WebConfig::where('type', $name);
+        if ($config) {
+            $response = $config;
+
+            return $response;
+        }
+
+        return $response;
+    }
+
     public static function dateChange($date)
     {
         $day = [
@@ -157,5 +173,31 @@ class Helpers
     }
 
         return $return;
+    }
+
+    public static function update(string $dir, $old_image, string $format, $image = null)
+    {
+        $old_image = $old_image['value'];
+        if (Storage::disk('public')->exists($dir.$old_image)) {
+            Storage::disk('public')->delete($dir.$old_image);
+        }
+        $imageName = Helpers::upload($dir, $format, $image);
+
+        return $imageName;
+    }
+
+    public static function upload(string $dir, string $format, $image = null)
+    {
+        if ($image != null) {
+            $imageName = Carbon::now()->toDateString().'-'.uniqid().'.'.$format;
+            if (!Storage::disk('public')->exists($dir)) {
+                Storage::disk('public')->makeDirectory($dir);
+            }
+            Storage::disk('public')->put($dir, $image);
+        } else {
+            $imageName = 'def.png';
+        }
+
+        return $image;
     }
 }

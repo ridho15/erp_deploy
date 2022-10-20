@@ -20,6 +20,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TipeBarangController;
+use App\Http\Controllers\WebConfigurationController;
 use App\Http\Controllers\WorkerController;
 use App\Models\Quotation;
 use Illuminate\Support\Facades\Route;
@@ -65,11 +66,11 @@ Route::middleware('auth.user')->group(function () {
         Route::get('/detail/{id}', [PreOrderController::class, 'detail'])->name('pre-order.detail');
     });
 
-    Route::prefix('inventory')->group(function(){
+    Route::prefix('inventory')->group(function () {
         Route::get('/', [InventoryController::class, 'index'])->name('inventory');
     });
 
-    Route::prefix('project')->group(function(){
+    Route::prefix('project')->group(function () {
         Route::get('/', [ProjectController::class, 'index'])->name('project');
     });
 
@@ -139,5 +140,8 @@ Route::middleware('auth.user')->group(function () {
 
     Route::prefix('kondisi')->group(function () {
         Route::get('/', [KondisiController::class, 'index'])->name('kondisi');
+    });
+    Route::prefix('web-config')->group(function () {
+        Route::get('/', [WebConfigurationController::class, 'index'])->name('web-config');
     });
 });
