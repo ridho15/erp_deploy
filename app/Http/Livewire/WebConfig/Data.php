@@ -89,6 +89,12 @@ class Data extends Component
 
     public function saveLogo()
     {
+        $check = WebConfig::where('type', 'logo')->first();
+        if (!$check) {
+            $new = new WebConfig();
+            $new->type = 'logo';
+            $new->save;
+        }
         $dir = 'company';
         if (isset($this->logo)) {
             $logo = Helpers::config('logo')->first();
