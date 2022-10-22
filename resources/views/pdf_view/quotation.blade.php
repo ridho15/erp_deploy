@@ -10,15 +10,15 @@
     <br>
     <div>
         <span>Kepada Yth:</span><br>
-        <span class="fw-bold">Bp.Hartono</span><br>
+        <span style="font-weight: bold">Bp.Hartono</span><br>
         <span>Jl. Kusuma Atmaja No. 27</span><br>
         <span>Menteng Jakarta Pusat</span>
     </div>
     <br>
     <table>
         <tr>
-            <td class="fw-bold">Up</td>
-            <td class="fw-bold">:
+            <td style="font-weight: bold">Up</td>
+            <td style="font-weight: bold">:
                 @if ($quotation->laporanPekerjaan)
                     {{ $quotation->laporanPekerjaan->customer->nama }} - {{ $quotation->laporanPekerjaan->customer->no_hp }}
                 @elseif($quotation->customer)
@@ -27,8 +27,8 @@
             </td>
         </tr>
         <tr>
-            <td class="fw-bold">Email</td>
-            <td class="fw-bold">:
+            <td style="font-weight: bold">Email</td>
+            <td style="font-weight: bold">:
                 @if ($quotation->laporanPekerjaan)
                     {{ $quotation->laporanPekerjaan->customer->email }}
                 @elseif($quotation->customer)
@@ -37,16 +37,16 @@
             </td>
         </tr>
         <tr>
-            <td class="fw-bold">Hal</td>
-            <td class="fw-bold">: {{ $quotation->hal }}</td>
+            <td style="font-weight: bold">Hal</td>
+            <td style="font-weight: bold">: {{ $quotation->hal }}</td>
         </tr>
     </table>
     <br>
     <div>Dengan Hormat, <br>
         Bersama ini kami ajukan penawaran harga sebagai berikut:
-        <table class="table">
-            <thead class="border" style="border: 1px solid black;">
-                <tr class="fw-semibold text-gray-800">
+        <table id="data">
+            <thead>
+                <tr>
                     <th>No.</th>
                     <th>Keterangan</th>
                     <th>Jumlah</th>
@@ -55,7 +55,7 @@
                     <th>Harga Total</th>
                 </tr>
             </thead>
-            <tbody class="border" style="border: 1px solid black;">
+            <tbody>
             @if (count($quotation->quotationDetail) > 0)
                 @php
                     $subTotal = 0;
