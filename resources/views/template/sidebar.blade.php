@@ -158,7 +158,7 @@
                             <span class="menu-title">Pre Order</span>
                         </a>
                     </div>
-                    <div class="menu-item">
+                    {{-- <div class="menu-item">
                         <a class="menu-link @if(in_array('invoice', $active))  active @endif"
                             href="{{ route('invoice') }}">
                             <span class="menu-icon">
@@ -177,7 +177,7 @@
                             </span>
                             <span class="menu-title">Invoice</span>
                         </a>
-                    </div>
+                    </div> --}}
                     <div class="menu-item">
                         <a class="menu-link @if(in_array('inventory', $active))  active @endif"
                             href="{{ route('inventory') }}">
