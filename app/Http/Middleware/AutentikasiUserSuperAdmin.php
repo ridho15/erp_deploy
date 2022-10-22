@@ -11,8 +11,8 @@ class AutentikasiUserSuperAdmin
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
+     * @param \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse) $next
+     *
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next)
@@ -21,14 +21,14 @@ class AutentikasiUserSuperAdmin
         ->where('token', $request->session()->get('token'))
         ->where('is_active', 1)
         ->first();
-        if($loginLogs){
+        if ($loginLogs) {
             $superUser = $loginLogs->user->tipeUser->nama_tipe == 'Super Admin';
-            if($superUser){
+            if ($superUser) {
                 return $next($request);
-            }else{
-                return redirect()->back()->with('fail', "Anda tidak memiliki akses");
+            } else {
+                return redirect()->back()->with('fail', 'Anda tidak memiliki akses');
             }
-        }else{
+        } else {
             return redirect()->route('login');
         }
     }

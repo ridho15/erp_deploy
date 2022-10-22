@@ -56,6 +56,40 @@ class Barang extends Model
         return $this->belongsTo(TipeBarang::class, 'id_tipe_barang');
     }
 
+    public function barangStockChange($jumlah, $status){
+        $barang = Barang::find($this->id);
+
+        if ($status == 1 || $status == 4) {
+            if ($jumlah > $this->stock) {
+                return [
+                    'status' => 0,
+                    'message' => 'Stock tidak mencukupi'
+                ];
+            }
+        }
+
+        BarangStockLog::create([
+            'id_barang' => $this->id,
+            'stock_awal' => $this->stock,
+            'perubahan' => $jumlah,
+            'tanggal_perubahan' => now(),
+            'id_tipe_perubahan_stock' => $status
+        ]);
+
+        if($status == 1 || $status == 4){
+            $barang->update(['stock' => $this->stock - $jumlah]);
+        }
+
+        elseif($status == 2 || $status == 3){
+            $barang->update(['stock' => $this->stock + $jumlah]);
+        }
+
+        return [
+            'status' => 1,
+            'message' => 'Berhasil'
+        ];
+    }
+
     public function getSkuAttribute(){
         $helper = new HelperController;
         return "B" . $helper->format_num($this->id);

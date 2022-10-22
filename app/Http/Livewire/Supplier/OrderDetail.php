@@ -9,7 +9,10 @@ use Livewire\Component;
 
 class OrderDetail extends Component
 {
-    public $listeners = ['refreshSupplierOrder' => '$refresh', 'finishSupplierOrder'];
+    public $listeners = [
+        'refreshSupplierOrder' => '$refresh',
+        'finishSupplierOrder'
+    ];
     public $id_supplier_order;
     public $supplierOrder;
     public function render()
@@ -29,23 +32,19 @@ class OrderDetail extends Component
             return session()->flash('fail', $message);
         }
 
-        $supplierOrder->update([
-            'status_order' => 4
-        ]);
-
+        $total_harga = 0;
         foreach ($supplierOrder->detail as $item) {
-            $barang = $item->barang;
-            $barang->update([
-                'stock' => $barang->stock + $item->qty
-            ]);
-            BarangStockLog::create([
-                'id_barang' => $barang->id,
-                'stock_awal' => $barang->stock,
-                'perubahan' => $item->qty,
-                'tipe_perubahan' => 1,
-                'tanggal_perubahan' => now()
-            ]);
+            if($item->status_order != 0){
+                $barang = $item->barang;
+                $barang->barangStockChange($item->qty, 3);
+                $total_harga += $item->harga * $item->qty;
+            }
         }
+
+        $supplierOrder->update([
+            'status_order' => 4,
+            'total_harga' => $total_harga,
+        ]);
 
         $message = "Orderan berhasil diselesaikan";
         $this->emit('statusOrderFinish', 1, $message);

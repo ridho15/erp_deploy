@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class Detail extends Component
 {
-    public $listeners = ['refreshForm' => '$refreshForm'];
+    public $listeners = ['refreshForm' => '$refresh'];
     public $id_form_master;
     public $formMaster;
     public function render()

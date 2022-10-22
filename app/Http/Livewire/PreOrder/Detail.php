@@ -5,6 +5,7 @@ namespace App\Http\Livewire\PreOrder;
 use App\Models\Barang;
 use App\Models\BarangStockLog;
 use App\Models\PreOrder;
+use App\Models\PreOrderLog;
 use Livewire\Component;
 
 class Detail extends Component
@@ -34,7 +35,14 @@ class Detail extends Component
             'status' => $status
         ]);
 
+        PreOrderLog::create([
+            'id_pre_order' => $preOrder->id,
+            'tanggal' => now(),
+            'status' => $status
+        ]);
+
         $message = "Pre Order berhasil di update";
+        $this->emit('refreshPreOrderLog');
         $this->emit('finishRefreshData', 1, $message);
         return session()->flash('success', $message);
     }
@@ -55,24 +63,31 @@ class Detail extends Component
                 return session()->flash('fail', $message);
             }
 
-            BarangStockLog::create([
-                'id_barang' => $barang->id,
-                'stock_awal' => $barang->stock,
-                'perubahan' => $item->qty,
-                'tipe_perubahan' => 2,
-                'tanggal_perubahan' => now()
-             ]);
-
-            $barang->update([
-                'stock' => $barang->stock - $item->qty
-            ]);
+            if ($preOrder->id_quotation == null) {
+                $barang->barangStockChange($item->qty, 4);
+            }else{
+                BarangStockLog::create([
+                    'id_barang' => $item->id_barang,
+                    'stock_awal' => $item->barang->stock + $item->qty,
+                    'perubahan' => $item->qty,
+                    'tanggal_perubahan' => now(),
+                    'id_tipe_perubahan_stock' => 4
+                ]);
+            }
         }
 
         $preOrder->update([
             'status' => 3
         ]);
 
+        PreOrderLog::create([
+            'id_pre_order' => $preOrder->id,
+            'tanggal' => now(),
+            'status' => 3
+        ]);
+
         $message = "Berhasil menyimpan data dan mengupdate stock barang";
+        $this->emit('refreshPreOrderLog');
         $this->emit('refreshPreOrderDetail');
         $this->emit('finishRefreshData', 1, $message);
         return session()->flash('success', $message);

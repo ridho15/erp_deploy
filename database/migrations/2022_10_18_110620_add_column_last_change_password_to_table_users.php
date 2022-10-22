@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class RemoveColumnStatusInProOrderDetail extends Migration
+class AddColumnLastChangePasswordToTableUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class RemoveColumnStatusInProOrderDetail extends Migration
      */
     public function up()
     {
-        Schema::table('pre_order_detail', function (Blueprint $table) {
-            $table->dropColumn('status');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dateTime('lastPasswordChange')->nullable();
         });
     }
 
@@ -25,8 +25,7 @@ class RemoveColumnStatusInProOrderDetail extends Migration
      */
     public function down()
     {
-        Schema::table('pro_order_detail', function (Blueprint $table) {
-            //
+        Schema::table('users', function (Blueprint $table) {
         });
     }
 }

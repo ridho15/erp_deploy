@@ -15,7 +15,7 @@ class BarangStockLog extends Model
         'id_barang',
         'stock_awal',
         'perubahan',
-        'tipe_perubahan',
+        'id_tipe_perubahan_stock',
         'tanggal_perubahan'
     ];
 
@@ -26,12 +26,8 @@ class BarangStockLog extends Model
         return $carbon;
     }
 
-    public function tipePerubahan(){
-        if($this->tipe_perubahan == 1){
-            return "Bertambah";
-        }else{
-            return "Berkurang";
-        }
+    public function tipePerubahanStock(){
+        return $this->belongsTo(TipePerubahanStock::class, 'id_tipe_perubahan_stock');
     }
 
     public function barang(){

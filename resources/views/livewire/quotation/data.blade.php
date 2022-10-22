@@ -10,7 +10,7 @@
         </div>
         <div class="card-body">
             <div class="text-center">
-                @include('helper.simple-loading', ['target' => 'cari,sendQuotationToCustomer', 'message' => 'Memuat data...'])
+                @include('helper.simple-loading', ['target' => null, 'message' => 'Memuat data...'])
             </div>
             <div class="row mb-5">
                 <div class="col-md-3">
@@ -23,6 +23,7 @@
                  <thead>
                   <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
                    <th>No</th>
+                   <th>No. Ref</th>
                    <th>Kode Project</th>
                    <th>Nama Project</th>
                    <th>Pelanggan</th>
@@ -40,6 +41,7 @@
                         @foreach ($listQuotation as $index => $item)
                             <tr>
                                 <td>{{ ($page - 1) * $total_show  + $index + 1 }}</td>
+                                <td>{{ $item->no_ref }}</td>
                                 <td>{{ $item->laporanPekerjaan ? $item->laporanPekerjaan->project->kode : '-' }}</td>
                                 <td>{{ $item->laporanPekerjaan ? $item->laporanPekerjaan->project->nama : '-' }}</td>
                                 <td>
@@ -97,7 +99,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="11" class="text-center text-gray-500">Tidak ada data</td>
+                            <td colspan="12" class="text-center text-gray-500">Tidak ada data</td>
                         </tr>
                     @endif
                  </tbody>

@@ -85,14 +85,9 @@
     <script>
         $(document).ready(function () {
             $('input[name="tanggal_order"]').flatpickr()
-            refreshSelect()
         });
 
-        window.addEventListener('contentChange', function(){
-            refreshSelect();
-        })
-
-        function refreshSelect(){
+        window.addEventListener('contentChange',function(){
             $('input[name="tanggal_order"]').flatpickr()
             $('select[name="id_supplier"]').select2()
             // $('select[name="status_order"]').select2()
@@ -109,6 +104,10 @@
             $('select[name="id_tipe_pembayaran"]').on('change', function(){
                 Livewire.emit('changeTipePembayaran', $(this).val())
             })
+        })
+
+        function refreshSelect(){
+
         }
 
         Livewire.on("finishSimpanData", (status, message) => {

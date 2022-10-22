@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ModifyColumnIdLaporanPekerjaanInQuotation extends Migration
+class CreateTipePerubahanStocksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class ModifyColumnIdLaporanPekerjaanInQuotation extends Migration
      */
     public function up()
     {
-        Schema::table('quotations', function (Blueprint $table) {
-            $table->integer('id_laporan_pekerjaan')->nullable()->change();
+        Schema::create('tipe_perubahan_stocks', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama_tipe_perubahan');
+            $table->string('badge');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -25,8 +29,6 @@ class ModifyColumnIdLaporanPekerjaanInQuotation extends Migration
      */
     public function down()
     {
-        Schema::table('quotation', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('tipe_perubahan_stocks');
     }
 }

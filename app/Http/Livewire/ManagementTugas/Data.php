@@ -10,7 +10,10 @@ class Data extends Component
 {
     use WithPagination;
     public $paginationTheme = 'bootstrap';
-    public $listeners = ['refreshManagementTugas' => '$refresh', 'hapusManagementTugas'];
+    public $listeners = [
+        'refreshManagementTugas' => '$refresh',
+        'hapusManagementTugas'
+    ];
     public $total_show = 10;
     public $cari;
     protected $listLaporanPekerjaan;
@@ -19,7 +22,7 @@ class Data extends Component
         $this->listLaporanPekerjaan = LaporanPekerjaan::where(function($query){
             $query->where('nomor_lift', 'LIKE', '%' . $this->cari . '%')
             ->orWhere('keterangan', 'LIKE', '%' . $this->cari . '%');
-        })->paginate($this->total_show);
+        })->orderBy('created_at', 'DESC')->paginate($this->total_show);
         $data['listLaporanPekerjaan'] = $this->listLaporanPekerjaan;
         return view('livewire.management-tugas.data', $data);
     }

@@ -9,7 +9,7 @@
             @include('helper.form-pencarian', ['model' => 'cari'])
         </div>
         <div class="col-md-8 text-end">
-            <button class="btn btn-sm btn-outline btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Barang" wire:click="changeTambahBarang">
+            <button class="btn btn-sm btn-outline btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Barang" wire:click="changeTambahBarang" @if($preOrder->status == 0 || $preOrder->status == 3) disabled @endif>
                 <i class="bi bi-plus-circle"></i> Tambah
             </button>
         </div>
@@ -152,7 +152,14 @@
                 @foreach ($listPreOrderDetail as $index => $item)
                     <tr>
                         <td>{{ $index + 1 }}</td>
-                        <td>{{ $item->barang->sku }}</td>
+                        <td>
+                            <a href="{{ route('barang.detail', ['id' => $item->id_barang]) }}" class="text-dark">
+                                {{ $item->barang->sku }}
+                                <span data-bs-toggle="tooltip" data-bs-placement="top" title="Lihat Detail Barang">
+                                    <i class="bi bi-question-circle"></i>
+                                </span>
+                            </a>
+                        </td>
                         <td>{{ $item->barang->nama }}</td>
                         <td>{{ $item->qty }}</td>
                         <td>{{ $item->harga_formatted }}</td>
