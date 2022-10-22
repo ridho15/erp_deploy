@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     @include('pdf_view.head')
-<body style="padding: 20px">
+<body style="padding-top: 10px; padding-bottom: 10px; padding-right: 20px; padding-left: 20px;">
     @include('pdf_view.header')
     <div>
         <div style="float: left; width: 50%;">Ref. No: {{ $quotation->no_ref }}</div>
