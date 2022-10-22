@@ -6,6 +6,10 @@
     {{-- <link href="{{ asset('/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" /> --}}
     <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 11pt;
+        }
         th,td{
             padding-left: 10px !important;
         }
