@@ -3,7 +3,7 @@
     @include('pdf_view.head')
 <body class="p-10">
     @include('pdf_view.header')
-    <div class="text-center fw-bold mb-10" style="font-size: 13pt">Laporan Pekerjaan</div>
+    <div class="text-center fw-bold mb-10" style="font-size: 12pt">Laporan Pekerjaan</div>
     <div class="mb-10">
         <div style="float: left; width: 50%">
             <div>
