@@ -53,7 +53,7 @@ class PreOrderController extends Controller
 
         $pdf = Pdf::loadView('pdf_view.invoice', $data);
 
-        // return $pdf->download('invoice_'.strtotime(now()).'.pdf');
+        return $pdf->download('invoice_'.strtotime(now()).'.pdf');
 
         return view('pdf_view.invoice', $data);
     }

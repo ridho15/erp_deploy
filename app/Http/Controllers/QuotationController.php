@@ -52,7 +52,9 @@ class QuotationController extends Controller
         $data['web_alamat'] = WebConfig::where('type', 'alamat')->first()->value;
         $data['web_logo'] = WebConfig::where('type', 'logo')->first()->value;
         $pdf = Pdf::loadView('pdf_view.quotation', $data);
-        // return view('pdf_view.quotation', $data);
+
         return $pdf->download('quotation_'.strtotime(now()).'.pdf');
+
+        return view('pdf_view.quotation', $data);
     }
 }

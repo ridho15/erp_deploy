@@ -11,6 +11,20 @@ use Illuminate\Support\Facades\Storage;
 
 class Helpers
 {
+    public function splitPhone($phone)
+    {
+        $phone = preg_replace('~[^0-9]~', '', $phone);
+        preg_match('~([0-9]{4})([0-9]{4})([0-9]{3})~', $phone, $matches);
+
+        if (!empty($matches)) {
+            $display = $matches[1].' - '.$matches[2].' - '.$matches[3];
+        } else {
+            $display = 'An invalid phone number was entered.';
+        }
+
+        return $display;
+    }
+
     public function getBarang($id)
     {
         $barang = Barang::find($id);

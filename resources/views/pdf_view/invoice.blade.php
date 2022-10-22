@@ -58,6 +58,7 @@
 
         #details {
             margin-bottom: 50px;
+            position: relative;
         }
 
         #client {
@@ -72,7 +73,8 @@
 
         h2.name {
             font-size: 1.4em;
-            font-weight: normal;
+            font-weight: bold;
+            color: #000;
             margin: 0;
         }
 
@@ -104,19 +106,20 @@
 
         .payyed {
             position: absolute;
-            z-index: 1;
-            left: 23%;
-            width: 49%;
-            opacity: 0.3;
+            z-index: 99;
+            left: 8%;
+            top: -38px;
+            width: 40%;
+            opacity: 0.2;
         }
 
-        .payyed img{
+        .payyed img {
             width: 100%;
         }
 
         table th,
         table td {
-            padding: 20px;
+            padding: 8px;
             background: #eeeeee;
             text-align: center;
             border-bottom: 1px solid #ffffff;
@@ -124,11 +127,11 @@
 
         table th {
             white-space: nowrap;
-            font-weight: normal;
+            font-weight: bold;
         }
 
         table td {
-            text-align: right;
+            text-align: center;
         }
 
         table td h3 {
@@ -141,11 +144,11 @@
         table .no {
             color: #ffffff;
             font-size: 1.6em;
-            background: #57b223;
+            background: #c9c9c9;
         }
 
         table .desc {
-            text-align: left;
+            text-align: center;
         }
 
         table .unit {
@@ -155,7 +158,7 @@
         table .qty {}
 
         table .total {
-            background: #57b223;
+            background: #c9c9c9;
             color: #ffffff;
         }
 
@@ -251,9 +254,9 @@
             <img src="{{ asset($web_logo) }}">
         </div>
         <div id="company">
-            <h2 class="name">{{ $web_name }}</h2>
-            <div>{{ $web_alamat }}</div>
-            <div>(+62) {{ (int)$web_phone }}</div>
+            <h2 class="name text-capitalize">{{ $web_name }}</h2>
+            <div class="text-capitalize">{{ $web_alamat }}</div>
+            <div>+62 - {{ \App\CPU\Helpers::splitPhone($web_phone) }}</div>
             <div><a href="mailto:company@example.com">{{ $web_email }}</a></div>
         </div>
     </header>
@@ -262,20 +265,21 @@
             <div id="client">
                 <div class="to">INVOICE UNTUK:</div>
                 <h2 class="name text-capitalize">{{ $preOrder->customer->nama }}</h2>
-                <div class="address">{{ $preOrder->customer->alamat }}</div>
+                <div class="address text-capitalize">{{ $preOrder->customer->alamat }}</div>
                 <div class="email"><a href="mailto:{{ $preOrder->customer->email }}">{{ $preOrder->customer->email
                         }}</a></div>
             </div>
+            <div class="payyed">
+                <img src="{{ asset('assets/images/lunas.png') }}" alt="">
+            </div>
             <div id="invoice">
-                <h1>INVOICE 3-2-1</h1>
-                <div class="date">Tanggal Invoice: {{ $preOrder->updated_at }}</div>
+                <h1>INVOICE {{ $preOrder->customer->kode }}</h1>
+                @php($date = Carbon\Carbon::parse($preOrder->updated_at)->isoFormat('dddd, D MMMM Y'))
+                <div class="date">Tanggal Invoice: {{ App\CPU\Helpers::dateChange($date) }}</div>
                 {{-- <div class="date">Due Date: 30/06/2014</div> --}}
             </div>
         </div>
         <table border="0" cellspacing="0" cellpadding="0">
-            <div class="payyed">
-                <img src="{{ asset('assets/images/lunas.png') }}" alt="">
-            </div>
             <thead>
                 <tr>
                     <th class="no">#</th>
