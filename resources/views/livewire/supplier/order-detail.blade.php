@@ -66,6 +66,7 @@
 
         Livewire.on('statusOrderFinish', (status, message) => {
             alertMessage(status,message)
+            location.reload()
         })
     </script>
 @endpush

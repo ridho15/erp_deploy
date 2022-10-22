@@ -19,11 +19,13 @@ use App\Http\Controllers\PreOrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\QuotationController;
+use App\Http\Controllers\RescheduleController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TipeBarangController;
 use App\Http\Controllers\WebConfigurationController;
 use App\Http\Controllers\WorkerController;
 use App\Models\Quotation;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('testing')->group(function () {
@@ -35,6 +37,11 @@ Route::prefix('testing')->group(function () {
         return view('mail.send-quotation', $data);
     });
 });
+
+Route::get('/foo', function () {
+    Artisan::call('storage:link');
+});
+
 Route::get('/login', [AutentikasiController::class, 'login'])->name('login');
 Route::post('/login', [AutentikasiController::class, 'postLogin'])->name('post.login');
 Route::get('/logout', [AutentikasiController::class, 'logout'])->name('logout');

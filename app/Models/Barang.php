@@ -59,11 +59,13 @@ class Barang extends Model
     public function barangStockChange($jumlah, $status){
         $barang = Barang::find($this->id);
 
-        if ($jumlah > $this->stock) {
-            return [
-                'status' => 0,
-                'message' => 'Stock tidak mencukupi'
-            ];
+        if ($status == 1 || $status == 4) {
+            if ($jumlah > $this->stock) {
+                return [
+                    'status' => 0,
+                    'message' => 'Stock tidak mencukupi'
+                ];
+            }
         }
 
         BarangStockLog::create([

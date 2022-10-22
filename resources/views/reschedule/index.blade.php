@@ -1,8 +1,8 @@
 @extends('template.layout')
+
 @section('content')
-    @livewire('management-tugas.data')
-    @livewire('management-tugas.form')
-    @livewire('management-tugas.atur-jadwal')
+    @livewire('reschedule.data')
+    @livewire('reschedule.form')
 @endsection
 
 @section('js')

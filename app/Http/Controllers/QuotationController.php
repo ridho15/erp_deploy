@@ -41,9 +41,7 @@ class QuotationController extends Controller
         $data['quotation'] = $quotation;
         $data['user'] = User::find(session()->get('id_user'));
         $pdf = Pdf::loadView('pdf_view.quotation', $data);
-
-        return $pdf->download('quotation_'.strtotime(now()).'.pdf');
-
-        return view('pdf_view.quotation', $data);
+        // return view('pdf_view.quotation', $data);
+        return $pdf->download('quotation_' . strtotime(now()) . '.pdf');
     }
 }
