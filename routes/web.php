@@ -21,6 +21,7 @@ use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\RescheduleController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TipeBarangController;
+use App\Http\Controllers\WebConfigurationController;
 use App\Http\Controllers\WorkerController;
 use App\Models\Quotation;
 use Illuminate\Support\Facades\Artisan;
@@ -72,11 +73,11 @@ Route::middleware('auth.user')->group(function () {
         Route::get('/detail/{id}', [PreOrderController::class, 'detail'])->name('pre-order.detail');
     });
 
-    Route::prefix('inventory')->group(function(){
+    Route::prefix('inventory')->group(function () {
         Route::get('/', [InventoryController::class, 'index'])->name('inventory');
     });
 
-    Route::prefix('project')->group(function(){
+    Route::prefix('project')->group(function () {
         Route::get('/', [ProjectController::class, 'index'])->name('project');
     });
 
@@ -87,6 +88,10 @@ Route::middleware('auth.user')->group(function () {
 
     Route::middleware('auth.super-admin')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+        Route::prefix('web-config')->group(function () {
+            Route::get('/', [WebConfigurationController::class, 'index'])->name('web-config');
+        });
 
         Route::prefix('worker')->group(function () {
             Route::get('/', [WorkerController::class, 'index'])->name('worker');
