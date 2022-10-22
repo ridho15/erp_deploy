@@ -2,6 +2,7 @@
 
 namespace App\CPU;
 
+use App\Models\Barang;
 use App\Models\TipeUser;
 use App\Models\UserLog;
 use App\Models\WebConfig;
@@ -10,6 +11,26 @@ use Illuminate\Support\Facades\Storage;
 
 class Helpers
 {
+    public function getBarang($id)
+    {
+        $barang = Barang::find($id);
+
+        return $barang;
+    }
+
+    public static function gen_mpdf($view, $file_prefix, $file_postfix)
+    {
+        $mpdf = new \Mpdf\Mpdf(['default_font' => 'FreeSerif', 'mode' => 'utf-8', 'format' => [190, 236]]);
+        $mpdf->AddPage('L', '', '', '', '', 0, 0, 0, '', '', '');
+        $mpdf->autoScriptToLang = true;
+        $mpdf->autoLangToFont = true;
+
+        $mpdf_view = $view;
+        $mpdf_view = $mpdf_view->render();
+        $mpdf->WriteHTML($mpdf_view);
+        $mpdf->Output($file_prefix.$file_postfix.'.pdf', 'D');
+    }
+
     public static function getSetting($object, $name)
     {
         $config = null;

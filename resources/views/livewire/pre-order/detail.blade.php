@@ -18,6 +18,8 @@
                 <button class="btn btn-sm btn-success btn-proses mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Pre Order Selesai" wire:click="$emit('onClickSelesai', {{ $id_pre_order }}, 3)">
                     <i class="fa-solid fa-circle-check"></i> Selesai
                 </button>
+            @elseif($preOrder->status == 3)
+                <a href="{{ route('pre-order.invoice', ['id' => $preOrder->id]) }}" target="_blank" class="btn btn-sm btn-info btn-proses mx-2"><i class="fa-solid fa-print"></i>Cetak Invoice</a>
             @endif
         </div>
     </div>
