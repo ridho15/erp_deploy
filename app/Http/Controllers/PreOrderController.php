@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PreOrder;
 use App\Models\User;
 use App\Models\WebConfig;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PreOrderController extends Controller
 {
@@ -49,6 +50,10 @@ class PreOrderController extends Controller
         $data['web_logo_perusahaan'] = WebConfig::where('type', 'logo_perusahaan')->first()->value;
         $data['web_alamat'] = WebConfig::where('type', 'alamat')->first()->value;
         $data['web_logo'] = WebConfig::where('type', 'logo')->first()->value;
+
+        $pdf = Pdf::loadView('pdf_view.invoice', $data);
+
+        return $pdf->download('invoice_'.strtotime(now()).'.pdf');
 
         return view('pdf_view.invoice', $data);
     }
