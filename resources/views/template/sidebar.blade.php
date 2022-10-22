@@ -349,7 +349,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="menu-item">
+                    {{-- <div class="menu-item">
                         <a class="menu-link @if(in_array('aplication', $active))  active @endif"
                             href="{{ route('daftar-tugas') }}">
                             <span class="menu-icon">
@@ -367,7 +367,7 @@
                             </span>
                             <span class="menu-title">Aplication</span>
                         </a>
-                    </div>
+                    </div> --}}
                     <div class="menu-item">
                         <a class="menu-link @if(in_array('web_config', $active))  active @endif"
                             href="{{ route('web-config') }}">
