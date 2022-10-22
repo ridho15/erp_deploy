@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FormMasterController;
 use App\Http\Controllers\FormPekerjaanController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KondisiController;
 use App\Http\Controllers\KostumerController;
@@ -64,6 +65,11 @@ Route::middleware('auth.user')->group(function () {
     Route::prefix('pre-order')->group(function () {
         Route::get('/', [PreOrderController::class, 'index'])->name('pre-order');
         Route::get('/detail/{id}', [PreOrderController::class, 'detail'])->name('pre-order.detail');
+        Route::get('/invoice/{id}', [PreOrderController::class, 'invoice'])->name('pre-order.invoice');
+    });
+
+    Route::prefix('invoice')->group(function () {
+        Route::get('/', [InvoiceController::class, 'index'])->name('invoice');
     });
 
     Route::prefix('inventory')->group(function () {
