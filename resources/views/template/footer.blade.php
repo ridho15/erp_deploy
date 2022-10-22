@@ -2,7 +2,7 @@
     <div class="container-xxl d-flex flex-column flex-md-row align-items-center justify-content-between">
         <div class="text-dark order-2 order-md-1">
             <span class="text-muted fw-semibold me-1">2022&copy;</span>
-            <a href="#" class="text-gray-800 text-hover-primary">Keenthemes</a>
+            <a href="#" class="text-gray-800 text-hover-primary">{{ $web_config['nama_perusahaan'] }}</a>
         </div>
         <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
             <li class="menu-item">

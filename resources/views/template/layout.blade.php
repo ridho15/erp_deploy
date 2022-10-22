@@ -4,12 +4,6 @@
 @include('template.head')
 
 <body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed aside-enabled">
-    @php
-    $web_config = [
-        'web_logo' => App\CPU\Helpers::config('logo')->first() ? App\CPU\Helpers::config('logo')->first()->value : '',
-        'web_name' => App\CPU\Helpers::config('name')->first() ? App\CPU\Helpers::config('name')->first()->value : '',
-    ];
-    @endphp
     <noscript>
         <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5FS8GGP" height="0" width="0"
             style="display:none;visibility:hidden"></iframe>

@@ -82,6 +82,10 @@ Route::middleware('auth.user')->group(function () {
     Route::middleware('auth.super-admin')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
+        Route::prefix('web-config')->group(function () {
+            Route::get('/', [WebConfigurationController::class, 'index'])->name('web-config');
+        });
+
         Route::prefix('worker')->group(function () {
             Route::get('/', [WorkerController::class, 'index'])->name('worker');
             Route::get('/detail/{id}', [WorkerController::class, 'detail'])->name('worker.detail');
@@ -140,8 +144,5 @@ Route::middleware('auth.user')->group(function () {
 
     Route::prefix('kondisi')->group(function () {
         Route::get('/', [KondisiController::class, 'index'])->name('kondisi');
-    });
-    Route::prefix('web-config')->group(function () {
-        Route::get('/', [WebConfigurationController::class, 'index'])->name('web-config');
     });
 });

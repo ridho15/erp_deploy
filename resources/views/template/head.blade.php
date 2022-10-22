@@ -1,5 +1,5 @@
 <head>
-    <title>{{ $title }} | PT.Mitra Global Kencana</title>
+    <title>{{ $title }} | {{ $web_config['web_name'] ? $web_config['web_name'] : 'Nama Aplikasi belum diatur' }}</title>
     <meta charset="utf-8" />
     <meta name="description" content="PT.Mitra Global Kencana" />
     <meta name="keywords" content="PT.Mitra Global Kencana" />
@@ -7,10 +7,10 @@
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="PT.Mitra Global Kencana" />
-    <meta property="og:url" content="https://keenthemes.com/metronic" />
-    <meta property="og:site_name" content="Keenthemes | Metronic" />
-    <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    <link rel="shortcut icon" href="{{ asset('/assets/images/icon.png') }}" />
+    <meta property="og:url" content="" />
+    <meta property="og:site_name" content="" />
+    <link rel="canonical" href="" />
+    <link rel="shortcut icon" href="{{ $web_config['favicon'] }}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <link href="{{ asset('/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet"
         type="text/css" />

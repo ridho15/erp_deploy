@@ -10,6 +10,18 @@ use Illuminate\Support\Facades\Storage;
 
 class Helpers
 {
+    public static function getSetting($object, $name)
+    {
+        $config = null;
+        foreach ($object as $set) {
+            if ($set['type'] == $name) {
+                $config = $set['value'];
+            }
+        }
+
+        return $config;
+    }
+
     public static function config($name)
     {
         $response = '';
