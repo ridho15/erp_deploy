@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     @include('pdf_view.head')
-<body class="p-10">
+<body style="padding-top: 10px; padding-bottom: 10px; padding-right: 20px; padding-left: 20px;">
     @include('pdf_view.header')
     <div>
         <div style="float: left; width: 50%;">Ref. No: {{ $quotation->no_ref }}</div>
@@ -91,7 +91,7 @@
                 </tr>
             @else
                 <tr>
-                    <td colspan="6" class="text-center text-gray-500">Tidak ada data</td>
+                    <td colspan="6" style="text-align: center; font-weight: bold">Tidak ada data</td>
                 </tr>
             @endif
             </tbody>
@@ -99,7 +99,6 @@
     </div>
     <div>
         Keterangan:
-
         <?= $quotation->keterangan ?>
         <br>
         Atas Perhatiannya kami ucapkan terimakasih.
