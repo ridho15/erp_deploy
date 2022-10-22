@@ -6,7 +6,7 @@
     <title>Example 2</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ asset('assets/css/invoice.css') }}" media="all" />
-    <meta http-equiv="Content-Type" content="text/html;"/>
+    <meta http-equiv="Content-Type" content="text/html;" />
     <style media="all">
         @font-face {
             font-family: SourceSansPro;
@@ -99,6 +99,19 @@
             border-collapse: collapse;
             border-spacing: 0;
             margin-bottom: 20px;
+            position: relative;
+        }
+
+        .payyed {
+            position: absolute;
+            z-index: 1;
+            left: 23%;
+            width: 49%;
+            opacity: 0.3;
+        }
+
+        .payyed img{
+            width: 100%;
         }
 
         table th,
@@ -260,6 +273,9 @@
             </div>
         </div>
         <table border="0" cellspacing="0" cellpadding="0">
+            <div class="payyed">
+                <img src="{{ asset('assets/images/lunas.png') }}" alt="">
+            </div>
             <thead>
                 <tr>
                     <th class="no">#</th>
