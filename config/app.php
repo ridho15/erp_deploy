@@ -1,14 +1,6 @@
 <?php
 
-if(env('APP_SET') == 'dayat'){
-    $asset = env('ASSET_URL', 'http://erp.test');
-}elseif(env('APP_SET') == 'server'){
-    $asset = env('ASSET_URL', 'https://erp.alfajricollection.com');
-}else{
-    $asset = env('ASSET_URL', 'https://erp.medialatihan.com/master/public');
-}
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -61,7 +53,7 @@ return [
 
     'url' => env('APP_URL', 'https://erp.medialatihan.com'),
 
-    'asset_url' => $asset,
+    'asset_url' => env('ASSET_URL', 'https://erp.medialatihan.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -142,7 +134,6 @@ return [
     */
 
     'providers' => [
-
         /*
          * Laravel Framework Service Providers...
          */
@@ -196,7 +187,6 @@ return [
     */
 
     'aliases' => [
-
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
@@ -238,5 +228,4 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'PDF' => \Barryvdh\DomPDF\Facade::class,
     ],
-
 ];

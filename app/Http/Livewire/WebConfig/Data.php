@@ -186,7 +186,7 @@ class Data extends Component
         $faksimili = WebConfig::where('type', 'faksimili')->first();
         if (!$faksimili) {
             $faksimili = new WebConfig();
-            $faksimili->type = 'phone';
+            $faksimili->type = 'faksimili';
             $faksimili->value = $this->faksimili;
         } else {
             $faksimili->value = $this->faksimili;

@@ -7,6 +7,7 @@
         "bold": "inter_bold_cbd71dae585ea51627faec68dc3982cf"
     },
     "line awesome brands": {
+<<<<<<< HEAD
         "normal": "line_awesome_brands_normal_69e39be9cf6e00fa5abd69d36261118b"
     },
     "line awesome free": {
@@ -32,5 +33,32 @@
     },
     "fonticon": {
         "normal": "fonticon_normal_4280b7d1ed5374b5b239077e310d5032"
+=======
+        "normal": "line_awesome_brands_normal_37bd9e1f43d03a3aa8938018a0b83ed7"
+    },
+    "line awesome free": {
+        "normal": "D:\\code\\erp\\storage\\fonts\/line_awesome_free_normal_f64500a7a801333e2cf7e59cb15cdf26",
+        "900": "line_awesome_free_900_70dd28a8961b39b4bdfe09a169621d42"
+    },
+    "font awesome 6 brands": {
+        "normal": "font_awesome_6_brands_normal_7f5ebacf49ad0538cf07924b7ef2a68f"
+    },
+    "font awesome 6 free": {
+        "normal": "D:\\code\\erp\\storage\\fonts\/font_awesome_6_free_normal_5de82298dd367706b49967e26148a1af",
+        "900": "font_awesome_6_free_900_f9c6a2143772401ef71ce64f6250f454"
+    },
+    "font awesome 5 brands": {
+        "normal": "font_awesome_5_brands_normal_7f5ebacf49ad0538cf07924b7ef2a68f"
+    },
+    "font awesome 5 free": {
+        "900": "D:\\code\\erp\\storage\\fonts\/font_awesome_5_free_900_f9c6a2143772401ef71ce64f6250f454",
+        "normal": "font_awesome_5_free_normal_5de82298dd367706b49967e26148a1af"
+    },
+    "fontawesome": {
+        "normal": "fontawesome_normal_f208bb8202abe2259a7f91f2f3552ed6"
+    },
+    "fonticon": {
+        "normal": "fonticon_normal_f7294ee5483ba45a817a83ed1954e174"
+>>>>>>> fcae45989420ba2e0e0f77584f2f8c1f53a52117
     }
 }
