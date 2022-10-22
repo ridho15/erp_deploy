@@ -104,9 +104,9 @@ class Data extends Component
         $this->emit('finishSimpanData', 1, $message);
         $this->emit('finishRefreshData', 1, $message);
 
-        return session()->flash('success', $message);
-
         return redirect(request()->header('Referer'));
+
+        return session()->flash('success', $message);
     }
 
     public function imgSaver($img, $type)
@@ -200,8 +200,8 @@ class Data extends Component
         $this->emit('finishSimpanData', 1, $message);
         $this->emit('finishRefreshData', 1, $message);
 
-        return session()->flash('success', $message);
-
         return redirect(request()->header('Referer'));
+
+        return session()->flash('success', $message);
     }
 }
