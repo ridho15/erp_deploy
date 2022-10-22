@@ -6,7 +6,7 @@
     <div class="text-center fw-bold mb-10" style="font-size: 13pt">Laporan Pekerjaan</div>
     <div class="mb-10">
         <div style="float: left; width: 50%">
-            <div class="table-responsive">
+            <div>
                 <table>
                     <tr>
                         <td>Nomor Form</td>
@@ -32,7 +32,7 @@
             </div>
         </div>
         <div style="float: right; width: 50%">
-            <div class="table-responsive">
+            <div>
                 <table>
                     <tr>
                         <td>Merk</td>
@@ -44,7 +44,7 @@
                     </tr>
                 </table>
             </div>
-            <div class="table-responsive">
+            <div>
                 <table>
                     <tr>
                         <td colspan="2" class="d-flex align-items-center">
@@ -80,6 +80,9 @@
     <br>
     <br>
     <br>
+    <br>
+    <br>
+    <br>
     <div class="mb-10">
         <div class="py-3 px-5" style="border: 1px solid black; border-top-left-radius: 10px; border-top-right-radius: 10px">
             Catatan Teknisi dan Keterangan Pekerja :
@@ -97,8 +100,8 @@
         </div>
     </div>
     <br>
-    <div class="table-responsive">
-        <table class="table">
+    <div>
+        <table class="w-100">
             <tr style="width: 30%">
                 <td>Tanggal : {{ $laporanPekerjaan->jam_mulai ? date('Y-m-d', strtotime($laporanPekerjaan->jam_mulai)) : null }}</td>
                 <td>Jam Datang : {{ $laporanPekerjaan->jam_mulai ? date('H:i', strtotime($laporanPekerjaan->jam_mulai)) : null }}</td>
@@ -141,7 +144,7 @@
     <div class="text-center fw-bold mb-10" style="font-size: 13pt">Laporan Perawatan Lift</div>
     <div class="mb-10">
         <div style="float: left; width: 50%">
-            <div class="table-responsive">
+            <div>
                 <table>
                     <tr>
                         <td>Nomor Form</td>
@@ -167,7 +170,7 @@
             </div>
         </div>
         <div style="float: right; width: 50%">
-            <div class="table-responsive">
+            <div>
                 <table>
                     <tr>
                         <td>Perawatan Ke</td>
@@ -191,8 +194,8 @@
     <br>
     <br>
     <br>
-    <div class="table-responsive">
-        <table class="table">
+    <div>
+        <table id="data">
             <thead style="border: 1px solid black">
                 <tr>
                     <td rowspan="2" class="align-items-center">NO</td>
