@@ -40,5 +40,51 @@
             /* background-color: #def6ff; */
             color: black;
         }
+
+        .text-center{
+            text-align: center;
+        }
+
+        .fw-bold{
+            font-weight: bold;
+        }
+
+        .mb-10{
+            margin-bottom: 20px;
+        }
+
+        .d-flex{
+            display: flex;
+        }
+
+        .align-items-center{
+            align-items: center;
+        }
+
+        .mx-2{
+            margin-right: 5px;
+            margin-left: 5px;
+        }
+
+        .py-3{
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+
+        .px-5{
+            padding-left: 10;
+            padding-right: 10px;
+        }
+
+        .p-10{
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-right: 20px;
+            padding-right: 20px;
+        }
+
+        .w-100{
+            width: 100%;
+        }
     </style>
 </head>
