@@ -256,7 +256,7 @@
         <div id="company">
             <h2 class="name text-capitalize">{{ $web_name }}</h2>
             <div class="text-capitalize">{{ $web_alamat }}</div>
-            <div>+62 - {{ \App\CPU\Helpers::splitPhone($web_phone) }}</div>
+            <div>+62 - {{ \App\CPU\Helpers::splitPhone((int)$web_phone) }}</div>
             <div><a href="mailto:company@example.com">{{ $web_email }}</a></div>
         </div>
     </header>
