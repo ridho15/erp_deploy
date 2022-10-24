@@ -7,6 +7,33 @@
         "bold": "inter_bold_cbd71dae585ea51627faec68dc3982cf"
     },
     "line awesome brands": {
+<<<<<<< HEAD
+        "normal": "line_awesome_brands_normal_69e39be9cf6e00fa5abd69d36261118b"
+    },
+    "line awesome free": {
+        "normal": "\/home\/u1605090\/public_html\/erp_deploy\/master\/storage\/fonts\/line_awesome_free_normal_a66219118ab311fb0648a17719ef1fe6",
+        "900": "line_awesome_free_900_5cb9760955e9a48c94c8e5cac70375d8"
+    },
+    "font awesome 6 brands": {
+        "normal": "font_awesome_6_brands_normal_7c2e21a2289a99d1b158e26f9e40115a"
+    },
+    "font awesome 6 free": {
+        "normal": "\/home\/u1605090\/public_html\/erp_deploy\/master\/storage\/fonts\/font_awesome_6_free_normal_33563835c4c38ac29744c4f197dac99a",
+        "900": "font_awesome_6_free_900_7a27ca82ffc46b9343b88d312f62d257"
+    },
+    "font awesome 5 brands": {
+        "normal": "font_awesome_5_brands_normal_7c2e21a2289a99d1b158e26f9e40115a"
+    },
+    "font awesome 5 free": {
+        "900": "\/home\/u1605090\/public_html\/erp_deploy\/master\/storage\/fonts\/font_awesome_5_free_900_7a27ca82ffc46b9343b88d312f62d257",
+        "normal": "font_awesome_5_free_normal_33563835c4c38ac29744c4f197dac99a"
+    },
+    "fontawesome": {
+        "normal": "fontawesome_normal_9f46c7c604136ba5c401f50a2bf55f5d"
+    },
+    "fonticon": {
+        "normal": "fonticon_normal_4280b7d1ed5374b5b239077e310d5032"
+=======
         "normal": "line_awesome_brands_normal_37bd9e1f43d03a3aa8938018a0b83ed7"
     },
     "line awesome free": {
@@ -32,9 +59,6 @@
     },
     "fonticon": {
         "normal": "fonticon_normal_f7294ee5483ba45a817a83ed1954e174"
-    },
-    "sourcesanspro": {
-        "normal": "sourcesanspro_normal_7c4d5ae201fd955f8d53236c0a630d65"
 >>>>>>> fcae45989420ba2e0e0f77584f2f8c1f53a52117
     }
 }

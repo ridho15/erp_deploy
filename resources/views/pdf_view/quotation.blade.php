@@ -107,7 +107,7 @@
     <div>
         <span>Hormat Kami</span><br>
         <span style="font-weight: bold">
-            {{ $web_name }}
+            PT. Mitra Global Kencana
         </span>
         <br>
         <img src="" alt="Tanda Tangan" height="200" width="100" style="object-fit: contain">

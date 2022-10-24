@@ -2,15 +2,21 @@
 
 namespace App\Http\Livewire\Profil;
 
+use App\CPU\Helpers;
 use App\Models\User;
 use App\Models\UserLog;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
 class Data extends Component
 {
     use WithPagination;
+    use WithFileUploads;
     public $paginationTheme = 'bootstrap';
     public $listeners = ['simpanProfile', 'refreshProfile' => '$refresh', 'changePassword'];
     public $total_show = 10;
@@ -24,6 +30,7 @@ class Data extends Component
     public $foto;
     public $oldPassword;
     public $newPassword;
+    public $fotoView;
     public $c_newPassword;
     protected $profile;
 
@@ -46,7 +53,7 @@ class Data extends Component
         $this->username = $this->profile->username;
         $this->phone = $this->profile->phone;
         $this->email = $this->profile->email;
-        $this->foto = $this->profile->foto;
+        $this->fotoView = $this->profile->foto;
     }
 
     public function simpanProfile()
@@ -64,22 +71,49 @@ class Data extends Component
             'name.required' => 'Mohon isi nama Anda !',
         ]);
 
+        $dir = 'profile';
+        $data = User::find($this->id_user);
+        if (isset($this->foto)) {
+            $logo['value'] = $data->foto;
+
+            $imgLogo = Helpers::update('profile/', $logo, 'png', $this->foto);
+
+            $old_image = $logo['value'];
+
+            if ($logo['value'] !== null) {
+                if (File::exists(public_path($old_image))) {
+                    unlink(public_path($old_image));
+                }
+            }
+
+            if ($this->foto != null) {
+                $imageName = Carbon::now()->toDateString().'-'.uniqid().'.'.'.png';
+
+                if (!Storage::disk('public')->exists($dir)) {
+                    Storage::disk('public')->makeDirectory($dir);
+                }
+                $url = $this->foto->store('storage/'.$dir);
+            } else {
+                $url = null;
+            }
+        }
+
         $data['username'] = $this->username;
         $data['phone'] = $this->phone;
         $data['email'] = $this->email;
         $data['name'] = $this->name;
-        $data['foto'] = $this->foto;
+        $data['foto'] = $url;
 
-        User::updateOrCreate([
-            'id' => $this->id_user,
-        ], $data);
+        $data->save();
 
         $message = 'Berhasil mengubah profil';
         $this->emit('refreshProfile');
         $this->emit('finishSimpanData', 1, $message);
         $this->emit('finishRefreshData', 1, $message);
 
-        return session()->flash('success', $message);
+        session()->flash('success', $message);
+
+        return redirect(request()->header('Referer'));
     }
 
     public function resetFields()

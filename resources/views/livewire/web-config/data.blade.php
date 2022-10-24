@@ -13,7 +13,6 @@
             <div class="text-center">
                 @include('helper.simple-loading', ['target' => 'cari,sendQuotationToCustomer', 'message' => 'Memuat
                 data...'])
-                @include('helper.alert-message')
             </div>
             <div class="row">
                 <div class="col-md-6 col-12">
@@ -25,8 +24,9 @@
                                 </div>
                             </div>
                             <div class="card-body">
+                                @include('helper.alert-message')
                                 <div class="text-center">
-                                    @include('helper.simple-loading', ['target' => 'simpanWebConfig', 'message' =>
+                                    @include('helper.simple-loading', ['target' => 'simpanTipeBarang', 'message' =>
                                     'Menyimpan data ...'])
                                 </div>
                                 <div class="row mb-6">
@@ -134,8 +134,9 @@
                                 </div>
                             </div>
                             <div class="card-body">
+                                @include('helper.alert-message')
                                 <div class="text-center">
-                                    @include('helper.simple-loading', ['target' => 'saveLogo', 'message' =>
+                                    @include('helper.simple-loading', ['target' => 'simpanTipeBarang', 'message' =>
                                     'Menyimpan data ...'])
                                 </div>
                                 <div class="row mb-6">

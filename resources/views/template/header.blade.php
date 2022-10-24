@@ -1,4 +1,7 @@
 <div id="kt_header" class="header" data-kt-sticky="true" data-kt-sticky-name="header" data-kt-sticky-animation="false" data-kt-sticky-offset="{default: '200px', lg: '300px'}">
+    @php
+        $user = \App\CPU\Helpers::getAuthUser(session()->get('id_user'))
+    @endphp
     <div class="container-xxl d-flex align-items-center flex-lg-stack">
         <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-2 me-lg-5">
             <div class="flex-grow-1">
@@ -127,13 +130,12 @@
                     <div class="menu-item px-3">
                         <div class="menu-content d-flex align-items-center px-3">
                             <div class="symbol symbol-50px me-5">
-                                <img alt="Logo" src="{{ asset('assets/media/avatars/300-1.jpg') }}" />
+                                <img alt="Logo" src="{{ asset($user->foto) }}" />
                             </div>
                             <div class="d-flex flex-column">
-                                <div class="fw-bold d-flex align-items-center fs-5">Administrator
-                                <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span>
+                                <div class="fw-bold d-flex align-items-center fs-5">{{ $user->name }}
                             </div>
-                                <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">Admin</a>
+                                <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">{{ $user->tipeUser->nama_tipe }}</a>
                             </div>
                         </div>
                     </div>

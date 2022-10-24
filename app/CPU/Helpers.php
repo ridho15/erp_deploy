@@ -4,6 +4,7 @@ namespace App\CPU;
 
 use App\Models\Barang;
 use App\Models\TipeUser;
+use App\Models\User;
 use App\Models\UserLog;
 use App\Models\WebConfig;
 use Carbon\Carbon;
@@ -11,6 +12,13 @@ use Illuminate\Support\Facades\Storage;
 
 class Helpers
 {
+    public function getAuthUser($id)
+    {
+        $user = User::with('tipeUser')->find($id);
+
+        return $user;
+    }
+
     public function splitPhone($phone)
     {
         $phone = preg_replace('~[^0-9]~', '', $phone);
