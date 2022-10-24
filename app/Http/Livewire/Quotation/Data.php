@@ -23,7 +23,16 @@ class Data extends Component
     protected $listQuotation = [];
     public function render()
     {
-        $this->listQuotation = Quotation::paginate($this->total_show);
+        $this->listQuotation = Quotation::where(function($query){
+            $query->where('keterangan', 'LIKE', '%' . $this->cari . '%')
+            ->orWhere('hal' ,'LIKE', '%' . $this->cari . '%')
+            ->orWhereHas('laporanPekerjaan', function($query){
+                $query->whereHas('project', function($query){
+                    $query->where('nama', 'LIKE', '%' . $this->cari . '%')
+                    ->orWhere('kode', 'LIKE', '%' . $this->cari . '$');
+                });
+            });
+        })->paginate($this->total_show);
         $data['listQuotation'] = $this->listQuotation;
         return view('livewire.quotation.data', $data);
     }
