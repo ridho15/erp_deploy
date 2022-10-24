@@ -37,7 +37,7 @@ class OrderDetail extends Component
             if($item->status_order != 0){
                 $barang = $item->barang;
                 $barang->barangStockChange($item->qty, 3);
-                $total_harga += $item->harga * $item->qty;
+                $total_harga += $item->harga_satuan * $item->qty;
             }
         }
 
