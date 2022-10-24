@@ -9,10 +9,14 @@ use Livewire\WithFileUploads;
 class Gambar extends Component
 {
     use WithFileUploads;
-    public $listeners = ['refreshDataBarang' => '$refresh' ,'simpanDataGambar', 'hapusGambar'];
+    public $listeners = [
+        'refreshDataBarang' => '$refresh',
+        'simpanDataGambar',
+        'hapusGambar'
+    ];
     public $id_barang;
     public $listBarangGambar;
-    public $gambar = [];
+    public $file = [];
     public function render()
     {
         $this->listBarangGambar = BarangGambar::where('id_barang', $this->id_barang)->get();
@@ -25,7 +29,6 @@ class Gambar extends Component
 
     public function simpanDataGambar(){
         $this->validate([
-            'gambar.*' => 'image|max:2048',
             'file.*' => 'required|mimes:jpg,png,jpeg,gif,svg|max:10240'
         ]);
 

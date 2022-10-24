@@ -87,6 +87,9 @@
                                         <a href="{{ route('quotation.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Quotation">
                                             <i class="bi bi-info-circle-fill"></i>
                                         </a>
+                                        <button class="btn btn-sm btn-icon btn-danger" wire:click="$emit('onClickHapus', {{ $item->id }})" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Quotation">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </button>
                                         <a href="{{ route('quotation.export', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Export Quotation">
                                             <i class="bi bi-printer"></i>
                                         </a>
@@ -132,6 +135,13 @@
 
         Livewire.on('finishRefreshData', (status, message) => {
             alertMessage(status, message);
+        })
+
+        Livewire.on('onClickHapus', async(id) => {
+            const response = await alertConfirm('Peringatan !', 'Apakah kamu yakin ingin menghapus data ?')
+            if(response.isConfirmed == true){
+                Livewire.emit('hapusQuotation', id)
+            }
         })
     </script>
 @endpush

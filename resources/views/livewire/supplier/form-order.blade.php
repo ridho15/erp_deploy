@@ -85,6 +85,17 @@
     <script>
         $(document).ready(function () {
             $('input[name="tanggal_order"]').flatpickr()
+            $('select[name="id_supplier"]').on('change', function(){
+                Livewire.emit('changeSupplier', $(this).val())
+            })
+
+            $('.supplier-order').on('change', function(){
+                Livewire.emit('changeStatusOrder', $(this).val())
+            })
+
+            $('select[name="id_tipe_pembayaran"]').on('change', function(){
+                Livewire.emit('changeTipePembayaran', $(this).val())
+            })
         });
 
         window.addEventListener('contentChange',function(){
@@ -105,6 +116,8 @@
                 Livewire.emit('changeTipePembayaran', $(this).val())
             })
         })
+
+
 
         function refreshSelect(){
 

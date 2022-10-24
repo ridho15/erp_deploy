@@ -72,6 +72,16 @@
             </span>
         </div>
     </div>
+    <div class="row mb-7">
+        <div class="col-md-4">
+            Deskripsi
+        </div>
+        <div class="col-md">
+            : <span class="fw-bold">
+                {{ $barang->deskripsi }}
+            </span>
+        </div>
+    </div>
 </div>
 @push('js')
     <script>
