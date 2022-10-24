@@ -109,6 +109,7 @@ class FormOrder extends Component
         $message = 'Berhasil menyimpan data supplier order';
         $this->resetInputFields();
         $this->emit('refreshSupplierOrder');
+        $this->emit('refreshSupplierOrderDetail');
         $this->emit('finishSimpanData', 1, $message);
 
         return session()->flash('success', $message);

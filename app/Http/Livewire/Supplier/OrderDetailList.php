@@ -11,7 +11,10 @@ class OrderDetailList extends Component
 {
     use WithPagination;
     public $paginationTheme = 'bootstrap';
-    public $listeners = ['refreshSupplierOrderDetail' => '$refresh', 'hapusBarangOrder'];
+    public $listeners = [
+        'refreshSupplierOrderDetail' => '$refresh',
+        'hapusBarangOrder'
+    ];
     public $id_supplier_order;
     protected $listSupplierOrderDetail;
     public $supplierOrder;

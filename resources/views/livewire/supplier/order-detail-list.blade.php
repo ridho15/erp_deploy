@@ -8,7 +8,7 @@
             @include('helper.form-pencarian', ['model' => 'cari'])
         </div>
         <div class="col-md text-end">
-            @if ($supplierOrder->status == 1)
+            @if ($supplierOrder->status_order == 1)
             <button class="btn btn-sm btn-outline btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Barang Ke Order" wire:click="$emit('onClickTambahBarang', {{ $id_supplier_order }})">
                 <i class="bi bi-plus-circle"></i> Tambah
             </button>
