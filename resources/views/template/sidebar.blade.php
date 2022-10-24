@@ -30,7 +30,7 @@
                         </a>
                     </div>
                     @endif
-                    <div class="menu-item">
+                    {{-- <div class="menu-item">
                         <a class="menu-link @if(in_array('form-pekerjaan', $active)) active @endif"
                             href="{{ route('form-pekerjaan') }}">
                             <span class="menu-icon">
@@ -49,7 +49,7 @@
                             </span>
                             <span class="menu-title">Form Pekerjaan</span>
                         </a>
-                    </div>
+                    </div> --}}
                     @if (session()->get('id_tipe_user') == 1)
                     <div class="menu-item">
                         <a class="menu-link @if(in_array('supplier-order', $active))  active @endif"

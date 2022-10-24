@@ -158,7 +158,7 @@
     </div>
 
     <div wire:ignore.self class="modal fade barang" tabindex="-1" id="modal_form_manual">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title">Form Quotation</h3>
@@ -210,12 +210,12 @@
                             x-on:livewire-upload-progress="progress = $event.detail.progress"
                         >
                             <label for="" class="form-label">File</label>
-                            <input type="file" name="file" wire:model="file" accept="application/pdf,application/vnd.ms-excel,.docx" id="pilih_file" hidden>
                             <div class="text-center">
-                                <label for="pilih_file" class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-light-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Upload File">
+                                <label for="pilih_file2" class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-light-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Upload File">
                                     <i class="fa-solid fa-file"></i> Pilih File
                                 </label>
                             </div>
+                            <input type="file" name="file" wire:model="file" accept="application/pdf,application/vnd.ms-excel,.docx" id="pilih_file2" hidden>
                             <div x-show="isUploading" class="progress mt-5">
                                 <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" x-bind:style="`width: ${progress}%`"></div>
                             </div>

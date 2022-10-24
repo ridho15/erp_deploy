@@ -245,7 +245,7 @@
                                 @endforeach
                             @else
                                 <tr>
-                                    <td colspan="5" class="text-center text-gray-500">Tidak ada barang</td>
+                                    <td colspan="6" class="text-center text-gray-500">Tidak ada barang</td>
                                 </tr>
                             @endif
                          </tbody>

@@ -23,6 +23,7 @@ class Detail extends Component
     public $qty;
     public $tambahBarang = false;
     public $barang;
+    public $cari;
     public $listBarang = [];
     public function render()
     {

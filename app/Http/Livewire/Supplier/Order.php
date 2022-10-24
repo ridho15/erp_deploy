@@ -28,7 +28,7 @@ class Order extends Component
             })->orWhereHas('tipePembayaran', function ($query) {
                 $query->where('nama_tipe', 'LIKE', '%'.$this->cari.'%');
             });
-        })->orWhere('id_supplier', $this->id_supplier)->paginate($this->total_show);
+        })->orWhere('id_supplier', $this->id_supplier)->orderBy('created_at', 'DESC')->paginate($this->total_show);
         $data['listSupplierOrder'] = $this->listSupplierOrder;
 
         return view('livewire.supplier.order', $data);

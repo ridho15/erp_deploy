@@ -14,7 +14,7 @@
                 @foreach ($listBarangGambar as $item)
                     <div class="position-relative image-hover me-2" wire:click="$emit('onClickHapusGambar', {{ $item->id }})">
                         <div class="position-absolute w-100 h-100 d-flex align-items-center justify-content-center">
-                            <i class="bi bi-trash-fill"></i>
+                            <i class="bi bi-trash-fill text-danger"></i>
                         </div>
                         <img src="{{ asset('storage' . $item->file) }}" alt="" class="" width="100" height="100" style="object-fit: cover">
                     </div>
@@ -52,14 +52,11 @@
                             x-on:livewire-upload-progress="progress = $event.detail.progress"
                         >
                             <label for="" class="form-label required">Pilih Gambar</label>
-                            <input type="file" class="form-control form-control-solid" name="gambar" wire:model="gambar" placeholder="Pilih Gambar" required accept="image/*" multiple>
+                            <input type="file" class="form-control form-control-solid" name="file" wire:model="file" placeholder="Pilih Gambar" required accept="image/*" multiple>
                             <div x-show="isUploading" class="progress mt-5">
                                 <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" x-bind:style="`width: ${progress}%`"></div>
                             </div>
-                            @error('gambar')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                            @error('gambar.*')
+                            @error('file.*')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>

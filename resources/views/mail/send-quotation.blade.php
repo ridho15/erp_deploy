@@ -14,7 +14,7 @@
 			<tr>
 				<td align="center" valign="center" style="text-align:center; padding: 40px">
 					<a href="{{ url('') }}" rel="noopener" target="_blank">
-						<img alt="Logo" src="{{ asset('/assets/images/icon.png') }}" style="height: 200px; object-fit: contain"/>
+                        <img alt="Logo" src="{{ asset($web_config['web_logo']) }}" onerror="this.src='{{ asset('/assets/images/icon.png') }}'" class="h-50px h-lg-55px" />
 					</a>
 				</td>
 			</tr>

@@ -12,7 +12,7 @@
           <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
            <th>No</th>
            <th>Supplier</th>
-           <th>User</th>
+           <th>Pembuat</th>
            <th>Status Order</th>
            <th>Total Harga</th>
            <th>Tanggal Order</th>
