@@ -33,6 +33,7 @@
                    <th>Keterangan</th>
                    <th>Hal</th>
                    <th>File</th>
+                   <th>Dibuat pada</th>
                    <th>Aksi</th>
                   </tr>
                  </thead>
@@ -78,6 +79,9 @@
                                             Tidak ada file
                                         </div>
                                     @endif
+                                </td>
+                                <td>
+                                    {{ $item->dibuat_pada }}
                                 </td>
                                 <td>
                                     <div class="btn-group">
