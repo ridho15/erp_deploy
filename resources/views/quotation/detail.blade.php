@@ -145,8 +145,47 @@
                     </div>
                 </div>
             </div>
-            <hr>
             @endif
+            <div class="row mb-5">
+                <div class="col-md-4">
+                    <div class="row mb-5">
+                        <div class="col-md-4 col-4">
+                            No. Ref
+                        </div>
+                        <div class="col-md-8 col-8">
+                            : <span class="fw-bold">{{ $quotation->no_ref }}</span>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-md-4 col-4">
+                            Keterangan
+                        </div>
+                        <div class="col-md-8 col-8">
+                            : <span class="fw-bold"><?= $quotation->keterangan ?></span>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-md-4 col-4">
+                            Hal
+                        </div>
+                        <div class="col-md-8 col-8">
+                            : <span class="fw-bold">{{ $quotation->hal }}</span>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-md-4 col-4">
+                            File
+                        </div>
+                        <div class="col-md-8 col-8">
+                            : <a href="{{ $quotation->file ? asset('storage' . $quotation->file) : '#' }}" class="btn btn-sm btn-icon btn-light" data-bs-toggle="tooltip" data-bs-placement="top" title="Lihat File">
+                                <i class="fa-solid fa-file"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <hr>
             <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
                 <li class="nav-item">
                     <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_1">Penawaran</a>
