@@ -123,10 +123,12 @@
                                 <img src="{{ asset('/assets/images/icon_pdf.svg') }}" alt="" style="height: 25px; width: 25px; object-fit: contain; margin-right: 10px">
                                 <span>Quotation</span>
                             </a>
-                            <a href="{{ config('app.asset_url') . '/storage ' . $quotation->file }}" style="padding: 10px; border: 1px solid black; border-radius: 10px; display: flex; align-items: center; text-decoration: none">
-                                <img src="{{ asset('/assets/images/icon_file.svg') }}" alt="" style="height: 25px; width: 25px; object-fit: contain; margin-right: 10px">
-                                <span>File</span>
-                            </a>
+                            @if ($quotation->file)
+                                <a href="{{ config('app.asset_url') . '/storage' . $quotation->file }}" style="padding: 10px; border: 1px solid black; border-radius: 10px; display: flex; align-items: center; text-decoration: none">
+                                    <img src="{{ asset('/assets/images/icon_file.svg') }}" alt="" style="height: 25px; width: 25px; object-fit: contain; margin-right: 10px">
+                                    <span>File</span>
+                                </a>
+                            @endif
                         </div>
 						<!--end:Email content-->
 						<div style="padding-bottom: 10px">Kind regards,
