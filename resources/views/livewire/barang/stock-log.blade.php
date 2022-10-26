@@ -26,7 +26,7 @@
                             <td>{{ $item->barang->nama }}</td>
                             <td>{{ $item->stock_awal }}</td>
                             <td>{{ $item->perubahan }}</td>
-                            <td><?= $item->tipePerubahanStock->badge ?></td>
+                            <td><?= $item->tipePerubahanStock ? $item->tipePerubahanStock->badge : null ?></td>
                             <td>{{ $item->tanggal_perubahan_formatted }}</td>
                         </tr>
                     @endforeach
