@@ -185,16 +185,19 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 mb-5">
+                @livewire('dashboard.jumlah-data')
+            </div>
+            <div class="col-md-6  mb-5">
                 @livewire('dashboard.log-stock')
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 mb-5">
                 @livewire('dashboard.quotation')
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 mb-5">
                 @livewire('dashboard.pekerjaan-hari-ini')
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 mb-5">
                 @livewire('dashboard.supplier-order')
             </div>
         </div>
