@@ -4,6 +4,7 @@ namespace App\CPU;
 
 use App\Models\Barang;
 use App\Models\TipeUser;
+use App\Models\User;
 use App\Models\UserLog;
 use App\Models\WebConfig;
 use Carbon\Carbon;
@@ -11,6 +12,27 @@ use Illuminate\Support\Facades\Storage;
 
 class Helpers
 {
+    public function getAuthUser($id)
+    {
+        $user = User::with('tipeUser')->find($id);
+
+        return $user;
+    }
+
+    public function splitPhone($phone)
+    {
+        $phone = preg_replace('~[^0-9]~', '', $phone);
+        preg_match('~([0-9]{4})([0-9]{4})([0-9]{3})~', $phone, $matches);
+
+        if (!empty($matches)) {
+            $display = $matches[1].' - '.$matches[2].' - '.$matches[3];
+        } else {
+            $display = 'An invalid phone number was entered.';
+        }
+
+        return $display;
+    }
+
     public function getBarang($id)
     {
         $barang = Barang::find($id);
