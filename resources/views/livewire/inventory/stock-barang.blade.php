@@ -22,6 +22,7 @@
               <th>Minimal Stock</th>
               <th>Tipe Barang</th>
               <th>Deskripsi</th>
+              <th>Status</th>
               <th>Aksi</th>
              </tr>
             </thead>
@@ -38,6 +39,13 @@
                            <td>{{ $item->min_stock }}</td>
                            <td>{{ $item->tipeBarang->tipe_barang }}</td>
                            <td>{{ $item->deskripsi }}</td>
+                           <td>
+                            @if ($item->stock < $item->min_stock)
+                                <span class="badge badge-danger">Stock Kurang</span>
+                            @else
+                                <span class="badge badge-success">Stock Avaiable</span>
+                            @endif
+                           </td>
                            <td>
                                <div class="btn-group">
                                    <a href="{{ route('barang.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Barang">

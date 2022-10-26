@@ -22,7 +22,7 @@ class Quotation extends Model
         'hal'
     ];
 
-    protected $appends = ['status_formatted', 'no_ref', 'updated_at_formatted'];
+    protected $appends = ['status_formatted', 'no_ref', 'updated_at_formatted', 'dibuat_pada'];
 
     public function getStatusFormattedAttribute(){
         $expiredTime = Carbon::parse($this->created_at)->addDays(3);
@@ -34,6 +34,11 @@ class Quotation extends Model
         }else if($this->status == 1){
             return "<span class='badge badge-success'>Sudah dikirim</span>";
         }
+    }
+
+    public function getDibuatPadaAttribute(){
+        $carbon = Carbon::parse($this->created_at)->locale('id')->isoFormat('dddd, DD MMMM YYYY');
+        return $carbon;
     }
 
     public function laporanPekerjaan(){
