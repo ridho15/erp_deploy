@@ -7,7 +7,7 @@
                     <div class="position-absolute d-flex align-items-center justify-content-center top-0 end-0 rounded-circle bg-danger" style="height: 20px; width: 20px">
                         <span class="fw-bold text-white">{{ $totalBelumSelesai }}</span>
                     </div>
-                    <a href="{{ route('supplier') }}" class="btn btn-sm btn-icon btn-light" data-bs-toggle="tooltip" data-bs-placement="top" title="Lihat Semua">
+                    <a href="{{ route('supplier.order') }}" class="btn btn-sm btn-icon btn-light" data-bs-toggle="tooltip" data-bs-placement="top" title="Lihat Semua">
                         <i class="fa-solid fa-eye"></i>
                     </a>
                 </div>
