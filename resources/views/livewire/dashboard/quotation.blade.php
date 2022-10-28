@@ -32,7 +32,13 @@
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $item->no_ref }}</td>
                             <td>{{ $item->laporanPekerjaan ? $item->laporanPekerjaan->kode_pekerjaan : '-' }}</td>
-                            <td>{{ $item->customer->kode }} {{ $item->customer->nama }}</td>
+                            <td>
+                                @if ($item->customer)
+                                    {{ $item->customer->kode }} {{ $item->customer->nama }}
+                                @else
+                                    -
+                                @endif
+                            </td>
                             <td><?= $item->status_formatted ?></td>
                             <td>
                                 <div class="btn-group">
