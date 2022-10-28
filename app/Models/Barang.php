@@ -73,7 +73,8 @@ class Barang extends Model
             'stock_awal' => $this->stock,
             'perubahan' => $jumlah,
             'tanggal_perubahan' => now(),
-            'id_tipe_perubahan_stock' => $status
+            'id_tipe_perubahan_stock' => $status,
+            'id_user' => session()->get('id_user')
         ]);
 
         if($status == 1 || $status == 4){
