@@ -29,7 +29,11 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('testing')->group(function () {
-    Route::get('/', [DashboardController::class, 'testing'])->name('testing');
+    Route::get('/', function(){
+        $quotation = Quotation::first();
+        $data['quotation'] = $quotation;
+        return view('mail.send-quotation', $data);
+    })->name('testing');
     Route::get('/export-pdf', [DashboardController::class, 'exportPdf'])->name('testing.export-pdf');
     Route::get('/view-mail', function () {
         $data['quotation'] = Quotation::find(3);
@@ -115,6 +119,7 @@ Route::middleware('auth.user')->group(function () {
             Route::get('/', [QuotationController::class, 'index'])->name('quotation');
             Route::get('/detail/{id}', [QuotationController::class, 'detail'])->name('quotation.detail');
             Route::get('/export/{id}', [QuotationController::class, 'export'])->name('quotation.export');
+            Route::get('konfirmasi/{id}', [QuotationController::class, 'konfirmasi'])->name('quotation.konfirmasi');
         });
 
         Route::prefix('kostumer')->group(function () {

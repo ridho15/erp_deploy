@@ -80,7 +80,7 @@ class Barang extends Model
             $barang->update(['stock' => $this->stock - $jumlah]);
         }
 
-        elseif($status == 2 || $status == 3){
+        elseif($status == 2 || $status == 3 || $status == 5){
             $barang->update(['stock' => $this->stock + $jumlah]);
         }
 

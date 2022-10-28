@@ -656,6 +656,7 @@ class ComposerStaticInit79f900d713a9d2c22b9a162147adec39
         'App\\Http\\Livewire\\Form\\Data' => __DIR__ . '/../..' . '/app/Http/Livewire/Form/Data.php',
         'App\\Http\\Livewire\\Form\\Detail' => __DIR__ . '/../..' . '/app/Http/Livewire/Form/Detail.php',
         'App\\Http\\Livewire\\Form\\Form' => __DIR__ . '/../..' . '/app/Http/Livewire/Form/Form.php',
+        'App\\Http\\Livewire\\Inventory\\BarangDibalikan' => __DIR__ . '/../..' . '/app/Http/Livewire/Inventory/BarangDibalikan.php',
         'App\\Http\\Livewire\\Inventory\\BarangDiminta' => __DIR__ . '/../..' . '/app/Http/Livewire/Inventory/BarangDiminta.php',
         'App\\Http\\Livewire\\Inventory\\BarangDipinjam' => __DIR__ . '/../..' . '/app/Http/Livewire/Inventory/BarangDipinjam.php',
         'App\\Http\\Livewire\\Inventory\\BarangMasuk' => __DIR__ . '/../..' . '/app/Http/Livewire/Inventory/BarangMasuk.php',

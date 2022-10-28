@@ -14,7 +14,8 @@ class BarangDipinjam extends Component
     public $listeners = [
         'refreshBarangDipinjam' => '$refresh',
         'balikanBarangPinjaman',
-        'simpanDataPeminjamanBarang'
+        'simpanDataPeminjamanBarang',
+        'setBarangPinjaman',
     ];
     public $paginationTheme = 'bootstrap';
     public $cari;
@@ -30,6 +31,8 @@ class BarangDipinjam extends Component
     public $listBarang = [];
     public $id_barang;
     public $subTotal = 0;
+    public $catatan_teknisi;
+    public $keterangan_customer;
     public function render()
     {
         $this->listBarangDipinjam = LaporanPekerjaanBarang::where(function($query){
@@ -69,22 +72,37 @@ class BarangDipinjam extends Component
 
     }
 
-    public function balikanBarangPinjaman($id){
-        $laporanPekerjaanBarang = LaporanPekerjaanBarang::find($id);
+    public function balikanBarangPinjaman(){
+        $laporanPekerjaanBarang = LaporanPekerjaanBarang::find($this->id_laporan_pekerjaan_barang);
         if(!$laporanPekerjaanBarang){
             $message = "Data tidak ditemukan !";
             $this->emit('finishSimpanData', 0, $message);
             return session()->flash('fail', $message);
         }
 
+        if($this->qty > $laporanPekerjaanBarang->qty){
+            $message = "Jumlah barang di kembalikan lebih besar dari yang dipinjam. mohon di check ulang jumlah barang";
+            return session()->flash('fail', $message);
+        }
+
         $barang = Barang::find($laporanPekerjaanBarang->id_barang);
-        $response = $barang->barangStockChange($laporanPekerjaanBarang->qty, 2);
+        $response = $barang->barangStockChange($this->qty, 5);
         if($response['status'] == 0){
             return session()->flash('fail', $response['message']);
         }
 
+        if($this->qty != $laporanPekerjaanBarang->qty){
+            LaporanPekerjaanBarang::create([
+                'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan,
+                'id_barang' => $this->id_barang,
+                'qty' => $laporanPekerjaanBarang->qty - $this->qty,
+                'status' => 2
+            ]);
+        }
+
         $laporanPekerjaanBarang->update([
-            'status' => 1
+            'qty' => $this->qty,
+            'status' => 3
         ]);
 
         $message = 'Berhasil mengembalikan barang ke gudang';
@@ -145,5 +163,20 @@ class BarangDipinjam extends Component
         $this->emit('refreshStockBarang');
         $this->emit('finishSimpanData', 1, $message);
         return session()->flash('success', $message);
+    }
+
+    public function setBarangPinjaman($id_laporan_pekerjaan_barang){
+        $laporanPekerjaanBarang = LaporanPekerjaanBarang::find($id_laporan_pekerjaan_barang);
+        if(!$laporanPekerjaanBarang){
+            $message = "Data Barang tidak ditemukan !";
+            return session()->flash('fail', $message);
+        }
+
+        $this->id_laporan_pekerjaan_barang = $laporanPekerjaanBarang->id;
+        $this->id_laporan_pekerjaan = $laporanPekerjaanBarang->id_laporan_pekerjaan;
+        $this->id_barang = $laporanPekerjaanBarang->id_barang;
+        $this->catatan_teknisi = $laporanPekerjaanBarang->catatan_teknisi;
+        $this->keterangan_customer = $laporanPekerjaanBarang->keterangan_customer;
+        $this->qty = $laporanPekerjaanBarang->qty;
     }
 }

@@ -155,7 +155,7 @@
                                     </svg>
                                 </span>
                             </span>
-                            <span class="menu-title">Pre Order</span>
+                            <span class="menu-title">PO Masuk</span>
                         </a>
                     </div>
                     {{-- <div class="menu-item">
