@@ -11,6 +11,7 @@
              <thead>
               <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
                <th>No</th>
+               <th>User</th>
                <th>Nama Barang</th>
                <th>Stock Awal</th>
                <th>Perubahan</th>
@@ -23,10 +24,17 @@
                     @foreach ($listStockLog as $index => $item)
                         <tr>
                             <td>{{ $index + 1 }}</td>
+                            <td>
+                                @if ($item->user)
+                                    {{ $item->user->name }}
+                                @else
+                                    -
+                                @endif
+                            </td>
                             <td>{{ $item->barang->nama }}</td>
                             <td>{{ $item->stock_awal }}</td>
                             <td>{{ $item->perubahan }}</td>
-                            <td><?= $item->tipePerubahanStock->badge ?></td>
+                            <td><?= $item->tipePerubahanStock ? $item->tipePerubahanStock->badge : null ?></td>
                             <td>{{ $item->tanggal_perubahan_formatted }}</td>
                         </tr>
                     @endforeach

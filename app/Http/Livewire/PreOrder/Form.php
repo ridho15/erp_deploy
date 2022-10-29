@@ -10,13 +10,16 @@ use App\Models\Quotation;
 use App\Models\QuotationDetail;
 use App\Models\TipePembayaran;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Form extends Component
 {
+    use WithFileUploads;
     public $listeners = [
         'simpanDataPreOrder',
         'setDataPreOrder',
-        'changeKeterangan'
+        'changeKeterangan',
+        'hapusFile'
     ];
     public $id_pre_order;
     public $id_quotation;
@@ -29,6 +32,7 @@ class Form extends Component
     public $listQuotation;
     public $listTipePembayaran;
     public $listCustomer;
+    public $file;
 
     public function render()
     {
@@ -87,6 +91,12 @@ class Form extends Component
         $data['id_customer'] = $this->id_customer;
         $data['keterangan'] = $this->keterangan;
 
+        if($this->file){
+            $path = $this->file->store('public/pre-order');
+            $path = str_replace('public', '', $path);
+            $data['file'] = $path;
+        }
+
         $preOrder = PreOrder::updateOrCreate([
             'id' => $this->id_pre_order
         ], $data);
@@ -143,5 +153,9 @@ class Form extends Component
         $this->id_quotation = $preOrder->id_quotation;
         $this->id_customer = $preOrder->id_customer;
         $this->id_tipe_pembayaran = $preOrder->id_tipe_pembayaran;
+    }
+
+    public function hapusFile(){
+        $this->file = null;
     }
 }

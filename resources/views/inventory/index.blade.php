@@ -15,6 +15,9 @@
                     <a class="nav-link" data-bs-toggle="tab" href="#barang_dipinjam">Barang Dipinjam</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#barang_dibalikan">Barang Dibalikan</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="tab" href="#barang_terjual">Barang Terjual</a>
                 </li>
                 <li class="nav-item">
@@ -30,6 +33,9 @@
                 </div>
                 <div class="tab-pane fade" id="barang_dipinjam" role="tabpanel">
                     @livewire('inventory.barang-dipinjam')
+                </div>
+                <div class="tab-pane fade" id="barang_dibalikan" role="tabpanel">
+                    @livewire('inventory.barang-dibalikan')
                 </div>
                 <div class="tab-pane fade" id="barang_terjual" role="tabpanel">
                     @livewire('inventory.barang-terjual')

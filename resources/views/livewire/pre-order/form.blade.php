@@ -1,17 +1,15 @@
 <div>
     <div wire:ignore.self class="modal fade pre-order" tabindex="-1" id="modal_form">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title">Form Pre Order</h3>
 
-                    <!--begin::Close-->
                     <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
                         <span class="svg-icon svg-icon-1">
                             <i class="bi bi-x-circle"></i>
                         </span>
                     </div>
-                    <!--end::Close-->
                 </div>
 
                 <form action="#" wire:submit.prevent="simpanDataPreOrder">
@@ -62,6 +60,35 @@
                             @error('keterangan')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
+                        </div>
+                        <div class="mb-5"
+                            x-data="{ isUploading: false, progress: 0 }"
+                            x-on:livewire-upload-start="isUploading = true"
+                            x-on:livewire-upload-finish="isUploading = false, progress = 0"
+                            x-on:livewire-upload-error="isUploading = false"
+                            x-on:livewire-upload-progress="progress = $event.detail.progress"
+                        >
+                            <label for="" class="form-label">File</label>
+                            <input type="file" id="file" name="file" wire:model="file" class="form-control form-control-solid" hidden accept=".jpg,.png,.jpeg,.docx,.pdf,.xlsx">
+                            <div class="text-center">
+                                <label for="file" class="btn btn-sm btn-outline btn-outline-primary btn-outline-dashed btn-active-light-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Pilih File">
+                                    <i class="fa-solid fa-file"></i> Upload File
+                                </label>
+                            </div>
+                            <div x-show="isUploading" class="progress mt-5">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" x-bind:style="`width: ${progress}%`"></div>
+                            </div>
+                            @error('file')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                            @if ($file)
+                                <div class="d-flex align-items-center justify-content-center mt-5">
+                                    <span class="me-5">{{ $file->getClientOriginalName() }}</span>
+                                    <span class="" wire:click="hapusFile" style="cursor: pointer">
+                                        <i class="fa-solid fa-trash-can text-danger"></i>
+                                    </span>
+                                </div>
+                            @endif
                         </div>
                     </div>
 

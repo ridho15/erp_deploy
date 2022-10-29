@@ -19,7 +19,8 @@ class Quotation extends Model
         'status',
         'keterangan',
         'file',
-        'hal'
+        'hal',
+        'konfirmasi'
     ];
 
     protected $appends = ['status_formatted', 'no_ref', 'updated_at_formatted', 'dibuat_pada'];

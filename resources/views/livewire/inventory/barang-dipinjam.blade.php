@@ -46,7 +46,7 @@
                         <td><?= $item->status_formatted ?></td>
                         <td>
                             <div class="btn-group">
-                                <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Kembalikan Barang Kegudang" wire:click="$emit('onClickBatalkan', {{ $item->id }})">
+                                <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Kembalikan Barang Kegudang" wire:click="$emit('onClickKembalikan', {{ $item->id }})">
                                     <i class="bi bi-x-circle"></i>
                                 </button>
                             </div>
@@ -233,6 +233,108 @@
             </div>
         </div>
     </div>
+
+    <div wire:ignore.self class="modal fade" tabindex="-1" id="modal_kembalikan_barang">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Konfirmasi Jumlah Barang</h3>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                        <span class="svg-icon svg-icon-1">
+                            <i class="bi bi-x-circle"></i>
+                        </span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+
+                <form action="#" wire:submit.prevent="balikanBarangPinjaman">
+                    <div class="modal-body">
+                        @include('helper.alert-message')
+                        <div class="text-center">
+                            @include('helper.simple-loading', ['target' => 'balikanBarangPinjaman', 'message' => 'Menyimpan data ...'])
+                        </div>
+                        @error('id_laporan_pekerjaan_barang')
+                            <div class="text-center">
+                                <small class="text-center text-danger">{{ $message }}</small>
+                            </div>
+                        @enderror
+                        @if ($barang)
+                            <div class="row mb-5">
+                                <div class="col-md-4 col-4">
+                                    SKU
+                                </div>
+                                <div class="col-md-8 col-8">
+                                    : <span class="fw-bold">{{ $barang->sku }}</span>
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-4 col-4">
+                                    Nama
+                                </div>
+                                <div class="col-md-8 col-8">
+                                    : <span class="fw-bold">{{ $barang->nama }}</span>
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-4 col-4">
+                                    Harga
+                                </div>
+                                <div class="col-md-8 col-8">
+                                    : <span class="fw-bold">{{ $barang->harga_formatted }}</span>
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-4 col-4">
+                                    Satuan
+                                </div>
+                                <div class="col-md-8 col-8">
+                                    : <span class="fw-bold">{{ $barang->satuan->nama_satuan }}</span>
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-4 col-4">
+                                    Stock
+                                </div>
+                                <div class="col-md-8 col-8">
+                                    : <span class="fw-bold">{{ $barang->stock }}</span>
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-4 col-4">
+                                    Tipe Barang
+                                </div>
+                                <div class="col-md-8 col-8">
+                                    : <span class="fw-bold">{{ $barang->tipeBarang->tipe_barang }}</span>
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-4 col-4">
+                                    Deskripsi
+                                </div>
+                                <div class="col-md-8 col-8">
+                                    : <span class="fw-bold">{{ $barang->deskripsi }}</span>
+                                </div>
+                            </div>
+                        @endif
+                        <hr>
+                        <div class="mb-5">
+                            <label for="" class="form-label required">Jumlah Dikembalikan</label>
+                            <input type="number" class="form-control form-control-solid" name="qty" wire:model="qty" placeholder="Jumlah barang" required>
+                            @error('qty')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-box-arrow-down"></i> Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 @push('js')
@@ -259,6 +361,11 @@
             if(response.isConfirmed == true){
                 Livewire.emit('balikanBarangPinjaman', id)
             }
+        })
+
+        Livewire.on('onClickKembalikan', (id) => {
+            Livewire.emit('setBarangPinjaman', id)
+            $('#modal_kembalikan_barang').modal('show')
         })
 
         Livewire.on('finishSimpanData', (status, message) => {

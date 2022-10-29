@@ -73,14 +73,15 @@ class Barang extends Model
             'stock_awal' => $this->stock,
             'perubahan' => $jumlah,
             'tanggal_perubahan' => now(),
-            'id_tipe_perubahan_stock' => $status
+            'id_tipe_perubahan_stock' => $status,
+            'id_user' => session()->get('id_user')
         ]);
 
         if($status == 1 || $status == 4){
             $barang->update(['stock' => $this->stock - $jumlah]);
         }
 
-        elseif($status == 2 || $status == 3){
+        elseif($status == 2 || $status == 3 || $status == 5){
             $barang->update(['stock' => $this->stock + $jumlah]);
         }
 

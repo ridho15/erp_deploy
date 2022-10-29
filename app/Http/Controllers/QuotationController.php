@@ -57,4 +57,13 @@ class QuotationController extends Controller
 
         return view('pdf_view.quotation', $data);
     }
+
+    public function konfirmasi($id){
+        $quotation = Quotation::findOrFail($id);
+        $quotation->update([
+            'konfirmasi' => 1
+        ]);
+
+        return view('quotation.konfirmasi');
+    }
 }

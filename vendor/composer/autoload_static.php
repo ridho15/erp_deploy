@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit14ee4f42456daaf1530f5b036459ae3d
+class ComposerStaticInit79f900d713a9d2c22b9a162147adec39
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -358,8 +358,8 @@ class ComposerStaticInit14ee4f42456daaf1530f5b036459ae3d
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -637,6 +637,11 @@ class ComposerStaticInit14ee4f42456daaf1530f5b036459ae3d
         'App\\Http\\Livewire\\DaftarTugas\\LaporanPekerjaan' => __DIR__ . '/../..' . '/app/Http/Livewire/DaftarTugas/LaporanPekerjaan.php',
         'App\\Http\\Livewire\\DaftarTugas\\LaporanPerawatanLift' => __DIR__ . '/../..' . '/app/Http/Livewire/DaftarTugas/LaporanPerawatanLift.php',
         'App\\Http\\Livewire\\DaftarTugas\\LaporanSparepart' => __DIR__ . '/../..' . '/app/Http/Livewire/DaftarTugas/LaporanSparepart.php',
+        'App\\Http\\Livewire\\Dashboard\\JumlahData' => __DIR__ . '/../..' . '/app/Http/Livewire/Dashboard/JumlahData.php',
+        'App\\Http\\Livewire\\Dashboard\\LogStock' => __DIR__ . '/../..' . '/app/Http/Livewire/Dashboard/LogStock.php',
+        'App\\Http\\Livewire\\Dashboard\\PekerjaanHariIni' => __DIR__ . '/../..' . '/app/Http/Livewire/Dashboard/PekerjaanHariIni.php',
+        'App\\Http\\Livewire\\Dashboard\\Quotation' => __DIR__ . '/../..' . '/app/Http/Livewire/Dashboard/Quotation.php',
+        'App\\Http\\Livewire\\Dashboard\\SupplierOrder' => __DIR__ . '/../..' . '/app/Http/Livewire/Dashboard/SupplierOrder.php',
         'App\\Http\\Livewire\\FormPekerjaan\\Data' => __DIR__ . '/../..' . '/app/Http/Livewire/FormPekerjaan/Data.php',
         'App\\Http\\Livewire\\FormPekerjaan\\Detail' => __DIR__ . '/../..' . '/app/Http/Livewire/FormPekerjaan/Detail.php',
         'App\\Http\\Livewire\\FormPekerjaan\\DetailPekerjaan' => __DIR__ . '/../..' . '/app/Http/Livewire/FormPekerjaan/DetailPekerjaan.php',
@@ -651,6 +656,7 @@ class ComposerStaticInit14ee4f42456daaf1530f5b036459ae3d
         'App\\Http\\Livewire\\Form\\Data' => __DIR__ . '/../..' . '/app/Http/Livewire/Form/Data.php',
         'App\\Http\\Livewire\\Form\\Detail' => __DIR__ . '/../..' . '/app/Http/Livewire/Form/Detail.php',
         'App\\Http\\Livewire\\Form\\Form' => __DIR__ . '/../..' . '/app/Http/Livewire/Form/Form.php',
+        'App\\Http\\Livewire\\Inventory\\BarangDibalikan' => __DIR__ . '/../..' . '/app/Http/Livewire/Inventory/BarangDibalikan.php',
         'App\\Http\\Livewire\\Inventory\\BarangDiminta' => __DIR__ . '/../..' . '/app/Http/Livewire/Inventory/BarangDiminta.php',
         'App\\Http\\Livewire\\Inventory\\BarangDipinjam' => __DIR__ . '/../..' . '/app/Http/Livewire/Inventory/BarangDipinjam.php',
         'App\\Http\\Livewire\\Inventory\\BarangMasuk' => __DIR__ . '/../..' . '/app/Http/Livewire/Inventory/BarangMasuk.php',
@@ -6685,10 +6691,10 @@ class ComposerStaticInit14ee4f42456daaf1530f5b036459ae3d
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit14ee4f42456daaf1530f5b036459ae3d::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit14ee4f42456daaf1530f5b036459ae3d::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit14ee4f42456daaf1530f5b036459ae3d::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit14ee4f42456daaf1530f5b036459ae3d::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit79f900d713a9d2c22b9a162147adec39::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit79f900d713a9d2c22b9a162147adec39::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit79f900d713a9d2c22b9a162147adec39::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit79f900d713a9d2c22b9a162147adec39::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -7,6 +7,18 @@
         padding-left: 10px;
         padding-right: 10px;
     }
+
+    .custom-button{
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
+        border: 1px solid #7DE5ED;
+        background-color: #7DE5ED;
+        color: white;
+        border-radius: 10px;
+        text-decoration: none;
+    }
 </style>
 <div style="font-family:Arial,Helvetica,sans-serif; line-height: 1.5; font-weight: normal; font-size: 15px; color: #2F3044; min-height: 100%; margin:0; padding:0; width:100%; background-color:#edf2f7">
 	<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;margin:0 auto; padding:0; max-width:700px">
@@ -123,9 +135,16 @@
                                 <img src="{{ asset('/assets/images/icon_pdf.svg') }}" alt="" style="height: 25px; width: 25px; object-fit: contain; margin-right: 10px">
                                 <span>Quotation</span>
                             </a>
-                            <a href="{{ config('app.asset_url') . '/storage ' . $quotation->file }}" style="padding: 10px; border: 1px solid black; border-radius: 10px; display: flex; align-items: center; text-decoration: none">
-                                <img src="{{ asset('/assets/images/icon_file.svg') }}" alt="" style="height: 25px; width: 25px; object-fit: contain; margin-right: 10px">
-                                <span>File</span>
+                            @if ($quotation->file)
+                                <a href="{{ config('app.asset_url') . '/storage' . $quotation->file }}" style="padding: 10px; border: 1px solid black; border-radius: 10px; display: flex; align-items: center; text-decoration: none">
+                                    <img src="{{ asset('/assets/images/icon_file.svg') }}" alt="" style="height: 25px; width: 25px; object-fit: contain; margin-right: 10px">
+                                    <span>File</span>
+                                </a>
+                            @endif
+                        </div>
+                        <div style="text-align: center; margin-top: 20px">
+                            <a href="{{ route('quotation.konfirmasi', ['id' => $quotation->id]) }}" class="custom-button">
+                                Konfirmasi Quotation
                             </a>
                         </div>
 						<!--end:Email content-->
