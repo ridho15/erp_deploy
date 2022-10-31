@@ -70,7 +70,13 @@
                         Pembuat
                     </div>
                     <div class="col-md-8 col-8">
-                        : <span class="fw-bold">{{ $preOrder->user->name }} ({{ $preOrder->user->jabatan }})</span>
+                        : <span class="fw-bold">
+                            @if ($preOrder->user)
+                                {{ $preOrder->user->name }} ({{ $preOrder->user->jabatan }})
+                            @else
+                                Dikonfirmasi Pelanggan
+                            @endif
+                        </span>
                     </div>
                 </div>
                 <div class="row mb-5">

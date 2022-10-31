@@ -131,6 +131,7 @@
             $('select[name="id_merk"]').select2()
             $('select[name="id_user"]').select2()
             $('select[name="id_form_master"]').select2()
+            $('select[name="periode"]').select2()
 
             $('select[name="id_customer"]').on('change', function(){
                 @this.set('id_customer', $(this).val())
@@ -150,6 +151,10 @@
 
             $('select[name="id_form_master"]').on('change', function(){
                 @this.set('id_form_master', $(this).val())
+            })
+
+            $('select[name="periode"]').on('change', function(){
+                @this.set('periode', $(this).val())
             })
         }
 

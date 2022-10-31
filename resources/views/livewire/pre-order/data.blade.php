@@ -42,7 +42,13 @@
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $item->quotation? $item->quotation->no_ref : '-' }}</td>
                                 <td>{{ $item->customer ? $item->customer->nama : '-'}} {{ $item->customer ? $item->customer->kode : '-' }}</td>
-                                <td>{{ $item->user->name }}</td>
+                                <td>
+                                    @if ($item->user)
+                                        {{ $item->user->name }}
+                                    @else
+                                        Dikonfirmasi Pelanggan
+                                    @endif
+                                </td>
                                 <td>{{ $item->tipePembayaran->nama_tipe }}</td>
                                 <td>
                                     @if ($item->metodePembayaran)
