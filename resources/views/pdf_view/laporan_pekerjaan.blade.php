@@ -11,7 +11,7 @@
                 <table>
                     <tr>
                         <td>Nomor Form</td>
-                        <td>: Nomor Form</td>
+                        <td>: {{ $laporanPekerjaan->formMaster->kode }}</td>
                     </tr>
                     <tr>
                         <td>Pelanggan</td>
@@ -147,7 +147,7 @@
             </tr>
             <tr style="width: 30%">
                 <td>Nama:</td>
-                <td>Nama: {{ $laporanPekerjaan->user->name }}</td>
+                <td>Nama: {{ $laporanPekerjaan->user ? $laporanPekerjaan->user->name : '-' }}</td>
                 <td>Nama: {{ $laporanPekerjaan->customer->nama }}</td>
             </tr>
         </table>
@@ -161,7 +161,7 @@
                 <table>
                     <tr>
                         <td>Nomor Form</td>
-                        <td>: Nomor Form</td>
+                        <td>: {{ $laporanPekerjaan->formMaster->kode }}</td>
                     </tr>
                     <tr>
                         <td>Pelanggan</td>
@@ -335,7 +335,7 @@
             <span>Dilaksanakan Oleh :</span><br>
             <span class="fw-bold">Teknisi</span><br>
             <div style="height: 100px"></div><br>
-            <span>Nama : {{ $laporanPekerjaan->user->name }}</span>
+            <span>Nama : {{ $laporanPekerjaan->user ? $laporanPekerjaan->user->name : '-' }}</span>
         </div>
         <div style="float: right; width: 50%">
             <span>Diketahui Oleh :</span><br>
@@ -346,7 +346,7 @@
                     style="object-fit: contain" alt="">
                 @endif
             </div><br>
-            <span>Nama : {{ $laporanPekerjaan->user->name }}</span>
+            <span>Nama : {{ $laporanPekerjaan->user ? $laporanPekerjaan->user->name : '-' }}</span>
         </div>
     </div>
 </body>

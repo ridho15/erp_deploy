@@ -35,7 +35,7 @@
                 @foreach ($listBarangDipinjam as $index => $item)
                     <tr>
                         <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
-                        <td>{{ $item->laporanPekerjaan->kode_pekerjaan }}</td>
+                        <td>{{ $item->laporanPekerjaan ? $item->laporanPekerjaan->kode_pekerjaan : '-'}}</td>
                         <td>{{ $item->barang->sku }}</td>
                         <td>{{ $item->barang->nama }}</td>
                         <td>{{ $item->barang->satuan->nama_satuan }}</td>
@@ -124,7 +124,7 @@
                                         SKU
                                     </div>
                                     <div class="col-md-8 col-8">
-                                        : <span class="fw-bold">{{ $laporanPekerjaan->kode_pekerjaan }}</span>
+                                        : <span class="fw-bold">{{ $laporanPekerjaan ? $laporanPekerjaan->kode_pekerjaan : '-'}}</span>
                                     </div>
                                 </div>
                                 <div class="row mb-5">

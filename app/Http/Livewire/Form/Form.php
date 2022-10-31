@@ -76,5 +76,6 @@ class Form extends Component
         $this->kode = $formMaster->kode;
         $this->nama = $formMaster->nama;
         $this->keterangan = $formMaster->keterangan;
+        $this->periode = $formMaster->periode;
     }
 }

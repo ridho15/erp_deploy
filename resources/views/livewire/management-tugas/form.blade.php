@@ -70,8 +70,8 @@
                                 @enderror
                             </div>
                             <div class="mb-5 col-md-6">
-                                <label for="" class="form-label required">Pekerja</label>
-                                <select name="id_user" wire:model="id_user" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih Pekerja" required>
+                                <label for="" class="form-label">Pekerja</label>
+                                <select name="id_user" wire:model="id_user" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form">
                                     <option value="">Pilih</option>
                                     @foreach ($listUser as $item)
                                         <option value="{{ $item->id }}" @if($item->id == $id_user) selected @endif>{{ $item->name }}</option>

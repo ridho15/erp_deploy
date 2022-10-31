@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PreOrder;
+use App\Models\PreOrderDetail;
 use App\Models\Quotation;
 use App\Models\TipePembayaran;
 use App\Models\User;
@@ -95,6 +96,20 @@ class QuotationController extends Controller
             'id_metode_pembayaran' => null
         ]);
 
+        if ($quotation) {
+            foreach ($quotation->quotationDetail as $item) {
+                PreOrderDetail::updateOrCreate([
+                    'id_pre_order' => $preOrder->id,
+                    'id_barang' => $item->id_barang,
+                ], [
+                    'id_pre_order' => $preOrder->id,
+                    'id_barang' => $item->id_barang,
+                    'harga' => $item->harga,
+                    'qty' => $item->qty,
+                    'id_satuan' => $item->id_satuan,
+                ]);
+            }
+        }
 
         return view('quotation.konfirmasi');
     }

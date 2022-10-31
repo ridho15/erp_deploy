@@ -4,6 +4,9 @@
     <div class="card shadow-sm">
         <div class="card-header">
             <h3 class="card-title">
+                <a href="{{ route('management-tugas') }}" class="btn btn-sm btn-icon btn-light me-5" data-bs-toggle="tooltip" data-bs-placement="top" title="Kembali">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
                 Detail Management Tugas
             </h3>
             <div class="card-toolbar">
@@ -137,7 +140,7 @@
                             Teknisi
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $laporanPekerjaan->user->name }}
+                            : {{ $laporanPekerjaan->user ? $laporanPekerjaan->user->name : '-' }}
                         </div>
                     </div>
                 </div>

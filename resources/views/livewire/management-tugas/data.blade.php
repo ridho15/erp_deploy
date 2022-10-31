@@ -47,7 +47,7 @@
                                 <td>{{ $item->formMaster->nama }} ({{ $item->formMaster->kode }})</td>
                                 <td>{{ $item->nomor_lift }}</td>
                                 <td>{{ $item->merk->nama_merk }}</td>
-                                <td>{{ $item->user->name }}</td>
+                                <td>{{ $item->user? $item->user->name : '-' }}</td>
                                 <td>{{ $item->jam_mulai_formatted ?? '-' }}</td>
                                 <td>{{ $item->jam_selesai_formatted ?? '-' }}</td>
                                 <td>{{ $item->keterangan ?? '-' }}</td>
@@ -56,7 +56,7 @@
                                 </td>
                                 <td>
                                     <div class="btn-group">
-                                        <a href="{{ route('management-tugas.export', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Management Tugas">
+                                        <a href="{{ route('management-tugas.export', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Cetak Management Tugas">
                                             <i class="bi bi-printer"></i>
                                         </a>
                                         @if ($item->jam_selesai == null && $item->signatur == null)

@@ -67,6 +67,14 @@
                 </div>
                 <div class="row mb-5">
                     <div class="col-md-4 col-4">
+                        Metode Pembayaran
+                    </div>
+                    <div class="col-md-8 col-8">
+                        : <span class="fw-bold">{{ $preOrder->metodePembayaran ? $preOrder->metodePembayaran->nama_metode : '-' }}</span>
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-md-4 col-4">
                         Pembuat
                     </div>
                     <div class="col-md-8 col-8">

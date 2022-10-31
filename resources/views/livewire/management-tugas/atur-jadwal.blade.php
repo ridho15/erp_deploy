@@ -82,7 +82,13 @@
                                     Pekerja
                                 </div>
                                 <div class="col-md-8 col-8">
-                                    : <span class="fw-bold">{{ $laporanPekerjaan->user->name }} ({{ $laporanPekerjaan->user->jabatan }})</span>
+                                    : <span class="fw-bold">
+                                        @if ($laporanPekerjaan->user)
+                                            {{ $laporanPekerjaan->user->name }} ({{ $laporanPekerjaan->user->jabatan }})
+                                        @else
+                                            -
+                                        @endif
+                                    </span>
                                 </div>
                             </div>
                             <div class="row mb-5">

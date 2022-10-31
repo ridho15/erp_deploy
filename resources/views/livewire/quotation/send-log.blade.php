@@ -36,3 +36,15 @@
             </table>
         </div>
 </div>
+
+@push('js')
+    <script>
+        $(document).ready(function () {
+
+        });
+
+        Livewire.on('finishRefreshData', (status, message) => {
+            alertMessage(status, message)
+        })
+    </script>
+@endpush

@@ -18,6 +18,14 @@
     </div>
     <div class="row mb-7">
         <div class="col-md-4">
+            Periode
+        </div>
+        <div class="col-md-8">
+            : <span class="fw-bold">{{ $formMaster->periode }} Bulan</span>
+        </div>
+    </div>
+    <div class="row mb-7">
+        <div class="col-md-4">
             Keterangan
         </div>
         <div class="col-md-8">

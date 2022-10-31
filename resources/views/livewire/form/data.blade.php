@@ -73,12 +73,12 @@
         });
 
         Livewire.on('onClickTambah', () => {
-            $('#modal_form').modal('show')
+            $('#modal_form_master').modal('show')
         })
 
         Livewire.on('onClickEdit', (id) => {
             Livewire.emit('setDataForm', id)
-            $('#modal_form').modal('show')
+            $('#modal_form_master').modal('show')
         })
 
         Livewire.on('onClickHapus', async (id) => {

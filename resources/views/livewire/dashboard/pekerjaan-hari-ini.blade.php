@@ -34,7 +34,7 @@
                             <td>{{ $item->kode_pekerjaan }}</td>
                             <td>{{ $item->project->kode }} {{ $item->project->nama }}</td>
                             <td>{{ $item->nomor_lift }}</td>
-                            <td>{{ $item->user->name }}</td>
+                            <td>{{ $item->user ? $item->user->name : '-' }}</td>
                             <td>{{ $item->jam_mulai_formatted }}</td>
                             <td>
                                 <div class="btn-group">

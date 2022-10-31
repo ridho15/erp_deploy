@@ -57,7 +57,7 @@ class Form extends Component
             'id_customer' => 'required|numeric',
             'id_project' => 'required|numeric',
             'id_merk' => 'required|numeric',
-            'id_user' => 'required|numeric',
+            'id_user' => 'nullable|numeric',
             'id_form_master' => 'required|numeric',
             'nomor_lift' => 'required|numeric',
         ], [
@@ -67,7 +67,6 @@ class Form extends Component
             'id_project.numeric' => 'Project tidak valid !',
             'id_merk.required' => 'Merk belum dipilih',
             'id_merk.numeric' => 'Merk tidak valid !',
-            'id_user.required' => 'Pekerja belum dipilih',
             'id_user.numeric' => 'Pekerja tidak valid !',
             'nomor_lift.required' => 'Nomor lift tidak boleh kosong',
             'nomor_lift.numeric' => 'Nomor Lift tidak valid !',
@@ -96,18 +95,15 @@ class Form extends Component
             return session()->flash('fail', $message);
         }
 
-        $user = User::find($this->id_user);
-        if (!$user) {
-            $message = 'Data Pekerja tidak ditemukan !';
-
-            return session()->flash('fail', $message);
-        }
-
         $formMaster = FormMaster::find($this->id_form_master);
         if (!$formMaster) {
             $message = 'Data form tidak ditemukan !';
 
             return session()->flash('fail', $message);
+        }
+
+        if($this->id_user == ''){
+            $this->id_user = null;
         }
 
         LaporanPekerjaan::updateOrCreate([
@@ -158,6 +154,7 @@ class Form extends Component
         $this->nomor_lift = $laporanPekerjaan->nomor_lift;
         $this->id_user = $laporanPekerjaan->id_user;
         $this->id_form_master = $laporanPekerjaan->id_form_master;
+        $this->periode = $laporanPekerjaan->periode;
     }
 
     public function changeCustomer($id_customer)

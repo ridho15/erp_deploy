@@ -30,6 +30,7 @@
                    <th>Email Pelanggan</th>
                    <th>No Hp Pelanggan</th>
                    <th>Status</th>
+                   <th>Konfirmasi</th>
                    <th>Keterangan</th>
                    <th>Hal</th>
                    <th>File</th>
@@ -67,6 +68,13 @@
                                     @endif
                                 </td>
                                 <td><?= $item->status_formatted ?></td>
+                                <td>
+                                    @if ($item->konfirmasi == 0)
+                                        <span class="badge badge-danger">Belum dikonfirmasi</span>
+                                    @else
+                                        <span class="badge badge-success">Sudah dikonfirmasi</span>
+                                    @endif
+                                </td>
                                 <td><?= $item->keterangan ?></td>
                                 <td>{{ $item->hal }}</td>
                                 <td>
@@ -106,7 +114,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="13" class="text-center text-gray-500">Tidak ada data</td>
+                            <td colspan="14" class="text-center text-gray-500">Tidak ada data</td>
                         </tr>
                     @endif
                  </tbody>
