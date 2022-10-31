@@ -16,7 +16,8 @@ class PreOrder extends Model
         'id_tipe_pembayaran',
         'id_user',
         'id_customer',
-        'keterangan'
+        'keterangan',
+        'file'
     ];
 
     protected $appends = ['status_formatted'];

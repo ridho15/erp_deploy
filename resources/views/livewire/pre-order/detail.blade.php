@@ -1,6 +1,9 @@
 <div class="card shadow-sm">
     <div class="card-header">
         <h3 class="card-title">
+            <a href="{{ route('pre-order') }}" class="btn btn-sm btn-icon btn-light me-5" data-bs-toggle="tooltip" data-bs-placement="top" title="Kembali">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
             Detail Pre Order
         </h3>
         <div class="card-toolbar">
@@ -83,7 +86,23 @@
                         Keterangan
                     </div>
                     <div class="col-md-8 col-8">
-                        : <span class="fw-bold"><?= $preOrder->keterangan ?></span>
+                        : <span class="fw-bold"><?= $preOrder->keterangan ?? '-' ?></span>
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-md-4 col-4">
+                        File
+                    </div>
+                    <div class="col-md-8 col-8">
+                        : <span class="fw-bold">
+                            @if ($preOrder->file)
+                                <a href="{{ asset('storage' . $preOrder->file) }}" class="btn btn-sm btn-icon btn-light-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Download File">
+                                    <i class="fa-solid fa-file"></i>
+                                </a>
+                            @else
+                                File tidak ada
+                            @endif
+                        </span>
                     </div>
                 </div>
             </div>

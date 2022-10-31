@@ -61,6 +61,7 @@
         </table>
     </div>
     <div class="text-center">{{ $listBarangDiminta->links() }}</div>
+
     <div wire:ignore.self class="modal fade" tabindex="-1" id="modal_konfirmasi">
         <div class="modal-dialog">
             <div class="modal-content">

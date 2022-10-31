@@ -3,6 +3,9 @@
     <div class="card shadow-sm mb-5">
         <div class="card-header">
             <h3 class="card-title">
+                <a href="{{ route('daftar-tugas') }}" class="btn btn-sm btn-icon btn-light me-5" data-bs-toggle="tooltip" data-bs-placement="top" title="Kembali">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
                 Informasi Tugas
             </h3>
             <div class="card-toolbar">
