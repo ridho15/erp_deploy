@@ -30,6 +30,8 @@ class LaporanPekerjaanBarang extends Model
             return '<span class="badge badge-danger">Diabaikan</span>';
         }elseif($this->status == 3){
             return '<span class="badge badge-info">Dibalikan</span>';
+        }elseif($this->status == 4){
+            return '<span class="badge badge-success">Terjual</span>';
         }
     }
 

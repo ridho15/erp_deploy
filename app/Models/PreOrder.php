@@ -17,7 +17,8 @@ class PreOrder extends Model
         'id_user',
         'id_customer',
         'keterangan',
-        'file'
+        'file',
+        'id_metode_pembayaran'
     ];
 
     protected $appends = ['status_formatted'];
@@ -56,5 +57,9 @@ class PreOrder extends Model
 
     public function log(){
         return $this->hasMany(PreOrderLog::class, 'id_pre_order');
+    }
+
+    public function metodePembayaran(){
+        return $this->belongsTo(MetodePembayaran::class, 'id_metode_pembayaran');
     }
 }
