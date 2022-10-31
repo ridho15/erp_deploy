@@ -3,6 +3,8 @@
 namespace App\CPU;
 
 use App\Models\Barang;
+use App\Models\Kondisi;
+use App\Models\Pekerjaan;
 use App\Models\TipeUser;
 use App\Models\User;
 use App\Models\UserLog;
@@ -12,6 +14,20 @@ use Illuminate\Support\Facades\Storage;
 
 class Helpers
 {
+    public static function getPekerjaan($id)
+    {
+        $pekerjaan = Pekerjaan::find($id);
+
+        return $pekerjaan->keterangan;
+    }
+
+    public static function getKondisi($id)
+    {
+        $pekerjaan = Kondisi::find($id);
+
+        return $pekerjaan->keterangan;
+    }
+
     public function getAuthUser($id)
     {
         $user = User::with('tipeUser')->find($id);

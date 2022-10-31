@@ -14,12 +14,12 @@ use App\Http\Controllers\KondisiController;
 use App\Http\Controllers\KostumerController;
 use App\Http\Controllers\ManagementTugasController;
 use App\Http\Controllers\MerkController;
+use App\Http\Controllers\PekerjaanController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PreOrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\QuotationController;
-use App\Http\Controllers\RescheduleController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TipeBarangController;
 use App\Http\Controllers\WebConfigurationController;
@@ -29,9 +29,10 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('testing')->group(function () {
-    Route::get('/', function(){
+    Route::get('/', function () {
         $quotation = Quotation::first();
         $data['quotation'] = $quotation;
+
         return view('mail.send-quotation', $data);
     })->name('testing');
     Route::get('/export-pdf', [DashboardController::class, 'exportPdf'])->name('testing.export-pdf');
@@ -162,5 +163,9 @@ Route::middleware('auth.user')->group(function () {
 
     Route::prefix('kondisi')->group(function () {
         Route::get('/', [KondisiController::class, 'index'])->name('kondisi');
+    });
+
+    Route::prefix('pekerjaan')->group(function () {
+        Route::get('/', [PekerjaanController::class, 'index'])->name('pekerjaan');
     });
 });

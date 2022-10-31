@@ -32,6 +32,7 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
+                        <input type="hidden" class="form-control form-control-solid" wire:model="periode">
                         <div class="mb-5">
                             <label for="" class="form-label required">Nama Pekerjaan</label>
                             <input type="text" class="form-control form-control-solid" name="nama_pekerjaan" wire:model="nama_pekerjaan" placeholder="Masukkan nama pekerjaan">
@@ -39,7 +40,7 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                        <div class="mb-5">
+                        {{-- <div class="mb-5">
                             <label for="" class="form-label">Keterangan</label>
                             <textarea name="keterangan" wire:model="keterangan" class="form-control form-control-solid" placeholder="Masukkan keterangan"></textarea>
                             @error('keterangan')
@@ -48,7 +49,8 @@
                         </div>
                         <div>
                             <label for="" class="form-label">Checklist</label>
-                            <div class="d-flex flex-wrap align-items-center justify-content-between">
+                            <div class="d-flex flex-wrap align-items-center justify-content-evenly">
+                                @if ($periode > 0)
                                 <div class="form-check form-check-custom form-check-solid">
                                     <input class="form-check-input" type="checkbox" value="1" wire:model="checklist_1_bulan" id="checklist_1_bulan"/>
                                     <label class="form-check-label" for="checklist_1_bulan">
@@ -58,6 +60,8 @@
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
+                                @endif
+                                @if ($periode > 1)
                                 <div class="form-check form-check-custom form-check-solid">
                                     <input class="form-check-input" type="checkbox" value="1" wire:model="checklist_2_bulan" id="checklist_2_bulan"/>
                                     <label class="form-check-label" for="checklist_2_bulan">
@@ -67,6 +71,8 @@
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
+                                @endif
+                                @if ($periode > 2)
                                 <div class="form-check form-check-custom form-check-solid">
                                     <input class="form-check-input" type="checkbox" value="1" wire:model="checklist_3_bulan" id="checklist_3_bulan"/>
                                     <label class="form-check-label" for="checklist_3_bulan">
@@ -76,6 +82,8 @@
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
+                                @endif
+                                @if ($periode > 5)
                                 <div class="form-check form-check-custom form-check-solid">
                                     <input class="form-check-input" type="checkbox" value="1" wire:model="checklist_6_bulan" id="checklist_6_bulan"/>
                                     <label class="form-check-label" for="checklist_6_bulan">
@@ -85,6 +93,8 @@
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
+                                @endif
+                                @if ($periode > 11)
                                 <div class="form-check form-check-custom form-check-solid">
                                     <input class="form-check-input" type="checkbox" value="1" wire:model="checklist_1_tahun" id="checklist_1_tahun"/>
                                     <label class="form-check-label" for="checklist_1_tahun">
@@ -94,8 +104,9 @@
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
+                                @endif
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <div class="modal-footer">
