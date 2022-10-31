@@ -70,14 +70,28 @@
                                 @enderror
                             </div>
                             <div class="mb-5 col-md-6">
-                                <label for="" class="form-label required">Pekerja</label>
-                                <select name="id_user" wire:model="id_user" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih Pekerja" required>
+                                <label for="" class="form-label">Pekerja</label>
+                                <select name="id_user" wire:model="id_user" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form">
                                     <option value="">Pilih</option>
                                     @foreach ($listUser as $item)
                                         <option value="{{ $item->id }}" @if($item->id == $id_user) selected @endif>{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('id_user')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-5 col-md-6">
+                                <label for="" class="form-label required">Periode Pekerjaan</label>
+                                <select name="periode" wire:model="periode" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih Periode" required>
+                                    <option value="">Pilih</option>
+                                    <option value="1">1 Bulan</option>
+                                    <option value="2">2 Bulan</option>
+                                    <option value="3">3 Bulan</option>
+                                    <option value="6">6 Bulan</option>
+                                    <option value="12">1 Tahun</option>
+                                </select>
+                                @error('periode')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
@@ -117,6 +131,7 @@
             $('select[name="id_merk"]').select2()
             $('select[name="id_user"]').select2()
             $('select[name="id_form_master"]').select2()
+            $('select[name="periode"]').select2()
 
             $('select[name="id_customer"]').on('change', function(){
                 @this.set('id_customer', $(this).val())
@@ -136,6 +151,10 @@
 
             $('select[name="id_form_master"]').on('change', function(){
                 @this.set('id_form_master', $(this).val())
+            })
+
+            $('select[name="periode"]').on('change', function(){
+                @this.set('periode', $(this).val())
             })
         }
 

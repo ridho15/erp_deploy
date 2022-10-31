@@ -15,7 +15,7 @@ class Form extends Component
     public $listeners = [
         'simpanManagementTugas',
         'setDataManagementTugas',
-        'changeCustomer'
+        'changeCustomer',
     ];
     public $id_laporan_pekerjaan;
     public $id_customer;
@@ -27,12 +27,14 @@ class Form extends Component
     public $jam_mulai;
     public $id_user;
     public $signature;
+    public $periode;
 
     public $listCustomer = [];
     public $listProject = [];
     public $listMerk = [];
     public $listUser = [];
     public $listFormMaster = [];
+
     public function render()
     {
         $this->listCustomer = Customer::get();
@@ -41,21 +43,23 @@ class Form extends Component
         $this->listUser = User::get();
         $this->listFormMaster = FormMaster::get();
         $this->dispatchBrowserEvent('contentChange');
+
         return view('livewire.management-tugas.form');
     }
 
-    public function mount(){
-
+    public function mount()
+    {
     }
 
-    public function simpanManagementTugas(){
+    public function simpanManagementTugas()
+    {
         $this->validate([
             'id_customer' => 'required|numeric',
             'id_project' => 'required|numeric',
             'id_merk' => 'required|numeric',
-            'id_user' => 'required|numeric',
+            'id_user' => 'nullable|numeric',
             'id_form_master' => 'required|numeric',
-            'nomor_lift' => 'required|numeric'
+            'nomor_lift' => 'required|numeric',
         ], [
             'id_customer.required' => 'Customer belum dipilih',
             'id_customer.numeric' => 'Customer tidak valid !',
@@ -63,42 +67,43 @@ class Form extends Component
             'id_project.numeric' => 'Project tidak valid !',
             'id_merk.required' => 'Merk belum dipilih',
             'id_merk.numeric' => 'Merk tidak valid !',
-            'id_user.required' => 'Pekerja belum dipilih',
             'id_user.numeric' => 'Pekerja tidak valid !',
             'nomor_lift.required' => 'Nomor lift tidak boleh kosong',
             'nomor_lift.numeric' => 'Nomor Lift tidak valid !',
             'id_form_master.required' => 'Form belum dipilih',
-            'id_form_master.numeric' => 'Form tidak valid !'
+            'id_form_master.numeric' => 'Form tidak valid !',
         ]);
 
         $customer = Customer::find($this->id_customer);
-        if(!$customer){
-            $message = "Data customer tidak ditemukan !";
+        if (!$customer) {
+            $message = 'Data customer tidak ditemukan !';
+
             return session()->flash('fail', $message);
         }
 
         $project = ProjectV2::find($this->id_project);
-        if(!$project){
-            $message = "Data project tidak ditemukan !";
+        if (!$project) {
+            $message = 'Data project tidak ditemukan !';
+
             return session()->flash('fail', $message);
         }
 
         $merk = Merk::find($this->id_merk);
-        if(!$merk){
-            $message = "Data merk tidak ditemukan !";
-            return session()->flash('fail', $message);
-        }
+        if (!$merk) {
+            $message = 'Data merk tidak ditemukan !';
 
-        $user = User::find($this->id_user);
-        if(!$user){
-            $message = "Data Pekerja tidak ditemukan !";
             return session()->flash('fail', $message);
         }
 
         $formMaster = FormMaster::find($this->id_form_master);
-        if(!$formMaster){
-            $message = "Data form tidak ditemukan !";
+        if (!$formMaster) {
+            $message = 'Data form tidak ditemukan !';
+
             return session()->flash('fail', $message);
+        }
+
+        if($this->id_user == ''){
+            $this->id_user = null;
         }
 
         LaporanPekerjaan::updateOrCreate([
@@ -109,18 +114,21 @@ class Form extends Component
             'id_merk' => $this->id_merk,
             'id_user' => $this->id_user,
             'nomor_lift' => $this->nomor_lift,
+            'periode' => $this->periode,
             'id_form_master' => $this->id_form_master,
-            'jam_mulai' => now()
+            'jam_mulai' => now(),
         ]);
 
-        $message = "Data berhasil disimpan";
+        $message = 'Data berhasil disimpan';
         $this->resetInputFields();
         $this->emit('refreshManagementTugas');
         $this->emit('finishSimpanData', 1, $message);
+
         return session()->flash('success', $message);
     }
 
-    public function resetInputFields(){
+    public function resetInputFields()
+    {
         $this->id_laporan_pekerjaan = null;
         $this->id_customer = null;
         $this->id_project = null;
@@ -130,10 +138,12 @@ class Form extends Component
         $this->id_form_master = null;
     }
 
-    public function setDataManagementTugas($id){
+    public function setDataManagementTugas($id)
+    {
         $laporanPekerjaan = LaporanPekerjaan::find($id);
-        if(!$laporanPekerjaan){
-            $message = "Data tidak ditemukan !";
+        if (!$laporanPekerjaan) {
+            $message = 'Data tidak ditemukan !';
+
             return session()->flash('fail', $message);
         }
 
@@ -144,9 +154,11 @@ class Form extends Component
         $this->nomor_lift = $laporanPekerjaan->nomor_lift;
         $this->id_user = $laporanPekerjaan->id_user;
         $this->id_form_master = $laporanPekerjaan->id_form_master;
+        $this->periode = $laporanPekerjaan->periode;
     }
 
-    public function changeCustomer($id_customer){
+    public function changeCustomer($id_customer)
+    {
         $this->id_customer = $id_customer;
     }
 }

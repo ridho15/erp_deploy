@@ -8,15 +8,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class FormMaster extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
+    use SoftDeletes;
     protected $table = 'form_master';
     protected $fillable = [
         'kode',
         'nama',
-        'keterangan'
+        'periode',
+        'keterangan',
     ];
 
-    public function templatePekerjaan(){
+    public function templatePekerjaan()
+    {
         return $this->hasMany(TemplatePekerjaan::class, 'id_form_master');
     }
 }

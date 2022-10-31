@@ -65,14 +65,6 @@ class Detail extends Component
 
             if ($preOrder->id_quotation == null) {
                 $barang->barangStockChange($item->qty, 4);
-            }else{
-                BarangStockLog::create([
-                    'id_barang' => $item->id_barang,
-                    'stock_awal' => $item->barang->stock + $item->qty,
-                    'perubahan' => $item->qty,
-                    'tanggal_perubahan' => now(),
-                    'id_tipe_perubahan_stock' => 4
-                ]);
             }
         }
 

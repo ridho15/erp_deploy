@@ -2,53 +2,46 @@
     <div class="card shadow-sm">
         <div class="card-header">
             <h3 class="card-title">
-                Form Master Data
+                Data Pekerjaan
             </h3>
-            <div class="card-title">
+            <div class="card-toolbar">
                 <button class="btn btn-sm btn-outline btn-outline-primary" wire:click="$emit('onClickTambah')"><i class="bi bi-plus-circle"></i> Tambah</button>
             </div>
         </div>
         <div class="card-body">
-            @include('helper.alert-message')
             <div class="text-center">
-                @include('helper.simple-loading', ['target' => 'cari,hapusForm', 'message' => 'Memuat data...'])
+                @include('helper.simple-loading', ['target' => 'cari,hapusKondisi', 'message' => 'Memuat data...'])
             </div>
             <div class="row mb-5">
                 <div class="col-md-3">
                     @include('helper.form-pencarian', ['model' => 'cari'])
                 </div>
             </div>
-
             <div class="table-responsive">
                 <table class="table table-rounded table-striped border gy-7 gs-7">
                  <thead>
                   <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
                    <th>No</th>
-                   <th>Kode</th>
-                   <th>Nama</th>
+                   <th>kode</th>
                    <th>Keterangan</th>
                    <th>Aksi</th>
                   </tr>
                  </thead>
                  <tbody>
-                    @if (count($listForm) > 0)
-                        @foreach ($listForm as $index => $item)
+                    @if (count($listKondisi) > 0)
+                        @foreach ($listKondisi as $index => $item)
                             <tr>
-                                <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
+                                <td>{{ $index + 1 }}</td>
                                 <td>{{ $item->kode }}</td>
-                                <td>{{ $item->nama }}</td>
-                                <td>{{ $item->keterangan ?? '-' }}</td>
+                                <td>{{ $item->keterangan }}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Form" wire:click="$emit('onClickEdit', {{ $item->id }})">
+                                        <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Kondisi" wire:click="$emit('onClickEdit', {{ $item->id }})">
                                             <i class="bi bi-pencil-square"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Form" wire:click="$emit('onClickHapus', {{ $item->id }})">
+                                        <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Kondisi" wire:click="$emit('onClickHapus', {{ $item->id }})">
                                             <i class="bi bi-trash-fill"></i>
                                         </button>
-                                        <a href="{{ route('form.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Form">
-                                            <i class="bi bi-info-circle-fill"></i>
-                                        </a>
                                     </div>
                                 </td>
                             </tr>
@@ -61,7 +54,7 @@
                  </tbody>
                 </table>
             </div>
-            <div class="text-center">{{ $listForm->links() }}</div>
+            {{ $listKondisi->links() }}
         </div>
     </div>
 </div>
@@ -72,19 +65,23 @@
 
         });
 
+        Livewire.on('finishRefreshKondisi', (status, message) => {
+            alertMessage(status, message)
+        })
+
         Livewire.on('onClickTambah', () => {
-            $('#modal_form_master').modal('show')
+            $('#modal_form').modal('show')
         })
 
         Livewire.on('onClickEdit', (id) => {
-            Livewire.emit('setDataForm', id)
-            $('#modal_form_master').modal('show')
+            Livewire.emit('setKondisi', id)
+            $('#modal_form').modal('show')
         })
 
         Livewire.on('onClickHapus', async (id) => {
-            const response = await alertConfirm('Peringatan !', 'Apakah kamu yakin ingin menghapus form ?')
+            const response = await alertConfirm('Peringatan !', "Apakah kamu yakin ingin menghapus kondisi ?");
             if(response.isConfirmed == true){
-                Livewire.emit('hapusForm', id)
+                Livewire.emit('hapusKondisi', id)
             }
         })
     </script>

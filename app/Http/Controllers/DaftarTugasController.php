@@ -29,4 +29,19 @@ class DaftarTugasController extends Controller
 
         return view('daftar-tugas.kelola', $data);
     }
+
+    public function ambil($id){
+        $laporanPekerjaan = LaporanPekerjaan::find($id);
+        if(!$laporanPekerjaan){
+            $message = "Data tugas tidak ditemukan !";
+            return redirect()->back()->with('fail', $message);
+        }
+
+        $laporanPekerjaan->update([
+            'id_user' => session()->get('id_user')
+        ]);
+
+        $message = "Berhasil mengambil tugas";
+        return redirect()->back()->with('success', $message);
+    }
 }

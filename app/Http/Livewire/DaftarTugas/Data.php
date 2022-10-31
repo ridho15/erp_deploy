@@ -25,7 +25,7 @@ class Data extends Component
                 $query->where('kode', 'LIKE', '%' . $this->cari . '%')
                 ->orWhere('nama', 'LIKE', '%' . $this->cari . '%');
             });
-        })->orderBy('created_at', 'DESC')->paginate($this->total_show);
+        })->whereHas('formMaster')->orderBy('created_at', 'DESC')->paginate($this->total_show);
         $data['listLaporanPekerjaan'] = $this->listLaporanPekerjaan;
         return view('livewire.daftar-tugas.data', $data);
     }
