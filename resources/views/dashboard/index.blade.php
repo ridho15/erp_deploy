@@ -200,6 +200,9 @@
             <div class="col-md-6 mb-5">
                 @livewire('dashboard.supplier-order')
             </div>
+            <div class="col-md-6 mb-5">
+                @livewire('dashboard.pre-order')
+            </div>
         </div>
     </div>
 </div>

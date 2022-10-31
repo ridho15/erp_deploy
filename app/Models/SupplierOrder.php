@@ -20,6 +20,7 @@ class SupplierOrder extends Model
         'tanggal_order',
         'keterangan',
         'id_tipe_pembayaran',
+        'id_metode_pembayaran',
     ];
 
     protected $appends = ['tanggal_order_formatted', 'status_order_formatted', 'total_harga_formatted'];
@@ -54,5 +55,9 @@ class SupplierOrder extends Model
 
     public function tipePembayaran(){
         return $this->belongsTo(TipePembayaran::class, 'id_tipe_pembayaran');
+    }
+
+    public function metodePembayaran(){
+        return $this->belongsTo(MetodePembayaran::class, 'id_metode_pembayaran');
     }
 }

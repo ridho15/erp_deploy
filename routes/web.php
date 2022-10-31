@@ -14,6 +14,7 @@ use App\Http\Controllers\KondisiController;
 use App\Http\Controllers\KostumerController;
 use App\Http\Controllers\ManagementTugasController;
 use App\Http\Controllers\MerkController;
+use App\Http\Controllers\MetodePembayaranController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PreOrderController;
 use App\Http\Controllers\ProfileController;
@@ -157,6 +158,10 @@ Route::middleware('auth.user')->group(function () {
 
         Route::prefix('payment')->group(function () {
             Route::get('/', [PembayaranController::class, 'index'])->name('tipe_pembayaran');
+        });
+
+        Route::prefix('metode-pembayaran')->group(function () {
+            Route::get('/', [MetodePembayaranController::class, 'index'])->name('metode-pembayaran');
         });
     });
 
