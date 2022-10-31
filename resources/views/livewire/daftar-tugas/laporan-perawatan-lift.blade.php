@@ -153,12 +153,12 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="text-end">
+                {{-- <div class="text-end">
                     <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-bs-placement="top"
                         title="Simpan Kondisi Lift">
                         <i class="fas fa-save"></i> Simpan
                     </button>
-                </div>
+                </div> --}}
             </form>
         </div>
     </div>
