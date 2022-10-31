@@ -11,7 +11,7 @@
         <div class="card-body">
             @include('helper.alert-message')
             <div class="text-center">
-                @include('helper.simple-loading', ['target' => 'cari,hapusBarang', 'message' => 'Memuat data...'])
+                @include('helper.simple-loading', ['target' => 'cari,hapusKategori', 'message' => 'Memuat data...'])
             </div>
             <div class="row mb-5">
                 <div class="col-md-3">

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\PreOrder;
 
 use App\Models\Customer;
+use App\Models\MetodePembayaran;
 use App\Models\PreOrder;
 use App\Models\PreOrderDetail;
 use App\Models\PreOrderLog;
@@ -28,17 +29,20 @@ class Form extends Component
     public $id_user;
     public $id_customer;
     public $keterangan;
-
-    public $listQuotation;
-    public $listTipePembayaran;
-    public $listCustomer;
+    public $id_metode_pembayaran;
     public $file;
+
+    public $listQuotation = [];
+    public $listTipePembayaran = [];
+    public $listCustomer = [];
+    public $listMetodePembayaran = [];
 
     public function render()
     {
         $this->listTipePembayaran = TipePembayaran::get();
         $this->listQuotation = Quotation::get();
         $this->listCustomer = Customer::get();
+        $this->listMetodePembayaran = MetodePembayaran::get();
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.pre-order.form');
     }
@@ -90,6 +94,7 @@ class Form extends Component
         $data['id_user'] = session()->get('id_user');
         $data['id_customer'] = $this->id_customer;
         $data['keterangan'] = $this->keterangan;
+        $data['id_metode_pembayaran'] = $this->id_metode_pembayaran;
 
         if($this->file){
             $path = $this->file->store('public/pre-order');
@@ -135,6 +140,7 @@ class Form extends Component
         $this->id_user = null;
         $this->id_customer = null;
         $this->keterangan = null;
+        $this->id_metode_pembayaran = null;
     }
 
     public function changeKeterangan($keterangan){
@@ -153,6 +159,8 @@ class Form extends Component
         $this->id_quotation = $preOrder->id_quotation;
         $this->id_customer = $preOrder->id_customer;
         $this->id_tipe_pembayaran = $preOrder->id_tipe_pembayaran;
+        $this->id_metode_pembayaran = $preOrder->id_metode_pembayaran;
+        $this->keterangan = $preOrder->keterangan;
     }
 
     public function hapusFile(){

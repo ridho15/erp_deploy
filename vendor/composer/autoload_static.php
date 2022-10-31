@@ -752,6 +752,7 @@ class ComposerStaticInit79f900d713a9d2c22b9a162147adec39
         'App\\Models\\LoginLogs' => __DIR__ . '/../..' . '/app/Models/LoginLogs.php',
         'App\\Models\\Merk' => __DIR__ . '/../..' . '/app/Models/Merk.php',
         'App\\Models\\MerkBarang' => __DIR__ . '/../..' . '/app/Models/MerkBarang.php',
+        'App\\Models\\MetodePembayaran' => __DIR__ . '/../..' . '/app/Models/MetodePembayaran.php',
         'App\\Models\\PreOrder' => __DIR__ . '/../..' . '/app/Models/PreOrder.php',
         'App\\Models\\PreOrderDetail' => __DIR__ . '/../..' . '/app/Models/PreOrderDetail.php',
         'App\\Models\\PreOrderLog' => __DIR__ . '/../..' . '/app/Models/PreOrderLog.php',
