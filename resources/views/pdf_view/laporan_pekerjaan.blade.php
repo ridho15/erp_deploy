@@ -286,12 +286,14 @@
                         $kerjah = json_decode($detail->keterangan)
                         @endphp
                         <div class="d-flex justify-content-evenly">
-                            @foreach ($kerjah as $k)
-                            <span class="badge me-1 badge-secondary text-secondary  text-dark"
-                                style="margin-right: 50x">{{
-                                App\CPU\Helpers::getPekerjaan($k) }}
-                            </span>
-                            @endforeach
+                            @if ($kerjah)
+                                @foreach ($kerjah as $k)
+                                    <span class="badge me-1 badge-secondary text-secondary  text-dark"
+                                        style="margin-right: 50x">{{
+                                        App\CPU\Helpers::getPekerjaan($k) }}
+                                    </span>
+                                @endforeach
+                            @endif
                         </div>
                     </td>
                     </td>
