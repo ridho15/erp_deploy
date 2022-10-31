@@ -321,12 +321,21 @@
                                 </a>
                             </div>
                             <div class="menu-item">
-                                <a class="menu-link @if(in_array('tipePembayaran', $active)) active @endif"
+                                <a class="menu-link @if(in_array('tipe-pembayaran', $active)) active @endif"
                                     href="{{ route('tipe_pembayaran') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
                                     <span class="menu-title">Tipe Pembayaran</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link @if(in_array('metode-pembayaran', $active)) active @endif"
+                                    href="{{ route('metode-pembayaran') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Metode Pembayaran</span>
                                 </a>
                             </div>
                             <div class="menu-item">

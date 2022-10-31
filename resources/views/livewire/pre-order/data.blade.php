@@ -28,6 +28,7 @@
                    <th>Customer</th>
                    <th>User</th>
                    <th>Tipe Pembayaran</th>
+                   <th>Metode Pembayaran</th>
                    <th>Status</th>
                    <th>Keterangan</th>
                    <th>File</th>
@@ -43,6 +44,13 @@
                                 <td>{{ $item->customer ? $item->customer->nama : '-'}} {{ $item->customer ? $item->customer->kode : '-' }}</td>
                                 <td>{{ $item->user->name }}</td>
                                 <td>{{ $item->tipePembayaran->nama_tipe }}</td>
+                                <td>
+                                    @if ($item->metodePembayaran)
+                                        {{ $item->metodePembayaran->nama_metode }}
+                                    @else
+                                        -
+                                    @endif
+                                </td>
                                 <td><?= $item->status_formatted ?></td>
                                 <td><?= $item->keterangan ?? '-' ?></td>
                                 <td>
@@ -69,7 +77,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="8" class="text-center text-gray-500">Tidak ada data</td>
+                            <td colspan="10" class="text-center text-gray-500">Tidak ada data</td>
                         </tr>
                     @endif
                 </tbody>
