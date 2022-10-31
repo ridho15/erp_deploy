@@ -9,6 +9,7 @@ use Livewire\Component;
 class LaporanSparepart extends Component
 {
     public $listeners = [
+        'refreshLaporanPekerjaanBarang' => '$refresh',
         'simpanLaporanPekerjaanBarang',
         'hapusLaporanPekerjaanBarang',
         'setDataLaporanPekerjaanBarang',
