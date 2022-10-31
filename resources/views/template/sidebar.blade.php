@@ -348,6 +348,15 @@
                                 </a>
                             </div>
                             <div class="menu-item">
+                                <a class="menu-link @if(in_array('pekerjaan', $active)) active @endif"
+                                    href="{{ route('pekerjaan') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Pekerjaan</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
                                 <a class="menu-link @if(in_array('kondisi', $active)) active @endif"
                                     href="{{ route('kondisi') }}">
                                     <span class="menu-bullet">

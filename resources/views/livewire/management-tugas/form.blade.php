@@ -82,6 +82,20 @@
                                 @enderror
                             </div>
                             <div class="mb-5 col-md-6">
+                                <label for="" class="form-label required">Periode Pekerjaan</label>
+                                <select name="periode" wire:model="periode" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih Periode" required>
+                                    <option value="">Pilih</option>
+                                    <option value="1">1 Bulan</option>
+                                    <option value="2">2 Bulan</option>
+                                    <option value="3">3 Bulan</option>
+                                    <option value="6">6 Bulan</option>
+                                    <option value="12">1 Tahun</option>
+                                </select>
+                                @error('periode')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-5 col-md-6">
                                 <label for="" class="form-label required">Nomor Lift</label>
                                 <input type="number" class="form-control form-control-solid" name="nomor_lift" wire:model="nomor_lift" placeholder="Masukkan nomor lift" required>
                                 @error('nomor_lift')

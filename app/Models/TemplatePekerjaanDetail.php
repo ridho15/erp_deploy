@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TemplatePekerjaanDetail extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
+    use SoftDeletes;
     protected $table = 'template_pekerjaan_detail';
     protected $fillable = [
         'id_template_pekerjaan',
@@ -18,52 +19,50 @@ class TemplatePekerjaanDetail extends Model
         'checklist_3_bulan',
         'checklist_6_bulan',
         'checklist_1_tahun',
-        'keterangan'
+        'keterangan',
     ];
 
-    protected $appends = ['checklist_1_bulan_formatted', 'checklist_2_bulan_formatted', 'checklist_3_bulan_formatted', 'checklist_6_bulan_formatted', 'checklist_1_tahun_formatted'];
+    // protected $appends = ['checklist_1_bulan_formatted', 'checklist_2_bulan_formatted', 'checklist_3_bulan_formatted', 'checklist_6_bulan_formatted', 'checklist_1_tahun_formatted'];
 
-    public function getChecklist1BulanFormattedAttribute(){
-        if($this->checklist_1_bulan == 1){
+    public function getChecklist1BulanFormattedAttribute()
+    {
+        if ($this->checklist_1_bulan == 1) {
             return  '<i class="bi bi-check-circle-fill text-success fs-1"></i>';
-        }else{
-            return '<i class="bi bi-x-circle-fill text-danger fs-1"></i>';
+
+            return  '<i class="bi bi-check-circle-fill text-success fs-1"></i>';
         }
     }
 
-    public function getChecklist2BulanFormattedAttribute(){
-        if($this->checklist_2_bulan == 1){
+    public function getChecklist2BulanFormattedAttribute()
+    {
+        if ($this->checklist_2_bulan == 1) {
             return  '<i class="bi bi-check-circle-fill text-success fs-1"></i>';
-        }else{
-            return '<i class="bi bi-x-circle-fill text-danger fs-1"></i>';
         }
     }
 
-    public function getChecklist3BulanFormattedAttribute(){
-        if($this->checklist_3_bulan == 1){
+    public function getChecklist3BulanFormattedAttribute()
+    {
+        if ($this->checklist_3_bulan == 1) {
             return  '<i class="bi bi-check-circle-fill text-success fs-1"></i>';
-        }else{
-            return '<i class="bi bi-x-circle-fill text-danger fs-1"></i>';
         }
     }
 
-    public function getChecklist6BulanFormattedAttribute(){
-        if($this->checklist_6_bulan == 1){
+    public function getChecklist6BulanFormattedAttribute()
+    {
+        if ($this->checklist_6_bulan == 1) {
             return  '<i class="bi bi-check-circle-fill text-success fs-1"></i>';
-        }else{
-            return '<i class="bi bi-x-circle-fill text-danger fs-1"></i>';
         }
     }
 
-    public function getChecklist1TahunFormattedAttribute(){
-        if($this->checklist_1_tahun == 1){
+    public function getChecklist1TahunFormattedAttribute()
+    {
+        if ($this->checklist_1_tahun == 1) {
             return  '<i class="bi bi-check-circle-fill text-success fs-1"></i>';
-        }else{
-            return '<i class="bi bi-x-circle-fill text-danger fs-1"></i>';
         }
     }
 
-    public function templatePekerjaan(){
-        return $this->belongsTo(TemplatePekerjaan::class ,'id_template_pekerjaan');
+    public function templatePekerjaan()
+    {
+        return $this->belongsTo(TemplatePekerjaan::class, 'id_template_pekerjaan');
     }
 }
