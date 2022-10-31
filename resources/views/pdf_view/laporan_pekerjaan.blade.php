@@ -224,19 +224,19 @@
                 </tr>
                 <tr>
                     @if ($periode > 0)
-                    <td>1 Bulan</td>
+                        <td>1 Bulan</td>
                     @endif
                     @if ($periode > 1)
-                    <td>2 Bulan</td>
+                        <td>2 Bulan</td>
                     @endif
                     @if ($periode > 2)
-                    <td>3 Bulan</td>
+                        <td>3 Bulan</td>
                     @endif
                     @if ($periode > 5)
-                    <td>6 Bulan</td>
+                        <td>6 Bulan</td>
                     @endif
                     @if ($periode > 11)
-                    <td>1 Tahun</td>
+                        <td>1 Tahun</td>
                     @endif
                 </tr>
             </thead>
@@ -298,36 +298,36 @@
                     </td>
                     </td>
                     @if ($periode > 0)
-                    <td @if($detail->checklist_1_bulan == 0) style="background-color: black" @endif>
-                        <span class="badge me-1 badge-info  text-light">{{ $detail->checklist_1_bulan ? App\CPU\Helpers::getKondisi($detail->checklist_1_bulan) : '' }}</span>
-                    </td>
+                        <td @if($detail->checklist_1_bulan == 0) style="background-color: black" @endif>
+                            <span class="badge me-1 badge-info  text-light">{{ $detail->checklist_1_bulan ? App\CPU\Helpers::getKondisi($detail->checklist_1_bulan) : '' }}</span>
+                        </td>
                     @endif
                     @if ($periode > 1)
-                    <td @if($detail->checklist_2_bulan == 0) style="background-color: black" @endif>
-                        <span class="badge me-1 badge-info  text-light">{{ $detail->checklist_2_bulan ? App\CPU\Helpers::getKondisi($detail->checklist_2_bulan) : '' }}</span>
-                    </td>
+                        <td @if($detail->checklist_2_bulan == 0) style="background-color: black" @endif>
+                            <span class="badge me-1 badge-info  text-light">{{ $detail->checklist_2_bulan ? App\CPU\Helpers::getKondisi($detail->checklist_2_bulan) : '' }}</span>
+                        </td>
                     @endif
                     @if ($periode > 2)
-                    <td @if($detail->checklist_3_bulan == 0) style="background-color: black" @endif>
-                        <span class="badge me-1 badge-info  text-light">{{ $detail->checklist_3_bulan ? App\CPU\Helpers::getKondisi($detail->checklist_3_bulan) : '' }}</span></td>
+                        <td @if($detail->checklist_3_bulan == 0) style="background-color: black" @endif>
+                            <span class="badge me-1 badge-info  text-light">{{ $detail->checklist_3_bulan ? App\CPU\Helpers::getKondisi($detail->checklist_3_bulan) : '' }}</span></td>
                     @endif
                     @if ($periode > 5)
-                    <td @if($detail->checklist_6_bulan == 0) style="background-color: black" @endif>
-                        <span class="badge me-1 badge-info  text-light">{{ $detail->checklist_6_bulan ? App\CPU\Helpers::getKondisi($detail->checklist_6_bulan) : '' }}</span>
-                    </td>
+                        <td @if($detail->checklist_6_bulan == 0) style="background-color: black" @endif>
+                            <span class="badge me-1 badge-info  text-light">{{ $detail->checklist_6_bulan ? App\CPU\Helpers::getKondisi($detail->checklist_6_bulan) : '' }}</span>
+                        </td>
                     @endif
                     @if ($periode > 11)
-                    <td @if($detail->checklist_1_tahun == 0) style="background-color: black" @endif>
-                        <span class="badge me-1 badge-info  text-light">{{ $detail->checklist_1_tahun ? App\CPU\Helpers::getKondisi($detail->checklist_1_tahun) : '' }}</span>
-                    </td>
+                        <td @if($detail->checklist_1_tahun == 0) style="background-color: black" @endif>
+                            <span class="badge me-1 badge-info  text-light">{{ $detail->checklist_1_tahun ? App\CPU\Helpers::getKondisi($detail->checklist_1_tahun) : '' }}</span>
+                        </td>
                     @endif
                     <td>
                         {{-- {{ $laporanPekerjaanChecklist ? $laporanPekerjaanChecklist->keterangan : null }} --}}
                     </td>
-                    </tr>
-                    @endforeach
-                    @endforeach
-                    </tbody>
+                </tr>
+                @endforeach
+            @endforeach
+            </tbody>
     </table>
     </div>
     <br>
