@@ -19,10 +19,10 @@ class Data extends Component
 
     public function render()
     {
-        $this->listTemplatePekerjaan = TemplatePekerjaan::where(function ($query) {
+        $this->listTemplatePekerjaan = TemplatePekerjaan::where('id_form_master', $this->id_form_master)->where(function ($query) {
             $query->where('nama_pekerjaan', 'LIKE', '%'.$this->cari.'%')
             ->orWhere('keterangan', 'LIKE', '%'.$this->cari.'%');
-        })->orWhere('id_form_master', $this->id_form_master)->paginate($this->total_show);
+        })->paginate($this->total_show);
         $data['listTemplatePekerjaan'] = $this->listTemplatePekerjaan;
         $data['periode'] = FormMaster::find($this->id_form_master)->periode;
 
