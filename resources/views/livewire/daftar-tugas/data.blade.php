@@ -32,6 +32,7 @@
                    <th>Jam Selesai</th>
                    <th>Keterangan</th>
                    <th>Signature</th>
+                   <th>Status</th>
                    <th>Aksi</th>
                   </tr>
                  </thead>
@@ -57,6 +58,15 @@
                                         <div class="text-center text-gray-500">
                                             Belum ditanda tangan
                                         </div>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($item->signature != null && $item->jam_selesai != null)
+                                        <span class="badge badge-success">Selesai</span>
+                                    @elseif($item->user != null)
+                                        <span class="badge badge-warning">Sedang Dikerjakan</span>
+                                    @else
+                                        <span class="badge badge-secondary">Belum Dikerjakan</span>
                                     @endif
                                 </td>
                                 <td>

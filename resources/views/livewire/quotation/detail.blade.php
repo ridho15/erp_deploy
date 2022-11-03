@@ -173,15 +173,15 @@
                         $total = $ppn + $subTotal;
                     @endphp
                     <tr>
-                        <td colspan="6" class="text-center fw-bold fst-italic">Sub Total</td>
+                        <td colspan="7" class="text-center fw-bold fst-italic">Sub Total</td>
                         <td colspan="2" class="fw-bold">{{ 'Rp. ' . number_format($subTotal,0,',','.') }}</td>
                     </tr>
                     <tr>
-                        <td colspan="6" class="text-center fw-bold fst-italic">PPN 10%</td>
+                        <td colspan="7" class="text-center fw-bold fst-italic">PPN 10%</td>
                         <td colspan="2" class="fw-bold">{{ 'Rp. ' . number_format($ppn,0,',','.') }}</td>
                     </tr>
                     <tr>
-                        <td colspan="6" class="text-center fw-bold fst-italic">Total</td>
+                        <td colspan="7" class="text-center fw-bold fst-italic">Total</td>
                         <td colspan="2" class="fw-bold">{{ 'Rp. ' . number_format($total,0,',','.') }}</td>
                     </tr>
                 @else

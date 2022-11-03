@@ -34,6 +34,7 @@
                    <th>Jam Selesai</th>
                    <th>Keterangan</th>
                    <th>Signature</th>
+                   <th>Status</th>
                    <th>Aksi</th>
                   </tr>
                  </thead>
@@ -53,6 +54,15 @@
                                 <td>{{ $item->keterangan ?? '-' }}</td>
                                 <td>
                                     <img src="{{ $item->signature ? asset('storage' . $item->signature) : null }}" class="img-fluid" alt="">
+                                </td>
+                                <td>
+                                    @if ($item->signature != null && $item->jam_selesai != null)
+                                        <span class="badge badge-success">Selesai</span>
+                                    @elseif($item->user != null)
+                                        <span class="badge badge-warning">Sedang Dikerjakan</span>
+                                    @else
+                                        <span class="badge badge-secondary">Belum Dikerjakan</span>
+                                    @endif
                                 </td>
                                 <td>
                                     <div class="btn-group">

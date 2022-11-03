@@ -10,6 +10,15 @@
                 Detail Management Tugas
             </h3>
             <div class="card-toolbar">
+                <div class="me-5">
+                    @if ($laporanPekerjaan->signature != null && $laporanPekerjaan->jam_selesai != null)
+                        <span class="badge badge-success">Selesai</span>
+                    @elseif($laporanPekerjaan->user != null)
+                        <span class="badge badge-warning">Sedang Dikerjakan</span>
+                    @else
+                        <span class="badge badge-secondary">Belum Dikerjakan</span>
+                    @endif
+                </div>
                 <a href="{{ route('management-tugas.export', ['id' => $laporanPekerjaan->id]) }}" class="btn btn-sm btn-outline btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Cetak PDF">
                     <i class="bi bi-printer"></i> Cetak
                 </a>
