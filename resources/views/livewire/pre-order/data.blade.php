@@ -30,6 +30,7 @@
                    <th>Tipe Pembayaran</th>
                    <th>Metode Pembayaran</th>
                    <th>Status</th>
+                   <th>Status Pembayaran</th>
                    <th>Keterangan</th>
                    <th>File</th>
                    <th>Aksi</th>
@@ -58,6 +59,7 @@
                                     @endif
                                 </td>
                                 <td><?= $item->status_formatted ?></td>
+                                <td><?= $item->status_pembayaran ?></td>
                                 <td><?= $item->keterangan ?? '-' ?></td>
                                 <td>
                                     @if ($item->file)

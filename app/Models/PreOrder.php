@@ -21,17 +21,53 @@ class PreOrder extends Model
         'id_metode_pembayaran'
     ];
 
-    protected $appends = ['status_formatted'];
+    protected $appends = ['status_formatted', 'total_bayar', 'total_bayar_formatted', 'status_pembayaran'];
+
+    public function getStatusPembayaranAttribute(){
+        $preOrderBayar = PreOrderBayar::where('id_pre_order', $this->id)->get();
+        $sudah_bayar = 0;
+        foreach ($preOrderBayar as $item) {
+            $sudah_bayar += $item->pembayaran_sekarang;
+        }
+
+        if($this->total_bayar == $sudah_bayar){
+            return '<span class="badge badge-success">Lunas</span>';
+        }elseif($sudah_bayar != 0){
+            return '<span class="badge badge-warning">Belum Lunas</span>';
+        }elseif($sudah_bayar != 0){
+            return '<span class="badge badge-secondary">Belum Bayar</span>';
+        }
+    }
+
+    public function getTotalBayarAttribute(){
+        $preOrderDetail = PreOrderDetail::where('id_pre_order', $this->id)->get();
+        $total_bayar = 0;
+        foreach ($preOrderDetail as $item) {
+            $total_bayar += $item->sub_total;
+        }
+
+        return $total_bayar;
+    }
+
+    public function getTotalBayarFormattedAttribute(){
+        $preOrderDetail = PreOrderDetail::where('id_pre_order', $this->id)->get();
+        $total_bayar = 0;
+        foreach ($preOrderDetail as $item) {
+            $total_bayar += $item->sub_total;
+        }
+
+        return 'Rp. ' . number_format($total_bayar,0,',','.');
+    }
 
     public function getStatusFormattedAttribute(){
         if($this->status == 1){
             return '<span class="badge badge-secondary">Belum Diproses</span>';
         }else if($this->status == 2){
-            return '<span class="badge badge-warning">Sedang Diproses / Belum Lunas</span>';
+            return '<span class="badge badge-warning">Sedang Diproses</span>';
         }else if($this->status == 0){
             return '<span class="badge badge-danger">Dibatalkan</span>';
         }else if($this->status == 3){
-            return '<span class="badge badge-success">Selesai & Sudah Bayar</span>';
+            return '<span class="badge badge-success">Selesai</span>';
         }
     }
 
@@ -61,5 +97,9 @@ class PreOrder extends Model
 
     public function metodePembayaran(){
         return $this->belongsTo(MetodePembayaran::class, 'id_metode_pembayaran');
+    }
+
+    public function preOrderBayar(){
+        return $this->hasMany(PreOrderBayar::class, 'id_pre_order');
     }
 }

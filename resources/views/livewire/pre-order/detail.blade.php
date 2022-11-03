@@ -7,6 +7,9 @@
             Detail Pre Order
         </h3>
         <div class="card-toolbar">
+            <button class="btn btn-sm btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Bayar Pre Order" wire:click="$emit('onClickBayar')">
+                <i class="fa-solid fa-cash-register"></i> Bayar
+            </button>
             <button class="btn btn-sm btn-outline btn-outline-success btn-edit mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Pre Order" wire:click="$emit('onClickEditPreOrder', {{ $preOrder }})">
                 <i class="bi bi-pencil-square"></i> Edit
             </button>
@@ -19,7 +22,7 @@
                 </button>
             @elseif($preOrder->status == 2)
                 <button class="btn btn-sm btn-success btn-success mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Pre Order Selesai" wire:click="$emit('onClickSelesai', {{ $id_pre_order }}, 3)">
-                    <i class="fa-solid fa-circle-check"></i> Sudah Bayar
+                    <i class="fa-solid fa-circle-check"></i> Selesai
                 </button>
             @elseif($preOrder->status == 3)
                 <a href="{{ route('pre-order.invoice', ['id' => $preOrder->id]) }}" target="_blank" class="btn btn-sm btn-info btn-proses mx-2"><i class="fa-solid fa-print"></i>Cetak Invoice</a>
@@ -97,6 +100,22 @@
                 </div>
                 <div class="row mb-5">
                     <div class="col-md-4 col-4">
+                        Total Bayar
+                    </div>
+                    <div class="col-md-8 col-8">
+                        : <span class="fw-bold"><?= $preOrder->total_bayar_formatted ?></span>
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-md-4 col-4">
+                        Status Bayar
+                    </div>
+                    <div class="col-md-8 col-8">
+                        : <?= $preOrder->status_pembayaran ?>
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-md-4 col-4">
                         Keterangan
                     </div>
                     <div class="col-md-8 col-8">
@@ -125,7 +144,14 @@
             </div>
         </div>
         <hr>
-        @livewire('pre-order.log', ['id_pre_order' => $preOrder->id])
+        <div class="row">
+            <div class="col-md-6">
+                @livewire('pre-order.log', ['id_pre_order' => $preOrder->id])
+            </div>
+            <div class="col-md-6">
+                @livewire('pre-order.pembayaran', ['id_pre_order' => $preOrder->id])
+            </div>
+        </div>
     </div>
 </div>
 
@@ -160,6 +186,10 @@
             if(response.isConfirmed == true){
                 Livewire.emit('preOrderSelesai', id, status)
             }
+        })
+
+        Livewire.on('onClickBayar', () => {
+            $('#modal_form_bayar').modal('show')
         })
     </script>
 @endpush
