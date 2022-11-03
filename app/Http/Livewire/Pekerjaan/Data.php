@@ -10,7 +10,7 @@ class Data extends Component
 {
     use WithPagination;
     public $paginationTheme = 'bootstrap';
-    public $listeners = ['refreshKondisi' => '$refresh', 'hapusKondisi'];
+    public $listeners = ['refreshPekerjaan' => '$refresh', 'hapusKondisi'];
     protected $listKondisi;
     public $total_show = 10;
     public $cari;
@@ -41,7 +41,7 @@ class Data extends Component
 
         $kondisi->delete();
         $message = 'Berhasil menghapus data pekerjaan';
-        $this->emit('finishRefreshKondisi', 1, $message);
+        $this->emit('finishPekerjaan', 1, $message);
 
         return session()->flash('success', $message);
     }
