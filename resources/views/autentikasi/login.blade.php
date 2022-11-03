@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 @php
-$web_config = [
-'web_logo' => App\CPU\Helpers::config('logo')->first() ? App\CPU\Helpers::config('logo')->first()->value : '',
-'web_name' => App\CPU\Helpers::config('name')->first() ? App\CPU\Helpers::config('name')->first()->value : '',
-];
+    $web_config = [
+    'web_logo' => App\CPU\Helpers::config('logo')->first() ? App\CPU\Helpers::config('logo')->first()->value : '',
+    'web_name' => App\CPU\Helpers::config('name')->first() ? App\CPU\Helpers::config('name')->first()->value : '',
+    ];
 @endphp
 
 <head>

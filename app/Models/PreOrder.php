@@ -27,11 +27,11 @@ class PreOrder extends Model
         if($this->status == 1){
             return '<span class="badge badge-secondary">Belum Diproses</span>';
         }else if($this->status == 2){
-            return '<span class="badge badge-warning">Sedang Diproses</span>';
+            return '<span class="badge badge-warning">Sedang Diproses / Belum Lunas</span>';
         }else if($this->status == 0){
             return '<span class="badge badge-danger">Dibatalkan</span>';
         }else if($this->status == 3){
-            return '<span class="badge badge-success">Selesai</span>';
+            return '<span class="badge badge-success">Selesai & Sudah Bayar</span>';
         }
     }
 

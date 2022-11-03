@@ -9,6 +9,21 @@
                 Informasi Tugas
             </h3>
             <div class="card-toolbar">
+                <div class="me-5">
+                    @if ($laporanPekerjaan->signature != null && $laporanPekerjaan->jam_selesai != null)
+                        <span class="badge badge-success">Selesai</span>
+                    @elseif($laporanPekerjaan->user != null)
+                        <span class="badge badge-warning">Sedang Dikerjakan</span>
+                    @else
+                        <span class="badge badge-secondary">Belum Dikerjakan</span>
+                    @endif
+                </div>
+                @if ($laporanPekerjaan->user == null)
+                <a href="{{ route('daftar-tugas.ambil', ['id' => $laporanPekerjaan->id]) }}" class="btn btn-sm btn-outline btn-outline-primary me-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Ambil Tugas">
+                    <i class="fa-solid fa-hand-holding-heart"></i>
+                    Ambil Tugas
+                </a>
+                @endif
                 <a href="{{ route('management-tugas.export', ['id' => $laporanPekerjaan->id]) }}" class="btn btn-sm btn-outline btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Cetak PDF">
                     <i class="bi bi-printer"></i> Cetak
                 </a>
@@ -147,7 +162,7 @@
                             Teknisi
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $laporanPekerjaan->user->name }}
+                            : {{ $laporanPekerjaan->user ? $laporanPekerjaan->user->name : '-' }}
                         </div>
                     </div>
                 </div>

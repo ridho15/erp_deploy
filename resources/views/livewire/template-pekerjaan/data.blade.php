@@ -54,11 +54,13 @@
                         <td>{{ $item->nama_pekerjaan }}</td>
                         <td>
                             @php
-                                $kerja = json_decode($item->keterangan)
-                            @endphp
-                            @foreach ($kerja as $k)
-                                <span class="badge badge-secondary text-light">{{  App\CPU\Helpers::getPekerjaan($k) }}</span>
-                            @endforeach
+                                $kerja = json_decode($item->keterangan);
+;                            @endphp
+                            @if ($kerja != null)
+                                @foreach ($kerja as $k)
+                                    <span class="badge badge-secondary text-light">{{  App\CPU\Helpers::getPekerjaan($k) }}</span>
+                                @endforeach
+                            @endif
                         </td>
                         @if ($periode > 0)
                         <td></td>
@@ -103,11 +105,14 @@
                             @php
                                 $kerjah = json_decode($detail->keterangan)
                             @endphp
-                            <div class="d-flex">
-                                @foreach ($kerjah as $k)
-                                    <span class="badge me-1 badge-secondary text-secondary  text-dark">{{ App\CPU\Helpers::getPekerjaan($k) }}</span>
-                                @endforeach</td>
-                            </div>
+                            @if ($kerjah != null)
+                                <div class="d-flex">
+                                    @foreach ($kerjah as $k)
+                                        <span class="badge me-1 badge-secondary text-secondary  text-dark">{{ App\CPU\Helpers::getPekerjaan($k) }}</span>
+                                    @endforeach
+                                </div>
+                            @endif
+                        </td>
                         @if ($periode > 0)
                         <td>
                             <span class="badge me-1 badge-info  text-light">{{ $detail->checklist_1_bulan ? App\CPU\Helpers::getKondisi($detail->checklist_1_bulan) : '' }}</span>

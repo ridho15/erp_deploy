@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PreOrder;
+use App\Models\PreOrderDetail;
 use App\Models\Quotation;
+use App\Models\TipePembayaran;
 use App\Models\User;
 use App\Models\WebConfig;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -63,6 +66,50 @@ class QuotationController extends Controller
         $quotation->update([
             'konfirmasi' => 1
         ]);
+
+        $tipePembayaran = TipePembayaran::first();
+        if(!$tipePembayaran){
+            return response()->json([
+                'status' => 0,
+                'status_message' => 'Error',
+                'message' => 'Tipe Pembayaran tidak ditemukan'
+            ]);
+        }
+
+        $id_customer = null;
+        if($quotation->laporanPekerjaan){
+            $id_customer = $quotation->laporanPekerjaan->id_customer;
+        }elseif($quotation->customer){
+            $id_customer = $quotation->id_customer;
+        }
+
+        $preOrder = PreOrder::updateOrCreate([
+            'id_quotation' => $id
+        ], [
+            'id_quotation' => $id,
+            'status' => 1,
+            'id_tipe_pembayaran' => $tipePembayaran->id,
+            'id_user' => 0,
+            'id_customer' => $id_customer,
+            'keterangan' => null,
+            'file' => null,
+            'id_metode_pembayaran' => null
+        ]);
+
+        if ($quotation) {
+            foreach ($quotation->quotationDetail as $item) {
+                PreOrderDetail::updateOrCreate([
+                    'id_pre_order' => $preOrder->id,
+                    'id_barang' => $item->id_barang,
+                ], [
+                    'id_pre_order' => $preOrder->id,
+                    'id_barang' => $item->id_barang,
+                    'harga' => $item->harga,
+                    'qty' => $item->qty,
+                    'id_satuan' => $item->id_satuan,
+                ]);
+            }
+        }
 
         return view('quotation.konfirmasi');
     }

@@ -135,14 +135,19 @@ class LaporanPekerjaan extends Component
 
         if($laporanPekerjaan->jam_selesai != null && $laporanPekerjaan->signature != null){
             foreach ($listSparepart as $item) {
-                QuotationDetail::create([
-                    'id_quotation' => $quotation->id,
-                    'id_barang' => $item->id_barang,
-                    'harga' => $item->barang->harga,
-                    'qty' => $item->qty,
-                    'id_satuan' => $item->barang->id_satuan,
-                    'deskripsi' => $item->barang->deskripsi
-                ]);
+                if ($item->status == 4) {
+                    QuotationDetail::updateOrCreate([
+                        'id_quotation' => $quotation->id,
+                        'id_barang' => $item->id_barang
+                    ],[
+                        'id_quotation' => $quotation->id,
+                        'id_barang' => $item->id_barang,
+                        'harga' => $item->barang->harga,
+                        'qty' => $item->qty,
+                        'id_satuan' => $item->barang->id_satuan,
+                        'deskripsi' => $item->barang->deskripsi
+                    ]);
+                }
             }
         }
     }

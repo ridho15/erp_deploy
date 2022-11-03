@@ -3,13 +3,15 @@
     <div class="card shadow-sm">
         <div class="card-header">
             <h3 class="card-title">
-                Detail Quotation
+                <a href="{{ route('quotation') }}" class="btn btn-sm btn-icon btn-light me-5" data-bs-toggle="tooltip" data-bs-placement="top" title="Kembali">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a> Detail Quotation
             </h3>
             <div class="card-toolbar">
                 <a href="{{ route('quotation.export', ['id' => $quotation->id]) }}" class="btn btn-sm btn-outline btn-outline-danger mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cetak PDF">
                     <i class="bi bi-printer"></i> Cetak
                 </a>
-                <a href="" class="btn btn-sm btn-outline btn-outline-primary mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Kirim Quotation">
+                <a href="#" class="btn btn-sm btn-outline btn-outline-primary mx-2 btn-send-quotation" data-bs-toggle="tooltip" data-bs-placement="top" title="Kirim Quotation" data-id="{{ $quotation->id }}">
                     <i class="fa-solid fa-paper-plane"></i> Kirim
                 </a>
             </div>
@@ -211,5 +213,10 @@
         $(document).ready(function () {
 
         });
+
+        $('.btn-send-quotation').on('click', function(){
+            const id = $(this).data('id')
+            Livewire.emit('sendQuotationToCustomer', id)
+        })
     </script>
 @endsection

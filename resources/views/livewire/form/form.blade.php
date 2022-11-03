@@ -1,5 +1,5 @@
 <div>
-    <div wire:ignore.self class="modal fade form-master" tabindex="-1" id="modal_form">
+    <div wire:ignore.self class="modal fade form-master" tabindex="-1" id="modal_form_master">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -36,7 +36,7 @@
                         </div>
                         <div class="mb-5 col-md-12">
                             <label for="" class="form-label required">Periode Pekerjaan</label>
-                            <select name="periode" wire:model="periode" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih Periode" required>
+                            <select name="periode" wire:model="periode" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form_master" data-placeholder="Pilih Periode" required>
                                 <option value="">Pilih</option>
                                 <option value="1">1 Bulan</option>
                                 <option value="2">2 Bulan</option>

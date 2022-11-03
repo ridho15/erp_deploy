@@ -34,6 +34,7 @@
                    <th>Jam Selesai</th>
                    <th>Keterangan</th>
                    <th>Signature</th>
+                   <th>Status</th>
                    <th>Aksi</th>
                   </tr>
                  </thead>
@@ -47,7 +48,7 @@
                                 <td>{{ $item->formMaster->nama }} ({{ $item->formMaster->kode }})</td>
                                 <td>{{ $item->nomor_lift }}</td>
                                 <td>{{ $item->merk->nama_merk }}</td>
-                                <td>{{ $item->user->name }}</td>
+                                <td>{{ $item->user? $item->user->name : '-' }}</td>
                                 <td>{{ $item->jam_mulai_formatted ?? '-' }}</td>
                                 <td>{{ $item->jam_selesai_formatted ?? '-' }}</td>
                                 <td>{{ $item->keterangan ?? '-' }}</td>
@@ -55,8 +56,17 @@
                                     <img src="{{ $item->signature ? asset('storage' . $item->signature) : null }}" class="img-fluid" alt="">
                                 </td>
                                 <td>
+                                    @if ($item->signature != null && $item->jam_selesai != null)
+                                        <span class="badge badge-success">Selesai</span>
+                                    @elseif($item->user != null)
+                                        <span class="badge badge-warning">Sedang Dikerjakan</span>
+                                    @else
+                                        <span class="badge badge-secondary">Belum Dikerjakan</span>
+                                    @endif
+                                </td>
+                                <td>
                                     <div class="btn-group">
-                                        <a href="{{ route('management-tugas.export', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Management Tugas">
+                                        <a href="{{ route('management-tugas.export', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Cetak Management Tugas">
                                             <i class="bi bi-printer"></i>
                                         </a>
                                         @if ($item->jam_selesai == null && $item->signatur == null)

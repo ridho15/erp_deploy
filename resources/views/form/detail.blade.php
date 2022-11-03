@@ -31,7 +31,7 @@
         $('.btn-edit').on('click', function(){
             const id = $(this).data('id')
             Livewire.emit('setDataForm', id)
-            $('#modal_form.form-master').modal('show')
+            $('#modal_form_master.form-master').modal('show')
         })
     </script>
 @endsection

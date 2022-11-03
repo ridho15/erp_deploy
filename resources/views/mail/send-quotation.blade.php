@@ -1,25 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,body { padding: 0; margin:0; }
+        th, td{
+            padding-top: 7px;
+            padding-bottom: 7px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
 
-<style>
-    html,body { padding: 0; margin:0; }
-    th, td{
-        padding-top: 7px;
-        padding-bottom: 7px;
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-
-    .custom-button{
-        padding-top: 10px;
-        padding-bottom: 10px;
-        padding-left: 20px;
-        padding-right: 20px;
-        border: 1px solid #7DE5ED;
-        background-color: #7DE5ED;
-        color: white;
-        border-radius: 10px;
-        text-decoration: none;
-    }
-</style>
+        .custom-button{
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 20px;
+            padding-right: 20px;
+            border: 1px solid #7DE5ED;
+            background-color: #7DE5ED;
+            color: white;
+            border-radius: 10px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
 <div style="font-family:Arial,Helvetica,sans-serif; line-height: 1.5; font-weight: normal; font-size: 15px; color: #2F3044; min-height: 100%; margin:0; padding:0; width:100%; background-color:#edf2f7">
 	<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse;margin:0 auto; padding:0; max-width:700px">
 		<tbody>
@@ -143,7 +151,15 @@
                             @endif
                         </div>
                         <div style="text-align: center; margin-top: 20px">
-                            <a href="{{ route('quotation.konfirmasi', ['id' => $quotation->id]) }}" class="custom-button">
+                            <a href="{{ route('quotation.konfirmasi', ['id' => $quotation->id]) }}" style="padding-top: 10px;
+                                padding-bottom: 10px;
+                                padding-left: 20px;
+                                padding-right: 20px;
+                                border: 1px solid #7DE5ED;
+                                background-color: #7DE5ED;
+                                color: white;
+                                border-radius: 10px;
+                                text-decoration: none;">
                                 Konfirmasi Quotation
                             </a>
                         </div>
@@ -163,3 +179,6 @@
 		</tbody>
 	</table>
 </div>
+
+</body>
+</html>
