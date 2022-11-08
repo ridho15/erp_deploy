@@ -48,28 +48,28 @@
                             @if (count($listTemplatePekerjaan) > 0)
                             @foreach ($listTemplatePekerjaan as $index => $item)
                             <tr class="fw-bold">
-                                <td>#</td>
-                                <td>{{ $item->nama_pekerjaan }}</td>
-                                <td></td>
+                                <td class="bg-success">{{ \App\CPU\Helpers::numberToLetter($loop->iteration) }}</td>
+                                <td class="bg-success">{{ $item->nama_pekerjaan }}</td>
+                                <td class="bg-success"></td>
                                 @if ($periode > 0)
-                                <td></td>
+                                <td class="bg-success"></td>
                                 @endif
                                 @if ($periode > 1)
-                                <td></td>
+                                <td class="bg-success"></td>
                                 @endif
                                 @if ($periode > 2)
-                                <td></td>
+                                <td class="bg-success"></td>
                                 @endif
                                 @if ($periode > 5)
-                                <td></td>
+                                <td class="bg-success"></td>
                                 @endif
                                 @if ($periode > 11)
-                                <td></td>
+                                <td class="bg-success"></td>
                                 @endif
                             </tr>
                             @foreach ($item->detail as $nomor => $value)
                             <tr>
-                                <td>{{ $nomor + 1 }}</td>
+                                <td class="text-end">{{ $nomor + 1 }}</td>
                                 <td>{{ $value->nama_pekerjaan }}</td>
                                 <td>
                                     <select name="pekerjaan[]" multiple="multiple" class="js-example-basic-multiple form-select form-select-solid id-kondisi"

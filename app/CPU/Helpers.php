@@ -14,6 +14,163 @@ use Illuminate\Support\Facades\Storage;
 
 class Helpers
 {
+    public static function numberToLetter($n)
+    {
+        if ($n == 1) {
+            return 'A';
+        }
+        if ($n == 2) {
+            return 'B';
+        }
+        if ($n == 3) {
+            return 'C';
+        }
+        if ($n == 4) {
+            return 'D';
+        }
+        if ($n == 5) {
+            return 'E';
+        }
+        if ($n == 6) {
+            return 'F';
+        }
+        if ($n == 7) {
+            return 'G';
+        }
+        if ($n == 8) {
+            return 'H';
+        }
+        if ($n == 9) {
+            return 'I';
+        }
+        if ($n == 10) {
+            return 'J';
+        }
+        if ($n == 11) {
+            return 'K';
+        }
+        if ($n == 12) {
+            return 'L';
+        }
+        if ($n == 13) {
+            return 'M';
+        }
+        if ($n == 14) {
+            return 'N';
+        }
+        if ($n == 15) {
+            return 'O';
+        }
+        if ($n == 16) {
+            return 'P';
+        }
+        if ($n == 17) {
+            return 'Q';
+        }
+        if ($n == 18) {
+            return 'R';
+        }
+        if ($n == 19) {
+            return 'S';
+        }
+        if ($n == 20) {
+            return 'T';
+        }
+        if ($n == 21) {
+            return 'U';
+        }
+        if ($n == 22) {
+            return 'V';
+        }
+        if ($n == 23) {
+            return 'W';
+        }
+        if ($n == 24) {
+            return 'X';
+        }
+        if ($n == 25) {
+            return 'Y';
+        }
+        if ($n == 26) {
+            return 'AA';
+        }
+        if ($n == 27) {
+            return 'AB';
+        }
+        if ($n == 28) {
+            return 'AC';
+        }
+        if ($n == 29) {
+            return 'AD';
+        }
+        if ($n == 30) {
+            return 'AE';
+        }
+        if ($n == 31) {
+            return 'AF';
+        }
+        if ($n == 32) {
+            return 'AG';
+        }
+        if ($n == 33) {
+            return 'AH';
+        }
+        if ($n == 34) {
+            return 'AI';
+        }
+        if ($n == 35) {
+            return 'AJ';
+        }
+        if ($n == 36) {
+            return 'AK';
+        }
+        if ($n == 37) {
+            return 'AL';
+        }
+        if ($n == 38) {
+            return 'AM';
+        }
+        if ($n == 39) {
+            return 'AN';
+        }
+        if ($n == 40) {
+            return 'AO';
+        }
+        if ($n == 41) {
+            return 'AP';
+        }
+        if ($n == 42) {
+            return 'AQ';
+        }
+        if ($n == 43) {
+            return 'AR';
+        }
+        if ($n == 44) {
+            return 'AS';
+        }
+        if ($n == 45) {
+            return 'AT';
+        }
+        if ($n == 46) {
+            return 'AU';
+        }
+        if ($n == 47) {
+            return 'AV';
+        }
+        if ($n == 48) {
+            return 'AW';
+        }
+        if ($n == 49) {
+            return 'AX';
+        }
+        if ($n == 50) {
+            return 'AY';
+        }
+        if ($n == 51) {
+            return 'AZ';
+        }
+    }
+
     public static function getPekerjaan($id)
     {
         $pekerjaan = Pekerjaan::find($id);
