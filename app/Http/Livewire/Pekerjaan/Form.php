@@ -7,8 +7,8 @@ use Livewire\Component;
 
 class Form extends Component
 {
-    public $listeners = ['simpanKondisi', 'setKondisi'];
-    public $id_kondisi;
+    public $listeners = ['simpanPekerjaan', 'setPekerjaan'];
+    public $id_pekerjaan;
     public $kode;
     public $keterangan;
 
@@ -17,7 +17,7 @@ class Form extends Component
         return view('livewire.pekerjaan.form');
     }
 
-    public function simpanKondisi()
+    public function simpanPekerjaan()
     {
         $this->validate([
             'kode' => 'required|string',
@@ -30,14 +30,14 @@ class Form extends Component
         ]);
 
         Pekerjaan::updateOrCreate([
-            'id' => $this->id_kondisi,
+            'id' => $this->id_pekerjaan,
         ], [
             'kode' => $this->kode,
             'keterangan' => $this->keterangan,
         ]);
-        $message = 'Berhasil menyimpan data kondisi';
+        $message = 'Berhasil menyimpan data pekerjaan';
         $this->resetInputFields();
-        $this->emit('refreshKondisi');
+        $this->emit('refreshPekerjaan');
         $this->emit('finishSimpanData', 1, $message);
 
         return session()->flash('success', $message);
@@ -45,22 +45,22 @@ class Form extends Component
 
     public function resetInputFields()
     {
-        $this->id_kondisi = null;
+        $this->id_pekerjaan = null;
         $this->kode = null;
         $this->keterangan = null;
     }
 
-    public function setKondisi($id)
+    public function setPekerjaan($id)
     {
-        $kondisi = Pekerjaan::find($id);
-        if (!$kondisi) {
-            $message = 'Data Kondisi tidak ditemukan';
+        $pekerjaan = Pekerjaan::find($id);
+        if (!$pekerjaan) {
+            $message = 'Data pekerjaan tidak ditemukan';
 
             return session()->flash('fail', $message);
         }
 
-        $this->id_kondisi = $kondisi->id;
-        $this->kode = $kondisi->kode;
-        $this->keterangan = $kondisi->keterangan;
+        $this->id_pekerjaan = $pekerjaan->id;
+        $this->kode = $pekerjaan->kode;
+        $this->keterangan = $pekerjaan->keterangan;
     }
 }

@@ -3,7 +3,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">Form Kondisi</h3>
+                    <h3 class="modal-title">Form Pekerjaan</h3>
 
                     <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
                         <span class="svg-icon svg-icon-1">
@@ -12,11 +12,11 @@
                     </div>
                 </div>
 
-                <form action="#" wire:submit.prevent="simpanKondisi">
+                <form action="#" wire:submit.prevent="simpanPekerjaan">
                     <div class="modal-body">
                         @include('helper.alert-message')
                         <div class="text-center">
-                            @include('helper.simple-loading', ['target' => 'simpanKondisi', 'message' => 'Menyimpan data ...'])
+                            @include('helper.simple-loading', ['target' => 'simpanPekerjaan', 'message' => 'Menyimpan data ...'])
                         </div>
                         <div class="mb-5">
                             <label for="" class="form-label required">Kode</label>

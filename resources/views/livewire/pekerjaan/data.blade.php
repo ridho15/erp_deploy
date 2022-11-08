@@ -65,7 +65,7 @@
 
         });
 
-        Livewire.on('finishRefreshKondisi', (status, message) => {
+        Livewire.on('finishPekerjaan', (status, message) => {
             alertMessage(status, message)
         })
 
@@ -74,14 +74,14 @@
         })
 
         Livewire.on('onClickEdit', (id) => {
-            Livewire.emit('setKondisi', id)
+            Livewire.emit('setPekerjaan', id)
             $('#modal_form').modal('show')
         })
 
         Livewire.on('onClickHapus', async (id) => {
             const response = await alertConfirm('Peringatan !', "Apakah kamu yakin ingin menghapus kondisi ?");
             if(response.isConfirmed == true){
-                Livewire.emit('hapusKondisi', id)
+                Livewire.emit('hapusPekerjaan', id)
             }
         })
     </script>
