@@ -21,7 +21,6 @@ class LaporanPekerjaan extends Model
         'keterangan',
         'jam_mulai',
         'jam_selesai',
-        'id_user',
         'id_form_master',
         'periode',
         'signature',
@@ -32,7 +31,23 @@ class LaporanPekerjaan extends Model
         'kode_pekerjaan',
         'jam_mulai_formatted',
         'jam_selesai_formatted',
+        'list_pekerja'
     ];
+
+    public function getListPekerjaAttribute(){
+        $name = [];
+        $listIdUser = json_decode($this->id_user);
+        if (is_array($listIdUser) === true) {
+            foreach ($listIdUser as $item) {
+                $user = User::find($item);
+                array_push($name, $user->name);
+            }
+        }else{
+            return ["-"];
+        }
+
+        return $name;
+    }
 
     public function getKodePekerjaanAttribute()
     {
@@ -44,7 +59,7 @@ class LaporanPekerjaan extends Model
     public function getJamMulaiFormattedAttribute()
     {
         if ($this->jam_mulai) {
-            return Carbon::parse($this->jam_mulai)->locale('id')->isoFormat('dddd, DD MMMM YYYY HH:mm');
+            return Carbon::parse($this->jam_mulai)->locale('id')->isoFormat('DD/MM/YYYY HH:mm');
         } else {
             return null;
         }
@@ -53,7 +68,7 @@ class LaporanPekerjaan extends Model
     public function getJamSelesaiFormattedAttribute()
     {
         if ($this->jam_selesai) {
-            return Carbon::parse($this->jam_selesai)->locale('id')->isoFormat('dddd, DD MMMM YYYY HH:mm');
+            return Carbon::parse($this->jam_selesai)->locale('id')->isoFormat('DD/MM/YYYY HH:mm');
         } else {
             return null;
         }
@@ -74,11 +89,6 @@ class LaporanPekerjaan extends Model
         return $this->belongsTo(Merk::class, 'id_merk');
     }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'id_user');
-    }
-
     public function laporanPekerjaanBarang()
     {
         return $this->hasMany(LaporanPekerjaanBarang::class, 'id_laporan_pekerjaan');
@@ -97,5 +107,9 @@ class LaporanPekerjaan extends Model
     public function formMaster()
     {
         return $this->belongsTo(FormMaster::class, 'id_form_master');
+    }
+
+    public function teknisi(){
+        return $this->hasMany(LaporanPekerjaanUser::class, 'id_laporan_pekerjaan');
     }
 }

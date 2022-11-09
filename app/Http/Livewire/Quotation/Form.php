@@ -34,6 +34,7 @@ class Form extends Component
     public $hal;
     public $quotation;
     public $listCustomer;
+    public $sales;
     public function render()
     {
         $this->listCustomer = Customer::get();
@@ -89,13 +90,15 @@ class Form extends Component
             'keterangan' => 'nullable|string',
             'file' => 'nullable|mimes:pdf,docx,xlsx|max:10240',
             'hal' => 'nullable|string',
+            'sales' => 'nullable|string'
         ], [
             'id_quotation.required' => 'Quotation tidak valid !',
             'id_quotation.numeric' => 'Quotation tidak valid !',
             'keterangan.string' => 'Keterangan tidak valid !',
             'file.mimes' => 'File tidak valid !',
             'file.max' => 'Ukuran file terlalu besar, maximal 10Mb',
-            'hal.string' => 'Perihal tidak valid !'
+            'hal.string' => 'Perihal tidak valid !',
+            'sales.string' => 'Sales tidak valid !'
         ]);
 
         $quotation = Quotation::find($this->id_quotation);
@@ -107,6 +110,7 @@ class Form extends Component
 
         $data['keterangan'] = $this->keterangan;
         $data['hal'] = $this->hal;
+        $data['sales'] = $this->sales;
         if($this->file){
             $path = $this->file->store('public/quotation_file');
             $path = str_replace('public', '', $path);
@@ -133,8 +137,10 @@ class Form extends Component
         $this->id_project = $quotation->id_project;
         $this->status_reponse = $quotation->status_response;
         $this->id_tipe_pembayaran = $quotation->id_tipe_pembayaran;
-        $this->quotation = $quotation;
         $this->keterangan = $quotation->keterangan;
+        $this->hal = $quotation->hal;
+        $this->sales = $quotation->sales;
+        $this->quotation = $quotation;
     }
 
     public function resetInputFields(){
@@ -142,6 +148,7 @@ class Form extends Component
         $this->id_quotation = null;
         $this->file = null;
         $this->keterangan = null;
+        $this->sales = null;
     }
 
     public function onClickHapusFile(){
@@ -162,13 +169,15 @@ class Form extends Component
             'keterangan' => 'nullable|string',
             'hal' => 'nullable|string',
             'file' => 'nullable|mimes:pdf,docx,xlsx|max:10240',
+            'sales' => 'nullable|string'
         ], [
             'id_customer.required' => 'Data customer tidak valid !',
             'id_customer.numeric' => 'Data customer tidak valid !',
             'keterangan.string' => 'Keterangan tidak valid !',
             'file.mimes' => 'File tidak valid !',
             'file.max' => 'Ukuran file terlalu besar, maximal 10Mb',
-            'hal.string' => 'Perihal tidak valid !'
+            'hal.string' => 'Perihal tidak valid !',
+            'sales.string' => 'Sales tidak valid !'
         ]);
 
         // Check data customer
@@ -182,6 +191,7 @@ class Form extends Component
         $data['id_customer'] = $this->id_customer;
         $data['keterangan'] = $this->keterangan;
         $data['hal'] = $this->hal;
+        $data['sales'] = $this->sales;
         if($this->file){
             $path = $this->file->store('public/quotation_file');
             $path = str_replace('public', '', $path);

@@ -5,6 +5,7 @@ namespace App\Http\Livewire\ManagementTugas;
 use App\Models\Customer;
 use App\Models\FormMaster;
 use App\Models\LaporanPekerjaan;
+use App\Models\LaporanPekerjaanUser;
 use App\Models\Merk;
 use App\Models\ProjectV2;
 use App\Models\User;
@@ -25,9 +26,9 @@ class Form extends Component
     public $nomor_lift;
     public $keterangan;
     public $jam_mulai;
-    public $id_user;
     public $signature;
     public $periode;
+    public $listIdUser = [];
 
     public $listCustomer = [];
     public $listProject = [];
@@ -57,7 +58,6 @@ class Form extends Component
             'id_customer' => 'required|numeric',
             'id_project' => 'required|numeric',
             'id_merk' => 'required|numeric',
-            'id_user' => 'nullable|numeric',
             'id_form_master' => 'required|numeric',
             'nomor_lift' => 'required|numeric',
         ], [
@@ -67,7 +67,6 @@ class Form extends Component
             'id_project.numeric' => 'Project tidak valid !',
             'id_merk.required' => 'Merk belum dipilih',
             'id_merk.numeric' => 'Merk tidak valid !',
-            'id_user.numeric' => 'Pekerja tidak valid !',
             'nomor_lift.required' => 'Nomor lift tidak boleh kosong',
             'nomor_lift.numeric' => 'Nomor Lift tidak valid !',
             'id_form_master.required' => 'Form belum dipilih',
@@ -102,22 +101,25 @@ class Form extends Component
             return session()->flash('fail', $message);
         }
 
-        if($this->id_user == ''){
-            $this->id_user = null;
-        }
-
-        LaporanPekerjaan::updateOrCreate([
+        $laporanPekerjaan = LaporanPekerjaan::updateOrCreate([
             'id' => $this->id_laporan_pekerjaan,
         ], [
             'id_customer' => $this->id_customer,
             'id_project' => $this->id_project,
             'id_merk' => $this->id_merk,
-            'id_user' => $this->id_user,
             'nomor_lift' => $this->nomor_lift,
             'periode' => $this->periode,
             'id_form_master' => $this->id_form_master,
-            'jam_mulai' => now(),
         ]);
+
+        LaporanPekerjaanUser::where('id_laporan_pekerjaan', $laporanPekerjaan->id)
+        ->delete();
+        foreach ($this->listIdUser as $item) {
+            LaporanPekerjaanUser::create([
+                'id_user' => $item,
+                'id_laporan_pekerjaan' => $laporanPekerjaan->id
+            ]);
+        }
 
         $message = 'Data berhasil disimpan';
         $this->resetInputFields();
@@ -133,9 +135,9 @@ class Form extends Component
         $this->id_customer = null;
         $this->id_project = null;
         $this->id_merk = null;
-        $this->id_user = null;
         $this->nomor_lift = null;
         $this->id_form_master = null;
+        $this->listIdUser = [];
     }
 
     public function setDataManagementTugas($id)
@@ -152,9 +154,12 @@ class Form extends Component
         $this->id_project = $laporanPekerjaan->id_project;
         $this->id_merk = $laporanPekerjaan->id_merk;
         $this->nomor_lift = $laporanPekerjaan->nomor_lift;
-        $this->id_user = $laporanPekerjaan->id_user;
         $this->id_form_master = $laporanPekerjaan->id_form_master;
         $this->periode = $laporanPekerjaan->periode;
+
+        foreach ($laporanPekerjaan->teknisi as $item) {
+            array_push($this->listIdUser, $item->id_user);
+        }
     }
 
     public function changeCustomer($id_customer)

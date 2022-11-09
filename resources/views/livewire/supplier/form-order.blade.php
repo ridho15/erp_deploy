@@ -52,7 +52,7 @@
                             @enderror
                         </div>
                         <div class="mb-5">
-                            <label for="" class="form-label required">Tipe Pemayaran</label>
+                            <label for="" class="form-label required">Tipe Pembayaran</label>
                             <select name="id_tipe_pembayaran" wire:model="id_tipe_pembayaran" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form_order" data-placeholder="Pilih" required>
                                 <option value="">Pilih</option>
                                 @foreach ($listTipePembayaran as $item)

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangeColumnFormMasterToIdFormMaster extends Migration
+class ChangeColumnSignatureInLaporanPekerjaanUser extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class ChangeColumnFormMasterToIdFormMaster extends Migration
      */
     public function up()
     {
-        Schema::table('laporan_pekerjaan', function (Blueprint $table) {
-            $table->renameColumn('form_master', 'id_form_master');
+        Schema::table('laporan_pekerjaan_users', function (Blueprint $table) {
+            $table->text('signature')->nullable()->change();
         });
     }
 
@@ -25,7 +25,8 @@ class ChangeColumnFormMasterToIdFormMaster extends Migration
      */
     public function down()
     {
-        Schema::table('id_form_master', function (Blueprint $table) {
+        Schema::table('laporan_pekerjaan_user', function (Blueprint $table) {
+            //
         });
     }
 }

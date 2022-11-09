@@ -17,7 +17,8 @@ class ProjectV2 extends Model
         'no_mfg',
         'alamat',
         'id_customer',
-        'catatan'
+        'catatan',
+        'sales'
     ];
 
     public function customer(){

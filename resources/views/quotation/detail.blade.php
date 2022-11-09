@@ -176,6 +176,14 @@
                     </div>
                     <div class="row mb-5">
                         <div class="col-md-4 col-4">
+                            Sales
+                        </div>
+                        <div class="col-md-8 col-8">
+                            : <span class="fw-bold">{{ $quotation->sales }}</span>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-md-4 col-4">
                             File
                         </div>
                         <div class="col-md-8 col-8">

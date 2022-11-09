@@ -74,6 +74,7 @@ Route::middleware('auth.user')->group(function () {
         Route::get('/', [DaftarTugasController::class, 'index'])->name('daftar-tugas');
         Route::get('/kelola/{id}', [DaftarTugasController::class, 'kelola'])->name('daftar-tugas.kelola');
         Route::get('/ambil/{id}', [DaftarTugasController::class, 'ambil'])->name('daftar-tugas.ambil');
+        Route::get('/mulai/{id}', [DaftarTugasController::class, 'mulai'])->name('daftar-tugas.mulai');
     });
 
     Route::prefix('pre-order')->group(function () {

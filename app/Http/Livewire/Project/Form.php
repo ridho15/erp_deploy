@@ -18,6 +18,7 @@ class Form extends Component
     public $id_customer;
     public $catatan;
     public $listCustomer;
+    public $sales;
     public function render()
     {
         $this->listCustomer = Customer::get();
@@ -37,7 +38,8 @@ class Form extends Component
             'no_mfg' => 'nullable|numeric',
             'alamat' => 'required|string',
             'catatan' => 'nullable|string',
-            'id_customer' => 'required|numeric'
+            'id_customer' => 'required|numeric',
+            'sales' => 'nullable|string'
         ], [
             'kode.required' => 'Kode project tidak boleh kosong',
             'kode.string' => 'Kode tidak valid !',
@@ -49,7 +51,8 @@ class Form extends Component
             'alamat.string' => 'Alamat tidak valid !',
             'catatan.string' => 'Catatan tidak valid !',
             'id_customer.required' => 'Client Belum dipilih',
-            'id_customer.numeric' => 'Client tidak valid !'
+            'id_customer.numeric' => 'Client tidak valid !',
+            'sales' => 'Sales tidak valid !'
         ]);
 
         $customer = Customer::find($this->id_customer);
@@ -67,7 +70,8 @@ class Form extends Component
             'no_mfg' => $this->no_mfg,
             'alamat' => $this->alamat,
             'catatan' => $this->catatan,
-            'id_customer' => $this->id_customer
+            'id_customer' => $this->id_customer,
+            'sales' => $this->sales,
         ]);
 
         $message = "Berhasil menyimpan data";
@@ -86,6 +90,7 @@ class Form extends Component
         $this->alamat = null;
         $this->catatan = null;
         $this->id_customer = null;
+        $this->sales = null;
     }
 
     public function setDataProject($id){
@@ -103,5 +108,6 @@ class Form extends Component
         $this->alamat = $project->alamat;
         $this->catatan = $project->catatan;
         $this->id_customer = $project->id_customer;
+        $this->sales = $project->sales;
     }
 }

@@ -22,20 +22,17 @@
                 <table class="table table-rounded table-striped border gy-7 gs-7">
                  <thead>
                   <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
-                   <th>No</th>
-                   <th>No. Ref</th>
-                   <th>Kode Project</th>
-                   <th>Nama Project</th>
-                   <th>Pelanggan</th>
-                   <th>Email Pelanggan</th>
-                   <th>No Hp Pelanggan</th>
-                   <th>Status</th>
-                   <th>Konfirmasi</th>
-                   <th>Keterangan</th>
-                   <th>Hal</th>
-                   <th>File</th>
-                   <th>Dibuat pada</th>
-                   <th>Aksi</th>
+                   <th class="sticky" scope="col">No</th>
+                   <th class="sticky" scope="col">No. Ref</th>
+                   <th class="sticky" scope="col">Kode Project</th>
+                   <th class="sticky" scope="col">Nama Project</th>
+                   <th class="sticky" scope="col">Pelanggan</th>
+                   <th class="sticky" scope="col">Sales</th>
+                   <th class="sticky" scope="col">Status</th>
+                   <th class="sticky" scope="col">Konfirmasi</th>
+                   <th class="sticky" scope="col">File</th>
+                   <th class="sticky" scope="col">Dibuat pada</th>
+                   <th class="sticky" scope="col">Aksi</th>
                   </tr>
                  </thead>
                  <tbody>
@@ -53,20 +50,7 @@
                                         {{ $item->customer->kode }} {{ $item->customer->nama }}
                                     @endif
                                 </td>
-                                <td>
-                                    @if ($item->laporanPekerjaan)
-                                        {{ $item->laporanPekerjaan->customer->email }}
-                                    @elseif($item->customer)
-                                        {{ $item->customer->email }}
-                                    @endif
-                                </td>
-                                <td>
-                                    @if ($item->laporanPekerjaan)
-                                        {{ $item->laporanPekerjaan->customer->no_hp }}
-                                    @elseif($item->customer)
-                                        {{ $item->customer->no_hp }}
-                                    @endif
-                                </td>
+                                <td>{{ $item->sales }}</td>
                                 <td><?= $item->status_formatted ?></td>
                                 <td>
                                     @if ($item->konfirmasi == 0)
@@ -75,8 +59,6 @@
                                         <span class="badge badge-success">Sudah dikonfirmasi</span>
                                     @endif
                                 </td>
-                                <td><?= $item->keterangan ?></td>
-                                <td>{{ $item->hal }}</td>
                                 <td>
                                     @if ($item->file)
                                         <a href="{{ $item->file ? asset('storage' . $item->file) : '#' }}" class="btn btn-icon btn-sm btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Dowload File" target="blank">

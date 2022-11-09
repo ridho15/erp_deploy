@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangeColumnFormMasterToIdFormMaster extends Migration
+class AddSalesToProjectv2 extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class ChangeColumnFormMasterToIdFormMaster extends Migration
      */
     public function up()
     {
-        Schema::table('laporan_pekerjaan', function (Blueprint $table) {
-            $table->renameColumn('form_master', 'id_form_master');
+        Schema::table('project_v2', function (Blueprint $table) {
+            $table->string('sales')->nullable();
         });
     }
 
@@ -25,7 +25,8 @@ class ChangeColumnFormMasterToIdFormMaster extends Migration
      */
     public function down()
     {
-        Schema::table('id_form_master', function (Blueprint $table) {
+        Schema::table('projectv2', function (Blueprint $table) {
+            //
         });
     }
 }
