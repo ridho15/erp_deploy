@@ -107,6 +107,7 @@ class QuotationController extends Controller
                     'harga' => $item->harga,
                     'qty' => $item->qty,
                     'id_satuan' => $item->id_satuan,
+                    'status' => 0
                 ]);
             }
         }

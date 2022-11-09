@@ -65,7 +65,7 @@
                                 <td>
                                     @if ($item->signature != null && $item->jam_selesai != null)
                                         <span class="badge badge-success">Selesai</span>
-                                    @elseif($item->user != null && $item->jam_mulai != null)
+                                    @elseif($item->jam_mulai != null)
                                         <span class="badge badge-warning">Sedang Dikerjakan</span>
                                     @else
                                         <span class="badge badge-secondary">Belum Dikerjakan</span>
@@ -92,7 +92,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="13" class="text-center text-gray-500">Tidak ada data</td>
+                            <td colspan="14" class="text-center text-gray-500">Tidak ada data</td>
                         </tr>
                     @endif
                  </tbody>

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Inventory;
 
 use App\Models\Barang;
+use App\Models\BarangStockLog;
 use App\Models\LaporanPekerjaan;
 use App\Models\LaporanPekerjaanBarang;
 use Livewire\Component;
@@ -16,6 +17,7 @@ class BarangDipinjam extends Component
         'balikanBarangPinjaman',
         'simpanDataPeminjamanBarang',
         'setBarangPinjaman',
+        'simpanCheck'
     ];
     public $paginationTheme = 'bootstrap';
     public $cari;
@@ -178,5 +180,17 @@ class BarangDipinjam extends Component
         $this->catatan_teknisi = $laporanPekerjaanBarang->catatan_teknisi;
         $this->keterangan_customer = $laporanPekerjaanBarang->keterangan_customer;
         $this->qty = $laporanPekerjaanBarang->qty;
+    }
+
+    public function simpanCheck($id){
+        $barangStockLog = BarangStockLog::find($id);
+        if(!$barangStockLog){
+            $message = "Data tidak ditemukan";
+            return session()->flash('fail', $message);
+        }
+
+        $barangStockLog->update([
+            'check' => $barangStockLog->check == 1 ? 0 : 1
+        ]);
     }
 }

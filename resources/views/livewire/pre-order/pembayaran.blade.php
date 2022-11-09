@@ -38,7 +38,9 @@
                     <h3 class="modal-title">Form Pembayaran Pre Order</h3>
 
                     <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
-                        <span class="svg-icon svg-icon-1"></span>
+                        <span class="svg-icon svg-icon-1">
+
+                        </span>
                     </div>
                 </div>
 
@@ -82,8 +84,9 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-light sm" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary sm">Simpan</button>
+                        <button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success btn-sm" wire:click="$emit('onClickLunas')"><i class="fa-solid fa-money-bill-1-wave"></i> Lunas</button>
+                        <button type="submit" class="btn btn-primary btn-sm"><i class="fa-solid fa-money-bill"></i> Simpan</button>
                     </div>
                 </form>
             </div>
@@ -100,7 +103,11 @@
         window.addEventListener('contentChange', function(){
         })
 
-        $('input[name="pembayaran_sekarang"]').on('keyup', function(){
+        Livewire.on('onClickLunas', async () => {
+            const response = await alertConfirmCustom('Pemberitahuan !', "Apakah kamu yakin ingin melakukan pelunasan pembayaran ?", "Ya, Yakin");
+            if(response.isConfirmed == true){
+                Livewire.emit('pembayaranLunas');
+            }
         })
     </script>
 @endpush

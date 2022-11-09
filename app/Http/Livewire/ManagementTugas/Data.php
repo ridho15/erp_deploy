@@ -21,7 +21,12 @@ class Data extends Component
     {
         $this->listLaporanPekerjaan = LaporanPekerjaan::where(function($query){
             $query->where('nomor_lift', 'LIKE', '%' . $this->cari . '%')
-            ->orWhere('keterangan', 'LIKE', '%' . $this->cari . '%');
+            ->orWhere('keterangan', 'LIKE', '%' . $this->cari . '%')
+            ->orWhereHas('customer', function($query){
+                $query->where('nama', 'LIKE', '%' . $this->cari . '%');
+            })->orWhereHas('project', function($query){
+                $query->where('nama', 'LIKE', '%' . $this->cari . '%');
+            });
         })->whereHas('formMaster')->orderBy('created_at', 'DESC')->paginate($this->total_show);
         $data['listLaporanPekerjaan'] = $this->listLaporanPekerjaan;
         return view('livewire.management-tugas.data', $data);

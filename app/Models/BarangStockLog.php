@@ -17,7 +17,8 @@ class BarangStockLog extends Model
         'perubahan',
         'id_tipe_perubahan_stock',
         'tanggal_perubahan',
-        'id_user'
+        'id_user',
+        'check'
     ];
 
     public $appends = ['tanggal_perubahan_formatted'];
