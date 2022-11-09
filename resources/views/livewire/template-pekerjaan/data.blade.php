@@ -26,7 +26,7 @@
                     <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
                         <th>No</th>
                         <th>Nama Pekerjaan</th>
-                        <th>Keterangan</th>
+                        {{-- <th>Keterangan</th> --}}
                         @if ($periode > 0)
                         <th>Checklist 1 Bulan</th>
                         @endif
@@ -50,9 +50,9 @@
                     @foreach ($listTemplatePekerjaan as $index => $item)
                     {{-- {{ dd($item) }} --}}
                     <tr class="fw-bold">
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $item->nama_pekerjaan }}</td>
-                        <td>
+                        <td class="bg-success">{{ \App\CPU\Helpers::numberToLetter($index + 1) }}</td>
+                        <td class="bg-success">{{ $item->nama_pekerjaan }}</td>
+                        {{-- <td>
                             @php
                                 $kerja = json_decode($item->keterangan);
 ;                            @endphp
@@ -61,23 +61,23 @@
                                     <span class="badge badge-secondary text-light">{{  App\CPU\Helpers::getPekerjaan($k) }}</span>
                                 @endforeach
                             @endif
-                        </td>
+                        </td> --}}
                         @if ($periode > 0)
-                        <td></td>
+                        <td class="bg-success"></td>
                         @endif
                         @if ($periode > 1)
-                        <td></td>
+                        <td class="bg-success"></td>
                         @endif
                         @if ($periode > 2)
-                        <td></td>
+                        <td class="bg-success"></td>
                         @endif
                         @if ($periode > 5)
-                        <td></td>
+                        <td class="bg-success"></td>
                         @endif
                         @if ($periode > 11)
-                        <td></td>
+                        <td class="bg-success"></td>
                         @endif
-                        <td>
+                        <td class="bg-success">
                             <div class="btn-group">
                                 <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip"
                                     data-bs-placement="top" title="Edit Template Pekerjaan"
@@ -99,9 +99,9 @@
                     </tr>
                     @foreach ($item->detail as $nomor => $detail)
                     <tr>
-                        <td>{{ $nomor + 1 }}</td>
+                        <td class="text-end">{{ $nomor + 1 }}</td>
                         <td>{{ $detail->nama_pekerjaan }}</td>
-                        <td>
+                        {{-- <td>
                             @php
                                 $kerjah = json_decode($detail->keterangan)
                             @endphp
@@ -112,7 +112,7 @@
                                     @endforeach
                                 </div>
                             @endif
-                        </td>
+                        </td> --}}
                         @if ($periode > 0)
                         <td>
                             <span class="badge me-1 badge-info  text-light">{{ $detail->checklist_1_bulan ? App\CPU\Helpers::getKondisi($detail->checklist_1_bulan) : '' }}</span>

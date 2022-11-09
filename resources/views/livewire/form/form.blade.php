@@ -48,13 +48,13 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                        <div class="mb-5">
+                        {{-- <div class="mb-5">
                             <label for="" class="form-label">Keterangan</label>
                             <textarea name="keterangan" wire:model="keterangan" class="form-control form-control-solid" placeholder="Masukkan keterangan"></textarea>
                             @error('keterangan')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
-                        </div>
+                        </div> --}}
                     </div>
 
                     <div class="modal-footer">

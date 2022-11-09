@@ -94,7 +94,8 @@
                                 </div>
                             </div>
                             <div class="d-flex flex-row">
-                                <a href="{{ route('profile.edit') }}" class="icon-cog" data-bs-toggle="tooltip" title="Pengaturan Profil">
+                                <a href="{{ route('profile.edit') }}" class="icon-cog" data-bs-toggle="tooltip"
+                                    title="Pengaturan Profil">
                                     <i class="fa-solid fa-cog fs-15"></i>
                                 </a>
                             </div>
@@ -115,14 +116,15 @@
                                                 </svg>
                                             </span>
                                             @if ($log->lastLogin)
-                                                @php($date = Carbon\Carbon::parse($log->lastLogin)->isoFormat('dddd, D MMMM Y'))
-                                                <div class="fs-2 fw-bold counted" data-kt-countup="true"
-                                                    data-kt-countup-value="4500" data-kt-countup-prefix="$"
-                                                    data-kt-initialized="1">{{ App\CPU\Helpers::dateChange($date) }}</div>
+                                            @php($date = Carbon\Carbon::parse($log->lastLogin)->isoFormat('dddd, D MMMM
+                                            Y'))
+                                            <div class="fs-2 fw-bold counted" data-kt-countup="true"
+                                                data-kt-countup-value="4500" data-kt-countup-prefix="$"
+                                                data-kt-initialized="1">{{ App\CPU\Helpers::dateChange($date) }}</div>
                                             @else
-                                                <div class="fs-2 fw-bold counted text-capitalize" data-kt-countup="true"
-                                                    data-kt-countup-value="4500" data-kt-countup-prefix="$"
-                                                    data-kt-initialized="1">Belum ada data</div>
+                                            <div class="fs-2 fw-bold counted text-capitalize" data-kt-countup="true"
+                                                data-kt-countup-value="4500" data-kt-countup-prefix="$"
+                                                data-kt-initialized="1">Belum ada data</div>
                                             @endif
                                         </div>
                                         <div class="fw-semibold fs-6 text-gray-400">Masuk Terakhir</div>
@@ -140,14 +142,15 @@
                                                 </svg>
                                             </span>
                                             @if ($log->activity)
-                                                @php($dates = Carbon\Carbon::parse($log->activity)->isoFormat('dddd, D MMMM Y'))
-                                                <div class="fs-2 fw-bold counted" data-kt-countup="true"
-                                                    data-kt-countup-value="4500" data-kt-countup-prefix="$"
-                                                    data-kt-initialized="1">{{ App\CPU\Helpers::dateChange($dates) }}</div>
+                                            @php($dates = Carbon\Carbon::parse($log->activity)->isoFormat('dddd, D MMMM
+                                            Y'))
+                                            <div class="fs-2 fw-bold counted" data-kt-countup="true"
+                                                data-kt-countup-value="4500" data-kt-countup-prefix="$"
+                                                data-kt-initialized="1">{{ App\CPU\Helpers::dateChange($dates) }}</div>
                                             @else
-                                                <div class="fs-2 fw-bold counted text-capitalize" data-kt-countup="true"
-                                                    data-kt-countup-value="4500" data-kt-countup-prefix="$"
-                                                    data-kt-initialized="1">Belum ada data</div>
+                                            <div class="fs-2 fw-bold counted text-capitalize" data-kt-countup="true"
+                                                data-kt-countup-value="4500" data-kt-countup-prefix="$"
+                                                data-kt-initialized="1">Belum ada data</div>
                                             @endif
                                         </div>
                                         <div class="fw-semibold fs-6 text-gray-400">Aktivitas Terakhir</div>
@@ -165,14 +168,16 @@
                                                 </svg>
                                             </span>
                                             @if ($log->user->lastPasswordChange)
-                                                @php($dated = Carbon\Carbon::parse($log->user->lastPasswordChange)->isoFormat('dddd, D MMMM Y - H:m'))
-                                                <div class="fs-2 fw-bold counted" data-kt-countup="true"
-                                                    data-kt-countup-value="4500" data-kt-countup-prefix="$"
-                                                    data-kt-initialized="1">{{ App\CPU\Helpers::dateChange($dated) }}</div>
+                                            @php($dated =
+                                            Carbon\Carbon::parse($log->user->lastPasswordChange)->isoFormat('dddd, D
+                                            MMMM Y - H:m'))
+                                            <div class="fs-2 fw-bold counted" data-kt-countup="true"
+                                                data-kt-countup-value="4500" data-kt-countup-prefix="$"
+                                                data-kt-initialized="1">{{ App\CPU\Helpers::dateChange($dated) }}</div>
                                             @else
-                                                <div class="fs-2 fw-bold counted text-capitalize" data-kt-countup="true"
-                                                    data-kt-countup-value="4500" data-kt-countup-prefix="$"
-                                                    data-kt-initialized="1">Belum ada data</div>
+                                            <div class="fs-2 fw-bold counted text-capitalize" data-kt-countup="true"
+                                                data-kt-countup-value="4500" data-kt-countup-prefix="$"
+                                                data-kt-initialized="1">Belum ada data</div>
                                             @endif
                                         </div>
                                         <div class="fw-semibold fs-6 text-gray-400">Kata Sandi Berubah</div>
@@ -186,22 +191,24 @@
         </div>
         <div class="row">
             <div class="col-md-6 mb-5">
-                @livewire('dashboard.jumlah-data')
-            </div>
-            <div class="col-md-6  mb-5">
-                @livewire('dashboard.log-stock')
+                @livewire('dashboard.pekerjaan-hari-ini')
             </div>
             <div class="col-md-6 mb-5">
                 @livewire('dashboard.quotation')
             </div>
             <div class="col-md-6 mb-5">
-                @livewire('dashboard.pekerjaan-hari-ini')
+                @livewire('dashboard.pre-order')
             </div>
+
+            <div class="col-md-6  mb-5">
+                @livewire('dashboard.log-stock')
+            </div>
+
             <div class="col-md-6 mb-5">
                 @livewire('dashboard.supplier-order')
             </div>
             <div class="col-md-6 mb-5">
-                @livewire('dashboard.pre-order')
+                @livewire('dashboard.jumlah-data')
             </div>
         </div>
     </div>
