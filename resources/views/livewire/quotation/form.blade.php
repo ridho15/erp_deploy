@@ -27,6 +27,8 @@
                                 <span class="fw-bold">
                                     @if ($quotation && $quotation->laporanPekerjaan)
                                         {{ $quotation->laporanPekerjaan->project->kode }}
+                                    @else
+                                        -
                                     @endif
                                 </span>
                             </div>
@@ -36,7 +38,7 @@
                                 Nama Project
                             </div>
                             <div class="col-md-8 col-8">
-                                : <span class="fw-bold">{{ $quotation && $quotation->laporanPekerjaan? $quotation->laporanPekerjaan->project->nama : null }}</span>
+                                : <span class="fw-bold">{{ $quotation && $quotation->laporanPekerjaan? $quotation->laporanPekerjaan->project->nama : '-' }}</span>
                             </div>
                         </div>
                         <div class="row mb-5">
@@ -51,6 +53,14 @@
                                         {{ $quotation->customer->kode }} {{ $quotation->customer->nama }}
                                     @endif
                                 </span>
+                            </div>
+                        </div>
+                        <div class="row mb-5">
+                            <div class="col-md-4 col-4">
+                                Sales
+                            </div>
+                            <div class="col-md-8 col-8">
+                                : {{ $quotation ? $quotation->sales : '-' }}
                             </div>
                         </div>
                         <div class="row mb-5">
@@ -79,6 +89,14 @@
                                         {{ $quotation->customer->no_hp }}
                                     @endif
                                 </span>
+                            </div>
+                        </div>
+                        <div class="row mb-5">
+                            <div class="col-md-4 col-4">
+                                Sales
+                            </div>
+                            <div class="col-md-8 col-8">
+                                : <span class="fw-bold"><?= $quotation ? $quotation->sales : '-' ?></span>
                             </div>
                         </div>
                         <div class="row mb-5">
@@ -117,6 +135,13 @@
                             <label for="" class="form-label">Perihal</label>
                             <textarea name="hal" class="form-control form-control-solid" wire:model="hal" placeholder="Masukkan perihal"></textarea>
                             @error('hal')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="mb-5">
+                            <label for="" class="form-label">Sales</label>
+                            <textarea name="sales" class="form-control form-control-solid" wire:model="sales" placeholder="Masukkan sales"></textarea>
+                            @error('sales')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
@@ -199,6 +224,13 @@
                             <label for="" class="form-label">Perihal</label>
                             <textarea name="hal" class="form-control form-control-solid" wire:model="hal" placeholder="Masukkan perihal"></textarea>
                             @error('hal')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="mb-5">
+                            <label for="" class="form-label">Sales</label>
+                            <textarea name="sales" class="form-control form-control-solid" wire:model="sales" placeholder="Masukkan sales"></textarea>
+                            @error('sales')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>

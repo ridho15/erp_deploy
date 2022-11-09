@@ -5,6 +5,7 @@
                 PO Masuk
             </h3>
             <div class="card-toolbar">
+
                 <button class="btn btn-sm btn-outline btn-outline-primary" wire:click="$emit('onClickTambah')"><i class="bi bi-plus-circle"></i> Tambah</button>
             </div>
         </div>
@@ -16,6 +17,23 @@
             <div class="row mb-5">
                 <div class="col-md-3">
                     @include('helper.form-pencarian', ['model' => 'cari'])
+                </div>
+                <div class="col-md text-end">
+                    <label for="" class="form-label">Filter</label>
+                    <div class="d-flex align-items-center justify-content-end">
+                        <div class="form-check form-check-custom form-check-solid mx-2">
+                            <input class="form-check-input" type="checkbox" value="1" wire:model="selesai" id="flexCheckDefault"/>
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Selesai
+                            </label>
+                        </div>
+                        <div class="form-check form-check-custom form-check-solid mx-2">
+                            <input class="form-check-input" type="checkbox" value="1" wire:model="belum_selesai" id="flexCheckDefault"/>
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Belum Selesai
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -85,7 +103,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="10" class="text-center text-gray-500">Tidak ada data</td>
+                            <td colspan="11" class="text-center text-gray-500">Tidak ada data</td>
                         </tr>
                     @endif
                 </tbody>

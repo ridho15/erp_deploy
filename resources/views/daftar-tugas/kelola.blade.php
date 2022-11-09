@@ -12,13 +12,13 @@
                 <div class="me-5">
                     @if ($laporanPekerjaan->signature != null && $laporanPekerjaan->jam_selesai != null)
                         <span class="badge badge-success">Selesai</span>
-                    @elseif($laporanPekerjaan->user != null)
+                    @elseif($laporanPekerjaan->jam_mulai != null)
                         <span class="badge badge-warning">Sedang Dikerjakan</span>
                     @else
                         <span class="badge badge-secondary">Belum Dikerjakan</span>
                     @endif
                 </div>
-                @if ($laporanPekerjaan->user == null)
+                @if (!$laporanPekerjaan->teknisi->where('id_user', session()->get('id_user'))->first())
                 <a href="{{ route('daftar-tugas.ambil', ['id' => $laporanPekerjaan->id]) }}" class="btn btn-sm btn-outline btn-outline-primary me-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Ambil Tugas">
                     <i class="fa-solid fa-hand-holding-heart"></i>
                     Ambil Tugas
@@ -27,6 +27,11 @@
                 <a href="{{ route('management-tugas.export', ['id' => $laporanPekerjaan->id]) }}" class="btn btn-sm btn-outline btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Cetak PDF">
                     <i class="bi bi-printer"></i> Cetak
                 </a>
+                @if ($laporanPekerjaan->jam_mulai == null)
+                    <a href="{{ route('daftar-tugas.mulai', ['id' => $laporanPekerjaan->id]) }}" class="btn btn-sm btn-outline btn-outline-success ms-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Mulai Pekerjaan">
+                        <i class="fa-solid fa-play"></i> Mulai
+                    </a>
+                @endif
             </div>
         </div>
         <div class="card-body">
@@ -162,7 +167,9 @@
                             Teknisi
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $laporanPekerjaan->user ? $laporanPekerjaan->user->name : '-' }}
+                            : @foreach ($laporanPekerjaan->teknisi as $item)
+                                {{ $item->user->name }},
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -177,6 +184,9 @@
                 <li class="nav-item mt-2">
                     <a class="nav-link text-active-primary ms-0 me-10 py-5" data-bs-toggle="tab" href="#laporan_sparepart">Laporan Sparepart</a>
                 </li>
+                <li class="nav-item mt-2">
+                    <a class="nav-link text-active-primary ms-0 me-10 py-5" data-bs-toggle="tab" href="#tanda_tangan_teknisi">Tanda Tangan Teknisi</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -187,8 +197,11 @@
         <div class="tab-pane fade" id="laporan_sparepart" role="tabpanel">
             @livewire('daftar-tugas.laporan-sparepart', ['id_laporan_pekerjaan' => $laporanPekerjaan->id])
         </div>
-        <div class="tab-page fade" id="laporan_perawatan_lift" role="tabpanel">
+        <div class="tab-pane fade" id="laporan_perawatan_lift" role="tabpanel">
             @livewire('daftar-tugas.laporan-perawatan-lift', ['id_laporan_pekerjaan' => $laporanPekerjaan->id])
+        </div>
+        <div class="tab-pane fade" id="tanda_tangan_teknisi" role="tabpanel">
+            @livewire('daftar-tugas.tanda-tangan-teknisi', ['id_laporan_pekerjaan' => $laporanPekerjaan->id])
         </div>
     </div>
 @endsection

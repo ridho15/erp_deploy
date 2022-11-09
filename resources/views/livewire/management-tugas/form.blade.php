@@ -69,12 +69,12 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-                            <div class="mb-5 col-md-6">
+                            <div class="mb-5 col-md-6" wire:ignore>
                                 <label for="" class="form-label">Pekerja</label>
-                                <select name="id_user" wire:model="id_user" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form">
+                                <select name="listIdUser" wire:model="listIdUser" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" multiple data-placeholder="Pilih">
                                     <option value="">Pilih</option>
                                     @foreach ($listUser as $item)
-                                        <option value="{{ $item->id }}" @if($item->id == $id_user) selected @endif>{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('id_user')
@@ -129,7 +129,7 @@
             $('select[name="id_customer"]').select2()
             $('select[name="id_project"]').select2()
             $('select[name="id_merk"]').select2()
-            $('select[name="id_user"]').select2()
+            $('select[name="listIdUser"]').select2()
             $('select[name="id_form_master"]').select2()
             $('select[name="periode"]').select2()
 
@@ -145,8 +145,8 @@
                 @this.set('id_merk', $(this).val())
             })
 
-            $('select[name="id_user"]').on('change', function(){
-                @this.set('id_user', $(this).val())
+            $('select[name="listIdUser"]').on('change', function(){
+                @this.set('listIdUser', $(this).val())
             })
 
             $('select[name="id_form_master"]').on('change', function(){

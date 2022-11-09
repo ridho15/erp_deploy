@@ -142,7 +142,13 @@
                             Teknisi
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $quotation->laporanPekerjaan->user->name }}
+                            : @if ($quotation->laporanPekerjaan)
+                                @foreach ($quotation->laporanPekerjaan->teknisi as $item)
+                                    {{ $item->user->name }}
+                                @endforeach
+                            @else
+                                -
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -172,6 +178,14 @@
                         </div>
                         <div class="col-md-8 col-8">
                             : <span class="fw-bold">{{ $quotation->hal }}</span>
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-md-4 col-4">
+                            Sales
+                        </div>
+                        <div class="col-md-8 col-8">
+                            : <span class="fw-bold">{{ $quotation->sales }}</span>
                         </div>
                     </div>
                     <div class="row mb-5">

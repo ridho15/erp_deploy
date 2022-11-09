@@ -14,7 +14,8 @@ class Detail extends Component
         'simpanDataBarang',
         'setDataBarang',
         'changeTambahBarang',
-        'changeQty'
+        'changeQty',
+        'changeBarang'
     ];
     public $id_quotation;
     public $quotation;
@@ -25,11 +26,13 @@ class Detail extends Component
     public $barang;
     public $cari;
     public $listBarang = [];
+    public $harga_barang;
+    public $show_input_harga = false;
     public function render()
     {
-        $this->barang = Barang::find($this->id_barang);
         $this->quotation = Quotation::find($this->id_quotation);
         $this->listBarang = Barang::get();
+
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.quotation.detail');
     }
@@ -107,7 +110,7 @@ class Detail extends Component
         ], [
             'id_quotation' => $this->id_quotation,
             'id_barang' => $this->id_barang,
-            'harga' => $barang->harga,
+            'harga' => $this->harga_barang,
             'qty' => $this->qty,
             'id_satuan' => $barang->id_satuan,
             'deskripsi' => $barang->deskripsi
@@ -134,10 +137,13 @@ class Detail extends Component
             $this->emit('finishRefreshBarang', 0, $message);
             return session()->flash('fail', $message);
         }
-
         $this->id_quotation_detail = $quotationDetail->id;
         $this->id_barang = $quotationDetail->id_barang;
         $this->qty = $quotationDetail->qty;
+        $this->barang = $quotationDetail->barang;
+        if($this->barang){
+            $this->harga_barang = $quotationDetail->harga;
+        }
     }
 
     public function changeTambahBarang(){
@@ -151,6 +157,14 @@ class Detail extends Component
                 $message = "Stock tidak cukup";
                 return session()->flash('fail', $message);
             }
+        }
+    }
+
+    public function changeBarang($id_barang){
+        $this->id_barang = $id_barang;
+        $this->barang = Barang::find($this->id_barang);
+        if($this->barang){
+            $this->harga_barang = $this->barang->harga;
         }
     }
 }

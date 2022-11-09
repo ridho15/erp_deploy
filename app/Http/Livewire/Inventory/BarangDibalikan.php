@@ -9,6 +9,7 @@ use Livewire\WithPagination;
 class BarangDibalikan extends Component
 {
     use WithPagination;
+    public $listeners = ['simpanCheck'];
     public $paginationTheme = 'bootstrap';
     public $total_show = 10;
     public $cari;
@@ -29,5 +30,17 @@ class BarangDibalikan extends Component
 
     public function mount(){
 
+    }
+
+    public function simpanCheck($id){
+        $barangStockLog = BarangStockLog::find($id);
+        if(!$barangStockLog){
+            $message = "Data tidak ditemukan";
+            return session()->flash('fail', $message);
+        }
+
+        $barangStockLog->update([
+            'check' => $barangStockLog->check == 1 ? 0 : 1
+        ]);
     }
 }

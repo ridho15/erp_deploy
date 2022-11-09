@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\LaporanPekerjaan;
+use App\Models\LaporanPekerjaanUser;
 use Illuminate\Http\Request;
 
 class DaftarTugasController extends Controller
@@ -37,11 +38,35 @@ class DaftarTugasController extends Controller
             return redirect()->back()->with('fail', $message);
         }
 
-        $laporanPekerjaan->update([
+        $listIdUser = json_decode($laporanPekerjaan->id_user);
+        if($listIdUser == null){
+            $listIdUser = [];
+        }
+        if(is_array($listIdUser) && !in_array(session()->get('id_user'), $listIdUser)){
+            array_push($listIdUser, session()->get('id_user'));
+        }
+
+        LaporanPekerjaanUser::create([
+            'id_laporan_pekerjaan' => $laporanPekerjaan->id,
             'id_user' => session()->get('id_user')
         ]);
 
         $message = "Berhasil mengambil tugas";
+        return redirect()->back()->with('success', $message);
+    }
+
+    public function mulai($id){
+        $laporanPekerjaan = LaporanPekerjaan::find($id);
+        if(!$laporanPekerjaan){
+            $message = "Laporan pekerjaan tidak ditemukan !";
+            return redirect()->back()->with('fail', $message);
+        }
+
+        $laporanPekerjaan->update([
+            'jam_mulai' => now()
+        ]);
+
+        $message = "Berhasil";
         return redirect()->back()->with('success', $message);
     }
 }

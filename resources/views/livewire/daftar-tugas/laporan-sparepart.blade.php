@@ -36,38 +36,6 @@
                             </div>
                             <div class="row mb-5">
                                 <div class="col-md-4 col-4">
-                                    Stock
-                                </div>
-                                <div class="col-md-8 col-8">
-                                    : <span class="fw-bold">{{ $barang ? $barang->stock : null }}</span>
-                                </div>
-                            </div>
-                            <div class="row mb-5">
-                                <div class="col-md-4 col-4">
-                                    Harga
-                                </div>
-                                <div class="col-md-8 col-8">
-                                    : <span class="fw-bold">{{ $barang ? $barang->harga_formatted : null }}</span>
-                                </div>
-                            </div>
-                            <div class="row mb-5">
-                                <div class="col-md-4 col-4">
-                                    Satuan
-                                </div>
-                                <div class="col-md-8 col-8">
-                                    : <span class="fw-bold">{{ $barang && $barang->satuan ? $barang->satuan->nama_satuan : null }}</span>
-                                </div>
-                            </div>
-                            <div class="row mb-5">
-                                <div class="col-md-4 col-4">
-                                    Merk
-                                </div>
-                                <div class="col-md-8 col-8">
-                                    : <span class="fw-bold">{{ $barang && $barang->merk ? $barang->merk->nama_merk : null }}</span>
-                                </div>
-                            </div>
-                            <div class="row mb-5">
-                                <div class="col-md-4 col-4">
                                     Tipe Barang
                                 </div>
                                 <div class="col-md-8 col-8">
@@ -82,17 +50,14 @@
                                     : <span class="fw-bold">{{ $barang ? $barang->deskripsi : null }}</span>
                                 </div>
                             </div>
-                            <div class="row mb-5">
-                                <div class="col-md-4 col-4">
-                                    Sub Total
-                                </div>
-                                <div class="col-md-8 col-8">
-                                    : <span class="fw-bold">
-                                        @if ($qty && $barang)
-                                            {{ 'Rp. ' . number_format($barang->harga * $qty,0,',','.') }}
-                                        @endif
-                                    </span>
-                                </div>
+                            <div class="flex flex-wrap">
+                                @if ($barang)
+                                    @foreach ($barang->barangGambar as $item)
+                                        <div class="symbol symbol-100px">
+                                            <img src="{{ asset('storage' . $item->file) }}" alt="" style="object-fit: cover"/>
+                                        </div>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="col-md-6">

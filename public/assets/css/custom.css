@@ -29,3 +29,17 @@ hr{
     -ms-user-select: none;
     user-select: none;
 }
+
+.sticky{
+    position: sticky !important;
+    top: 0px;
+}
+
+th{
+    background-color: white !important;
+    z-index: 100;
+}
+
+.fixed{
+    position: fixed !important;
+}

@@ -30,6 +30,8 @@
                    <th>Catatan</th>
                    <th>No Unit</th>
                    <th>No MFG</th>
+                   <th>Sales</th>
+                   <th>Total Pekerjaan</th>
                    <th>Aksi</th>
                   </tr>
                  </thead>
@@ -45,6 +47,22 @@
                                 <td>{{ $item->catatan }}</td>
                                 <td>{{ $item->no_unit }}</td>
                                 <td>{{ $item->no_mfg }}</td>
+                                <td>{{ $item->sales }}</td>
+                                <td>
+                                    @php
+                                        $total_pekerjaan_selesai = 0;
+                                        foreach ($item->laporanPekerjaan as $index => $value) {
+                                            if($value->signature != null && $value->jam_selesai != null){
+                                                $total_pekerjaan_selesai ++;
+                                            }
+                                        }
+                                    @endphp
+                                    <ul>
+                                        <li>Pekerjaan Berjalan {{ $item->laporanPekerjaan->count() - $total_pekerjaan_selesai }}</li>
+                                        <li>Pekerjaan Selesai {{ $total_pekerjaan_selesai }}</li>
+                                        <li>Total Pekerjaan {{ $item->laporanPekerjaan->count() }}</li>
+                                    </ul>
+                                </td>
                                 <td>
                                     <div class="btn-group">
                                         <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Barang" wire:click="$emit('onClickEdit', {{ $item->id }})">
@@ -59,7 +77,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="9" class="text-center text-gray-500">Tidak ada data</td>
+                            <td colspan="10" class="text-center text-gray-500">Tidak ada data</td>
                         </tr>
                     @endif
                  </tbody>

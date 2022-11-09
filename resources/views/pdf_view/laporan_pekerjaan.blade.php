@@ -147,8 +147,10 @@
             </tr>
             <tr style="width: 30%">
                 <td>Nama:</td>
-                <td>Nama: {{ $laporanPekerjaan->user ? $laporanPekerjaan->user->name : '-' }}</td>
-                <td>Nama: {{ $laporanPekerjaan->customer->nama }}</td>
+                <td>Nama: @foreach ($laporanPekerjaan->list_pekerja as $item)
+                    {{ $item }},
+                @endforeach</td>
+                <td>Nama: {{ $laporanPekerjaan->customer ? $laporanPekerjaan->customer->nama : '-' }}</td>
             </tr>
         </table>
     </div>
@@ -338,7 +340,9 @@
             <span>Dilaksanakan Oleh :</span><br>
             <span class="fw-bold">Teknisi</span><br>
             <div style="height: 100px"></div><br>
-            <span>Nama : {{ $laporanPekerjaan->user ? $laporanPekerjaan->user->name : '-' }}</span>
+            <span>Nama : @foreach ($laporanPekerjaan->list_pekerja as $item)
+                {{ $item }},
+            @endforeach</span>
         </div>
         <div style="float: right; width: 50%">
             <span>Diketahui Oleh :</span><br>
@@ -349,7 +353,7 @@
                     style="object-fit: contain" alt="">
                 @endif
             </div><br>
-            <span>Nama : {{ $laporanPekerjaan->user ? $laporanPekerjaan->user->name : '-' }}</span>
+            <span>Nama : {{ $laporanPekerjaan->customer ? $laporanPekerjaan->customer->nama : '-' }}</span>
         </div>
     </div>
 </body>

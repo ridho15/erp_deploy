@@ -6,6 +6,7 @@
         <thead>
             <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
                 <th>No</th>
+                <th>Metode Pembayaran</th>
                 <th>Total Bayar Sebelumnya</th>
                 <th>Pembayaran Terbaru</th>
                 <th>Tanggal</th>
@@ -16,6 +17,7 @@
                 @foreach ($listPreOrderBayar as $index => $item)
                     <tr>
                         <td>{{ $index + 1 }}</td>
+                        <td>{{ $item->preOrder->metodePembayaran ? $item->preOrder->metodePembayaran->nama_matode : '-' }}</td>
                         <td>{{ $item->total_bayar_formatted }}</td>
                         <td>{{ $item->pembayaran_terbaru_formatted }}</td>
                         <td>{{ $item->tanggal }}</td>
@@ -23,7 +25,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td colspan="4" class="text-center text-gray-500">Tidak ada data</td>
+                    <td colspan="5" class="text-center text-gray-500">Tidak ada data</td>
                 </tr>
             @endif
         </tbody>
@@ -36,7 +38,9 @@
                     <h3 class="modal-title">Form Pembayaran Pre Order</h3>
 
                     <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
-                        <span class="svg-icon svg-icon-1"></span>
+                        <span class="svg-icon svg-icon-1">
+
+                        </span>
                     </div>
                 </div>
 
@@ -62,7 +66,15 @@
                                 : <span class="fw-bold">Rp. {{ number_format($sudah_bayar,0,',','.') }}</span>
                             </div>
                         </div>
-                        <div class="mb-5">
+                        <div class="row mb-5">
+                            <div class="col-md-6 col-6">
+                                Sisa Bayar
+                            </div>
+                            <div class="col-md-6 col-6">
+                                : <span class="fw-bold">Rp. {{ number_format($sisa_bayar,0,',','.') }}</span>
+                            </div>
+                        </div>
+                        <div class="mb-5" wire:ignore>
                             <label for="" class="form-label">Jumlah Bayar</label>
                             <input type="number" name="pembayaran_sekarang" wire:model="pembayaran_sekarang" class="form-control form-control-solid" placeholder="jumlah pembayaran" required>
                             @error('pembayaran_sekarang')
@@ -72,11 +84,30 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-light sm" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary sm">Simpan</button>
+                        <button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success btn-sm" wire:click="$emit('onClickLunas')"><i class="fa-solid fa-money-bill-1-wave"></i> Lunas</button>
+                        <button type="submit" class="btn btn-primary btn-sm"><i class="fa-solid fa-money-bill"></i> Simpan</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+@push('js')
+    <script>
+        $(document).ready(function () {
+
+        });
+
+        window.addEventListener('contentChange', function(){
+        })
+
+        Livewire.on('onClickLunas', async () => {
+            const response = await alertConfirmCustom('Pemberitahuan !', "Apakah kamu yakin ingin melakukan pelunasan pembayaran ?", "Ya, Yakin");
+            if(response.isConfirmed == true){
+                Livewire.emit('pembayaranLunas');
+            }
+        })
+    </script>
+@endpush

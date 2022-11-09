@@ -16,7 +16,8 @@ class PreOrderDetail extends Model
         'harga',
         'qty',
         'id_satuan',
-        'keterangan'
+        'keterangan',
+        'status', //untuk memeriksa apakah status barang stock log sudah terjual atau belum
     ];
 
     protected $appends = [

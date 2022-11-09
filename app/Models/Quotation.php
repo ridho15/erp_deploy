@@ -20,7 +20,8 @@ class Quotation extends Model
         'keterangan',
         'file',
         'hal',
-        'konfirmasi'
+        'konfirmasi',
+        'sales'
     ];
 
     protected $appends = ['status_formatted', 'no_ref', 'updated_at_formatted', 'dibuat_pada'];
@@ -38,7 +39,7 @@ class Quotation extends Model
     }
 
     public function getDibuatPadaAttribute(){
-        $carbon = Carbon::parse($this->created_at)->locale('id')->isoFormat('dddd, DD MMMM YYYY');
+        $carbon = Carbon::parse($this->created_at)->locale('id')->isoFormat('DD/MM/YYYY');
         return $carbon;
     }
 
