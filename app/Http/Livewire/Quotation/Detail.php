@@ -137,10 +137,13 @@ class Detail extends Component
             $this->emit('finishRefreshBarang', 0, $message);
             return session()->flash('fail', $message);
         }
-
         $this->id_quotation_detail = $quotationDetail->id;
         $this->id_barang = $quotationDetail->id_barang;
         $this->qty = $quotationDetail->qty;
+        $this->barang = $quotationDetail->barang;
+        if($this->barang){
+            $this->harga_barang = $quotationDetail->harga;
+        }
     }
 
     public function changeTambahBarang(){

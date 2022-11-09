@@ -32,7 +32,7 @@ class Data extends Component
                     ->orWhere('kode', 'LIKE', '%' . $this->cari . '$');
                 });
             });
-        })->orderBy('created_at', 'DESC')->paginate($this->total_show);
+        })->where('konfirmasi', 0)->orderBy('created_at', 'DESC')->paginate($this->total_show);
         $data['listQuotation'] = $this->listQuotation;
         return view('livewire.quotation.data', $data);
     }

@@ -18,7 +18,7 @@
                         <span class="badge badge-secondary">Belum Dikerjakan</span>
                     @endif
                 </div>
-                @if ($laporanPekerjaan->id_user == null || (is_array(json_decode($laporanPekerjaan->id_user)) && !in_array(session()->get('id_user'), json_decode($laporanPekerjaan->id_user))))
+                @if (!$laporanPekerjaan->teknisi->where('id_user', session()->get('id_user'))->first())
                 <a href="{{ route('daftar-tugas.ambil', ['id' => $laporanPekerjaan->id]) }}" class="btn btn-sm btn-outline btn-outline-primary me-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Ambil Tugas">
                     <i class="fa-solid fa-hand-holding-heart"></i>
                     Ambil Tugas
@@ -167,8 +167,8 @@
                             Teknisi
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : @foreach ($laporanPekerjaan->list_pekerja as $item)
-                                {{ $item }},
+                            : @foreach ($laporanPekerjaan->teknisi as $item)
+                                {{ $item->user->name }},
                             @endforeach
                         </div>
                     </div>

@@ -14,6 +14,8 @@ class Data extends Component
     public $total_show = 10;
     public $cari;
     protected $listPreOrder;
+    public $selesai;
+    public $belum_selesai;
     public function render()
     {
         $this->listPreOrder = PreOrder::where(function($query){
@@ -23,6 +25,14 @@ class Data extends Component
             })->orWhereHas('customer', function($query){
                 $query->where('nama','LIKE' ,'%' . $this->cari . '%');
             });
+        })->where(function($query){
+            if ($this->selesai) {
+                $query->where('status', 3);
+            }
+
+            if($this->belum_selesai){
+                $query->orWhere('status', '!=', 3);
+            }
         })->paginate($this->total_show);
         $data['listPreOrder'] = $this->listPreOrder;
         return view('livewire.pre-order.data', $data);

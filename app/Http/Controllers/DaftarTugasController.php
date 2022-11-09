@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\LaporanPekerjaan;
+use App\Models\LaporanPekerjaanUser;
 use Illuminate\Http\Request;
 
 class DaftarTugasController extends Controller
@@ -45,8 +46,9 @@ class DaftarTugasController extends Controller
             array_push($listIdUser, session()->get('id_user'));
         }
 
-        $laporanPekerjaan->update([
-            'id_user' => json_encode($listIdUser)
+        LaporanPekerjaanUser::create([
+            'id_laporan_pekerjaan' => $laporanPekerjaan->id,
+            'id_user' => session()->get('id_user')
         ]);
 
         $message = "Berhasil mengambil tugas";
