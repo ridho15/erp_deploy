@@ -13,7 +13,7 @@
                 <div class="me-5">
                     @if ($laporanPekerjaan->signature != null && $laporanPekerjaan->jam_selesai != null)
                         <span class="badge badge-success">Selesai</span>
-                    @elseif($laporanPekerjaan->user != null)
+                    @elseif($laporanPekerjaan->user != null && $laporanPekerjaan->jam_mulai != null)
                         <span class="badge badge-warning">Sedang Dikerjakan</span>
                     @else
                         <span class="badge badge-secondary">Belum Dikerjakan</span>
@@ -149,7 +149,9 @@
                             Teknisi
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $laporanPekerjaan->user ? $laporanPekerjaan->user->name : '-' }}
+                            : @foreach ($laporanPekerjaan->teknisi as $item)
+                                {{ $item->user->name }},
+                            @endforeach
                         </div>
                     </div>
                 </div>

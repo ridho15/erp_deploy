@@ -67,7 +67,17 @@
                         Harga
                     </div>
                     <div class="col-md-8 col-8">
-                        : <span class="fw-bold">{{ $barang ? $barang->harga_formatted : null }}</span>
+                        : <span class="fw-bold">Rp. {{ number_format($harga_barang,0,',','.') }}
+                            <span wire:click="$emit('onClickEditHarga')" style="cursor: pointer">
+                                <i class="bi bi-pencil-square"></i>
+                            </span>
+                            @if ($show_input_harga)
+                                <input type="number" class="form-control form-control-solid" name="harga_barang" wire:model="harga_barang" placeholder="Harga Barang">
+                                @error('harga_barang')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            @endif
+                        </span>
                     </div>
                 </div>
                 <div class="row mb-5">
@@ -109,7 +119,7 @@
                     <div class="col-md-8 col-8">
                         : <span class="fw-bold">
                             @if ($qty && $barang)
-                                {{ 'Rp. ' . number_format($barang->harga * $qty,0,',','.') }}
+                                {{ 'Rp. ' . number_format($harga_barang * $qty,0,',','.') }}
                             @endif
                         </span>
                     </div>
@@ -169,7 +179,7 @@
                         </tr>
                     @endforeach
                     @php
-                        $ppn = 10/100*$subTotal;
+                        $ppn = 11/100*$subTotal;
                         $total = $ppn + $subTotal;
                     @endphp
                     <tr>
@@ -177,7 +187,7 @@
                         <td colspan="2" class="fw-bold">{{ 'Rp. ' . number_format($subTotal,0,',','.') }}</td>
                     </tr>
                     <tr>
-                        <td colspan="7" class="text-center fw-bold fst-italic">PPN 10%</td>
+                        <td colspan="7" class="text-center fw-bold fst-italic">PPN 11%</td>
                         <td colspan="2" class="fw-bold">{{ 'Rp. ' . number_format($ppn,0,',','.') }}</td>
                     </tr>
                     <tr>
@@ -207,7 +217,7 @@
         function refreshSelect(){
             $('select[name="id_barang"]').select2()
             $('select[name="id_barang"]').on('change', function(){
-                @this.set('id_barang', $(this).val())
+                Livewire.emit('changeBarang', $(this).val())
             })
         }
 
@@ -220,6 +230,10 @@
 
         Livewire.on('finishRefreshBarang', (status, message) => {
             alertMessage(status, message)
+        })
+
+        Livewire.on('onClickEditHarga', () => {
+            @this.set('show_input_harga', true)
         })
     </script>
 @endpush

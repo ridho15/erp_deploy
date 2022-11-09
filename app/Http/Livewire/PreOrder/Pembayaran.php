@@ -14,8 +14,9 @@ class Pembayaran extends Component
     public $id_pre_order;
     public $preOrder;
     public $listPreOrderBayar;
-    public $pembayaran_sekarang;
+    public $pembayaran_sekarang = 0;
     public $sudah_bayar;
+    public $sisa_bayar;
     public function render()
     {
         $this->listPreOrderBayar = PreOrderBayar::where('id_pre_order', $this->id_pre_order)
@@ -26,6 +27,11 @@ class Pembayaran extends Component
             $total_bayar += $item->pembayaran_sekarang;
         }
         $this->sudah_bayar = $total_bayar;
+        $this->sisa_bayar = $this->preOrder->total_bayar - $this->sudah_bayar;
+        if($this->pembayaran_sekarang == null || $this->pembayaran_sekarang == 0){
+            $this->pembayaran_sekarang = $this->sisa_bayar;
+        }
+        $this->dispatchBrowserEvent('contentChange');
         return view('livewire.pre-order.pembayaran');
     }
 
@@ -60,6 +66,7 @@ class Pembayaran extends Component
         ]);
 
         $message = "Berhasil melakukan pembayaran";
+        $this->pembayaran_sekarang = 0;
         $this->emit('finishSimpanData', 1, $message);
         return session()->flash('success', $message);
     }

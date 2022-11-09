@@ -35,7 +35,7 @@
                             </div>
                             <div class="col-md-6 mb-5">
                                 <label for="" class="form-label required">Customer</label>
-                                <select name="id_customer" class="form-select form-select-solid" wire:model="id_customer" data-control="select2" data-dropdown-parent="#modal_form" required>
+                                <select name="id_customer" class="form-select form-select-solid" wire:model="id_customer" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih" required>
                                     <option value="">Pilih</option>
                                     @foreach ($listCustomer as $item)
                                         <option value="{{ $item->id }}" @if($item->id == $id_customer) selected @endif>{{ $item->nama }}</option>
@@ -69,7 +69,14 @@
                             <div class="col-md-6 mb-5">
                                 <label for="" class="form-label">Catatan</label>
                                 <textarea name="catatan" wire:model="catatan" class="form-control form-control-solid" placeholder="Masukkan catatan"></textarea>
-                                @error('no_unit')
+                                @error('catatan')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 mb-5">
+                                <label for="" class="form-label">Sales</label>
+                                <textarea name="sales" wire:model="sales" class="form-control form-control-solid" placeholder="Masukkan catatan"></textarea>
+                                @error('sales')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>

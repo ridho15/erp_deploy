@@ -83,11 +83,9 @@
                                 </div>
                                 <div class="col-md-8 col-8">
                                     : <span class="fw-bold">
-                                        @if ($laporanPekerjaan->user)
-                                            {{ $laporanPekerjaan->user->name }} ({{ $laporanPekerjaan->user->jabatan }})
-                                        @else
-                                            -
-                                        @endif
+                                        @foreach ($laporanPekerjaan->list_pekerja as $item)
+                                            {{ $item }},
+                                        @endforeach
                                     </span>
                                 </div>
                             </div>

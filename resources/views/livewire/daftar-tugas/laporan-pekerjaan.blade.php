@@ -17,14 +17,14 @@
                 <div class="row mb-5">
                     <div class="col-md mb-5">
                         <label for="" class="form-label">Tanggal</label>
-                        <input type="text" class="form-control form-control-solid" name="tanggal" placeholder="Masukkan tanggal" value="{{ date('d-m-Y', strtotime($tanggal)) }}" disabled>
+                        <input type="text" class="form-control form-control-solid" name="tanggal" placeholder="Masukkan tanggal" value="{{ $tanggal ? date('d-m-Y', strtotime($tanggal)) : null }}" disabled>
                         @error('tanggal')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md mb-5">
                         <label for="" class="form-label">Jam Mulai</label>
-                        <input type="text" class="form-control form-control-solid" name="jam_mulai" placeholder="Masukkan waktu" value="{{ date('H:i', strtotime($jam_mulai)) }}" disabled>
+                        <input type="text" class="form-control form-control-solid" name="jam_mulai" placeholder="Masukkan waktu" value="{{ $jam_mulai ? date('H:i', strtotime($jam_mulai)) : null }}" disabled>
                         @error('jam_mulai')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
