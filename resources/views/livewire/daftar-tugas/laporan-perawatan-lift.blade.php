@@ -28,19 +28,19 @@
                                 <th>Nama Pekerjaan</th>
                                 <th style="width: 200px;">Pekerjaan</th>
                                 @if ($periode > 0)
-                                <th>Checklist 1 Bulan</th>
+                                    <th style="width: 20px">Checklist 1 Bulan</th>
                                 @endif
                                 @if ($periode > 1)
-                                <th>Checklist 2 Bulan</th>
+                                    <th style="width: 20px">Checklist 2 Bulan</th>
                                 @endif
                                 @if ($periode > 2)
-                                <th>Checklist 3 Bulan</th>
+                                    <th style="width: 20px">Checklist 3 Bulan</th>
                                 @endif
                                 @if ($periode > 5)
-                                <th>Checklist 6 Bulan</th>
+                                    <th style="width: 20px">Checklist 6 Bulan</th>
                                 @endif
                                 @if ($periode > 11)
-                                <th>Checklist 1 Tahun</th>
+                                    <th style="width: 20px">Checklist 1 Tahun</th>
                                 @endif
                             </tr>
                         </thead>
@@ -48,28 +48,28 @@
                             @if (count($listTemplatePekerjaan) > 0)
                             @foreach ($listTemplatePekerjaan as $index => $item)
                             <tr class="fw-bold">
-                                <td class="bg-success">{{ \App\CPU\Helpers::numberToLetter($loop->iteration) }}</td>
-                                <td class="bg-success">{{ $item->nama_pekerjaan }}</td>
-                                <td class="bg-success"></td>
+                                <td>#</td>
+                                <td>{{ $item->nama_pekerjaan }}</td>
+                                <td></td>
                                 @if ($periode > 0)
-                                <td class="bg-success"></td>
+                                    <td></td>
                                 @endif
                                 @if ($periode > 1)
-                                <td class="bg-success"></td>
+                                    <td></td>
                                 @endif
                                 @if ($periode > 2)
-                                <td class="bg-success"></td>
+                                    <td></td>
                                 @endif
                                 @if ($periode > 5)
-                                <td class="bg-success"></td>
+                                    <td></td>
                                 @endif
                                 @if ($periode > 11)
-                                <td class="bg-success"></td>
+                                    <td></td>
                                 @endif
                             </tr>
                             @foreach ($item->detail as $nomor => $value)
                             <tr>
-                                <td class="text-end">{{ $nomor + 1 }}</td>
+                                <td>{{ $nomor + 1 }}</td>
                                 <td>{{ $value->nama_pekerjaan }}</td>
                                 <td>
                                     <select name="pekerjaan[]" multiple="multiple" class="js-example-basic-multiple form-select form-select-solid id-kondisi"
@@ -86,7 +86,7 @@
                                 <td class="text-center">
                                     {{-- <?= $value->detail ?> --}}
                                     <select name="kondisi1" class="form-select form-select-solid id-kondisi1"
-                                        data-control="select2" data-id_template_pekerjaan_detail="{{ $value->id }}">
+                                        data-control="select2" data-id_template_pekerjaan_detail="{{ $value->id }}" data-placeholder="Pilih Kondisi">
                                         <option value="">Pilih kondisi</option>
                                         @foreach ($listKondisi as $kondisi)
                                         <option value="{{ $kondisi->id }}" @if($kondisi->id == $value->checklist_1_bulan) selected @endif>{{ $kondisi->keterangan }}</option>
@@ -97,7 +97,7 @@
                                 @if ($periode > 1)
                                 <td class="text-center">
                                     <select name="kondisi2" class="form-select form-select-solid id-kondisi"
-                                        data-control="select2" data-id_template_pekerjaan_detail="{{ $value->id }}">
+                                        data-control="select2" data-placeholder="Pilih Kondisi" data-id_template_pekerjaan_detail="{{ $value->id }}">
                                         <option value="">Pilih kondisi</option>
                                         @foreach ($listKondisi as $kondisi)
                                         <option value="{{ $kondisi->id }}" @if($kondisi->id == $value->checklist_2_bulan)
@@ -109,7 +109,7 @@
                                 @if ($periode > 2)
                                 <td class="text-center">
                                     <select name="kondisi3" class="form-select form-select-solid id-kondisi"
-                                        data-control="select2" data-id_template_pekerjaan_detail="{{ $value->id }}">
+                                        data-control="select2" data-placeholder="Pilih Kondisi" data-id_template_pekerjaan_detail="{{ $value->id }}">
                                         <option value="">Pilih kondisi</option>
                                         @foreach ($listKondisi as $kondisi)
                                         <option value="{{ $kondisi->id }}" @if($kondisi->id == $value->checklist_3_bulan)
@@ -121,7 +121,7 @@
                                 @if ($periode > 5)
                                 <td class="text-center">
                                     <select name="kondisi6" class="form-select form-select-solid id-kondisi"
-                                        data-control="select2" data-id_template_pekerjaan_detail="{{ $value->id }}">
+                                        data-control="select2" data-placeholder="Pilih Kondisi" data-id_template_pekerjaan_detail="{{ $value->id }}">
                                         <option value="">Pilih kondisi</option>
                                         @foreach ($listKondisi as $kondisi)
                                         <option value="{{ $kondisi->id }}" @if($kondisi->id == $value->checklist_6_bulan)
@@ -133,7 +133,7 @@
                                 @if ($periode > 11)
                                 <td class="text-center">
                                     <select name="kondisi12" class="form-select form-select-solid id-kondisi"
-                                        data-control="select2" data-id_template_pekerjaan_detail="{{ $value->id }}">
+                                        data-control="select2" data-placeholder="Pilih Kondisi" data-id_template_pekerjaan_detail="{{ $value->id }}">
                                         <option value="">Pilih kondisi</option>
                                         @foreach ($listKondisi as $kondisi)
                                         <option value="{{ $kondisi->id }}" @if($kondisi->id == $value->checklist_12_bulan)
@@ -169,12 +169,10 @@
     $(document).ready(function () {
             refreshSelect2()
         });
-
         window.addEventListener('contentChange', function(){
             // $('select[name="kondisi1"]').select2()
             refreshSelect2()
         })
-
         function refreshSelect2(){
             $('select[name="kondisi1"]').select2()
             $('select[name="kondisi2"]').select2()
@@ -182,14 +180,12 @@
             $('select[name="kondisi6"]').select2()
             $('select[name="kondisi12"]').select2()
             $('select[name="pekerjaan[]"]').select2()
-
             $('select[name="pekerjaan[]"]').on('change', function(){
                 @this.set('pekerjaan', $(this).val())
                 console.log('pekerjaan', $(this).val())
                 @this.set('templateListId', $(this).data('id_template_pekerjaan_detail'))
                 Livewire.emit('setPekerjaan');
             })
-
             $('select[name="kondisi1"]').on('change', function(){
                 @this.set('kondisi1', $(this).val())
                 @this.set('templateListId', $(this).data('id_template_pekerjaan_detail'))
@@ -216,6 +212,5 @@
                 Livewire.emit('setKondisi12')
             })
         }
-
 </script>
 @endpush
