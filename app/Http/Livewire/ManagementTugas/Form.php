@@ -28,6 +28,7 @@ class Form extends Component
     public $jam_mulai;
     public $signature;
     public $periode;
+
     public $listIdUser = [];
 
     public $listCustomer = [];
@@ -117,7 +118,7 @@ class Form extends Component
         foreach ($this->listIdUser as $item) {
             LaporanPekerjaanUser::create([
                 'id_user' => $item,
-                'id_laporan_pekerjaan' => $laporanPekerjaan->id
+                'id_laporan_pekerjaan' => $laporanPekerjaan->id,
             ]);
         }
 

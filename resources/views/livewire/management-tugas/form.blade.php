@@ -71,7 +71,7 @@
                             </div>
                             <div class="mb-5 col-md-6" wire:ignore>
                                 <label for="" class="form-label">Pekerja</label>
-                                <select name="listIdUser" wire:model="listIdUser" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" multiple data-placeholder="Pilih">
+                                <select name="listIdUser" wire:model="listIdUser" class="form-select form-select-solid" multiple data-control="select2" data-dropdown-parent="#modal_form" multiple data-placeholder="Pilih">
                                     <option value="">Pilih</option>
                                     @foreach ($listUser as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
