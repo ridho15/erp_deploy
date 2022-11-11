@@ -13,12 +13,13 @@
         <table class="table table-rounded table-striped border gy-7 gs-7">
             <thead>
             <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
-            <th>No</th>
-            <th>SKU</th>
-            <th>Nama</th>
-            <th>Satuan</th>
-            <th>Masuk</th>
-            <th>Tanggal</th>
+                <th>No</th>
+                <th>SKU</th>
+                <th>Nama</th>
+                <th>Satuan</th>
+                <th>Masuk</th>
+                <th>Tanggal</th>
+                <th>Check</th>
             </tr>
             </thead>
             <tbody>
@@ -31,11 +32,16 @@
                         <td>{{ $item->barang->satuan->nama_satuan }}</td>
                         <td>{{ $item->perubahan }}</td>
                         <td>{{ $item->tanggal_perubahan_formatted }}</td>
+                        <td>
+                            <div class="form-check form-check-custom form-check-solid">
+                                <input class="form-check-input" type="checkbox" value="1" wire:click="simpanCheck({{ $item->id }})" @if($item->check == 1) checked @endif id="flexCheckDefault"/>
+                            </div>
+                        </td>
                     </tr>
                 @endforeach
             @else
                 <tr>
-                    <td colspan="6" class="text-center text-gray-500">Tidak ada data</td>
+                    <td colspan="7" class="text-center text-gray-500">Tidak ada data</td>
                 </tr>
             @endif
             </tbody>

@@ -3,6 +3,8 @@
 namespace App\Http\Livewire\ManagementTugas;
 
 use App\Models\LaporanPekerjaan;
+use App\Models\LaporanPekerjaanUser;
+use App\Models\User;
 use Carbon\Carbon;
 use Livewire\Component;
 
@@ -10,14 +12,20 @@ class AturJadwal extends Component
 {
     public $listeners = [
         'simpanDataJadwal',
-        'setDataLaporanPekerjaan'
+        'setDataLaporanPekerjaan',
+        'editPekerja'
     ];
     public $id_laporan_pekerjaan;
     public $laporanPekerjaan;
     public $jam_mulai;
     public $tanggal;
+
+    public $edit_pekerja = false;
+    public $listPekerja = [];
+    public $listIdUser = [];
     public function render()
     {
+        $this->listPekerja = User::get();
         if($this->jam_mulai){
             $this->tanggal = Carbon::parse($this->jam_mulai)->locale('id')->isoFormat('dddd, DD MMMM YYYY');
         }
@@ -27,6 +35,10 @@ class AturJadwal extends Component
 
     public function mount(){
 
+    }
+
+    public function editPekerja(){
+        $this->edit_pekerja = !$this->edit_pekerja;
     }
 
     public function simpanDataJadwal(){
@@ -40,6 +52,14 @@ class AturJadwal extends Component
         $this->laporanPekerjaan->update([
             'jam_mulai' => date('Y-m-d H:i:s', strtotime($this->jam_mulai))
         ]);
+
+        LaporanPekerjaanUser::where('id_laporan_pekerjaan', $this->laporanPekerjaan->id)->delete();
+        foreach ($this->listIdUser as $item) {
+            LaporanPekerjaanUser::create([
+                'id_laporan_pekerjaan' => $this->laporanPekerjaan->id,
+                'id_user' => $item
+            ]);
+        }
 
         $message = 'Berhasil mengatur ulang jadwal';
         $this->emit('refreshManagementTugas');
@@ -57,6 +77,10 @@ class AturJadwal extends Component
         $this->id_laporan_pekerjaan - $laporanPekerjaan->id;
         $this->jam_mulai = $laporanPekerjaan->jam_mulai;
         $this->laporanPekerjaan = $laporanPekerjaan;
+        $this->listIdUser = [];
+        foreach ($laporanPekerjaan->teknisi as $item) {
+            array_push($this->listIdUser, $item->id_user);
+        }
     }
 
     public function resetInputFields(){

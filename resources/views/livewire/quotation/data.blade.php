@@ -28,7 +28,8 @@
                    <th class="sticky" scope="col">Nama Project</th>
                    <th class="sticky" scope="col">Pelanggan</th>
                    <th class="sticky" scope="col">Sales</th>
-                   <th class="sticky" scope="col">Status</th>
+                   <th class="sticky" scope="col">Status Pekerjaan</th>
+                   <th class="sticky" scope="col">Status Kirim</th>
                    <th class="sticky" scope="col">Konfirmasi</th>
                    <th class="sticky" scope="col">File</th>
                    <th class="sticky" scope="col">Dibuat pada</th>
@@ -51,6 +52,19 @@
                                     @endif
                                 </td>
                                 <td>{{ $item->sales }}</td>
+                                <td>
+                                    @if ($item->laporanPekerjaan)
+                                        @if($item->laporanPekerjaan->jam_selesai != null && $item->laporanPekerjaan->signature)
+                                            <span class="badge badge-success">Selesai</span>
+                                        @elseif ($item->laporanPekerjaan->jam_mulai != null)
+                                            <span class="badge badge-secondary">Sedang dikerjakan</span>
+                                        @else
+                                            <span class="badge badge-warning">Belum Dikerjakan</span>
+                                        @endif
+                                    @else
+                                        Quotation Dibuat Manual
+                                    @endif
+                                </td>
                                 <td><?= $item->status_formatted ?></td>
                                 <td>
                                     @if ($item->konfirmasi == 0)
@@ -96,7 +110,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="14" class="text-center text-gray-500">Tidak ada data</td>
+                            <td colspan="15" class="text-center text-gray-500">Tidak ada data</td>
                         </tr>
                     @endif
                  </tbody>

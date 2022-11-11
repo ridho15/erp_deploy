@@ -32,10 +32,10 @@
                    <th class="sticky" scope="col">Jam Mulai</th>
                    <th class="sticky" scope="col">Jam Selesai</th>
                    <th class="sticky" scope="col">Keterangan</th>
-                   <th class="sticky" scope="col">Signature</th>
                    <th class="sticky" scope="col">Status</th>
                    <th class="sticky" scope="col">Aksi</th>
                    <th class="sticky" scope="col">Form</th>
+                   <th class="sticky" scope="col">Jumlah Service</th>
                   </tr>
                  </thead>
                  <tbody>
@@ -55,9 +55,6 @@
                                 <td>{{ $item->jam_mulai_formatted ?? '-' }}</td>
                                 <td>{{ $item->jam_selesai_formatted ?? '-' }}</td>
                                 <td>{{ $item->keterangan ?? '-' }}</td>
-                                <td>
-                                    <img src="{{ $item->signature ? asset('storage' . $item->signature) : null }}" class="img-fluid" alt="">
-                                </td>
                                 <td>
                                     @if ($item->signature != null && $item->jam_selesai != null)
                                         <span class="badge badge-success">Selesai</span>
@@ -89,6 +86,18 @@
                                     </div>
                                 </td>
                                 <td>{{ $item->formMaster->nama }} ({{ $item->formMaster->kode }})</td>
+                                <td>
+                                    @php
+                                        $jumlahService = 0;
+                                        foreach($item->formMaster->templatePekerjaan as $templatePekerjaan){
+                                            foreach ($templatePekerjaan->detail as $detail) {
+                                                $jumlahService ++;
+                                            }
+                                        }
+
+                                        echo $jumlahService;
+                                    @endphp
+                                </td>
                             </tr>
                         @endforeach
                     @else

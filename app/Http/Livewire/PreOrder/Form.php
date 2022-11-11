@@ -40,9 +40,16 @@ class Form extends Component
     public function render()
     {
         $this->listTipePembayaran = TipePembayaran::get();
-        $this->listQuotation = Quotation::get();
+        $this->listQuotation = Quotation::where('status', 0)->get();
         $this->listCustomer = Customer::get();
         $this->listMetodePembayaran = MetodePembayaran::get();
+
+        if($this->id_quotation){
+            $quotation = Quotation::find($this->id_quotation);
+            if($quotation && $quotation->customer){
+                $this->id_customer = $quotation->id_customer;
+            }
+        }
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.pre-order.form');
     }

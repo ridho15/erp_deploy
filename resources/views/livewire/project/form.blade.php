@@ -80,6 +80,20 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
+                            <div class="col-md-6 mb-5">
+                                <label for="" class="form-label">Lokasi (Link Map)</label>
+                                <input name="map" wire:model="map" class="form-control form-control-solid" placeholder="Masukkan lokasi">
+                                @error('map')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 mb-5">
+                                <label for="" class="form-label">Tanggal</label>
+                                <input name="tanggal" wire:model="tanggal" class="form-control form-control-solid" placeholder="Masukkan tanggal">
+                                @error('tanggal')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
                         </div>
                     </div>
 
@@ -97,6 +111,7 @@
     <script>
         $(document).ready(function () {
             refreshSelect()
+            $('input[name="tanggal"]').flatpickr()
         });
 
         function refreshSelect(){
@@ -107,6 +122,7 @@
             })
         }
         window.addEventListener('contentChange', function(){
+            $('input[name="tanggal"]').flatpickr()
             refreshSelect()
         })
 

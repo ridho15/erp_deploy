@@ -83,10 +83,22 @@
                                 </div>
                                 <div class="col-md-8 col-8">
                                     : <span class="fw-bold">
-                                        @foreach ($laporanPekerjaan->list_pekerja as $item)
-                                            {{ $item }},
+                                        @foreach ($laporanPekerjaan->teknisi as $item)
+                                            {{ $item->user->name }},
                                         @endforeach
                                     </span>
+                                    <span wire:click="editPekerja" style="cursor: pointer">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </span>
+
+                                    @if ($edit_pekerja == true)
+                                        <select name="listIdUser" wire:model="listIdUser" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_atur_jadwal" multiple data-placeholder="Pilih">
+                                            <option value="">Pilih</option>
+                                            @foreach ($listPekerja as $user)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row mb-5">
@@ -148,6 +160,8 @@
                 enableTime: true,
                 dateFormat: "Y-m-d H:i:s",
             })
+
+            $('select[name="listIdUser"]').select2()
         });
 
         window.addEventListener('contentChangeFormAturJadwal', () => {
@@ -155,7 +169,14 @@
                 enableTime: true,
                 dateFormat: "Y-m-d H:i:s",
             })
+
+            $('select[name="listIdUser"]').select2()
+
+            $('select[name="listIdUser"]').on('change', function(){
+                @this.set('listIdUser', $(this).val())
+            })
         })
+
 
         Livewire.on('finishSimpanData', (status, message) => {
             $('.modal').modal('hide')

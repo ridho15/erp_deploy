@@ -12,7 +12,7 @@
                 <div class="me-5">
                     @if ($laporanPekerjaan->signature != null && $laporanPekerjaan->jam_selesai != null)
                         <span class="badge badge-success">Selesai</span>
-                    @elseif($laporanPekerjaan->id_user != null && $laporanPekerjaan->jam_mulai != null)
+                    @elseif($laporanPekerjaan->jam_mulai != null)
                         <span class="badge badge-warning">Sedang Dikerjakan</span>
                     @else
                         <span class="badge badge-secondary">Belum Dikerjakan</span>

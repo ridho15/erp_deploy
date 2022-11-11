@@ -28,6 +28,7 @@
                    <th>Email</th>
                    <th>Nomor HP</th>
                    <th>Alamat</th>
+                   <th>Barang</th>
                    <th>Status</th>
                    <th>Aksi</th>
                   </tr>
@@ -42,6 +43,13 @@
                                 <td>{{ $item->email }}</td>
                                 <td>{{ $item->no_hp }}</td>
                                 <td>{{ $item->alamat }}</td>
+                                <td>
+                                    <ul>
+                                        @foreach ($item->list_barang as $nama_barang)
+                                            <li>{{ $nama_barang }}</li>
+                                        @endforeach
+                                    </ul>
+                                </td>
                                 <td><?= $item->status_formatted ?></td>
                                 <td>
                                     <div class="btn-group">

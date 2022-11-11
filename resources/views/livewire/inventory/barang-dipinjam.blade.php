@@ -1,7 +1,7 @@
 <div>
     @include('helper.alert-message')
     <div class="text-center">
-        @include('helper.simple-loading', ['target' => 'cari,hapusBarang', 'message' => 'Memuat data...'])
+        @include('helper.simple-loading', ['target' => 'cari,simpanCheck', 'message' => 'Memuat data...'])
     </div>
     <div class="row mb-5">
         <div class="col-md-3">
@@ -27,6 +27,7 @@
                 <th>Tipe Barang</th>
                 <th>Catatan Teknisi</th>
                 <th>Status</th>
+                <th>Check</th>
                 <th>Aksi</th>
             </tr>
             </thead>
@@ -45,6 +46,19 @@
                         <td>{{ $item->catatan_teknisi }}</td>
                         <td><?= $item->status_formatted ?></td>
                         <td>
+                            @php
+                                $barangStockLog = \App\Models\BarangStockLog::where('id_barang', $item->id_barang)
+                                ->where('id_tipe_perubahan_stock', 1)
+                                ->where('perubahan', $item->qty)
+                                ->first();
+                            @endphp
+                            @if ($barangStockLog)
+                                <div class="form-check form-check-custom form-check-solid">
+                                    <input class="form-check-input" type="checkbox" value="1" wire:click="simpanCheck({{ $barangStockLog->id }})" @if($barangStockLog->check == 1) checked @endif id="flexCheckDefault"/>
+                                </div>
+                            @endif
+                        </td>
+                        <td>
                             <div class="btn-group">
                                 <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Kembalikan Barang Kegudang" wire:click="$emit('onClickKembalikan', {{ $item->id }})">
                                     <i class="bi bi-x-circle"></i>
@@ -55,7 +69,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td colspan="11" class="text-center text-gray-500">Tidak ada data</td>
+                    <td colspan="12" class="text-center text-gray-500">Tidak ada data</td>
                 </tr>
             @endif
             </tbody>

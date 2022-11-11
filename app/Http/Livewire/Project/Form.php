@@ -19,6 +19,8 @@ class Form extends Component
     public $catatan;
     public $listCustomer;
     public $sales;
+    public $tanggal;
+    public $map;
     public function render()
     {
         $this->listCustomer = Customer::get();
@@ -39,7 +41,9 @@ class Form extends Component
             'alamat' => 'required|string',
             'catatan' => 'nullable|string',
             'id_customer' => 'required|numeric',
-            'sales' => 'nullable|string'
+            'sales' => 'nullable|string',
+            'tanggal' => 'nullable|string',
+            'map' => 'nullable|string'
         ], [
             'kode.required' => 'Kode project tidak boleh kosong',
             'kode.string' => 'Kode tidak valid !',
@@ -52,7 +56,9 @@ class Form extends Component
             'catatan.string' => 'Catatan tidak valid !',
             'id_customer.required' => 'Client Belum dipilih',
             'id_customer.numeric' => 'Client tidak valid !',
-            'sales' => 'Sales tidak valid !'
+            'sales' => 'Sales tidak valid !',
+            'tanggal.string' => 'Tanggal tidak valid !',
+            'map.string' => 'Map tidak valid !'
         ]);
 
         $customer = Customer::find($this->id_customer);
@@ -72,6 +78,8 @@ class Form extends Component
             'catatan' => $this->catatan,
             'id_customer' => $this->id_customer,
             'sales' => $this->sales,
+            'map' => $this->map,
+            'tanggal' => date('Y-m-d', strtotime($this->tanggal))
         ]);
 
         $message = "Berhasil menyimpan data";

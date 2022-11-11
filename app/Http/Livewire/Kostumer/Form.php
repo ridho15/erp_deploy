@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Kostumer;
 
+use App\Models\BarangCustomer;
 use App\Models\Kostumer;
 use Livewire\Component;
 
@@ -14,9 +15,12 @@ class Form extends Component
     public $no_hp;
     public $alamat;
     public $status;
+    public $id_barang_customer;
+    public $listBarangCustomer = [];
 
     public function render()
     {
+        $this->listBarangCustomer = BarangCustomer::get();
         return view('livewire.kostumer.form');
     }
 
@@ -51,6 +55,7 @@ class Form extends Component
             'no_hp' => $this->no_hp,
             'alamat' => $this->alamat,
             'status' => $this->status ? 1 : 0,
+            'id_barang_customer' => $this->id_barang_customer
         ]);
 
         $message = 'Berhasil menyimpan data customer';
@@ -69,6 +74,7 @@ class Form extends Component
         $this->no_hp = null;
         $this->alamat = null;
         $this->status = null;
+        $this->id_barang_customer = null;
     }
 
     public function setDataKostumer($id)
@@ -87,5 +93,6 @@ class Form extends Component
         $this->email = $kostumer->email;
         $this->status = $kostumer->status;
         $this->alamat = $kostumer->alamat;
+        $this->id_barang_customer = $kostumer->id_barang_customer;
     }
 }

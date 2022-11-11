@@ -365,6 +365,15 @@
                                     <span class="menu-title">Kondisi</span>
                                 </a>
                             </div>
+                            <div class="menu-item">
+                                <a class="menu-link @if(in_array('barang-customer', $active)) active @endif"
+                                    href="{{ route('barang-customer') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Barang Customer</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     {{-- <div class="menu-item">

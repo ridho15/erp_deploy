@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangeColumnFormMasterInLaporanPekerjaan extends Migration
+class AddCheckListToBarangStockLog extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class ChangeColumnFormMasterInLaporanPekerjaan extends Migration
      */
     public function up()
     {
-        Schema::table('laporan_pekerjaan', function (Blueprint $table) {
-            // $table->renameColumn('form_master', 'id_form_master');
+        Schema::table('barang_stock_logs', function (Blueprint $table) {
+            $table->integer('check')->default(0);
         });
     }
 
@@ -25,7 +25,7 @@ class ChangeColumnFormMasterInLaporanPekerjaan extends Migration
      */
     public function down()
     {
-        Schema::table('laporan_pekerjaan', function (Blueprint $table) {
+        Schema::table('barang_stock_log', function (Blueprint $table) {
             //
         });
     }

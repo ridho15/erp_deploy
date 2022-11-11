@@ -3,6 +3,7 @@
 use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\AutentikasiController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\BarangCustomerController;
 use App\Http\Controllers\DaftarTugasController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FormMasterController;
@@ -165,6 +166,10 @@ Route::middleware('auth.user')->group(function () {
 
         Route::prefix('metode-pembayaran')->group(function () {
             Route::get('/', [MetodePembayaranController::class, 'index'])->name('metode-pembayaran');
+        });
+
+        Route::prefix('barang-customer')->group(function(){
+            Route::get('/', [BarangCustomerController::class, 'index'])->name('barang-customer');
         });
     });
 

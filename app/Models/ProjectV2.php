@@ -18,10 +18,16 @@ class ProjectV2 extends Model
         'alamat',
         'id_customer',
         'catatan',
-        'sales'
+        'sales',
+        'tanggal',
+        'map'
     ];
 
     public function customer(){
         return $this->belongsTo(Customer::class, 'id_customer');
+    }
+
+    public function laporanPekerjaan(){
+        return $this->hasMany(LaporanPekerjaan::class, 'id_project');
     }
 }

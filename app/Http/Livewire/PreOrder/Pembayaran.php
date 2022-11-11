@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire\PreOrder;
 
+use App\Models\Barang;
+use App\Models\BarangStockLog;
 use App\Models\PreOrder;
 use App\Models\PreOrderBayar;
 use Livewire\Component;
@@ -10,6 +12,7 @@ class Pembayaran extends Component
 {
     public $listeners = [
         'simpanPreOrderBayar',
+        'pembayaranLunas'
     ];
     public $id_pre_order;
     public $preOrder;
@@ -65,9 +68,39 @@ class Pembayaran extends Component
             'pembayaran_sekarang' => $this->pembayaran_sekarang
         ]);
 
+        foreach ($this->preOrder->preOrderDetail as $preOrderDetail) {
+            if($preOrderDetail->status == 0){
+                $preOrderDetail->update([
+                    'status' => 1
+                ]);
+
+                $barang = Barang::find($preOrderDetail->id_barang);
+                BarangStockLog::create([
+                    'id_barang' => $preOrderDetail->id_barang,
+                    'stock_awal' => $barang->stock + $preOrderDetail->qty,
+                    'perubahan' => $preOrderDetail->qty,
+                    'tanggal_perubahan' => now(),
+                    'id_tipe_perubahan_stock' => 4,
+                    'id_user' => session()->get('id_user'),
+                ]);
+
+                if($this->preOrder->quotation && $this->preOrder->quotation->laporanPekerjaan && $this->preOrder->quotation->laporanPekerjaan->laporanPekerjaanBarang->where('id_barang', $preOrderDetail->id_barang)->first()){
+                    $laporanPekerjaanBarang = $this->preOrder->quotation->laporanPekerjaan->laporanPekerjaanBarang->where('id_barang', $preOrderDetail->id_barang)->first();
+                    $laporanPekerjaanBarang->update([
+                        'status' => 4
+                    ]);
+                }
+            }
+        }
+
         $message = "Berhasil melakukan pembayaran";
         $this->pembayaran_sekarang = 0;
         $this->emit('finishSimpanData', 1, $message);
         return session()->flash('success', $message);
+    }
+
+    public function pembayaranLunas(){
+        $this->pembayaran_sekarang = $this->sisa_bayar;
+        $this->simpanPreOrderBayar();
     }
 }
