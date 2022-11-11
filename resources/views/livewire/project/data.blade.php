@@ -31,6 +31,8 @@
                    <th>No Unit</th>
                    <th>No MFG</th>
                    <th>Sales</th>
+                   <th>Lokasi</th>
+                   <th>Tanggal Project</th>
                    <th>Total Pekerjaan</th>
                    <th>Aksi</th>
                   </tr>
@@ -48,6 +50,16 @@
                                 <td>{{ $item->no_unit }}</td>
                                 <td>{{ $item->no_mfg }}</td>
                                 <td>{{ $item->sales }}</td>
+                                <td>{{ date('d-m-Y', strtotime($item->tanggal)) }}</td>
+                                <td>
+                                    @if ($item->map)
+                                        <a href="{{ $item->map }}" class="btn btn-sm btn-icon btn-outline btn-outline-success" target="_blank">
+                                            <i class="fa-solid fa-location-dot"></i>
+                                        </a>
+                                    @else
+                                        -
+                                    @endif
+                                </td>
                                 <td>
                                     @php
                                         $total_pekerjaan_selesai = 0;

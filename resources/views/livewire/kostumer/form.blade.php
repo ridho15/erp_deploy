@@ -48,6 +48,15 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
+                        <div class="mb-5" wire:ignore>
+                            <label for="" class="form-label">Barang</label>
+                            <select name="id_barang_customer" wire:model="id_barang_customer" class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih" multiple>
+                                <option value="">Pilih</option>
+                                @foreach ($listBarangCustomer as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama_barang }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="d-flex flex-stack w-lg-50">
                             <label class="form-check form-switch form-check-custom form-check-solid">
                                 <input class="form-check-input" type="checkbox" value="1" wire:model="status" checked="checked"/>
@@ -73,6 +82,10 @@
         $(document).ready(function () {
 
         });
+
+        $('select[name="id_barang_customer"]').on('change', function(){
+            @this.set('id_barang_customer', $(this).val())
+        })
 
         window.addEventListener('contentChange', function(){
         })

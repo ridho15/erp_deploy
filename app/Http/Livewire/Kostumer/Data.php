@@ -14,6 +14,7 @@ class Data extends Component
     public $total_show;
     public $cari;
     protected $listKostumer;
+    public $id_barang_customer;
     public function render()
     {
         $this->listKostumer = Kostumer::where(function($query){

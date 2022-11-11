@@ -16,10 +16,22 @@ class Kostumer extends Model
         'no_hp',
         'email',
         'alamat',
-        'status'
+        'status',
+        'id_barang_customer'
     ];
 
-    protected $appends = ['status_formatted', 'kode'];
+    protected $appends = ['status_formatted', 'kode', 'list_barang'];
+
+    public function getListBarangAttribute(){
+        $listIdBarang = json_decode($this->id_barang_customer);
+        $listNamaBarang = [];
+        foreach ($listIdBarang as $item) {
+            $barangCustomer = BarangCustomer::find($item);
+            array_push($listNamaBarang, $barangCustomer->nama_barang);
+        }
+
+        return $listNamaBarang;
+    }
 
     public function getStatusFormattedAttribute(){
         if($this->status == 1){

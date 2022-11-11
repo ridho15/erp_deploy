@@ -18,7 +18,9 @@ class ProjectV2 extends Model
         'alamat',
         'id_customer',
         'catatan',
-        'sales'
+        'sales',
+        'tanggal',
+        'map'
     ];
 
     public function customer(){
