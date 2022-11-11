@@ -25,9 +25,11 @@ class Kostumer extends Model
     public function getListBarangAttribute(){
         $listIdBarang = json_decode($this->id_barang_customer);
         $listNamaBarang = [];
-        foreach ($listIdBarang as $item) {
-            $barangCustomer = BarangCustomer::find($item);
-            array_push($listNamaBarang, $barangCustomer->nama_barang);
+        if (is_array($listIdBarang)) {
+            foreach ($listIdBarang as $item) {
+                $barangCustomer = BarangCustomer::find($item);
+                array_push($listNamaBarang, $barangCustomer->nama_barang);
+            }
         }
 
         return $listNamaBarang;
