@@ -29,6 +29,7 @@
                    <th class="sticky" scope="col">Nomor Lift</th>
                    <th class="sticky" scope="col">Merk</th>
                    <th class="sticky" scope="col">Pekerja</th>
+                   <th class="sticky" scope="col">Tanggal Pekerjaan</th>
                    <th class="sticky" scope="col">Jam Mulai</th>
                    <th class="sticky" scope="col">Jam Selesai</th>
                    <th class="sticky" scope="col">Keterangan</th>
@@ -52,6 +53,7 @@
                                         {{ $nama->user->name }},
                                     @endforeach
                                 </td>
+                                <td>{{ Carbon\Carbon::parse($item->tanggal_pekerjaan)->locale('id')->isoFormat('DD/MM/YYYY') ?? '-' }}</td>
                                 <td>{{ $item->jam_mulai_formatted ?? '-' }}</td>
                                 <td>{{ $item->jam_selesai_formatted ?? '-' }}</td>
                                 <td>{{ $item->keterangan ?? '-' }}</td>

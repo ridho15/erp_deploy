@@ -81,6 +81,10 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
+                            <div class="mb-5 col-md-6" wire:ignore>
+                                <label for="tanggal">Tanggal Pekerjaan</label>
+                                <input type="date" class="form-control form-control-solid" name="tanggal" wire:model="tanggal">
+                            </div>
                             <div class="mb-5 col-md-6">
                                 <label for="" class="form-label required">Periode Pekerjaan</label>
                                 <select name="periode" wire:model="periode" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih Periode" required>
