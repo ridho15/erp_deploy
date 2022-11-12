@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\ManagementTugas;
 
 use App\Models\LaporanPekerjaan;
+use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -14,16 +15,27 @@ class Data extends Component
         'refreshManagementTugas' => '$refresh',
         'hapusManagementTugas',
         'setKirim',
+        'filterData',
     ];
     public $total_show = 10;
     public $cari;
+    public $date1;
+    public $date2;
     protected $listLaporanPekerjaan;
 
     public function render()
     {
+        $date = $this->cari;
+
+        if (preg_match('/^(0[1-9]|[1-2][0-9]|3[0-1])-(0[1-9]|1[0-2])-[0-9]{4}$/', $date)) {
+            $this->cari = Carbon::parse($this->cari)->locale('id')->isoFormat('YYYY/MM/DD hh:mm:ss');
+        }
+
         $this->listLaporanPekerjaan = LaporanPekerjaan::where('dikirim', 0)->where(function ($query) {
             $query->where('nomor_lift', 'LIKE', '%'.$this->cari.'%')
             ->orWhere('keterangan', 'LIKE', '%'.$this->cari.'%')
+            ->orWhere('jam_mulai', 'LIKE', '%'.$this->cari.'%')
+            ->orWhere('jam_selesai', 'LIKE', '%'.$this->cari.'%')
             ->orWhereHas('customer', function ($query) {
                 $query->where('nama', 'LIKE', '%'.$this->cari.'%');
             })->orWhereHas('project', function ($query) {
@@ -36,6 +48,10 @@ class Data extends Component
     }
 
     public function mount()
+    {
+    }
+
+    public function filterData()
     {
     }
 

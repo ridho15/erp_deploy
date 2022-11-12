@@ -15,10 +15,13 @@
                 @include('helper.simple-loading', ['target' => 'cari,hapusManagementTugas', 'message' => 'Memuat
                 data...'])
             </div>
-            <div class="row mb-5">
-                <div class="col-md-3">
+            <div class="row mb-5 justify-content-between">
+                <div class="col-md-7">
                     @include('helper.form-pencarian', ['model' => 'cari'])
                 </div>
+                {{-- <div class="col-2 d-flex justify-content-end">
+                    @include('helper.filter', ['model' => 'date1', 'model' => 'date2'])
+                </div> --}}
             </div>
 
             {{-- <div class="table-responsive"> --}}
