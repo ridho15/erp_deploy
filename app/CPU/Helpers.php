@@ -4,6 +4,7 @@ namespace App\CPU;
 
 use App\Models\Barang;
 use App\Models\Kondisi;
+use App\Models\LaporanPekerjaanUser;
 use App\Models\Pekerjaan;
 use App\Models\TipeUser;
 use App\Models\User;
@@ -14,6 +15,20 @@ use Illuminate\Support\Facades\Storage;
 
 class Helpers
 {
+    public function checkTeknisi($id)
+    {
+        $progress = LaporanPekerjaanUser::with('laporanPekerjaan')->where('id_user', $id)->whereHas('laporanPekerjaan', function ($q) {
+            $q->where('jam_mulai', '!=', null)->where('jam_selesai', null);
+        })->first();
+
+        $status = 'Tersedia';
+        if ($progress) {
+            $status = 'Bekerja';
+        }
+
+        return $status;
+    }
+
     public static function numberToLetter($n)
     {
         if ($n == 1) {

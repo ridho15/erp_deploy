@@ -74,7 +74,7 @@
                                 <select name="listIdUser" wire:model="listIdUser" class="form-select form-select-solid" multiple data-control="select2" data-dropdown-parent="#modal_form" multiple data-placeholder="Pilih">
                                     <option value="">Pilih</option>
                                     @foreach ($listUser as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->name }} ( {{(\App\CPU\Helpers::checkTeknisi($item->id)) }} )</option>
                                     @endforeach
                                 </select>
                                 @error('id_user')
