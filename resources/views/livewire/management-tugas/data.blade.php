@@ -38,6 +38,7 @@
                                 <th class="sticky" scope="col">Tanggal Pekerjaan</th>
                                 <th class="sticky" scope="col">Jam Mulai</th>
                                 <th class="sticky" scope="col">Jam Selesai</th>
+                                <th class="sticky" scope="col">Periode</th>
                                 <th class="sticky" scope="col">Keterangan</th>
                                 <th class="sticky" scope="col">Status</th>
                                 <th class="sticky" scope="col">Aksi</th>
@@ -63,6 +64,12 @@
                                     ?? '-' }}</td>
                                 <td>{{ $item->jam_mulai_formatted ?? '-' }}</td>
                                 <td>{{ $item->jam_selesai_formatted ?? '-' }}</td>
+                                <td>
+                                    @if ($item->periode == 0)
+                                    Emergency Call
+                                    @else
+                                    {{ $item->periode }} Bulan
+                                    @endif</td>
                                 <td>{{ $item->keterangan ?? '-' }}</td>
                                 <td>
                                     @if ($item->signature != null && $item->jam_selesai != null)
