@@ -21,6 +21,7 @@ class LaporanPerawatanLift extends Component
         'setKondisi6',
         'setKondisi12',
         'setPekerjaan',
+        'setStatus',
     ];
     public $id_kondisi;
     public $id_laporan_pekerjaan;
@@ -34,6 +35,7 @@ class LaporanPerawatanLift extends Component
     public $kondisi3;
     public $kondisi6;
     public $kondisi12;
+    public $statusPekerjaan;
     public $templateListId;
 
     public $listKondisiLift = [];
@@ -97,6 +99,18 @@ class LaporanPerawatanLift extends Component
         $detailList->save();
 
         $message = 'Berhasil menambah jenis pekerjaan';
+        $this->emit('finishSimpanData', 1, $message);
+
+        // return session()->flash('success', $message);
+    }
+
+    public function setStatus()
+    {
+        $detailList = TemplatePekerjaanDetail::find($this->templateListId);
+        $detailList->status = $this->statusPekerjaan;
+        $detailList->save();
+
+        $message = 'Berhasil merubah status pekerjaan';
         $this->emit('finishSimpanData', 1, $message);
 
         // return session()->flash('success', $message);

@@ -28,6 +28,8 @@ class Form extends Component
     public $jam_mulai;
     public $signature;
     public $periode;
+    public $tanggal;
+
     public $listIdUser = [];
 
     public $listCustomer = [];
@@ -60,6 +62,7 @@ class Form extends Component
             'id_merk' => 'required|numeric',
             'id_form_master' => 'required|numeric',
             'nomor_lift' => 'required|numeric',
+            'tanggal' => 'required',
         ], [
             'id_customer.required' => 'Customer belum dipilih',
             'id_customer.numeric' => 'Customer tidak valid !',
@@ -70,6 +73,7 @@ class Form extends Component
             'nomor_lift.required' => 'Nomor lift tidak boleh kosong',
             'nomor_lift.numeric' => 'Nomor Lift tidak valid !',
             'id_form_master.required' => 'Form belum dipilih',
+            'tanggal.required' => 'Tanggal Pekerjaan belum dipilih',
             'id_form_master.numeric' => 'Form tidak valid !',
         ]);
 
@@ -109,6 +113,7 @@ class Form extends Component
             'id_merk' => $this->id_merk,
             'nomor_lift' => $this->nomor_lift,
             'periode' => $this->periode,
+            'tanggal_pekerjaan' => $this->tanggal,
             'id_form_master' => $this->id_form_master,
         ]);
 
@@ -117,7 +122,7 @@ class Form extends Component
         foreach ($this->listIdUser as $item) {
             LaporanPekerjaanUser::create([
                 'id_user' => $item,
-                'id_laporan_pekerjaan' => $laporanPekerjaan->id
+                'id_laporan_pekerjaan' => $laporanPekerjaan->id,
             ]);
         }
 
@@ -136,6 +141,7 @@ class Form extends Component
         $this->id_project = null;
         $this->id_merk = null;
         $this->nomor_lift = null;
+        $this->tanggal = null;
         $this->id_form_master = null;
         $this->listIdUser = [];
     }
@@ -156,6 +162,7 @@ class Form extends Component
         $this->nomor_lift = $laporanPekerjaan->nomor_lift;
         $this->id_form_master = $laporanPekerjaan->id_form_master;
         $this->periode = $laporanPekerjaan->periode;
+        $this->tanggal = $laporanPekerjaan->tanggal_pekerjaan;
 
         foreach ($laporanPekerjaan->teknisi as $item) {
             array_push($this->listIdUser, $item->id_user);

@@ -71,20 +71,25 @@
                             </div>
                             <div class="mb-5 col-md-6" wire:ignore>
                                 <label for="" class="form-label">Pekerja</label>
-                                <select name="listIdUser" wire:model="listIdUser" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" multiple data-placeholder="Pilih">
+                                <select name="listIdUser" wire:model="listIdUser" class="form-select form-select-solid" multiple data-control="select2" data-dropdown-parent="#modal_form" multiple data-placeholder="Pilih">
                                     <option value="">Pilih</option>
                                     @foreach ($listUser as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->name }} ( {{(\App\CPU\Helpers::checkTeknisi($item->id)) }} )</option>
                                     @endforeach
                                 </select>
                                 @error('id_user')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
+                            <div class="mb-5 col-md-6" wire:ignore>
+                                <label for="tanggal">Tanggal Pekerjaan</label>
+                                <input type="date" class="form-control form-control-solid" name="tanggal" wire:model="tanggal">
+                            </div>
                             <div class="mb-5 col-md-6">
                                 <label for="" class="form-label required">Periode Pekerjaan</label>
                                 <select name="periode" wire:model="periode" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih Periode" required>
                                     <option value="">Pilih</option>
+                                    <option value="0">0 (Emergency Call)</option>
                                     <option value="1">1 Bulan</option>
                                     <option value="2">2 Bulan</option>
                                     <option value="3">3 Bulan</option>

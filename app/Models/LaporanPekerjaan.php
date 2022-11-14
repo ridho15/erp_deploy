@@ -25,16 +25,19 @@ class LaporanPekerjaan extends Model
         'periode',
         'signature',
         'catatan_pelanggan',
+        'tanggal_pekerjaan',
+        'dikirim',
     ];
 
     protected $appends = [
         'kode_pekerjaan',
         'jam_mulai_formatted',
         'jam_selesai_formatted',
-        'list_pekerja'
+        'list_pekerja',
     ];
 
-    public function getListPekerjaAttribute(){
+    public function getListPekerjaAttribute()
+    {
         $name = [];
         $listIdUser = json_decode($this->id_user);
         if (is_array($listIdUser) === true) {
@@ -42,8 +45,8 @@ class LaporanPekerjaan extends Model
                 $user = User::find($item);
                 array_push($name, $user->name);
             }
-        }else{
-            return ["-"];
+        } else {
+            return ['-'];
         }
 
         return $name;
@@ -60,6 +63,15 @@ class LaporanPekerjaan extends Model
     {
         if ($this->jam_mulai) {
             return Carbon::parse($this->jam_mulai)->locale('id')->isoFormat('DD/MM/YYYY HH:mm');
+        } else {
+            return null;
+        }
+    }
+
+    public function tanggalPekerjaanFormatted()
+    {
+        if ($this->tanggal) {
+            return Carbon::parse($this->tanggal)->locale('id')->isoFormat('DD/MM/YYYY');
         } else {
             return null;
         }
@@ -109,7 +121,8 @@ class LaporanPekerjaan extends Model
         return $this->belongsTo(FormMaster::class, 'id_form_master');
     }
 
-    public function teknisi(){
+    public function teknisi()
+    {
         return $this->hasMany(LaporanPekerjaanUser::class, 'id_laporan_pekerjaan');
     }
 }
