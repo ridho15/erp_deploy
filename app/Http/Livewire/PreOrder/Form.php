@@ -40,7 +40,8 @@ class Form extends Component
     public function render()
     {
         $this->listTipePembayaran = TipePembayaran::get();
-        $this->listQuotation = Quotation::where('status', 0)->get();
+        $this->listQuotation = Quotation::where('status', 0)
+            ->where('id_customer', $this->id_customer)->get();
         $this->listCustomer = Customer::get();
         $this->listMetodePembayaran = MetodePembayaran::get();
 
