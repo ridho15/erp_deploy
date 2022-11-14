@@ -49,8 +49,11 @@
                                 <td>{{ $item->catatan }}</td>
                                 <td>{{ $item->no_unit }}</td>
                                 <td>{{ $item->no_mfg }}</td>
-                                <td>{{ $item->sales }}</td>
-                                <td>{{ date('d-m-Y', strtotime($item->tanggal)) }}</td>
+                                <td>
+                                    @foreach ($item->salesProject as $salesProject)
+                                        {{ $salesProject->sales->nama }},
+                                    @endforeach
+                                </td>
                                 <td>
                                     @if ($item->map)
                                         <a href="{{ $item->map }}" class="btn btn-sm btn-icon btn-outline btn-outline-success" target="_blank">
@@ -60,6 +63,7 @@
                                         -
                                     @endif
                                 </td>
+                                <td>{{ date('d-m-Y', strtotime($item->tanggal)) }}</td>
                                 <td>
                                     @php
                                         $total_pekerjaan_selesai = 0;

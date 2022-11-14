@@ -18,7 +18,6 @@ class ProjectV2 extends Model
         'alamat',
         'id_customer',
         'catatan',
-        'sales',
         'tanggal',
         'map'
     ];
@@ -29,5 +28,9 @@ class ProjectV2 extends Model
 
     public function laporanPekerjaan(){
         return $this->hasMany(LaporanPekerjaan::class, 'id_project');
+    }
+
+    public function salesProject(){
+        return $this->hasMany(SalesProject::class, 'id_project');
     }
 }

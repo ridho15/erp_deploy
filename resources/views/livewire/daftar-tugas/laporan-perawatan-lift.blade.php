@@ -92,9 +92,7 @@
                                         @php
                                             $tanggalMulai = Carbon\Carbon::parse($laporanPekerjaan->jam_mulai);
                                             $now = Carbon\Carbon::now();
-
                                             $periode = $now->month - $tanggalMulai->month;
-
                                             echo $periode . ' Bulan';
                                         @endphp
                                     </td>

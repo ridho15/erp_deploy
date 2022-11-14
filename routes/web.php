@@ -22,6 +22,7 @@ use App\Http\Controllers\PreOrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\QuotationController;
+use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TipeBarangController;
 use App\Http\Controllers\WebConfigurationController;
@@ -170,6 +171,10 @@ Route::middleware('auth.user')->group(function () {
 
         Route::prefix('barang-customer')->group(function(){
             Route::get('/', [BarangCustomerController::class, 'index'])->name('barang-customer');
+        });
+
+        Route::prefix('sales')->group(function(){
+            Route::get('/', [SalesController::class, 'index'])->name('sales');
         });
     });
 

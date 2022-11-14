@@ -31,7 +31,6 @@
                                 <th class="sticky" scope="col">Jam Selesai</th>
                                 <th class="sticky" scope="col">Keterangan</th>
                                 <th class="sticky" scope="col">Periode</th>
-                                <th class="sticky" scope="col">Signature</th>
                                 <th class="sticky" scope="col">Status</th>
                                 <th class="sticky" scope="col">Aksi</th>
                                 <th class="sticky" scope="col">Kode Pekerjaan</th>
@@ -44,7 +43,7 @@
                             <tr>
                                 <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
                                 <td>{{ $item->customer->nama }}</td>
-                                <td>{{ $item->project->nama }}</td>
+                                <td>{{ $item->project ? $item->project->nama : '-' }}</td>
                                 <td>{{ $item->nomor_lift }}</td>
                                 <td>{{ $item->merk->nama_merk }}</td>
                                 <td>
@@ -62,7 +61,7 @@
                                     {{ $item->periode }} Bulan
                                     @endif
                                 </td>
-                                <td>
+                                {{-- <td>
                                     @if ($item->signature)
                                     <img src="{{ asset('storage/' . $item->signature) }}" class="img-fluid" alt="">
                                     @else
@@ -70,7 +69,7 @@
                                         Belum ditanda tangan
                                     </div>
                                     @endif
-                                </td>
+                                </td> --}}
                                 <td>
                                     @if ($item->signature != null && $item->jam_selesai != null)
                                     <span class="badge badge-success">Selesai</span>
@@ -94,11 +93,11 @@
                                             data-bs-placement="top" title="Export PDF">
                                             <i class="bi bi-printer"></i>
                                         </a>
-                                        <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip"
+                                        {{-- <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip"
                                             data-bs-placement="top" title="Kembalikan ke management tugas"
                                             wire:click="$emit('onClickKirim', {{ $item->id }})">
                                             <i class="bi bi-arrow-return-left"></i>
-                                        </button>
+                                        </button> --}}
                                         <a href="{{ route('daftar-tugas.kelola', ['id' => $item->id]) }}"
                                             class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip"
                                             data-bs-placement="top" title="Kelola Tugas">

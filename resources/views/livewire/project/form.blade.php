@@ -75,8 +75,13 @@
                             </div>
                             <div class="col-md-6 mb-5">
                                 <label for="" class="form-label">Sales</label>
-                                <textarea name="sales" wire:model="sales" class="form-control form-control-solid" placeholder="Masukkan catatan"></textarea>
-                                @error('sales')
+                                <select name="listIdSales" wire:model="listIdSales" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih" multiple>
+                                    <option value="">Pilih</option>
+                                    @foreach ($listSales as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                    @endforeach
+                                </select>
+                                @error('listIdSales')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
@@ -89,7 +94,7 @@
                             </div>
                             <div class="col-md-6 mb-5">
                                 <label for="" class="form-label">Tanggal</label>
-                                <input name="tanggal" wire:model="tanggal" class="form-control form-control-solid" placeholder="Masukkan tanggal">
+                                <input type="text" name="tanggal" wire:model="tanggal" class="form-control form-control-solid" placeholder="Masukkan tanggal">
                                 @error('tanggal')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -120,7 +125,16 @@
             $('select[name="id_customer"]').on('change', function(){
                 @this.set('id_customer', $(this).val())
             })
+
+            $('select[name="listIdSales"]').select2();
+
+            $('select[name="listIdSales"]').on('change', function(){
+                @this.set('listIdSales', $(this).val())
+            })
         }
+
+
+
         window.addEventListener('contentChange', function(){
             $('input[name="tanggal"]').flatpickr()
             refreshSelect()

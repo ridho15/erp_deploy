@@ -374,6 +374,15 @@
                                     <span class="menu-title">Barang Customer</span>
                                 </a>
                             </div>
+                            <div class="menu-item">
+                                <a class="menu-link @if(in_array('sales', $active)) active @endif"
+                                    href="{{ route('sales') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Sales</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     {{-- <div class="menu-item">

@@ -72,7 +72,7 @@
                             Nama
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $laporanPekerjaan->project->nama }}
+                            : {{ $laporanPekerjaan->project ? $laporanPekerjaan->project->nama : '-' }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -80,7 +80,7 @@
                             Kode
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $laporanPekerjaan->project->kode }}
+                            : {{ $laporanPekerjaan->project ? $laporanPekerjaan->project->kode : '-' }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -88,7 +88,7 @@
                             No Unit
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $laporanPekerjaan->project->no_unit }}
+                            : {{ $laporanPekerjaan->project ? $laporanPekerjaan->project->no_unit : '-' }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -96,7 +96,7 @@
                             No MFG
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $laporanPekerjaan->project->no_mfg }}
+                            : {{ $laporanPekerjaan->project ? $laporanPekerjaan->project->no_mfg : '-' }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -104,7 +104,7 @@
                             Alamat
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $laporanPekerjaan->project->alamat }}
+                            : {{ $laporanPekerjaan->project ? $laporanPekerjaan->project->alamat : '-' }}
                         </div>
                     </div>
                 </div>

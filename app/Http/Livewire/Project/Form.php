@@ -4,6 +4,8 @@ namespace App\Http\Livewire\Project;
 
 use App\Models\Customer;
 use App\Models\ProjectV2;
+use App\Models\Sales;
+use App\Models\SalesProject;
 use Livewire\Component;
 
 class Form extends Component
@@ -18,12 +20,15 @@ class Form extends Component
     public $id_customer;
     public $catatan;
     public $listCustomer;
-    public $sales;
     public $tanggal;
     public $map;
+    public $listIdSales = [];
+
+    public $listSales = [];
     public function render()
     {
         $this->listCustomer = Customer::get();
+        $this->listSales = Sales::get();
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.project.form');
     }
@@ -41,7 +46,6 @@ class Form extends Component
             'alamat' => 'required|string',
             'catatan' => 'nullable|string',
             'id_customer' => 'required|numeric',
-            'sales' => 'nullable|string',
             'tanggal' => 'nullable|string',
             'map' => 'nullable|string'
         ], [
@@ -56,7 +60,6 @@ class Form extends Component
             'catatan.string' => 'Catatan tidak valid !',
             'id_customer.required' => 'Client Belum dipilih',
             'id_customer.numeric' => 'Client tidak valid !',
-            'sales' => 'Sales tidak valid !',
             'tanggal.string' => 'Tanggal tidak valid !',
             'map.string' => 'Map tidak valid !'
         ]);
@@ -67,7 +70,7 @@ class Form extends Component
             return session()->flash('fail', $message);
         }
 
-        ProjectV2::updateOrCreate([
+        $project = ProjectV2::updateOrCreate([
             'id' => $this->id_project
         ], [
             'kode' => $this->kode,
@@ -77,10 +80,17 @@ class Form extends Component
             'alamat' => $this->alamat,
             'catatan' => $this->catatan,
             'id_customer' => $this->id_customer,
-            'sales' => $this->sales,
             'map' => $this->map,
             'tanggal' => date('Y-m-d', strtotime($this->tanggal))
         ]);
+
+        SalesProject::where('id_project', $project->id)->delete();
+        foreach ($this->listIdSales as $item) {
+            SalesProject::create([
+                'id_sales' => $item,
+                'id_project' => $project->id
+            ]);
+        }
 
         $message = "Berhasil menyimpan data";
         $this->resetInputFields();
@@ -98,7 +108,9 @@ class Form extends Component
         $this->alamat = null;
         $this->catatan = null;
         $this->id_customer = null;
-        $this->sales = null;
+        $this->map = null;
+        $this->listIdSales = [];
+        $this->tanggal = null;
     }
 
     public function setDataProject($id){
@@ -116,6 +128,12 @@ class Form extends Component
         $this->alamat = $project->alamat;
         $this->catatan = $project->catatan;
         $this->id_customer = $project->id_customer;
-        $this->sales = $project->sales;
+        $this->map = $project->map;
+        $this->tanggal = $project->tanggal;
+
+        $this->listIdSales = [];
+        foreach ($project->salesProject as $item) {
+            array_push($this->listIdSales, $item->id_sales);
+        }
     }
 }
