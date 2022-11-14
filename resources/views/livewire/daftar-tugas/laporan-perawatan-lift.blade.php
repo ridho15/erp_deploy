@@ -27,22 +27,23 @@
                                 <th>No</th>
                                 <th>Nama Pekerjaan</th>
                                 <th style="width: 200px;">Pekerjaan</th>
+                                <th>Periode</th>
                                 @if ($periode > 0)
-                                <th>Checklist 1 Bulan</th>
+                                    <th>Checklist 1 Bulan</th>
                                 @endif
                                 @if ($periode > 1)
-                                <th>Checklist 2 Bulan</th>
+                                    <th>Checklist 2 Bulan</th>
                                 @endif
                                 @if ($periode > 2)
-                                <th>Checklist 3 Bulan</th>
+                                    <th>Checklist 3 Bulan</th>
                                 @endif
                                 @if ($periode > 5)
-                                <th>Checklist 6 Bulan</th>
+                                    <th>Checklist 6 Bulan</th>
                                 @endif
                                 @if ($periode > 11)
-                                <th>Checklist 1 Tahun</th>
+                                    <th>Checklist 1 Tahun</th>
                                 @endif
-                                <th>Status</th>
+                                    <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -52,125 +53,136 @@
                                 <td class="bg-success">{{ \App\CPU\Helpers::numberToLetter($loop->iteration) }}</td>
                                 <td class="bg-success">{{ $item->nama_pekerjaan }}</td>
                                 <td class="bg-success"></td>
-                                @if ($periode > 0)
                                 <td class="bg-success"></td>
+                                @if ($periode > 0)
+                                    <td class="bg-success"></td>
                                 @endif
                                 @if ($periode > 1)
-                                <td class="bg-success"></td>
+                                    <td class="bg-success"></td>
                                 @endif
                                 @if ($periode > 2)
-                                <td class="bg-success"></td>
+                                    <td class="bg-success"></td>
                                 @endif
                                 @if ($periode > 5)
-                                <td class="bg-success"></td>
+                                    <td class="bg-success"></td>
                                 @endif
                                 @if ($periode > 11)
-                                <td class="bg-success"></td>
+                                    <td class="bg-success"></td>
                                 @endif
-                                <td class="bg-success"></td>
+                                    <td class="bg-success"></td>
                             </tr>
-                            @foreach ($item->detail as $nomor => $value)
-                            <tr>
-                                <td class="text-end">{{ $nomor + 1 }}</td>
-                                <td>{{ $value->nama_pekerjaan }}</td>
-                                <td>
-                                    <select name="pekerjaan[]" multiple="multiple"
-                                        class="js-example-basic-multiple form-select form-select-solid id-kondisi"
-                                        data-control="select2" data-id_template_pekerjaan_detail="{{ $value->id }}">
-                                        <option value="">Pilih pekerjaan</option>
-                                        @foreach ($listPekerjaan as $kondisi)
-                                        <option value="{{ $kondisi->id }}" @if(in_array($kondisi->id,
-                                            json_decode($value->keterangan)))
-                                            selected @endif>{{ $kondisi->keterangan }}
-                                        </option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                                @if ($periode > 0)
-                                <td class="text-center">
-                                    {{--
-                                    <?= $value->detail ?> --}}
-                                    <select name="kondisi1" class="form-select form-select-solid id-kondisi1"
-                                        data-control="select2" data-id_template_pekerjaan_detail="{{ $value->id }}">
-                                        <option value="">Pilih kondisi</option>
-                                        @foreach ($listKondisi as $kondisi)
-                                        <option value="{{ $kondisi->id }}" @if($kondisi->id ==
-                                            $value->checklist_1_bulan) selected @endif>{{ $kondisi->keterangan }}
-                                        </option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                                @endif
-                                @if ($periode > 1)
-                                <td class="text-center">
-                                    <select name="kondisi2" class="form-select form-select-solid id-kondisi"
-                                        data-control="select2" data-id_template_pekerjaan_detail="{{ $value->id }}">
-                                        <option value="">Pilih kondisi</option>
-                                        @foreach ($listKondisi as $kondisi)
-                                        <option value="{{ $kondisi->id }}" @if($kondisi->id ==
-                                            $value->checklist_2_bulan)
-                                            selected @endif>{{ $kondisi->keterangan }}</option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                                @endif
-                                @if ($periode > 2)
-                                <td class="text-center">
-                                    <select name="kondisi3" class="form-select form-select-solid id-kondisi"
-                                        data-control="select2" data-id_template_pekerjaan_detail="{{ $value->id }}">
-                                        <option value="">Pilih kondisi</option>
-                                        @foreach ($listKondisi as $kondisi)
-                                        <option value="{{ $kondisi->id }}" @if($kondisi->id ==
-                                            $value->checklist_3_bulan)
-                                            selected @endif>{{ $kondisi->keterangan }}</option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                                @endif
-                                @if ($periode > 5)
-                                <td class="text-center">
-                                    <select name="kondisi6" class="form-select form-select-solid id-kondisi"
-                                        data-control="select2" data-id_template_pekerjaan_detail="{{ $value->id }}">
-                                        <option value="">Pilih kondisi</option>
-                                        @foreach ($listKondisi as $kondisi)
-                                        <option value="{{ $kondisi->id }}" @if($kondisi->id ==
-                                            $value->checklist_6_bulan)
-                                            selected @endif>{{ $kondisi->keterangan }}</option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                                @endif
-                                @if ($periode > 11)
-                                <td class="text-center">
-                                    <select name="kondisi12" class="form-select form-select-solid id-kondisi"
-                                        data-control="select2" data-id_template_pekerjaan_detail="{{ $value->id }}">
-                                        <option value="">Pilih kondisi</option>
-                                        @foreach ($listKondisi as $kondisi)
-                                        <option value="{{ $kondisi->id }}" @if($kondisi->id ==
-                                            $value->checklist_12_bulan)
-                                            selected @endif>{{ $kondisi->keterangan }}</option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                                @endif
-                                <td>
-                                    <div
-                                        class="form-check form-switch form-check-custom form-check-success form-check-solid">
-                                        <input name="statusPekerjaan" class="form-check-input" data-id_template_pekerjaan_detail="{{ $value->id }}" onclick="changeStatus({{ $value->id.','.$value->status }})" type="checkbox" value="{{ $value->status }}" @if ($value->status == 1)
-                                            checked
-                                        @endif
-                                            id="kt_flexSwitchCustomDefault_1_1" />
-                                        <label class="form-check-label" for="kt_flexSwitchCustomDefault_1_1">
-                                            @if ($value->status == 1)
-                                                Selesai
-                                            @else
-                                                Belum selesai
+                                @foreach ($item->detail as $nomor => $value)
+                                <tr>
+                                    <td class="text-end">{{ $nomor + 1 }}</td>
+                                    <td>{{ $value->nama_pekerjaan }}</td>
+                                    <td>
+                                        <select name="pekerjaan[]" multiple="multiple"
+                                            class="js-example-basic-multiple form-select form-select-solid id-kondisi"
+                                            data-control="select2" data-id_template_pekerjaan_detail="{{ $value->id }}">
+                                            <option value="">Pilih pekerjaan</option>
+                                            @foreach ($listPekerjaan as $kondisi)
+                                            <option value="{{ $kondisi->id }}" @if(in_array($kondisi->id,
+                                                json_decode($value->keterangan)))
+                                                selected @endif>{{ $kondisi->keterangan }}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                        @php
+                                            $tanggalMulai = Carbon\Carbon::parse($laporanPekerjaan->jam_mulai);
+                                            $now = Carbon\Carbon::now();
+
+                                            $periode = $now->month - $tanggalMulai->month;
+
+                                            echo $periode . ' Bulan';
+                                        @endphp
+                                    </td>
+                                    @if ($periode > 0)
+                                    <td class="text-center">
+                                        {{--
+                                        <?= $value->detail ?> --}}
+                                        <select name="kondisi1" class="form-select form-select-solid id-kondisi1"
+                                            data-control="select2" data-id_template_pekerjaan_detail="{{ $value->id }}">
+                                            <option value="">Pilih kondisi</option>
+                                            @foreach ($listKondisi as $kondisi)
+                                            <option value="{{ $kondisi->id }}" @if($kondisi->id ==
+                                                $value->checklist_1_bulan) selected @endif>{{ $kondisi->keterangan }}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    @endif
+                                    @if ($periode > 1)
+                                    <td class="text-center">
+                                        <select name="kondisi2" class="form-select form-select-solid id-kondisi"
+                                            data-control="select2" data-id_template_pekerjaan_detail="{{ $value->id }}">
+                                            <option value="">Pilih kondisi</option>
+                                            @foreach ($listKondisi as $kondisi)
+                                            <option value="{{ $kondisi->id }}" @if($kondisi->id ==
+                                                $value->checklist_2_bulan)
+                                                selected @endif>{{ $kondisi->keterangan }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    @endif
+                                    @if ($periode > 2)
+                                    <td class="text-center">
+                                        <select name="kondisi3" class="form-select form-select-solid id-kondisi"
+                                            data-control="select2" data-id_template_pekerjaan_detail="{{ $value->id }}">
+                                            <option value="">Pilih kondisi</option>
+                                            @foreach ($listKondisi as $kondisi)
+                                            <option value="{{ $kondisi->id }}" @if($kondisi->id ==
+                                                $value->checklist_3_bulan)
+                                                selected @endif>{{ $kondisi->keterangan }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    @endif
+                                    @if ($periode > 5)
+                                    <td class="text-center">
+                                        <select name="kondisi6" class="form-select form-select-solid id-kondisi"
+                                            data-control="select2" data-id_template_pekerjaan_detail="{{ $value->id }}">
+                                            <option value="">Pilih kondisi</option>
+                                            @foreach ($listKondisi as $kondisi)
+                                            <option value="{{ $kondisi->id }}" @if($kondisi->id ==
+                                                $value->checklist_6_bulan)
+                                                selected @endif>{{ $kondisi->keterangan }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    @endif
+                                    @if ($periode > 11)
+                                    <td class="text-center">
+                                        <select name="kondisi12" class="form-select form-select-solid id-kondisi"
+                                            data-control="select2" data-id_template_pekerjaan_detail="{{ $value->id }}">
+                                            <option value="">Pilih kondisi</option>
+                                            @foreach ($listKondisi as $kondisi)
+                                            <option value="{{ $kondisi->id }}" @if($kondisi->id ==
+                                                $value->checklist_12_bulan)
+                                                selected @endif>{{ $kondisi->keterangan }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    @endif
+                                    <td>
+                                        <div
+                                            class="form-check form-switch form-check-custom form-check-success form-check-solid">
+                                            <input name="statusPekerjaan" class="form-check-input" data-id_template_pekerjaan_detail="{{ $value->id }}" onclick="changeStatus({{ $value->id.','.$value->status }})" type="checkbox" value="{{ $value->status }}" @if ($value->status == 1)
+                                                checked
                                             @endif
-                                        </label>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
+                                                id="kt_flexSwitchCustomDefault_1_1" />
+                                            <label class="form-check-label" for="kt_flexSwitchCustomDefault_1_1">
+                                                @if ($value->status == 1)
+                                                    Selesai
+                                                @else
+                                                    Belum selesai
+                                                @endif
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
                             @endforeach
                             @else
                             <tr>

@@ -17,7 +17,19 @@
             </div>
             <div class="row mb-5 justify-content-between">
                 <div class="col-md-7">
-                    @include('helper.form-pencarian', ['model' => 'cari'])
+                    <div class="row flex-row">
+                        <div class="col-6">
+                            <label class="form-label fw-semibold">Cari berdasarkan nama / project / nomor lift:</label>
+                            <input type="text" class="search-input form-control form-control-solid ps-13" name="cari" wire:model="cari" placeholder="Search...">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label fw-semibold">Cari berdasarkan Tanggal mulai / selesai:</label>
+                            <input type="date" placeholder="Tanggal mulai" name="cari" class="search-input form-control form-control-solid ps-13" wire:model='cari'>
+                        </div>
+                        <span class="position-absolute top-50 end-0 translate-middle-y lh-0 d-none me-5" data-kt-search-element="spinner">
+                            <span class="spinner-border h-15px w-15px align-middle text-gray-400"></span>
+                        </span>
+                    </div>
                 </div>
                 {{-- <div class="col-2 d-flex justify-content-end">
                     @include('helper.filter', ['model' => 'date1', 'model' => 'date2'])
@@ -133,7 +145,7 @@
                             @endforeach
                             @else
                             <tr>
-                                <td colspan="13" class="text-center text-gray-500">Tidak ada data</td>
+                                <td colspan="15" class="text-center text-gray-500">Tidak ada data</td>
                             </tr>
                             @endif
                         </tbody>
