@@ -51,7 +51,15 @@
                                         {{ $item->customer->kode }} {{ $item->customer->nama }}
                                     @endif
                                 </td>
-                                <td>{{ $item->sales }}</td>
+                                <td>
+                                    @if (count($item->quotationSales) > 0)
+                                        @foreach ($item->quotationSales as $quotationSales)
+                                            {{ $quotationSales->sales->nama }},
+                                        @endforeach
+                                    @else
+                                        -
+                                    @endif
+                                </td>
                                 <td>
                                     @if ($item->laporanPekerjaan)
                                         @if($item->laporanPekerjaan->jam_selesai != null && $item->laporanPekerjaan->signature)
@@ -127,7 +135,7 @@
         Livewire.on('onClickEdit', (item) => {
             tinymce.activeEditor.setContent(item.keterangan ? item.keterangan : '')
             Livewire.emit('setDataQuotation', item.id)
-            $('#modal_form').modal('show')
+            $('#modal_form_quotation').modal('show')
         })
 
         Livewire.on('onClickTambah', () => {

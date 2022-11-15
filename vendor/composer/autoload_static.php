@@ -785,6 +785,7 @@ class ComposerStaticInite1ab89f42751b0b0a0261a184d67ddd7
         'App\\Models\\ProjectV2' => __DIR__ . '/../..' . '/app/Models/ProjectV2.php',
         'App\\Models\\Quotation' => __DIR__ . '/../..' . '/app/Models/Quotation.php',
         'App\\Models\\QuotationDetail' => __DIR__ . '/../..' . '/app/Models/QuotationDetail.php',
+        'App\\Models\\QuotationSales' => __DIR__ . '/../..' . '/app/Models/QuotationSales.php',
         'App\\Models\\QuotationSendLog' => __DIR__ . '/../..' . '/app/Models/QuotationSendLog.php',
         'App\\Models\\Sales' => __DIR__ . '/../..' . '/app/Models/Sales.php',
         'App\\Models\\SalesProject' => __DIR__ . '/../..' . '/app/Models/SalesProject.php',

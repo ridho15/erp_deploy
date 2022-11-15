@@ -199,11 +199,9 @@
             <div class="col-md-6 mb-5">
                 @livewire('dashboard.pre-order')
             </div>
-
             <div class="col-md-6  mb-5">
                 @livewire('dashboard.log-stock')
             </div>
-
             <div class="col-md-6 mb-5">
                 @livewire('dashboard.supplier-order')
             </div>

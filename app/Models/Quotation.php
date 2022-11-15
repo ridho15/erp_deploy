@@ -66,4 +66,12 @@ class Quotation extends Model
         $carbon = Carbon::parse($this->updated_at)->locale('id')->isoFormat('DD MMMM YYYY');
         return $carbon;
     }
+
+    public function preOrder(){
+        return $this->hasOne(PreOrder::class, 'id_quotation');
+    }
+
+    public function quotationSales(){
+        return $this->hasMany(QuotationSales::class, 'id_quotation');
+    }
 }

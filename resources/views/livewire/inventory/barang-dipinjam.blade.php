@@ -110,7 +110,11 @@
                                             Project
                                         </div>
                                         <div class="col-md-8 col-8">
-                                            : <span class="fw-bold">({{ $laporanPekerjaan->project->kode }}) {{ $laporanPekerjaan->project->nama }}</span>
+                                            : <span class="fw-bold">
+                                                @if ($laporanPekerjaan->project)
+                                                    ({{ $laporanPekerjaan->project->kode }}) {{ $laporanPekerjaan->project->nama }}
+                                                @endif
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="row mb-5">
@@ -210,7 +214,7 @@
                                 <select name="id_laporan_pekerjaan" wire:model="id_laporan_pekerjaan" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_tambah_peminjaman_barang" data-placeholder="Pilih" required>
                                     <option value="">Pilih</option>
                                     @foreach ($listLaporanPekerjaan as $item)
-                                        <option value="{{ $item->id }}">{{ $item->kode_pekerjaan }} {{ $item->project->nama }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->kode_pekerjaan }} {{ $item->project ? $item->project->nama : '-' }}</option>
                                     @endforeach
                                 </select>
                                 @error('id_laporan_pekerjaan')

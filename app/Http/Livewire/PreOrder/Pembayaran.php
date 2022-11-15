@@ -12,7 +12,8 @@ class Pembayaran extends Component
 {
     public $listeners = [
         'simpanPreOrderBayar',
-        'pembayaranLunas'
+        'pembayaranLunas',
+        'refreshPreOrderPembayaran' => '$refresh'
     ];
     public $id_pre_order;
     public $preOrder;
@@ -95,6 +96,7 @@ class Pembayaran extends Component
 
         $message = "Berhasil melakukan pembayaran";
         $this->pembayaran_sekarang = 0;
+        $this->emit('refreshPreOrder');
         $this->emit('finishSimpanData', 1, $message);
         return session()->flash('success', $message);
     }
