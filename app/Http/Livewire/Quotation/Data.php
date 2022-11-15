@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Quotation;
 
 use App\Mail\SendQuotationMail;
+use App\Models\ProjectV2;
 use App\Models\Quotation;
 use App\Models\QuotationSendLog;
 use Illuminate\Support\Facades\Mail;
@@ -15,26 +16,55 @@ class Data extends Component
     public $listeners = [
         'refreshQuotation' => '$refresh',
         'hapusQuotation',
-        'sendQuotationToCustomer'
+        'sendQuotationToCustomer',
+        'clearFilter'
     ];
     public $paginationTheme = 'bootstrap';
     public $total_show = 10;
     public $cari;
     protected $listQuotation = [];
+    public $listProject = [];
+
+    public $tanggal_dibuat;
+    public $id_project;
+    public $status_kirim;
+    public $status_konfirmasi;
     public function render()
     {
-        $this->listQuotation = Quotation::where(function($query){
-            $query->where('keterangan', 'LIKE', '%' . $this->cari . '%')
-            ->orWhere('hal' ,'LIKE', '%' . $this->cari . '%')
-            ->orWhereHas('laporanPekerjaan', function($query){
-                $query->whereHas('project', function($query){
-                    $query->where('nama', 'LIKE', '%' . $this->cari . '%')
-                    ->orWhere('kode', 'LIKE', '%' . $this->cari . '$');
+        $this->listProject = ProjectV2::get();
+        if($this->cari != null || $this->tanggal_dibuat != null || $this->id_project != null || $this->status_kirim != null || $this->status_konfirmasi != null){
+            $this->listQuotation = Quotation::where(function($query){
+                $query->where('keterangan', 'LIKE', '%' . $this->cari . '%')
+                ->orWhere('hal' ,'LIKE', '%' . $this->cari . '%')
+                ->orWhereHas('laporanPekerjaan', function($query){
+                    $query->whereHas('project', function($query){
+                        $query->where('nama', 'LIKE', '%' . $this->cari . '%')
+                        ->orWhere('kode', 'LIKE', '%' . $this->cari . '$');
+                    });
                 });
-            });
-        })->whereDoesntHave('preOrder')->orderBy('created_at', 'DESC')->paginate($this->total_show);
+            })
+            ->where(function($query){
+                $query->whereDate('created_at', $this->tanggal_dibuat)
+                ->orWhereHas('laporanPekerjaan', function($query){
+                    $query->where('id_project', $this->id_project);
+                })->orWhere('status', $this->status_kirim)
+                ->orWhere('konfirmasi', $this->status_konfirmasi);
+            })
+            ->whereDoesntHave('preOrder')
+            ->orderBy('created_at', 'DESC')
+            ->paginate($this->total_show);
+        }else{
+            $this->listQuotation = Quotation::whereDoesntHave('preOrder')
+            ->orderBy('created_at', 'DESC')
+            ->paginate($this->total_show);
+        }
         $data['listQuotation'] = $this->listQuotation;
+
+        $this->dispatchBrowserEvent('contentChange');
         return view('livewire.quotation.data', $data);
+    }
+
+    public function mount(){
     }
 
     public function hapusQuotation($id){
@@ -79,5 +109,12 @@ class Data extends Component
         $message= "Quotation Berhasil dikirim";
         $this->emit('finishRefreshData', 1, $message);
         return session()->flash('success', $message);
+    }
+
+    public function clearFilter(){
+        $this->tanggal_dibuat = null;
+        $this->id_project = null;
+        $this->status_kirim = null;
+        $this->status_konfirmasi = null;
     }
 }

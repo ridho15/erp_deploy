@@ -17,16 +17,16 @@ class Helpers
 {
     public function checkTeknisi($id)
     {
-        $progress = LaporanPekerjaanUser::with('laporanPekerjaan')->where('id_user', $id)->whereHas('laporanPekerjaan', function ($q) {
+        $progress = LaporanPekerjaanUser::whereHas('laporanPekerjaan')->where('id_user', $id)->whereHas('laporanPekerjaan', function ($q) {
             $q->where('jam_mulai', '!=', null)->where('jam_selesai', null);
-        })->first();
+        })->count();
 
-        $status = 'Tersedia';
-        if ($progress) {
-            $status = 'Bekerja';
-        }
+        // $status = 'Tersedia';
+        // if ($progress) {
+        //     $status = 'Bekerja';
+        // }
 
-        return $status;
+        return $progress;
     }
 
     public static function numberToLetter($n)

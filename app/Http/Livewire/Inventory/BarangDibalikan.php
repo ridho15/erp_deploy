@@ -9,7 +9,10 @@ use Livewire\WithPagination;
 class BarangDibalikan extends Component
 {
     use WithPagination;
-    public $listeners = ['simpanCheck'];
+    public $listeners = [
+        'simpanCheck',
+        'refreshBarangDibalikan' => '$refresh'
+    ];
     public $paginationTheme = 'bootstrap';
     public $total_show = 10;
     public $cari;

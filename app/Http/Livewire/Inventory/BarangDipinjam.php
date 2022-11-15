@@ -44,7 +44,7 @@ class BarangDipinjam extends Component
             ->orWhereHas('barang', function($query){
                 $query->where('nama', 'LIKE', '%' . $this->cari . '%');
             });
-        })->where('status', 2)->orderBy('updated_at', 'DESC')
+        })->where('status', 2)->where('konfirmasi', 0)->orderBy('updated_at', 'DESC')
         ->paginate($this->total_show);
 
         $this->listLaporanPekerjaan = LaporanPekerjaan::where('jam_selesai', null)
@@ -87,29 +87,32 @@ class BarangDipinjam extends Component
             return session()->flash('fail', $message);
         }
 
-        $barang = Barang::find($laporanPekerjaanBarang->id_barang);
-        $response = $barang->barangStockChange($this->qty, 5);
-        if($response['status'] == 0){
-            return session()->flash('fail', $response['message']);
-        }
+        // $barang = Barang::find($laporanPekerjaanBarang->id_barang);
+        // $response = $barang->barangStockChange($this->qty, 5);
+        // if($response['status'] == 0){
+        //     return session()->flash('fail', $response['message']);
+        // }
 
         if($this->qty != $laporanPekerjaanBarang->qty){
             LaporanPekerjaanBarang::create([
                 'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan,
                 'id_barang' => $this->id_barang,
                 'qty' => $laporanPekerjaanBarang->qty - $this->qty,
-                'status' => 2
+                'status' => 2,
+                'konfirmasi' => 0
             ]);
         }
 
         $laporanPekerjaanBarang->update([
             'qty' => $this->qty,
-            'status' => 3
+            'status' => 3,
+            'konfirmasi' => 0
         ]);
 
         $message = 'Berhasil mengembalikan barang ke gudang';
         $this->emit('refreshBarangDiminta');
         $this->emit('refreshStockBarang');
+        $this->emit('refreshAcurateKeluar');
         $this->emit('finishSimpanData', 1, $message);
         return session()->flash('success', $message);
     }
@@ -163,6 +166,7 @@ class BarangDipinjam extends Component
         $message = 'Berhasil memasukkan barang ke laporan pekerjaan';
         $this->emit('refreshBarangDiminta');
         $this->emit('refreshStockBarang');
+        $this->emit('refreshAcurateKeluar');
         $this->emit('finishSimpanData', 1, $message);
         return session()->flash('success', $message);
     }
