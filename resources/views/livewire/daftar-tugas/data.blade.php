@@ -83,11 +83,11 @@
                                     <td>
                                         <div class="btn-group">
                                             @if (!$item->teknisi->where('id_user', session()->get('id_user'))->first())
-                                            <a href="{{ route('daftar-tugas.ambil', ['id' => $item->id]) }}"
+                                            {{-- <a href="{{ route('daftar-tugas.ambil', ['id' => $item->id]) }}"
                                                 class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip"
                                                 data-bs-placement="top" title="Ambil Tugas">
                                                 <i class="fa-solid fa-hand-holding-heart"></i>
-                                            </a>
+                                            </a> --}}
                                             @endif
                                             <a href="{{ route('management-tugas.export', ['id' => $item->id]) }}"
                                                 class="btn btn-sm btn-icon btn-warning" data-bs-toggle="tooltip"
