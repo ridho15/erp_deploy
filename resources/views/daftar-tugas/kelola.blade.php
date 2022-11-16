@@ -19,10 +19,10 @@
                     @endif
                 </div>
                 @if (!$laporanPekerjaan->teknisi->where('id_user', session()->get('id_user'))->first())
-                <a href="{{ route('daftar-tugas.ambil', ['id' => $laporanPekerjaan->id]) }}" class="btn btn-sm btn-outline btn-outline-primary me-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Ambil Tugas">
+                {{-- <a href="{{ route('daftar-tugas.ambil', ['id' => $laporanPekerjaan->id]) }}" class="btn btn-sm btn-outline btn-outline-primary me-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Ambil Tugas">
                     <i class="fa-solid fa-hand-holding-heart"></i>
                     Ambil Tugas
-                </a>
+                </a> --}}
                 @endif
                 <a href="{{ route('management-tugas.export', ['id' => $laporanPekerjaan->id]) }}" class="btn btn-sm btn-outline btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Cetak PDF">
                     <i class="bi bi-printer"></i> Cetak
