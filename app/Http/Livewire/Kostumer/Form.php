@@ -18,6 +18,8 @@ class Form extends Component
     public $id_barang_customer;
     public $listBarangCustomer = [];
 
+    public $barang_customer;
+
     public function render()
     {
         $this->listBarangCustomer = BarangCustomer::get();
@@ -35,6 +37,7 @@ class Form extends Component
             'email' => 'required|email',
             'no_hp' => 'required|numeric|digits_between:11,12',
             'alamat' => 'required|string',
+            'barang_customer' => 'nullable|string'
         ], [
             'nama.required' => 'Nama tidak boleh kosong',
             'nama.string' => 'Nama tidak valid !',
@@ -45,6 +48,7 @@ class Form extends Component
             'no_hp.digits_between' => 'Nomor HP tidak sesuai ketentuan !',
             'alamat.required' => 'Alamat tidak boleh kosong',
             'alamat.string' => 'Alamat tidak valid !',
+            'barang_customer.string' => 'Barang customer tidak valid !'
         ]);
 
         Kostumer::updateOrCreate([
@@ -55,7 +59,8 @@ class Form extends Component
             'no_hp' => $this->no_hp,
             'alamat' => $this->alamat,
             'status' => $this->status ? 1 : 0,
-            'id_barang_customer' => $this->id_barang_customer
+            'id_barang_customer' => $this->id_barang_customer,
+            'barang_customer' => $this->barang_customer
         ]);
 
         $message = 'Berhasil menyimpan data customer';
@@ -75,6 +80,7 @@ class Form extends Component
         $this->alamat = null;
         $this->status = null;
         $this->id_barang_customer = null;
+        $this->barang_customer = null;
     }
 
     public function setDataKostumer($id)
@@ -94,5 +100,6 @@ class Form extends Component
         $this->status = $kostumer->status;
         $this->alamat = $kostumer->alamat;
         $this->id_barang_customer = $kostumer->id_barang_customer;
+        $this->barang_customer = $kostumer->barang_customer;
     }
 }

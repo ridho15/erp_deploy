@@ -106,6 +106,8 @@ class DetailBarang extends Component
         $message = "Data barang berhasil disimpan";
         $this->tambahBarang = false;
         $this->resetInputFields();
+        $this->emit('refreshPreOrder');
+        $this->emit('refreshPreOrderPembayaran');
         $this->emit('finishSimpanData', 1, $message);
         return session()->flash('success', $message);
     }
@@ -147,6 +149,7 @@ class DetailBarang extends Component
 
         $preOrderDetail->delete();
         $message = "Berhasil menghapus data order barang";
+        $this->emit('refreshPreOrderPembayaran');
         $this->emit('finishRefreshData', 1, $message);
         return session()->flash('success', $message);
     }

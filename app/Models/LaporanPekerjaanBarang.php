@@ -16,7 +16,8 @@ class LaporanPekerjaanBarang extends Model
         'catatan_teknisi',
         'keterangan_customer',
         'qty',
-        'status'
+        'status',
+        'konfirmasi'
     ];
 
     protected $appends = ['status_formatted'];

@@ -200,9 +200,9 @@
         <div class="tab-pane fade" id="laporan_perawatan_lift" role="tabpanel">
             @livewire('daftar-tugas.laporan-perawatan-lift', ['id_laporan_pekerjaan' => $laporanPekerjaan->id])
         </div>
-        <div class="tab-pane fade" id="tanda_tangan_teknisi" role="tabpanel">
+        {{-- <div class="tab-pane fade" id="tanda_tangan_teknisi" role="tabpanel">
             @livewire('daftar-tugas.tanda-tangan-teknisi', ['id_laporan_pekerjaan' => $laporanPekerjaan->id])
-        </div>
+        </div> --}}
     </div>
 @endsection
 

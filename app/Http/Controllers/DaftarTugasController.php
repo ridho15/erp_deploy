@@ -23,6 +23,20 @@ class DaftarTugasController extends Controller
             return redirect()->back()->with('fail', "Data tidak ditemukan !");
         }
 
+        LaporanPekerjaanUser::updateOrCreate([
+            'id_laporan_pekerjaan' => $id,
+            'id_user' => session()->get('id_user')
+        ], [
+            'id_laporan_pekerjaan' => $id,
+            'id_user' => session()->get('id_user')
+        ]);
+
+        if($laporanPekerjaan->jam_mulai == null){
+            $laporanPekerjaan->update([
+                'jam_mulai' => now()
+            ]);
+        }
+
         $data['title'] = "Kelola Tugas";
         $data['active'] = ['daftar-tugas'];
         $data['breadCrumb'] = ['Daftar Tugas', 'Kelola'];

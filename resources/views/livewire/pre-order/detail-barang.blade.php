@@ -1,5 +1,5 @@
 <div>
-    <h4 class="fw-bold mb-5">Pre Order Barang</h4>
+    <h4 class="fw-bold mb-5">PO Barang</h4>
     @include('helper.alert-message')
     <div class="text-center">
         @include('helper.simple-loading', ['target' => 'cari,id_barang', 'message' => 'Memuat data...'])

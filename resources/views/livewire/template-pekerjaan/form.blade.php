@@ -38,6 +38,18 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
+                        <div class="mb-5">
+                            <label for="" class="form-label">Kondisi</label>
+                            <select name="kondisi" wire:model="kondisi" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih" multiple>
+                                <option value="">Pilih</option>
+                                @foreach ($listKondisi as $item)
+                                    <option value="{{ $item->keterangan }}">{{ $item->keterangan }}</option>
+                                @endforeach
+                            </select>
+                            @error('kondisi')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
                     </div>
 
                     <div class="modal-footer">
@@ -53,15 +65,23 @@
 @push('js')
     <script>
         $(document).ready(function () {
-
         });
 
         window.addEventListener('contentChange', function(){
             $('select[name="id_form_master"]').select2()
+            $('select[name="kondisi"]').select2()
         })
 
         $('select[name="id_form_master"]').on('change', function(){
             @this.set('id_form_master', $(this).val())
+        })
+
+        $('select[name="kondisi"]').on('change', function(){
+            @this.set('kondisi', $(this).val())
+        })
+
+        $('select[name="periode"]').on('change', function(){
+            @this.set('periode', $(this).val())
         })
 
         Livewire.on('finishSimpanData', (status, message) => {

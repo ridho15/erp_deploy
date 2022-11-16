@@ -13,7 +13,8 @@ class TemplatePekerjaan extends Model
     protected $fillable = [
         'nama_pekerjaan',
         'keterangan',
-        'id_form_master'
+        'id_form_master',
+        'kondisi'
     ];
 
     public function detail(){

@@ -37,7 +37,7 @@ class BarangDiminta extends Component
         })->where(function($query){
             $query->where('status', 1)
             ->orWhere('status', 0);
-        })->orderBy('updated_at', 'DESC')
+        })->where('konfirmasi', 0)->orderBy('updated_at', 'DESC')
         ->paginate($this->total_show);
 
         if ($this->laporanPekerjaanBarang) {
@@ -62,6 +62,7 @@ class BarangDiminta extends Component
 
         $laporanPekerjaanBarang->update([
             'status' => 0,
+            'konfirmasi' => 0
         ]);
 
         $message = "Berhasil mengupdate data";
@@ -109,23 +110,26 @@ class BarangDiminta extends Component
                 'catatan_teknisi' => $laporanPekerjaanBarang->catatan_teknisi,
                 'keterangan_customer' => $laporanPekerjaanBarang->keterangan_customer,
                 'qty' => $laporanPekerjaanBarang->qty - $this->qty,
-                'status' => 0
+                'status' => 1,
+                'konfirmasi' => 0,
             ]);
 
             $laporanPekerjaanBarang->update([
-                'status' => 2,
-                'qty' => $this->qty
+                'status' => 1,
+                'qty' => $this->qty,
+                'konfirmasi' => 1
             ]);
         }else{
             $laporanPekerjaanBarang->update([
-                'status' => 2,
+                'status' => 1,
+                'konfirmasi' => 1
             ]);
         }
-
 
         $message = "Berhasil mengupdate data";
         $this->emit('refreshBarangDipinjam');
         $this->emit('refreshStockBarang');
+        $this->emit('refreshAcurateMasuk');
         $this->emit('finishSimpanData', 1, $message);
         return session()->flash('success', $message);
     }

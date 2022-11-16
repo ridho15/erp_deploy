@@ -5,6 +5,8 @@ namespace App\Http\Livewire\Quotation;
 use App\Http\Controllers\HelperController;
 use App\Models\Customer;
 use App\Models\Quotation;
+use App\Models\QuotationSales;
+use App\Models\Sales;
 use App\Models\TipePembayaran;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -23,7 +25,8 @@ class Form extends Component
         'setDataQuotation',
         'onClickHapusFile',
         'changeKeterangan',
-        'changeCustomer'
+        'changeCustomer',
+        'changeSales'
     ];
     public $id_quotation;
     public $id_project;
@@ -34,9 +37,12 @@ class Form extends Component
     public $hal;
     public $quotation;
     public $listCustomer;
-    public $sales;
+    public $listIdSales = [];
+
+    public $listSales = [];
     public function render()
     {
+        $this->listSales = Sales::get();
         $this->listCustomer = Customer::get();
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.quotation.form');
@@ -90,7 +96,6 @@ class Form extends Component
             'keterangan' => 'nullable|string',
             'file' => 'nullable|mimes:pdf,docx,xlsx|max:10240',
             'hal' => 'nullable|string',
-            'sales' => 'nullable|string'
         ], [
             'id_quotation.required' => 'Quotation tidak valid !',
             'id_quotation.numeric' => 'Quotation tidak valid !',
@@ -98,7 +103,6 @@ class Form extends Component
             'file.mimes' => 'File tidak valid !',
             'file.max' => 'Ukuran file terlalu besar, maximal 10Mb',
             'hal.string' => 'Perihal tidak valid !',
-            'sales.string' => 'Sales tidak valid !'
         ]);
 
         $quotation = Quotation::find($this->id_quotation);
@@ -110,13 +114,20 @@ class Form extends Component
 
         $data['keterangan'] = $this->keterangan;
         $data['hal'] = $this->hal;
-        $data['sales'] = $this->sales;
         if($this->file){
             $path = $this->file->store('public/quotation_file');
             $path = str_replace('public', '', $path);
             $data['file'] = $path;
         }
         $quotation->update($data);
+
+        QuotationSales::where('id_quotation', $quotation->id)->delete();
+        foreach ($this->listIdSales as $item) {
+            QuotationSales::create([
+                'id_quotation' => $quotation->id,
+                'id_sales' => $item
+            ]);
+        }
 
         $message = "Berhasil mengupdate data quotation";
         $this->resetInputFields();
@@ -139,8 +150,12 @@ class Form extends Component
         $this->id_tipe_pembayaran = $quotation->id_tipe_pembayaran;
         $this->keterangan = $quotation->keterangan;
         $this->hal = $quotation->hal;
-        $this->sales = $quotation->sales;
         $this->quotation = $quotation;
+
+        $this->listIdSales = [];
+        foreach ($quotation->quotationSales as $item) {
+            array_push($this->listIdSales, $item->id_sales);
+        }
     }
 
     public function resetInputFields(){
@@ -148,7 +163,7 @@ class Form extends Component
         $this->id_quotation = null;
         $this->file = null;
         $this->keterangan = null;
-        $this->sales = null;
+        $this->listIdSales = [];
     }
 
     public function onClickHapusFile(){
@@ -169,7 +184,6 @@ class Form extends Component
             'keterangan' => 'nullable|string',
             'hal' => 'nullable|string',
             'file' => 'nullable|mimes:pdf,docx,xlsx|max:10240',
-            'sales' => 'nullable|string'
         ], [
             'id_customer.required' => 'Data customer tidak valid !',
             'id_customer.numeric' => 'Data customer tidak valid !',
@@ -177,7 +191,6 @@ class Form extends Component
             'file.mimes' => 'File tidak valid !',
             'file.max' => 'Ukuran file terlalu besar, maximal 10Mb',
             'hal.string' => 'Perihal tidak valid !',
-            'sales.string' => 'Sales tidak valid !'
         ]);
 
         // Check data customer
@@ -191,21 +204,32 @@ class Form extends Component
         $data['id_customer'] = $this->id_customer;
         $data['keterangan'] = $this->keterangan;
         $data['hal'] = $this->hal;
-        $data['sales'] = $this->sales;
         if($this->file){
             $path = $this->file->store('public/quotation_file');
             $path = str_replace('public', '', $path);
             $data['file'] = $path;
         }
 
-        Quotation::updateOrCreate([
+        $quotation = Quotation::updateOrCreate([
             'id' => $this->id_quotation
         ],$data);
+
+        QuotationSales::where('id_quotation', $quotation->id)->delete();
+        foreach ($this->listIdSales as $item) {
+            QuotationSales::create([
+                'id_quotation' => $quotation->id,
+                'id_sales' => $item
+            ]);
+        }
 
         $message = "Berhasil menyimpan data quotation";
         $this->resetInputFields();
         $this->emit('finishSimpanData', 1, $message);
         $this->emit('refreshQuotation');
         return session()->flash('success', $message);
+    }
+
+    public function changeSales($listIdSales){
+        $this->listIdSales = $listIdSales;
     }
 }

@@ -12,7 +12,13 @@
                     <a class="nav-link" data-bs-toggle="tab" href="#barang_diminta">Barang Diminta</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#acurate_masuk">Acurate Masuk</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="tab" href="#barang_dipinjam">Barang Dipinjam</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#acurate_keluar">Acurate Keluar</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="tab" href="#barang_dibalikan">Barang Dibalikan</a>
@@ -31,8 +37,14 @@
                 <div class="tab-pane fade" id="barang_diminta" role="tabpanel">
                     @livewire('inventory.barang-diminta')
                 </div>
+                <div class="tab-pane fade" id="acurate_masuk" role="tabpanel">
+                    @livewire('inventory.acureate-masuk')
+                </div>
                 <div class="tab-pane fade" id="barang_dipinjam" role="tabpanel">
                     @livewire('inventory.barang-dipinjam')
+                </div>
+                <div class="tab-pane fade" id="acurate_keluar" role="tabpanel">
+                    @livewire('inventory.acureate-keluar')
                 </div>
                 <div class="tab-pane fade" id="barang_dibalikan" role="tabpanel">
                     @livewire('inventory.barang-dibalikan')

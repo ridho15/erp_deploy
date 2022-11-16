@@ -17,7 +17,8 @@ class Customer extends Model
         'email',
         'alamat',
         'status',
-        'id_barang_customer'
+        'id_barang_customer',
+        'barang_customer'
     ];
 
     protected $appends = ['status_formatted', 'kode'];

@@ -10,7 +10,11 @@ use Livewire\Component;
 
 class Detail extends Component
 {
-    public $listeners = ['changeStatusPreOrder', 'preOrderSelesai'];
+    public $listeners = [
+        'changeStatusPreOrder',
+        'preOrderSelesai',
+        'refreshPreOrder' => '$refresh'
+    ];
     public $id_pre_order;
     public $preOrder;
     public function render()

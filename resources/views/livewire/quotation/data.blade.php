@@ -5,6 +5,9 @@
                 Data Quotation
             </h3>
             <div class="card-toolbar">
+                <button class="mx-2 btn btn-sm btn-outline btn-outline-warning btn-acitve-light-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Filter Data" wire:click="$emit('onClickFilter')">
+                    <i class="fas fa-filter"></i> Filter
+                </button>
                 <button class="btn btn-sm btn-outline btn-outline-primary" wire:click="$emit('onClickTambah')"><i class="bi bi-plus-circle"></i> Manual</button>
             </div>
         </div>
@@ -51,7 +54,15 @@
                                         {{ $item->customer->kode }} {{ $item->customer->nama }}
                                     @endif
                                 </td>
-                                <td>{{ $item->sales }}</td>
+                                <td>
+                                    @if (count($item->quotationSales) > 0)
+                                        @foreach ($item->quotationSales as $quotationSales)
+                                            {{ $quotationSales->sales->nama }},
+                                        @endforeach
+                                    @else
+                                        -
+                                    @endif
+                                </td>
                                 <td>
                                     @if ($item->laporanPekerjaan)
                                         @if($item->laporanPekerjaan->jam_selesai != null && $item->laporanPekerjaan->signature)
@@ -119,15 +130,89 @@
             <div class="text-center">{{ $listQuotation->links() }}</div>
         </div>
     </div>
+
+    <div wire:ignore.self class="modal fade" tabindex="-1" id="modal_filter">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Filter Data</h3>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                        <span class="svg-icon svg-icon-1">
+                            <i class="bi bi-x-circle"></i>
+                        </span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+
+                <div class="modal-body">
+                    @include('helper.alert-message')
+                    <div class="text-center">
+                        @include('helper.simple-loading', ['target' => 'simpanMetodePembayaran', 'message' => 'Menyimpan data ...'])
+                    </div>
+                    <div class="mb-5">
+                        <label for="" class="form-label">Tanggal Dibuat</label>
+                        <input type="text" class="form-control form-control-solid" name="tanggal_dibuat" wire:model="tanggal_dibuat" data-dropdown-parent="#modal_filter" placeholder="Pilih Tanggal" autocomplete="off" required>
+                        @error('tanggal_dibuat')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="mb-5">
+                        <label for="" class="form-label">Kode Project</label>
+                        <select name="id_project" wire:model="id_project" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_filter" data-placeholder="Pilih">
+                            <option value="">Pilih</option>
+                            @foreach ($listProject as $item)
+                                <option value="{{ $item->id }}">{{ $item->kode }} - {{ $item->nama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-5">
+                            <label for="" class="form-label">Status Kirim</label>
+                            <select name="status_kirim" wire:model="status_kirim" class="form-select form-select-solid" data-placeholder="Pilih">
+                                <option value="">Pilih</option>
+                                <option value="0">Belum Dikirim</option>
+                                <option value="1">Sudah Dikirim</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-5">
+                            <label for="" class="form-label">Status Konfirmasi</label>
+                            <select name="status_konfirmasi" wire:model="status_konfirmasi" class="form-select form-select-solid" data-placeholder="Pilih">
+                                <option value="">Pilih</option>
+                                <option value="0">Belum Dikonfirmasi</option>
+                                <option value="1">Sudah Dikonfirmasi</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" wire:click="clearFilter" data-bs-dismiss="modal">Clear</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"><i class="fas fa-search"></i> Cari</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @push('js')
     <script src="https://cdn.tiny.cloud/1/nvlmmvucpbse1gtq3xttm573xnabu23ppo0pbknjx49633ka/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
+        $(document).ready(function () {
+            $('input[name="tanggal_dibuat"]').flatpickr()
+        });
+        window.addEventListener('contentChange', function(){
+            $('select[name="id_project"]').select2();
+        })
+
+        $('select[name="id_project"]').on('change', function(){
+            @this.set('id_project', $(this).val())
+        })
         Livewire.on('onClickEdit', (item) => {
             tinymce.activeEditor.setContent(item.keterangan ? item.keterangan : '')
             Livewire.emit('setDataQuotation', item.id)
-            $('#modal_form').modal('show')
+            $('#modal_form_quotation').modal('show')
         })
 
         Livewire.on('onClickTambah', () => {
@@ -150,6 +235,10 @@
             if(response.isConfirmed == true){
                 Livewire.emit('hapusQuotation', id)
             }
+        })
+
+        Livewire.on('onClickFilter', () => {
+            $('#modal_filter').modal('show')
         })
     </script>
 @endpush

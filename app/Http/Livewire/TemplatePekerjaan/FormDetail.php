@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\TemplatePekerjaan;
 
+use App\Models\Kondisi;
 use App\Models\TemplatePekerjaan;
 use App\Models\TemplatePekerjaanDetail;
 use Livewire\Component;
@@ -17,19 +18,20 @@ class FormDetail extends Component
     public $id_template_pekerjaan_detail;
     public $id_template_pekerjaan;
     public $nama_pekerjaan;
-    public $checklist_1_bulan;
-    public $checklist_2_bulan;
-    public $checklist_3_bulan;
-    public $checklist_6_bulan;
-    public $checklist_1_tahun;
     public $keterangan = [];
     public $listTemplatePekerjaan;
+
     public $periode;
+    public $kondisi;
+
+    public $listKondisi;
 
     public function render()
     {
+        $this->listKondisi = Kondisi::get();
         $this->listTemplatePekerjaan = TemplatePekerjaan::get();
 
+        $this->dispatchBrowserEvent('contentChange');
         return view('livewire.template-pekerjaan.form-detail');
     }
 
@@ -43,11 +45,14 @@ class FormDetail extends Component
         $this->validate([
             'id_template_pekerjaan' => 'required|numeric',
             'nama_pekerjaan' => 'required|string',
+            'periode' => 'required|numeric'
         ], [
             'id_template_pekerjaan.required' => 'Induk Pekerjaan belum dipilih',
             'id_template_pekerjaan.numeric' => 'Induk Pekerjaan tidak valid !',
             'nama_pekerjaan.required' => 'Nama pekerjaan tidak boleh kosong',
             'nama_pekerjaan.string' => 'Nama pekerjaan tidak valid !',
+            'periode.required' => 'Periode belum dipilih',
+            'periode.numeric' => 'Periode tidak valid !'
         ]);
 
         $templatePekerjaan = TemplatePekerjaan::find($this->id_template_pekerjaan);
@@ -62,12 +67,8 @@ class FormDetail extends Component
         ], [
             'id_template_pekerjaan' => $this->id_template_pekerjaan,
             'nama_pekerjaan' => $this->nama_pekerjaan,
-            'checklist_1_bulan' => 0,
-            'checklist_2_bulan' => 0,
-            'checklist_3_bulan' => 0,
-            'checklist_6_bulan' => 0,
-            'checklist_1_tahun' => 0,
-            'keterangan' => json_encode([]),
+            'periode' => $this->periode,
+            'kondisi' => json_encode($this->kondisi)
         ]);
 
         $message = 'Berhasil menyimpan data';
@@ -83,12 +84,9 @@ class FormDetail extends Component
         $this->id_template_pekerjaan = null;
         $this->id_template_pekerjaan_detail = null;
         $this->nama_pekerjaan = null;
-        $this->checklist_1_bulan = null;
-        $this->checklist_2_bulan = null;
-        $this->checklist_3_bulan = null;
-        $this->checklist_6_bulan = null;
-        $this->checklist_1_tahun = null;
-        $this->keterangan = [];
+        $this->keterangan = null;
+        $this->kondisi = null;
+        $this->periode = null;
     }
 
     public function hapusDetailPekerjaan($id)
@@ -121,11 +119,8 @@ class FormDetail extends Component
         $this->id_template_pekerjaan_detail = $detailPekerjaan->id;
         $this->id_template_pekerjaan = $detailPekerjaan->id_template_pekerjaan;
         $this->nama_pekerjaan = $detailPekerjaan->nama_pekerjaan;
-        $this->checklist_1_bulan = $detailPekerjaan->checklist_1_bulan;
-        $this->checklist_2_bulan = $detailPekerjaan->checklist_2_bulan;
-        $this->checklist_3_bulan = $detailPekerjaan->checklist_3_bulan;
-        $this->checklist_6_bulan = $detailPekerjaan->checklist_6_bulan;
-        $this->checklist_1_tahun = $detailPekerjaan->checklist_1_tahun;
         $this->keterangan = $detailPekerjaan->keterangan;
+        $this->kondisi = json_decode($detailPekerjaan->kondisi);
+        $this->periode = $detailPekerjaan->periode;
     }
 }

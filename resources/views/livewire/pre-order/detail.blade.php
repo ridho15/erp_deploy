@@ -4,7 +4,7 @@
             <a href="{{ route('pre-order') }}" class="btn btn-sm btn-icon btn-light me-5" data-bs-toggle="tooltip" data-bs-placement="top" title="Kembali">
                 <i class="fa-solid fa-arrow-left"></i>
             </a>
-            Detail Pre Order
+            Detail PO
         </h3>
         <div class="card-toolbar">
             <button class="btn btn-sm btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Bayar Pre Order" wire:click="$emit('onClickBayar')">
@@ -17,11 +17,11 @@
                 <i class="fa-solid fa-ban"></i> Batalkan
             </button>
             @if ($preOrder->status == 1)
-                <button class="btn btn-sm btn-warning btn-proses mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Pre Order" wire:click="$emit('onClickChangeStatus', {{ $id_pre_order }}, 2)">
+                <button class="btn btn-sm btn-warning btn-proses mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Ganti Status PO" wire:click="$emit('onClickChangeStatus', {{ $id_pre_order }}, 2)">
                     <i class="fa-solid fa-rotate"></i> Proses
                 </button>
             @elseif($preOrder->status == 2)
-                <button class="btn btn-sm btn-success btn-success mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Pre Order Selesai" wire:click="$emit('onClickSelesai', {{ $id_pre_order }}, 3)">
+                <button class="btn btn-sm btn-success btn-success mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="PO Selesai" wire:click="$emit('onClickSelesai', {{ $id_pre_order }}, 3)">
                     <i class="fa-solid fa-circle-check"></i> Selesai
                 </button>
             @elseif($preOrder->status == 3)

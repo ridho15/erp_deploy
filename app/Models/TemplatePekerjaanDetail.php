@@ -14,11 +14,9 @@ class TemplatePekerjaanDetail extends Model
     protected $fillable = [
         'id_template_pekerjaan',
         'nama_pekerjaan',
-        'checklist_1_bulan',
-        'checklist_2_bulan',
-        'checklist_3_bulan',
-        'checklist_6_bulan',
-        'checklist_1_tahun',
+        'status',
+        'kondisi',
+        'periode',
         'keterangan',
     ];
 

@@ -40,6 +40,32 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
+                        <div class="mb-5">
+                            <label for="" class="form-label required">Periode</label>
+                            <select name="periode_detail" wire:model="periode" class="form-select form-select-solid detail" data-control="select2" data-placeholder="Pilih">
+                                <option value="">Pilih</option>
+                                <option value="1">1 Bulan</option>
+                                <option value="2">2 Bulan</option>
+                                <option value="3">3 Bulan</option>
+                                <option value="6">6 Bulan</option>
+                                <option value="12">1 Tahun</option>
+                            </select>
+                            @error('periode')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="mb-5">
+                            <label for="" class="form-label required">Kondisi</label>
+                            <select name="kondisi_detail" wire:model="kondisi" class="form-select form-select-solid detail" data-control="select2" multiple data-placeholder="Pilih">
+                                <option value="">Pilih</option>
+                                @foreach ($listKondisi as $item)
+                                    <option value="{{ $item->keterangan }}">{{ $item->keterangan }}</option>
+                                @endforeach
+                            </select>
+                            @error('kondisi')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
                         {{-- <div class="mb-5">
                             <label for="" class="form-label">Keterangan</label>
                             <textarea name="keterangan" wire:model="keterangan" class="form-control form-control-solid" placeholder="Masukkan keterangan"></textarea>
@@ -126,7 +152,17 @@
         });
 
         window.addEventListener('contentChange', function(){
-
+            $('select[name="kondisi_detail"]').select2()
+            $('select[name="periode_detail"]').select2()
         })
+
+        $('select[name="kondisi_detail"]').on('change', function(){
+            @this.set('kondisi', $(this).val())
+        })
+
+        $('select[name="periode_detail"]').on('change', function(){
+            @this.set('periode', $(this).val())
+        })
+
     </script>
 @endpush

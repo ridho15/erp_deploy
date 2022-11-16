@@ -27,7 +27,6 @@
                 <th>Tipe Barang</th>
                 <th>Catatan Teknisi</th>
                 <th>Status</th>
-                <th>Check</th>
                 <th>Aksi</th>
             </tr>
             </thead>
@@ -45,19 +44,6 @@
                         <td>{{ $item->barang->tipeBarang->tipe_barang }}</td>
                         <td>{{ $item->catatan_teknisi }}</td>
                         <td><?= $item->status_formatted ?></td>
-                        <td>
-                            @php
-                                $barangStockLog = \App\Models\BarangStockLog::where('id_barang', $item->id_barang)
-                                ->where('id_tipe_perubahan_stock', 1)
-                                ->where('perubahan', $item->qty)
-                                ->first();
-                            @endphp
-                            @if ($barangStockLog)
-                                <div class="form-check form-check-custom form-check-solid">
-                                    <input class="form-check-input" type="checkbox" value="1" wire:click="simpanCheck({{ $barangStockLog->id }})" @if($barangStockLog->check == 1) checked @endif id="flexCheckDefault"/>
-                                </div>
-                            @endif
-                        </td>
                         <td>
                             <div class="btn-group">
                                 <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Kembalikan Barang Kegudang" wire:click="$emit('onClickKembalikan', {{ $item->id }})">
@@ -110,7 +96,11 @@
                                             Project
                                         </div>
                                         <div class="col-md-8 col-8">
-                                            : <span class="fw-bold">({{ $laporanPekerjaan->project->kode }}) {{ $laporanPekerjaan->project->nama }}</span>
+                                            : <span class="fw-bold">
+                                                @if ($laporanPekerjaan->project)
+                                                    ({{ $laporanPekerjaan->project->kode }}) {{ $laporanPekerjaan->project->nama }}
+                                                @endif
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="row mb-5">
@@ -210,7 +200,7 @@
                                 <select name="id_laporan_pekerjaan" wire:model="id_laporan_pekerjaan" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_tambah_peminjaman_barang" data-placeholder="Pilih" required>
                                     <option value="">Pilih</option>
                                     @foreach ($listLaporanPekerjaan as $item)
-                                        <option value="{{ $item->id }}">{{ $item->kode_pekerjaan }} {{ $item->project->nama }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->kode_pekerjaan }} {{ $item->project ? $item->project->nama : '-' }}</option>
                                     @endforeach
                                 </select>
                                 @error('id_laporan_pekerjaan')

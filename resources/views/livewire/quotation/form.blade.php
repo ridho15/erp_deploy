@@ -1,5 +1,5 @@
 <div>
-    <div wire:ignore.self class="modal fade barang" tabindex="-1" id="modal_form">
+    <div wire:ignore.self class="modal fade barang" tabindex="-1" id="modal_form_quotation">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -140,8 +140,13 @@
                         </div>
                         <div class="mb-5">
                             <label for="" class="form-label">Sales</label>
-                            <textarea name="sales" class="form-control form-control-solid" wire:model="sales" placeholder="Masukkan sales"></textarea>
-                            @error('sales')
+                            <select name="listIdSales" wire:model="listIdSales" class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih" multiple>
+                                <option value="">Pilih</option>
+                                @foreach ($listSales as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                @endforeach
+                            </select>
+                            @error('listIdSales')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
@@ -229,8 +234,13 @@
                         </div>
                         <div class="mb-5">
                             <label for="" class="form-label">Sales</label>
-                            <textarea name="sales" class="form-control form-control-solid" wire:model="sales" placeholder="Masukkan sales"></textarea>
-                            @error('sales')
+                            <select name="listIdSales" wire:model="listIdSales" class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih" multiple>
+                                <option value="">Pilih</option>
+                                @foreach ($listSales as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                @endforeach
+                            </select>
+                            @error('listIdSales')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
@@ -284,6 +294,11 @@
             $('select[name="id_customer"]').on('change', function(){
                 Livewire.emit('changeCustomer', $(this).val())
             })
+
+            $('select[name="listIdSales"]').select2();
+            $('select[name="listIdSales"]').on('change', function(){
+                Livewire.emit('changeSales', $(this).val())
+            });
         }
 
         tinymce.init({
