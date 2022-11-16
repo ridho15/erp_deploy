@@ -13,7 +13,6 @@ class LaporanPekerjaanChecklist extends Model
     protected $fillable = [
         'id_laporan_pekerjaan',
         'id_template_pekerjaan_detail',
-        'id_kondisi',
         'keterangan'
     ];
 
@@ -27,5 +26,9 @@ class LaporanPekerjaanChecklist extends Model
 
     public function kondisi(){
         return $this->belongsTo(Kondisi::class, 'id_kondisi');
+    }
+
+    public function perawatanLiftKondisi(){
+        return $this->hasMany(PerawatanLiftKondisi::class, 'id_laporan_pekerjaan_checklist');
     }
 }

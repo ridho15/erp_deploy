@@ -26,6 +26,7 @@
                    <th>No</th>
                    <th>Kode</th>
                    <th>Nama</th>
+                   <th>Periode</th>
                    <th>Keterangan</th>
                    <th>Aksi</th>
                   </tr>
@@ -37,6 +38,7 @@
                                 <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
                                 <td>{{ $item->kode }}</td>
                                 <td>{{ $item->nama }}</td>
+                                <td>{{ $item->periode }} Bulan</td>
                                 <td>{{ $item->keterangan ?? '-' }}</td>
                                 <td>
                                     <div class="btn-group">

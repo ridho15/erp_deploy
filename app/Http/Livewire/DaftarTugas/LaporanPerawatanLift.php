@@ -6,6 +6,7 @@ use App\Models\Kondisi;
 use App\Models\LaporanPekerjaan;
 use App\Models\LaporanPekerjaanChecklist;
 use App\Models\Pekerjaan;
+use App\Models\PerawatanLiftKondisi;
 use App\Models\TemplatePekerjaan;
 use App\Models\TemplatePekerjaanDetail;
 use Livewire\Component;
@@ -22,21 +23,20 @@ class LaporanPerawatanLift extends Component
         'setKondisi12',
         'setPekerjaan',
         'setStatus',
+        'simpanKeterangan'
     ];
     public $id_kondisi;
     public $id_laporan_pekerjaan;
+    public $id_template_pekerjaan_detail;
     public $laporanPekerjaan;
     public $listTemplatePekerjaan;
     public $listKondisi;
     public $periode;
     public $pekerjaan = [];
-    public $kondisi1;
-    public $kondisi2;
-    public $kondisi3;
-    public $kondisi6;
-    public $kondisi12;
     public $statusPekerjaan;
     public $templateListId;
+
+    public $keterangan;
 
     public $listKondisiLift = [];
     public $listIdKondisiLift = [];
@@ -116,11 +116,28 @@ class LaporanPerawatanLift extends Component
         // return session()->flash('success', $message);
     }
 
-    public function setKondisi1()
+    public function setKondisi1($periode, $id_kondisi, $id_laporan_pekerjaan_detail)
     {
-        $detailList = TemplatePekerjaanDetail::find($this->templateListId);
-        $detailList->checklist_1_bulan = $this->kondisi1;
-        $detailList->save();
+        $laporanPekerjaanChecklist = LaporanPekerjaanChecklist::updateOrCreate([
+            'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan,
+            'id_template_pekerjaan_detail' => $id_laporan_pekerjaan_detail,
+        ], [
+            'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan,
+            'id_template_pekerjaan_detail' => $id_laporan_pekerjaan_detail,
+        ]);
+
+        if($id_kondisi == ""){
+            $id_kondisi = null;
+        }
+
+        PerawatanLiftKondisi::updateOrCreate([
+            'periode' => $periode,
+            'id_laporan_pekerjaan_checklist' => $laporanPekerjaanChecklist->id
+        ], [
+            'periode' => $periode,
+            'id_laporan_pekerjaan_checklist' => $laporanPekerjaanChecklist->id,
+            'id_kondisi' => $id_kondisi
+        ]);
 
         $message = 'Berhasil merubah kondisi Periode Bulan ke - 1';
         $this->emit('finishSimpanData', 1, $message);
@@ -128,49 +145,117 @@ class LaporanPerawatanLift extends Component
         return session()->flash('success', $message);
     }
 
-    public function setKondisi2()
+    public function setKondisi2($periode, $id_kondisi, $id_laporan_pekerjaan_detail)
     {
-        $detailList = TemplatePekerjaanDetail::find($this->templateListId);
-        $detailList->checklist_2_bulan = $this->kondisi2;
-        $detailList->save();
+        $laporanPekerjaanChecklist = LaporanPekerjaanChecklist::updateOrCreate([
+            'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan,
+            'id_template_pekerjaan_detail' => $id_laporan_pekerjaan_detail,
+        ], [
+            'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan,
+            'id_template_pekerjaan_detail' => $id_laporan_pekerjaan_detail,
+        ]);
 
-        $message = 'Berhasil merubah kondisi  Periode Bulan ke - 2';
+        if($id_kondisi == ""){
+            $id_kondisi = null;
+        }
+
+        PerawatanLiftKondisi::updateOrCreate([
+            'periode' => $periode,
+            'id_laporan_pekerjaan_checklist' => $laporanPekerjaanChecklist->id
+        ], [
+            'periode' => $periode,
+            'id_laporan_pekerjaan_checklist' => $laporanPekerjaanChecklist->id,
+            'id_kondisi' => $id_kondisi
+        ]);
+
+        $message = 'Berhasil merubah kondisi Periode Bulan ke - 2';
         $this->emit('finishSimpanData', 1, $message);
 
         return session()->flash('success', $message);
     }
 
-    public function setKondisi3()
+    public function setKondisi3($periode, $id_kondisi, $id_laporan_pekerjaan_detail)
     {
-        $detailList = TemplatePekerjaanDetail::find($this->templateListId);
-        $detailList->checklist_3_bulan = $this->kondisi3;
-        $detailList->save();
+        $laporanPekerjaanChecklist = LaporanPekerjaanChecklist::updateOrCreate([
+            'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan,
+            'id_template_pekerjaan_detail' => $id_laporan_pekerjaan_detail,
+        ], [
+            'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan,
+            'id_template_pekerjaan_detail' => $id_laporan_pekerjaan_detail,
+        ]);
 
-        $message = 'Berhasil merubah kondisi Bulan ke - 3';
+        if($id_kondisi == ""){
+            $id_kondisi = null;
+        }
+
+        PerawatanLiftKondisi::updateOrCreate([
+            'periode' => $periode,
+            'id_laporan_pekerjaan_checklist' => $laporanPekerjaanChecklist->id
+        ], [
+            'periode' => $periode,
+            'id_laporan_pekerjaan_checklist' => $laporanPekerjaanChecklist->id,
+            'id_kondisi' => $id_kondisi
+        ]);
+
+        $message = 'Berhasil merubah kondisi Periode Bulan ke - 3';
         $this->emit('finishSimpanData', 1, $message);
 
         return session()->flash('success', $message);
     }
 
-    public function setKondisi6()
+    public function setKondisi6($periode, $id_kondisi, $id_laporan_pekerjaan_detail)
     {
-        $detailList = TemplatePekerjaanDetail::find($this->templateListId);
-        $detailList->checklist_6_bulan = $this->kondisi6;
-        $detailList->save();
+        $laporanPekerjaanChecklist = LaporanPekerjaanChecklist::updateOrCreate([
+            'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan,
+            'id_template_pekerjaan_detail' => $id_laporan_pekerjaan_detail,
+        ], [
+            'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan,
+            'id_template_pekerjaan_detail' => $id_laporan_pekerjaan_detail,
+        ]);
 
-        $message = 'Berhasil merubah kondisi Bulan ke - 6';
+
+        if($id_kondisi == ""){
+            $id_kondisi = null;
+        }
+        PerawatanLiftKondisi::updateOrCreate([
+            'periode' => $periode,
+            'id_laporan_pekerjaan_checklist' => $laporanPekerjaanChecklist->id
+        ], [
+            'periode' => $periode,
+            'id_laporan_pekerjaan_checklist' => $laporanPekerjaanChecklist->id,
+            'id_kondisi' => $id_kondisi
+        ]);
+
+        $message = 'Berhasil merubah kondisi Periode Bulan ke - 6';
         $this->emit('finishSimpanData', 1, $message);
 
         return session()->flash('success', $message);
     }
 
-    public function setKondisi12()
+    public function setKondisi12($periode, $id_kondisi, $id_laporan_pekerjaan_detail)
     {
-        $detailList = TemplatePekerjaanDetail::find($this->templateListId);
-        $detailList->checklist_1_tahun = $this->kondisi12;
-        $detailList->save();
+        $laporanPekerjaanChecklist = LaporanPekerjaanChecklist::updateOrCreate([
+            'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan,
+            'id_template_pekerjaan_detail' => $id_laporan_pekerjaan_detail,
+        ], [
+            'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan,
+            'id_template_pekerjaan_detail' => $id_laporan_pekerjaan_detail,
+        ]);
 
-        $message = 'Berhasil merubah kondisi  Bulan ke - 12';
+        if($id_kondisi == ""){
+            $id_kondisi = null;
+        }
+
+        PerawatanLiftKondisi::updateOrCreate([
+            'periode' => $periode,
+            'id_laporan_pekerjaan_checklist' => $laporanPekerjaanChecklist->id
+        ], [
+            'periode' => $periode,
+            'id_laporan_pekerjaan_checklist' => $laporanPekerjaanChecklist->id,
+            'id_kondisi' => $id_kondisi
+        ]);
+
+        $message = 'Berhasil merubah kondisi Periode Bulan ke - 12';
         $this->emit('finishSimpanData', 1, $message);
 
         return session()->flash('success', $message);
@@ -181,5 +266,21 @@ class LaporanPerawatanLift extends Component
         $this->listKondisiLift = [];
         $this->listIdKondisiLift = [];
         $this->listIdTemplatePekerjaanDetail = [];
+    }
+
+    public function simpanKeterangan($keterangan, $id_laporan_pekerjaan_detail){
+        LaporanPekerjaanChecklist::updateOrCreate([
+            'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan,
+            'id_template_pekerjaan_detail' => $id_laporan_pekerjaan_detail,
+        ], [
+            'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan,
+            'id_template_pekerjaan_detail' => $id_laporan_pekerjaan_detail,
+            'keterangan' => $keterangan
+        ]);
+
+        $message = 'Berhasil menyimpan keterangan';
+        $this->emit('finishSimpanData', 1, $message);
+
+        return session()->flash('success', $message);
     }
 }

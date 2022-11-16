@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\TemplatePekerjaan;
 
 use App\Models\FormMaster;
+use App\Models\Kondisi;
 use App\Models\TemplatePekerjaan;
 use Livewire\Component;
 
@@ -19,8 +20,12 @@ class Form extends Component
     public $nama_pekerjaan;
     public $keterangan;
 
+    public $listKondisi;
+    public $kondisi;
+
     public function render()
     {
+        $this->listKondisi = Kondisi::get();
         $this->listFormMaster = FormMaster::get();
         $this->dispatchBrowserEvent('contentChange');
 
@@ -61,6 +66,7 @@ class Form extends Component
             'nama_pekerjaan' => $this->nama_pekerjaan,
             'keterangan' => json_encode([]),
             'id_form_master' => $this->id_form_master,
+            'kondisi' => json_encode($this->kondisi),
         ]);
 
         $message = 'Berhasil menyimpan data';
@@ -77,6 +83,7 @@ class Form extends Component
         $this->nama_pekerjaan = null;
         $this->keterangan = null;
         $this->id_form_master = null;
+        $this->kondisi = null;
     }
 
     public function setDataTemplatePekerjaan($id)
@@ -92,5 +99,6 @@ class Form extends Component
         $this->nama_pekerjaan = $templatePekerjaan->nama_pekerjaan;
         $this->keterangan = $templatePekerjaan->keterangan;
         $this->id_form_master = $templatePekerjaan->id_form_master;
+        $this->kondisi = json_decode($templatePekerjaan->kondisi);
     }
 }
