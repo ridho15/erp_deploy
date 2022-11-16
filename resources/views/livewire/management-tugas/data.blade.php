@@ -5,11 +5,11 @@
                 Data Management Tugas
             </h3>
             <div class="card-toolbar">
-                <button class="mx-2 btn btn-sm btn-outline btn-outline-warning btn-acitve-light-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Filter Data" wire:click="$emit('onClickFilter')">
+                <button class="mx-2 btn btn-sm btn-outline btn-outline-warning btn-acitve-light-warning mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Filter Data" wire:click="$emit('onClickFilter')">
                     <i class="fas fa-filter"></i> Filter
                 </button>
-                <button class="btn btn-sm btn-outline btn-outline-primary px-2" wire:click="$emit('onClickTambah')"><i
-                    class="bi bi-plus-circle"></i> Tambah
+                <button class="btn btn-sm btn-outline btn-outline-primary mx-2" wire:click="$emit('onClickTambah')">
+                    <i class="bi bi-plus-circle"></i> Tambah
                 </button>
             </div>
         </div>
