@@ -89,11 +89,12 @@
                             @endif
                         </td>
                         <td>
-                            @if ($periode == $detail->periode)
+                            {{ $detail->periode }} Bulan
+                            {{-- @if ($periode == $detail->periode)
                                 <i class="fas fa-check-circle fs-2x text-success"></i>
                             @else
                                 <i class="fas fa-times-circle fs-2x text-danger"></i>
-                            @endif
+                            @endif --}}
                         </td>
                         {{-- <td>
                             @php
