@@ -75,22 +75,22 @@ class Pembayaran extends Component
                     'status' => 1
                 ]);
 
-                $barang = Barang::find($preOrderDetail->id_barang);
-                BarangStockLog::create([
-                    'id_barang' => $preOrderDetail->id_barang,
-                    'stock_awal' => $barang->stock + $preOrderDetail->qty,
-                    'perubahan' => $preOrderDetail->qty,
-                    'tanggal_perubahan' => now(),
-                    'id_tipe_perubahan_stock' => 4,
-                    'id_user' => session()->get('id_user'),
-                ]);
+                // $barang = Barang::find($preOrderDetail->id_barang);
+                // BarangStockLog::create([
+                //     'id_barang' => $preOrderDetail->id_barang,
+                //     'stock_awal' => $barang->stock + $preOrderDetail->qty,
+                //     'perubahan' => $preOrderDetail->qty,
+                //     'tanggal_perubahan' => now(),
+                //     'id_tipe_perubahan_stock' => 4,
+                //     'id_user' => session()->get('id_user'),
+                // ]);
 
-                if($this->preOrder->quotation && $this->preOrder->quotation->laporanPekerjaan && $this->preOrder->quotation->laporanPekerjaan->laporanPekerjaanBarang->where('id_barang', $preOrderDetail->id_barang)->first()){
-                    $laporanPekerjaanBarang = $this->preOrder->quotation->laporanPekerjaan->laporanPekerjaanBarang->where('id_barang', $preOrderDetail->id_barang)->first();
-                    $laporanPekerjaanBarang->update([
-                        'status' => 4
-                    ]);
-                }
+                // if($this->preOrder->quotation && $this->preOrder->quotation->laporanPekerjaan && $this->preOrder->quotation->laporanPekerjaan->laporanPekerjaanBarang->where('id_barang', $preOrderDetail->id_barang)->first()){
+                //     $laporanPekerjaanBarang = $this->preOrder->quotation->laporanPekerjaan->laporanPekerjaanBarang->where('id_barang', $preOrderDetail->id_barang)->first();
+                //     $laporanPekerjaanBarang->update([
+                //         'status' => 4
+                //     ]);
+                // }
             }
         }
 

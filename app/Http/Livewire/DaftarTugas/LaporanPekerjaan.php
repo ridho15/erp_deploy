@@ -79,22 +79,22 @@ class LaporanPekerjaan extends Component
             $data['signature'] = $this->signature;
             $data['jam_selesai'] = $this->jam_selesai;
             $laporanPekerjaan->update($data);
-            // foreach ($laporanPekerjaan->laporanPekerjaanBarang as $barang) {
-            //     if($barang->barang && $barang->status == 2){
-            //         BarangStockLog::create([
-            //             'id_barang' => $barang->id_barang,
-            //             'stock_awal' => $barang->barang->stock + $barang->qty,
-            //             'perubahan' => $barang->qty,
-            //             'tanggal_perubahan' => now(),
-            //             'id_tipe_perubahan_stock' => 4,
-            //             'id_user' => session()->get('id_user')
-            //         ]);
+            foreach ($laporanPekerjaan->laporanPekerjaanBarang as $barang) {
+                if($barang->barang && $barang->status == 2){
+                    BarangStockLog::create([
+                        'id_barang' => $barang->id_barang,
+                        'stock_awal' => $barang->barang->stock + $barang->qty,
+                        'perubahan' => $barang->qty,
+                        'tanggal_perubahan' => now(),
+                        'id_tipe_perubahan_stock' => 4,
+                        'id_user' => session()->get('id_user')
+                    ]);
 
-            //         $barang->update([
-            //             'status' => 4
-            //         ]);
-            //     }
-            // }
+                    $barang->update([
+                        'status' => 4
+                    ]);
+                }
+            }
             $this->emit('refreshLaporanPekerjaanBarang');
             $this->createQuotation();
         }else{
@@ -135,7 +135,7 @@ class LaporanPekerjaan extends Component
 
         if($laporanPekerjaan->jam_selesai != null && $laporanPekerjaan->signature != null){
             foreach ($listSparepart as $item) {
-                if ($item->status == 2) {
+                if ($item->status == 4) {
                     QuotationDetail::updateOrCreate([
                         'id_quotation' => $quotation->id,
                         'id_barang' => $item->id_barang
