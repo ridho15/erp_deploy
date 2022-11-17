@@ -59,8 +59,6 @@
                                         @else
                                             {{ $item->periode }} Bulan
                                         @endif
-
-                                        {{ $item->dikirim }}
                                     </td>
                                     {{-- <td>
                                         @if ($item->signature)
