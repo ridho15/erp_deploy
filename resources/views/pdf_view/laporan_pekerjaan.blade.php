@@ -216,15 +216,16 @@
         <table id="data">
             <thead style="border: 1px solid black">
                 <tr>
-                    <td rowspan="2" class="align-items-center">NO</td>
-                    <td rowspan="2" class="align-items-center text-capitalize">URAIAN PEKERJAAN</td>
-                    <td rowspan="2" class="align-items-center text-center">PEKERJAAN</td>
-                    <td rowspan="1"
-                        colspan="@if ($periode == 1) 1 @elseif($periode == 2) 2 @elseif($periode == 3) 3 @elseif($periode == 6) 4 @elseif($periode == 12) 5 @endif "
-                        class="text-center align-items-center">CHECKLIST</td>
-                    <td rowspan="2" class="align-items-center text-center">KETERANGAN</td>
+                    <td class="align-items-center">NO</td>
+                    <td class="align-items-center text-capitalize">URAIAN PEKERJAAN</td>
+                    <td class="align-items-center text-center">PEKERJAAN</td>
+                    {{-- <td
+                    colspan="@if ($periode == 1) 1 @elseif($periode == 2) 2 @elseif($periode == 3) 3 @elseif($periode == 6) 4 @elseif($periode == 12) 5 @endif "
+                        class="text-center align-items-center">CHECKLIST</td> --}}
+                    <td class="align-items-center text-center">KETERANGAN</td>
+                    <td class="align-items-center text-center">PERIODE {{ $periode }} BULAN</td>
                 </tr>
-                <tr>
+                {{-- <tr>
                     @if ($periode > 0)
                         <td>1 Bulan</td>
                     @endif
@@ -240,7 +241,7 @@
                     @if ($periode > 11)
                         <td>1 Tahun</td>
                     @endif
-                </tr>
+                </tr> --}}
             </thead>
             <tbody style="border: 1px solid black">
                 @foreach ($listTemplatePekerjaan as $item)
@@ -254,22 +255,8 @@
                             @endforeach
                         @endif
                     </td>
-                    @if ($periode > 0)
-                        <td></td>
-                    @endif
-                    @if ($periode > 1)
-                        <td></td>
-                    @endif
-                    @if ($periode > 2)
-                        <td></td>
-                    @endif
-                    @if ($periode > 5)
-                        <td></td>
-                    @endif
-                    @if ($periode > 11)
-                        <td></td>
-                    @endif
-                        <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
                     @foreach ($item->detail as $index => $detail)
                     @php
@@ -292,7 +279,7 @@
                                     @endif
                                 @endif
                             </td>
-                            @if ($periode > 0)
+                            {{-- @if ($periode > 0)
                                 <td @if(0 < $detail->periode) style="background-color: black" @endif>
                                     <span class="badge me-1 badge-info  text-light">
                                         @php
@@ -381,7 +368,7 @@
                                         @endphp
                                     </span>
                                 </td>
-                            @endif
+                            @endif --}}
                             <td>
                                 @php
                                     $keterangan = null;
@@ -392,6 +379,23 @@
 
                                     echo $keterangan;
                                 @endphp
+                                keterangan
+                            </td>
+                            <td>
+                                <span class="badge me-1 badge-info  text-light">
+                                    @php
+                                        $periodeKondisiLift = null;
+                                        $laporanPekerjaanChecklist = $laporanPekerjaan->laporanPekerjaanChecklist->where('id_template_pekerjaan_detail', $detail->id)->first();
+                                        if ($laporanPekerjaanChecklist) {
+                                            $periodeKondisiLift = $laporanPekerjaanChecklist->perawatanLiftKondisi->where('periode', $periode)->first();
+                                            if ($periodeKondisiLift) {
+                                                $periodeKondisiLift = $periodeKondisiLift->kondisi->keterangan;
+                                            }
+                                        }
+
+                                        echo $periodeKondisiLift;
+                                    @endphp
+                                </span>
                             </td>
                         </tr>
                     @endforeach

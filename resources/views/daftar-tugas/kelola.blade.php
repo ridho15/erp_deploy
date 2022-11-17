@@ -125,6 +125,16 @@
                             : {{ $laporanPekerjaan->periode }} Bulan
                         </div>
                     </div>
+                    <div class="row mb-5">
+                        <div class="col-md-4 col-4">
+                            Sales
+                        </div>
+                        <div class="col-md-8 col-8 fw-bold">
+                            : @foreach ($laporanPekerjaan->project->salesProject as $item)
+                                {{ $item->sales->nama }},
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="mb-5 fw-bold">
