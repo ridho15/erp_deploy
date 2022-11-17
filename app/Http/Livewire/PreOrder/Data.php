@@ -33,7 +33,7 @@ class Data extends Component
             if($this->belum_selesai){
                 $query->orWhere('status', '!=', 3);
             }
-        })->paginate($this->total_show);
+        })->orderBy('updated_at', 'DESC')->paginate($this->total_show);
         $data['listPreOrder'] = $this->listPreOrder;
         return view('livewire.pre-order.data', $data);
     }

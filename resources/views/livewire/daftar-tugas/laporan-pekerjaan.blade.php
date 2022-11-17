@@ -40,8 +40,8 @@
                 <div class="row mb-5">
                     <div class="mb-5 col-md-6">
                         <label for="" class="form-label required">Keterangan Pekerja / Catatan Teknisi</label>
-                        <textarea name="keterangan" class="form-control form-control-solid" placeholder="Masukkan keterangan / Catatan" cols="30" rows="5" wire:model='keterangan'></textarea>
-                        @error('keterangan')
+                        <textarea name="keterangan_laporan_pekerjaan" class="form-control form-control-solid" placeholder="Masukkan keterangan / Catatan" cols="30" rows="5" wire:model='keterangan_laporan_pekerjaan'></textarea>
+                        @error('keterangan_laporan_pekerjaan')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
