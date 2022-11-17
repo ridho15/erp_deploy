@@ -194,7 +194,7 @@
                             : {{ $laporanPekerjaan->catatan_customer }}
                         </div>
                     </div>
-                    <div class="row mb-5">
+                    {{-- <div class="row mb-5">
                         <div class="col-md-4 col-4">
                             Signature
                         </div>
@@ -205,7 +205,7 @@
                                 Belum ada tanda tangan
                             @endif
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="col-md-4">
                     <div class="mb-5 fw-bold">
