@@ -100,6 +100,22 @@
                 </div>
                 <div class="row mb-5">
                     <div class="col-md-4 col-4">
+                        Total
+                    </div>
+                    <div class="col-md-8 col-8">
+                        : <span class="fw-bold">Rp.{{ number_format($preOrder->total,0,',','.') }}</span>
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-md-4 col-4">
+                        PPN 11%
+                    </div>
+                    <div class="col-md-8 col-8">
+                        : <span class="fw-bold">Rp.{{ number_format($preOrder->ppn,0,',','.') }}</span>
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-md-4 col-4">
                         Total Bayar
                     </div>
                     <div class="col-md-8 col-8">

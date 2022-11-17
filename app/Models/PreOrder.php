@@ -21,7 +21,36 @@ class PreOrder extends Model
         'id_metode_pembayaran'
     ];
 
-    protected $appends = ['status_formatted', 'total_bayar', 'total_bayar_formatted', 'status_pembayaran'];
+    protected $appends = [
+        'status_formatted',
+        'total',
+        'total_bayar',
+        'total_bayar_formatted',
+        'status_pembayaran',
+        'ppn'
+    ];
+
+    public function getTotalAttribute(){
+        $preOrderDetail = PreOrderDetail::where('id_pre_order', $this->id)->get();
+        $total_bayar = 0;
+        foreach ($preOrderDetail as $item) {
+            $total_bayar += $item->sub_total;
+        }
+
+        return $total_bayar;
+    }
+
+    public function getPpnAttribute(){
+        $preOrderDetail = PreOrderDetail::where('id_pre_order', $this->id)->get();
+        $total_bayar = 0;
+        foreach ($preOrderDetail as $item) {
+            $total_bayar += $item->sub_total;
+        }
+
+        $ppn = $total_bayar * (11/100); //PPN 11%;
+
+        return $ppn;
+    }
 
     public function getStatusPembayaranAttribute(){
         $preOrderBayar = PreOrderBayar::where('id_pre_order', $this->id)->get();
@@ -48,7 +77,9 @@ class PreOrder extends Model
             $total_bayar += $item->sub_total;
         }
 
-        return $total_bayar;
+        $ppn = $total_bayar * (11/100); //PPN 11%;
+
+        return $total_bayar + $ppn;
     }
 
     public function getTotalBayarFormattedAttribute(){
@@ -58,7 +89,9 @@ class PreOrder extends Model
             $total_bayar += $item->sub_total;
         }
 
-        return 'Rp. ' . number_format($total_bayar,0,',','.');
+        $ppn = $total_bayar * (11/100); //ppn 11 %;
+
+        return 'Rp. ' . number_format($total_bayar + $ppn,0,',','.');
     }
 
     public function getStatusFormattedAttribute(){
