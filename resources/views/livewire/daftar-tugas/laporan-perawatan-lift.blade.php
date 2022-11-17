@@ -114,8 +114,8 @@
                                                     <option value="{{ $kondisi->id }}" @if($kondisi->id == $periodeKondisiLift) selected @endif>{{ $kondisi->keterangan }}</option>
                                                     @endforeach
                                                 </select>
-                                            @else
-                                                <i class="fas fa-times-circle fs-2x text-danger"></i>
+                                            {{-- @else
+                                                <i class="fas fa-times-circle fs-2x text-danger"></i> --}}
                                             @endif
                                         </td>
                                         @endif
@@ -166,8 +166,8 @@
                                                         selected @endif>{{ $kondisi->keterangan }}</option>
                                                     @endforeach
                                                 </select>
-                                            @else
-                                                <i class="fas fa-times-circle fs-2x text-danger"></i>
+                                            {{-- @else
+                                                <i class="fas fa-times-circle fs-2x text-danger"></i> --}}
                                             @endif
                                         </td>
                                         @endif
@@ -191,8 +191,8 @@
                                                         <option value="{{ $kondisi->id }}" @if ($kondisi->id == $periodeKondisiLift) selected @endif>{{ $kondisi->keterangan }}</option>
                                                     @endforeach
                                                 </select>
-                                            @else
-                                                <i class="fas fa-times-circle fs-2x text-danger"></i>
+                                            {{-- @else
+                                                <i class="fas fa-times-circle fs-2x text-danger"></i> --}}
                                             @endif
                                         </td>
                                         @endif
@@ -218,8 +218,8 @@
                                                         selected @endif>{{ $kondisi->keterangan }}</option>
                                                     @endforeach
                                                 </select>
-                                            @else
-                                                <i class="fas fa-times-circle fs-2x text-danger"></i>
+                                            {{-- @else
+                                                <i class="fas fa-times-circle fs-2x text-danger"></i> --}}
                                             @endif
                                         </td>
                                         @endif

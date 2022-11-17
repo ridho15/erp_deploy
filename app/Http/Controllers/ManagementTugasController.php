@@ -43,7 +43,7 @@ class ManagementTugasController extends Controller
         $data['listTemplatePekerjaan'] = $listTemplatePekerjaan;
         $pdf = Pdf::loadView('pdf_view.laporan_pekerjaan', $data);
 
-        return $pdf->download('laporan_pekerjaan_'.strtotime(now()).'.pdf');
+        // return $pdf->download('laporan_pekerjaan_'.strtotime(now()).'.pdf');
 
         return view('pdf_view.laporan_pekerjaan', $data);
     }
