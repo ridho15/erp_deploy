@@ -43,7 +43,7 @@ class Form extends Component
         $this->listQuotation = Quotation::whereDoesntHave('preOrder')
         ->where(function($query){
                 $query->where('id_customer', $this->id_customer)
-                ->orWhereHas('customer', function($query){
+                ->orWhereHas('laporanPekerjaan', function($query){
                     $query->where('id_customer', $this->id_customer);
                 });
             })->get();

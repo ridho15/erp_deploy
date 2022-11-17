@@ -27,7 +27,8 @@
                                 <th>No</th>
                                 <th>Nama Pekerjaan</th>
                                 <th style="width: 200px;">Pekerjaan</th>
-                                @if ($periode > 0)
+                                <th>Periode {{ $periode }}</th>
+                                {{-- @if ($periode > 0)
                                     <th>Checklist 1 Bulan</th>
                                 @endif
                                 @if ($periode > 1)
@@ -41,7 +42,7 @@
                                 @endif
                                 @if ($periode > 11)
                                     <th>Checklist 1 Tahun</th>
-                                @endif
+                                @endif --}}
                                 <th>Keterangan</th>
                                 <th>Status</th>
                             </tr>
@@ -60,7 +61,7 @@
                                         @endif
                                     </td>
                                     <td class="bg-success"></td>
-                                    @if ($periode > 0)
+                                    {{-- @if ($periode > 0)
                                         <td class="bg-success"></td>
                                     @endif
                                     @if ($periode > 1)
@@ -74,13 +75,13 @@
                                     @endif
                                     @if ($periode > 11)
                                         <td class="bg-success"></td>
-                                    @endif
+                                    @endif --}}
                                         <td class="bg-success"></td>
                                         <td class="bg-success"></td>
                                 </tr>
                                     @foreach ($item->detail as $nomor => $value)
                                     <tr>
-                                        <td class="text-end">{{ $nomor + 1 }}</td>
+                                        <td class="text-end">{{ $nomor + 1 }} {{ $value->periode }}</td>
                                         <td>{{ $value->nama_pekerjaan }}</td>
                                         <td>
                                             @if ($value->kondisi != null)
@@ -91,11 +92,11 @@
                                                 @endif
                                             @endif
                                         </td>
-                                        @if ($periode > 0 && $value->periode > 0)
+                                        @if ($periode == 1)
                                         <td class="text-center" wire:ignore>
                                             {{--
                                             <?= $value->detail ?> --}}
-                                            @if (0 >= $value->periode)
+                                            @if (1 == $value->periode)
                                                 @php
                                                     $periodeKondisiLift = null;
                                                     $laporanPekerjaanChecklist = $laporanPekerjaan->laporanPekerjaanChecklist->where('id_template_pekerjaan_detail', $value->id)->first();
@@ -118,9 +119,9 @@
                                             @endif
                                         </td>
                                         @endif
-                                        @if ($periode > 1 && $value->periode > 1)
+                                        @if ($periode == 2)
                                         <td class="text-center" wire:ignore>
-                                            @if (1 >= $value->periode)
+                                            @if (2 == $value->periode)
                                                 @php
                                                     $periodeKondisiLift = null;
                                                     $laporanPekerjaanChecklist = $laporanPekerjaan->laporanPekerjaanChecklist->where('id_template_pekerjaan_detail', $value->id)->first();
@@ -144,9 +145,9 @@
                                             @endif
                                         </td>
                                         @endif
-                                        @if ($periode > 2)
+                                        @if ($periode == 3)
                                         <td class="text-center" wire:ignore>
-                                            @if (2 >= $value->periode)
+                                            @if (3 == $value->periode)
                                                 @php
                                                     $periodeKondisiLift = null;
                                                     $laporanPekerjaanChecklist = $laporanPekerjaan->laporanPekerjaanChecklist->where('id_template_pekerjaan_detail', $value->id)->first();
@@ -170,9 +171,9 @@
                                             @endif
                                         </td>
                                         @endif
-                                        @if ($periode > 5)
+                                        @if ($periode == 6)
                                         <td class="text-center" wire:ignore>
-                                            @if (5 >= $value->periode)
+                                            @if (6 == $value->periode)
                                                 @php
                                                     $periodeKondisiLift = null;
                                                     $laporanPekerjaanChecklist = $laporanPekerjaan->laporanPekerjaanChecklist->where('id_template_pekerjaan_detail', $value->id)->first();
@@ -195,9 +196,9 @@
                                             @endif
                                         </td>
                                         @endif
-                                        @if ($periode > 11)
+                                        @if ($periode == 12)
                                         <td class="text-center" wire:ignore>
-                                            @if (11 >= $value->periode)
+                                            @if (12 == $value->periode)
                                                 @php
                                                     $periodeKondisiLift = null;
                                                     $laporanPekerjaanChecklist = $laporanPekerjaan->laporanPekerjaanChecklist->where('id_template_pekerjaan_detail', $value->id)->first();
@@ -253,7 +254,7 @@
                                 @endforeach
                             @else
                             <tr>
-                                <td colspan="8" class="text-center text-gray-500">Tidak ada data</td>
+                                <td colspan="9" class="text-center text-gray-500">Tidak ada data</td>
                             </tr>
                             @endif
                         </tbody>
