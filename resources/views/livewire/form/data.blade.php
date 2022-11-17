@@ -27,7 +27,7 @@
                    <th>Kode</th>
                    <th>Nama</th>
                    <th>Periode</th>
-                   <th>Keterangan</th>
+                   {{-- <th>Keterangan</th> --}}
                    <th>Aksi</th>
                   </tr>
                  </thead>
@@ -39,19 +39,21 @@
                                 <td>{{ $item->kode }}</td>
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ $item->periode }} Bulan</td>
-                                <td>{{ $item->keterangan ?? '-' }}</td>
+                                {{-- <td>{{ $item->keterangan ?? '-' }}</td> --}}
                                 <td>
-                                    <div class="btn-group">
-                                        <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Form" wire:click="$emit('onClickEdit', {{ $item->id }})">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Form" wire:click="$emit('onClickHapus', {{ $item->id }})">
-                                            <i class="bi bi-trash-fill"></i>
-                                        </button>
-                                        <a href="{{ route('form.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Form">
-                                            <i class="bi bi-info-circle-fill"></i>
-                                        </a>
-                                    </div>
+                                    @if ($item->id != 1)
+                                        <div class="btn-group">
+                                            <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Form" wire:click="$emit('onClickEdit', {{ $item->id }})">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Form" wire:click="$emit('onClickHapus', {{ $item->id }})">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </button>
+                                            <a href="{{ route('form.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Form">
+                                                <i class="bi bi-info-circle-fill"></i>
+                                            </a>
+                                        </div>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

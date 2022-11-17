@@ -12,16 +12,16 @@
                     <a class="nav-link" data-bs-toggle="tab" href="#barang_diminta">Barang Diminta</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#acurate_masuk">Acurate Masuk</a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#acurate_masuk">Accurate Masuk</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="tab" href="#barang_dipinjam">Barang Dipinjam</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#acurate_keluar">Acurate Keluar</a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#barang_dibalikan">Barang Dibalikan</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#barang_dibalikan">Barang Dibalikan</a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#acurate_keluar">Accurate Keluar</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="tab" href="#barang_terjual">Barang Terjual</a>

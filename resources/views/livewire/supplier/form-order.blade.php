@@ -41,7 +41,7 @@
                         </div>
                         <div class="mb-5">
                             <label for="" class="form-label required">Status Order</label>
-                            <select name="status_order" class="form-select form-select-solid supplier-order" wire:model="status_order" data-control="select2" data-dropdown-parent="#modal_form_order" data-placeholder="Pilih" required>
+                            <select name="status_order" class="form-select form-select-solid supplier-order" wire:model="status_order" data-control="select2" data-dropdown-parent="#modal_form_order" data-placeholder="Pilih" @if($id_supplier_order == null) disabled @endif required>
                                 <option value="">Pilih</option>
                                 @foreach ($listStatusOrder as $item)
                                     <option value="{{ $item['status_order'] }}" @if($item['status_order'] == $status_order) selected @endif>{{ $item['keterangan'] }}</option>

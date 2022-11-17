@@ -45,6 +45,7 @@ class Form extends Component
         $this->listMerk = Merk::get();
         $this->listUser = User::get();
         $this->listFormMaster = FormMaster::get();
+
         $this->dispatchBrowserEvent('contentChange');
 
         return view('livewire.management-tugas.form');
@@ -76,6 +77,10 @@ class Form extends Component
             'tanggal.required' => 'Tanggal Pekerjaan belum dipilih',
             'id_form_master.numeric' => 'Form tidak valid !',
         ]);
+
+        if($this->id_form_master == 1){
+            $this->periode = 0;
+        }
 
         $customer = Customer::find($this->id_customer);
         if (!$customer) {

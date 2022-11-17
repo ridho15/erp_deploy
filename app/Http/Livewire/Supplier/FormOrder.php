@@ -40,11 +40,14 @@ class FormOrder extends Component
 
     public function render()
     {
+        if ($this->id_supplier_order == null) {
+            $this->status_order = 1;
+        }
         $this->listSupplier = Supplier::get();
         $this->listStatusOrder = $this->helper->getListStatusOrder()->where('status_order', '!=', 4);
         $this->listTipePembayaran = TipePembayaran::get();
-        $this->dispatchBrowserEvent('contentChange');
 
+        $this->dispatchBrowserEvent('contentChange');
         return view('livewire.supplier.form-order');
     }
 
