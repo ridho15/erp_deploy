@@ -62,6 +62,14 @@
                             : {{ $laporanPekerjaan->customer->alamat }}
                         </div>
                     </div>
+                    <div class="row mb-5">
+                        <div class="col-md-4 col-4">
+                            List Perlengkapan
+                        </div>
+                        <div class="col-md-8 col-8 fw-bold">
+                            : {{ $laporanPekerjaan->customer->barang_customer }}
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-4 mb-10">
                     <div class="mb-5 fw-bold">

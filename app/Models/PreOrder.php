@@ -27,6 +27,7 @@ class PreOrder extends Model
         'total_bayar',
         'total_bayar_formatted',
         'status_pembayaran',
+        'status_pembayaran_kode',
         'ppn'
     ];
 
@@ -50,6 +51,24 @@ class PreOrder extends Model
         $ppn = $total_bayar * (11/100); //PPN 11%;
 
         return $ppn;
+    }
+
+    public function getStatusPembayaranKodeAttribute(){
+        $preOrderBayar = PreOrderBayar::where('id_pre_order', $this->id)->get();
+        $sudah_bayar = 0;
+        foreach ($preOrderBayar as $item) {
+            $sudah_bayar += $item->pembayaran_sekarang;
+        }
+
+        if($this->total_bayar == $sudah_bayar){
+            return 2;
+        }elseif($sudah_bayar != 0){
+            return 1;
+        }elseif($sudah_bayar != 0){
+            return 1;
+        }else{
+            return 1;
+        }
     }
 
     public function getStatusPembayaranAttribute(){

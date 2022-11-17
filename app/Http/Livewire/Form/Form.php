@@ -37,14 +37,16 @@ class Form extends Component
             'periode.required' => 'Periode Belum dipilih !',
         ]);
 
-        FormMaster::updateOrCreate([
-            'id' => $this->id_form,
-        ], [
-            'kode' => $this->kode,
-            'nama' => $this->nama,
-            'periode' => $this->periode,
-            'keterangan' => $this->keterangan,
-        ]);
+        if ($this->id_form != 1) {
+            FormMaster::updateOrCreate([
+                'id' => $this->id_form,
+            ], [
+                'kode' => $this->kode,
+                'nama' => $this->nama,
+                'periode' => $this->periode,
+                'keterangan' => $this->keterangan,
+            ]);
+        }
 
         $message = 'Data form berhasil disimpan';
         $this->resetInputFields();

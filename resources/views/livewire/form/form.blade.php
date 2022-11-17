@@ -36,9 +36,8 @@
                         </div>
                         <div class="mb-5 col-md-12">
                             <label for="" class="form-label required">Periode Pekerjaan</label>
-                            <select name="periode" wire:model="periode" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form_master" data-placeholder="Pilih Periode" required>
+                            <select name="periode" wire:model="periode" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form_master" data-placeholder="Pilih Periode" @if($id_form == 1) disabled @endif required>
                                 <option value="">Pilih</option>
-                                <option value="0">0 (Emergency Call)</option>
                                 <option value="1">1 Bulan</option>
                                 <option value="2">2 Bulan</option>
                                 <option value="3">3 Bulan</option>

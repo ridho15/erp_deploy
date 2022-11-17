@@ -92,10 +92,22 @@
                 </div>
                 <div class="row mb-5">
                     <div class="col-md-4 col-4">
-                        Status
+                        Status Pekerjaan
                     </div>
                     <div class="col-md-8 col-8">
-                        : <span class="fw-bold"><?= $preOrder->status_formatted ?></span>
+                        : <span class="fw-bold">
+                            @if ($preOrder->quotation && $preOrder->quotation->laporanPekerjaan)
+                                @if ($preOrder->quotation->laporanPekerjaan->signature != null && $preOrder->quotation->laporanPekerjaan->jam_selesai != null)
+                                    <span class="badge badge-success">Selesai</span>
+                                @elseif($preOrder->quotation->laporanPekerjaan->jam_mulai != null)
+                                    <span class="badge badge-warning">Sedang Dikerjakan</span>
+                                @else
+                                    <span class="badge badge-secondary">Belum Dikerjakan</span>
+                                @endif
+                            @else
+                                Tidak ada pekerjaan
+                            @endif
+                        </span>
                     </div>
                 </div>
                 <div class="row mb-5">

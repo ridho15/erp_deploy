@@ -83,13 +83,12 @@
                             </div>
                             <div class="mb-5 col-md-6" wire:ignore>
                                 <label for="tanggal">Tanggal Pekerjaan</label>
-                                <input type="date" class="form-control form-control-solid" name="tanggal" wire:model="tanggal">
+                                <input type="text" class="form-control form-control-solid" name="tanggal" wire:model="tanggal" placeholder="Pilih Tanggal">
                             </div>
                             <div class="mb-5 col-md-6">
                                 <label for="" class="form-label required">Periode Pekerjaan</label>
-                                <select name="periode" wire:model="periode" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih Periode" required>
+                                <select name="periode" wire:model="periode" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih Periode" @if($id_form_master == 1) disabled @endif required>
                                     <option value="">Pilih</option>
-                                    <option value="0">0 (Emergency Call)</option>
                                     <option value="1">1 Bulan</option>
                                     <option value="2">2 Bulan</option>
                                     <option value="3">3 Bulan</option>
@@ -124,6 +123,8 @@
     <script>
         $(document).ready(function () {
             refreshSelect()
+
+            $('input[name="tanggal"]').flatpickr()
         });
 
         window.addEventListener('contentChange', function(){

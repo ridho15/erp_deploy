@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             TipePerubahanStockSeeder::class,
             TipeUserSeeder::class,
-            UserAdminSeeder::class
+            UserAdminSeeder::class,
+            FormMasterSeeder::class,
         ]);
     }
 }

@@ -20,7 +20,7 @@ class LaporanPekerjaan extends Component
         'simpanLaporanPekerjaan',
         'hapusFotoByIndex',
         'base64ToImage',
-        'hapusFoto'
+        'hapusFoto',
     ];
     public $tanggal;
     public $id_laporan_pekerjaan;
