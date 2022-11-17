@@ -81,7 +81,7 @@
                                 </tr>
                                     @foreach ($item->detail as $nomor => $value)
                                     <tr>
-                                        <td class="text-end">{{ $nomor + 1 }} {{ $value->periode }}</td>
+                                        <td class="text-end">{{ $nomor + 1 }}</td>
                                         <td>{{ $value->nama_pekerjaan }}</td>
                                         <td>
                                             @if ($value->kondisi != null)
