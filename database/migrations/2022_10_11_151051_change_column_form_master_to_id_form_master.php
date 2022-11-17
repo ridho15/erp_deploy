@@ -14,7 +14,7 @@ class ChangeColumnFormMasterToIdFormMaster extends Migration
     public function up()
     {
         Schema::table('laporan_pekerjaan', function (Blueprint $table) {
-            $table->renameColumn('form_master', 'id_form_master');
+            // $table->renameColumn('form_master', 'id_form_master');
         });
     }
 
