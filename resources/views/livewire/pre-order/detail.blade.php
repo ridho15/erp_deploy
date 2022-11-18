@@ -13,7 +13,7 @@
             <button class="btn btn-sm btn-outline btn-outline-success btn-edit mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Pre Order" wire:click="$emit('onClickEditPreOrder', {{ $preOrder }})">
                 <i class="bi bi-pencil-square"></i> Edit
             </button>
-            <button class="btn btn-sm btn-danger mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Batalkan Pre Order" wire:click="$emit('onClickBatalPreOrder', {{ $preOrder->id }})">
+            {{-- <button class="btn btn-sm btn-danger mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Batalkan Pre Order" wire:click="$emit('onClickBatalPreOrder', {{ $preOrder->id }})">
                 <i class="fa-solid fa-ban"></i> Batalkan
             </button>
             @if ($preOrder->status == 1)
@@ -26,7 +26,7 @@
                 </button>
             @elseif($preOrder->status == 3)
                 <a href="{{ route('pre-order.invoice', ['id' => $preOrder->id]) }}" target="_blank" class="btn btn-sm btn-info btn-proses mx-2"><i class="fa-solid fa-print"></i>Cetak Invoice</a>
-            @endif
+            @endif --}}
         </div>
     </div>
     <div class="card-body">
