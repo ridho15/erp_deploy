@@ -29,6 +29,7 @@ class Form extends Component
     public $signature;
     public $periode;
     public $tanggal;
+    public $is_emergency_call;
 
     public $listIdUser = [];
 
@@ -78,7 +79,7 @@ class Form extends Component
             'id_form_master.numeric' => 'Form tidak valid !',
         ]);
 
-        if($this->id_form_master == 1){
+        if($this->is_emergency_call == 1){
             $this->periode = 0;
         }
 
@@ -120,6 +121,7 @@ class Form extends Component
             'periode' => $this->periode,
             'tanggal_pekerjaan' => $this->tanggal,
             'id_form_master' => $this->id_form_master,
+            'is_emergency_call' => $this->is_emergency_call ?? 0
         ]);
 
         LaporanPekerjaanUser::where('id_laporan_pekerjaan', $laporanPekerjaan->id)
@@ -149,6 +151,7 @@ class Form extends Component
         $this->tanggal = null;
         $this->id_form_master = null;
         $this->listIdUser = [];
+        $this->is_emergency_call = null;
     }
 
     public function setDataManagementTugas($id)
@@ -168,6 +171,7 @@ class Form extends Component
         $this->id_form_master = $laporanPekerjaan->id_form_master;
         $this->periode = $laporanPekerjaan->periode;
         $this->tanggal = $laporanPekerjaan->tanggal_pekerjaan;
+        $this->is_emergency_call = $laporanPekerjaan->is_emergency_call;
 
         foreach ($laporanPekerjaan->teknisi as $item) {
             array_push($this->listIdUser, $item->id_user);

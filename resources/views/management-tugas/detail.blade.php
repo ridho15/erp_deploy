@@ -162,6 +162,18 @@
                             @endforeach
                         </div>
                     </div>
+                    <div class="row mb-5">
+                        <div class="col-md-4 col-4">
+                            Periode
+                        </div>
+                        <div class="col-md-8 col-8 fw-bold">
+                            : @if ($laporanPekerjaan->is_emergency_call == 1)
+                                <span class="badge badge-warning">Emergency Call</span>
+                            @else
+                                {{ $laporanPekerjaan->periode }} Bulan
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </div>
             <hr class="my-10">

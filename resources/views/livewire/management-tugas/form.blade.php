@@ -32,6 +32,14 @@
                                 @error('id_customer')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
+                                <div class="d-flex flex-stack w-lg-50 mt-3">
+                                    <label class="form-check form-switch form-check-custom form-check-solid">
+                                        <input class="form-check-input" type="checkbox" value="1" wire:model="is_emergency_call" checked="checked"/>
+                                        <span class="form-check-label fw-semibold text-muted">
+                                            Emergency Call
+                                        </span>
+                                    </label>
+                                </div>
                             </div>
                             <div class="mb-5 col-md-6">
                                 <label for="" class="form-label required">Project</label>
@@ -44,6 +52,7 @@
                                 @error('id_project')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
+
                             </div>
                             <div class="mb-5 col-md-6">
                                 <label for="" class="form-label required">Form</label>
@@ -87,7 +96,7 @@
                             </div>
                             <div class="mb-5 col-md-6">
                                 <label for="" class="form-label required">Periode Pekerjaan</label>
-                                <select name="periode" wire:model="periode" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih Periode" @if($id_form_master == 1) disabled @endif required>
+                                <select name="periode" wire:model="periode" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih Periode" @if($is_emergency_call == 1) disabled @endif required>
                                     <option value="">Pilih</option>
                                     <option value="1">1 Bulan</option>
                                     <option value="2">2 Bulan</option>

@@ -102,7 +102,11 @@
                     Periode
                 </div>
                 <div class="col-md-8 col-8 fw-bold">
-                    : {{ $laporanPekerjaan->periode }} Bulan
+                    : @if ($laporanPekerjaan->is_emergency_call == 1)
+                        <span class="badge badge-warning">Emergency Call</span>
+                    @else
+                        {{ $laporanPekerjaan->periode }} Bulan
+                    @endif
                 </div>
             </div>
             <div class="row mb-5">

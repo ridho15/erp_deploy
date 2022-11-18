@@ -12,7 +12,7 @@ class Form extends Component
     public $kode;
     public $nama;
     public $keterangan;
-    public $periode;
+    public $periode_master;
 
     public function render()
     {
@@ -27,26 +27,24 @@ class Form extends Component
             'kode' => 'required|string',
             'nama' => 'required|string',
             'keterangan' => 'nullable|string',
-            'periode' => 'required',
+            'periode_master' => 'required',
         ], [
             'kode.required' => 'Kode form tidak boleh kosong',
             'kode.string' => 'Kode form tidak valid !',
             'nama.required' => 'Nama form tidak boleh kosong',
             'nama.string' => 'Nama form tidak valid !',
             'keterangan.string' => 'Keterangan tidak valid !',
-            'periode.required' => 'Periode Belum dipilih !',
+            'periode_master.required' => 'Periode Belum dipilih !',
         ]);
 
-        if ($this->id_form != 1) {
-            FormMaster::updateOrCreate([
-                'id' => $this->id_form,
-            ], [
-                'kode' => $this->kode,
-                'nama' => $this->nama,
-                'periode' => $this->periode,
-                'keterangan' => $this->keterangan,
-            ]);
-        }
+        FormMaster::updateOrCreate([
+            'id' => $this->id_form,
+        ], [
+            'kode' => $this->kode,
+            'nama' => $this->nama,
+            'periode' => $this->periode_master,
+            'keterangan' => $this->keterangan,
+        ]);
 
         $message = 'Data form berhasil disimpan';
         $this->resetInputFields();
@@ -61,7 +59,7 @@ class Form extends Component
         $this->id_form = null;
         $this->kode = null;
         $this->nama = null;
-        $this->periode = null;
+        $this->periode_master = null;
         $this->keterangan = null;
     }
 
@@ -78,6 +76,6 @@ class Form extends Component
         $this->kode = $formMaster->kode;
         $this->nama = $formMaster->nama;
         $this->keterangan = $formMaster->keterangan;
-        $this->periode = $formMaster->periode;
+        $this->periode_master = $formMaster->periode;
     }
 }

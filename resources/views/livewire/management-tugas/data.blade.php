@@ -80,8 +80,8 @@
                                 <td>{{ $item->jam_mulai_formatted ?? '-' }}</td>
                                 <td>{{ $item->jam_selesai_formatted ?? '-' }}</td>
                                 <td>
-                                    @if ($item->periode == 0)
-                                    Emergency Call
+                                    @if ($item->is_emergency_call == 1)
+                                        <span class="badge badge-warning">Emergency Call</span>
                                     @else
                                     {{ $item->periode }} Bulan
                                     @endif</td>
