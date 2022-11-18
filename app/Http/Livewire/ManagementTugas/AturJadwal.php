@@ -50,7 +50,8 @@ class AturJadwal extends Component
         ]);
 
         $this->laporanPekerjaan->update([
-            'jam_mulai' => date('Y-m-d H:i:s', strtotime($this->jam_mulai))
+            'jam_mulai' => date('Y-m-d H:i:s', strtotime($this->jam_mulai)),
+            'dikirim' => 0
         ]);
 
         LaporanPekerjaanUser::where('id_laporan_pekerjaan', $this->laporanPekerjaan->id)->delete();

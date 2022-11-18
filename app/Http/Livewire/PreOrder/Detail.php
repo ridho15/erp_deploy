@@ -82,7 +82,7 @@ class Detail extends Component
             'status' => 3
         ]);
 
-        $message = "Berhasil menyimpan data dan mengupdate stock barang";
+        $message = "Berhasil menyimpan data";
         $this->emit('refreshPreOrderLog');
         $this->emit('refreshPreOrderDetail');
         $this->emit('finishRefreshData', 1, $message);
