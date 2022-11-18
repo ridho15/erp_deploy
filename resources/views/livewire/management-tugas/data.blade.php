@@ -23,6 +23,11 @@
                 <div class="col-md-3 col-6">
                     @include('helper.form-pencarian', ['model' => 'cari'])
                 </div>
+                <div class="col-md text-end">
+                    <button class="btn btn-sm btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Kirim Semua Ke Daftar Tugas" wire:click="$emit('onClickSendAll')">
+                        <i class="fa-solid fa-share-from-square"></i> Send All
+                    </button>
+                </div>
                 {{-- <div class="col-md-7">
                     <div class="row flex-row">
                         <div class="col-6">
@@ -262,6 +267,13 @@
 
         Livewire.on('onClickFilter', () => {
             $('#modal_filter').modal('show')
+        })
+
+        Livewire.on('onClickSendAll', async () => {
+            const response = await alertConfirmCustom('Peringatan !', "Apakah kamu yakin ingin mengirim semua data yang belum masuk daftar tugas ke daftar tugas ?", 'Ya, Kirim')
+            if(response.isConfirmed == true){
+                Livewire.emit('sendAllData')
+            }
         })
 </script>
 @endpush

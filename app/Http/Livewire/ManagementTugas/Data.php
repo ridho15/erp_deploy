@@ -17,7 +17,8 @@ class Data extends Component
         'hapusManagementTugas',
         'setKirim',
         'filterData',
-        'clearFilter'
+        'clearFilter',
+        'sendAllData'
     ];
     public $total_show = 10;
     public $cari;
@@ -139,5 +140,17 @@ class Data extends Component
         $this->tanggal_pekerjaan = null;
         $this->status_pekerjaan = null;
         $this->id_project = null;
+    }
+
+    public function sendAllData(){
+        $managementTugas = LaporanPekerjaan::where('dikirim', 0)->get();
+        foreach ($managementTugas as $item) {
+            $item->update([
+                'dikirim' => 1
+            ]);
+        }
+
+        $message = "Berhasil mengirim data";
+        return session()->flash('success', $message);
     }
 }
