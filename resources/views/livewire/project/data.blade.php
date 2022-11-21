@@ -63,7 +63,11 @@
                                         -
                                     @endif
                                 </td>
-                                <td>{{ date('d-m-Y', strtotime($item->tanggal)) }}</td>
+                                <td>
+                                    @if ($item->tanggal)
+                                        {{ date('d-m-Y', strtotime($item->tanggal)) }}
+                                    @endif
+                                </td>
                                 <td>
                                     @php
                                         $total_pekerjaan_selesai = 0;
@@ -73,11 +77,12 @@
                                             }
                                         }
                                     @endphp
-                                    <ul>
+                                    {{ $total_pekerjaan_selesai }} / {{ $item->laporanPekerjaan->count() }}
+                                    {{-- <ul>
                                         <li>Pekerjaan Berjalan {{ $item->laporanPekerjaan->count() - $total_pekerjaan_selesai }}</li>
                                         <li>Pekerjaan Selesai {{ $total_pekerjaan_selesai }}</li>
                                         <li>Total Pekerjaan {{ $item->laporanPekerjaan->count() }}</li>
-                                    </ul>
+                                    </ul> --}}
                                 </td>
                                 <td>
                                     <div class="btn-group">

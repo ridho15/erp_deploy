@@ -21,7 +21,7 @@
 
             <form action="#" method="POST" wire:submit.prevent="simpanLaporanPekerjaanChecklist">
                 <div class="table-responsive">
-                    <table class="table table-rounded table-striped border gy-7 gs-7">
+                    <table class="table table-rounded border gy-7 gs-7">
                         <thead>
                             <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
                                 <th>No</th>
@@ -50,34 +50,35 @@
                         <tbody>
                             @if (count($listTemplatePekerjaan) > 0)
                                 @foreach ($listTemplatePekerjaan as $index => $item)
-                                <tr class="fw-bold">
-                                    <td class="bg-success">{{ \App\CPU\Helpers::numberToLetter($loop->iteration) }}</td>
-                                    <td class="bg-success">{{ $item->nama_pekerjaan }}</td>
-                                    <td class="bg-success">
-                                        @if ($item->kondisi != null)
+                                <tr class="fw-bold bg-light-success">
+                                    <td>{{ \App\CPU\Helpers::numberToLetter($loop->iteration) }}</td>
+                                    <td>{{ $item->nama_pekerjaan }}</td>
+                                    <td>
+                                        @if ($item->kondisi != null && is_array(json_decode($item->kondisi)))
                                             @foreach (json_decode($item->kondisi) as $kondisi)
                                                 {{ $kondisi }}
                                             @endforeach
                                         @endif
                                     </td>
-                                    <td class="bg-success"></td>
+                                    <td></td>
                                     {{-- @if ($periode > 0)
-                                        <td class="bg-success"></td>
+                                        <td></td>
                                     @endif
                                     @if ($periode > 1)
-                                        <td class="bg-success"></td>
+                                        <td></td>
                                     @endif
                                     @if ($periode > 2)
-                                        <td class="bg-success"></td>
+                                        <td></td>
                                     @endif
                                     @if ($periode > 5)
-                                        <td class="bg-success"></td>
+                                        <td></td>
                                     @endif
                                     @if ($periode > 11)
-                                        <td class="bg-success"></td>
+                                        <td></td>
                                     @endif --}}
-                                        <td class="bg-success"></td>
-                                        <td class="bg-success"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                 </tr>
                                     @foreach ($item->detail as $nomor => $value)
                                     <tr>

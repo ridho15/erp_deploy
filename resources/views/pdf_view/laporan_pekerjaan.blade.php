@@ -249,7 +249,7 @@
                     <td class="fw-bold text-capitalize">{{ \App\CPU\Helpers::numberToLetter($loop->iteration) }}</td>
                     <td class="fw-bold text-capitalize">{{ $item->nama_pekerjaan }}</td>
                     <td>
-                        @if ($item->kondisi != null)
+                        @if ($item->kondisi != null && is_array(json_decode($item->kondisi)))
                             @foreach (json_decode($item->kondisi) as $kondisi)
                                 {{ $kondisi }}
                             @endforeach

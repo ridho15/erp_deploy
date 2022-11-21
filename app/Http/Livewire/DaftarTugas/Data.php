@@ -15,7 +15,8 @@ class Data extends Component
         'simpanDaftarTugas',
         'setDaftarTugas',
         'setKirim',
-        'clearFilter'
+        'clearFilter',
+        'setLaporanPekerjaan'
     ];
     public $total_show = 10;
     public $cari;
@@ -25,6 +26,7 @@ class Data extends Component
     public $tanggal_pekerjaan;
     public $id_project;
     public $status_pekerjaan;
+    public $laporanPekerjaan;
 
     public function render()
     {
@@ -105,5 +107,9 @@ class Data extends Component
         $this->id_project = null;
         $this->status_pekerjaan = null;
         $this->tanggal_pekerjaan = null;
+    }
+
+    public function setLaporanPekerjaan($id){
+        $this->laporanPekerjaan = LaporanPekerjaan::find($id);
     }
 }

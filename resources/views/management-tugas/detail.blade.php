@@ -200,6 +200,16 @@
                     </div>
                     <div class="row mb-5">
                         <div class="col-md-4 col-4">
+                            Tanggal Estimasi
+                        </div>
+                        <div class="col-md-8 col-8">
+                            : @if ($laporanPekerjaan->tanggal_estimasi)
+                                {{ date('d-m-Y H:i', strtotime($laporanPekerjaan->tanggal_estimasi)) }}
+                            @endif
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-md-4 col-4">
                             Keterangan Teknisi
                         </div>
                         <div class="col-md-8 col-8">
@@ -260,8 +270,6 @@
                            <th>No</th>
                            <th>SKU</th>
                            <th>Nama Barang</th>
-                           <th>Satuan</th>
-                           <th>Harga</th>
                            <th>Jumlah / Qty</th>
                           </tr>
                          </thead>
@@ -272,8 +280,6 @@
                                         <td>{{ $index + 1 }}</td>
                                         <td>{{ $item->barang->sku }}</td>
                                         <td>{{ $item->barang->nama }}</td>
-                                        <td>{{ $item->barang->satuan->nama_satuan }}</td>
-                                        <td>{{ $item->barang->harga_formatted }}</td>
                                         <td>{{ $item->qty }}</td>
                                     </tr>
                                 @endforeach

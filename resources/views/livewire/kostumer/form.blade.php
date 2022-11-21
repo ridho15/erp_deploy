@@ -49,7 +49,7 @@
                             @enderror
                         </div>
                         <div class="mb-5">
-                            <label for="" class="form-label">Barang Customer</label>
+                            <label for="" class="form-label">Barang Perlengkapan
                             <textarea name="barang_customer" wire:model="barang_customer" class="form-control form-control-solid" placeholder="Masukkan barang customer"></textarea>
                             @error('barang_customer')
                                 <small class="text-danger">{{ $message }}</small>

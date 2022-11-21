@@ -57,6 +57,7 @@
                                 <th>No</th>
                                 <th>Customer</th>
                                 <th>Project</th>
+                                <th>No.MFG</th>
                                 <th>Pekerja</th>
                                 <th>Tanggal Pekerjaan</th>
                                 <th>Jam Mulai</th>
@@ -75,6 +76,7 @@
                                 <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
                                 <td>{{ $item->customer->nama }}</td>
                                 <td>{{ $item->project ? $item->project->nama : '-' }}</td>
+                                <td>{{ $item->project ? $item->project->no_mfg : '-' }}</td>
                                 <td>
                                     @foreach ($item->teknisi as $nama)
                                     {{ $nama->user->name }},
@@ -83,7 +85,13 @@
                                 <td>{{ Carbon\Carbon::parse($item->tanggal_pekerjaan)->locale('id')->isoFormat('DD/MM/YYYY')
                                     ?? '-' }}</td>
                                 <td>{{ $item->jam_mulai_formatted ?? '-' }}</td>
-                                <td>{{ $item->jam_selesai_formatted ?? '-' }}</td>
+                                <td>
+                                    @if ($item->jam_selesai)
+                                        {{ $item->jam_selesai_formatted ?? '-' }}
+                                    @elseif($item->tanggal_estimasi)
+                                        {{ date('d-m-Y H:i', strtotime($item->tanggal_estimasi)) }}
+                                    @endif
+                                </td>
                                 <td>
                                     @if ($item->is_emergency_call == 1)
                                         <span class="badge badge-warning">Emergency Call</span>
