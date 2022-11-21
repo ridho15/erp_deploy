@@ -21,22 +21,22 @@
                 </div>
             </div>
 
-            <div class="table-responsive">
+            <div class="tables w-100" style="position: relative !important">
                 <table class="table table-rounded table-striped border gy-7 gs-7">
                  <thead>
-                  <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
-                   <th class="sticky" scope="col">No</th>
-                   <th class="sticky" scope="col">No. Ref</th>
-                   <th class="sticky" scope="col">Kode Project</th>
-                   <th class="sticky" scope="col">Nama Project</th>
-                   <th class="sticky" scope="col">Pelanggan</th>
-                   <th class="sticky" scope="col">Sales</th>
-                   <th class="sticky" scope="col">Status Pekerjaan</th>
-                   <th class="sticky" scope="col">Status Kirim</th>
-                   <th class="sticky" scope="col">Konfirmasi</th>
-                   <th class="sticky" scope="col">File</th>
-                   <th class="sticky" scope="col">Dibuat pada</th>
-                   <th class="sticky" scope="col">Aksi</th>
+                  <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200 sticky">
+                   <th>No</th>
+                   <th>No. Ref</th>
+                   <th>Kode Project</th>
+                   <th>Nama Project</th>
+                   <th>Pelanggan</th>
+                   <th>Sales</th>
+                   <th>Status Pekerjaan</th>
+                   <th>Status Kirim</th>
+                   <th>Konfirmasi</th>
+                   <th>File</th>
+                   <th>Dibuat pada</th>
+                   <th>Aksi</th>
                   </tr>
                  </thead>
                  <tbody>

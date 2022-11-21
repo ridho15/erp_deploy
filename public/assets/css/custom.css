@@ -33,6 +33,7 @@ hr{
 .sticky{
     position: sticky !important;
     top: 0px;
+    z-index: 100;
 }
 
 th{
