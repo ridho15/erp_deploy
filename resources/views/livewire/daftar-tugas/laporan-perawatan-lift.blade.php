@@ -233,6 +233,7 @@
                                             @endphp
                                             <textarea name="keterangan" class="form-control form-control-solid" data-id_template_pekerjaan_detail="{{ $value->id }}">{{ $keterangan }}</textarea>
                                         </td>
+                                        <td></td>
                                         <td>
                                             <div
                                                 class="form-check form-switch form-check-custom form-check-success form-check-solid">
