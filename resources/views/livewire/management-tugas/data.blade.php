@@ -50,22 +50,22 @@
 
 
             {{-- <div class="table-responsive"> --}}
-                <div class="tables w-100" style="overflow: scroll;">
+                <div class="tables w-100" style="position: relative !important">
                     <table class="table table-rounded table-striped border gy-7 gs-7">
                         <thead>
-                            <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
-                                <th class="sticky" scope="col">No</th>
-                                <th class="sticky" scope="col">Customer</th>
-                                <th class="sticky" scope="col">Project</th>
-                                <th class="sticky" scope="col">Pekerja</th>
-                                <th class="sticky" scope="col">Tanggal Pekerjaan</th>
-                                <th class="sticky" scope="col">Jam Mulai</th>
-                                <th class="sticky" scope="col">Jam Selesai</th>
-                                <th class="sticky" scope="col">Periode</th>
-                                <th class="sticky" scope="col">Status</th>
-                                <th class="sticky" scope="col">Aksi</th>
-                                <th class="sticky" scope="col">Form</th>
-                                <th class="sticky" scope="col">Jumlah Service</th>
+                            <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200 sticky">
+                                <th>No</th>
+                                <th>Customer</th>
+                                <th>Project</th>
+                                <th>Pekerja</th>
+                                <th>Tanggal Pekerjaan</th>
+                                <th>Jam Mulai</th>
+                                <th>Jam Selesai</th>
+                                <th>Periode</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                                <th>Form</th>
+                                <th>Jumlah Service</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -160,8 +160,7 @@
                         </tbody>
                     </table>
                 </div>
-                {{--
-            </div> --}}
+            {{-- </div> --}}
             <div class="text-center">{{ $listLaporanPekerjaan->links() }}</div>
         </div>
     </div>
