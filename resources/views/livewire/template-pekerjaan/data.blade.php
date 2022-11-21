@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="table-responsive">
-            <table class="table table-rounded table-striped border gy-7 gs-7">
+            <table class="table table-rounded border gy-7 gs-7">
                 <thead>
                     <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
                         <th>No</th>
@@ -36,17 +36,17 @@
                     @if (count($listTemplatePekerjaan) > 0)
                     @foreach ($listTemplatePekerjaan as $index => $item)
                     {{-- {{ dd($item) }} --}}
-                    <tr class="fw-bold">
-                        <td class="bg-success">{{ \App\CPU\Helpers::numberToLetter($index + 1) }}</td>
-                        <td class="bg-success">{{ $item->nama_pekerjaan }}</td>
-                        <td class="bg-success">
-                            @if ($item->kondisi != null)
+                    <tr class="fw-bold bg-light-success">
+                        <td>{{ \App\CPU\Helpers::numberToLetter($index + 1) }}</td>
+                        <td>{{ $item->nama_pekerjaan }}</td>
+                        <td>
+                            @if ($item->kondisi != null && is_array(json_decode($item->kondisi)))
                                 @foreach (json_decode($item->kondisi) as $kondisi)
                                     {{ $kondisi }}
                                 @endforeach
                             @endif
                         </td>
-                        <td class="bg-success"></td>
+                        <td></td>
                         {{-- <td>
                             @php
                                 $kerja = json_decode($item->keterangan);
@@ -57,7 +57,7 @@
                                 @endforeach
                             @endif
                         </td> --}}
-                        <td class="bg-success">
+                        <td>
                             <div class="btn-group">
                                 <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip"
                                     data-bs-placement="top" title="Edit Template Pekerjaan"
