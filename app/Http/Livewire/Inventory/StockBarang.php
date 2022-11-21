@@ -26,6 +26,8 @@ class StockBarang extends Component
                 $query->where('nama_satuan', 'LIKE', '%' . $this-> cari . '%');
             })->orWhereHas('tipeBarang', function($query){
                 $query->where('tipe_barang', 'LIKE', '%' . $this->cari . '%');
+            })->orWhereHas('merk', function($query){
+                $query->where('nama_merk', 'LIKE', '%' . $this->cari . '%');
             });
         })->orderBy('stock', 'ASC')->paginate($this->total_show);
         $data['listBarang'] = $this->listBarang;
