@@ -36,7 +36,8 @@
                                     <label class="form-check form-switch form-check-custom form-check-solid">
                                         <input class="form-check-input" type="checkbox" value="1" wire:model="is_emergency_call" checked="checked"/>
                                         <span class="form-check-label fw-semibold text-muted">
-                                            Emergency Call
+                                            {{-- Emergency Call --}}
+                                            Laporan Pekerjaan
                                         </span>
                                     </label>
                                 </div>
