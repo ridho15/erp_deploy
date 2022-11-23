@@ -38,7 +38,7 @@
                                 @endif
                             </td>
                             <td>{{ $item->tipePembayaran ? $item->tipePembayaran->nama_tipe : '-' }}</td>
-                            <td>{{ $item->keterangan ? $item->keterangan : '-' }}</td>
+                            <td><?= $item->keterangan ? $item->keterangan : '-' ?></td>
                             <td><?= $item->status_formatted ?></td>
                             <td>
                                 <div class="btn-group">

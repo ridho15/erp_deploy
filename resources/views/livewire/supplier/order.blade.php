@@ -1,5 +1,7 @@
 <div>
-    <h4 class="mb-5">Supplier Order</h4>
+    @if ($segment != 'order')
+        <h4 class="mb-5">Supplier Order</h4>
+    @endif
     @include('helper.alert-message')
     <div class="row mb-3">
         <div class="col-md-3">

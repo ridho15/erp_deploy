@@ -36,8 +36,7 @@
                                     <label class="form-check form-switch form-check-custom form-check-solid">
                                         <input class="form-check-input" type="checkbox" value="1" wire:model="is_emergency_call" checked="checked"/>
                                         <span class="form-check-label fw-semibold text-muted">
-                                            {{-- Emergency Call --}}
-                                            Laporan Pekerjaan
+                                            Emergency Call
                                         </span>
                                     </label>
                                 </div>
@@ -95,16 +94,16 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-                            <div class="mb-5 col-md-6" wire:ignore>
+                            <div class="mb-5 col-md-6">
                                 <label for="tanggal">Tanggal Pekerjaan</label>
-                                <input type="text" class="form-control form-control-solid" name="tanggal" wire:model="tanggal" placeholder="Pilih Tanggal">
+                                <input type="date" class="form-control form-control-solid" name="tanggal" wire:model="tanggal" placeholder="Pilih Tanggal">
                                 @error('tanggal')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-                            <div class="mb-5 col-md-6" wire:ignore>
+                            <div class="mb-5 col-md-6">
                                 <label for="tanggal">Tanggal Estimasi</label>
-                                <input type="text" class="form-control form-control-solid" name="tanggal_estimasi" wire:model="tanggal_estimasi" placeholder="Pilih Tanggal">
+                                <input type="datetime-local" class="form-control form-control-solid" name="tanggal_estimasi" wire:model="tanggal_estimasi" placeholder="Pilih Tanggal">
                                 @error('tanggal_estimasi')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -147,11 +146,6 @@
     <script>
         $(document).ready(function () {
             refreshSelect()
-            $('input[name="tanggal"]').flatpickr()
-            $('input[name="tanggal_estimasi"]').flatpickr({
-                enableTime: true,
-                dateFormat: "Y-m-d H:i",
-            })
         });
 
         window.addEventListener('contentChange', function(){

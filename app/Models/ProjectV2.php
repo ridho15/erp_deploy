@@ -19,7 +19,8 @@ class ProjectV2 extends Model
         'id_customer',
         'catatan',
         'tanggal',
-        'map'
+        'map',
+        'total_pekerjaan'
     ];
 
     public function customer(){

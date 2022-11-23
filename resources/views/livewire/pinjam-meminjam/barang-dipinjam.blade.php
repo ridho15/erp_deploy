@@ -26,6 +26,7 @@
                 <th>Jumlah / Qty</th>
                 <th>Tipe Barang</th>
                 <th>Catatan Teknisi</th>
+                <th>Yang Meminjamkan</th>
                 <th>Status</th>
                 <th>Aksi</th>
             </tr>
@@ -43,6 +44,7 @@
                         <td>{{ $item->qty }}</td>
                         <td>{{ $item->barang->tipeBarang->tipe_barang }}</td>
                         <td>{{ $item->catatan_teknisi }}</td>
+                        <td>{{ $item->userMeminjamkan ? $item->userMeminjamkan->name : '-' }}</td>
                         <td><?= $item->status_formatted ?></td>
                         <td>
                             <div class="btn-group">

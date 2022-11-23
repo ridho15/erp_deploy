@@ -3,25 +3,10 @@
 @section('content')
     <div class="card shadow-sm">
         <div class="card-body">
-            <div class="h4 mb-10">Data Inventory </div>
+            <div class="h4 mb-10">Data Pinjam Meminjam</div>
             <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x mb-5 fs-6">
                 <li class="nav-item">
                     <a class="nav-link active" data-bs-toggle="tab" href="#stock_barang">Stock Barang</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#barang_diminta">Barang Diminta</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#acurate_masuk">Accurate Masuk</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#barang_dipinjam">Barang Dipinjam</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#barang_dibalikan">Barang Dibalikan</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#acurate_keluar">Accurate Keluar</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="tab" href="#barang_terjual">Barang Terjual</a>
@@ -32,28 +17,13 @@
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="stock_barang" role="tabpanel">
-                    @livewire('inventory.stock-barang')
-                </div>
-                <div class="tab-pane fade" id="barang_diminta" role="tabpanel">
-                    @livewire('inventory.barang-diminta')
-                </div>
-                <div class="tab-pane fade" id="acurate_masuk" role="tabpanel">
-                    @livewire('inventory.acureate-masuk')
-                </div>
-                <div class="tab-pane fade" id="barang_dipinjam" role="tabpanel">
-                    @livewire('inventory.barang-dipinjam')
-                </div>
-                <div class="tab-pane fade" id="acurate_keluar" role="tabpanel">
-                    @livewire('inventory.acureate-keluar')
-                </div>
-                <div class="tab-pane fade" id="barang_dibalikan" role="tabpanel">
-                    @livewire('inventory.barang-dibalikan')
+                    @livewire('pinjam-meminjam.stock-barang')
                 </div>
                 <div class="tab-pane fade" id="barang_terjual" role="tabpanel">
-                    @livewire('inventory.barang-terjual')
+                    @livewire('pinjam-meminjam.barang-terjual')
                 </div>
                 <div class="tab-pane fade" id="barang_masuk" role="tabpanel">
-                    @livewire('inventory.barang-masuk')
+                    @livewire('pinjam-meminjam.barang-masuk')
                 </div>
             </div>
         </div>

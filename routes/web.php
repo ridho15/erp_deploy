@@ -18,6 +18,7 @@ use App\Http\Controllers\MerkController;
 use App\Http\Controllers\MetodePembayaranController;
 use App\Http\Controllers\PekerjaanController;
 use App\Http\Controllers\PembayaranController;
+use App\Http\Controllers\PinjamMeminjamController;
 use App\Http\Controllers\PreOrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
@@ -89,7 +90,11 @@ Route::middleware('auth.user')->group(function () {
         Route::get('/', [InvoiceController::class, 'index'])->name('invoice');
     });
 
-    Route::prefix('inventory')->group(function () {
+    Route::prefix('pinjam-meminjam')->group(function () {
+        Route::get('/', [PinjamMeminjamController::class, 'index'])->name('pinjam-meminjam');
+    });
+
+    Route::prefix('inventory')->group(function(){
         Route::get('/', [InventoryController::class, 'index'])->name('inventory');
     });
 

@@ -157,7 +157,7 @@ class FormOrder extends Component
         $this->id_supplier_order = $supplierOrder->id;
         $this->id_supplier = $supplierOrder->id_supplier;
         $this->status_order = $supplierOrder->status_order;
-        $this->tanggal_order = $supplierOrder->tanggal_order;
+        $this->tanggal_order = date('Y-m-d', strtotime($supplierOrder->tanggal_order));
         $this->keterangan = $supplierOrder->keterangan;
         $this->id_tipe_pembayaran = $supplierOrder->id_tipe_pembayaran;
     }

@@ -56,7 +56,11 @@ class Form extends Component
     }
 
     public function mount(){
-
+        $quotationSuccess = Quotation::where('status_like', 1)->first();
+        if($quotationSuccess){
+            $this->id_customer = $quotationSuccess->id_customer;
+            $this->id_quotation = $quotationSuccess->id;
+        }
     }
 
     public function simpanDataPreOrder(){
@@ -133,6 +137,13 @@ class Form extends Component
             'tanggal' => now(),
             'status' => 1
         ]);
+
+        $quotation = Quotation::find($this->id_quotation);
+        if($quotation){
+            $quotation->update([
+                'status_like' => 2
+            ]);
+        }
         $message = "Berhasil menyimpan data";
         $this->resetInputFields();
         $this->emit('refreshPreOrder');

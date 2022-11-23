@@ -22,6 +22,7 @@
                 <th>Jumlah / Qty</th>
                 <th>Tipe Barang</th>
                 <th>Catatan Teknisi</th>
+                <th>Peminjam</th>
                 <th>Status</th>
                 <th>Aksi</th>
             </tr>
@@ -39,6 +40,7 @@
                         <td>{{ $item->qty }}</td>
                         <td>{{ $item->barang->tipeBarang->tipe_barang }}</td>
                         <td>{{ $item->catatan_teknisi }}</td>
+                        <td>{{ $item->userPeminjam ? $item->userPeminjam->name : '-' }}</td>
                         <td><?= $item->status_formatted ?></td>
                         <td>
                             <div class="btn-group">
@@ -54,7 +56,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td colspan="11" class="text-center text-gray-500">Tidak ada data</td>
+                    <td colspan="12" class="text-center text-gray-500">Tidak ada data</td>
                 </tr>
             @endif
             </tbody>

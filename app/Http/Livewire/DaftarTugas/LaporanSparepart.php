@@ -4,6 +4,7 @@ namespace App\Http\Livewire\DaftarTugas;
 
 use App\Models\Barang;
 use App\Models\LaporanPekerjaanBarang;
+use App\Models\SupplierOrderDetailTemp;
 use Livewire\Component;
 
 class LaporanSparepart extends Component
@@ -119,6 +120,18 @@ class LaporanSparepart extends Component
         }
 
         if($stockDiminta > $barang->stock){
+            $jumlah_kurang = $stockDiminta - $barang->stock;
+            $stock_sekarang = $barang->stock;
+            $jumlah_diminta = $stockDiminta;
+            SupplierOrderDetailTemp::create([
+                'id_barang' => $barang->id,
+                'jumlah_diminta' => $jumlah_diminta,
+                'jumlah_kurang' => $jumlah_kurang,
+                'stock_sekarang' => $stock_sekarang,
+                'harga_satuan' => $barang->harga,
+                'status' => 0,
+                'keterangan' => null
+            ]);
             $message = "Jumlah yang diminta lebih besar dari stock, silahkan hubungi warehouse";
             return session()->flash('fail', $message);
         }
@@ -131,7 +144,9 @@ class LaporanSparepart extends Component
             'qty' => $this->qty,
             'keterangan_customer' => $this->keterangan_customer,
             'catatan_teknisi' => $this->catatan_teknisi,
-            'status' => 1
+            'status' => 1,
+            'konfirmasi' => 0,
+            'peminjam' => session()->get('id_user')
         ]);
 
         $message = "Laporan Data barang berhasil di simpan";

@@ -94,7 +94,7 @@
                                 </td>
                                 <td>
                                     @if ($item->is_emergency_call == 1)
-                                        <span class="badge badge-warning">Emergency Call</span>
+                                        <span class="badge badge-warning">Laporan Pekerjaan</span>
                                     @else
                                     {{ $item->periode }} Bulan
                                     @endif</td>

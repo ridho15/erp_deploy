@@ -121,6 +121,9 @@
     <script>
         $(document).ready(function () {
             refreshSelect()
+            if(@this.get('id_customer') != null && @this.get('id_quotation') != null){
+                $('#modal_form').modal('show')
+            }
         });
         Livewire.on('finishSimpanData', (status, message) => {
             $('.modal').modal('hide');
@@ -167,5 +170,9 @@
                 @this.set('id_metode_pembayaran', $(this).val())
             });
         }
+
+        Livewire.on('buatPreOrder', () => {
+            $('#modal_form').modal('show')
+        })
     </script>
 @endpush

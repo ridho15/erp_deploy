@@ -61,7 +61,7 @@
                                     </td>
                                     <td>
                                         @if ($item->is_emergency_call == 1)
-                                            <span class="badge badge-warning">Emergency Call</span>
+                                            <span class="badge badge-warning">Laporan Pekerjaan</span>
                                         @else
                                             {{ $item->periode }} Bulan
                                         @endif
@@ -350,7 +350,7 @@
                                 </div>
                                 <div class="col-md-8 col-8 fw-bold">
                                     : @if ($laporanPekerjaan->is_emergency_call == 1)
-                                        <span class="badge badge-warning">Emergency Call</span>
+                                        <span class="badge badge-warning">Laporan Pekerjaan</span>
                                     @else
                                         {{ $laporanPekerjaan->periode }} Bulan
                                     @endif

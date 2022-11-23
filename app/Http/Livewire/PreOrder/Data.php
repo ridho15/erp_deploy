@@ -4,6 +4,7 @@ namespace App\Http\Livewire\PreOrder;
 
 use App\Models\Customer;
 use App\Models\PreOrder;
+use App\Models\Quotation;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -32,6 +33,7 @@ class Data extends Component
     public $listUser = [];
     public function render()
     {
+
         $this->listCustomer = Customer::get();
         $this->listUser = User::get();
 
@@ -77,7 +79,6 @@ class Data extends Component
         }
 
         $data['listPreOrder'] = $this->listPreOrder;
-
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.pre-order.data', $data);
     }

@@ -34,7 +34,7 @@
                         </div>
                         <div class="mb-5">
                             <label for="" class="form-label required">Tanggal Order</label>
-                            <input type="text" autocomplete="off" class="form-control form-control-solid" name="tanggal_order" wire:model="tanggal_order" placeholder="Tanggal Order" required>
+                            <input type="date" autocomplete="off" class="form-control form-control-solid" name="tanggal_order" wire:model="tanggal_order" placeholder="Tanggal Order" required>
                             @error('tanggal_order')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -84,7 +84,6 @@
 @push('js')
     <script>
         $(document).ready(function () {
-            $('input[name="tanggal_order"]').flatpickr()
             $('select[name="id_supplier"]').on('change', function(){
                 Livewire.emit('changeSupplier', $(this).val())
             })
@@ -99,7 +98,6 @@
         });
 
         window.addEventListener('contentChange',function(){
-            $('input[name="tanggal_order"]').flatpickr()
             $('select[name="id_supplier"]').select2()
             // $('select[name="status_order"]').select2()
             $('.supplier-order').select2()

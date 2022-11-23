@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Supplier;
 
 use App\Models\SupplierOrder;
+use Illuminate\Http\Request;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -19,9 +20,11 @@ class Order extends Component
     public $cari;
     public $id_supplier;
     protected $listSupplierOrder;
+    public $segment;
 
-    public function render()
+    public function render(Request $request)
     {
+        $this->segment = $request->segment(2);
         $this->listSupplierOrder = SupplierOrder::where(function ($query) {
             $query->whereHas('user', function ($query) {
                 $query->where('name', 'LIKE', '%'.$this->cari.'%');
