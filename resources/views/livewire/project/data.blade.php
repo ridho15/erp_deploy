@@ -77,7 +77,7 @@
                                             }
                                         }
                                     @endphp
-                                    {{ $total_pekerjaan_selesai }} / {{ $item->laporanPekerjaan->count() }}
+                                    {{ $total_pekerjaan_selesai }} / {{ $item->total_pekerjaan }}
                                     {{-- <ul>
                                         <li>Pekerjaan Berjalan {{ $item->laporanPekerjaan->count() - $total_pekerjaan_selesai }}</li>
                                         <li>Pekerjaan Selesai {{ $total_pekerjaan_selesai }}</li>

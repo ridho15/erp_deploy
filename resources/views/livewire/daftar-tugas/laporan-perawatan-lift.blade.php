@@ -9,6 +9,7 @@
             </div>
         </div>
         <div class="card-body">
+            @include('helper.alert-message')
             <div class="text-center">
                 @include('helper.simple-loading', ['target' =>
                 'simpanLaporanPekerjaanChecklist,setIdLaporanPekerjaanChecklist', 'message' => 'Memuat data...'])
@@ -27,22 +28,7 @@
                                 <th>No</th>
                                 <th>Nama Pekerjaan</th>
                                 <th style="width: 200px;">Pekerjaan</th>
-                                <th>Periode {{ $periode }}</th>
-                                {{-- @if ($periode > 0)
-                                    <th>Checklist 1 Bulan</th>
-                                @endif
-                                @if ($periode > 1)
-                                    <th>Checklist 2 Bulan</th>
-                                @endif
-                                @if ($periode > 2)
-                                    <th>Checklist 3 Bulan</th>
-                                @endif
-                                @if ($periode > 5)
-                                    <th>Checklist 6 Bulan</th>
-                                @endif
-                                @if ($periode > 11)
-                                    <th>Checklist 1 Tahun</th>
-                                @endif --}}
+                                <th style="width: 200px;">Kondisi</th>
                                 <th>Keterangan</th>
                                 <th>Status</th>
                             </tr>
@@ -61,197 +47,55 @@
                                         @endif
                                     </td>
                                     <td></td>
-                                    {{-- @if ($periode > 0)
-                                        <td></td>
-                                    @endif
-                                    @if ($periode > 1)
-                                        <td></td>
-                                    @endif
-                                    @if ($periode > 2)
-                                        <td></td>
-                                    @endif
-                                    @if ($periode > 5)
-                                        <td></td>
-                                    @endif
-                                    @if ($periode > 11)
-                                        <td></td>
-                                    @endif --}}
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
-                                    @foreach ($item->detail as $nomor => $value)
-                                    <tr>
-                                        <td class="text-end">{{ $nomor + 1 }}</td>
-                                        <td>{{ $value->nama_pekerjaan }}</td>
-                                        <td>
-                                            @if ($value->kondisi != null)
-                                                @if (is_array(json_decode($value->kondisi)))
-                                                    @foreach (json_decode($value->kondisi) as $val)
-                                                        {{ $val }}
-                                                    @endforeach
-                                                @endif
-                                            @endif
-                                        </td>
-                                        @if ($periode == 1)
-                                        <td class="text-center" wire:ignore>
-                                            {{--
-                                            <?= $value->detail ?> --}}
-                                            @if (1 == $value->periode)
+                                    @foreach ($item->children as $number => $value)
+                                        <tr>
+                                            <td>{{ $number + 1 }}</td>
+                                            <td>{{ $value->nama_pekerjaan }}</td>
+                                            <td>
                                                 @php
-                                                    $periodeKondisiLift = null;
-                                                    $laporanPekerjaanChecklist = $laporanPekerjaan->laporanPekerjaanChecklist->where('id_template_pekerjaan_detail', $value->id)->first();
-                                                    if ($laporanPekerjaanChecklist) {
-                                                        $periodeKondisiLift = $laporanPekerjaanChecklist->perawatanLiftKondisi->where('periode', 1)->first();
-                                                        if ($periodeKondisiLift) {
-                                                            $periodeKondisiLift = $periodeKondisiLift->id_kondisi;
-                                                        }
-                                                    }
-                                                @endphp
-                                                <select name="kondisi1" class="form-select form-select-solid id-kondisi1"
-                                                    data-control="select2" data-id_template_pekerjaan_detail="{{ $value->id }}">
-                                                    <option value="">Pilih kondisi</option>
-                                                    @foreach ($listKondisi as $kondisi)
-                                                    <option value="{{ $kondisi->id }}" @if($kondisi->id == $periodeKondisiLift) selected @endif>{{ $kondisi->keterangan }}</option>
-                                                    @endforeach
-                                                </select>
-                                            {{-- @else
-                                                <i class="fas fa-times-circle fs-2x text-danger"></i> --}}
-                                            @endif
-                                        </td>
-                                        @endif
-                                        @if ($periode == 2)
-                                        <td class="text-center" wire:ignore>
-                                            @if (2 == $value->periode)
-                                                @php
-                                                    $periodeKondisiLift = null;
-                                                    $laporanPekerjaanChecklist = $laporanPekerjaan->laporanPekerjaanChecklist->where('id_template_pekerjaan_detail', $value->id)->first();
-                                                    if ($laporanPekerjaanChecklist) {
-                                                        $periodeKondisiLift = $laporanPekerjaanChecklist->perawatanLiftKondisi->where('periode', 2)->first();
-                                                        if ($periodeKondisiLift) {
-                                                            $periodeKondisiLift = $periodeKondisiLift->id_kondisi;
-                                                        }
-                                                    }
-                                                @endphp
-                                                <select name="kondisi2" class="form-select form-select-solid id-kondisi"
-                                                    data-control="select2" data-id_template_pekerjaan_detail="{{ $value->id }}">
-                                                    <option value="">Pilih kondisi</option>
-                                                    @foreach ($listKondisi as $kondisi)
-                                                    <option value="{{ $kondisi->id }}" @if($kondisi->id == $periodeKondisiLift)
-                                                        selected @endif>{{ $kondisi->keterangan }}</option>
-                                                    @endforeach
-                                                </select>
-                                            {{-- @else
-                                                <i class="fas fa-times-circle fs-2x text-danger"></i> --}}
-                                            @endif
-                                        </td>
-                                        @endif
-                                        @if ($periode == 3)
-                                        <td class="text-center" wire:ignore>
-                                            @if (3 == $value->periode)
-                                                @php
-                                                    $periodeKondisiLift = null;
-                                                    $laporanPekerjaanChecklist = $laporanPekerjaan->laporanPekerjaanChecklist->where('id_template_pekerjaan_detail', $value->id)->first();
-                                                    if ($laporanPekerjaanChecklist) {
-                                                        $periodeKondisiLift = $laporanPekerjaanChecklist->perawatanLiftKondisi->where('periode', 3)->first();
-                                                        if ($periodeKondisiLift) {
-                                                            $periodeKondisiLift = $periodeKondisiLift->id_kondisi;
-                                                        }
-                                                    }
-                                                @endphp
-                                                <select name="kondisi3" class="form-select form-select-solid id-kondisi"
-                                                    data-control="select2" data-id_template_pekerjaan_detail="{{ $value->id }}">
-                                                    <option value="">Pilih kondisi</option>
-                                                    @foreach ($listKondisi as $kondisi)
-                                                    <option value="{{ $kondisi->id }}" @if($kondisi->id == $periodeKondisiLift)
-                                                        selected @endif>{{ $kondisi->keterangan }}</option>
-                                                    @endforeach
-                                                </select>
-                                            {{-- @else
-                                                <i class="fas fa-times-circle fs-2x text-danger"></i> --}}
-                                            @endif
-                                        </td>
-                                        @endif
-                                        @if ($periode == 6)
-                                        <td class="text-center" wire:ignore>
-                                            @if (6 == $value->periode)
-                                                @php
-                                                    $periodeKondisiLift = null;
-                                                    $laporanPekerjaanChecklist = $laporanPekerjaan->laporanPekerjaanChecklist->where('id_template_pekerjaan_detail', $value->id)->first();
-                                                    if ($laporanPekerjaanChecklist) {
-                                                        $periodeKondisiLift = $laporanPekerjaanChecklist->perawatanLiftKondisi->where('periode', 6)->first();
-                                                        if ($periodeKondisiLift) {
-                                                            $periodeKondisiLift = $periodeKondisiLift->id_kondisi;
-                                                        }
+                                                    $dataPekerjaanChecklist = \App\Models\LaporanPekerjaanChecklist::where('id_laporan_pekerjaan', $id_laporan_pekerjaan)
+                                                    ->where('id_template_pekerjaan_detail', $value->id)->first();
+                                                    $dataPekerjaan = null;
+                                                    if ($dataPekerjaanChecklist) {
+                                                        $dataPekerjaan = json_decode($dataPekerjaanChecklist->pekerjaan);
                                                     }
 
                                                 @endphp
-                                                <select name="kondisi6" class="form-select form-select-solid id-kondisi" data-control="select2" data-id_template_pekerjaan_detail="{{ $value->id }}">
-                                                    <option value="">Pilih kondisi</option>
-                                                    @foreach ($listKondisi as $kondisi)
-                                                        <option value="{{ $kondisi->id }}" @if ($kondisi->id == $periodeKondisiLift) selected @endif>{{ $kondisi->keterangan }}</option>
-                                                    @endforeach
-                                                </select>
-                                            {{-- @else
-                                                <i class="fas fa-times-circle fs-2x text-danger"></i> --}}
-                                            @endif
-                                        </td>
-                                        @endif
-                                        @if ($periode == 12)
-                                        <td class="text-center" wire:ignore>
-                                            @if (12 == $value->periode)
-                                                @php
-                                                    $periodeKondisiLift = null;
-                                                    $laporanPekerjaanChecklist = $laporanPekerjaan->laporanPekerjaanChecklist->where('id_template_pekerjaan_detail', $value->id)->first();
-                                                    if ($laporanPekerjaanChecklist) {
-                                                        $periodeKondisiLift = $laporanPekerjaanChecklist->perawatanLiftKondisi->where('periode', 12)->first();
-                                                        if ($periodeKondisiLift) {
-                                                            $periodeKondisiLift = $periodeKondisiLift->id_kondisi;
-                                                        }
-                                                    }
-
-                                                @endphp
-                                                <select name="kondisi12" class="form-select form-select-solid id-kondisi"
-                                                    data-control="select2" data-id_template_pekerjaan_detail="{{ $value->id }}">
-                                                    <option value="">Pilih kondisi</option>
-                                                    @foreach ($listKondisi as $kondisi)
-                                                    <option value="{{ $kondisi->id }}" @if($kondisi->id == $periodeKondisiLift)
-                                                        selected @endif>{{ $kondisi->keterangan }}</option>
-                                                    @endforeach
-                                                </select>
-                                            {{-- @else
-                                                <i class="fas fa-times-circle fs-2x text-danger"></i> --}}
-                                            @endif
-                                        </td>
-                                        @endif
-                                        <td wire:ignore>
-                                            @php
-                                                $keterangan = null;
-                                                $laporanPekerjaanChecklist = $laporanPekerjaan->laporanPekerjaanChecklist->where('id_template_pekerjaan_detail', $value->id)->first();
-                                                if($laporanPekerjaanChecklist){
-                                                    $keterangan = $laporanPekerjaanChecklist->keterangan;
-                                                }
-                                            @endphp
-                                            <textarea name="keterangan" class="form-control form-control-solid" data-id_template_pekerjaan_detail="{{ $value->id }}">{{ $keterangan }}</textarea>
-                                        </td>
-                                        <td></td>
-                                        <td>
-                                            <div
-                                                class="form-check form-switch form-check-custom form-check-success form-check-solid">
-                                                <input name="statusPekerjaan" class="form-check-input" data-id_template_pekerjaan_detail="{{ $value->id }}" onclick="changeStatus({{ $value->id.','.$value->status }})" type="checkbox" value="{{ $value->status }}" @if ($value->status == 1)
-                                                    checked
-                                                @endif
-                                                    id="kt_flexSwitchCustomDefault_1_1" />
-                                                <label class="form-check-label" for="kt_flexSwitchCustomDefault_1_1">
-                                                    @if ($value->status == 1)
+                                                <div class="">
+                                                    <select name="pekerjaan" class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih" data-id_template_pekerjaan_detail="{{ $value->id }}" multiple>
+                                                        <option value="">Pilih</option>
+                                                        @foreach ($listPekerjaan as $pekerjaan)
+                                                            <option value="{{ $pekerjaan->keterangan }}" @if($dataPekerjaan && in_array($pekerjaan->keterangan, $dataPekerjaan)) selected @endif>{{ $pekerjaan->keterangan }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="">
+                                                    <select name="kondisi" class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih" data-id_template_pekerjaan_detail="{{ $value->id }}">
+                                                        <option value="">Pilih</option>
+                                                        @foreach ($listKondisi as $kondisi)
+                                                            <option value="{{ $kondisi->keterangan }}" @if($dataPekerjaanChecklist && $kondisi->keterangan == $dataPekerjaanChecklist->kondisi) selected @endif>{{ $kondisi->keterangan }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <textarea name="keterangan" class="form-control form-control-solid" placeholder="Masukkan keterangan" data-id_template_pekerjaan_detail="{{ $value->id }}">{{ $dataPekerjaanChecklist ? $dataPekerjaanChecklist->keterangan : null }}</textarea>
+                                            </td>
+                                            <td>
+                                                <div class="form-check form-switch form-check-custom form-check-solid form-check-success">
+                                                    <input class="form-check-input" type="checkbox" value="1" wire:click="changeStatus({{ $value->id }})" @if($dataPekerjaanChecklist && $dataPekerjaanChecklist->status == 1) checked @endif id="flexSwitchDefault"/>
+                                                    <label class="form-check-label" for="flexSwitchDefault">
                                                         Selesai
-                                                    @else
-                                                        Belum selesai
-                                                    @endif
-                                                </label>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
                                     @endforeach
                                 @endforeach
                             @else
@@ -262,12 +106,6 @@
                         </tbody>
                     </table>
                 </div>
-                {{-- <div class="text-end">
-                    <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-bs-placement="top"
-                        title="Simpan Kondisi Lift">
-                        <i class="fas fa-save"></i> Simpan
-                    </button>
-                </div> --}}
             </form>
         </div>
     </div>
@@ -295,66 +133,27 @@
         }
 
         function refreshSelect2(){
-            $('select[name="kondisi1"]').select2()
-            $('select[name="kondisi2"]').select2()
-            $('select[name="kondisi3"]').select2()
-            $('select[name="kondisi6"]').select2()
-            $('select[name="kondisi12"]').select2()
-            $('select[name="pekerjaan[]"]').select2()
-
-            $('input[name="statusPekerjaan"]').on('click', function(){
-                var status = $(this).val();
-                if(status == 0){
-                    status = 1;
-                }else{
-                    status = 0
-                }
-                @this.set('statusPekerjaan', status)
-                @this.set('templateListId', $(this).data('id_template_pekerjaan_detail'))
-                Livewire.emit('setStatus');
-                // console.log('status', $(this).val())
-            })
-
-            $('select[name="pekerjaan[]"]').on('change', function(){
-                @this.set('pekerjaan', $(this).val())
-                console.log('pekerjaan', $(this).val())
-                @this.set('templateListId', $(this).data('id_template_pekerjaan_detail'))
-                Livewire.emit('setPekerjaan');
-            })
-
-            $('select[name="kondisi1"]').on('change', function(){
-                id_kondisi = $(this).val()
-                id_template_pekerjaan_detail = $(this).data('id_template_pekerjaan_detail')
-                Livewire.emit('setKondisi1', 1, id_kondisi, id_template_pekerjaan_detail)
-            })
-            $('select[name="kondisi2"]').on('change', function(){
-                id_kondisi = $(this).val()
-                id_template_pekerjaan_detail = $(this).data('id_template_pekerjaan_detail')
-                Livewire.emit('setKondisi2',2, id_kondisi, id_template_pekerjaan_detail)
-            })
-            $('select[name="kondisi3"]').on('change', function(){
-                id_kondisi = $(this).val()
-                id_template_pekerjaan_detail = $(this).data('id_template_pekerjaan_detail')
-                Livewire.emit('setKondisi3',3, id_kondisi, id_template_pekerjaan_detail)
-            })
-            $('select[name="kondisi6"]').on('change', function(){
-                id_kondisi = $(this).val()
-                id_template_pekerjaan_detail = $(this).data('id_template_pekerjaan_detail')
-                Livewire.emit('setKondisi6', 6, id_kondisi, id_template_pekerjaan_detail)
-            })
-            $('select[name="kondisi12"]').on('change', function(){
-                id_kondisi = $(this).val()
-                id_template_pekerjaan_detail = $(this).data('id_template_pekerjaan_detail')
-                Livewire.emit('setKondisi12', 12, id_kondisi, id_template_pekerjaan_detail)
-            })
-
-            $('textarea[name="keterangan"]').on('change', function(){
-                keterangan = $(this).val()
-                id_template_pekerjaan_detail = $(this).data('id_template_pekerjaan_detail');
-
-                Livewire.emit('simpanKeterangan', keterangan, id_template_pekerjaan_detail)
-            })
+            $('select[name="pekerjaan"]').select2();
+            $('select[name="kondisi"]').select2();
         }
+
+        $('select[name="pekerjaan"]').on('change', function(){
+            const pekerjaan = $(this).val()
+            const id_template_pekerjaan_detail = $(this).data('id_template_pekerjaan_detail');
+            Livewire.emit('setPekerjaan', pekerjaan, id_template_pekerjaan_detail);
+        })
+
+        $('select[name="kondisi"]').on('change', function(){
+            const kondisi = $(this).val()
+            const id_template_pekerjaan_detail = $(this).data('id_template_pekerjaan_detail');
+            Livewire.emit('setKondisi', kondisi, id_template_pekerjaan_detail);
+        })
+
+        $('textarea[name="keterangan"]').on('change', function(){
+            const keterangan = $(this).val()
+            const id_template_pekerjaan_detail = $(this).data('id_template_pekerjaan_detail');
+            Livewire.emit('simpanKeterangan', keterangan, id_template_pekerjaan_detail)
+        })
 
 </script>
 @endpush

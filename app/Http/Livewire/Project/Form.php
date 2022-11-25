@@ -23,6 +23,7 @@ class Form extends Component
     public $tanggal;
     public $map;
     public $listIdSales = [];
+    public $total_pekerjaan;
 
     public $listSales = [];
     public function render()
@@ -47,7 +48,8 @@ class Form extends Component
             'catatan' => 'nullable|string',
             'id_customer' => 'required|numeric',
             'tanggal' => 'nullable|string',
-            'map' => 'nullable|string'
+            'map' => 'nullable|string',
+            'total_pekerjaan' => 'required|numeric'
         ], [
             'kode.required' => 'Kode project tidak boleh kosong',
             'kode.string' => 'Kode tidak valid !',
@@ -61,7 +63,9 @@ class Form extends Component
             'id_customer.required' => 'Client Belum dipilih',
             'id_customer.numeric' => 'Client tidak valid !',
             'tanggal.string' => 'Tanggal tidak valid !',
-            'map.string' => 'Map tidak valid !'
+            'map.string' => 'Map tidak valid !',
+            'total_pekerjaan.required' => 'Total Pekerjaan tidak boleh kosong',
+            'total_pekerjaan.numeric' => 'Total pekerjaan tidak valid !'
         ]);
 
         $customer = Customer::find($this->id_customer);
@@ -81,7 +85,8 @@ class Form extends Component
             'catatan' => $this->catatan,
             'id_customer' => $this->id_customer,
             'map' => $this->map,
-            'tanggal' => date('Y-m-d', strtotime($this->tanggal))
+            'tanggal' => date('Y-m-d', strtotime($this->tanggal)),
+            'total_pekerjaan' => $this->total_pekerjaan
         ]);
 
         SalesProject::where('id_project', $project->id)->delete();
@@ -111,6 +116,7 @@ class Form extends Component
         $this->map = null;
         $this->listIdSales = [];
         $this->tanggal = null;
+        $this->total_pekerjaan = null;
     }
 
     public function setDataProject($id){
@@ -130,6 +136,7 @@ class Form extends Component
         $this->id_customer = $project->id_customer;
         $this->map = $project->map;
         $this->tanggal = $project->tanggal;
+        $this->total_pekerjaan = $project->total_pekerjaan;
 
         $this->listIdSales = [];
         foreach ($project->salesProject as $item) {

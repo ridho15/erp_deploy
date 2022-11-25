@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Inventory;
+namespace App\Http\Livewire\PinjamMeminjam;
 
 use App\Models\LaporanPekerjaanBarang;
 use Livewire\Component;
@@ -31,7 +31,7 @@ class AcureateKeluar extends Component
         ->paginate($this->total_show);
 
         $data['listAcurateKeluar'] = $this->listAcurateKeluar;
-        return view('livewire.inventory.acureate-keluar', $data);
+        return view('livewire.pinjam-meminjam.acureate-keluar', $data);
     }
 
     public function simpanCheck($id){
@@ -43,7 +43,8 @@ class AcureateKeluar extends Component
 
         $laporanPekerjaanBarang->update([
             'status' => 3,
-            'konfirmasi' => 1
+            'konfirmasi' => 1,
+            'meminjamkan' => session()->get('id_user')
         ]);
 
         $message = "Berhasil mengkonfirmasi data";

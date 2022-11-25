@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Inventory;
+namespace App\Http\Livewire\PinjamMeminjam;
 
 use App\Models\BarangStockLog;
 use Livewire\Component;
@@ -25,7 +25,7 @@ class BarangMasuk extends Component
             });
         })->where('id_tipe_perubahan_stock', 3)->orderBy('created_at', 'DESC')->paginate($this->total_show);
         $data['listBarangMasuk'] = $this->listBarangMasuk;
-        return view('livewire.inventory.barang-masuk', $data);
+        return view('livewire.pinjam-meminjam.barang-masuk', $data);
     }
 
     public function simpanCheck($id){

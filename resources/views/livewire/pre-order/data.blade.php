@@ -211,7 +211,7 @@
                     </div>
                     <div class="mb-5">
                         <label for="" class="form-label">Tanggal Pre Order</label>
-                        <input type="text" class="form-control form-control-solid" name="tanggal_preorder" wire:model="tanggal_preorder" data-dropdown-parent="#modal_filter" placeholder="Pilih Tanggal" autocomplete="off" required>
+                        <input type="date" class="form-control form-control-solid" name="tanggal_preorder" wire:model="tanggal_preorder" data-dropdown-parent="#modal_filter" placeholder="Pilih Tanggal" autocomplete="off" required>
                         @error('tanggal_preorder')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -267,7 +267,6 @@
     <script src="https://cdn.tiny.cloud/1/nvlmmvucpbse1gtq3xttm573xnabu23ppo0pbknjx49633ka/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         $(document).ready(function () {
-            $('input[name="tanggal_preorder"]').flatpickr();
         });
 
         window.addEventListener('contentChange', function(){

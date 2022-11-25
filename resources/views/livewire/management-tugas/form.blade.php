@@ -36,8 +36,7 @@
                                     <label class="form-check form-switch form-check-custom form-check-solid">
                                         <input class="form-check-input" type="checkbox" value="1" wire:model="is_emergency_call" checked="checked"/>
                                         <span class="form-check-label fw-semibold text-muted">
-                                            {{-- Emergency Call --}}
-                                            Laporan Pekerjaan
+                                            Emergency Call
                                         </span>
                                     </label>
                                 </div>
@@ -64,6 +63,18 @@
                                     @endforeach
                                 </select>
                                 @error('id_form_master')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-5 col-md-6">
+                                <label for="" class="form-label">Quotation</label>
+                                <select name="id_quotation" class="form-select form-select-solid" wire:model='id_quotation' data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih">
+                                    <option value="">Pilih</option>
+                                    @foreach ($listQuotation as $item)
+                                        <option value="{{ $item->id }}">{{ $item->no_ref }}</option>
+                                    @endforeach
+                                </select>
+                                @error('id_quotation')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
@@ -95,16 +106,16 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-                            <div class="mb-5 col-md-6" wire:ignore>
+                            <div class="mb-5 col-md-6">
                                 <label for="tanggal">Tanggal Pekerjaan</label>
-                                <input type="text" class="form-control form-control-solid" name="tanggal" wire:model="tanggal" placeholder="Pilih Tanggal">
+                                <input type="date" class="form-control form-control-solid" name="tanggal" wire:model="tanggal" placeholder="Pilih Tanggal">
                                 @error('tanggal')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-                            <div class="mb-5 col-md-6" wire:ignore>
+                            <div class="mb-5 col-md-6">
                                 <label for="tanggal">Tanggal Estimasi</label>
-                                <input type="text" class="form-control form-control-solid" name="tanggal_estimasi" wire:model="tanggal_estimasi" placeholder="Pilih Tanggal">
+                                <input type="datetime-local" class="form-control form-control-solid" name="tanggal_estimasi" wire:model="tanggal_estimasi" placeholder="Pilih Tanggal">
                                 @error('tanggal_estimasi')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -113,11 +124,9 @@
                                 <label for="" class="form-label required">Periode Pekerjaan</label>
                                 <select name="periode" wire:model="periode" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih Periode" @if($is_emergency_call == 1) disabled @endif required>
                                     <option value="">Pilih</option>
-                                    <option value="1">1 Bulan</option>
-                                    <option value="2">2 Bulan</option>
-                                    <option value="3">3 Bulan</option>
-                                    <option value="6">6 Bulan</option>
-                                    <option value="12">1 Tahun</option>
+                                    @for($i = 1; $i <= 12; $i++)
+                                        <option value="{{ $i }}">{{ $i }} Bulan</option>
+                                    @endfor
                                 </select>
                                 @error('periode')
                                     <small class="text-danger">{{ $message }}</small>
@@ -147,11 +156,6 @@
     <script>
         $(document).ready(function () {
             refreshSelect()
-            $('input[name="tanggal"]').flatpickr()
-            $('input[name="tanggal_estimasi"]').flatpickr({
-                enableTime: true,
-                dateFormat: "Y-m-d H:i",
-            })
         });
 
         window.addEventListener('contentChange', function(){
@@ -165,6 +169,7 @@
             $('select[name="listIdUser"]').select2()
             $('select[name="id_form_master"]').select2()
             $('select[name="periode"]').select2()
+            $('select[name="id_quotation"]').select2()
 
             $('select[name="id_customer"]').on('change', function(){
                 @this.set('id_customer', $(this).val())
@@ -188,6 +193,10 @@
 
             $('select[name="periode"]').on('change', function(){
                 @this.set('periode', $(this).val())
+            })
+
+            $('select[name="id_quotation"]').on('change', function(){
+                Livewire.emit('changeQuotation', $(this).val())
             })
         }
 

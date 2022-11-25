@@ -13,7 +13,10 @@ class LaporanPekerjaanChecklist extends Model
     protected $fillable = [
         'id_laporan_pekerjaan',
         'id_template_pekerjaan_detail',
-        'keterangan'
+        'pekerjaan',
+        'kondisi',
+        'keterangan',
+        'status'
     ];
 
     public function laporanPekerjaan(){

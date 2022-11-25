@@ -42,7 +42,7 @@ class Form extends Component
         ], [
             'kode' => $this->kode,
             'nama' => $this->nama,
-            'periode' => $this->periode_master,
+            'periode' => json_encode($this->periode_master),
             'keterangan' => $this->keterangan,
         ]);
 
@@ -76,6 +76,6 @@ class Form extends Component
         $this->kode = $formMaster->kode;
         $this->nama = $formMaster->nama;
         $this->keterangan = $formMaster->keterangan;
-        $this->periode_master = $formMaster->periode;
+        $this->periode_master = json_decode($formMaster->periode);
     }
 }

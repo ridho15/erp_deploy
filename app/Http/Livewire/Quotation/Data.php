@@ -17,7 +17,9 @@ class Data extends Component
         'refreshQuotation' => '$refresh',
         'hapusQuotation',
         'sendQuotationToCustomer',
-        'clearFilter'
+        'clearFilter',
+        'quotationGagal',
+        'quotationBerhasil'
     ];
     public $paginationTheme = 'bootstrap';
     public $total_show = 10;
@@ -50,12 +52,10 @@ class Data extends Component
                 })->orWhere('status', $this->status_kirim)
                 ->orWhere('konfirmasi', $this->status_konfirmasi);
             })
-            ->whereDoesntHave('preOrder')
             ->orderBy('created_at', 'DESC')
             ->paginate($this->total_show);
         }else{
-            $this->listQuotation = Quotation::whereDoesntHave('preOrder')
-            ->orderBy('created_at', 'DESC')
+            $this->listQuotation = Quotation::orderBy('created_at', 'DESC')
             ->paginate($this->total_show);
         }
         $data['listQuotation'] = $this->listQuotation;
@@ -116,5 +116,35 @@ class Data extends Component
         $this->id_project = null;
         $this->status_kirim = null;
         $this->status_konfirmasi = null;
+    }
+
+    public function quotationGagal($id){
+        $quotation = Quotation::find($id);
+        if(!$quotation){
+            $message = "Data quotation tidak ditemukan";
+            return session()->flash('fail', $message);
+        }
+
+        $quotation->update([
+            'status_like' => 0
+        ]);
+
+        $message = "Quotation Gagal";
+        return session()->flash('fail', $message);
+    }
+
+    public function quotationBerhasil($id){
+        $quotation = Quotation::find($id);
+        if(!$quotation){
+            $message = "Data quotation tidak ditemukan";
+            return session()->flash('fail', $message);
+        }
+
+        $quotation->update([
+            'status_like' => 1
+        ]);
+
+        $mesasge = "Quotation Berhasil";
+        return session()->flash('success', $mesasge);
     }
 }

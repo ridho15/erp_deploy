@@ -21,25 +21,25 @@
                 </div>
             </div>
 
-            <div class="tables w-100" style="position: relative !important">
+            <div class="tables w-100" style="position: relative !important;">
                 <table class="table table-rounded table-striped border gy-7 gs-7">
-                 <thead>
-                  <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200 sticky">
-                   <th>No</th>
-                   <th>No. Ref</th>
-                   <th>Kode Project</th>
-                   <th>Nama Project</th>
-                   <th>Pelanggan</th>
-                   <th>Sales</th>
-                   <th>Status Pekerjaan</th>
-                   <th>Status Kirim</th>
-                   <th>Konfirmasi</th>
-                   <th>File</th>
-                   <th>Dibuat pada</th>
-                   <th>Aksi</th>
-                  </tr>
-                 </thead>
-                 <tbody>
+                    <thead>
+                    <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200 sticky" style="overflow-x: auto">
+                        <th>No</th>
+                        <th>No. Ref</th>
+                        <th>Kode Project</th>
+                        <th>Nama Project</th>
+                        <th>Pelanggan</th>
+                        <th>Sales</th>
+                        <th>Status Pekerjaan</th>
+                        <th>Status Kirim</th>
+                        <th>Konfirmasi</th>
+                        <th>Dibuat pada</th>
+                        <th>Status Quotation</th>
+                        <th>Aksi</th>
+                    </tr>
+                    </thead>
+                    <tbody>
                     @if (count($listQuotation) > 0)
                         @foreach ($listQuotation as $index => $item)
                             <tr>
@@ -84,7 +84,7 @@
                                         <span class="badge badge-success">Sudah dikonfirmasi</span>
                                     @endif
                                 </td>
-                                <td>
+                                {{-- <td>
                                     @if ($item->file)
                                         <a href="{{ $item->file ? asset('storage' . $item->file) : '#' }}" class="btn btn-icon btn-sm btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Dowload File" target="blank">
                                             <i class="fa-solid fa-file"></i>
@@ -94,9 +94,20 @@
                                             Tidak ada file
                                         </div>
                                     @endif
-                                </td>
+                                </td> --}}
                                 <td>
                                     {{ $item->dibuat_pada }}
+                                </td>
+                                <td>
+                                    @if ($item->status_like === 1)
+                                        <span class="badge badge-success">Quotation Berhasil</span>
+                                    @elseif($item->status_like === 0)
+                                        <span class="badge badge-danger">Quotation Gagal</span>
+                                    @elseif($item->status_like === 2)
+                                        <span class="badge badge-primary">PO Sudah Dibuat</span>
+                                    @else
+                                        -
+                                    @endif
                                 </td>
                                 <td>
                                     <div class="btn-group">
@@ -106,9 +117,14 @@
                                         <a href="{{ route('quotation.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Quotation">
                                             <i class="bi bi-info-circle-fill"></i>
                                         </a>
-                                        <button class="btn btn-sm btn-icon btn-danger" wire:click="$emit('onClickHapus', {{ $item->id }})" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Quotation">
-                                            <i class="bi bi-trash-fill"></i>
-                                        </button>
+                                        @if ($item->status_like === null)
+                                            <button class="btn btn-sm btn-icon btn-danger" wire:click="$emit('onClickQuotationGagal', {{ $item->id }})" data-bs-toggle="tooltip" data-bs-placement="top" title="Quotation Gagal">
+                                                <i class="fa-solid fa-thumbs-down"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-icon btn-primary" wire:click="quotationBerhasil({{ $item->id }})" data-bs-toggle="tooltip" data-bs-placement="top" title="Quotation Berhasil">
+                                                <i class="fa-solid fa-thumbs-up"></i>
+                                            </button>
+                                        @endif
                                         <a href="{{ route('quotation.export', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Export Quotation">
                                             <i class="bi bi-printer"></i>
                                         </a>
@@ -124,7 +140,7 @@
                             <td colspan="15" class="text-center text-gray-500">Tidak ada data</td>
                         </tr>
                     @endif
-                 </tbody>
+                    </tbody>
                 </table>
             </div>
             <div class="text-center">{{ $listQuotation->links() }}</div>
@@ -137,13 +153,11 @@
                 <div class="modal-header">
                     <h3 class="modal-title">Filter Data</h3>
 
-                    <!--begin::Close-->
                     <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
                         <span class="svg-icon svg-icon-1">
                             <i class="bi bi-x-circle"></i>
                         </span>
                     </div>
-                    <!--end::Close-->
                 </div>
 
                 <div class="modal-body">
@@ -153,7 +167,7 @@
                     </div>
                     <div class="mb-5">
                         <label for="" class="form-label">Tanggal Dibuat</label>
-                        <input type="text" class="form-control form-control-solid" name="tanggal_dibuat" wire:model="tanggal_dibuat" data-dropdown-parent="#modal_filter" placeholder="Pilih Tanggal" autocomplete="off" required>
+                        <input type="date" class="form-control form-control-solid" name="tanggal_dibuat" wire:model="tanggal_dibuat" data-dropdown-parent="#modal_filter" placeholder="Pilih Tanggal" autocomplete="off" required>
                         @error('tanggal_dibuat')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -200,7 +214,6 @@
     <script src="https://cdn.tiny.cloud/1/nvlmmvucpbse1gtq3xttm573xnabu23ppo0pbknjx49633ka/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         $(document).ready(function () {
-            $('input[name="tanggal_dibuat"]').flatpickr()
         });
         window.addEventListener('contentChange', function(){
             $('select[name="id_project"]').select2();
@@ -239,6 +252,13 @@
 
         Livewire.on('onClickFilter', () => {
             $('#modal_filter').modal('show')
+        })
+
+        Livewire.on('onClickQuotationGagal', async (id) => {
+            const response = await alertConfirmCustom('Peringatan !', "Apakah quotation benar gagal ?", "Ya, Gagal")
+            if(response.isConfirmed == true){
+                Livewire.emit('quotationGagal', id)
+            }
         })
     </script>
 @endpush

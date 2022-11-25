@@ -94,7 +94,7 @@
                                 </td>
                                 <td>
                                     @if ($item->is_emergency_call == 1)
-                                        <span class="badge badge-warning">Emergency Call</span>
+                                        <span class="badge badge-warning">Laporan Pekerjaan</span>
                                     @else
                                     {{ $item->periode }} Bulan
                                     @endif</td>
@@ -150,9 +150,9 @@
                                     @php
                                     $jumlahService = 0;
                                     foreach($item->formMaster->templatePekerjaan as $templatePekerjaan){
-                                    foreach ($templatePekerjaan->detail as $detail) {
-                                    $jumlahService ++;
-                                    }
+                                        foreach ($templatePekerjaan->detail as $detail) {
+                                            $jumlahService ++;
+                                        }
                                     }
 
                                     echo $jumlahService;
@@ -195,7 +195,7 @@
                     </div>
                     <div class="mb-5">
                         <label for="" class="form-label">Tanggal Pekerjaan</label>
-                        <input type="text" class="form-control form-control-solid" name="tanggal_pekerjaan" wire:model="tanggal_pekerjaan" data-dropdown-parent="#modal_filter" placeholder="Pilih Tanggal" autocomplete="off" required>
+                        <input type="date" class="form-control form-control-solid" name="tanggal_pekerjaan" wire:model="tanggal_pekerjaan" data-dropdown-parent="#modal_filter" placeholder="Pilih Tanggal" autocomplete="off" required>
                         @error('tanggal_pekerjaan')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -232,7 +232,6 @@
 @push('js')
 <script>
         $(document).ready(function () {
-            $('input[name="tanggal_pekerjaan"]').flatpickr()
         });
 
         window.addEventListener('contentChange', function(){

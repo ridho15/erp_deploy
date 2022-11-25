@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Inventory;
+namespace App\Http\Livewire\PinjamMeminjam;
 
 use App\Models\Barang;
 use App\Models\LaporanPekerjaanBarang;
@@ -32,7 +32,7 @@ class AcureateMasuk extends Component
         ->paginate($this->total_show);
 
         $data['listAcurateMasuk'] = $this->listAcurateMasuk;
-        return view('livewire.inventory.acureate-masuk', $data);
+        return view('livewire.pinjam-meminjam.acureate-masuk', $data);
     }
 
     public function simpanCheck($id){

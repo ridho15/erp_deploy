@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Livewire\Inventory;
+namespace App\Http\Livewire\PinjamMeminjam;
 
 use App\Models\Barang;
 use App\Models\BarangStockLog;
 use App\Models\LaporanPekerjaanBarang;
+use App\Models\SupplierOrderDetailTemp;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -45,7 +46,7 @@ class BarangDiminta extends Component
         }
 
         $data['listBarangDiminta'] = $this->listBarangDiminta;
-        return view('livewire.inventory.barang-diminta', $data);
+        return view('livewire.pinjam-meminjam.barang-diminta', $data);
     }
 
     public function mount(){
@@ -62,7 +63,8 @@ class BarangDiminta extends Component
 
         $laporanPekerjaanBarang->update([
             'status' => 0,
-            'konfirmasi' => 0
+            'konfirmasi' => 0,
+            'meminjamkan' => session()->get('id_user')
         ]);
 
         $message = "Berhasil mengupdate data";
@@ -100,33 +102,76 @@ class BarangDiminta extends Component
         $barang = Barang::find($laporanPekerjaanBarang->id_barang);
         $response = $barang->barangStockChange($this->qty, 1);
         if($response['status'] == 0){
+            $jumlah_kurang = $this->qty - $barang->stock;
+            $stock_sekarang = $barang->stock;
+            $jumlah_diminta = $this->qty;
+            SupplierOrderDetailTemp::create([
+                'id_barang' => $barang->id,
+                'jumlah_diminta' => $jumlah_diminta,
+                'jumlah_kurang' => $jumlah_kurang,
+                'stock_sekarang' => $stock_sekarang,
+                'harga_satuan' => $barang->harga,
+                'status' => 0,
+                'keterangan' => null
+            ]);
+
+            $this->emit('finishSimpanData', 0, $response['message']);
             return session()->flash('fail', $response['message']);
-        }
+            // $qty = $this->qty - $barang->stock;
 
-        if($this->qty != $laporanPekerjaanBarang->qty){
-            LaporanPekerjaanBarang::create([
-                'id_laporan_pekerjaan' => $laporanPekerjaanBarang->id_laporan_pekerjaan,
-                'id_barang' => $laporanPekerjaanBarang->id_barang,
-                'catatan_teknisi' => $laporanPekerjaanBarang->catatan_teknisi,
-                'keterangan_customer' => $laporanPekerjaanBarang->keterangan_customer,
-                'qty' => $laporanPekerjaanBarang->qty - $this->qty,
-                'status' => 1,
-                'konfirmasi' => 0,
-            ]);
+            // $barang->barangStockChange($barang->stock, 1);
 
-            $laporanPekerjaanBarang->update([
-                'status' => 1,
-                'qty' => $this->qty,
-                'konfirmasi' => 1
-            ]);
+            //
+
+
+            // $jumlahSisaBarangDiminta = $laporanPekerjaanBarang->qty - $barang->stock;
+            // if ($jumlahSisaBarangDiminta > 0) {
+            //     LaporanPekerjaanBarang::create([
+            //         'id_laporan_pekerjaan' => $laporanPekerjaanBarang->id_laporan_pekerjaan,
+            //         'id_barang' => $laporanPekerjaanBarang->id_barang,
+            //         'catatan_teknisi' => $laporanPekerjaanBarang->catatan_teknisi,
+            //         'keterangan_customer' => $laporanPekerjaanBarang->keterangan_customer,
+            //         'qty' => $jumlahSisaBarangDiminta,
+            //         'status' => 1,
+            //         'konfirmasi' => 0
+            //     ]);
+            // }
+
+            // $laporanPekerjaanBarang->update([
+            //     'status' => 1,
+            //     'qty' => $barang->stock,
+            //     'konfirmasi' => 1
+            // ]);
+
+            // $message = "Stock kurang dari barang yang diminta. Barang yang kurang sudah masuk pada temporary supplier order";
         }else{
-            $laporanPekerjaanBarang->update([
-                'status' => 1,
-                'konfirmasi' => 1
-            ]);
+            if($this->qty != $laporanPekerjaanBarang->qty){
+                LaporanPekerjaanBarang::create([
+                    'id_laporan_pekerjaan' => $laporanPekerjaanBarang->id_laporan_pekerjaan,
+                    'id_barang' => $laporanPekerjaanBarang->id_barang,
+                    'catatan_teknisi' => $laporanPekerjaanBarang->catatan_teknisi,
+                    'keterangan_customer' => $laporanPekerjaanBarang->keterangan_customer,
+                    'qty' => $laporanPekerjaanBarang->qty - $this->qty,
+                    'status' => 1,
+                    'konfirmasi' => 0,
+                ]);
+
+                $laporanPekerjaanBarang->update([
+                    'status' => 1,
+                    'qty' => $this->qty,
+                    'konfirmasi' => 1,
+                    'meminjamkan' => session()->get('id_user')
+                ]);
+            }else{
+                $laporanPekerjaanBarang->update([
+                    'status' => 1,
+                    'konfirmasi' => 1,
+                    'meminjamkan' => session()->get('id_user')
+                ]);
+            }
+            $message = "Berhasil mengupdate data";
         }
 
-        $message = "Berhasil mengupdate data";
         $this->emit('refreshBarangDipinjam');
         $this->emit('refreshStockBarang');
         $this->emit('refreshAcurateMasuk');

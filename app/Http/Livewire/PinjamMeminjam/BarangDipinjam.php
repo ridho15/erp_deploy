@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Inventory;
+namespace App\Http\Livewire\PinjamMeminjam;
 
 use App\Models\Barang;
 use App\Models\BarangStockLog;
@@ -67,7 +67,7 @@ class BarangDipinjam extends Component
 
         $this->dispatchBrowserEvent('contentChange');
         $data['listBarangDipinjam'] = $this->listBarangDipinjam;
-        return view('livewire.inventory.barang-dipinjam', $data);
+        return view('livewire.pinjam-meminjam.barang-dipinjam', $data);
     }
 
     public function mount(){

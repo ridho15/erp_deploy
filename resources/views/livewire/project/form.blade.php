@@ -74,6 +74,13 @@
                                 @enderror
                             </div>
                             <div class="col-md-6 mb-5">
+                                <label for="" class="form-label">Total Pekerjaan</label>
+                                <input type="number" name="total_pekerjaan" wire:model="total_pekerjaan" class="form-control form-control-solid" placeholder="Masukkan total pekerjaan" required>
+                                @error('total_pekerjaan')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 mb-5">
                                 <label for="" class="form-label">Sales</label>
                                 <select name="listIdSales" wire:model="listIdSales" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih" multiple>
                                     <option value="">Pilih</option>
@@ -94,7 +101,7 @@
                             </div>
                             <div class="col-md-6 mb-5">
                                 <label for="" class="form-label">Tanggal</label>
-                                <input type="text" name="tanggal" wire:model="tanggal" class="form-control form-control-solid" placeholder="Masukkan tanggal">
+                                <input type="date" name="tanggal" wire:model="tanggal" class="form-control form-control-solid" placeholder="Masukkan tanggal">
                                 @error('tanggal')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -116,7 +123,6 @@
     <script>
         $(document).ready(function () {
             refreshSelect()
-            $('input[name="tanggal"]').flatpickr()
         });
 
         function refreshSelect(){
@@ -136,7 +142,6 @@
 
 
         window.addEventListener('contentChange', function(){
-            $('input[name="tanggal"]').flatpickr()
             refreshSelect()
         })
 

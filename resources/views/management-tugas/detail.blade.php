@@ -168,7 +168,7 @@
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
                             : @if ($laporanPekerjaan->is_emergency_call == 1)
-                                <span class="badge badge-warning">Emergency Call</span>
+                                <span class="badge badge-warning">Laporan Pekerjaan</span>
                             @else
                                 {{ $laporanPekerjaan->periode }} Bulan
                             @endif
@@ -213,7 +213,17 @@
                             Keterangan Teknisi
                         </div>
                         <div class="col-md-8 col-8">
-                            : {{ $laporanPekerjaan->keterangan }}
+                            : @if (count($laporanPekerjaan->catatanTeknisiPekerjaan) > 0)
+                                    @foreach ($laporanPekerjaan->catatanTeknisiPekerjaan as $item)
+                                        <div class="col-md fw-bold">
+                                            {{ $item->keterangan }} ({{ $item->status == 1 ? "Ya" : "Tidak" }}),
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <div class="col-md-12 text-center text-gray-500">
+                                        Belum ada catatan
+                                    </div>
+                                @endif
                         </div>
                     </div>
                     <div class="row mb-5">
