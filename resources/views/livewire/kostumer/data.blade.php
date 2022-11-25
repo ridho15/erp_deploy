@@ -28,7 +28,7 @@
                    <th>Email</th>
                    <th>Nomor HP</th>
                    <th>Alamat</th>
-                   <th>List Perlengkapan</th>
+                   <th>Barang Perlengkapan</th>
                    <th>Status</th>
                    <th>Aksi</th>
                   </tr>

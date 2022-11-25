@@ -52,7 +52,13 @@
                                         @endforeach
                                     </td>
                                     <td>{{ $item->jam_mulai_formatted ?? '-' }}</td>
-                                    <td>{{ $item->jam_selesai_formatted ?? '-' }}</td>
+                                    <td>
+                                        @if ($item->jam_selesai)
+                                            {{ $item->jam_selesai_formatted }}
+                                        @elseif($item->tanggal_estimasi)
+                                            {{ date('d-m-Y H:i', strtotime($item->tanggal_estimasi)) }}
+                                        @endif
+                                    </td>
                                     <td>
                                         @if ($item->is_emergency_call == 1)
                                             <span class="badge badge-warning">Emergency Call</span>
@@ -92,6 +98,9 @@
                                                 data-bs-placement="top" title="Export PDF">
                                                 <i class="bi bi-printer"></i>
                                             </a>
+                                            <button class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Lihat Detail Tugas" wire:click="$emit('onClickDetailTugas', {{ $item->id }})">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
                                             {{-- <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip"
                                                 data-bs-placement="top" title="Kembalikan ke management tugas"
                                                 wire:click="$emit('onClickKirim', {{ $item->id }})">
@@ -176,6 +185,189 @@
             </div>
         </div>
     </div>
+
+    <div wire:ignore.self class="modal fade" tabindex="-1" id="modal_detail_tugas">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Detail Tugas</h3>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                        <span class="svg-icon svg-icon-1">
+                            <i class="bi bi-x-circle"></i>
+                        </span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+
+                <div class="modal-body">
+                    @include('helper.alert-message')
+                    <div class="text-center">
+                        @include('helper.simple-loading', ['target' => 'simpanMetodePembayaran', 'message' => 'Menyimpan data ...'])
+                    </div>
+                    @if ($laporanPekerjaan != null)
+                    <div class="row mb-7">
+                        <div class="col-md-4 mb-10">
+                            <div class="mb-5 fw-bold">
+                                Customer
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-4 col-4">
+                                    Nama
+                                </div>
+                                <div class="col-md-8 col-8 fw-bold">
+                                    : {{ $laporanPekerjaan->customer->nama }}
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-4 col-4">
+                                    No HP
+                                </div>
+                                <div class="col-md-8 col-8 fw-bold">
+                                    : {{ $laporanPekerjaan->customer->no_hp }}
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-4 col-4">
+                                    Email
+                                </div>
+                                <div class="col-md-8 col-8 fw-bold">
+                                    : {{ $laporanPekerjaan->customer->no_hp }}
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-4 col-4">
+                                    Alamat
+                                </div>
+                                <div class="col-md-8 col-8 fw-bold">
+                                    : {{ $laporanPekerjaan->customer->alamat }}
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-4 col-4">
+                                    List Perlengkapan
+                                </div>
+                                <div class="col-md-8 col-8 fw-bold">
+                                    : {{ $laporanPekerjaan->customer->barang_customer }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-10">
+                            <div class="mb-5 fw-bold">
+                                Project
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-4 col-4">
+                                    Nama
+                                </div>
+                                <div class="col-md-8 col-8 fw-bold">
+                                    : {{ $laporanPekerjaan->project ? $laporanPekerjaan->project->nama : '-' }}
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-4 col-4">
+                                    Kode
+                                </div>
+                                <div class="col-md-8 col-8 fw-bold">
+                                    : {{ $laporanPekerjaan->project ? $laporanPekerjaan->project->kode : '-' }}
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-4 col-4">
+                                    No Unit
+                                </div>
+                                <div class="col-md-8 col-8 fw-bold">
+                                    : {{ $laporanPekerjaan->project ? $laporanPekerjaan->project->no_unit : '-' }}
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-4 col-4">
+                                    No MFG
+                                </div>
+                                <div class="col-md-8 col-8 fw-bold">
+                                    : {{ $laporanPekerjaan->project ? $laporanPekerjaan->project->no_mfg : '-' }}
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-4 col-4">
+                                    Alamat
+                                </div>
+                                <div class="col-md-8 col-8 fw-bold">
+                                    : {{ $laporanPekerjaan->project ? $laporanPekerjaan->project->alamat : '-' }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-10">
+                            <div class="mb-5 fw-bold">
+                                Data Tambahan
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-4 col-4">
+                                    Merk
+                                </div>
+                                <div class="col-md-8 col-8 fw-bold">
+                                    : {{ $laporanPekerjaan->merk->nama_merk }}
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-4 col-4">
+                                    Nama Form
+                                </div>
+                                <div class="col-md-8 col-8 fw-bold">
+                                    : {{ $laporanPekerjaan->formMaster->nama }}
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-4 col-4">
+                                    Kode Form
+                                </div>
+                                <div class="col-md-8 col-8 fw-bold">
+                                    : {{ $laporanPekerjaan->formMaster->kode }}
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-4 col-4">
+                                    Nomor Lift
+                                </div>
+                                <div class="col-md-8 col-8 fw-bold">
+                                    : {{ $laporanPekerjaan->nomor_lift }}
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-4 col-4">
+                                    Teknisi
+                                </div>
+                                <div class="col-md-8 col-8 fw-bold">
+                                    : @foreach ($laporanPekerjaan->teknisi as $item)
+                                        {{ $item->user->name }},
+                                    @endforeach
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-4 col-4">
+                                    Periode
+                                </div>
+                                <div class="col-md-8 col-8 fw-bold">
+                                    : @if ($laporanPekerjaan->is_emergency_call == 1)
+                                        <span class="badge badge-warning">Emergency Call</span>
+                                    @else
+                                        {{ $laporanPekerjaan->periode }} Bulan
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="my-10">
+                    @endif
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" wire:click="clearFilter" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @push('js')
@@ -225,6 +417,11 @@
 
         Livewire.on('onClickFilter', () => {
             $('#modal_filter').modal('show')
+        })
+
+        Livewire.on('onClickDetailTugas', (id) => {
+            Livewire.emit('setLaporanPekerjaan', id)
+            $("#modal_detail_tugas").modal('show')
         })
 </script>
 @endpush

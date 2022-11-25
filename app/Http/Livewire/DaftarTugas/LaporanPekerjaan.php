@@ -150,6 +150,8 @@ class LaporanPekerjaan extends Component
                 }
             }
         }
+
+        return redirect()->route('management-tugas.export', ['id' => $laporanPekerjaan->id]);
     }
 
     public function resetInputFields(){

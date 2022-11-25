@@ -90,30 +90,6 @@
                 </div>
                 <div class="row mb-5">
                     <div class="col-md-4 col-4">
-                        Merk
-                    </div>
-                    <div class="col-md-8 col-8">
-                        : <span class="fw-bold">{{ $barang && $barang->merk ? $barang->merk->nama_merk : null }}</span>
-                    </div>
-                </div>
-                <div class="row mb-5">
-                    <div class="col-md-4 col-4">
-                        Tipe Barang
-                    </div>
-                    <div class="col-md-8 col-8">
-                        : <span class="fw-bold">{{ $barang && $barang->tipeBarang ? $barang->tipeBarang->tipe_barang : null }}</span>
-                    </div>
-                </div>
-                <div class="row mb-5">
-                    <div class="col-md-4 col-4">
-                        Deskripsi
-                    </div>
-                    <div class="col-md-8 col-8">
-                        : <span class="fw-bold">{{ $barang ? $barang->deskripsi : null }}</span>
-                    </div>
-                </div>
-                <div class="row mb-5">
-                    <div class="col-md-4 col-4">
                         Sub Total
                     </div>
                     <div class="col-md-8 col-8">
@@ -184,15 +160,15 @@
                     @endphp
                     <tr>
                         <td colspan="7" class="text-center fw-bold fst-italic">Sub Total</td>
-                        <td colspan="2" class="fw-bold">{{ 'Rp. ' . number_format($subTotal,0,',','.') }}</td>
+                        <td colspan="2" class="fw-bold text-end">{{ 'Rp. ' . number_format($subTotal,0,',','.') }}</td>
                     </tr>
                     <tr>
                         <td colspan="7" class="text-center fw-bold fst-italic">PPN 11%</td>
-                        <td colspan="2" class="fw-bold">{{ 'Rp. ' . number_format($ppn,0,',','.') }}</td>
+                        <td colspan="2" class="fw-bold text-end">{{ 'Rp. ' . number_format($ppn,0,',','.') }}</td>
                     </tr>
                     <tr>
                         <td colspan="7" class="text-center fw-bold fst-italic">Total</td>
-                        <td colspan="2" class="fw-bold">{{ 'Rp. ' . number_format($total,0,',','.') }}</td>
+                        <td colspan="2" class="fw-bold text-end">{{ 'Rp. ' . number_format($total,0,',','.') }}</td>
                     </tr>
                 @else
                     <tr>

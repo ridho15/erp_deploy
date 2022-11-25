@@ -4,6 +4,7 @@ namespace App\CPU;
 
 use App\Models\Barang;
 use App\Models\Kondisi;
+use App\Models\LaporanPekerjaan;
 use App\Models\LaporanPekerjaanUser;
 use App\Models\Pekerjaan;
 use App\Models\TipeUser;
@@ -25,6 +26,22 @@ class Helpers
         // if ($progress) {
         //     $status = 'Bekerja';
         // }
+
+        return $progress;
+    }
+
+    public function checkPekerjaanTeknisiHariIni($id){
+        $progress = LaporanPekerjaanUser::whereHas('laporanPekerjaan')->where('id_user', $id)->whereHas('laporanPekerjaan', function($query){
+            $query->whereDate('jam_mulai', now())->where('jam_selesai',  null);
+        })->count();
+
+        return $progress;
+    }
+
+    public function checkPekerjaanTeknisiLainnya($id){
+        $progress = LaporanPekerjaanUser::whereHas('laporanPekerjaan')->where('id_user', $id)->whereHas('laporanPekerjaan', function($query){
+            $query->whereDate('jam_mulai', '!=', now())->where('jam_selesai', null);
+        })->count();
 
         return $progress;
     }

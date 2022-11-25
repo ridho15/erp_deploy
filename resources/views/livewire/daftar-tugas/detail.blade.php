@@ -166,6 +166,16 @@
                     @endforeach
                 </div>
             </div>
+            <div class="row mb-5">
+                <div class="col-md-4 col-4">
+                    Tanggal Estimasi
+                </div>
+                <div class="col-md-8 col-8 fw-bold">
+                    : @if ($laporanPekerjaan->tanggal_estimasi)
+                        {{ date('d-m-Y H:i', strtotime($laporanPekerjaan->tanggal_estimasi)) }}
+                    @endif
+                </div>
+            </div>
         </div>
     </div>
 </div>

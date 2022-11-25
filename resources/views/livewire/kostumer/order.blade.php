@@ -49,6 +49,14 @@
                 : <span class="fw-bold"><?= $kostumer->status_formatted ?></span>
             </div>
         </div>
+        <div class="row mb-5">
+            <div class="col-md-5">
+                Barang Perlengkapan
+            </div>
+            <div class="col-md">
+                : <span class="fw-bold">{{ $kostumer->barang_customer }}</span>
+            </div>
+        </div>
     </div>
     <hr>
     <div class="row mb-3">
