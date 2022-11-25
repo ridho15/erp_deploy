@@ -6,6 +6,7 @@ use App\Models\Barang;
 use App\Models\BarangStockLog;
 use App\Models\PreOrder;
 use App\Models\PreOrderBayar;
+use App\Models\PreOrderLog;
 use Livewire\Component;
 
 class Pembayaran extends Component
@@ -92,6 +93,29 @@ class Pembayaran extends Component
                 //     ]);
                 // }
             }
+        }
+
+        if($this->preOrder->total_bayar == $this->preOrder->sudah_bayar){
+            $this->preOrder->update([
+                'status' => 3
+            ]);
+
+            PreOrderLog::create([
+                'id_pre_order' => $this->preOrder->id,
+                'tanggal' => now(),
+                'status' => 3
+            ]);
+
+        }elseif($this->preOrder->sudah_bayar > 0){
+            $this->preOrder->update([
+                'status' => 2
+            ]);
+
+            PreOrderLog::create([
+                'id_pre_order' => $this->preOrder->id,
+                'tanggal' => now(),
+                'status' => 2
+            ]);
         }
 
         $message = "Berhasil melakukan pembayaran";
