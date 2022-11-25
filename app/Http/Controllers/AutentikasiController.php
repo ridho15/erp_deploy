@@ -7,6 +7,7 @@ use App\Models\LoginLogs;
 use App\Models\User;
 use App\Models\UserLog;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -72,10 +73,13 @@ class AutentikasiController extends Controller
             $request->session()->put('id_user', $loginLogs->id_user);
             $request->session()->put('token', $loginLogs->token);
             $request->session()->put('id_tipe_user', $user->id_tipe_user);
+            $request->session()->put('tipe_user_nama', $user->tipeUser->nama_tipe);
             $request->session()->put('user_log_id', $user_logs->id);
 
             if ($user->id_tipe_user == 4) {
-                return redirect()->route('form-pekerjaan');
+                return redirect()->route('daftar-tugas');
+            }elseif($user->id_tipe_user == 2){
+                return redirect()->route('pre-order');
             }
 
             return redirect()->route('dashboard')->with('success', 'Login Berhasil');
