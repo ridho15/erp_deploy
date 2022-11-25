@@ -28,8 +28,19 @@ class PreOrder extends Model
         'total_bayar_formatted',
         'status_pembayaran',
         'status_pembayaran_kode',
+        'sudah_bayar',
         'ppn'
     ];
+
+    public function getSudahBayarAttribute(){
+        $preOrderBayar = PreOrderBayar::where('id_pre_order', $this->id)->get();
+        $sudah_bayar = 0;
+        foreach ($preOrderBayar as $item) {
+            $sudah_bayar += $item->pembayaran_sekarang;
+        }
+
+        return $sudah_bayar;
+    }
 
     public function getTotalAttribute(){
         $preOrderDetail = PreOrderDetail::where('id_pre_order', $this->id)->get();

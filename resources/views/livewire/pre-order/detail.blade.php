@@ -7,14 +7,14 @@
             Detail PO
         </h3>
         <div class="card-toolbar">
-            @if ($isControl == true)
+            @if ($isControl == true && $preOrder->status != 3)
                 <button class="btn btn-sm btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Bayar Pre Order" wire:click="$emit('onClickBayar')">
                     <i class="fa-solid fa-cash-register"></i> Bayar
                 </button>
                 <button class="btn btn-sm btn-outline btn-outline-success btn-edit mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Pre Order" wire:click="$emit('onClickEditPreOrder', {{ $preOrder }})">
                     <i class="bi bi-pencil-square"></i> Edit
                 </button>
-                @if ($total_bayar > 0)
+                @if ($total_bayar > 0 && $preOrder->status != 3)
                     <button class="btn btn-sm btn-danger mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Batalkan Pre Order" wire:click="$emit('onClickBatalPreOrder', {{ $preOrder->id }})">
                         <i class="fa-solid fa-ban"></i> Batalkan
                     </button>
