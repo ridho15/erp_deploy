@@ -183,7 +183,7 @@
                                     </svg>
                                 </span>
                             </span>
-                            <span class="menu-title">Done Pre-Order</span>
+                            <span class="menu-title">PO Done</span>
                         </a>
                     </div>
                     {{-- <div class="menu-item">
