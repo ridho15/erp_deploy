@@ -82,6 +82,8 @@ Route::middleware('auth.user')->group(function () {
 
     Route::prefix('pre-order')->group(function () {
         Route::get('/', [PreOrderController::class, 'index'])->name('pre-order');
+        Route::get('/account-receivable', [PreOrderController::class, 'accountReceivable'])->name('pre-order.account-receivable');
+        Route::get('/done', [PreOrderController::class, 'done'])->name('pre-order.done');
         Route::get('/detail/{id}', [PreOrderController::class, 'detail'])->name('pre-order.detail');
         Route::get('/invoice/{id}', [PreOrderController::class, 'invoice'])->name('pre-order.invoice');
     });

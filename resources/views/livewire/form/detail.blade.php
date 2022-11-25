@@ -21,15 +21,16 @@
             Periode
         </div>
         <div class="col-md-8">
-            : <span class="fw-bold">{{ $formMaster->periode }} Bulan</span>
-        </div>
-    </div>
-    <div class="row mb-7">
-        <div class="col-md-4">
-            Keterangan
-        </div>
-        <div class="col-md-8">
-            : <span class="fw-bold">{{ $formMaster->keterangan }}</span>
+            : <span class="fw-bold">
+                @if ($formMaster->periode && is_array(json_decode($formMaster->periode)))
+                    @foreach (json_decode($formMaster->periode) as $item)
+                        {{ $item }},
+                    @endforeach
+                    Bulan
+                @else
+                    Tidak ada periode
+                @endif
+            </span>
         </div>
     </div>
 </div>

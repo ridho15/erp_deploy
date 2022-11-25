@@ -128,4 +128,12 @@ class LaporanPekerjaan extends Model
     {
         return $this->hasMany(LaporanPekerjaanUser::class, 'id_laporan_pekerjaan');
     }
+
+    public function catatanTeknisiPekerjaan(){
+        return $this->hasMany(CatatanTeknisiPekerjaan::class, 'id_laporan_pekerjaan');
+    }
+
+    public function quotation(){
+        return $this->hasOne(Quotation::class, 'id_laporan_pekerjaan');
+    }
 }

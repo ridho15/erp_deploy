@@ -167,7 +167,7 @@
                     </div>
                     <div class="mb-5">
                         <label for="" class="form-label">Tanggal Dibuat</label>
-                        <input type="text" class="form-control form-control-solid" name="tanggal_dibuat" wire:model="tanggal_dibuat" data-dropdown-parent="#modal_filter" placeholder="Pilih Tanggal" autocomplete="off" required>
+                        <input type="date" class="form-control form-control-solid" name="tanggal_dibuat" wire:model="tanggal_dibuat" data-dropdown-parent="#modal_filter" placeholder="Pilih Tanggal" autocomplete="off" required>
                         @error('tanggal_dibuat')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -214,7 +214,6 @@
     <script src="https://cdn.tiny.cloud/1/nvlmmvucpbse1gtq3xttm573xnabu23ppo0pbknjx49633ka/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         $(document).ready(function () {
-            $('input[name="tanggal_dibuat"]').flatpickr()
         });
         window.addEventListener('contentChange', function(){
             $('select[name="id_project"]').select2();

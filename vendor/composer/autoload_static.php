@@ -758,6 +758,7 @@ class ComposerStaticInite1ab89f42751b0b0a0261a184d67ddd7
         'App\\Models\\BarangGambar' => __DIR__ . '/../..' . '/app/Models/BarangGambar.php',
         'App\\Models\\BarangKategori' => __DIR__ . '/../..' . '/app/Models/BarangKategori.php',
         'App\\Models\\BarangStockLog' => __DIR__ . '/../..' . '/app/Models/BarangStockLog.php',
+        'App\\Models\\CatatanTeknisiPekerjaan' => __DIR__ . '/../..' . '/app/Models/CatatanTeknisiPekerjaan.php',
         'App\\Models\\Customer' => __DIR__ . '/../..' . '/app/Models/Customer.php',
         'App\\Models\\CustomerOrder' => __DIR__ . '/../..' . '/app/Models/CustomerOrder.php',
         'App\\Models\\CustomerOrderDetail' => __DIR__ . '/../..' . '/app/Models/CustomerOrderDetail.php',

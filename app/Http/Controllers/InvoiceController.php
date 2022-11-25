@@ -12,4 +12,6 @@ class InvoiceController extends Controller
 
         return view('invoice.index', $data);
     }
+
+
 }

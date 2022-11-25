@@ -38,7 +38,16 @@
                                 <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
                                 <td>{{ $item->kode }}</td>
                                 <td>{{ $item->nama }}</td>
-                                <td>{{ $item->periode }} Bulan</td>
+                                <td>
+                                    @if ($item->periode && is_array(json_decode($item->periode)))
+                                        @foreach (json_decode($item->periode) as $periode)
+                                            {{ $periode }},
+                                        @endforeach
+                                        Bulan
+                                    @else
+                                        Tidak ada periode
+                                    @endif
+                                </td>
                                 {{-- <td>{{ $item->keterangan ?? '-' }}</td> --}}
                                 <td>
                                     <div class="btn-group">

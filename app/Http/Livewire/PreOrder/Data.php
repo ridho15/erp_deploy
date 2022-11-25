@@ -38,7 +38,13 @@ class Data extends Component
         $this->listUser = User::get();
 
         if ($this->cari) {
-            $this->listPreOrder = PreOrder::where(function($query){
+            $this->listPreOrder = PreOrder::whereHas('quotation', function($query){
+                $query->whereHas('laporanPekerjaan', function($query){
+                    $query->where('signature', null)
+                    ->orWhere('jam_selesai', null);
+                });
+            })
+            ->where(function($query){
                 $query->where('keterangan', 'LIKE', '%' . $this->cari . '%')
                 ->orWhereHas('user', function($query){
                     $query->where('name', 'LIKE' , '%' . $this->cari . '%');
@@ -47,35 +53,23 @@ class Data extends Component
                 });
             })->orderBy('updated_at', 'DESC')->paginate($this->total_show);
         }elseif ($this->tanggal_preorder != null || $this->status_pekerjaan != null || $this->id_customer_filter != null || $this->id_user_filter != null) {
-            $this->listPreOrder = PreOrder::where(function($query){
+            $this->listPreOrder = PreOrder::whereHas('quotation', function($query){
+                $query->whereHas('laporanPekerjaan', function($query){
+                    $query->where('signature', null)
+                    ->orWhere('jam_selesai', null);
+                });
+            })->where(function($query){
                 $query->whereDate('created_at', date('Y-m-d', strtotime($this->tanggal_preorder)))
                 ->orWhere('id_customer', $this->id_customer_filter)
-                ->orWhere('id_user', $this->id_user_filter)
-                ->orWhere(function($query){
-                    if($this->status_pekerjaan == 0){ // Belum dikerjakan
-                        $query->whereHas('quotation', function($query){
-                            $query->whereHas('laporanPekerjaan', function($query){
-                                $query->where('jam_mulai', null);
-                            });
-                        });
-                    }elseif($this->status_pekerjaan == 1){ // sedang dikerjakan
-                        $query->whereHas('quotation', function($query){
-                            $query->whereHas('laporanPekerjaan', function($query){
-                                $query->where('jam_mulai', '!=', null);
-                            });
-                        });
-                    }elseif($this->status_pekerjaan == 2){ // Selesai
-                        $query->whereHas('quotation', function($query){
-                            $query->whereHas('laporanPekerjaan', function($query){
-                                $query->where('jam_selesai', '!=', null)
-                                ->where('signature', '!=', null);
-                            });
-                        });
-                    }
-                });
+                ->orWhere('id_user', $this->id_user_filter);
             })->orderBy('updated_at', 'DESC')->paginate($this->total_show);
         }else{
-            $this->listPreOrder = PreOrder::orderBy('updated_at', 'DESC')->paginate($this->total_show);
+            $this->listPreOrder = PreOrder::whereHas('quotation', function($query){
+                $query->whereHas('laporanPekerjaan', function($query){
+                    $query->where('signature', null)
+                    ->orWhere('jam_selesai', null);
+                })->doesntHave('laporanPekerjaan', 'or');
+            })->orderBy('updated_at', 'DESC')->paginate($this->total_show);
         }
 
         $data['listPreOrder'] = $this->listPreOrder;

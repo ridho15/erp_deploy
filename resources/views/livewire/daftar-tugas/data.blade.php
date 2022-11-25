@@ -153,7 +153,7 @@
                     </div>
                     <div class="mb-5">
                         <label for="" class="form-label">Tanggal Pekerjaan</label>
-                        <input type="text" class="form-control form-control-solid" name="tanggal_pekerjaan" wire:model="tanggal_pekerjaan" data-dropdown-parent="#modal_filter" placeholder="Pilih Tanggal" autocomplete="off" required>
+                        <input type="date" class="form-control form-control-solid" name="tanggal_pekerjaan" wire:model="tanggal_pekerjaan" data-dropdown-parent="#modal_filter" placeholder="Pilih Tanggal" autocomplete="off" required>
                         @error('tanggal_pekerjaan')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -208,7 +208,7 @@
                     </div>
                     @if ($laporanPekerjaan != null)
                     <div class="row mb-7">
-                        <div class="col-md-4 mb-10">
+                        <div class="col-md-6 mb-10">
                             <div class="mb-5 fw-bold">
                                 Customer
                             </div>
@@ -246,14 +246,14 @@
                             </div>
                             <div class="row mb-5">
                                 <div class="col-md-4 col-4">
-                                    List Perlengkapan
+                                    Barang Perlengkapan
                                 </div>
                                 <div class="col-md-8 col-8 fw-bold">
                                     : {{ $laporanPekerjaan->customer->barang_customer }}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 mb-10">
+                        <div class="col-md-6 mb-10">
                             <div class="mb-5 fw-bold">
                                 Project
                             </div>
@@ -298,7 +298,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 mb-10">
+                        <div class="col-md-6 mb-10">
                             <div class="mb-5 fw-bold">
                                 Data Tambahan
                             </div>
@@ -357,8 +357,32 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-6 mb-10">
+                            <div class="mb-5">
+                                <div class="mb-3">Catatan Teknisi : </div>
+                                <div class="row">
+                                    @if (count($laporanPekerjaan->catatanTeknisiPekerjaan) > 0)
+                                        @foreach ($laporanPekerjaan->catatanTeknisiPekerjaan as $item)
+                                            <div class="col-md fw-bold">
+                                                {{ $item->keterangan }} ({{ $item->status == 1 ? "Ya" : "Tidak" }}),
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        <div class="col-md-12 text-center text-gray-500">
+                                            Belum ada catatan
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="mb-5">
+                                <div class="mb-3">Keterangan Pelanggan :</div>
+                                <div class="fw-bold">
+                                    {{ $laporanPekerjaan->catatan_pelanggan }}
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <hr class="my-10">
+
                     @endif
                 </div>
 
@@ -373,7 +397,6 @@
 @push('js')
 <script>
         $(document).ready(function () {
-            $('input[name="tanggal_pekerjaan"]').flatpickr()
         });
 
         window.addEventListener('contentChange', function(){

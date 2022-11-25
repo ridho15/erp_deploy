@@ -2,7 +2,7 @@
     <div class="card shadow-sm">
         <div class="card-header">
             <h3 class="card-title">
-                PO Masuk
+                PO Done
             </h3>
             <div class="card-toolbar">
                 <button class="mx-2 btn btn-sm btn-outline btn-outline-warning btn-acitve-light-warning mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Filter Data" wire:click="$emit('onClickFilter')">
@@ -59,123 +59,62 @@
                  <tbody>
                     @if (count($listPreOrder) > 0)
                         @foreach ($listPreOrder as $index => $item)
-                            @if ($status_pembayaran != null)
-                                @if ($status_pembayaran == $item->status_pembayaran_kode)
-                                    <tr>
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ $item->quotation? $item->quotation->no_ref : '-' }}</td>
-                                        <td>{{ $item->customer ? $item->customer->nama : '-'}} {{ $item->customer ? $item->customer->kode : '-' }}</td>
-                                        <td>
-                                            @if ($item->user)
-                                                {{ $item->user->name }}
-                                            @else
-                                                Dikonfirmasi Pelanggan
-                                            @endif
-                                        </td>
-                                        <td>{{ $item->tipePembayaran->nama_tipe }}</td>
-                                        <td>
-                                            @if ($item->metodePembayaran)
-                                                {{ $item->metodePembayaran->nama_metode }}
-                                            @else
-                                                -
-                                            @endif
-                                        </td>
-                                        <td>
-                                            {{-- <?= $item->status_formatted ?> --}}
-                                            @if ($item->quotation && $item->quotation->laporanPekerjaan)
-                                                @if ($item->quotation->laporanPekerjaan->signature != null && $item->quotation->laporanPekerjaan->jam_selesai != null)
-                                                    <span class="badge badge-success">Selesai</span>
-                                                @elseif($item->quotation->laporanPekerjaan->jam_mulai != null)
-                                                    <span class="badge badge-warning">Sedang Dikerjakan</span>
-                                                @else
-                                                    <span class="badge badge-secondary">Belum Dikerjakan</span>
-                                                @endif
-                                            @else
-                                                Tidak ada pekerjaan
-                                            @endif
-                                        </td>
-                                        <td><?= $item->status_pembayaran ?></td>
-                                        <td><?= $item->keterangan ?? '-' ?></td>
-                                        <td>
-                                            @if ($item->file)
-                                                <a href="{{ asset('storage' . $item->file) }}" class="btn btn-sm btn-icon btn-light-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Download File">
-                                                    <i class="fa-solid fa-file"></i>
-                                                </a>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Pre Order" wire:click="$emit('onClickEdit', {{ $item }})">
-                                                    <i class="bi bi-pencil-square"></i>
-                                                </button>
-                                                <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Pre order" wire:click="$emit('onClickHapus', {{ $item->id }})">
-                                                    <i class="bi bi-trash-fill"></i>
-                                                </button>
-                                                <a href="{{ route('pre-order.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Kelola Pre Order" target="blank">
-                                                    <i class="bi bi-eye-fill"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endif
-                            @else
-                                <tr>
-                                    <td>{{ $index + 1 }}</td>
-                                    <td>{{ $item->quotation? $item->quotation->no_ref : '-' }}</td>
-                                    <td>{{ $item->customer ? $item->customer->nama : '-'}} {{ $item->customer ? $item->customer->kode : '-' }}</td>
-                                    <td>
-                                        @if ($item->user)
-                                            {{ $item->user->name }}
+                            <tr>
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ $item->quotation? $item->quotation->no_ref : '-' }}</td>
+                                <td>{{ $item->customer ? $item->customer->nama : '-'}} {{ $item->customer ? $item->customer->kode : '-' }}</td>
+                                <td>
+                                    @if ($item->user)
+                                        {{ $item->user->name }}
+                                    @else
+                                        Dikonfirmasi Pelanggan
+                                    @endif
+                                </td>
+                                <td>{{ $item->tipePembayaran->nama_tipe }}</td>
+                                <td>
+                                    @if ($item->metodePembayaran)
+                                        {{ $item->metodePembayaran->nama_metode }}
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td>
+                                    {{-- <?= $item->status_formatted ?> --}}
+                                    @if ($item->quotation && $item->quotation->laporanPekerjaan)
+                                        @if ($item->quotation->laporanPekerjaan->signature != null && $item->quotation->laporanPekerjaan->jam_selesai != null)
+                                            <span class="badge badge-success">Selesai</span>
+                                        @elseif($item->quotation->laporanPekerjaan->jam_mulai != null)
+                                            <span class="badge badge-warning">Sedang Dikerjakan</span>
                                         @else
-                                            Dikonfirmasi Pelanggan
+                                            <span class="badge badge-secondary">Belum Dikerjakan</span>
                                         @endif
-                                    </td>
-                                    <td>{{ $item->tipePembayaran->nama_tipe }}</td>
-                                    <td>
-                                        @if ($item->metodePembayaran)
-                                            {{ $item->metodePembayaran->nama_metode }}
-                                        @else
-                                            -
-                                        @endif
-                                    </td>
-                                    <td>
-                                        {{-- <?= $item->status_formatted ?> --}}
-                                        @if ($item->quotation && $item->quotation->laporanPekerjaan)
-                                            @if ($item->quotation->laporanPekerjaan->signature != null && $item->quotation->laporanPekerjaan->jam_selesai != null)
-                                                <span class="badge badge-success">Selesai</span>
-                                            @elseif($item->quotation->laporanPekerjaan->jam_mulai != null)
-                                                <span class="badge badge-warning">Sedang Dikerjakan</span>
-                                            @else
-                                                <span class="badge badge-secondary">Belum Dikerjakan</span>
-                                            @endif
-                                        @else
-                                            Tidak ada pekerjaan
-                                        @endif
-                                    </td>
-                                    <td><?= $item->status_pembayaran ?></td>
-                                    <td><?= $item->keterangan ?? '-' ?></td>
-                                    <td>
-                                        @if ($item->file)
-                                            <a href="{{ asset('storage' . $item->file) }}" class="btn btn-sm btn-icon btn-light-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Download File">
-                                                <i class="fa-solid fa-file"></i>
-                                            </a>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Pre Order" wire:click="$emit('onClickEdit', {{ $item }})">
-                                                <i class="bi bi-pencil-square"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Pre order" wire:click="$emit('onClickHapus', {{ $item->id }})">
-                                                <i class="bi bi-trash-fill"></i>
-                                            </button>
-                                            <a href="{{ route('pre-order.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Kelola Pre Order" target="blank">
-                                                <i class="bi bi-eye-fill"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endif
+                                    @else
+                                        Tidak ada pekerjaan
+                                    @endif
+                                </td>
+                                <td><?= $item->status_pembayaran ?></td>
+                                <td><?= $item->keterangan ?? '-' ?></td>
+                                <td>
+                                    @if ($item->file)
+                                        <a href="{{ asset('storage' . $item->file) }}" class="btn btn-sm btn-icon btn-light-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Download File">
+                                            <i class="fa-solid fa-file"></i>
+                                        </a>
+                                    @endif
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        {{-- <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Pre Order" wire:click="$emit('onClickEdit', {{ $item }})">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Pre order" wire:click="$emit('onClickHapus', {{ $item->id }})">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </button> --}}
+                                        <a href="{{ route('pre-order.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Kelola Pre Order" target="blank">
+                                            <i class="bi bi-eye-fill"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
                         @endforeach
                     @else
                         <tr>

@@ -11,19 +11,22 @@ class Data extends Component
 {
     use WithPagination;
     public $paginationTheme = 'bootstrap';
-    public $listeners = ['hapusTemplatePekerjaan', 'refreshTemplatePekerjaan' => '$refresh'];
+    public $listeners = [
+        'hapusTemplatePekerjaan',
+        'refreshTemplatePekerjaan' => '$refresh'
+    ];
     public $total_show = 10;
     public $cari;
-    protected $listTemplatePekerjaan;
+    public $listTemplatePekerjaan;
     public $id_form_master;
+    public $listData = [];
 
     public function render()
     {
         $this->listTemplatePekerjaan = TemplatePekerjaan::where('id_form_master', $this->id_form_master)->where(function ($query) {
             $query->where('nama_pekerjaan', 'LIKE', '%'.$this->cari.'%')
             ->orWhere('keterangan', 'LIKE', '%'.$this->cari.'%');
-        })->paginate($this->total_show);
-        $data['listTemplatePekerjaan'] = $this->listTemplatePekerjaan;
+        })->get();
         $data['periode'] = FormMaster::find($this->id_form_master)->periode;
 
         return view('livewire.template-pekerjaan.data', $data);

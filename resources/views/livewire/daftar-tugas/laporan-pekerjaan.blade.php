@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="card-body">
-            <form action="#" method="POST" wire:submit.prevent="simpanLaporanPekerjaan">
+            <form action="#" method="POST" wire:submit.prevent="simpanLaporanPekerjaan" id="FormLaporanPekerjaan">
                 @include('helper.alert-message')
                 <div class="text-center">
                     @include('helper.simple-loading', ['target' => 'simpanLaporanPekerjaan', 'message' => 'Sedang menyimpan data ...'])
@@ -39,11 +39,34 @@
                 </div>
                 <div class="row mb-5">
                     <div class="mb-5 col-md-6">
-                        <label for="" class="form-label required">Keterangan Pekerja / Catatan Teknisi</label>
-                        <textarea name="keterangan_laporan_pekerjaan" class="form-control form-control-solid" placeholder="Masukkan keterangan / Catatan" cols="30" rows="5" wire:model='keterangan_laporan_pekerjaan'></textarea>
-                        @error('keterangan_laporan_pekerjaan')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
+                        <div class="mb-3" wire:ignore>
+                            <label for="" class="form-label required">Keterangan Pekerja / Catatan Teknisi</label>
+                            <input type="text" name="catatan_teknisi" class="form-control form-control-solid" placeholder="Masukkan catatan">
+
+                            {{-- <textarea name="keterangan_laporan_pekerjaan" class="form-control form-control-solid" placeholder="Masukkan keterangan / Catatan" cols="30" rows="5" wire:model='keterangan_laporan_pekerjaan'></textarea> --}}
+                        </div>
+                        @foreach ($listCatatanTeknisi as $item)
+                            <div class="d-flex align-items-center mb-5">
+                                <button type="button" class="btn btn-sm btn-icon btn-light-active-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Catatan" wire:click="hapusCatatanTeknisi({{ $item->id }})">
+                                    <i class="fa-solid fa-trash-can text-danger"></i>
+                                </button>
+                                <div class="form-check form-check-custom form-check-solid mb-2 form-check-sm">
+                                    <div class="d-flex flex-column align-items-center mx-2">
+                                        <small>Ya</small>
+                                        <input class="form-check-input" type="checkbox" value="1" @if($item->status === 1) checked @endif id="flexCheckDefault" wire:click="checkCatatanTeknisi({{ $item->id }}, 1)"/>
+                                    </div>
+                                </div>
+                                <div class="form-check form-check-custom form-check-solid form-check-danger mb-2 form-check-sm">
+                                    <div class="d-flex flex-column align-items-center mx-2">
+                                        <small>Tidak</small>
+                                        <input class="form-check-input" type="checkbox" value="1" @if($item->status === 0) checked @endif id="flexCheckDefault" wire:click="checkCatatanTeknisi({{ $item->id }}, 0)"/>
+                                    </div>
+                                </div>
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    {{ $item->keterangan }}
+                                </label>
+                            </div>
+                        @endforeach
                     </div>
 
                     <div class="mb-5 col-md-6">
@@ -223,6 +246,16 @@
             if(signaturePad != null){
                 var data = signaturePad.toDataURL('image/png');
                 Livewire.emit('base64ToImage', data)
+            }
+        })
+
+        $('input[name="catatan_teknisi"]').on('keyup keypress', function(e){
+            var keyCode = e.keyCode || e.which;
+            const catatan_teknisi = $(this).val();
+            if(keyCode === 13){
+                e.preventDefault();
+                Livewire.emit('addCatatanTeknisi', catatan_teknisi)
+                return false;
             }
         })
     </script>

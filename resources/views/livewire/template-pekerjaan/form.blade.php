@@ -21,13 +21,25 @@
                         </div>
                         <div class="mb-5">
                             <label for="" class="form-label required">Form Master</label>
-                            <select name="id_form_master" class="form-select form-select-solid" wire:model="id_form_master" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih" required>
+                            <select name="id_form_master" class="form-select form-select-solid" wire:model="id_form_master" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih" disabled required>
                                 <option value="">Pilih</option>
                                 @foreach ($listFormMaster as $item)
                                     <option value="{{ $item->id }}" @if($item->id == $id_form_master) selected @endif>{{ $item->nama }}</option>
                                 @endforeach
                             </select>
                             @error('id_form_master')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="mb-5">
+                            <label for="" class="form-label">Parent Pekerjaan</label>
+                            <select name="id_parent" wire:model="id_parent" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih">
+                                <option value="">Pilih</option>
+                                @foreach ($listPekerjaan as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama_pekerjaan }}</option>
+                                @endforeach
+                            </select>
+                            @error('id_parent')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
@@ -39,14 +51,14 @@
                             @enderror
                         </div>
                         <div class="mb-5">
-                            <label for="" class="form-label">Kondisi</label>
-                            <select name="kondisi" wire:model="kondisi" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih" multiple>
+                            <label for="" class="form-label required">Periode</label>
+                            <select name="periode" wire:model="periode" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih" multiple>
                                 <option value="">Pilih</option>
-                                @foreach ($listKondisi as $item)
-                                    <option value="{{ $item->keterangan }}">{{ $item->keterangan }}</option>
-                                @endforeach
+                                @for($i = 1 ; $i <= 12 ; $i++)
+                                    <option value="{{ $i }}">{{ $i }} Bulan</option>
+                                @endfor
                             </select>
-                            @error('kondisi')
+                            @error('periode')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
@@ -69,16 +81,18 @@
 
         window.addEventListener('contentChange', function(){
             $('select[name="id_form_master"]').select2()
-            $('select[name="kondisi"]').select2()
+            $('select[name="id_parent"]').select2()
+            $('select[name="periode"]').select2()
         })
 
         $('select[name="id_form_master"]').on('change', function(){
             @this.set('id_form_master', $(this).val())
         })
 
-        $('select[name="kondisi"]').on('change', function(){
-            @this.set('kondisi', $(this).val())
+        $('select[name="id_parent"]').on('change', function(){
+            @this.set('id_parent', $(this).val())
         })
+
 
         $('select[name="periode"]').on('change', function(){
             @this.set('periode', $(this).val())

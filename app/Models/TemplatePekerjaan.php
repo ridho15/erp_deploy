@@ -14,7 +14,8 @@ class TemplatePekerjaan extends Model
         'nama_pekerjaan',
         'keterangan',
         'id_form_master',
-        'kondisi'
+        'periode',
+        'id_parent',
     ];
 
     public function detail(){
@@ -23,5 +24,13 @@ class TemplatePekerjaan extends Model
 
     public function formMaster(){
         return $this->belongsTo(FormMaster::class, 'id_form_master');
+    }
+
+    public function children(){
+        return $this->hasMany(TemplatePekerjaan::class, 'id_parent');
+    }
+
+    public function parent(){
+        return $this->belongsTo(TemplatePekerjaan::class, 'id_parent');
     }
 }

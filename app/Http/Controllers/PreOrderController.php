@@ -57,4 +57,20 @@ class PreOrderController extends Controller
 
         return view('pdf_view.invoice', $data);
     }
+
+    public function accountReceivable(){
+        $data['title'] = 'Account Receivable';
+        $data['active'] = ['account-receivable'];
+        $data['breadCrumb'] = ['Account Receivable', 'Data'];
+
+        return view('invoice.account-receivable', $data);
+    }
+
+    public function done(){
+        $data['title'] = 'Pre Order Done';
+        $data['active'] = ['done-pre-order'];
+        $data['breadCrumb'] = ["Pre Order", 'Done'];
+
+        return view('pre-order.done', $data);
+    }
 }

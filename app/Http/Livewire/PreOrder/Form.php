@@ -144,6 +144,15 @@ class Form extends Component
                 'status_like' => 2
             ]);
         }
+
+        foreach ($quotation->laporanPekerjaan->laporanPekerjaanBarang as $item) {
+            if ($item->status == 2) {
+                $item->update([
+                    'status' => 4,
+                    'konfirmasi' => 0
+                ]);
+            }
+        }
         $message = "Berhasil menyimpan data";
         $this->resetInputFields();
         $this->emit('refreshPreOrder');

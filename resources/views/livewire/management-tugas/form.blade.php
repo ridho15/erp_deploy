@@ -67,6 +67,18 @@
                                 @enderror
                             </div>
                             <div class="mb-5 col-md-6">
+                                <label for="" class="form-label">Quotation</label>
+                                <select name="id_quotation" class="form-select form-select-solid" wire:model='id_quotation' data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih">
+                                    <option value="">Pilih</option>
+                                    @foreach ($listQuotation as $item)
+                                        <option value="{{ $item->id }}">{{ $item->no_ref }}</option>
+                                    @endforeach
+                                </select>
+                                @error('id_quotation')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-5 col-md-6">
                                 <label for="" class="form-label">No MFG</label>
                                 <input type="text" name="no_mfg" class="form-control form-control-solid" wire:model="no_mfg" placeholder="Nomor MFG" disabled>
                             </div>
@@ -112,11 +124,9 @@
                                 <label for="" class="form-label required">Periode Pekerjaan</label>
                                 <select name="periode" wire:model="periode" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih Periode" @if($is_emergency_call == 1) disabled @endif required>
                                     <option value="">Pilih</option>
-                                    <option value="1">1 Bulan</option>
-                                    <option value="2">2 Bulan</option>
-                                    <option value="3">3 Bulan</option>
-                                    <option value="6">6 Bulan</option>
-                                    <option value="12">1 Tahun</option>
+                                    @for($i = 1; $i <= 12; $i++)
+                                        <option value="{{ $i }}">{{ $i }} Bulan</option>
+                                    @endfor
                                 </select>
                                 @error('periode')
                                     <small class="text-danger">{{ $message }}</small>
@@ -159,6 +169,7 @@
             $('select[name="listIdUser"]').select2()
             $('select[name="id_form_master"]').select2()
             $('select[name="periode"]').select2()
+            $('select[name="id_quotation"]').select2()
 
             $('select[name="id_customer"]').on('change', function(){
                 @this.set('id_customer', $(this).val())
@@ -182,6 +193,10 @@
 
             $('select[name="periode"]').on('change', function(){
                 @this.set('periode', $(this).val())
+            })
+
+            $('select[name="id_quotation"]').on('change', function(){
+                Livewire.emit('changeQuotation', $(this).val())
             })
         }
 

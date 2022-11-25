@@ -5,9 +5,11 @@ namespace App\Http\Livewire\ManagementTugas;
 use App\Models\Customer;
 use App\Models\FormMaster;
 use App\Models\LaporanPekerjaan;
+use App\Models\LaporanPekerjaanBarang;
 use App\Models\LaporanPekerjaanUser;
 use App\Models\Merk;
 use App\Models\ProjectV2;
+use App\Models\Quotation;
 use App\Models\User;
 use Livewire\Component;
 
@@ -17,6 +19,7 @@ class Form extends Component
         'simpanManagementTugas',
         'setDataManagementTugas',
         'changeCustomer',
+        'changeQuotation'
     ];
     public $id_laporan_pekerjaan;
     public $id_customer;
@@ -32,6 +35,7 @@ class Form extends Component
     public $is_emergency_call;
     public $tanggal_estimasi;
     public $no_mfg;
+    public $id_quotation;
 
     public $listIdUser = [];
 
@@ -40,6 +44,7 @@ class Form extends Component
     public $listMerk = [];
     public $listUser = [];
     public $listFormMaster = [];
+    public $listQuotation = [];
 
     public function render()
     {
@@ -48,6 +53,9 @@ class Form extends Component
         $this->listMerk = Merk::get();
         $this->listUser = User::get();
         $this->listFormMaster = FormMaster::get();
+        $this->listQuotation = Quotation::doesntHave('laporanPekerjaan')
+        ->orWhere('id_laporan_pekerjaan', $this->id_laporan_pekerjaan)
+        ->orderBy('updated_at', 'DESC')->get();
 
         if($this->id_project){
             $project = ProjectV2::find($this->id_project);
@@ -63,6 +71,14 @@ class Form extends Component
     {
     }
 
+    public function changeQuotation($id_quotation){
+        $this->id_quotation = $id_quotation;
+        $quotation = Quotation::find($id_quotation);
+        if($quotation){
+            $this->id_customer = $quotation->id_customer;
+        }
+    }
+
     public function simpanManagementTugas()
     {
         $this->validate([
@@ -72,7 +88,8 @@ class Form extends Component
             'id_form_master' => 'required|numeric',
             'nomor_lift' => 'required|numeric',
             'tanggal' => 'required',
-            'tanggal_estimasi' => 'nullable|string'
+            'tanggal_estimasi' => 'nullable|string',
+            'id_quotation' => 'nullable|numeric'
         ], [
             'id_customer.required' => 'Customer belum dipilih',
             'id_customer.numeric' => 'Customer tidak valid !',
@@ -85,7 +102,8 @@ class Form extends Component
             'id_form_master.required' => 'Form belum dipilih',
             'tanggal.required' => 'Tanggal Pekerjaan belum dipilih',
             'id_form_master.numeric' => 'Form tidak valid !',
-            'tanggal_estimasi.string' => 'Tanggal estimasi tidak valid !'
+            'tanggal_estimasi.string' => 'Tanggal estimasi tidak valid !',
+            'id_quotation.numeric' => 'Quotation tidak valid !'
         ]);
 
         if($this->is_emergency_call == 1){
@@ -120,6 +138,8 @@ class Form extends Component
             return session()->flash('fail', $message);
         }
 
+        $quotation = Quotation::find($this->id_quotation);
+
         $laporanPekerjaan = LaporanPekerjaan::updateOrCreate([
             'id' => $this->id_laporan_pekerjaan,
         ], [
@@ -131,8 +151,10 @@ class Form extends Component
             'tanggal_pekerjaan' => $this->tanggal,
             'id_form_master' => $this->id_form_master,
             'is_emergency_call' => $this->is_emergency_call ?? 0,
-            'tanggal_estimasi' => date('Y-m-d H:i:s', strtotime($this->tanggal_estimasi))
+            'tanggal_estimasi' => $this->tanggal_estimasi ? date('Y-m-d H:i:s', strtotime($this->tanggal_estimasi)) : null
         ]);
+
+
 
         LaporanPekerjaanUser::where('id_laporan_pekerjaan', $laporanPekerjaan->id)
         ->delete();
@@ -141,6 +163,34 @@ class Form extends Component
                 'id_user' => $item,
                 'id_laporan_pekerjaan' => $laporanPekerjaan->id,
             ]);
+        }
+
+        if($quotation){
+            if($this->id_quotation != null || $this->id_quotation != $laporanPekerjaan->quotation->id){
+                if($laporanPekerjaan->quotation){
+                    $laporanPekerjaan->quotation->update([
+                        'id_laporan_pekerjaan' => null
+                    ]);
+                }
+                $quotation->update([
+                    'id_laporan_pekerjaan' => $laporanPekerjaan->id
+                ]);
+            }
+            foreach ($quotation->quotationDetail as $item) {
+                LaporanPekerjaanBarang::updateOrCreate([
+                    'id_laporan_pekerjaan' => $laporanPekerjaan->id,
+                    'id_barang' => $item->id_barang,
+                    'qty' => $item->qty,
+                    'status' => 0
+                ],[
+                    'id_laporan_pekerjaan' => $laporanPekerjaan->id,
+                    'id_barang' => $item->id_barang,
+                    'qty' => $item->qty,
+                    'status' => 1,
+                    'konfirmasi' => 0,
+                    'peminjam' => session()->get('id_user')
+                ]);
+            }
         }
 
         $message = 'Data berhasil disimpan';
@@ -183,6 +233,7 @@ class Form extends Component
         $this->periode = $laporanPekerjaan->periode;
         $this->tanggal = $laporanPekerjaan->tanggal_pekerjaan;
         $this->is_emergency_call = $laporanPekerjaan->is_emergency_call;
+        $this->id_quotation = $laporanPekerjaan->quotation ? $laporanPekerjaan->quotation->id : null;
         if($laporanPekerjaan->tanggal_estimasi){
             $this->tanggal_estimasi = date('d-m-Y H:i', strtotime($laporanPekerjaan->tanggal_estimasi));
         }

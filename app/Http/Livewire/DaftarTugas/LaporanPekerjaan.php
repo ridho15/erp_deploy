@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\DaftarTugas;
 
 use App\Models\BarangStockLog;
+use App\Models\CatatanTeknisiPekerjaan;
 use App\Models\LaporanPekerjaan as ModelsLaporanPekerjaan;
 use App\Models\LaporanPekerjaanBarang;
 use App\Models\LaporanPekerjaanFoto;
@@ -21,6 +22,9 @@ class LaporanPekerjaan extends Component
         'hapusFotoByIndex',
         'base64ToImage',
         'hapusFoto',
+        'addCatatanTeknisi',
+        'hapusCatatanTeknisi',
+        'checkCatatanTeknisi'
     ];
     public $tanggal;
     public $id_laporan_pekerjaan;
@@ -32,8 +36,10 @@ class LaporanPekerjaan extends Component
     public $keterangan_foto;
     public $signature;
     public $laporanPekerjaan;
+    public $listCatatanTeknisi = [];
     public function render()
     {
+        $this->listCatatanTeknisi = CatatanTeknisiPekerjaan::where('id_laporan_pekerjaan', $this->id_laporan_pekerjaan)->get();
         $this->laporanPekerjaan = ModelsLaporanPekerjaan::find($this->id_laporan_pekerjaan);
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.daftar-tugas.laporan-pekerjaan');
@@ -52,12 +58,9 @@ class LaporanPekerjaan extends Component
 
     public function simpanLaporanPekerjaan(){
         $this->validate([
-            'keterangan_laporan_pekerjaan' => 'required|string',
             'catatan_pelanggan' => 'required|string',
             'foto.*' => 'required|image|mimes:jpg,png,jpeg|max:10240'
         ], [
-            'keterangan_laporan_pekerjaan.required' => 'Keterangan tidak boleh kosong',
-            'keterangan_laporan_pekerjaan.string' => 'Keterangan tidak valid !',
             'catatan_pelanggan.required' => 'Catatan tidak boleh kosong',
             'catatan_pelanggan.string' => 'Catatn tidak valid !',
             'foto.*.required' => 'Foto tidak boleh kosong',
@@ -69,6 +72,14 @@ class LaporanPekerjaan extends Component
         $laporanPekerjaan = ModelsLaporanPekerjaan::find($this->id_laporan_pekerjaan);
         if(!$laporanPekerjaan){
             $message = "Laporan pekerjaan tidak valid !";
+            return session()->flash('fail', $message);
+        }
+
+        // Checklist catatan Teknisi Laporan
+        $catatanTeknisi = CatatanTeknisiPekerjaan::where('id_laporan_pekerjaan', $this->id_laporan_pekerjaan)
+        ->where('status', '!=', null)->get();
+        if(count($catatanTeknisi) == 0){
+            $message = "Catatan teknisi masih ada yang belum di check. silahkan di check terlebih dahulu";
             return session()->flash('fail', $message);
         }
 
@@ -86,12 +97,12 @@ class LaporanPekerjaan extends Component
                         'stock_awal' => $barang->barang->stock + $barang->qty,
                         'perubahan' => $barang->qty,
                         'tanggal_perubahan' => now(),
-                        'id_tipe_perubahan_stock' => 4,
+                        'id_tipe_perubahan_stock' => 1,
                         'id_user' => session()->get('id_user')
                     ]);
 
                     $barang->update([
-                        'status' => 4
+                        'status' => 2
                     ]);
                 }
             }
@@ -131,11 +142,12 @@ class LaporanPekerjaan extends Component
         ], [
             'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan,
             'status' => 0,
+            'id_customer' => $laporanPekerjaan->id_customer
         ]);
 
         if($laporanPekerjaan->jam_selesai != null && $laporanPekerjaan->signature != null){
             foreach ($listSparepart as $item) {
-                if ($item->status == 4) {
+                if ($item->status == 2) {
                     QuotationDetail::updateOrCreate([
                         'id_quotation' => $quotation->id,
                         'id_barang' => $item->id_barang
@@ -145,7 +157,7 @@ class LaporanPekerjaan extends Component
                         'harga' => $item->barang->harga,
                         'qty' => $item->qty,
                         'id_satuan' => $item->barang->id_satuan,
-                        'deskripsi' => $item->barang->deskripsi
+                        'deskripsi' => $item->barang->deskripsi,
                     ]);
                 }
             }
@@ -183,5 +195,34 @@ class LaporanPekerjaan extends Component
         $laporanPekerjaanFoto->delete();
         $message = "Foto berhasil dihapus";
         return session()->flash('success', $message);
+    }
+
+    public function addCatatanTeknisi($catatan_teknisi){
+        if($catatan_teknisi != '' || $catatan_teknisi != null){
+            CatatanTeknisiPekerjaan::updateOrCreate([
+                'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan,
+                'keterangan' => $catatan_teknisi
+            ],[
+                'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan,
+                'keterangan' => $catatan_teknisi,
+                'status' => null
+            ]);
+        }
+    }
+
+    public function hapusCatatanTeknisi($id){
+        $catatanTeknisi = CatatanTeknisiPekerjaan::find($id);
+        if($catatanTeknisi){
+            $catatanTeknisi->delete();
+        }
+    }
+
+    public function checkCatatanTeknisi($id, $status){
+        $catatanTeknisi = CatatanTeknisiPekerjaan::find($id);
+        if($catatanTeknisi){
+            $catatanTeknisi->update([
+                'status' => $status
+            ]);
+        }
     }
 }
