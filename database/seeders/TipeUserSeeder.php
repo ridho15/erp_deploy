@@ -28,12 +28,6 @@ class TipeUserSeeder extends Seeder
             'nama_tipe' => 'Admin Gudang'
         ]);
 
-        TipeUser::updateOrCreate([
-            'id' => 3
-        ], [
-            'id' => 3,
-            'nama_tipe' => 'Admin Purchase'
-        ]);
 
         TipeUser::updateOrCreate([
             'id' => 3

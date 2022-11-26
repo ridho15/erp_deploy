@@ -23,7 +23,8 @@ class AutentikasiUserSuperAdmin
         ->first();
         if ($loginLogs) {
             $superUser = $loginLogs->user->tipeUser->nama_tipe == 'Super Admin';
-            if ($superUser) {
+            $userManager = $loginLogs->user->tipeUser->nama_tipe == 'Manager';
+            if ($superUser || $userManager) {
                 return $next($request);
             } else {
                 return redirect()->back()->with('fail', 'Anda tidak memiliki akses');

@@ -56,60 +56,39 @@ Route::post('/login', [AutentikasiController::class, 'postLogin'])->name('post.l
 Route::get('/logout', [AutentikasiController::class, 'logout'])->name('logout');
 
 Route::middleware('auth.user')->group(function () {
-    Route::get('profile-edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::middleware('auth.pekerja')->prefix('pekerja')->group(function () {
+    Route::middleware('auth.pekerja')->group(function(){
         Route::get('dashboard', [DashboardController::class, 'index'])->name('pekerja.dashboard');
+
+        Route::prefix('daftar-tugas')->group(function () {
+            Route::get('/', [DaftarTugasController::class, 'index'])->name('daftar-tugas');
+            Route::get('/kelola/{id}', [DaftarTugasController::class, 'kelola'])->name('daftar-tugas.kelola');
+            Route::get('/ambil/{id}', [DaftarTugasController::class, 'ambil'])->name('daftar-tugas.ambil');
+            Route::get('/mulai/{id}', [DaftarTugasController::class, 'mulai'])->name('daftar-tugas.mulai');
+        });
     });
 
-    Route::prefix('form-pekerjaan')->group(function () {
-        Route::get('/', [FormPekerjaanController::class, 'index'])->name('form-pekerjaan');
-        Route::get('/detail/{id}', [FormPekerjaanController::class, 'detail'])->name('form-pekerjaan.detail');
-        Route::get('/pekerjaan-detail/{id}', [FormPekerjaanController::class, 'detailPekerjaan'])->name('form-pekerjaan.pekerjaan-detail');
-    });
+    Route::middleware('auth.super-admin')->group(function(){
+        Route::prefix('form-pekerjaan')->group(function () {
+            Route::get('/', [FormPekerjaanController::class, 'index'])->name('form-pekerjaan');
+            Route::get('/detail/{id}', [FormPekerjaanController::class, 'detail'])->name('form-pekerjaan.detail');
+            Route::get('/pekerjaan-detail/{id}', [FormPekerjaanController::class, 'detailPekerjaan'])->name('form-pekerjaan.pekerjaan-detail');
+        });
 
-    Route::prefix('management-tugas')->group(function () {
-        Route::get('/', [ManagementTugasController::class, 'index'])->name('management-tugas');
-        Route::get('/detail/{id}', [ManagementTugasController::class, 'detail'])->name('management-tugas.detail');
-        Route::get('/export/{id}', [ManagementTugasController::class, 'export'])->name('management-tugas.export');
-    });
+        Route::prefix('management-tugas')->group(function () {
+            Route::get('/', [ManagementTugasController::class, 'index'])->name('management-tugas');
+            Route::get('/detail/{id}', [ManagementTugasController::class, 'detail'])->name('management-tugas.detail');
+            Route::get('/export/{id}', [ManagementTugasController::class, 'export'])->name('management-tugas.export');
+        });
 
-    Route::prefix('daftar-tugas')->group(function () {
-        Route::get('/', [DaftarTugasController::class, 'index'])->name('daftar-tugas');
-        Route::get('/kelola/{id}', [DaftarTugasController::class, 'kelola'])->name('daftar-tugas.kelola');
-        Route::get('/ambil/{id}', [DaftarTugasController::class, 'ambil'])->name('daftar-tugas.ambil');
-        Route::get('/mulai/{id}', [DaftarTugasController::class, 'mulai'])->name('daftar-tugas.mulai');
-    });
+        Route::prefix('project')->group(function () {
+            Route::get('/', [ProjectController::class, 'index'])->name('project');
+        });
 
-    Route::prefix('pre-order')->group(function () {
-        Route::get('/', [PreOrderController::class, 'index'])->name('pre-order');
-        Route::get('/account-receivable', [PreOrderController::class, 'accountReceivable'])->name('pre-order.account-receivable');
-        Route::get('/done', [PreOrderController::class, 'done'])->name('pre-order.done');
-        Route::get('/detail/{id}', [PreOrderController::class, 'detail'])->name('pre-order.detail');
-        Route::get('/invoice/{id}', [PreOrderController::class, 'invoice'])->name('pre-order.invoice');
-    });
+        Route::prefix('form')->group(function () {
+            Route::get('/', [FormMasterController::class, 'index'])->name('form');
+            Route::get('/detail/{id}', [FormMasterController::class, 'detail'])->name('form.detail');
+        });
 
-    Route::prefix('invoice')->group(function () {
-        Route::get('/', [InvoiceController::class, 'index'])->name('invoice');
-    });
-
-    Route::prefix('pinjam-meminjam')->group(function () {
-        Route::get('/', [PinjamMeminjamController::class, 'index'])->name('pinjam-meminjam');
-    });
-
-    Route::prefix('inventory')->group(function(){
-        Route::get('/', [InventoryController::class, 'index'])->name('inventory');
-    });
-
-    Route::prefix('project')->group(function () {
-        Route::get('/', [ProjectController::class, 'index'])->name('project');
-    });
-
-    Route::prefix('form')->group(function () {
-        Route::get('/', [FormMasterController::class, 'index'])->name('form');
-        Route::get('/detail/{id}', [FormMasterController::class, 'detail'])->name('form.detail');
-    });
-
-    Route::middleware('auth.super-admin')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
         Route::prefix('web-config')->group(function () {
@@ -183,13 +162,37 @@ Route::middleware('auth.user')->group(function () {
         Route::prefix('sales')->group(function(){
             Route::get('/', [SalesController::class, 'index'])->name('sales');
         });
-    });
 
-    Route::prefix('kondisi')->group(function () {
-        Route::get('/', [KondisiController::class, 'index'])->name('kondisi');
-    });
+        Route::prefix('kondisi')->group(function () {
+            Route::get('/', [KondisiController::class, 'index'])->name('kondisi');
+        });
 
-    Route::prefix('pekerjaan')->group(function () {
-        Route::get('/', [PekerjaanController::class, 'index'])->name('pekerjaan');
+        Route::prefix('pekerjaan')->group(function () {
+            Route::get('/', [PekerjaanController::class, 'index'])->name('pekerjaan');
+        });
+    });
+    Route::get('profile-edit', [ProfileController::class, 'edit'])->name('profile.edit');
+
+
+    Route::middleware('auth.admin-gudang')->group(function(){
+        Route::prefix('pre-order')->group(function () {
+            Route::get('/', [PreOrderController::class, 'index'])->name('pre-order');
+            Route::get('/account-receivable', [PreOrderController::class, 'accountReceivable'])->name('pre-order.account-receivable');
+            Route::get('/done', [PreOrderController::class, 'done'])->name('pre-order.done');
+            Route::get('/detail/{id}', [PreOrderController::class, 'detail'])->name('pre-order.detail');
+            Route::get('/invoice/{id}', [PreOrderController::class, 'invoice'])->name('pre-order.invoice');
+        });
+
+        Route::prefix('invoice')->group(function () {
+            Route::get('/', [InvoiceController::class, 'index'])->name('invoice');
+        });
+
+        Route::prefix('pinjam-meminjam')->group(function () {
+            Route::get('/', [PinjamMeminjamController::class, 'index'])->name('pinjam-meminjam');
+        });
+
+        Route::prefix('inventory')->group(function(){
+            Route::get('/', [InventoryController::class, 'index'])->name('inventory');
+        });
     });
 });

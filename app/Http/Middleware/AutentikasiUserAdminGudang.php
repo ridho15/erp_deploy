@@ -22,8 +22,9 @@ class AutentikasiUserAdminGudang
         ->where('is_active', 1)
         ->first();
         if($loginLogs){
-            $superUser = $loginLogs->user->tipeUser->nama_tipe == 'Admin Gudang';
-            if($superUser){
+            $adminGudang = $loginLogs->user->tipeUser->nama_tipe == 'Admin Gudang';
+            $superUser = $loginLogs->user->tipeUser->nama_tipe == 'Super Admin';
+            if($adminGudang || $superUser){
                 return $next($request);
             }else{
                 return redirect()->back()->with('fail', 'Akses tidak diizinkan');

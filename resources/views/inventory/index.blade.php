@@ -3,7 +3,7 @@
 @section('content')
     <div class="card shadow-sm">
         <div class="card-body">
-            <div class="h4 mb-10">Data Pinjam Meminjam</div>
+            <div class="h4 mb-10">Inventory</div>
             <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x mb-5 fs-6">
                 <li class="nav-item">
                     <a class="nav-link active" data-bs-toggle="tab" href="#stock_barang">Stock Barang</a>

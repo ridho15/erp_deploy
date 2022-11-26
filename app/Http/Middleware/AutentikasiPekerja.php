@@ -23,8 +23,10 @@ class AutentikasiPekerja
         ->first();
 
         if ($loginLogs) {
-            $superUser = $loginLogs->user->tipeUser->nama_tipe == 'Worker';
-            if ($superUser) {
+            $workerUser = $loginLogs->user->tipeUser->nama_tipe == 'Worker';
+            $superUser = $loginLogs->user->tipeUser->nama_tipe == 'Super Admin';
+            $managerUser = $loginLogs->user->tipeUser->nama_tipe == 'Manager';
+            if ($workerUser || $superUser || $managerUser) {
                 return $next($request);
             } else {
                 return redirect()->back()->with('fail', 'Akses tidak diizinkan');
