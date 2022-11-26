@@ -52,50 +52,52 @@
                                     <td></td>
                                 </tr>
                                     @foreach ($item->children as $number => $value)
-                                        <tr>
-                                            <td>{{ $number + 1 }}</td>
-                                            <td>{{ $value->nama_pekerjaan }}</td>
-                                            <td>
-                                                @php
-                                                    $dataPekerjaanChecklist = \App\Models\LaporanPekerjaanChecklist::where('id_laporan_pekerjaan', $id_laporan_pekerjaan)
-                                                    ->where('id_template_pekerjaan_detail', $value->id)->first();
-                                                    $dataPekerjaan = null;
-                                                    if ($dataPekerjaanChecklist) {
-                                                        $dataPekerjaan = json_decode($dataPekerjaanChecklist->pekerjaan);
-                                                    }
+                                        @if ($value->periode != null && is_array(json_decode($value->periode)) && in_array($periode, json_decode($value->periode)))
+                                            <tr>
+                                                <td>{{ $number + 1 }}</td>
+                                                <td>{{ $value->nama_pekerjaan }}</td>
+                                                <td>
+                                                    @php
+                                                        $dataPekerjaanChecklist = \App\Models\LaporanPekerjaanChecklist::where('id_laporan_pekerjaan', $id_laporan_pekerjaan)
+                                                        ->where('id_template_pekerjaan_detail', $value->id)->first();
+                                                        $dataPekerjaan = null;
+                                                        if ($dataPekerjaanChecklist) {
+                                                            $dataPekerjaan = json_decode($dataPekerjaanChecklist->pekerjaan);
+                                                        }
 
-                                                @endphp
-                                                <div class="">
-                                                    <select name="pekerjaan" class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih" data-id_template_pekerjaan_detail="{{ $value->id }}" multiple>
-                                                        <option value="">Pilih</option>
-                                                        @foreach ($listPekerjaan as $pekerjaan)
-                                                            <option value="{{ $pekerjaan->keterangan }}" @if($dataPekerjaan && in_array($pekerjaan->keterangan, $dataPekerjaan)) selected @endif>{{ $pekerjaan->keterangan }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="">
-                                                    <select name="kondisi" class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih" data-id_template_pekerjaan_detail="{{ $value->id }}">
-                                                        <option value="">Pilih</option>
-                                                        @foreach ($listKondisi as $kondisi)
-                                                            <option value="{{ $kondisi->keterangan }}" @if($dataPekerjaanChecklist && $kondisi->keterangan == $dataPekerjaanChecklist->kondisi) selected @endif>{{ $kondisi->keterangan }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <textarea name="keterangan" class="form-control form-control-solid" placeholder="Masukkan keterangan" data-id_template_pekerjaan_detail="{{ $value->id }}">{{ $dataPekerjaanChecklist ? $dataPekerjaanChecklist->keterangan : null }}</textarea>
-                                            </td>
-                                            <td>
-                                                <div class="form-check form-switch form-check-custom form-check-solid form-check-success">
-                                                    <input class="form-check-input" type="checkbox" value="1" wire:click="changeStatus({{ $value->id }})" @if($dataPekerjaanChecklist && $dataPekerjaanChecklist->status == 1) checked @endif id="flexSwitchDefault"/>
-                                                    <label class="form-check-label" for="flexSwitchDefault">
-                                                        Selesai
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                                    @endphp
+                                                    <div class="">
+                                                        <select name="pekerjaan" class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih" data-id_template_pekerjaan_detail="{{ $value->id }}" multiple>
+                                                            <option value="">Pilih</option>
+                                                            @foreach ($listPekerjaan as $pekerjaan)
+                                                                <option value="{{ $pekerjaan->keterangan }}" @if($dataPekerjaan && in_array($pekerjaan->keterangan, $dataPekerjaan)) selected @endif>{{ $pekerjaan->keterangan }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="">
+                                                        <select name="kondisi" class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih" data-id_template_pekerjaan_detail="{{ $value->id }}">
+                                                            <option value="">Pilih</option>
+                                                            @foreach ($listKondisi as $kondisi)
+                                                                <option value="{{ $kondisi->keterangan }}" @if($dataPekerjaanChecklist && $kondisi->keterangan == $dataPekerjaanChecklist->kondisi) selected @endif>{{ $kondisi->keterangan }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <textarea name="keterangan" class="form-control form-control-solid" placeholder="Masukkan keterangan" data-id_template_pekerjaan_detail="{{ $value->id }}">{{ $dataPekerjaanChecklist ? $dataPekerjaanChecklist->keterangan : null }}</textarea>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-switch form-check-custom form-check-solid form-check-success">
+                                                        <input class="form-check-input" type="checkbox" value="1" wire:click="changeStatus({{ $value->id }})" @if($dataPekerjaanChecklist && $dataPekerjaanChecklist->status == 1) checked @endif id="flexSwitchDefault"/>
+                                                        <label class="form-check-label" for="flexSwitchDefault">
+                                                            Selesai
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endif
                                     @endforeach
                                 @endforeach
                             @else

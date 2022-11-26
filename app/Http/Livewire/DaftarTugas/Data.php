@@ -111,5 +111,8 @@ class Data extends Component
 
     public function setLaporanPekerjaan($id){
         $this->laporanPekerjaan = LaporanPekerjaan::find($id);
+        $this->laporanPekerjaan->update([
+            'is_check_detail' => 1
+        ]);
     }
 }

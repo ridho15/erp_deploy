@@ -106,8 +106,8 @@
                                                 wire:click="$emit('onClickKirim', {{ $item->id }})">
                                                 <i class="bi bi-arrow-return-left"></i>
                                             </button> --}}
-                                            <a href="{{ route('daftar-tugas.kelola', ['id' => $item->id]) }}"
-                                                class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip"
+                                            <a href="{{ $item->is_check_detail == 1 ? route('daftar-tugas.kelola', ['id' => $item->id]) : '#' }}"
+                                                class="btn btn-sm btn-icon @if($item->is_check_detail == 1) btn-primary @else btn-secondary @endif" data-bs-toggle="tooltip"
                                                 data-bs-placement="top" title="Kelola Tugas">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </a>
