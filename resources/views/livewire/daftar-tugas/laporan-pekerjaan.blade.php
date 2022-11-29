@@ -50,6 +50,9 @@
                                 <button type="button" class="btn btn-sm btn-icon btn-light-active-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Catatan" wire:click="hapusCatatanTeknisi({{ $item->id }})">
                                     <i class="fa-solid fa-trash-can text-danger"></i>
                                 </button>
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    {{ $item->keterangan }}
+                                </label>
                                 <div class="form-check form-check-custom form-check-solid mb-2 form-check-sm">
                                     <div class="d-flex flex-column align-items-center mx-2">
                                         <small>Ya</small>
@@ -62,9 +65,6 @@
                                         <input class="form-check-input" type="checkbox" value="1" @if($item->status === 0) checked @endif id="flexCheckDefault" wire:click="checkCatatanTeknisi({{ $item->id }}, 0)"/>
                                     </div>
                                 </div>
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    {{ $item->keterangan }}
-                                </label>
                             </div>
                         @endforeach
                     </div>

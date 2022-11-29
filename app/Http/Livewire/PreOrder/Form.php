@@ -145,12 +145,14 @@ class Form extends Component
             ]);
         }
 
-        foreach ($quotation->laporanPekerjaan->laporanPekerjaanBarang as $item) {
-            if ($item->status == 2) {
-                $item->update([
-                    'status' => 4,
-                    'konfirmasi' => 0
-                ]);
+        if ($quotation->laporanPekerjaan) {
+            foreach ($quotation->laporanPekerjaan->laporanPekerjaanBarang as $item) {
+                if ($item->status == 2) {
+                    $item->update([
+                        'status' => 4,
+                        'konfirmasi' => 0
+                    ]);
+                }
             }
         }
         $message = "Berhasil menyimpan data";
