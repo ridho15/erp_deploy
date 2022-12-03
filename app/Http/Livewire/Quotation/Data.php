@@ -144,7 +144,9 @@ class Data extends Component
             'status_like' => 1
         ]);
 
-        $mesasge = "Quotation Berhasil";
-        return session()->flash('success', $mesasge);
+        $message = "Quotation Berhasil";
+
+        return redirect()->route('pre-order')->with('success', $message);
+        // return session()->flash('success', $mesasge);
     }
 }

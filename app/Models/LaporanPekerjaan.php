@@ -29,7 +29,8 @@ class LaporanPekerjaan extends Model
         'dikirim',
         'tanggal_estimasi',
         'confirmasi_customer_barang',
-        'is_emergency_call'
+        'is_emergency_call',
+        'is_check_detail',
     ];
 
     protected $appends = [
