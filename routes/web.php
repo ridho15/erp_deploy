@@ -23,6 +23,7 @@ use App\Http\Controllers\PreOrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\QuotationController;
+use App\Http\Controllers\RakController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TipeBarangController;
@@ -193,6 +194,12 @@ Route::middleware('auth.user')->group(function () {
 
         Route::prefix('inventory')->group(function(){
             Route::get('/', [InventoryController::class, 'index'])->name('inventory');
+            Route::get('/stock-opname', [InventoryController::class, 'stockOpname'])->name('inventory.stock-opname');
+        });
+
+        Route::prefix('rak')->group(function(){
+            Route::get('/', [RakController::class, 'index'])->name('rak');
+            Route::get('/detail/{id}', [RakController::class, 'detail'])->name('rak.detail');
         });
     });
 });

@@ -4,7 +4,13 @@
             <a href="{{ route('pre-order') }}" class="btn btn-sm btn-icon btn-light me-5" data-bs-toggle="tooltip" data-bs-placement="top" title="Kembali">
                 <i class="fa-solid fa-arrow-left"></i>
             </a>
-            Detail PO
+            @if ($preOrder && $preOrder->quotation && $preOrder->quotation->laporanPekerjaan && $preOrder->quotation->laporanPekerjaan->signature != null && $preOrder->quotation->laporanPekerjaan->jam_selesai != null && $preOrder->status == 3)
+                PO Done
+            @elseif($preOrder && $preOrder->quotation && $preOrder->quotation->laporanPekerjaan && $preOrder->quotation->laporanPekerjaan->signature != null && $preOrder->quotation->laporanPekerjaan->jam_selesai != null)
+                Account Receivable
+            @else
+                Detail PO
+            @endif
         </h3>
         <div class="card-toolbar">
             @if ($isControl == true && $preOrder->status != 3)

@@ -13,4 +13,12 @@ class InventoryController extends Controller
 
         return view('inventory.index', $data);
     }
+
+    public function stockOpname(){
+        $data['title'] = "Stock Opname";
+        $data['active'] = ['inventory', 'stock-opname'];
+        $data['breadCrumb'] = ['Inventory', 'Stock Opname'];
+
+        return view('inventory.stock-opname', $data);
+    }
 }

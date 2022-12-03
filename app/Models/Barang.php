@@ -95,4 +95,12 @@ class Barang extends Model
         $helper = new HelperController;
         return "B" . $helper->format_num($this->id);
     }
+
+    public function isiRak(){
+        return $this->hasMany(IsiRak::class, 'id_barang');
+    }
+
+    public function stockOpname(){
+        return $this->hasMany(StockOpname::class, 'id_barang');
+    }
 }
