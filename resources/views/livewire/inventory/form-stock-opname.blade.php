@@ -34,7 +34,7 @@
                         </div>
                         <div class="col-md-6 mb-5">
                             <label for="" class="form-label">Jumlah Tercatat</label>
-                            <input type="number" step="0.001" class="form-control form-control-solid" name="jumlah_tercatat" wire:model="jumlah_tercatat" placeholder="Masukkan jumlah tercatat" required>
+                            <input type="number" step="0.001" class="form-control form-control-solid" name="jumlah_tercatat" wire:model="jumlah_tercatat" placeholder="Masukkan jumlah tercatat" disabled required>
                             @error('jumlah_tercatat')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror

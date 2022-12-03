@@ -34,9 +34,9 @@
                    <th>Nama Barang</th>
                    <th>Merk</th>
                    <th>Jumlah Tercatat</th>
-                   <th>Jumlah Mutasi</th>
-                   <th>Jumlah Terjual</th>
-                   <th>Jumlah Terbaru</th>
+                   <th style="width: 100px">Jumlah Mutasi</th>
+                   <th style="width: 100px">Jumlah Terjual</th>
+                   <th style="width: 100px">Jumlah Terbaru</th>
                    <th>Keterangan</th>
                    <th>Tanggal</th>
                    <th>Aksi</th>
@@ -50,15 +50,25 @@
                                 <td>{{ $item->barang->sku }}</td>
                                 <td>{{ $item->barang->nama }}</td>
                                 <td>{{ $item->barang->merk->nama_merk }}</td>
-                                <td>{{ $item->jumlah_tercatat }}</td>
-                                <td>{{ $item->jumlah_mutasi }}</td>
-                                <td>{{ $item->jumlah_terjual }}</td>
-                                <td>{{ $item->jumlah_terbaru }}</td>
-                                <td>{{ $item->tanggal }}</td>
-                                <td>{{ $item->keterangan }}</td>
+                                <td>{{ $item->jumlah_tercatat ?? 0 }}</td>
+                                <td>
+                                    <input type="number" step="0.001" class="form-control jumlah-mutasi" placeholder="0" value="{{ $item->jumlah_mutasi }}" data-id="{{ $item->id }}">
+                                </td>
+                                <td>
+                                    <input type="number" step="0.001" class="form-control jumlah-terjual" placeholder="0" value="{{ $item->jumlah_terjual }}" data-id="{{ $item->id }}">
+                                </td>
+                                <td>
+                                    <input type="number" step="0.001" class="form-control jumlah-terbaru" placeholder="0" value="{{ $item->jumlah_terbaru }}" data-id="{{ $item->id }}">
+                                </td>
+                                <td>
+                                    <textarea class="form-control keterangan" name="keterangan" placeholder="-" data-id="{{ $item->id }}">{{ $item->keterangan }}</textarea>
+                                </td>
+                                <td>
+                                    <input type="date" class="form-control tanggal" name="tanggal" value="{{ date('Y-m-d', strtotime($item->tanggal)) }}" data-id="{{ $item->id }}">
+                                </td>
                                 <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Metode Pembayaran" wire:click="$emit('onClickHapus', {{ $item->id }})">
+                                        <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Data" wire:click="$emit('onClickHapus', {{ $item->id }})">
                                             <i class="bi bi-trash-fill"></i>
                                         </button>
                                     </div>
@@ -80,11 +90,52 @@
 @push('js')
     <script>
         $(document).ready(function () {
-
+            Change()
         });
+
+        window.addEventListener('contentChange', Change)
 
         Livewire.on('onClickTambah', () => {
             $('#modal_form_stock_opname').modal('show')
+        })
+
+        function Change (){
+            $('.jumlah-mutasi').on('change', function(){
+                const id = $(this).data('id')
+                const val = $(this).val()
+                Livewire.emit('simpanJumlahMutasi', id, val)
+            })
+
+            $('.jumlah-terjual').on('change', function(){
+                const id = $(this).data('id')
+                const val = $(this).val()
+                Livewire.emit('simpanJumlahTerjual', id, val)
+            })
+
+            $('.jumlah-terbaru').on('change', function(){
+                const id = $(this).data('id')
+                const val = $(this).val()
+                Livewire.emit('simpanJumlahTerbaru', id, val)
+            })
+
+            $('.keterangan').on('change', function(){
+                const id = $(this).data('id')
+                const val = $(this).val()
+                Livewire.emit('simpanKeterangan', id, val)
+            })
+
+            $('input[name="tanggal"]').on('change', function(){
+                const id = $(this).data('id')
+                const val = $(this).val()
+                Livewire.emit('simpanTanggal', id, val)
+            })
+        }
+
+        Livewire.on('onClickHapus', async(id) => {
+            const response = await alertConfirm('Peringatan !', "Apakah kamu yakin ingin menghapus data ?")
+            if(response.isConfirmed == true){
+                Livewire.emit('hapusStockOpname', id)
+            }
         })
     </script>
 @endpush

@@ -9,7 +9,7 @@ class PinjamMeminjamController extends Controller
 {
     public function index(){
         $data['title'] = "Pinjam Meminjam";
-        $data['active'] = ['pinjam-meminjam'];
+        $data['active'] = ['inventory','pinjam-meminjam'];
         $data['breadCrumb'] = ['Pinjam Meminjam', 'Data'];
 
         return view('pinjam-meminjam.index', $data);

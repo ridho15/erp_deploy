@@ -104,6 +104,7 @@ Route::middleware('auth.user')->group(function () {
         Route::prefix('supplier')->group(function () {
             Route::get('/', [SupplierController::class, 'index'])->name('supplier');
             Route::get('/order', [SupplierController::class, 'order'])->name('supplier.order');
+            Route::get('/order/payable', [SupplierController::class, 'payable'])->name('supplier-order.payable');
             Route::get('/order/{id}', [SupplierController::class, 'orderDetail'])->name('supplier.order-detail');
             Route::get('/detail/{id}', [SupplierController::class, 'detail'])->name('supplier.detail');
         });
