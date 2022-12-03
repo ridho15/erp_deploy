@@ -33,6 +33,7 @@ class Order extends Component
             });
         })->whereHas('supplier')->orWhere('id_supplier', $this->id_supplier)->orderBy('created_at', 'DESC')->paginate($this->total_show);
         $data['listSupplierOrder'] = $this->listSupplierOrder;
+        
 
         return view('livewire.supplier.order', $data);
     }
