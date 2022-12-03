@@ -11,12 +11,12 @@ class SupplierOrder extends Component
     public $totalBelumSelesai;
     public function render()
     {
-        $this->listSupplierOrder = ModelsSupplierOrder::where('status_order', '!=', 4)
+        $this->listSupplierOrder = ModelsSupplierOrder::whereHas('supplier')->where('status_order', '!=', 4)
         ->orderBy('created_at', 'ASC')
         ->limit(5)
         ->get();
 
-        $this->totalBelumSelesai = ModelsSupplierOrder::where('status_order', '!=', 4)
+        $this->totalBelumSelesai = ModelsSupplierOrder::whereHas('supplier')->where('status_order', '!=', 4)
         ->orderBy('created_at', 'ASC')
         ->count();
         return view('livewire.dashboard.supplier-order');
