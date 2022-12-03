@@ -41,28 +41,28 @@
                         </div>
                         <div class="col-md-6 mb-5">
                             <label for="" class="form-label">Jumlah Mutasi</label>
-                            <input type="number" step="0.001" class="form-control form-control-solid" name="jumlah_mutasi" wire:model="jumlah_mutasi" placeholder="Masukkan jumlah tercatat" required>
+                            <input type="number" step="0.001" class="form-control form-control-solid" name="jumlah_mutasi" wire:model="jumlah_mutasi" placeholder="Masukkan jumlah mutasi">
                             @error('jumlah_mutasi')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="col-md-6 mb-5">
                             <label for="" class="form-label">Jumlah Terjual</label>
-                            <input type="number" step="0.001" class="form-control form-control-solid" name="jumlah_terjual" wire:model="jumlah_terjual" placeholder="Masukkan jumlah tercatat" required>
+                            <input type="number" step="0.001" class="form-control form-control-solid" name="jumlah_terjual" wire:model="jumlah_terjual" placeholder="Masukkan jumlah terjual">
                             @error('jumlah_terjual')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="col-md-6 mb-5">
                             <label for="" class="form-label">Jumlah Terbaru</label>
-                            <input type="number" step="0.001" class="form-control form-control-solid" name="jumlah_terbaru" wire:model="jumlah_terbaru" placeholder="Masukkan jumlah tercatat" required>
+                            <input type="number" step="0.001" class="form-control form-control-solid" name="jumlah_terbaru" wire:model="jumlah_terbaru" placeholder="Masukkan jumlah terbaru">
                             @error('jumlah_terbaru')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="col-md-6 mb-5">
                             <label for="" class="form-label">Tanggal</label>
-                            <input type="date" class="form-control form-control-solid" name="tanggal_input" wire:model="tanggal_input" placeholder="Masukkan tanggal" required>
+                            <input type="date" class="form-control form-control-solid" name="tanggal_input" wire:model="tanggal_input" placeholder="Masukkan tanggal">
                             @error('tanggal_input')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -95,6 +95,11 @@
 
         $('select[name="id_barang"]').on('change', function(){
             Livewire.emit('changeBarang', $(this).val())
+        })
+
+        Livewire.on('finishSimpanData', (status, message) => {
+            $('.modal').modal('hide')
+            alertMessage(status, message)
         })
     </script>
 @endpush
