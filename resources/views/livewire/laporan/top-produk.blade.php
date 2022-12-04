@@ -13,28 +13,25 @@
 
 @push('js')
     <script>
-        var root = am5.Root.new("top_produk");
-        var chart = root.container.children.push(am5percent.PieChart.new(root, {
-            layout: root.verticalLayout
-        }));
-
-        var series = chart.series.push(am5percent.PieSeries.new(root, {
-            alignLabels: true,
-            calculateAggregates: true,
-            valueField: "value",
-            categoryField: "category"
-        }));
-
         $(document).ready(function () {
-            renderGrafik()
+            renderGrafikProduk()
         });
 
-        window.addEventListener('contentChange', function(){
-            renderGrafik()
+        window.addEventListener('contentChangeGrafikProduk', function(){
+            renderGrafikProduk()
         })
 
-        function renderGrafik(){
-            console.log(@this.get('listData'));
+        function renderGrafikProduk(){
+            var root = am5.Root.new("top_produk");
+            var chart = root.container.children.push(am5percent.PieChart.new(root, {
+                layout: root.verticalLayout
+            }));
+            var series = chart.series.push(am5percent.PieSeries.new(root, {
+                alignLabels: true,
+                calculateAggregates: true,
+                valueField: "value",
+                categoryField: "category"
+            }));
             am5.ready(function () {
 
             root.setThemes([
