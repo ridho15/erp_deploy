@@ -18,6 +18,11 @@
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 <script src="{{ asset('/assets/js/custom.js') }}"></script>
 <script src="{{ asset('/assets/js/alpine.min.js') }}"></script>
+<script src="{{ asset('/assets/js/chart/index.js') }}"></script>
+<script src="{{ asset('/assets/js/chart/xy.js') }}"></script>
+<script src="{{ asset('/assets/js/chart/percent.js') }}"></script>
+<script src="{{ asset('/assets/js/chart/radar.js') }}"></script>
+<script src="{{ asset('/assets/js/chart/Animated.js') }}"></script>
 @yield('js')
 @livewireScripts
 @stack('js')
