@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Kostumer;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Customer;
 use App\Models\CustomerOrder;
 use Livewire\Component;
@@ -63,6 +64,7 @@ class Order extends Component
 
         $KostumerOrder->delete();
         $message = 'Data Order berhasil di hapus';
+        activity()->causedBy(HelperController::user())->log("Menghapus data order");
         // $this->emit('finishSupplierOrder', 1, $message);
 
         return session()->flash('success', $message);

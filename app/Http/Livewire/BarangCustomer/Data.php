@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\BarangCustomer;
 
+use App\Http\Controllers\HelperController;
 use App\Models\BarangCustomer;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -40,6 +41,7 @@ class Data extends Component
 
         $barangCustomer->delete();
         $message = "Data berhasil di hapus";
+        activity()->causedBy(HelperController::user())->log("Menghapus barang customer");
         return session()->flash('success', $message);
     }
 }

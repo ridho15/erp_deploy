@@ -33,7 +33,11 @@
                     <tr>
                         <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
                         <td>{{ $item->laporanPekerjaan? $item->laporanPekerjaan->kode_pekerjaan : '-' }}</td>
-                        <td>{{ $item->barang->sku }}</td>
+                        <td>
+                            <a href="{{ route('barang.detail', ['id' => $item->id_barang]) }}" class="text-dark">
+                                {{ $item->barang->sku }}
+                            </a>
+                        </td>
                         <td>{{ $item->barang->nama }}</td>
                         <td>{{ $item->barang->satuan->nama_satuan }}</td>
                         <td>{{ $item->barang->harga_formatted }}</td>

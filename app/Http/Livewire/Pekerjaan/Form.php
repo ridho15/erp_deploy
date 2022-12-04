@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Pekerjaan;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Pekerjaan;
 use Livewire\Component;
 
@@ -36,6 +37,7 @@ class Form extends Component
             'keterangan' => $this->keterangan,
         ]);
         $message = 'Berhasil menyimpan data pekerjaan';
+        activity()->causedBy(HelperController::user())->log("Menyimpan data pekerjaan");
         $this->resetInputFields();
         $this->emit('refreshPekerjaan');
         $this->emit('finishSimpanData', 1, $message);

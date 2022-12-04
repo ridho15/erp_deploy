@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HelperController extends Controller
@@ -43,11 +44,8 @@ class HelperController extends Controller
             collect([
                 'nama' => 'Purchase Order',
                 'icon' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path opacity="0.3" d="M18.041 22.041C18.5932 22.041 19.041 21.5932 19.041 21.041C19.041 20.4887 18.5932 20.041 18.041 20.041C17.4887 20.041 17.041 20.4887 17.041 21.041C17.041 21.5932 17.4887 22.041 18.041 22.041Z" fill="currentColor"/>
-                    <path opacity="0.3" d="M6.04095 22.041C6.59324 22.041 7.04095 21.5932 7.04095 21.041C7.04095 20.4887 6.59324 20.041 6.04095 20.041C5.48867 20.041 5.04095 20.4887 5.04095 21.041C5.04095 21.5932 5.48867 22.041 6.04095 22.041Z" fill="currentColor"/>
-                    <path opacity="0.3" d="M7.04095 16.041L19.1409 15.1409C19.7409 15.1409 20.141 14.7409 20.341 14.1409L21.7409 8.34094C21.9409 7.64094 21.4409 7.04095 20.7409 7.04095H5.44095L7.04095 16.041Z" fill="currentColor"/>
-                    <path d="M19.041 20.041H5.04096C4.74096 20.041 4.34095 19.841 4.14095 19.541C3.94095 19.241 3.94095 18.841 4.14095 18.541L6.04096 14.841L4.14095 4.64095L2.54096 3.84096C2.04096 3.64096 1.84095 3.04097 2.14095 2.54097C2.34095 2.04097 2.94096 1.84095 3.44096 2.14095L5.44096 3.14095C5.74096 3.24095 5.94096 3.54096 5.94096 3.84096L7.94096 14.841C7.94096 15.041 7.94095 15.241 7.84095 15.441L6.54096 18.041H19.041C19.641 18.041 20.041 18.441 20.041 19.041C20.041 19.641 19.641 20.041 19.041 20.041Z" fill="currentColor"/>
-                    </svg>',
+                        <path d="M16.0077 19.2901L12.9293 17.5311C12.3487 17.1993 11.6407 17.1796 11.0426 17.4787L6.89443 19.5528C5.56462 20.2177 4 19.2507 4 17.7639V5C4 3.89543 4.89543 3 6 3H17C18.1046 3 19 3.89543 19 5V17.5536C19 19.0893 17.341 20.052 16.0077 19.2901Z" fill="currentColor"/>
+                        </svg>',
                 'role' => ['Super Admin', 'Manager'],
                 'active' => 'purchase-order',
                 'route' => null,
@@ -142,6 +140,68 @@ class HelperController extends Controller
                         'role' => ['Super Admin', 'Manager'],
                         'active' => 'payable',
                         'route' => 'supplier-order.payable'
+                    ]),
+                ])
+            ]),
+            collect([
+                'nama' => 'Laporan',
+                'icon' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M14 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V8L14 2Z" fill="currentColor"/>
+                            <path d="M20 8L14 2V6C14 7.10457 14.8954 8 16 8H20Z" fill="currentColor"/>
+                            <path d="M10.3629 14.0084L8.92108 12.6429C8.57518 12.3153 8.03352 12.3153 7.68761 12.6429C7.31405 12.9967 7.31405 13.5915 7.68761 13.9453L10.2254 16.3488C10.6111 16.714 11.215 16.714 11.6007 16.3488L16.3124 11.8865C16.6859 11.5327 16.6859 10.9379 16.3124 10.5841C15.9665 10.2565 15.4248 10.2565 15.0789 10.5841L11.4631 14.0084C11.1546 14.3006 10.6715 14.3006 10.3629 14.0084Z" fill="currentColor"/>
+                        </svg>',
+                'role' => ['Super Admin', 'Manager', 'Admin Gudan'],
+                'active' => 'laporan',
+                'route' => null,
+                'children' => collect([
+                    collect([
+                        'nama' => 'Account Payable',
+                        'icon' => '<span class="bullet bullet-dot"></span>',
+                        'role' => ['Super Admin', 'Manager'],
+                        'active' => 'laporan-account-payable',
+                        'route' => 'laporan.account-payable'
+                    ]),
+                    collect([
+                        'nama' => 'Account Receivable',
+                        'icon' => '<span class="bullet bullet-dot"></span>',
+                        'role' => ['Super Admin', 'Manager'],
+                        'active' => 'laporan-account-receivable',
+                        'route' => 'laporan.account-receivable'
+                    ]),
+                    collect([
+                        'nama' => 'Kalender Payable & Receivable',
+                        'icon' => '<span class="bullet bullet-dot"></span>',
+                        'role' => ['Super Admin', 'Manager'],
+                        'active' => 'kalender',
+                        'route' => 'laporan.kalender'
+                    ]),
+                    collect([
+                        'nama' => 'Spareparts Akan Habis',
+                        'icon' => '<span class="bullet bullet-dot"></span>',
+                        'role' => ['Super Admin', 'Manager'],
+                        'active' => 'spareparts',
+                        'route' => 'laporan.spareparts'
+                    ]),
+                    collect([
+                        'nama' => 'Stock Opname Miss',
+                        'icon' => '<span class="bullet bullet-dot"></span>',
+                        'role' => ['Super Admin', 'Manager'],
+                        'active' => 'stock-opname-miss',
+                        'route' => 'laporan.stock-opname'
+                    ]),
+                    collect([
+                        'nama' => 'Log Activity',
+                        'icon' => '<span class="bullet bullet-dot"></span>',
+                        'role' => ['Super Admin', 'Manager'],
+                        'active' => 'log-activity',
+                        'route' => 'laporan.log-activity'
+                    ]),
+                    collect([
+                        'nama' => 'Revenue Based on Invoice',
+                        'icon' => '<span class="bullet bullet-dot"></span>',
+                        'role' => ['Super Admin', 'Manager'],
+                        'active' => 'grafik-penjualan',
+                        'route' => 'laporan.grafik-penjualan'
                     ]),
                 ])
             ]),
@@ -516,5 +576,9 @@ class HelperController extends Controller
                 return "Inputan tidak valid !";
                 break;
       }
+    }
+
+    static public function user(){
+        return User::find(session()->get('id_user'));
     }
 }

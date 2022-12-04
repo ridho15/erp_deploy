@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Kondisi;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Kondisi;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -37,6 +38,7 @@ class Data extends Component
 
         $kondisi->delete();
         $message = "Berhasil menghapus data kondisi";
+        activity()->causedBy(HelperController::user())->log("Menghapus data kondisi");
         $this->emit('finishRefreshKondisi', 1, $message);
         return session()->flash('success', $message);
     }

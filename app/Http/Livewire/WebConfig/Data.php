@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\WebConfig;
 
 use App\CPU\Helpers;
+use App\Http\Controllers\HelperController;
 use App\Models\WebConfig;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
@@ -100,7 +101,7 @@ class Data extends Component
         $this->imgSaver($this->favicon, 'favicon');
 
         $message = 'Berhasil menyimpan pengaturan Aplikasi';
-
+        activity()->causedBy(HelperController::user())->log("Menyimpan pengaturan aplikasi");
         $this->emit('finishSimpanData', 1, $message);
         $this->emit('finishRefreshData', 1, $message);
 
@@ -196,7 +197,7 @@ class Data extends Component
         $this->imgSaver($this->logoPerusahaan, 'logo_perusahaan');
 
         $message = 'Berhasil menyimpan logo';
-
+        activity()->causedBy(HelperController::user())->log("Menyimpan logo perusahaan");
         $this->emit('finishSimpanData', 1, $message);
         $this->emit('finishRefreshData', 1, $message);
 

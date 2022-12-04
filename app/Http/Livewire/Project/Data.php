@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Project;
 
+use App\Http\Controllers\HelperController;
 use App\Models\ProjectV2;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -39,6 +40,7 @@ class Data extends Component
 
         $project->delete();
         $message = "Data Project berhasil dihapus";
+        activity()->causedBy(HelperController::user())->log("Menghapus data project");
         return session()->flash('success', $message);
     }
 }

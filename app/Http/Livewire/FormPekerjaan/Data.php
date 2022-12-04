@@ -47,6 +47,7 @@ class Data extends Component
 
         $project->delete();
         $message = "Berhasil menghapus data project";
+        activity()->causedBy(HelperController::user())->log("Menghapus data project");
         $this->emit('finishRefreshProject', 1,$message);
         return session()->flash('success', $message);
     }

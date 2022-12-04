@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Quotation;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Barang;
 use App\Models\Quotation;
 use App\Models\QuotationDetail;
@@ -51,6 +52,7 @@ class Detail extends Component
 
         $quotationDetail->delete();
         $message = "Berhasil menghapus data";
+        activity()->causedBy(HelperController::user())->log("Menghapus data barang pada quotation");
         $this->emit('finishRefreshBarang', 1, $message);
         return session()->flash('success', $message);
     }
@@ -117,6 +119,8 @@ class Detail extends Component
         ]);
 
         $message = "Berhasil menyimpan data";
+        activity()->causedBy(HelperController::user())->log("Menambah atau mengedit barang pada quotation");
+
         $this->tambahBarang = false;
         $this->resetInputFields();
         $this->emit('finishRefreshBarang', 1, $message);

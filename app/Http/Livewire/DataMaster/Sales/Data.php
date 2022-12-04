@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\DataMaster\Sales;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Sales;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -39,6 +40,7 @@ class Data extends Component
 
         $sales->delete();
         $message = "Data sales berhasil dihapus";
+        activity()->causedBy(HelperController::user())->log("Hapus data sales");
         return session()->flash('success', $message);
     }
 }

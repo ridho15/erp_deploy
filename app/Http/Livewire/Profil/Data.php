@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Profil;
 
 use App\CPU\Helpers;
+use App\Http\Controllers\HelperController;
 use App\Models\User;
 use App\Models\UserLog;
 use Carbon\Carbon;
@@ -107,6 +108,7 @@ class Data extends Component
         $data->save();
 
         $message = 'Berhasil mengubah profil';
+        activity()->causedBy(HelperController::user())->log("Mengupdate data profile");
         $this->emit('refreshProfile');
         $this->emit('finishSimpanData', 1, $message);
         $this->emit('finishRefreshData', 1, $message);
@@ -159,5 +161,7 @@ class Data extends Component
             $this->resetFields();
             $this->emit('finishSimpanData', 2, $message);
         }
+
+        activity()->causedBy(HelperController::user())->log("Melakukan update password");
     }
 }

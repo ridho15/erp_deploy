@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\DaftarTugas;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Kondisi;
 use App\Models\LaporanPekerjaan;
 use App\Models\LaporanPekerjaanChecklist;
@@ -96,6 +97,7 @@ class LaporanPerawatanLift extends Component
         }
 
         $message = 'Berhasil menyimpan data';
+        activity()->causedBy(HelperController::user())->log("Menyimpan data laporan perawatan lift");
         $this->resetInputFields();
         $this->emit('finishSimpanData', 1, $message);
 
@@ -114,6 +116,7 @@ class LaporanPerawatanLift extends Component
         ]);
 
         $message = 'Berhasil menyimpan data';
+        activity()->causedBy(HelperController::user())->log("Memilih pekerjaan untuk perawatan lift");
         return session()->flash('success', $message);
     }
 
@@ -124,6 +127,7 @@ class LaporanPerawatanLift extends Component
         $detailList->save();
 
         $message = 'Berhasil merubah status pekerjaan';
+        activity()->causedBy(HelperController::user())->log("Update status pekerjaan");
         $this->emit('finishSimpanData', 1, $message);
 
         // return session()->flash('success', $message);
@@ -147,6 +151,7 @@ class LaporanPerawatanLift extends Component
         ]);
 
         $message = 'Berhasil menyimpan keterangan';
+        activity()->causedBy(HelperController::user())->log("Update keterangan laporan perawatan lift");
         return session()->flash('success', $message);
     }
 
@@ -161,6 +166,7 @@ class LaporanPerawatanLift extends Component
         ]);
 
         $message = 'Berhasil menyimpan data';
+        activity()->causedBy(HelperController::user())->log("Set konfisi lift");
         return session()->flash('success', $message);
     }
 
@@ -180,6 +186,7 @@ class LaporanPerawatanLift extends Component
         }
 
         $message = "Berhasil menyimpan data";
+        activity()->causedBy(HelperController::user())->log("Update status perawatan lift");
         return session()->flash('success', $message);
     }
 }

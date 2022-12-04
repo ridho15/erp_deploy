@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Form;
 
+use App\Http\Controllers\HelperController;
 use App\Models\FormMaster;
 use Livewire\Component;
 
@@ -47,6 +48,7 @@ class Form extends Component
         ]);
 
         $message = 'Data form berhasil disimpan';
+        activity()->causedBy(HelperController::user())->log("Menambah / mengupdate data form master");
         $this->resetInputFields();
         $this->emit('refreshForm');
         $this->emit('finishSimpanData', 1, $message);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\FormPekerjaan;
 
+use App\Http\Controllers\HelperController;
 use App\Models\ProjectDetail;
 use App\Models\ProjectDetailSub;
 use Livewire\Component;
@@ -36,6 +37,7 @@ class DetailSubPekerjaan extends Component
 
         $projectDetailSub->delete();
         $message = "Data Pekerjaan berhasil dihapus";
+        activity()->causedBy(HelperController::user())->log("Data Pekerjaan di hapus");
         $this->emit('finishRefreshData', 1, $message);
         return session()->flash('success', $message);
     }

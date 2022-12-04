@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\PreOrder;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Customer;
 use App\Models\PreOrder;
 use App\Models\Quotation;
@@ -91,6 +92,7 @@ class Data extends Component
 
         $preOrder->delete();
         $message = "Berhasil menghapus data pre order";
+        activity()->causedBy(HelperController::user())->log("Menghapus data pre order");
         $this->emit('finishRefreshData', 1, $message);
         return session()->flash('success', $message);
     }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire\PreOrder;
 
+use App\Http\Controllers\HelperController;
+use App\Models\BarangStockLog;
 use App\Models\Customer;
 use App\Models\MetodePembayaran;
 use App\Models\PreOrder;
@@ -152,10 +154,21 @@ class Form extends Component
                         'status' => 4,
                         'konfirmasi' => 0
                     ]);
+
+                    BarangStockLog::create([
+                        'id_barang' => $item->id_barang,
+                        'stock_awal' => $item->barang->stock + $item->qty,
+                        'perubahan' => $item->qty,
+                        'id_tipe_perubahan_stock' => 4,
+                        'tanggal_perubahan' => now(),
+                        'id_user' => session()->get('id_user'),
+                        'id_quotation' => $quotation->id
+                    ]);
                 }
             }
         }
         $message = "Berhasil menyimpan data";
+        activity()->causedBy(HelperController::user())->log("Berhasil menyimpan data pre order");
         $this->resetInputFields();
         $this->emit('refreshPreOrder');
         $this->emit('finishSimpanData', 1, $message);

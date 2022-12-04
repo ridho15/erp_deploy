@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\PinjamMeminjam;
 
+use App\Http\Controllers\HelperController;
 use App\Models\BarangStockLog;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -26,7 +27,7 @@ class BarangDibalikan extends Component
                 $query->where('nama', 'LIKE', '%' . $this->cari . '%')
                 ->orWhere('deskripsi', 'LIKE', '%' . $this->cari . '%');
             });
-        })->where('id_tipe_perubahan_stock', 5)->paginate($this->total_show);
+        })->where('id_tipe_perubahan_stock', 5)->orderBy('tanggal_perubahan', 'DESC')->paginate($this->total_show);
         $data['listBarangDibalikan'] = $this->listBarangDibalikan;
         return view('livewire.pinjam-meminjam.barang-dibalikan', $data);
     }
@@ -45,5 +46,7 @@ class BarangDibalikan extends Component
         $barangStockLog->update([
             'check' => $barangStockLog->check == 1 ? 0 : 1
         ]);
+
+        activity()->causedBy(HelperController::user())->log("Check barang di kembalikan");
     }
 }

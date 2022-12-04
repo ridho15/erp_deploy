@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Kategori;
 
+use App\Http\Controllers\HelperController;
 use App\Models\BarangKategori;
 use Livewire\Component;
 
@@ -35,6 +36,7 @@ class Barang extends Component
 
         $barangKategori->delete();
         $message = "Barang kategori berhasil di hapus";
+        activity()->causedBy(HelperController::user())->log("Menghapus barang kategori");
 
         $this->emit('finishDataKategori', 1, $message);
         return session()->flash('success', $message);

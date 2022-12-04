@@ -21,9 +21,26 @@ class SupplierOrder extends Model
         'keterangan',
         'id_tipe_pembayaran',
         'id_metode_pembayaran',
+        'status_pembayaran'
     ];
 
-    protected $appends = ['tanggal_order_formatted', 'status_order_formatted', 'total_harga_formatted'];
+    protected $appends = [
+        'status_pembayaran_formatted',
+        'tanggal_order_formatted',
+        'status_order_formatted',
+        'total_harga_formatted',
+        'status_pembayaran_formatted'
+    ];
+
+    public function getStatusPembayaranFormattedAttribute(){
+        if($this->status_pembayaran == 0){
+            return '<span class="badge badge-secondary">Belum Bayar</span>';
+        }elseif($this->status_pembayaran == 1){
+            return '<span class="badge badge-warning">Belum Lunas</span>';
+        }elseif($this->status_pembayaran == 2){
+            return '<span class="badge badge-success">Lunas</span>';
+        }
+    }
 
     public function getTanggalOrderFormattedAttribute(){
         $carbon = Carbon::parse($this->tanggal_order)->locale('id')->isoFormat('dddd, DD MMMM YYYY');
@@ -59,5 +76,9 @@ class SupplierOrder extends Model
 
     public function metodePembayaran(){
         return $this->belongsTo(MetodePembayaran::class, 'id_metode_pembayaran');
+    }
+
+    public function supplierOrderPembayaran(){
+        return $this->hasMany(SupplierOrderPembayaran::class, 'id_supplier_order');
     }
 }

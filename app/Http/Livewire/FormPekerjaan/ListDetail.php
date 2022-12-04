@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\FormPekerjaan;
 
+use App\Http\Controllers\HelperController;
 use App\Models\ProjectDetail;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -42,6 +43,7 @@ class ListDetail extends Component
 
         $projectDetail->delete();
         $message = "Berhasil menghapus project detail";
+        activity()->causedBy(HelperController::user())->log("Menghapus detail project");
         $this->emit('finishRefreshProject', 1, $message);
         return session()->flash('success', $message);
     }

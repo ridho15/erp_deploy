@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\PinjamMeminjam;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Barang;
 use App\Models\LaporanPekerjaanBarang;
 use Livewire\Component;
@@ -43,7 +44,12 @@ class AcureateMasuk extends Component
         }
 
         $barang = Barang::find($laporanPekerjaanBarang->id_barang);
-        $response = $barang->barangStockChange($laporanPekerjaanBarang->qty, 5);
+        if($laporanPekerjaanBarang->laporanPekerjaan->quotation){
+            $id_quotation = $laporanPekerjaanBarang->laporanPekerjaan->quotation->id;
+        }else{
+            $id_quotation = null;
+        }
+        $response = $barang->barangStockChange($laporanPekerjaanBarang->qty, 5, $id_quotation);
         if($response['status'] == 0){
             return session()->flash('fail', $response['message']);
         }
@@ -54,6 +60,7 @@ class AcureateMasuk extends Component
         ]);
 
         $message = "Berhasil mengkonfirmasi data";
+        activity()->causedBy(HelperController::user())->log("Mengkonfirmasi barang accurate keluar");
         $this->emit('refreshBarangDipinjam');
         return session()->flash('success', $message);
     }

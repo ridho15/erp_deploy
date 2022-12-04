@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\PinjamMeminjam;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Barang;
 use App\Models\BarangStockLog;
 use App\Models\LaporanPekerjaan;
@@ -87,11 +88,16 @@ class BarangDipinjam extends Component
             return session()->flash('fail', $message);
         }
 
-        // $barang = Barang::find($laporanPekerjaanBarang->id_barang);
-        // $response = $barang->barangStockChange($this->qty, 5);
-        // if($response['status'] == 0){
-        //     return session()->flash('fail', $response['message']);
-        // }
+        $barang = Barang::find($laporanPekerjaanBarang->id_barang);
+        if($laporanPekerjaanBarang->laporanPekerjaan->quotation){
+            $id_quotation = $laporanPekerjaanBarang->laporanPekerjaan->quotation->id;
+        }else{
+            $id_quotation = null;
+        }
+        $response = $barang->barangStockChange($this->qty, 5, $id_quotation);
+        if($response['status'] == 0){
+            return session()->flash('fail', $response['message']);
+        }
 
         if($this->qty != $laporanPekerjaanBarang->qty){
             LaporanPekerjaanBarang::create([
@@ -110,8 +116,10 @@ class BarangDipinjam extends Component
         ]);
 
         $message = 'Berhasil mengembalikan barang ke gudang';
+        activity()->causedBy(HelperController::user())->log("Melakukan pengembalian barang ke gudang");
         $this->emit('refreshBarangDiminta');
         $this->emit('refreshStockBarang');
+        $this->emit('refreshBarangDibalikan');
         $this->emit('refreshAcurateKeluar');
         $this->emit('finishSimpanData', 1, $message);
         return session()->flash('success', $message);
@@ -148,7 +156,14 @@ class BarangDipinjam extends Component
             return session()->flash('fail', $message);
         }
 
-        $response = $barang->barangStockChange($this->qty, 1);
+        $laporanPekerjaan = LaporanPekerjaan::find($this->id_laporan_pekerjaan);
+        if($laporanPekerjaan->quotation){
+            $id_quotation = $laporanPekerjaan->quotation->id;
+        }else{
+            $id_quotation = null;
+        }
+
+        $response = $barang->barangStockChange($this->qty, 1, $id_quotation);
         if($response['status'] == 0){
             return session()->flash('fail', $response['message']);
         }
@@ -162,8 +177,8 @@ class BarangDipinjam extends Component
             'status' => 2
         ]);
 
-
         $message = 'Berhasil memasukkan barang ke laporan pekerjaan';
+        activity()->causedBy(HelperController::user())->log("Memasukkan barang ke laporan pekerjaan");
         $this->emit('refreshBarangDiminta');
         $this->emit('refreshStockBarang');
         $this->emit('refreshAcurateKeluar');
@@ -196,5 +211,7 @@ class BarangDipinjam extends Component
         $barangStockLog->update([
             'check' => $barangStockLog->check == 1 ? 0 : 1
         ]);
+
+        activity()->causedBy(HelperController::user())->log("Check barang pinjaman");
     }
 }

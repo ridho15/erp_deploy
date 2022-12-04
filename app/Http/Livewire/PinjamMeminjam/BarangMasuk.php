@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\PinjamMeminjam;
 
+use App\Http\Controllers\HelperController;
 use App\Models\BarangStockLog;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -38,5 +39,7 @@ class BarangMasuk extends Component
         $barangStockLog->update([
             'check' => $barangStockLog->check == 1 ? 0 : 1
         ]);
+
+        activity()->causedBy(HelperController::user())->log("Check barang masuk");
     }
 }

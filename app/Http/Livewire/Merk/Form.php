@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Merk;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Merk;
 use Livewire\Component;
 
@@ -34,6 +35,7 @@ class Form extends Component
         ]);
 
         $message = 'Merk berhasil di simpan';
+        activity()->causedBy(HelperController::user())->log("Menyimpan data merk");
         $this->resetInputFields();
         $this->emit('refreshDataMerk');
         $this->emit('finishSimpanData', 1, $message);

@@ -110,6 +110,7 @@ class FormOrder extends Component
         ], $data);
 
         $message = 'Berhasil menyimpan data supplier order';
+        activity()->causedBy(HelperController::user())->log("Menyimpan data supplier order");
         $this->resetInputFields();
         $this->emit('refreshSupplierOrder');
         $this->emit('refreshSupplierOrderDetail');

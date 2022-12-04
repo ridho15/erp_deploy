@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\MetodePembayaran;
 
+use App\Http\Controllers\HelperController;
 use App\Models\MetodePembayaran;
 use Livewire\Component;
 
@@ -35,6 +36,7 @@ class Data extends Component
 
         $metodePembayaran->delete();
         $message = "Metode Pembayaran berhasil di hapus";
+        activity()->causedBy(HelperController::user())->log("Menghapus data kategori");
         return session()->flash('success', $message);
     }
 }

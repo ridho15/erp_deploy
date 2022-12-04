@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\PreOrder;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Barang;
 use App\Models\BarangStockLog;
 use App\Models\PreOrder;
@@ -55,6 +56,7 @@ class Detail extends Component
         ]);
 
         $message = "Pre Order berhasil di update";
+        activity()->causedBy(HelperController::user())->log("CHange status pre order");
         $this->emit('refreshPreOrderLog');
         $this->emit('finishRefreshData', 1, $message);
         return session()->flash('success', $message);
@@ -92,6 +94,7 @@ class Detail extends Component
         ]);
 
         $message = "Berhasil menyimpan data";
+        activity()->causedBy(HelperController::user())->log("Change status pre order ke selesai");
         $this->emit('refreshPreOrderLog');
         $this->emit('refreshPreOrderDetail');
         $this->emit('finishRefreshData', 1, $message);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\FormPekerjaan;
 
+use App\Http\Controllers\HelperController;
 use App\Models\ProjectDetailSub;
 use App\Models\ProjectDetailSubFoto as ModelsProjectDetailSubFoto;
 use Livewire\Component;
@@ -72,6 +73,7 @@ class ProjectDetailSubFoto extends Component
         }
 
         $message = "Berhasil menyimpan gambar";
+        activity()->causedBy(HelperController::user())->log("Menyimpan gambar sub pekerjaan");
         $this->resetInputFields();
         return session()->flash('success', $message);
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Supplier;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Supplier;
 use Livewire\Component;
 
@@ -52,6 +53,8 @@ class Form extends Component
         ]);
 
         $message = 'Berhasil menyimpan data supplier';
+        activity()->causedBy(HelperController::user())->log("Menyimpan data supplier");
+
         $this->resetInputFields();
         $this->emit('finishSimpanData', 1, $message);
         $this->emit('refreshDataSupplier');

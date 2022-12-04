@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\DaftarTugas;
 
+use App\Http\Controllers\HelperController;
 use App\Models\LaporanPekerjaan;
 use App\Models\ProjectV2;
 use Livewire\Component;
@@ -98,6 +99,7 @@ class Data extends Component
         $laporanPekerjaan->save();
 
         $message = 'Data daftar tugas berhasil dikembalikan ke management tugas';
+        activity()->causedBy(HelperController::user())->log("Menghapus data tipe barang");
         $this->emit('finishRefreshData', 1, $message);
 
         return session()->flash('success', $message);

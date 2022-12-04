@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Quotation;
 
+use App\Http\Controllers\HelperController;
 use App\Mail\SendQuotationMail;
 use App\Models\ProjectV2;
 use App\Models\Quotation;
@@ -76,9 +77,10 @@ class Data extends Component
         }
 
         $quotation->delete();
-        $mesasge = "Berhasil menghapus quotation";
-        $this->emit('finishRefreshQuotation', 1, $mesasge);
-        return session()->flash('success', $mesasge);
+        $message = "Berhasil menghapus quotation";
+        activity()->causedBy(HelperController::user())->log($message);
+        $this->emit('finishRefreshQuotation', 1, $message);
+        return session()->flash('success', $message);
     }
 
     public function sendQuotationToCustomer($id){
@@ -107,6 +109,7 @@ class Data extends Component
             'tanggal' => now()
         ]);
         $message= "Quotation Berhasil dikirim";
+        activity()->causedBy(HelperController::user())->log($message);
         $this->emit('finishRefreshData', 1, $message);
         return session()->flash('success', $message);
     }
@@ -130,6 +133,7 @@ class Data extends Component
         ]);
 
         $message = "Quotation Gagal";
+        activity()->causedBy(HelperController::user())->log($message);
         return session()->flash('fail', $message);
     }
 
@@ -146,6 +150,7 @@ class Data extends Component
 
         $message = "Quotation Berhasil";
 
+        activity()->causedBy(HelperController::user())->log("Submit quotation to pre order");
         return redirect()->route('pre-order')->with('success', $message);
         // return session()->flash('success', $mesasge);
     }

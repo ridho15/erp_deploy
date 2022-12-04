@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\FormPekerjaan;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Customer;
 use App\Models\Project;
 use App\Models\Quotation;
@@ -82,7 +83,7 @@ class Form extends Component
         }else{
             $message = "Berhasil menyimpan data project";
         }
-
+        activity()->causedBy(HelperController::user())->log("Menyimpan data project");
         $this->resetInputFields();
         $this->emit('refreshDataProject');
         $this->emit('finishSimpanData', 1, $message);

@@ -1,4 +1,4 @@
-<div>
+    <div>
     @include('helper.alert-message')
     <div class="text-center">
         @include('helper.simple-loading', ['target' => 'cari', 'message' => 'Memuat data...'])

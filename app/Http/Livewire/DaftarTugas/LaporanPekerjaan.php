@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\DaftarTugas;
 
+use App\Http\Controllers\HelperController;
 use App\Models\BarangStockLog;
 use App\Models\CatatanTeknisiPekerjaan;
 use App\Models\LaporanPekerjaan as ModelsLaporanPekerjaan;
@@ -98,7 +99,8 @@ class LaporanPekerjaan extends Component
                         'perubahan' => $barang->qty,
                         'tanggal_perubahan' => now(),
                         'id_tipe_perubahan_stock' => 1,
-                        'id_user' => session()->get('id_user')
+                        'id_user' => session()->get('id_user'),
+                        'id_quotation' => $laporanPekerjaan->quotation ? $laporanPekerjaan->quotation->id : null
                     ]);
 
                     $barang->update([
@@ -125,6 +127,7 @@ class LaporanPekerjaan extends Component
         }
 
         $message = "Berhasil menyimpan data laporan pekerjaan";
+        activity()->causedBy(HelperController::user())->log("Menyimpan data laporan pekerjaan");
         $this->resetInputFields();
         $this->emit('finishSimpanData', 1, $message);
         return session()->flash('success', $message);
@@ -163,6 +166,7 @@ class LaporanPekerjaan extends Component
             }
         }
 
+        activity()->causedBy(HelperController::user())->log("Membuat quotation");
         return redirect()->route('management-tugas.export', ['id' => $laporanPekerjaan->id]);
     }
 
@@ -180,6 +184,7 @@ class LaporanPekerjaan extends Component
         Storage::disk('public')->put('tanda_tangan/'.$imageName, base64_decode($image));
         $this->signature = '/tanda_tangan/' . $imageName;
         $message = "Berhasil memasang tanda tangan";
+        activity()->causedBy(HelperController::user())->log("Laporan pekerjaan berhasil di tanda tangani");
         $this->emit('finishSimpanData', 1, $message);
         return session()->flash('success', $message);
         // \File::put(storage_path(). '/' . $imageName, base64_decode($image));

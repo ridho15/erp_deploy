@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Supplier;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Supplier;
 use App\Models\SupplierBarang;
 use Livewire\Component;
@@ -43,6 +44,7 @@ class Barang extends Component
 
         $supplierBarang->delete();
         $message = "Berhasil menghapus supplier barang";
+        activity()->causedBy(HelperController::user())->log("Menghapus Supplier Barang");
 
         return session()->flash('success', $message);
     }

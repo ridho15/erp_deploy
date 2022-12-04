@@ -21,6 +21,7 @@
          <thead>
           <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
            <th>No</th>
+           <th>SKU</th>
            <th>Barang</th>
            <th>Satuan</th>
            <th>Quantity</th>
@@ -36,6 +37,11 @@
                 @foreach ($listSupplierOrderDetail as $index => $item)
                     <tr>
                         <td>{{ $index + 1 }}</td>
+                        <td>
+                            <a href="{{ route('barang.detail', ['id' => $item->id_barang]) }}" class="text-dark">
+                                {{ $item->barang->sku }}
+                            </a>
+                        </td>
                         <td>
                             <a href="{{ route('barang.detail', ['id' => $item->id_barang]) }}" class="text-dark">
                                 {{ $item->barang->nama }}
@@ -73,8 +79,6 @@
         </table>
     </div>
     <div class="text-center">{{ $listSupplierOrderDetail->links() }}</div>
-
-    @livewire('supplier.order-detail-form', ['id_supplier_order' => $id_supplier_order])
 </div>
 
 @push('js')

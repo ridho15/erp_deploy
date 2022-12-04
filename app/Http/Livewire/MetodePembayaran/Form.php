@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\MetodePembayaran;
 
+use App\Http\Controllers\HelperController;
 use App\Models\MetodePembayaran;
 use Livewire\Component;
 
@@ -47,6 +48,7 @@ class Form extends Component
         ]);
 
         $message = "Berhasil menyimpan metode pembayaran";
+        activity()->causedBy(HelperController::user())->log("Menyimpan data metode pembayaran");
         $this->resetInputFields();
         $this->emit('refreshMetodePembayaran');
         $this->emit('finishSimpanData', 1, $message);

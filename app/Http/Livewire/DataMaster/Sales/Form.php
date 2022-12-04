@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\DataMaster\Sales;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Sales;
 use Livewire\Component;
 
@@ -54,6 +55,7 @@ class Form extends Component
         ]);
 
         $message = "Berhasil menyimpan data sales";
+        activity()->causedBy(HelperController::user())->log("Menambah atau mengupdate data sales");
         $this->resetInputFields();
         $this->emit('refreshSales');
         $this->emit('finishSimpanData', 1, $message);

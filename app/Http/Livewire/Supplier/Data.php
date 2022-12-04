@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Supplier;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Supplier;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -40,6 +41,7 @@ class Data extends Component
 
         $supplier->delete();
         $message = "Data Supplier berhasil dihapus";
+        activity()->causedBy(HelperController::user())->log("Menghapus data Supplier");
         $this->emit('finishDataSupplier', 1, $message);
         return session()->flash('success', $message);
     }

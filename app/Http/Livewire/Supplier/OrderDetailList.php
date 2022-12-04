@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Supplier;
 
+use App\Http\Controllers\HelperController;
 use App\Models\SupplierOrder;
 use App\Models\SupplierOrderDetail;
 use Livewire\Component;
@@ -41,6 +42,7 @@ class OrderDetailList extends Component
 
         $supplierOderDetail->delete();
         $message = "Berhasil menghapus barang dari order";
+        activity()->causedBy(HelperController::user())->log("Menghapus barang dari orderan");
         return session()->flash('success', $message);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\ManagementTugas;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Customer;
 use App\Models\FormMaster;
 use App\Models\LaporanPekerjaan;
@@ -194,6 +195,7 @@ class Form extends Component
         }
 
         $message = 'Data berhasil disimpan';
+        activity()->causedBy(HelperController::user())->log("Menyimpan data management tugas");
         $this->resetInputFields();
         $this->emit('refreshManagementTugas');
         $this->emit('finishSimpanData', 1, $message);

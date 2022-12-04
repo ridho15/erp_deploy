@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\TipeUser;
 
+use App\Http\Controllers\HelperController;
 use App\Models\TipeUser;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -36,16 +37,16 @@ class Data extends Component
 
     public function hapusUser($id)
     {
-        $user = TipeUser::find($id);
-        if (!$user) {
+        $tipeUser = TipeUser::find($id);
+        if (!$tipeUser) {
             $message = 'Data tidak ditemukan';
 
             return $this->emit('finishDataUser', 0, $message);
         }
 
-        $user->delete();
+        $tipeUser->delete();
         $message = 'Berhasil menghapus data';
-
+        activity()->causedBy(HelperController::user())->log("Menghapus tipe user");
         return $this->emit('finishDataUser', 1, $message);
     }
 

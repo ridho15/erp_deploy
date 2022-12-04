@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\FormPekerjaan;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Kondisi;
 use App\Models\ProjectDetail;
 use App\Models\ProjectDetailSub;
@@ -92,6 +93,7 @@ class FormUraianPekerjaan extends Component
         ]);
 
         $message = "Berhasil menyimpan data pekerjaan";
+        activity()->causedBy(HelperController::user())->log($message);
         $this->resetInputFields();
         $this->emit('refreshProjectDetailSub');
         $this->emit('finishSimpanData', 1, $message);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Rak;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Rak;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -42,6 +43,7 @@ class Data extends Component
 
         $rak->delete();
         $message = "Rak berhasil di hapus";
+        activity()->causedBy(HelperController::user())->log("Menghapus data rak");
         return session()->flash('success', $message);
     }
 }

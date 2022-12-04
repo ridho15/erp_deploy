@@ -29,6 +29,7 @@
                    <th>Stock</th>
                    <th>Satuan</th>
                    <th>Harga</th>
+                   <th>Harga Modal</th>
                    <th>Minimal Stock</th>
                    <th>Tipe Barang</th>
                    <th>Deskripsi</th>
@@ -46,6 +47,7 @@
                                 <td>{{ $item->stock }}</td>
                                 <td>{{ $item->satuan->nama_satuan }}</td>
                                 <td>{{ $item->harga_formatted }}</td>
+                                <td>{{ $item->harga_modal_formatted }}</td>
                                 <td>{{ $item->min_stock }}</td>
                                 <td>{{ $item->tipeBarang->tipe_barang }}</td>
                                 <td>{{ $item->deskripsi }}</td>

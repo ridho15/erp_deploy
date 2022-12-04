@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Barang;
 
+use App\Http\Controllers\HelperController;
 use App\Models\BarangGambar;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -44,6 +45,7 @@ class Gambar extends Component
         }
 
         $message = "Berhasil mengupload gambar";
+        activity()->causedBy(HelperController::user())->log("Mengupload data gambar");
         $this->resetInputFields();
         $this->emit('finishDataBarang', 1, $message);
         return session()->flash('success', $message);
@@ -63,6 +65,7 @@ class Gambar extends Component
 
         $barangGambar->delete();
         $message = "Gambar berhasil di hapus";
+        activity()->causedBy(HelperController::user())->log("Menghapus data gambar barang");
         return session()->flash('success', $message);
     }
 }

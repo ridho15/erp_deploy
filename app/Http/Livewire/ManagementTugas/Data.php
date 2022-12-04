@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\ManagementTugas;
 
+use App\Http\Controllers\HelperController;
 use App\Models\LaporanPekerjaan;
 use App\Models\ProjectV2;
 use Carbon\Carbon;
@@ -114,6 +115,7 @@ class Data extends Component
         $laporanPekerjaan->save();
 
         $message = 'Data management tugas berhasil dikirim ke daftar tugas';
+        activity()->causedBy(HelperController::user())->log("Mengirim data management tugas ke daftar tugas");
         $this->emit('finishRefreshData', 1, $message);
 
         return session()->flash('success', $message);
@@ -131,6 +133,7 @@ class Data extends Component
 
         $laporanPekerjaan->delete();
         $message = 'Data management tugas berhasil dihapus';
+        activity()->causedBy(HelperController::user())->log("Data management tugas di hapus");
         $this->emit('finishRefreshData', 1, $message);
 
         return session()->flash('success', $message);
@@ -151,6 +154,7 @@ class Data extends Component
         }
 
         $message = "Berhasil mengirim data";
+        activity()->causedBy(HelperController::user())->log("Melakukan pengiriman data management tugas ke daftar tugas secara keseluruhan");
         return session()->flash('success', $message);
     }
 }

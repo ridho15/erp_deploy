@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Inventory;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Barang;
 use App\Models\StockOpname as ModelsStockOpname;
 use Livewire\Component;
@@ -52,6 +53,7 @@ class StockOpname extends Component
                 'jumlah_mutasi' => $jumlah_mutasi
             ]);
         }
+        activity()->causedBy(HelperController::user())->log("Menyimpan data barang jumlah mutasi");
     }
 
     public function simpanJumlahTerjual($id_stock_opname, $jumlah_terjual){
@@ -61,6 +63,7 @@ class StockOpname extends Component
                 'jumlah_terjual' => $jumlah_terjual
             ]);
         }
+        activity()->causedBy(HelperController::user())->log("Menyimpan data barang jumlah terjual");
     }
 
     public function simpanJumlahTerbaru($id_stock_opname, $jumlah_terbaru){
@@ -79,6 +82,8 @@ class StockOpname extends Component
                 'tanggal' => $tanggal
             ]);
         }
+        activity()->causedBy(HelperController::user())->log("Menyimpan data barang Tanggal pada stock opname");
+
     }
 
     public function simpanKeterangan($id_stock_opname, $keterangan){
@@ -88,6 +93,7 @@ class StockOpname extends Component
                 'keterangan' => $keterangan
             ]);
         }
+        activity()->causedBy(HelperController::user())->log("Menyimpan data barang keterangan pada stock opname");
     }
 
     public function hapusStockOpname($id){
@@ -99,6 +105,7 @@ class StockOpname extends Component
 
         $stockOpname->delete();
         $message = "Berhasil menghapus data";
+        activity()->causedBy(HelperController::user())->log("Menghapus data stock opname");
         return session()->flash('success', $message);
     }
 }

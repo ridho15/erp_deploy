@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\TemplatePekerjaan;
 
+use App\Http\Controllers\HelperController;
 use App\Models\FormMaster;
 use App\Models\TemplatePekerjaan;
 use Livewire\Component;
@@ -48,6 +49,7 @@ class Data extends Component
 
         $templatePekerjaan->delete();
         $message = 'Data berhasil dihapus';
+        activity()->causedBy(HelperController::user())->log("Berhasil menghapus template pekerjaan");
         $this->emit('finishRefreshData', 1, $message);
 
         return session()->flash('success', $message);

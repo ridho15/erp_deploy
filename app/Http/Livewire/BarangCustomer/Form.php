@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\BarangCustomer;
 
+use App\Http\Controllers\HelperController;
 use App\Models\BarangCustomer;
 use Livewire\Component;
 
@@ -38,6 +39,7 @@ class Form extends Component
         ]);
 
         $message = "Barang berhasil di simpan";
+        activity()->causedBy(HelperController::user())->log("Menyimpan data Barang Customer");
         $this->emit('refreshBarangCustomer');
         $this->emit('finishSimpanData', 1, $message);
 

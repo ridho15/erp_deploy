@@ -13,6 +13,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KondisiController;
 use App\Http\Controllers\KostumerController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\ManagementTugasController;
 use App\Http\Controllers\MerkController;
 use App\Http\Controllers\MetodePembayaranController;
@@ -66,6 +67,16 @@ Route::middleware('auth.user')->group(function () {
             Route::get('/ambil/{id}', [DaftarTugasController::class, 'ambil'])->name('daftar-tugas.ambil');
             Route::get('/mulai/{id}', [DaftarTugasController::class, 'mulai'])->name('daftar-tugas.mulai');
         });
+    });
+
+    Route::prefix('laporan')->group(function(){
+        Route::get('/account-payable', [LaporanController::class, 'accountPayable'])->name('laporan.account-payable');
+        Route::get('/account-receivable', [LaporanController::class, 'accountReceivable'])->name('laporan.account-receivable');
+        Route::get('/kalender', [LaporanController::class, 'kalender'])->name('laporan.kalender');
+        Route::get('/spareparts', [LaporanController::class, 'spareparts'])->name('laporan.spareparts');
+        Route::get('/stock-opname', [LaporanController::class, 'stockOpname'])->name('laporan.stock-opname');
+        Route::get('/log-activity', [LaporanController::class, 'logActivity'])->name('laporan.log-activity');
+        Route::get('/grafik-penjualan', [LaporanController::class, 'grafikPenjualan'])->name('laporan.grafik-penjualan');
     });
 
     Route::middleware('auth.super-admin')->group(function(){

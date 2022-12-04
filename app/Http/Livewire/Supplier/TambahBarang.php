@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Supplier;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Barang;
 use App\Models\Supplier;
 use App\Models\SupplierBarang;
@@ -63,6 +64,7 @@ class TambahBarang extends Component
         ]);
 
         $message = 'Berhasil menambahkan barang ke supplier';
+        activity()->causedBy(HelperController::user())->log("Menambahkan barang ke supplier");
         $this->emit('refreshSupplierBarang');
         $this->emit('onFinishTambahBarang', 1, $message);
         return session()->flash('success', $message);

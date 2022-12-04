@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\FormPekerjaan;
 
+use App\Http\Controllers\HelperController;
 use App\Models\ProjectFoto;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -46,6 +47,7 @@ class Foto extends Component
             }
 
             $message = "Foto berhasil di simpan";
+            activity()->causedBy(HelperController::user())->log("Menyimpan data foto pekerjaan");
             $this->resetInputFields();
             $this->emit('finishSimpanData', 1, $message);
             return session()->flash('success', $message);
@@ -68,6 +70,7 @@ class Foto extends Component
 
         $projectFoto->delete();
         $message = "Foto berhasil di hapus";
+        activity()->causedBy(HelperController::user())->log("Hapus foto pekerjaan");
         return session()->flash('success', $message);
     }
 }

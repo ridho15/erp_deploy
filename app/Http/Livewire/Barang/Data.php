@@ -41,6 +41,7 @@ class Data extends Component
 
         $barang->delete();
         $message = "Barang berhasil dihapus";
+        activity()->causedBy(HelperController::user())->log("Menghapus data barang");
         $this->emit('finisDataBarang', 1, $message);
         return session()->flash('success', $message);
     }

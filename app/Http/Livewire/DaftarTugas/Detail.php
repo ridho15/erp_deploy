@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\DaftarTugas;
 
+use App\Http\Controllers\HelperController;
 use App\Models\LaporanPekerjaan;
 use Livewire\Component;
 
@@ -35,6 +36,7 @@ class Detail extends Component
         ]);
 
         $message = "Barang sudah di check dan di konfirmasi";
+        activity()->causedBy(HelperController::user())->log($message);
         $this->emit('refreshLaporanPekerjaan');
         return session()->flash('success', $message);
     }

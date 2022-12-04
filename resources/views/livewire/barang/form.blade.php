@@ -27,6 +27,13 @@
                                 @enderror
                             </div>
                             <div class="mb-5 col-md-6">
+                                <label for="" class="form-label required">Harga Modal</label>
+                                <input type="number" class="form-control form-control-solid" name="harga_modal" wire:model="harga_modal" placeholder="Masukkan harga" required>
+                                @error('harga_modal')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-5 col-md-6">
                                 <label for="" class="form-label required">Harga</label>
                                 <input type="number" class="form-control form-control-solid" name="harga" wire:model="harga" placeholder="Masukkan harga" required>
                                 @error('harga')

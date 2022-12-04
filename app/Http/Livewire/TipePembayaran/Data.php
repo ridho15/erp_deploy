@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\TipePembayaran;
 
+use App\Http\Controllers\HelperController;
 use App\Models\TipePembayaran;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -36,16 +37,16 @@ class Data extends Component
 
     public function hapusUser($id)
     {
-        $user = TipePembayaran::find($id);
-        if (!$user) {
+        $TipePembayaran = TipePembayaran::find($id);
+        if (!$TipePembayaran) {
             $message = 'Data tidak ditemukan';
 
             return $this->emit('finishDataUser', 0, $message);
         }
 
-        $user->delete();
+        $TipePembayaran->delete();
         $message = 'Berhasil menghapus data';
-
+        activity()->causedBy(HelperController::user())->log("Menghapus tipe pembayaran");
         return $this->emit('finishDataUser', 1, $message);
     }
 

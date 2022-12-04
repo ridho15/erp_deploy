@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\PinjamMeminjam;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Barang;
 use App\Models\BarangStockLog;
 use App\Models\LaporanPekerjaanBarang;
@@ -68,6 +69,7 @@ class BarangDiminta extends Component
         ]);
 
         $message = "Berhasil mengupdate data";
+        activity()->causedBy(HelperController::user())->log("Menolak atau mengabaikan peminjaman barang");
         $this->emit('finishSimpanData', 1, $message);
         return session()->flash('success', $message);
     }
@@ -100,7 +102,12 @@ class BarangDiminta extends Component
         }
 
         $barang = Barang::find($laporanPekerjaanBarang->id_barang);
-        $response = $barang->barangStockChange($this->qty, 1);
+        if($laporanPekerjaanBarang->laporanPekerjaan->quotation){
+            $id_quotation = $laporanPekerjaanBarang->laporanPekerjaan->quotation->id;
+        }else{
+            $id_quotation = null;
+        }
+        $response = $barang->barangStockChange($this->qty, 1, $id_quotation);
         if($response['status'] == 0){
             $jumlah_kurang = $this->qty - $barang->stock;
             $stock_sekarang = $barang->stock;
@@ -171,6 +178,7 @@ class BarangDiminta extends Component
             }
             $message = "Berhasil mengupdate data";
         }
+        activity()->causedBy(HelperController::user())->log("Mengkonfirmasi peminjaman barang");
 
         $this->emit('refreshBarangDipinjam');
         $this->emit('refreshStockBarang');

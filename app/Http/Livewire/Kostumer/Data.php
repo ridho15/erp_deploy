@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Kostumer;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Kostumer;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -41,6 +42,7 @@ class Data extends Component
 
         $kostumer->delete();
         $message = "Data Customer berhasil dihapus";
+        activity()->causedBy(HelperController::user())->log("Data customer berhasil di hapus");
         $this->emit('finishDataKostumer', 1, $message);
         return session()->flash('success', $message);
     }

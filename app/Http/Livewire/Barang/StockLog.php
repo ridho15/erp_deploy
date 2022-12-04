@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire\Barang;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Barang;
 use App\Models\BarangStockLog;
+use App\Models\TipePerubahanStock;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -18,10 +20,22 @@ class StockLog extends Component
     public $stock;
     public $min_stock;
     public $barang;
+
+    public $id_tipe_perubahan_stock;
+    public $listTipePerubahanStock = [];
     public function render()
     {
-        $this->listStockLog = BarangStockLog::where('id_barang', $this->id_barang)->orderBy('tanggal_perubahan', 'DESC')->paginate($this->total_show);
+        $this->listTipePerubahanStock = TipePerubahanStock::get();
+        $this->listStockLog = BarangStockLog::where('id_barang', $this->id_barang)
+        ->where(function($query){
+            if($this->id_tipe_perubahan_stock){
+                $query->where('id_tipe_perubahan_stock', $this->id_tipe_perubahan_stock);
+            }
+        })
+        ->orderBy('tanggal_perubahan', 'DESC')->paginate($this->total_show);
         $data['listStockLog'] = $this->listStockLog;
+
+        $this->dispatchBrowserEvent('contentChange');
         return view('livewire.barang.stock-log', $data);
     }
 
@@ -74,6 +88,7 @@ class StockLog extends Component
         }
 
         $message = "Berhasil mengupdate stock barang";
+        activity()->causedBy(HelperController::user())->log("Mengupdate Stock Barang");
         $this->emit('finishUpdateStock', 1, $message);
         return session()->flash('success', $message);
     }

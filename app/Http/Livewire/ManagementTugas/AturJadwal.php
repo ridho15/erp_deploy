@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\ManagementTugas;
 
+use App\Http\Controllers\HelperController;
 use App\Models\LaporanPekerjaan;
 use App\Models\LaporanPekerjaanUser;
 use App\Models\User;
@@ -63,6 +64,7 @@ class AturJadwal extends Component
         }
 
         $message = 'Berhasil mengatur ulang jadwal';
+        activity()->causedBy(HelperController::user())->log("Melakukan pengaturan ulang jadwal");
         $this->emit('refreshManagementTugas');
         $this->emit('finishSimpanData', 1, $message);
         return session()->flash('success', $message);

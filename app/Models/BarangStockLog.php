@@ -18,7 +18,8 @@ class BarangStockLog extends Model
         'id_tipe_perubahan_stock',
         'tanggal_perubahan',
         'id_user',
-        'check'
+        'check',
+        'id_quotation'
     ];
 
     public $appends = ['tanggal_perubahan_formatted'];
@@ -38,5 +39,9 @@ class BarangStockLog extends Model
 
     public function user(){
         return $this->belongsTo(User::class, 'id_user');
+    }
+
+    public function quotation(){
+        return $this->belongsTo(Quotation::class, 'id_quotation');
     }
 }

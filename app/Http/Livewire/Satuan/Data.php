@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Satuan;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Satuan;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -45,6 +46,7 @@ class Data extends Component
 
         $user->delete();
         $message = 'Berhasil menghapus data';
+        activity()->causedBy(HelperController::user())->log("Menghapus data satuan");
 
         return $this->emit('finishDataUser', 1, $message);
     }

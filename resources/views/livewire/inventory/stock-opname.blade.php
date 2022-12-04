@@ -39,6 +39,7 @@
                    <th style="width: 100px">Jumlah Terbaru</th>
                    <th>Keterangan</th>
                    <th>Tanggal</th>
+                   <th>Dilakukan Oleh</th>
                    <th>Aksi</th>
                   </tr>
                  </thead>
@@ -67,6 +68,9 @@
                                     <input type="date" class="form-control tanggal" name="tanggal" value="{{ date('Y-m-d', strtotime($item->tanggal)) }}" data-id="{{ $item->id }}">
                                 </td>
                                 <td>
+                                    {{ $item->user ? $item->user->name : '-' }}
+                                </td>
+                                <td>
                                     <div class="btn-group">
                                         <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Data" wire:click="$emit('onClickHapus', {{ $item->id }})">
                                             <i class="bi bi-trash-fill"></i>
@@ -77,7 +81,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="11" class="text-center text-gray-500">Tidak ada data</td>
+                            <td colspan="12" class="text-center text-gray-500">Tidak ada data</td>
                         </tr>
                     @endif
                  </tbody>

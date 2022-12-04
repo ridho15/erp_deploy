@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Kostumer;
 
+use App\Http\Controllers\HelperController;
 use App\Models\CustomerOrderDetail;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -40,6 +41,7 @@ class OrderDetailList extends Component
 
         $kostumerOderDetail->delete();
         $message = 'Berhasil menghapus barang dari order';
+        activity()->causedBy(HelperController::user())->log("Menghapus data barang dari orderan");
 
         return session()->flash('success', $message);
     }
