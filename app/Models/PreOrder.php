@@ -75,8 +75,6 @@ class PreOrder extends Model
             return 2;
         }elseif($sudah_bayar != 0){
             return 1;
-        }elseif($sudah_bayar != 0){
-            return 1;
         }else{
             return 1;
         }
@@ -93,8 +91,6 @@ class PreOrder extends Model
             return '<span class="badge badge-success">Lunas</span>';
         }elseif($sudah_bayar != 0){
             return '<span class="badge badge-warning">Belum Lunas</span>';
-        }elseif($sudah_bayar != 0){
-            return '<span class="badge badge-secondary">Belum Bayar</span>';
         }else{
             return '<span class="badge badge-secondary">Belum Bayar</span>';
         }

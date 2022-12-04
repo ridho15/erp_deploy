@@ -20,6 +20,8 @@ class TopProduk extends Component
                 'category' => $item->nama
             ]));
         }
+
+        $this->dispatchBrowserEvent('contentChangeGrafikProduk');
         return view('livewire.laporan.top-produk');
     }
 }

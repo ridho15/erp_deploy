@@ -21,7 +21,11 @@ class Customer extends Model
         'barang_customer'
     ];
 
-    protected $appends = ['status_formatted', 'kode'];
+    protected $appends = ['status_formatted', 'kode', 'total_order'];
+
+    public function getTotalOrderAttribute(){
+        return PreOrder::where("id_customer", $this->id)->count();
+    }
 
     public function getStatusFormattedAttribute(){
         if($this->status == 1){
