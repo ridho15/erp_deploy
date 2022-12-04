@@ -8,7 +8,7 @@ class InventoryController extends Controller
 {
     public function index(){
         $data['title'] = "Inventory";
-        $data['active'] = ['inventory'];
+        $data['active'] = ['inventory','stock'];
         $data['breadCrumb'] = ['inventory', 'data'];
 
         return view('inventory.index', $data);

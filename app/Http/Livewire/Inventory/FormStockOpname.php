@@ -43,15 +43,15 @@ class FormStockOpname extends Component
         $this->validate([
             'id_barang' => 'required|numeric',
             'jumlah_tercatat' => 'required|numeric',
-            'tanggal' => 'required|date',
+            'tanggal_input' => 'required|date',
             'keterangan' => 'nullable|string'
         ], [
             'id_barang.required' => 'Barang belum dipilih',
             'id_barang.numeric' => 'Barang tidak valid !',
             'jumlah_tercatat.required' => 'Jumlah tercatat tidak boleh kosong',
             'jumlah_tercatat_numeric' => 'Jumlah tercatat tidak valid !',
-            'tanggal.required' => 'Tanggal tidak boleh kosong',
-            'tanggal.date' => 'Tanggal tidak valid !',
+            'tanggal_input.required' => 'Tanggal tidak boleh kosong',
+            'tanggal_input.date' => 'Tanggal tidak valid !',
             'keterangan.string' => 'Keterangan tidak valid !'
         ]);
 
@@ -78,5 +78,15 @@ class FormStockOpname extends Component
         $this->emit('refreshStockOpname');
         $this->emit('finishSimpanData', 1, $message);
         return session()->flash('success', $message);
+    }
+
+    public function resetInputFields(){
+        $this->id_barang = null;
+        $this->tanggal_input = null;
+        $this->jumlah_tercatat = null;
+        $this->jumlah_mutasi = null;
+        $this->jumlah_terjual = null;
+        $this->jumlah_terbaru = null;
+        $this->keterangan = null;
     }
 }

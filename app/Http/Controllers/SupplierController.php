@@ -54,4 +54,12 @@ class SupplierController extends Controller
 
         return view('supplier.order-detail', $data);
     }
+
+    public function payable(){
+        $data['title'] = "Kelola Pembayaran Supplier Order";
+        $data['active'] = ['accounts', 'payable'];
+        $data['breadCrumb'] = ['Supplier', 'Order', 'Payable'];
+
+        return view('supplier.order-payable', $data);
+    }
 }

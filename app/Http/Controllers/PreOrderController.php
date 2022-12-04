@@ -60,7 +60,7 @@ class PreOrderController extends Controller
 
     public function accountReceivable(){
         $data['title'] = 'Account Receivable';
-        $data['active'] = ['account-receivable'];
+        $data['active'] = ['accounts','receivable'];
         $data['breadCrumb'] = ['Account Receivable', 'Data'];
 
         return view('invoice.account-receivable', $data);

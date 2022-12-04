@@ -75,18 +75,18 @@ class HelperController extends Controller
                     ]),
                 ])
             ]),
-            // collect([
-            //     'nama' => 'Supplier Order',
-            //     'icon' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            //             <path opacity="0.3" d="M18.041 22.041C18.5932 22.041 19.041 21.5932 19.041 21.041C19.041 20.4887 18.5932 20.041 18.041 20.041C17.4887 20.041 17.041 20.4887 17.041 21.041C17.041 21.5932 17.4887 22.041 18.041 22.041Z" fill="currentColor"/>
-            //             <path opacity="0.3" d="M6.04095 22.041C6.59324 22.041 7.04095 21.5932 7.04095 21.041C7.04095 20.4887 6.59324 20.041 6.04095 20.041C5.48867 20.041 5.04095 20.4887 5.04095 21.041C5.04095 21.5932 5.48867 22.041 6.04095 22.041Z" fill="currentColor"/>
-            //             <path opacity="0.3" d="M7.04095 16.041L19.1409 15.1409C19.7409 15.1409 20.141 14.7409 20.341 14.1409L21.7409 8.34094C21.9409 7.64094 21.4409 7.04095 20.7409 7.04095H5.44095L7.04095 16.041Z" fill="currentColor"/>
-            //             <path d="M19.041 20.041H5.04096C4.74096 20.041 4.34095 19.841 4.14095 19.541C3.94095 19.241 3.94095 18.841 4.14095 18.541L6.04096 14.841L4.14095 4.64095L2.54096 3.84096C2.04096 3.64096 1.84095 3.04097 2.14095 2.54097C2.34095 2.04097 2.94096 1.84095 3.44096 2.14095L5.44096 3.14095C5.74096 3.24095 5.94096 3.54096 5.94096 3.84096L7.94096 14.841C7.94096 15.041 7.94095 15.241 7.84095 15.441L6.54096 18.041H19.041C19.641 18.041 20.041 18.441 20.041 19.041C20.041 19.641 19.641 20.041 19.041 20.041Z" fill="currentColor"/>
-            //             </svg>',
-            //     'role' => ['Super Admin', 'Manager', 'Admin Gudang'],
-            //     'active' => 'supplier-order',
-            //     'route' => 'supplier.order'
-            // ]),
+            collect([
+                'nama' => 'Supplier Order',
+                'icon' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path opacity="0.3" d="M18.041 22.041C18.5932 22.041 19.041 21.5932 19.041 21.041C19.041 20.4887 18.5932 20.041 18.041 20.041C17.4887 20.041 17.041 20.4887 17.041 21.041C17.041 21.5932 17.4887 22.041 18.041 22.041Z" fill="currentColor"/>
+                        <path opacity="0.3" d="M6.04095 22.041C6.59324 22.041 7.04095 21.5932 7.04095 21.041C7.04095 20.4887 6.59324 20.041 6.04095 20.041C5.48867 20.041 5.04095 20.4887 5.04095 21.041C5.04095 21.5932 5.48867 22.041 6.04095 22.041Z" fill="currentColor"/>
+                        <path opacity="0.3" d="M7.04095 16.041L19.1409 15.1409C19.7409 15.1409 20.141 14.7409 20.341 14.1409L21.7409 8.34094C21.9409 7.64094 21.4409 7.04095 20.7409 7.04095H5.44095L7.04095 16.041Z" fill="currentColor"/>
+                        <path d="M19.041 20.041H5.04096C4.74096 20.041 4.34095 19.841 4.14095 19.541C3.94095 19.241 3.94095 18.841 4.14095 18.541L6.04096 14.841L4.14095 4.64095L2.54096 3.84096C2.04096 3.64096 1.84095 3.04097 2.14095 2.54097C2.34095 2.04097 2.94096 1.84095 3.44096 2.14095L5.44096 3.14095C5.74096 3.24095 5.94096 3.54096 5.94096 3.84096L7.94096 14.841C7.94096 15.041 7.94095 15.241 7.84095 15.441L6.54096 18.041H19.041C19.641 18.041 20.041 18.441 20.041 19.041C20.041 19.641 19.641 20.041 19.041 20.041Z" fill="currentColor"/>
+                        </svg>',
+                'role' => ['Super Admin', 'Manager', 'Admin Gudang'],
+                'active' => 'supplier-order',
+                'route' => 'supplier.order'
+            ]),
             collect([
                 'nama' => 'Management Tugas',
                 'icon' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -120,14 +120,30 @@ class HelperController extends Controller
                 'route' => 'daftar-tugas'
             ]),
             collect([
-                'nama' => 'Account Receivable',
+                'nama' => 'Accounts',
                 'icon' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path opacity="0.3" d="M3 3V17H7V21H15V9H20V3H3Z" fill="currentColor"/>
-                            <path d="M20 22H3C2.4 22 2 21.6 2 21V3C2 2.4 2.4 2 3 2H20C20.6 2 21 2.4 21 3V21C21 21.6 20.6 22 20 22ZM19 4H4V8H19V4ZM6 18H4V20H6V18ZM6 14H4V16H6V14ZM6 10H4V12H6V10ZM10 18H8V20H10V18ZM10 14H8V16H10V14ZM10 10H8V12H10V10ZM14 18H12V20H14V18ZM14 14H12V16H14V14ZM14 10H12V12H14V10ZM19 14H17V20H19V14ZM19 10H17V12H19V10Z" fill="currentColor"/>
-                        </svg>',
+                        <path opacity="0.3" d="M3 3V17H7V21H15V9H20V3H3Z" fill="currentColor"/>
+                        <path d="M20 22H3C2.4 22 2 21.6 2 21V3C2 2.4 2.4 2 3 2H20C20.6 2 21 2.4 21 3V21C21 21.6 20.6 22 20 22ZM19 4H4V8H19V4ZM6 18H4V20H6V18ZM6 14H4V16H6V14ZM6 10H4V12H6V10ZM10 18H8V20H10V18ZM10 14H8V16H10V14ZM10 10H8V12H10V10ZM14 18H12V20H14V18ZM14 14H12V16H14V14ZM14 10H12V12H14V10ZM19 14H17V20H19V14ZM19 10H17V12H19V10Z" fill="currentColor"/>
+                    </svg>',
                 'role' => ['Super Admin', 'Manager'],
-                'active' => 'account-receivable',
-                'route' => 'pre-order.account-receivable'
+                'active' => 'accounts',
+                'route' => null,
+                'children' => collect([
+                    collect([
+                        'nama' => 'Receivable',
+                        'icon' => '<span class="bullet bullet-dot"></span>',
+                        'role' => ['Super Admin', 'Manager'],
+                        'active' => 'receivable',
+                        'route' => 'pre-order.account-receivable'
+                    ]),
+                    collect([
+                        'nama' => 'Payable',
+                        'icon' => '<span class="bullet bullet-dot"></span>',
+                        'role' => ['Super Admin', 'Manager'],
+                        'active' => 'payable',
+                        'route' => 'supplier-order.payable'
+                    ]),
+                ])
             ]),
             collect([
                 'nama' => 'Rak',
@@ -144,16 +160,6 @@ class HelperController extends Controller
                 'route' => 'rak'
             ]),
             collect([
-                'nama' => 'Pinjam Meminjam',
-                'icon' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect opacity="0.5" x="7" y="2" width="14" height="16" rx="3" fill="currentColor"/>
-                                <rect x="3" y="6" width="14" height="16" rx="3" fill="currentColor"/>
-                            </svg>',
-                'role' => ['Super Admin', 'Manager', 'Admin Gudang'],
-                'active' => 'pinjam-meminjam',
-                'route' => 'pinjam-meminjam'
-            ]),
-            collect([
                 'nama' => 'Inventory',
                 'icon' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path opacity="0.3" d="M21.25 18.525L13.05 21.825C12.35 22.125 11.65 22.125 10.95 21.825L2.75 18.525C1.75 18.125 1.75 16.725 2.75 16.325L4.04999 15.825L10.25 18.325C10.85 18.525 11.45 18.625 12.05 18.625C12.65 18.625 13.25 18.525 13.85 18.325L20.05 15.825L21.35 16.325C22.35 16.725 22.35 18.125 21.25 18.525ZM13.05 16.425L21.25 13.125C22.25 12.725 22.25 11.325 21.25 10.925L13.05 7.62502C12.35 7.32502 11.65 7.32502 10.95 7.62502L2.75 10.925C1.75 11.325 1.75 12.725 2.75 13.125L10.95 16.425C11.65 16.725 12.45 16.725 13.05 16.425Z" fill="currentColor"/>
@@ -167,7 +173,7 @@ class HelperController extends Controller
                         'nama' => 'Stock',
                         'icon' => '<span class="bullet bullet-dot"></span>',
                         'role' => ['Super Admin', 'Manager'],
-                        'active' => 'inventory',
+                        'active' => 'stock',
                         'route' => 'inventory'
                     ]),
                     collect([
@@ -176,6 +182,13 @@ class HelperController extends Controller
                         'role' => ['Super Admin', 'Manager'],
                         'active' => 'stock-opname',
                         'route' => 'inventory.stock-opname'
+                    ]),
+                    collect([
+                        'nama' => 'Pinjam Meminjam',
+                        'icon' => '<span class="bullet bullet-dot"></span>',
+                        'role' => ['Super Admin', 'Manager', 'Admin Gudang'],
+                        'active' => 'pinjam-meminjam',
+                        'route' => 'pinjam-meminjam'
                     ]),
                 ])
             ]),
