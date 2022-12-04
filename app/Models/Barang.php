@@ -23,7 +23,11 @@ class Barang extends Model
         'deskripsi',
     ];
 
-    protected $appends = ['harga_formatted', 'sku', 'harga_modal_formatted'];
+    protected $appends = ['harga_formatted', 'sku', 'harga_modal_formatted', 'total_order'];
+
+    public function getTotalOrderAttribute(){
+        return PreOrderDetail::where('id_barang', $this->id)->count();
+    }
 
     public function getHargaFormattedAttribute(){
         return 'Rp '.number_format($this->harga, 0, ',', '.');
@@ -108,5 +112,13 @@ class Barang extends Model
 
     public function stockOpname(){
         return $this->hasMany(StockOpname::class, 'id_barang');
+    }
+
+    public function preOrderDetail(){
+        return $this->hasMany(PreOrderDetail::class, 'id_barang');
+    }
+
+    public function totalOrder(){
+        return $this->hasMany(PreOrderDetail::class, 'id_barang')->count();
     }
 }
