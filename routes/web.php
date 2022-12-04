@@ -77,6 +77,7 @@ Route::middleware('auth.user')->group(function () {
         Route::get('/stock-opname', [LaporanController::class, 'stockOpname'])->name('laporan.stock-opname');
         Route::get('/log-activity', [LaporanController::class, 'logActivity'])->name('laporan.log-activity');
         Route::get('/grafik-penjualan', [LaporanController::class, 'grafikPenjualan'])->name('laporan.grafik-penjualan');
+        Route::get('/profit-pre-order', [LaporanController::class, 'profitPreOrder'])->name('laporan.profit-pre-order');
     });
 
     Route::middleware('auth.super-admin')->group(function(){
