@@ -1,5 +1,5 @@
 <div>
-    <div class="card shadow-sm" id="card_log_activity">
+    <div class="card shadow-sm mb-5" id="card_log_activity">
         <div class="card-header">
             <h3 class="card-title">
                 List Log Activity

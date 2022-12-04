@@ -203,6 +203,13 @@ class HelperController extends Controller
                         'active' => 'grafik-penjualan',
                         'route' => 'laporan.grafik-penjualan'
                     ]),
+                    collect([
+                        'nama' => 'Profit PO Keluar - PO Masuk',
+                        'icon' => '<span class="bullet bullet-dot"></span>',
+                        'role' => ['Super Admin', 'Manager'],
+                        'active' => 'profit-po',
+                        'route' => 'laporan.profit-pre-order'
+                    ]),
                 ])
             ]),
             collect([

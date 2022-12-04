@@ -1,5 +1,5 @@
 <div>
-    <div class="card shadow-sm">
+    <div class="card shadow-sm mb-5">
         <div class="card-header">
             <h3 class="card-title">
                 Top 15 Customer

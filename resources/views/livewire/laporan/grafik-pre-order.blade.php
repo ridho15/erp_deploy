@@ -2,7 +2,7 @@
     <div class="card shadow-sm mb-5">
         <div class="card-header">
             <h3 class="card-title">
-                Grafik Penjualan Harian
+                Grafik PO Keluar - PO Masuk
             </h3>
         </div>
         <div class="card-body">
