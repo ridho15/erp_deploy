@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Kategori;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Barang;
 use App\Models\BarangKategori;
 use App\Models\Kategori;
@@ -75,6 +76,7 @@ class TambahBarangKategori extends Component
         ]);
 
         $message = "Berhasil menyimpan data";
+        activity()->causedBy(HelperController::user())->log("Menambah / mengupdate data kategori barang");
         $this->resetInputFields();
         $this->emit('refreshDataKategori');
         $this->emit('refreshDataBarang');

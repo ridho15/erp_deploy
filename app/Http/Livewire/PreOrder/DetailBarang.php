@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\PreOrder;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Barang;
 use App\Models\PreOrder;
 use App\Models\PreOrderDetail;
@@ -104,6 +105,7 @@ class DetailBarang extends Component
         ]);
 
         $message = "Data barang berhasil disimpan";
+        activity()->causedBy(HelperController::user())->log("Berhasil menambah/mengupdate barang di pre order");
         $this->tambahBarang = false;
         $this->resetInputFields();
         $this->emit('refreshPreOrder');
@@ -149,6 +151,7 @@ class DetailBarang extends Component
 
         $preOrderDetail->delete();
         $message = "Berhasil menghapus data order barang";
+        activity()->causedBy(HelperController::user())->log("Menghapus data order barang");
         $this->emit('refreshPreOrderPembayaran');
         $this->emit('finishRefreshData', 1, $message);
         return session()->flash('success', $message);

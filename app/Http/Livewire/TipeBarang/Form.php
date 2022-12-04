@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\TipeBarang;
 
+use App\Http\Controllers\HelperController;
 use App\Models\TipeBarang;
 use Livewire\Component;
 
@@ -34,6 +35,7 @@ class Form extends Component
         ]);
 
         $message = "Berhasil menyimpan data tipe barang";
+        activity()->causedBy(HelperController::user())->log("Menyimpan data tipe barang");
         $this->resetInputFields();
         $this->emit('refreshTipeBarang');
         $this->emit('finishSimpanData', 1, $message);

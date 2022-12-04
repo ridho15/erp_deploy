@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Satuan;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Satuan;
 use Livewire\Component;
 
@@ -55,6 +56,7 @@ class Form extends Component
         ], $data);
 
         $message = 'Berhasil manambahkan Satuan';
+        activity()->causedBy(HelperController::user())->log("Menambah / mengedit data satuan");
         $this->emit('refreshUser');
         $this->resetInputFields();
 

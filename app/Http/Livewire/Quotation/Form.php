@@ -130,6 +130,7 @@ class Form extends Component
         }
 
         $message = "Berhasil mengupdate data quotation";
+        activity()->causedBy(HelperController::user())->log("Mengupdate data quotation");
         $this->resetInputFields();
         $this->emit('finishSimpanData', 1, $message);
         $this->emit('refreshQuotation');
@@ -223,6 +224,7 @@ class Form extends Component
         }
 
         $message = "Berhasil menyimpan data quotation";
+        activity()->causedBy(HelperController::user())->log($message);
         $this->resetInputFields();
         $this->emit('finishSimpanData', 1, $message);
         $this->emit('refreshQuotation');

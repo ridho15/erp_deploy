@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Rak;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Rak;
 use Livewire\Component;
 
@@ -43,6 +44,7 @@ class Form extends Component
         ]);
 
         $message = "Berhasil menyimpan data rak";
+        activity()->causedBy(HelperController::user())->log("Menambah / mengedit data rak");
         $this->resetInputFields();
         $this->emit('refreshRak');
         $this->emit('finishSimpanData', 1, $message);

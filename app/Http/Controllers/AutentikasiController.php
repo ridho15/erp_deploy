@@ -82,6 +82,7 @@ class AutentikasiController extends Controller
                 return redirect()->route('pre-order');
             }
 
+            activity()->causedBy(HelperController::user())->log("Melakukan Login");
             return redirect()->route('dashboard')->with('success', 'Login Berhasil');
         }
     }
@@ -96,6 +97,7 @@ class AutentikasiController extends Controller
                 'is_active' => 0,
             ]);
         }
+        activity()->causedBy(HelperController::user())->log("Logout account");
 
         session()->forget('id_user');
         session()->forget('token');

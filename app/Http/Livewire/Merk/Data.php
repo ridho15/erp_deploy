@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Merk;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Merk;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -37,6 +38,7 @@ class Data extends Component
 
         $merk->delete();
         $message = 'Data merk berhasil di hapus';
+        activity()->causedBy(HelperController::user())->log("Menghapus data merk");
 
         $this->emit('finishDataMerk', 1, $message);
         return session()->flash('success', $message);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Kondisi;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Kondisi;
 use Livewire\Component;
 
@@ -34,6 +35,7 @@ class Form extends Component
             'keterangan' => $this->keterangan
         ]);
          $message = "Berhasil menyimpan data kondisi";
+         activity()->causedBy(HelperController::user())->log("Menambah / menyimpan data kondisi");
          $this->resetInputFields();
          $this->emit('refreshKondisi');
          $this->emit('finishSimpanData', 1, $message);

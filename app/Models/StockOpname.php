@@ -17,10 +17,15 @@ class StockOpname extends Model
         'jumlah_terjual',
         'jumlah_terbaru',
         'keterangan',
-        'tanggal'
+        'tanggal',
+        'id_user'
     ];
 
     public function barang(){
         return $this->belongsTo(Barang::class, 'id_barang');
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class, 'id_user');
     }
 }

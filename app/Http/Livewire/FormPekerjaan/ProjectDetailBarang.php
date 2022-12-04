@@ -113,6 +113,7 @@ class ProjectDetailBarang extends Component
 
         $this->updateProject();
         $message = "Berhasil menyimpan barang ke pekerjaan";
+        activity()->causedBy(HelperController::user())->log("Menyimpan barang ke pekerjaan");
         $this->tambahBarang = false;
         $this->resetInputFields();
         return session()->flash('success', $message);
@@ -136,6 +137,7 @@ class ProjectDetailBarang extends Component
             'total_barang' => $total_barang,
             'total_harga' => $total_harga
         ]);
+        activity()->causedBy(HelperController::user())->log("Update data pekerjaan");
         $this->emit('refreshProject');
     }
 
@@ -163,6 +165,7 @@ class ProjectDetailBarang extends Component
 
         $projectDetailBarang->delete();
         $message = "Berhasil menghapus barang dari project";
+        activity()->causedBy(HelperController::user())->log("Menghapus barang dari project");
         return session()->flash('success', $message);
     }
 

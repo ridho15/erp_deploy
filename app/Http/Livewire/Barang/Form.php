@@ -23,6 +23,7 @@ class Form extends Component
     public $id_barang;
     public $nama;
     public $harga;
+    public $harga_modal;
     public $id_merk;
     public $stock;
     public $min_stock;
@@ -69,6 +70,7 @@ class Form extends Component
             'id_satuan' => 'required|numeric',
             'id_tipe_barang' => 'required|numeric',
             'deskripsi' => 'nullable|string',
+            'harga_modal' => 'required|numeric',
         ], [
             'nama.required' => 'Nama tidak boleh kosong',
             'nama.string' => 'Nama tidak valid !',
@@ -81,7 +83,9 @@ class Form extends Component
             'id_satuan.numeric' => 'Satuan tidak valid',
             'id_tipe_barang.required' => 'Tipe barang belum dipilih',
             'id_tipe_barang.numeric' => 'Tipe barang tidak valid !',
-            'deskripsi.string' => 'Deskripsi barang tidak valid !'
+            'deskripsi.string' => 'Deskripsi barang tidak valid !',
+            'harga_modal.required' => 'Harga modal tidak boleh kosong',
+            'harga_modal.numeric' => 'Harga modal tidak valid !'
         ]);
 
         // Check Merk
@@ -116,12 +120,14 @@ class Form extends Component
         $data['id_merk'] = $this->id_merk;
         $data['id_tipe_barang'] = $this->id_tipe_barang;
         $data['deskripsi'] = $this->deskripsi;
+        $data['harga_modal'] = $this->harga_modal;
 
         Barang::updateOrCreate([
             'id' => $this->id_barang
         ], $data);
 
         $message = 'Berhasil menyimpan data barang';
+        activity()->causedBy(HelperController::user())->log("Menyimpan data barang");
         $this->resetInputFields();
         $this->emit('refreshDataBarang');
         $this->emit('finishSimpanData', 1, $message);
@@ -148,6 +154,7 @@ class Form extends Component
         $this->id_satuan = $barang->id_satuan;
         $this->id_tipe_barang = $barang->id_tipe_barang;
         $this->deskripsi = $barang->deskripsi;
+        $this->harga_modal = $barang->harga_modal;
     }
 
     public function changeTipeBarang($id_tipe_barang)

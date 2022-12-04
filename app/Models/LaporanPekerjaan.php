@@ -127,7 +127,7 @@ class LaporanPekerjaan extends Model
 
     public function teknisi()
     {
-        return $this->hasMany(LaporanPekerjaanUser::class, 'id_laporan_pekerjaan')->withTrashed();
+        return $this->hasMany(LaporanPekerjaanUser::class, 'id_laporan_pekerjaan');
     }
 
     public function catatanTeknisiPekerjaan(){

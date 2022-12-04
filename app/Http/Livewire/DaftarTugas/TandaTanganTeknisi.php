@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\DaftarTugas;
 
+use App\Http\Controllers\HelperController;
 use App\Models\LaporanPekerjaanUser;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
@@ -39,6 +40,7 @@ class TandaTanganTeknisi extends Component
         ]);
 
         $message = "Berhasil menghapus tanda tangan";
+        activity()->causedBy(HelperController::user())->log("Tanda tangan dihapus");
         return session()->flash('success', $message);
     }
 

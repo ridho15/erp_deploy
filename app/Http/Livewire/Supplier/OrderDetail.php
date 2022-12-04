@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Supplier;
 
+use App\Http\Controllers\HelperController;
 use App\Http\Livewire\Barang\StockLog;
 use App\Models\BarangStockLog;
 use App\Models\SupplierOrder;
@@ -47,6 +48,7 @@ class OrderDetail extends Component
         ]);
 
         $message = "Orderan berhasil diselesaikan";
+        activity()->causedBy(HelperController::user())->log("Order Berhasil di selesai");
         $this->emit('statusOrderFinish', 1, $message);
         return session()->flash('success', $message);
     }

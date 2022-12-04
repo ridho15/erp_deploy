@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Supplier;
 
+use App\Http\Controllers\HelperController;
 use App\Models\SupplierOrder;
 use Illuminate\Http\Request;
 use Livewire\Component;
@@ -57,6 +58,7 @@ class Order extends Component
 
         $supplierOrder->delete();
         $message = 'Data supplier order berhasil di hapus';
+        activity()->causedBy(HelperController::user())->log("Menghapus data Supplier Order");
         $this->emit('finishSupplierOrder', 1, $message);
 
         return session()->flash('success', $message);

@@ -83,6 +83,7 @@ class FormOrder extends Component
         ], $data);
 
         $message = 'Berhasil menyimpan data kostumer order';
+        activity()->causedBy(HelperController::user())->log("Menyimpan data customer order");
         $this->resetInputFields();
         $this->emit('refreshSupplierOrder');
         $this->emit('finishSimpanData', 1, $message);

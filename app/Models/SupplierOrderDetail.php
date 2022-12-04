@@ -29,7 +29,7 @@ class SupplierOrderDetail extends Model
     public function getSubTotalAttribute(){
         $barang = Barang::find($this->id_barang);
         if ($barang) {
-            $sub_total = $this->qty * $barang->harga;
+            $sub_total = $this->qty * $barang->harga_modal;
             $sub_total = 'Rp ' . number_format($sub_total,0,',','.');
             return $sub_total;
         }else{

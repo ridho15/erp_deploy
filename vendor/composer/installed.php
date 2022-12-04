@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '2783dc9a348a547dbdec91016cd3c13b4789a405',
+        'reference' => '6318a80831b8eac45b751057c33af60704e62e4a',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -463,7 +463,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '2783dc9a348a547dbdec91016cd3c13b4789a405',
+            'reference' => '6318a80831b8eac45b751057c33af60704e62e4a',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -1095,6 +1095,15 @@
             'install_path' => __DIR__ . '/../setasign/fpdi',
             'aliases' => array(),
             'reference' => '6231e315f73e4f62d72b73f3d6d78ff0eed93c31',
+            'dev_requirement' => false,
+        ),
+        'spatie/laravel-activitylog' => array(
+            'pretty_version' => '3.17.0',
+            'version' => '3.17.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../spatie/laravel-activitylog',
+            'aliases' => array(),
+            'reference' => 'bdc44862aaca39ecbd824133b80dbd7c8017ed7f',
             'dev_requirement' => false,
         ),
         'swiftmailer/swiftmailer' => array(

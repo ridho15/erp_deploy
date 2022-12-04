@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Rak;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Barang;
 use App\Models\IsiRak;
 use App\Models\Rak;
@@ -86,6 +87,8 @@ class FormIsiRak extends Component
 
 
         $message = "Barang berhasil di masukkan ke dalam rak";
+        activity()->causedBy(HelperController::user())->log("Memasukkan barang ke dalam rak");
+
         $this->resetInputFields();
         $this->emit('refreshRak');
         $this->emit('finishSimpanData', 1, $message);
@@ -166,6 +169,7 @@ class FormIsiRak extends Component
         }
 
         $message = "Berhasil memindahkan barang ke rak lain";
+        activity()->causedBy(HelperController::user())->log("Melakukan pemindahan barang ke rak lain");
         $this->resetInputFields();
         $this->emit('refreshRak');
         $this->emit('finishSimpanData', 1, $message);

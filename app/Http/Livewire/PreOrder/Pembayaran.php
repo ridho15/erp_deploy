@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\PreOrder;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Barang;
 use App\Models\BarangStockLog;
 use App\Models\PreOrder;
@@ -119,6 +120,7 @@ class Pembayaran extends Component
         }
 
         $message = "Berhasil melakukan pembayaran";
+        activity()->causedBy(HelperController::user())->log("Melakukan pembayaran Pre Order");
         $this->pembayaran_sekarang = 0;
         $this->emit('refreshPreOrder');
         $this->emit('finishSimpanData', 1, $message);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\TipePembayaran;
 
+use App\Http\Controllers\HelperController;
 use App\Models\TipePembayaran;
 use Livewire\Component;
 
@@ -50,6 +51,7 @@ class Form extends Component
         ], $data);
 
         $message = 'Berhasil manambahkan Tipe Pembayaran';
+        activity()->causedBy(HelperController::user())->log("Menambah atau mengedit tipe pembayaran");
         $this->emit('refreshUser');
         $this->resetInputFields();
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\TemplatePekerjaan;
 
+use App\Http\Controllers\HelperController;
 use App\Models\FormMaster;
 use App\Models\Kondisi;
 use App\Models\TemplatePekerjaan;
@@ -92,6 +93,7 @@ class Form extends Component
         ], $data);
 
         $message = 'Berhasil menyimpan data';
+        activity()->causedBy(HelperController::user())->log("Menyimpan Template Pekerjaan");
         $this->resetInputFields();
         $this->emit('refreshTemplatePekerjaan');
         $this->emit('finishSimpanData', 1, $message);

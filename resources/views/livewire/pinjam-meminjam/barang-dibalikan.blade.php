@@ -27,7 +27,11 @@
                 @foreach ($listBarangDibalikan as $index => $item)
                     <tr>
                         <td>{{ $index + 1 }}</td>
-                        <td>{{ $item->barang->sku }}</td>
+                        <td>
+                            <a href="{{ route('barang.detail', ['id' => $item->id_barang]) }}" class="text-dark">
+                                {{ $item->barang->sku }}
+                            </a>
+                        </td>
                         <td>{{ $item->barang->nama }}</td>
                         <td>{{ $item->barang->satuan->nama_satuan }}</td>
                         <td>{{ $item->perubahan }}</td>

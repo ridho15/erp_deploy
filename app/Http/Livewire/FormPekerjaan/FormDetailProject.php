@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\FormPekerjaan;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Project;
 use App\Models\ProjectDetail;
 use App\Models\User;
@@ -67,6 +68,7 @@ class FormDetailProject extends Component
         ]);
 
         $message = "Berhasil menyimpan data project detail";
+        activity()->causedBy(HelperController::user())->log("Data project berhasil di simpan");
         $this->resetInputFields();
         $this->emit('refreshProjectDetail');
         $this->emit('finishSimpanData', 1, $message);

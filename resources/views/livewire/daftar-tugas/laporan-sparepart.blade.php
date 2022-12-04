@@ -122,6 +122,7 @@
                  <thead>
                   <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
                    <th>No</th>
+                   <th>SKU</th>
                    <th>Nama Barang</th>
                    <th>Tipe Barang</th>
                    <th>Harga</th>
@@ -138,8 +139,12 @@
                         @foreach ($listLaporanPekerjaanBarang as $index => $item)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
+                                <td>
+                                    <a href="{{ route('barang.detail', ['id' => $item->id_barang]) }}" class="text-dark">
+                                        {{ $item->barang->sku }}
+                                    </a>
+                                </td>
                                 <td>{{ $item->barang->nama }}</td>
-
                                 <td>{{ $item->barang->tipeBarang->tipe_barang }}</td>
                                 <td>{{ $item->barang->harga_formatted }}</td>
                                 <td>{{ $item->barang->satuan->nama_satuan }}</td>

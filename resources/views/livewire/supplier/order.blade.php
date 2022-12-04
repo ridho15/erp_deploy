@@ -16,6 +16,7 @@
            <th>Supplier</th>
            <th>Pembuat</th>
            <th>Status Order</th>
+           <th>Status Pembayaran</th>
            <th>Total Harga</th>
            <th>Tanggal Order</th>
            <th>Tipe Pembayaran</th>
@@ -31,11 +32,11 @@
                         <td>{{ $item->supplier->name }}</td>
                         <td>{{ $item->user->name }}</td>
                         <td><?= $item->status_order_formatted['badge'] ?></td>
+                        <td><?= $item->status_pembayaran_formatted ?></td>
                         <td>{{ $item->total_harga_formatted }}</td>
                         <td>{{ $item->tanggal_order_formatted }}</td>
                         <td>{{ $item->tipePembayaran->nama_tipe }}</td>
                         <td>{{ $item->keterangan }}</td>
-                        <td></td>
                         <td>
                             <div class="btn-group">
                                 <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Supplier Order" wire:click="$emit('onClickEdit', {{ $item->id }})">

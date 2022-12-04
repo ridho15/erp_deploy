@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\TipeBarang;
 
+use App\Http\Controllers\HelperController;
 use App\Models\TipeBarang;
 use Livewire\Component;
 
@@ -28,6 +29,7 @@ class Data extends Component
 
         $tipeBarang->delete();
         $message = "Berhasil menghapus data tipe barang";
+        activity()->causedBy(HelperController::user())->log("Menghapus data tipe barang");
         $this->emit('refreshData', 1, $message);
         return session()->flash('success', $message);
     }

@@ -26,6 +26,14 @@
     </div>
     <div class="row mb-7">
         <div class="col-md-4">
+            Status Pembayaran
+        </div>
+        <div class="col-md">
+            : <span class="fw-bold"><?= $supplierOrder->status_pembayaran_formatted ?></span>
+        </div>
+    </div>
+    <div class="row mb-7">
+        <div class="col-md-4">
             Total Harga
         </div>
         <div class="col-md">

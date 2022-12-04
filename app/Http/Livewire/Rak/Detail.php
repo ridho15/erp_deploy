@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Rak;
 
+use App\Http\Controllers\HelperController;
 use App\Models\IsiRak;
 use App\Models\Rak;
 use Livewire\Component;
@@ -48,6 +49,7 @@ class Detail extends Component
 
         $isiRak->delete();
         $message = "Data isi rak berhasil di hapus";
+        activity()->causedBy(HelperController::user())->log("Menghapus data isi rak");
         return session()->flash('success', $message);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Supplier;
 
+use App\Http\Controllers\HelperController;
 use App\Models\SupplierOrderDetailTemp;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -46,6 +47,7 @@ class OrderTemporary extends Component
         }
 
         $message = "Berhasil menyimpan data";
+        activity()->causedBy(HelperController::user())->log("Merubah status order temporary");
         return session()->flash('success', $message);
     }
 }

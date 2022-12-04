@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Form;
 
+use App\Http\Controllers\HelperController;
 use App\Models\FormMaster;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -38,6 +39,7 @@ class Data extends Component
 
         $formMaster->delete();
         $message = "Data form berhasil dihapus";
+        activity()->causedBy(HelperController::user())->log("Menghapus data form master");
         return session()->flash('success', $message);
     }
 }

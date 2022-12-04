@@ -76,7 +76,7 @@ class OrderDetailForm extends Component
             'id_supplier_order' => $this->id_supplier_order,
             'id_barang' => $this->id_barang,
             'qty' => $this->qty,
-            'harga_satuan' => $barang->harga,
+            'harga_satuan' => $barang->harga_modal,
             'status_order' => $this->status_order,
             'keterangan' => $this->keterangan
         ];
@@ -95,6 +95,7 @@ class OrderDetailForm extends Component
         ]);
 
         $message = "Barang berhasil di tambahkan ke orderan";
+        activity()->causedBy(HelperController::user())->log("Menambah barang ke orderan");
         $this->resetInputFields();
         $this->emit('refreshSupplierOrderDetail');
         $this->emit('refreshSupplierOrder');

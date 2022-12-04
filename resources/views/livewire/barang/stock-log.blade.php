@@ -6,6 +6,20 @@
     </div>
     <div class="card-body">
         @include('helper.alert-message')
+        <div class="row mb-5">
+            <div class="col-md-3">
+                <label for="" class="form-label">Filter</label>
+                <select name="id_tipe_perubahan_stock" class="form-select form-select-solid" wire:model="id_tipe_perubahan_stock" data-control="select2">
+                    <option value="">Pilih</option>
+                    @foreach ($listTipePerubahanStock as $item)
+                        <option value="{{ $item->id }}">{{ $item->nama_tipe_perubahan }}</option>
+                    @endforeach
+                </select>
+                @error('id_tipe_perubahan_stock')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+        </div>
         <div class="table-responsive">
             <table class="table table-rounded table-striped border gy-7 gs-7">
              <thead>
@@ -13,6 +27,7 @@
                <th>No</th>
                <th>User</th>
                <th>Nama Barang</th>
+               <th>No.Quotation</th>
                <th>Stock Awal</th>
                <th>Perubahan</th>
                <th>Tipe Perubahan</th>
@@ -32,6 +47,7 @@
                                 @endif
                             </td>
                             <td>{{ $item->barang->nama }}</td>
+                            <td>{{ $item->quotation ? $item->quotation->no_ref : '-' }}</td>
                             <td>{{ $item->stock_awal }}</td>
                             <td>{{ $item->perubahan }}</td>
                             <td><?= $item->tipePerubahanStock ? $item->tipePerubahanStock->badge : null ?></td>
@@ -99,6 +115,15 @@
         $(document).ready(function () {
 
         });
+
+        window.addEventListener('contentChange', function(){
+            $('select[name="id_tipe_perubahan_stock"]').select2();
+        })
+
+        $('select[name="id_tipe_perubahan_stock"]').on('change', function(){
+            console.log($(this).val());
+            @this.set('id_tipe_perubahan_stock', $(this).val())
+        })
 
         Livewire.on('onClickEditStock', () => {
             $('#modal_form_edit_stock').modal('show')

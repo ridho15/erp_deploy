@@ -29,15 +29,18 @@
                                 <th>Nama Pekerjaan</th>
                                 <th style="width: 200px;">Pekerjaan</th>
                                 <th style="width: 200px;">Kondisi</th>
+                                <th></th>
                                 <th>Keterangan</th>
-                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             @if (count($listTemplatePekerjaan) > 0)
+                                @php
+                                    $number = 0;
+                                @endphp
                                 @foreach ($listTemplatePekerjaan as $index => $item)
                                 <tr class="fw-bold bg-light-success">
-                                    <td>{{ \App\CPU\Helpers::numberToLetter($loop->iteration) }}</td>
+                                    <td>{{ $number + 1 }}</td>
                                     <td>{{ $item->nama_pekerjaan }}</td>
                                     <td>
                                         @if ($item->kondisi != null && is_array(json_decode($item->kondisi)))
@@ -51,10 +54,14 @@
                                     <td></td>
                                     <td></td>
                                 </tr>
-                                    @foreach ($item->children as $number => $value)
+                                    @php
+                                        $nomor_anak = 0;
+                                    @endphp
+                                    @foreach ($item->children as $value)
                                         @if ($value->periode != null && is_array(json_decode($value->periode)) && in_array($periode, json_decode($value->periode)))
                                             <tr>
-                                                <td>{{ $number + 1 }}</td>
+                                                <td></td>
+                                                <td>{{ $number + 1 }}.{{ $nomor_anak + 1 }}</td>
                                                 <td>{{ $value->nama_pekerjaan }}</td>
                                                 <td>
                                                     @php
@@ -88,15 +95,10 @@
                                                 <td>
                                                     <textarea name="keterangan" class="form-control form-control-solid" placeholder="Masukkan keterangan" data-id_template_pekerjaan_detail="{{ $value->id }}">{{ $dataPekerjaanChecklist ? $dataPekerjaanChecklist->keterangan : null }}</textarea>
                                                 </td>
-                                                <td>
-                                                    <div class="form-check form-switch form-check-custom form-check-solid form-check-success">
-                                                        <input class="form-check-input" type="checkbox" value="1" wire:click="changeStatus({{ $value->id }})" @if($dataPekerjaanChecklist && $dataPekerjaanChecklist->status == 1) checked @endif id="flexSwitchDefault"/>
-                                                        <label class="form-check-label" for="flexSwitchDefault">
-                                                            Selesai
-                                                        </label>
-                                                    </div>
-                                                </td>
                                             </tr>
+                                            @php
+                                                $nomor_anak++;
+                                            @endphp
                                         @endif
                                     @endforeach
                                 @endforeach

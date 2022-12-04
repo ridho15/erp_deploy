@@ -91,6 +91,7 @@ class OrderDetailForm extends Component
         ]);
 
         $message = 'Barang berhasil di tambahkan ke orderan';
+        activity()->causedBy(HelperController::user())->log("Menambahkan data barang ke orderan");
         $this->resetInputFields();
         $this->emit('refreshSupplierOrderDetail');
         $this->emit('refreshSupplierOrder');

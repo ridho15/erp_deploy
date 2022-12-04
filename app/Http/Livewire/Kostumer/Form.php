@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Kostumer;
 
+use App\Http\Controllers\HelperController;
 use App\Models\BarangCustomer;
 use App\Models\Kostumer;
 use Livewire\Component;
@@ -64,6 +65,7 @@ class Form extends Component
         ]);
 
         $message = 'Berhasil menyimpan data customer';
+        activity()->causedBy(HelperController::user())->log("Menyimpan data customer");
         $this->resetInputFields();
         $this->emit('finishSimpanData', 1, $message);
         $this->emit('refreshDataKostumer');

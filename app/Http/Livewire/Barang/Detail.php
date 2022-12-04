@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Barang;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Barang;
 use App\Models\BarangKategori;
 use Livewire\Component;
@@ -30,6 +31,7 @@ class Detail extends Component
 
         $barangKategori->delete();
         $message = "Barang kategori berhasil di hapus";
+        activity()->causedBy(HelperController::user())->log("Menghapus barang kategori");
         return session()->flash('success', $message);
     }
 }

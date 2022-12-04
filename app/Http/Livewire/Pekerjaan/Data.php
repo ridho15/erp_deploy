@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Pekerjaan;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Pekerjaan;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -41,6 +42,7 @@ class Data extends Component
 
         $kondisi->delete();
         $message = 'Berhasil menghapus data pekerjaan';
+        activity()->causedBy(HelperController::user())->log("Menghapus data pekerjaan");
         $this->emit('finishPekerjaan', 1, $message);
 
         return session()->flash('success', $message);

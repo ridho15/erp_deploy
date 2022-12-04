@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Quotation;
 
+use App\Http\Controllers\HelperController;
 use App\Mail\SendQuotationMail;
 use App\Models\Quotation;
 use App\Models\QuotationSendLog;
@@ -51,6 +52,7 @@ class SendLog extends Component
             'tanggal' => now()
         ]);
         $message= "Quotation Berhasil dikirim";
+        activity()->causedBy(HelperController::user())->log("Mengirim data quotation ke user");
         $this->emit('finishRefreshData', 1, $message);
         return session()->flash('success', $message);
     }

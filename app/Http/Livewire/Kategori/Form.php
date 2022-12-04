@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Kategori;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Kategori;
 use Livewire\Component;
 
@@ -34,6 +35,7 @@ class Form extends Component
         ]);
 
         $message = 'Berhasil menyimpan data';
+        activity()->causedBy(HelperController::user())->log("Menambah / mengupdate data kategori");
         $this->resetInputFields();
         $this->emit('refreshDataKategori');
         $this->emit('finishSimpanData', 1, $message);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\PinjamMeminjam;
 
+use App\Http\Controllers\HelperController;
 use App\Models\LaporanPekerjaanBarang;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -48,6 +49,7 @@ class AcureateKeluar extends Component
         ]);
 
         $message = "Berhasil mengkonfirmasi data";
+        activity()->causedBy(HelperController::user())->log("Acc Accurate masuk");
         $this->emit('refreshBarangDibalikan');
         return session()->flash('success', $message);
     }

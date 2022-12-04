@@ -2,8 +2,11 @@
 
 namespace App\Http\Livewire\DaftarTugas;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Barang;
+use App\Models\LaporanPekerjaan;
 use App\Models\LaporanPekerjaanBarang;
+use App\Models\QuotationDetail;
 use App\Models\SupplierOrderDetailTemp;
 use Livewire\Component;
 
@@ -63,6 +66,16 @@ class LaporanSparepart extends Component
 
     public function hapusLaporanPekerjaanBarang($id){
         $laporanPekerjaanBarang = LaporanPekerjaanBarang::find($id);
+        if($laporanPekerjaanBarang->laporanPekerjaan->quotation){
+            $quotation = $laporanPekerjaanBarang->laporanPekerjaan->quotation;
+            $quotationDetail = QuotationDetail::where('id_quotation', $quotation->id)
+            ->where('qty', $laporanPekerjaanBarang->qty)
+            ->where('id_barang', $laporanPekerjaanBarang->id_barang)
+            ->first();
+            if($quotationDetail){
+                $quotationDetail->delete();
+            }
+        }
         if(!$laporanPekerjaanBarang){
             $message = "Data laporan barang tidak ditemukan !";
             return session()->flash('fail', $message);
@@ -70,6 +83,7 @@ class LaporanSparepart extends Component
 
         $laporanPekerjaanBarang->delete();
         $message = "Data laporan barang berhasil dihapus";
+        activity()->causedBy(HelperController::user())->log("Barang berhasil di hapus dari laporan");
 
         $this->emit('finishSimpanData', 1, $message);
         return session()->flash('success', $message);
@@ -109,7 +123,7 @@ class LaporanSparepart extends Component
         $laporanPekerjaanBarang = LaporanPekerjaanBarang::where('id_barang', $this->id_barang)
         ->where('id_laporan_pekerjaan', $this->id_laporan_pekerjaan)->get();
         $stockDiminta = 0;
-        foreach ($laporanPekerjaanBarang as $key => $value) {
+        foreach ($laporanPekerjaanBarang as $value) {
             $stockDiminta += $value->qty;
         }
 
@@ -149,7 +163,20 @@ class LaporanSparepart extends Component
             'peminjam' => session()->get('id_user')
         ]);
 
+        $laporanPekerjaan = LaporanPekerjaan::find($this->id_laporan_pekerjaan);
+        if($laporanPekerjaan->quotation){
+            QuotationDetail::create([
+                'id_quotation' => $laporanPekerjaan->quotation->id,
+                'id_barang' => $this->id_barang,
+                'harga' => $barang->harga,
+                'qty' => $this->qty,
+                'id_satuan' => $barang->id_satuan,
+                'deskripsi' => $barang->deskripsi
+            ]);
+        }
+
         $message = "Laporan Data barang berhasil di simpan";
+        activity()->causedBy(HelperController::user())->log("Melakukan peminjaman barang untuk laporan penggunaan barang");
         $this->tambahBarang = false;
         $this->resetInputFields();
         $this->emit('finisSimpanData', 1, $message);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Inventory;
 
+use App\Http\Controllers\HelperController;
 use App\Models\Barang;
 use App\Models\StockOpname;
 use Livewire\Component;
@@ -71,9 +72,11 @@ class FormStockOpname extends Component
             'jumlah_terjual' => $this->jumlah_terjual,
             'jumlah_terbaru' => $this->jumlah_terbaru,
             'keterangan' => $this->keterangan,
+            'id_user' => session()->get('id_user')
         ]);
 
         $message = "Berhasil menyimpan data";
+        activity()->causedBy(HelperController::user())->log("Menyimpan data stock opname");
         $this->resetInputFields();
         $this->emit('refreshStockOpname');
         $this->emit('finishSimpanData', 1, $message);

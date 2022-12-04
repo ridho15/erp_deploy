@@ -48,9 +48,15 @@ class SupplierController extends Controller
         }
 
         $data['title'] = 'Kelola Data Supplier Order';
-        $data['active'] = ['supplier-order'];
+
         $data['breadCrumb'] = ['Supplier', 'Order', 'Data', 'Kelola'];
         $data['supplierOrder'] = $supplierOrder;
+
+        if($supplierOrder->status_pembayaran != 2){
+            $data['active'] = ['accounts','payable'];
+        }else{
+            $data['active'] = ['supplier-order'];
+        }
 
         return view('supplier.order-detail', $data);
     }
