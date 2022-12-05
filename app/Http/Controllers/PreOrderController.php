@@ -70,7 +70,7 @@ class PreOrderController extends Controller
 
     public function done(){
         $data['title'] = 'Pre Order Done';
-        $data['active'] = ['done-pre-order'];
+        $data['active'] = ['purchase-order','done-pre-order'];
         $data['breadCrumb'] = ["Pre Order", 'Done'];
 
         return view('pre-order.done', $data);

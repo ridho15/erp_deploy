@@ -117,32 +117,32 @@ class HelperController extends Controller
                 'active' => 'daftar-tugas',
                 'route' => 'daftar-tugas'
             ]),
-            collect([
-                'nama' => 'Accounts',
-                'icon' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path opacity="0.3" d="M3 3V17H7V21H15V9H20V3H3Z" fill="currentColor"/>
-                        <path d="M20 22H3C2.4 22 2 21.6 2 21V3C2 2.4 2.4 2 3 2H20C20.6 2 21 2.4 21 3V21C21 21.6 20.6 22 20 22ZM19 4H4V8H19V4ZM6 18H4V20H6V18ZM6 14H4V16H6V14ZM6 10H4V12H6V10ZM10 18H8V20H10V18ZM10 14H8V16H10V14ZM10 10H8V12H10V10ZM14 18H12V20H14V18ZM14 14H12V16H14V14ZM14 10H12V12H14V10ZM19 14H17V20H19V14ZM19 10H17V12H19V10Z" fill="currentColor"/>
-                    </svg>',
-                'role' => ['Super Admin', 'Manager'],
-                'active' => 'accounts',
-                'route' => null,
-                'children' => collect([
-                    collect([
-                        'nama' => 'Receivable',
-                        'icon' => '<span class="bullet bullet-dot"></span>',
-                        'role' => ['Super Admin', 'Manager'],
-                        'active' => 'receivable',
-                        'route' => 'pre-order.account-receivable'
-                    ]),
-                    collect([
-                        'nama' => 'Payable',
-                        'icon' => '<span class="bullet bullet-dot"></span>',
-                        'role' => ['Super Admin', 'Manager'],
-                        'active' => 'payable',
-                        'route' => 'supplier-order.payable'
-                    ]),
-                ])
-            ]),
+            // collect([
+            //     'nama' => 'Accounts',
+            //     'icon' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            //             <path opacity="0.3" d="M3 3V17H7V21H15V9H20V3H3Z" fill="currentColor"/>
+            //             <path d="M20 22H3C2.4 22 2 21.6 2 21V3C2 2.4 2.4 2 3 2H20C20.6 2 21 2.4 21 3V21C21 21.6 20.6 22 20 22ZM19 4H4V8H19V4ZM6 18H4V20H6V18ZM6 14H4V16H6V14ZM6 10H4V12H6V10ZM10 18H8V20H10V18ZM10 14H8V16H10V14ZM10 10H8V12H10V10ZM14 18H12V20H14V18ZM14 14H12V16H14V14ZM14 10H12V12H14V10ZM19 14H17V20H19V14ZM19 10H17V12H19V10Z" fill="currentColor"/>
+            //         </svg>',
+            //     'role' => ['Super Admin', 'Manager'],
+            //     'active' => 'accounts',
+            //     'route' => null,
+            //     'children' => collect([
+            //         collect([
+            //             'nama' => 'Receivable',
+            //             'icon' => '<span class="bullet bullet-dot"></span>',
+            //             'role' => ['Super Admin', 'Manager'],
+            //             'active' => 'receivable',
+            //             'route' => 'pre-order.account-receivable'
+            //         ]),
+            //         collect([
+            //             'nama' => 'Payable',
+            //             'icon' => '<span class="bullet bullet-dot"></span>',
+            //             'role' => ['Super Admin', 'Manager'],
+            //             'active' => 'payable',
+            //             'route' => 'supplier-order.payable'
+            //         ]),
+            //     ])
+            // ]),
             collect([
                 'nama' => 'Laporan',
                 'icon' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -169,21 +169,21 @@ class HelperController extends Controller
                         'route' => 'laporan.account-receivable'
                     ]),
                     collect([
-                        'nama' => 'Kalender Payable & Receivable',
+                        'nama' => 'Kalender Accounts',
                         'icon' => '<span class="bullet bullet-dot"></span>',
                         'role' => ['Super Admin', 'Manager'],
                         'active' => 'kalender',
                         'route' => 'laporan.kalender'
                     ]),
                     collect([
-                        'nama' => 'Spareparts Akan Habis',
+                        'nama' => 'Stok Minimum',
                         'icon' => '<span class="bullet bullet-dot"></span>',
                         'role' => ['Super Admin', 'Manager'],
                         'active' => 'spareparts',
                         'route' => 'laporan.spareparts'
                     ]),
                     collect([
-                        'nama' => 'Stock Opname Miss',
+                        'nama' => 'Laporan Stok Opname',
                         'icon' => '<span class="bullet bullet-dot"></span>',
                         'role' => ['Super Admin', 'Manager'],
                         'active' => 'stock-opname-miss',
@@ -197,14 +197,14 @@ class HelperController extends Controller
                         'route' => 'laporan.log-activity'
                     ]),
                     collect([
-                        'nama' => 'Revenue Based on Invoice',
+                        'nama' => 'Revenue',
                         'icon' => '<span class="bullet bullet-dot"></span>',
                         'role' => ['Super Admin', 'Manager'],
                         'active' => 'grafik-penjualan',
                         'route' => 'laporan.grafik-penjualan'
                     ]),
                     collect([
-                        'nama' => 'Profit PO Keluar - PO Masuk',
+                        'nama' => 'Gross Profit',
                         'icon' => '<span class="bullet bullet-dot"></span>',
                         'role' => ['Super Admin', 'Manager'],
                         'active' => 'profit-po',
@@ -212,20 +212,7 @@ class HelperController extends Controller
                     ]),
                 ])
             ]),
-            collect([
-                'nama' => 'Rak',
-                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24">
-                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                            <rect x="5" y="5" width="5" height="5" rx="1" fill="currentColor"/>
-                                <rect x="14" y="5" width="5" height="5" rx="1" fill="currentColor" opacity="0.3"/>
-                                <rect x="5" y="14" width="5" height="5" rx="1" fill="currentColor" opacity="0.3"/>
-                                <rect x="14" y="14" width="5" height="5" rx="1" fill="currentColor" opacity="0.3"/>
-                            </g>
-                        </svg>',
-                'role' => ['Super Admin', 'Manager', 'Admin Gudan'],
-                'active' => 'rak',
-                'route' => 'rak'
-            ]),
+
             collect([
                 'nama' => 'Inventory',
                 'icon' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -256,6 +243,13 @@ class HelperController extends Controller
                         'role' => ['Super Admin', 'Manager', 'Admin Gudang'],
                         'active' => 'pinjam-meminjam',
                         'route' => 'pinjam-meminjam'
+                    ]),
+                    collect([
+                        'nama' => 'Rak',
+                        'icon' => '<span class="bullet bullet-dot"></span>',
+                        'role' => ['Super Admin', 'Manager', 'Admin Gudan'],
+                        'active' => 'rak',
+                        'route' => 'rak'
                     ]),
                 ])
             ]),
@@ -395,7 +389,7 @@ class HelperController extends Controller
                 ]),
             ]),
                 collect([
-                    'nama' => 'Pegaturan Web',
+                    'nama' => 'Pengaturan Web',
                     'icon' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path opacity="0.3"

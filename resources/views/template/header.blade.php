@@ -30,7 +30,7 @@
                             </span>
                         </div>
                     </div>
-                    <form data-kt-search-element="form" class="d-none d-lg-block w-100 position-relative mb-5 mb-lg-0" autocomplete="off">
+                    {{-- <form data-kt-search-element="form" class="d-none d-lg-block w-100 position-relative mb-5 mb-lg-0" autocomplete="off">
                         <span class="svg-icon svg-icon-2 svg-icon-lg-3 svg-icon-gray-800 position-absolute top-50 translate-middle-y ms-5">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
@@ -38,7 +38,7 @@
                             </svg>
                         </span>
                         <input type="text" class="search-input form-control form-control-solid ps-13" name="search" value="" placeholder="Search..." data-kt-search-element="input" />
-                    </form>
+                    </form> --}}
                 </div>
             </div>
         </div>
@@ -126,23 +126,22 @@
                         </svg>
                     </span>
                 </div>
-                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px" data-kt-menu="true">
+                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-200px" data-kt-menu="true">
                     <div class="menu-item px-3">
-                        <div class="menu-content d-flex align-items-center px-3">
-                            <div class="symbol symbol-50px me-5">
+                        <div class="menu-content text-center px-3">
+                            {{-- <div class="symbol symbol-50px me-5">
                                 <img alt="Logo" src="{{ asset($user->foto) }}" />
-                            </div>
-                            <div class="d-flex flex-column">
-                                <div class="fw-bold d-flex align-items-center fs-5">{{ $user->name }}
-                            </div>
+                            </div> --}}
+                            <div class="text-center">
+                                <div class="fw-bold text-center fs-5">{{ $user->name }}</div>
                                 <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">{{ $user->tipeUser->nama_tipe }}</a>
                             </div>
                         </div>
                     </div>
                     <div class="separator my-2"></div>
-                    <div class="menu-item px-5">
+                    {{-- <div class="menu-item px-5">
                         <a href="account/overview.html" class="menu-link px-5">My Profile</a>
-                    </div>
+                    </div> --}}
                     <div class="menu-item px-5">
                         <a href="{{ route('logout') }}" class="menu-link px-5">Sign Out</a>
                     </div>

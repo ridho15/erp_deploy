@@ -50,7 +50,6 @@
                    <th>Tipe Pembayaran</th>
                    <th>Metode Pembayaran</th>
                    <th>Status Pekerjaan</th>
-                   <th>Status Pembayaran</th>
                    <th>Keterangan</th>
                    <th>File</th>
                    <th>Aksi</th>
@@ -94,7 +93,6 @@
                                                 Tidak ada pekerjaan
                                             @endif
                                         </td>
-                                        <td><?= $item->status_pembayaran ?></td>
                                         <td><?= $item->keterangan ?? '-' ?></td>
                                         <td>
                                             @if ($item->file)
