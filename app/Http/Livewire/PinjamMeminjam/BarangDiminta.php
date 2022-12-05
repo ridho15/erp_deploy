@@ -33,6 +33,7 @@ class BarangDiminta extends Component
             $query->where('catatan_teknisi', 'LIKE', '%' . $this->cari . '%')
             ->orWhere('keterangan_customer', 'LIKE', '%' . $this->cari . '%')
             ->orWhere('qty', 'LIKE', '%' . $this->cari . '%')
+            ->orWHere('id_laporan_pekerjaan', 'LIKE', '%' . $this->cari . '%')
             ->orWhereHas('barang', function($query){
                 $query->where('nama', 'LIKE', '%' . $this->cari . '%');
             });
