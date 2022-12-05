@@ -151,7 +151,7 @@ class Data extends Component
         $message = "Quotation Berhasil";
 
         activity()->causedBy(HelperController::user())->log("Submit quotation to pre order");
-        return redirect()->route('pre-order')->with('success', $message);
+        return redirect()->route('pre-order', ['show_modal' => true])->with('success', $message);
         // return session()->flash('success', $mesasge);
     }
 }

@@ -29,7 +29,6 @@
                                 <th>Nama Pekerjaan</th>
                                 <th style="width: 200px;">Pekerjaan</th>
                                 <th style="width: 200px;">Kondisi</th>
-                                <th></th>
                                 <th>Keterangan</th>
                             </tr>
                         </thead>
@@ -52,27 +51,26 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td></td>
                                 </tr>
                                     @php
                                         $nomor_anak = 0;
                                     @endphp
                                     @foreach ($item->children as $value)
                                         @if ($value->periode != null && is_array(json_decode($value->periode)) && in_array($periode, json_decode($value->periode)))
+                                            @php
+                                                $dataPekerjaanChecklist = \App\Models\LaporanPekerjaanChecklist::where('id_laporan_pekerjaan', $id_laporan_pekerjaan)
+                                                ->where('id_template_pekerjaan_detail', $value->id)->first();
+                                                $dataPekerjaan = null;
+                                                if ($dataPekerjaanChecklist) {
+                                                    $dataPekerjaan = json_decode($dataPekerjaanChecklist->pekerjaan);
+                                                }
+
+                                            @endphp
                                             <tr>
                                                 <td></td>
                                                 <td>{{ $number + 1 }}.{{ $nomor_anak + 1 }}</td>
                                                 <td>{{ $value->nama_pekerjaan }}</td>
-                                                <td>
-                                                    @php
-                                                        $dataPekerjaanChecklist = \App\Models\LaporanPekerjaanChecklist::where('id_laporan_pekerjaan', $id_laporan_pekerjaan)
-                                                        ->where('id_template_pekerjaan_detail', $value->id)->first();
-                                                        $dataPekerjaan = null;
-                                                        if ($dataPekerjaanChecklist) {
-                                                            $dataPekerjaan = json_decode($dataPekerjaanChecklist->pekerjaan);
-                                                        }
-
-                                                    @endphp
+                                                {{-- <td>
                                                     <div class="">
                                                         <select name="pekerjaan" class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih" data-id_template_pekerjaan_detail="{{ $value->id }}" multiple>
                                                             <option value="">Pilih</option>
@@ -81,7 +79,7 @@
                                                             @endforeach
                                                         </select>
                                                     </div>
-                                                </td>
+                                                </td> --}}
                                                 <td>
                                                     <div class="">
                                                         <select name="kondisi" class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih" data-id_template_pekerjaan_detail="{{ $value->id }}">

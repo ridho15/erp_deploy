@@ -121,7 +121,11 @@
     <script>
         $(document).ready(function () {
             refreshSelect()
-            if(@this.get('id_customer') != null && @this.get('id_quotation') != null){
+            // if(@this.get('id_customer') != null && @this.get('id_quotation') != null){
+            //     $('#modal_form').modal('show')
+            // }
+
+            if(@this.get('show_modal') == true || @this.get('show_mdoal') == 1){
                 $('#modal_form').modal('show')
             }
         });

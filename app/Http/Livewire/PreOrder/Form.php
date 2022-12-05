@@ -38,6 +38,7 @@ class Form extends Component
     public $listTipePembayaran = [];
     public $listCustomer = [];
     public $listMetodePembayaran = [];
+    public $show_modal = false;
 
     public function render()
     {
@@ -57,7 +58,8 @@ class Form extends Component
         return view('livewire.pre-order.form');
     }
 
-    public function mount(){
+    public function mount($show_modal){
+        $this->show_modal = $show_modal;
         $quotationSuccess = Quotation::where('status_like', 1)->first();
         if($quotationSuccess){
             $this->id_customer = $quotationSuccess->id_customer;
