@@ -47,6 +47,7 @@ class Data extends Component
             })
             ->where(function($query){
                 $query->where('keterangan', 'LIKE', '%' . $this->cari . '%')
+                ->orWhere('id_quotation', 'LIKE', '%' . $this->cari . '%')
                 ->orWhereHas('user', function($query){
                     $query->where('name', 'LIKE' , '%' . $this->cari . '%');
                 })->orWhereHas('customer', function($query){
