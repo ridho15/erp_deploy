@@ -25,7 +25,7 @@
                             <select name="id_barang" class="form-select form-select-solid" wire:model="id_barang" data-control="select2" data-dropdown-parent="#modal_form_stock_opname" data-placeholder="Pilih" required>
                                 <option value="">Pilih</option>
                                 @foreach ($listBarang as $item)
-                                    <option value="{{ $item->id }}">{{ $item->nama }} ({{ $item->merk->nama_merk }})</option>
+                                    <option value="{{ $item->id }}">{{ $item->nama }} ({{ $item->merk ? $item->merk->nama_merk : '-' }})</option>
                                 @endforeach
                             </select>
                             @error('id_barang')
