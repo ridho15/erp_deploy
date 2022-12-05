@@ -38,6 +38,7 @@ class Data extends Component
         if($this->cari != null || $this->tanggal_dibuat != null || $this->id_project != null || $this->status_kirim != null || $this->status_konfirmasi != null){
             $this->listQuotation = Quotation::where(function($query){
                 $query->where('keterangan', 'LIKE', '%' . $this->cari . '%')
+                ->orWhere('id', 'LIKE', '%' . $this->cari . '%')
                 ->orWhere('hal' ,'LIKE', '%' . $this->cari . '%')
                 ->orWhereHas('laporanPekerjaan', function($query){
                     $query->whereHas('project', function($query){
@@ -47,11 +48,13 @@ class Data extends Component
                 });
             })
             ->where(function($query){
-                $query->whereDate('created_at', $this->tanggal_dibuat)
-                ->orWhereHas('laporanPekerjaan', function($query){
-                    $query->where('id_project', $this->id_project);
-                })->orWhere('status', $this->status_kirim)
-                ->orWhere('konfirmasi', $this->status_konfirmasi);
+                if ($this->tanggal_dibuat != null || $this->id_project != null || $this->status_kirim != null || $this->status_konfirmasi != null) {
+                    $query->whereDate('created_at', $this->tanggal_dibuat)
+                    ->orWhereHas('laporanPekerjaan', function($query){
+                        $query->where('id_project', $this->id_project);
+                    })->orWhere('status', $this->status_kirim)
+                    ->orWhere('konfirmasi', $this->status_konfirmasi);
+                }
             })
             ->orderBy('created_at', 'DESC')
             ->paginate($this->total_show);
