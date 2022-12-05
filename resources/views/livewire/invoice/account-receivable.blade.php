@@ -32,7 +32,7 @@
                    <th>Pembuat</th>
                    <th>Tipe Pembayaran</th>
                    <th>Metode Pembayaran</th>
-                   <th>Status Pekerjaan</th>
+                   {{-- <th>Status Pekerjaan</th> --}}
                    <th>Status Pembayaran</th>
                    <th>Keterangan</th>
                    <th>File</th>
@@ -61,8 +61,7 @@
                                         -
                                     @endif
                                 </td>
-                                <td>
-                                    {{-- <?= $item->status_formatted ?> --}}
+                                {{-- <td>
                                     @if ($item->quotation && $item->quotation->laporanPekerjaan)
                                         @if ($item->quotation->laporanPekerjaan->signature != null && $item->quotation->laporanPekerjaan->jam_selesai != null)
                                             <span class="badge badge-success">Selesai</span>
@@ -74,7 +73,7 @@
                                     @else
                                         Tidak ada pekerjaan
                                     @endif
-                                </td>
+                                </td> --}}
                                 <td><?= $item->status_pembayaran ?></td>
                                 <td><?= $item->keterangan ?? '-' ?></td>
                                 <td>

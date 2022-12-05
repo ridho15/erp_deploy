@@ -2,7 +2,7 @@
 
 @section('content')
     @livewire('pre-order.data')
-    @livewire('pre-order.form')
+    @livewire('pre-order.form', ['show_modal' => $show_modal])
 @endsection
 
 @section('js')
