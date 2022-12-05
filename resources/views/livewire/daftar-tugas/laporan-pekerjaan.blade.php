@@ -45,7 +45,46 @@
 
                             {{-- <textarea name="keterangan_laporan_pekerjaan" class="form-control form-control-solid" placeholder="Masukkan keterangan / Catatan" cols="30" rows="5" wire:model='keterangan_laporan_pekerjaan'></textarea> --}}
                         </div>
-                        @foreach ($listCatatanTeknisi as $item)
+                        <table>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>Ya</td>
+                                <td>Tidak</td>
+                            </tr>
+                            @if (count($listCatatanTeknisi) > 0)
+                                @foreach ($listCatatanTeknisi as $item)
+                                    <tr>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-icon btn-light-active-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Catatan" wire:click="hapusCatatanTeknisi({{ $item->id }})">
+                                                <i class="fa-solid fa-trash-can text-danger"></i>
+                                            </button>
+                                        </td>
+                                        <td class="px-2">
+                                            {{ $item->keterangan }}
+                                        </td>
+                                        <td class="px-2">
+                                            <div class="form-check form-check-custom form-check-solid mb-2 form-check-sm">
+                                                <input class="form-check-input" type="checkbox" value="1" @if($item->status === 1) checked @endif id="flexCheckDefault" wire:click="checkCatatanTeknisi({{ $item->id }}, 1)"/>
+                                            </div>
+                                        </td>
+                                        <td class="px-2">
+                                            <div class="form-check form-check-custom form-check-solid mb-2 form-check-sm">
+                                                <input class="form-check-input" type="checkbox" value="1" @if($item->status === 0) checked @endif id="flexCheckDefault" wire:click="checkCatatanTeknisi({{ $item->id }}, 0)"/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td class="text-white">Text</td>
+                                    <td class="text-white">Text</td>
+                                    <td class="text-white">Text</td>
+                                    <td class="text-white">Text</td>
+                                </tr>
+                            @endif
+                        </table>
+                        {{-- @foreach ($listCatatanTeknisi as $item)
                             <div class="d-flex align-items-center mb-5">
                                 <button type="button" class="btn btn-sm btn-icon btn-light-active-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Catatan" wire:click="hapusCatatanTeknisi({{ $item->id }})">
                                     <i class="fa-solid fa-trash-can text-danger"></i>
@@ -66,7 +105,7 @@
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                        @endforeach --}}
                     </div>
 
                     <div class="mb-5 col-md-6">
