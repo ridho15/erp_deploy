@@ -21,7 +21,7 @@ class CustomerOrderDetail extends Model
 
     public function barang()
     {
-        return $this->belongsTo(Barang::class, 'id_produk')->withTrashed();
+        return $this->belongsTo(Barang::class, 'id_produk');
     }
 
     public function getStatusOrderFormattedAttribute()
