@@ -68,8 +68,8 @@ class LaporanController extends Controller
 
     public function profitPreOrder(){
         $data['title'] = "Profit PO Masuk - PO Keluar";
-        $data['active'] = ['laporan', 'grafik-penjualan'];
-        $data['breadCrumb'] = ['Laporan', 'Grafik Penjualan'];
+        $data['active'] = ['laporan', 'profit-po'];
+        $data['breadCrumb'] = ['Laporan', 'Profit PO Keluar - PO Masuk'];
 
         return view('laporan.grafik-pre-order', $data);
     }
