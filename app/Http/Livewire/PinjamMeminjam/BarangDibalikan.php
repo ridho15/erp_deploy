@@ -23,6 +23,7 @@ class BarangDibalikan extends Component
         $this->listBarangDibalikan = BarangStockLog::where(function($query){
             $query->where('perubahan', 'LIKE', '%' . $this->cari . '%')
             ->orWhere('tanggal_perubahan', 'LIKE', '%' . $this->cari . '%')
+            ->orWhere('id_barang', 'LIKE', '%' . $this->cari . '%')
             ->orWhereHas('barang', function($query){
                 $query->where('nama', 'LIKE', '%' . $this->cari . '%')
                 ->orWhere('deskripsi', 'LIKE', '%' . $this->cari . '%');
