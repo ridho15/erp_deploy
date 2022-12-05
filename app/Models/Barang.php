@@ -38,7 +38,7 @@ class Barang extends Model
     }
 
     public function merk(){
-        return $this->belongsTo(Merk::class, 'id_merk')->withTrashed();
+        return $this->belongsTo(Merk::class, 'id_merk');
     }
 
     public function barangKategori(){
@@ -50,7 +50,7 @@ class Barang extends Model
     }
 
     public function satuan(){
-        return $this->belongsTo(Satuan::class, 'id_satuan')->withTrashed();
+        return $this->belongsTo(Satuan::class, 'id_satuan');
     }
 
     public function supplierBarang(){
@@ -62,7 +62,7 @@ class Barang extends Model
     }
 
     public function tipeBarang(){
-        return $this->belongsTo(TipeBarang::class, 'id_tipe_barang')->withTrashed();
+        return $this->belongsTo(TipeBarang::class, 'id_tipe_barang');
     }
 
     public function barangStockChange($jumlah, $status, $id_quotation = null){
