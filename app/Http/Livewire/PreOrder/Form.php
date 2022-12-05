@@ -58,7 +58,7 @@ class Form extends Component
         return view('livewire.pre-order.form');
     }
 
-    public function mount($show_modal){
+    public function mount($show_modal = false){
         $this->show_modal = $show_modal;
         $quotationSuccess = Quotation::where('status_like', 1)->first();
         if($quotationSuccess){
