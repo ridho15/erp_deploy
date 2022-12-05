@@ -45,7 +45,7 @@
             Tipe Pembayaran
         </div>
         <div class="col-md">
-            : <span class="fw-bold">{{ $supplierOrder->tipePembayaran->nama_tipe }}</span>
+            : <span class="fw-bold">{{ $supplierOrder->tipePembayaran ? $supplierOrder->tipePembayaran->nama_tipe : '-' }}</span>
         </div>
     </div>
     <div class="row mb-7">
