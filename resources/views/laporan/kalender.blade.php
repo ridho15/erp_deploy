@@ -1,7 +1,59 @@
 @extends('template.layout')
 
 @section('content')
-    <div id="kt_docs_fullcalendar_basic"></div>
+    <div class="card shadow-sm">
+        <div class="card-header">
+            <h3 class="card-title">
+                Calender
+            </h3>
+        </div>
+        <div class="card-body">
+            <div id="kt_docs_fullcalendar_events_list" class="row">
+                <div class="fc-event col-md-3">
+                    <div class="fc-event-main">Event 1</div>
+                </div>
+                <div class="fc-event col-md-3">
+                    <div class="fc-event-main">Event 1</div>
+                </div>
+                <div class="fc-event col-md-3">
+                    <div class="fc-event-main">Event 1</div>
+                </div>
+                <div class="fc-event col-md-3">
+                    <div class="fc-event-main">Event 1</div>
+                </div>
+                <div class="fc-event col-md-3">
+                    <div class="fc-event-main">Event 1</div>
+                </div>
+            </div>
+            {{-- <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event badge me-3 my-1">
+                <div class="fc-event-main">Event 1</div>
+            </div>
+            <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event badge me-3 my-1">
+                <div class="fc-event-main">Event 2</div>
+            </div>
+            <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event badge me-3 my-1">
+                <div class="fc-event-main">Event 3</div>
+            </div>
+            <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event badge me-3 my-1">
+                <div class="fc-event-main">Event 4</div>
+            </div>
+            <div class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event badge me-3 my-1">
+                <div class="fc-event-main">Event 5</div>
+            </div> --}}
+            <!--begin::Checkbox-->
+            <div class="mt-2 my-5">
+                <div class="form-check form-check-custom form-check-solid">
+                    <input class="form-check-input" type="checkbox" value="" id="drop-remove" />
+                    <label class="form-check-label" for="drop-remove">
+                        Remove event after drop
+                    </label>
+                </div>
+            </div>
+            <!--end::Checkbox-->
+            <hr>
+            <div id="kt_docs_fullcalendar_drag"></div>
+        </div>
+    </div>
 @endsection
 
 @section('js')
@@ -9,58 +61,33 @@
         $(document).ready(function () {
 
         });
-        const element = document.getElementById("kt_docs_fullcalendar_basic");
 
-        var todayDate = moment().startOf("day");
-        var YM = todayDate.format("YYYY-MM");
-        var YESTERDAY = todayDate.clone().subtract(1, "day").format("YYYY-MM-DD");
-        var TODAY = todayDate.format("YYYY-MM-DD");
-        var TOMORROW = todayDate.clone().add(1, "day").format("YYYY-MM-DD");
+        // Initialize the external events -- for more info please visit the official site: https://fullcalendar.io/demos
+        var containerEl = document.getElementById("kt_docs_fullcalendar_events_list");
+        new FullCalendar.Draggable(containerEl, {
+            itemSelector: ".fc-event",
+            eventData: function(eventEl) {
+                return {
+                    title: eventEl.innerText.trim()
+                }
+            }
+        });
 
-        var calendarEl = document.getElementById("kt_docs_fullcalendar_basic");
+        // initialize the calendar -- for more info please visit the official site: https://fullcalendar.io/demos
+        var calendarEl = document.getElementById("kt_docs_fullcalendar_drag");
         var calendar = new FullCalendar.Calendar(calendarEl, {
             headerToolbar: {
                 left: "prev,next today",
                 center: "title",
-                right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth"
+                right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek"
             },
-
-            height: 800,
-            contentHeight: 780,
-            aspectRatio: 3,  // see: https://fullcalendar.io/docs/aspectRatio
-
-            nowIndicator: true,
-            now: TODAY + "T09:25:00", // just for demo
-
-            views: {
-                dayGridMonth: { buttonText: "month" },
-                timeGridWeek: { buttonText: "week" },
-                timeGridDay: { buttonText: "day" }
-            },
-
-            initialView: "dayGridMonth",
-            initialDate: TODAY,
-
             editable: true,
-            dayMaxEvents: true, // allow "more" link when too many events
-            navLinks: true,
-            events: [
-
-            ],
-
-            eventContent: function (info) {
-                var element = $(info.el);
-
-                if (info.event.extendedProps && info.event.extendedProps.description) {
-                    if (element.hasClass("fc-day-grid-event")) {
-                        element.data("content", info.event.extendedProps.description);
-                        element.data("placement", "top");
-                        KTApp.initPopover(element);
-                    } else if (element.hasClass("fc-time-grid-event")) {
-                        element.find(".fc-title").append("<div class='fc-description'>" + info.event.extendedProps.description + "</div>");
-                    } else if (element.find(".fc-list-item-title").lenght !== 0) {
-                        element.find(".fc-list-item-title").append("<div class='fc-description'>" + info.event.extendedProps.description + "</div>");
-                    }
+            droppable: true, // this allows things to be dropped onto the calendar
+            drop: function(arg) {
+                // is the "remove after drop" checkbox checked?
+                if (document.getElementById("drop-remove").checked) {
+                    // if so, remove the element from the "Draggable Events" list
+                    arg.draggedEl.parentNode.removeChild(arg.draggedEl);
                 }
             }
         });
