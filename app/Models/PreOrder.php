@@ -141,7 +141,7 @@ class PreOrder extends Model
     }
 
     public function tipePembayaran(){
-        return $this->belongsTo(TipePembayaran::class, 'id_tipe_pembayaran')->withTrashed();
+        return $this->belongsTo(TipePembayaran::class, 'id_tipe_pembayaran');
     }
 
     public function preOrderDetail(){
@@ -157,7 +157,7 @@ class PreOrder extends Model
     }
 
     public function metodePembayaran(){
-        return $this->belongsTo(MetodePembayaran::class, 'id_metode_pembayaran')->withTrashed();
+        return $this->belongsTo(MetodePembayaran::class, 'id_metode_pembayaran');
     }
 
     public function preOrderBayar(){
