@@ -6,6 +6,7 @@ use App\Http\Controllers\HelperController;
 use App\Models\FormMaster;
 use App\Models\Kondisi;
 use App\Models\TemplatePekerjaan;
+use App\Models\TemplatePekerjaanDetail;
 use Livewire\Component;
 
 class Form extends Component

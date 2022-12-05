@@ -14,10 +14,8 @@ class TemplatePekerjaanDetail extends Model
     protected $fillable = [
         'id_template_pekerjaan',
         'nama_pekerjaan',
-        'status',
-        'kondisi',
         'periode',
-        'keterangan',
+        'id_parent'
     ];
 
     // protected $appends = ['checklist_1_bulan_formatted', 'checklist_2_bulan_formatted', 'checklist_3_bulan_formatted', 'checklist_6_bulan_formatted', 'checklist_1_tahun_formatted'];
@@ -62,5 +60,13 @@ class TemplatePekerjaanDetail extends Model
     public function templatePekerjaan()
     {
         return $this->belongsTo(TemplatePekerjaan::class, 'id_template_pekerjaan');
+    }
+
+    public function children(){
+        return $this->hasMany(TemplatePekerjaanDetail::class, 'id_parent');
+    }
+
+    public function parent(){
+        return $this->belongsTo(TemplatePekerjaanDetail::class, 'id_parent');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Livewire\TemplatePekerjaan;
 use App\Http\Controllers\HelperController;
 use App\Models\FormMaster;
 use App\Models\TemplatePekerjaan;
+use App\Models\TemplatePekerjaanDetail;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -14,7 +15,9 @@ class Data extends Component
     public $paginationTheme = 'bootstrap';
     public $listeners = [
         'hapusTemplatePekerjaan',
-        'refreshTemplatePekerjaan' => '$refresh'
+        'refreshTemplatePekerjaan' => '$refresh',
+        'hapusTemplatePekerjaanDetail',
+        'hapusTemplatePekerjaanDetailParent'
     ];
     public $total_show = 10;
     public $cari;
@@ -50,6 +53,40 @@ class Data extends Component
         $templatePekerjaan->delete();
         $message = 'Data berhasil dihapus';
         activity()->causedBy(HelperController::user())->log("Berhasil menghapus template pekerjaan");
+        $this->emit('finishRefreshData', 1, $message);
+
+        return session()->flash('success', $message);
+    }
+
+    public function hapusTemplatePekerjaanDetail($id)
+    {
+        $templatePekerjaan = TemplatePekerjaanDetail::find($id);
+        if (!$templatePekerjaan) {
+            $message = 'Data tidak ditemukan !';
+
+            return session()->flash('fail', $message);
+        }
+
+        $templatePekerjaan->delete();
+        $message = 'Data berhasil dihapus';
+        activity()->causedBy(HelperController::user())->log("Berhasil menghapus template pekerjaan detail");
+        $this->emit('finishRefreshData', 1, $message);
+
+        return session()->flash('success', $message);
+    }
+
+    public function hapusTemplatePekerjaanDetailParent($id)
+    {
+        $templatePekerjaan = TemplatePekerjaanDetail::find($id);
+        if (!$templatePekerjaan) {
+            $message = 'Data tidak ditemukan !';
+
+            return session()->flash('fail', $message);
+        }
+
+        $templatePekerjaan->delete();
+        $message = 'Data berhasil dihapus';
+        activity()->causedBy(HelperController::user())->log("Berhasil menghapus template pekerjaan detail");
         $this->emit('finishRefreshData', 1, $message);
 
         return session()->flash('success', $message);

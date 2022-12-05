@@ -34,7 +34,7 @@ class SupplierController extends Controller
     public function order()
     {
         $data['title'] = 'Data Supplier Order';
-        $data['active'] = ['supplier-order'];
+        $data['active'] = ['purchase-order','supplier-order'];
         $data['breadCrumb'] = ['Supplier', 'Order', 'Data'];
 
         return view('supplier.order', $data);

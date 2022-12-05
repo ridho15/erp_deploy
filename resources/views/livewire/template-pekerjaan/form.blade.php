@@ -31,7 +31,7 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                        <div class="mb-5">
+                        {{-- <div class="mb-5">
                             <label for="" class="form-label">Parent Pekerjaan</label>
                             <select name="id_parent" wire:model="id_parent" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih">
                                 <option value="">Pilih</option>
@@ -42,7 +42,7 @@
                             @error('id_parent')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
-                        </div>
+                        </div> --}}
                         <div class="mb-5">
                             <label for="" class="form-label required">Nama Pekerjaan</label>
                             <input type="text" class="form-control form-control-solid" name="nama_pekerjaan" wire:model="nama_pekerjaan" placeholder="Masukkan nama pekerjaan" required>
@@ -50,7 +50,7 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                        <div class="mb-5">
+                        {{-- <div class="mb-5">
                             <label for="" class="form-label required">Periode</label>
                             <select name="periode" wire:model="periode" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih" multiple>
                                 <option value="">Pilih</option>
@@ -61,7 +61,7 @@
                             @error('periode')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
-                        </div>
+                        </div> --}}
                     </div>
 
                     <div class="modal-footer">

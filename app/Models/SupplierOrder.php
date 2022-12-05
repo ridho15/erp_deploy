@@ -25,12 +25,18 @@ class SupplierOrder extends Model
     ];
 
     protected $appends = [
+        'no_ref',
         'status_pembayaran_formatted',
         'tanggal_order_formatted',
         'status_order_formatted',
         'total_harga_formatted',
         'status_pembayaran_formatted'
     ];
+
+    public function getNoRefAttribute(){
+        $helper = new HelperController;
+        return "SO" . $helper->format_num($this->id);
+    }
 
     public function getStatusPembayaranFormattedAttribute(){
         if($this->status_pembayaran == 0){

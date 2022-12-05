@@ -15,7 +15,12 @@ class CreateCalenderPenagihansTable extends Migration
     {
         Schema::create('calender_penagihans', function (Blueprint $table) {
             $table->id();
+            $table->integer('tipe');
+            $table->integer('id_accounts');
+            $table->text('description')->nullable();
+            $table->date('tanggal')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

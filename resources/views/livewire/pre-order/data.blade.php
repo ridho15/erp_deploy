@@ -44,6 +44,7 @@
                  <thead>
                   <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200 sticky">
                    <th>No</th>
+                   <th>No Ref</th>
                    <th>Kode Quotation</th>
                    <th>Customer</th>
                    <th>User</th>
@@ -62,6 +63,7 @@
                                 @if ($status_pembayaran == $item->status_pembayaran_kode)
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
+                                        <td>{{ $item->no_ref }}</td>
                                         <td>{{ $item->quotation? $item->quotation->no_ref : '-' }}</td>
                                         <td>{{ $item->customer ? $item->customer->nama : '-'}} {{ $item->customer ? $item->customer->kode : '-' }}</td>
                                         <td>
@@ -119,6 +121,7 @@
                             @else
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
+                                    <td>{{ $item->no_ref }}</td>
                                     <td>{{ $item->quotation? $item->quotation->no_ref : '-' }}</td>
                                     <td>{{ $item->customer ? $item->customer->nama : '-'}} {{ $item->customer ? $item->customer->kode : '-' }}</td>
                                     <td>
