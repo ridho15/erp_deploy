@@ -128,7 +128,7 @@
                                             Dikonfirmasi Pelanggan
                                         @endif
                                     </td>
-                                    <td>{{ $item->tipePembayaran->nama_tipe }}</td>
+                                    <td>{{ $item->tipePembayaran ? $item->tipePembayaran->nama_tipe : '-' }}</td>
                                     <td>
                                         @if ($item->metodePembayaran)
                                             {{ $item->metodePembayaran->nama_metode }}
