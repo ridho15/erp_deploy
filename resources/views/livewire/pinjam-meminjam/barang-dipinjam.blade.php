@@ -43,12 +43,12 @@
                                 {{ $item->barang->sku }}
                             </a>
                         </td>
-                        <td>{{ $item->barang->nama }}</td>
-                        <td>{{ $item->barang->satuan->nama_satuan }}</td>
-                        <td>{{ $item->barang->harga_formatted }}</td>
+                        <td>{{ $item->barang ? $item->barang->nama : '-' }}</td>
+                        <td>{{ $item->barang? $item->barang->satuan->nama_satuan : '-' }}</td>
+                        <td>{{ $item->barang ? $item->barang->harga_formatted : '-' }}</td>
                         <td>{{ $item->qty }}</td>
                         <td>{{ $item->version }} V</td>
-                        <td>{{ $item->tipeBarang->tipe_barang }}</td>
+                        <td>{{ $item->tipeBarang ? $item->tipeBarang->tipe_barang : '-' }}</td>
                         <td>{{ $item->catatan_teknisi }}</td>
                         <td>{{ $item->userMeminjamkan ? $item->userMeminjamkan->name : '-' }}</td>
                         <td><?= $item->status_formatted ?></td>

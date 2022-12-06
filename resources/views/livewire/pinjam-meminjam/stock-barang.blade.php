@@ -46,7 +46,7 @@
                                 <td>{{ $item->stock }}</td>
                                 <td>{{ $item->satuan->nama_satuan }}</td>
                                 <td>{{ $item->min_stock }}</td>
-                                <td>{{ $item->tipeBarang->tipe_barang }}</td>
+                                <td>{{ $item->tipeBarang ? $item->tipeBarang->tipe_barang : '-' }}</td>
                                 <td>{{ $item->deskripsi }}</td>
                                 <td>
                                     @if ($item->stock < $item->min_stock)

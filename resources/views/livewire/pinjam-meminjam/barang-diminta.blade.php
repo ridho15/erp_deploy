@@ -45,7 +45,6 @@
                         <td>{{ $item->qty }}</td>
                         <td>{{ $item->version }} V</td>
                         <td>{{ $item->tipeBarang ? $item->tipeBarang->tipe_barang : '-' }}</td>
-                        <td>{{ $item->barang->tipeBarang->tipe_barang }}</td>
                         <td>{{ $item->catatan_teknisi }}</td>
                         <td>{{ $item->userPeminjam ? $item->userPeminjam->name : '-' }}</td>
                         <td><?= $item->status_formatted ?></td>
