@@ -58,7 +58,7 @@
                         @foreach ($listLogActivity as $index => $item)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
-                                <td>{{ $item->user->name }}</td>
+                                <td>{{ $item->user ? $item->user->name : '-' }}</td>
                                 <td>{{ $item->description }}</td>
                                 <td>{{ date('d/m/Y H:i', strtotime($item->updated_at)) }}</td>
                             </tr>

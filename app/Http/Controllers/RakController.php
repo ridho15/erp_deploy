@@ -9,7 +9,7 @@ class RakController extends Controller
 {
     public function index(){
         $data['title'] = 'Rak';
-        $data['active'] = ['rak'];
+        $data['active'] = ['inventory','rak'];
         $data['breadCrumb'] = ['Rak', 'Data'];
 
         return view('rak.index', $data);
@@ -17,7 +17,7 @@ class RakController extends Controller
 
     public function detail($id){
         $data['title'] = "Detail";
-        $data['active'] = ['rak'];
+        $data['active'] = ['inventory','rak'];
         $data['breadCrumb'] = ['Rak', 'Detail'];
 
         $rak = Rak::find($id);

@@ -31,8 +31,8 @@
                     <tr>
                         <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
                         <td>{{ $item->no_ref }}</td>
-                        <td>{{ $item->supplier->name }}</td>
-                        <td>{{ $item->user->name }}</td>
+                        <td>{{ $item->supplier ? $item->supplier->name : '-' }}</td>
+                        <td>{{ $item->user ? $item->user->name : '-' }}</td>
                         <td><?= $item->status_order_formatted['badge'] ?></td>
                         <td><?= $item->status_pembayaran_formatted ?></td>
                         <td>{{ $item->total_harga_formatted }}</td>
