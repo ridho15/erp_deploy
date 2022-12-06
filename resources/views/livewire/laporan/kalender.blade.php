@@ -85,6 +85,63 @@
             <div id="kt_docs_fullcalendar_drag"></div>
         </div>
     </div>
+
+    <div wire:ignore.self class="modal fade" tabindex="-1" id="modal_show_agenda">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">List Agenda</h3>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                        <span class="svg-icon svg-icon-1">
+                            <i class="bi bi-x-circle"></i>
+                        </span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+
+                <div class="modal-body">
+                    @include('helper.alert-message')
+                    <div class="text-center">
+                        @include('helper.simple-loading', ['target' => null, 'message' => 'Menyimpan data ...'])
+                    </div>
+                    <div class="row">
+                        @if (count($listAgenda) > 0)
+                            @foreach ($listAgenda as $item)
+                                <div class="col-md-4 bg-light-secondary border rounded p-5">
+                                    @if ($item->tipe == 1)
+                                        <span class="fw-bold">Receivable</span>
+                                        <span class="">{{ $item->preOrder->no_ref }}</span>
+                                        Dari <span class="fw-bold">{{ $item->preOrder->customer->nama }}</span>
+                                        <p>{{ $item->description }}</p>
+                                    @elseif($item->tipe == 2)
+                                        <span class="fw-bold">Payable</span>
+                                        <span class="">{{ $item->supplierOrder->no_ref }}</span>
+                                        Dari <span class="fw-bold">{{ $item->supplierOrder->supplier->name }}</span>
+                                        <p>{{ $item->description }}</p>
+                                    @endif
+                                    <div class="text-end">
+                                        <button class="btn btn-sm btn-icon btn-light" wire:click="hapusTanggalAgenda({{ $item->id }})">
+                                            <i class="fa-solid fa-trash-can text-danger"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                            <div class="col-md-12 text-center text-gray-500">
+                                Tidak ada agenda
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @push('js')
@@ -136,6 +193,9 @@
                 },
                 contentHeight: 1000,
                 editable: true,
+                navLinks: true, // can click day/week names to navigate views
+                selectable: true,
+                selectMirror: true,
                 droppable: true, // this allows things to be dropped onto the calendar
                 drop: function(arg) {
                     // is the "remove after drop" checkbox checked?
@@ -167,6 +227,10 @@
                     }
                 },eventClick: function(arg){
                     console.log(arg.event);
+                }, select: function(arg){
+                    const tanggal = arg.startStr;
+                    Livewire.emit('setTanggalClick', tanggal)
+                    $('#modal_show_agenda').modal('show')
                 }
             });
 
