@@ -13,6 +13,7 @@ class DashboardController extends Controller
         $data['title'] = 'Dashboard Admin | ERP';
         $data['active'] = ['dashboard'];
         $data['breadCrumb'] = ['Dashbord', 'Data'];
+        // Testing
 
         return view('dashboard.index', $data);
     }
