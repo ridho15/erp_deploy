@@ -48,46 +48,18 @@
                                         $nomor_level2 = 0;
                                     @endphp
                                     @foreach ($item->detail as $value)
-                                        @php
-                                            $dataPekerjaanChecklist = \App\Models\LaporanPekerjaanChecklist::where('id_laporan_pekerjaan', $id_laporan_pekerjaan)
-                                            ->where('id_template_pekerjaan_detail', $value->id)->first();
-                                            $dataPekerjaan = null;
-                                            if ($dataPekerjaanChecklist) {
-                                                $dataPekerjaan = json_decode($dataPekerjaanChecklist->pekerjaan);
-                                            }
-                                        @endphp
-                                        <tr>
-                                            <td>{{ $nomor_level2 + 1 }}</td>
-                                            <td>{{ $value->nama_pekerjaan }}</td>
-                                            <td>
-                                                <div class="">
-                                                    <select name="kondisi" class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih" data-id_template_pekerjaan_detail="{{ $value->id }}">
-                                                        <option value="">Pilih</option>
-                                                        @foreach ($listKondisi as $kondisi)
-                                                            <option value="{{ $kondisi->keterangan }}" @if($dataPekerjaanChecklist && $kondisi->keterangan == $dataPekerjaanChecklist->kondisi) selected @endif>{{ $kondisi->keterangan }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <textarea name="keterangan" class="form-control form-control-solid" placeholder="Masukkan keterangan" data-id_template_pekerjaan_detail="{{ $value->id }}">{{ $dataPekerjaanChecklist ? $dataPekerjaanChecklist->keterangan : null }}</textarea>
-                                            </td>
-                                        </tr>
-                                        @php
-                                            $nomor_level3 = 0;
-                                        @endphp
-                                        @foreach ($value->children as $child)
+                                        @if ($value->periode != null && is_array(json_decode($value->periode)) && in_array($periode,json_decode($value->periode)))
                                             @php
                                                 $dataPekerjaanChecklist = \App\Models\LaporanPekerjaanChecklist::where('id_laporan_pekerjaan', $id_laporan_pekerjaan)
-                                                ->where('id_template_pekerjaan_detail', $child->id)->first();
+                                                ->where('id_template_pekerjaan_detail', $value->id)->first();
                                                 $dataPekerjaan = null;
                                                 if ($dataPekerjaanChecklist) {
                                                     $dataPekerjaan = json_decode($dataPekerjaanChecklist->pekerjaan);
                                                 }
                                             @endphp
                                             <tr>
-                                                <td></td>
-                                                <td>{{ $nomor_level2 + 1 }}.{{ $nomor_level3 + 1 }} {{ $child->nama_pekerjaan }}</td>
+                                                <td>{{ $nomor_level2 + 1 }}</td>
+                                                <td>{{ $value->nama_pekerjaan }}</td>
                                                 <td>
                                                     <div class="">
                                                         <select name="kondisi" class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih" data-id_template_pekerjaan_detail="{{ $value->id }}">
@@ -102,10 +74,40 @@
                                                     <textarea name="keterangan" class="form-control form-control-solid" placeholder="Masukkan keterangan" data-id_template_pekerjaan_detail="{{ $value->id }}">{{ $dataPekerjaanChecklist ? $dataPekerjaanChecklist->keterangan : null }}</textarea>
                                                 </td>
                                             </tr>
-                                        @endforeach
-                                        @php
-                                            $nomor_level2++;
-                                        @endphp
+                                            @php
+                                                $nomor_level3 = 0;
+                                            @endphp
+                                            @foreach ($value->children as $child)
+                                                @php
+                                                    $dataPekerjaanChecklist = \App\Models\LaporanPekerjaanChecklist::where('id_laporan_pekerjaan', $id_laporan_pekerjaan)
+                                                    ->where('id_template_pekerjaan_detail', $child->id)->first();
+                                                    $dataPekerjaan = null;
+                                                    if ($dataPekerjaanChecklist) {
+                                                        $dataPekerjaan = json_decode($dataPekerjaanChecklist->pekerjaan);
+                                                    }
+                                                @endphp
+                                                <tr>
+                                                    <td></td>
+                                                    <td>{{ $nomor_level2 + 1 }}.{{ $nomor_level3 + 1 }} {{ $child->nama_pekerjaan }}</td>
+                                                    <td>
+                                                        <div class="">
+                                                            <select name="kondisi" class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih" data-id_template_pekerjaan_detail="{{ $value->id }}">
+                                                                <option value="">Pilih</option>
+                                                                @foreach ($listKondisi as $kondisi)
+                                                                    <option value="{{ $kondisi->keterangan }}" @if($dataPekerjaanChecklist && $kondisi->keterangan == $dataPekerjaanChecklist->kondisi) selected @endif>{{ $kondisi->keterangan }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <textarea name="keterangan" class="form-control form-control-solid" placeholder="Masukkan keterangan" data-id_template_pekerjaan_detail="{{ $value->id }}">{{ $dataPekerjaanChecklist ? $dataPekerjaanChecklist->keterangan : null }}</textarea>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            @php
+                                                $nomor_level2++;
+                                            @endphp
+                                        @endif
                                     @endforeach
                                     @php
                                         $nomor_level1++;
