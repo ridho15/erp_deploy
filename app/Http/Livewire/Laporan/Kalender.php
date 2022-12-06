@@ -131,6 +131,9 @@ class Kalender extends Component
             return session()->flash('fail', $message);
         }
 
+        $calenderPenagihan->update([
+            'tanggal' => null
+        ]);
         activity()->causedBy(HelperController::user())->log("Menghapus tanggal agenda");
         $message = "Berhasil mengeluarkan agenda dari tanggal";
         return session()->flash('success', $message);
