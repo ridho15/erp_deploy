@@ -106,6 +106,9 @@
                     <div class="text-center">
                         @include('helper.simple-loading', ['target' => null, 'message' => 'Menyimpan data ...'])
                     </div>
+                    <div class="mb-5">
+                        Tanggal : <span class="fw-bold">{{ date('d-m-Y', strtotime($tanggalClick)) }}</span>
+                    </div>
                     <div class="row">
                         @if (count($listAgenda) > 0)
                             @foreach ($listAgenda as $item)
@@ -122,9 +125,14 @@
                                         <p>{{ $item->description }}</p>
                                     @endif
                                     <div class="text-end">
-                                        <button class="btn btn-sm btn-icon btn-light" wire:click="hapusTanggalAgenda({{ $item->id }})">
-                                            <i class="fa-solid fa-trash-can text-danger"></i>
-                                        </button>
+                                        <div class="btn-group">
+                                            <button class="btn btn-sm btn-icon btn-light" wire:click="hapusTanggalAgenda({{ $item->id }})">
+                                                <i class="fa-solid fa-trash-can text-danger"></i>
+                                            </button>
+                                            <a href="{{ $item->tipe == 1 ? route('pre-order.detail', ['id' => $item->preOrder->id]) : route('supplier.order-detail', ['id' => $item->supplierOrder->id])}}" class="btn btn-sm btn-icon btn-light">
+                                                <i class="fa-solid fa-eye text-primary"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             @endforeach
@@ -225,8 +233,6 @@
                             element.find('.fc-list-item-title').append('<div class="fc-description">' + info.event.extendedProps.description + '</div>');
                         }
                     }
-                },eventClick: function(arg){
-                    console.log(arg.event);
                 }, select: function(arg){
                     const tanggal = arg.startStr;
                     Livewire.emit('setTanggalClick', tanggal)
