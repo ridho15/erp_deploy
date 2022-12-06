@@ -47,7 +47,7 @@
                                 <td><?= $item->status_pembayaran_formatted ?></td>
                                 <td>{{ $item->total_harga_formatted }}</td>
                                 <td>{{ $item->tanggal_order_formatted }}</td>
-                                <td>{{ $item->tipePembayaran->nama_tipe }}</td>
+                                <td>{{ $item->tipePembayaran ? $item->tipePembayaran->nama_tipe : '-' }}</td>
                                 <td>{{ $item->keterangan }}</td>
                                 <td>
                                     <div class="btn-group">
