@@ -15,7 +15,7 @@ class StockMinimum extends Component
         $jumlah = 0;
         foreach ($listBarang as $item) {
             if ($item->stock < $item->min_stock) {
-                if ($jumlah <= 10) {
+                if ($jumlah < 5) {
                     array_push($this->listBarang, $item);
                     $jumlah++;
                 }

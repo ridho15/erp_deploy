@@ -16,7 +16,7 @@ class AccountReceivable extends Component
                 $query->where('signature', '!=', null)
                 ->where('jam_selesai', '!=', null);
             });
-        })->where('status', '!=', 3)->orderBy('updated_at', 'DESC')->take(10)->get()->where('status_pembayaran', '!=', 2);
+        })->where('status', '!=', 3)->orderBy('updated_at', 'DESC')->take(5)->get()->where('status_pembayaran', '!=', 2);
 
         $this->totalPreOrder = PreOrder::whereHas('quotation', function($query){
             $query->whereHas('laporanPekerjaan', function($query){

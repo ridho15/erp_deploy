@@ -13,7 +13,7 @@ class StockOpname extends Component
     {
         $this->listStockOpname = ModelsStockOpname::whereDate('tanggal', now())
         ->orderBy('tanggal', 'DESC')
-        ->take(10)->get();
+        ->take(5)->get();
 
         $this->totalStockOpname = ModelsStockOpname::whereDate('tanggal', now())
         ->count();

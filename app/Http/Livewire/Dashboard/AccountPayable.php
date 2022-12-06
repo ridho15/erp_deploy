@@ -15,7 +15,7 @@ class AccountPayable extends Component
         ->where('status_order', '!=', 0)
         ->whereHas('supplier')
         ->orderBy('updated_at', 'DESC')
-        ->take(10)->get();
+        ->take(5)->get();
 
         $this->totalSupplierOrder = SupplierOrder::where('status_pembayaran', '!=',2)
         ->where('status_order', '!=', 0)
