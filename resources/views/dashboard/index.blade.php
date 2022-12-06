@@ -196,8 +196,20 @@
             <div class="col-md-6 mb-5">
                 @livewire('dashboard.quotation')
             </div>
-            <div class="col-md-6 mb-5">
+            {{-- <div class="col-md-6 mb-5">
                 @livewire('dashboard.pre-order')
+            </div> --}}
+            <div class="col-md-6 mb-5">
+                @livewire('dashboard.account-receivable')
+            </div>
+            <div class="col-md-6 mb-5">
+                @livewire('dashboard.account-payable')
+            </div>
+            <div class="col-md-6 mb-5">
+                @livewire('dashboard.stock-opname')
+            </div>
+            <div class="col-md-6 mb-5">
+                @livewire('dashboard.stock-minimum')
             </div>
             <div class="col-md-6  mb-5">
                 @livewire('dashboard.log-stock')

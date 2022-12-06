@@ -69,6 +69,7 @@
                  </tbody>
                 </table>
             </div>
+            {{ $listStockOpname->links() }}
         </div>
     </div>
 </div>
