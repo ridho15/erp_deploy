@@ -11,7 +11,7 @@ class LogStock extends Component
     public $totalStockKurang;
     public function render()
     {
-        $this->listBarangStock = Barang::orderBy('stock', 'ASC')->limit(10)->get();
+        $this->listBarangStock = Barang::orderBy('stock', 'ASC')->limit(5)->get();
         $this->totalStockKurang = 0;
         $barang = Barang::get();
         foreach ($barang as $item) {

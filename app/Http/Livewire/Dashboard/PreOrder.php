@@ -13,11 +13,13 @@ class PreOrder extends Component
     {
         $this->listPreOrder = [];
         $tempPreOrder = ModelsPreOrder::orderBy('created_at', 'DESC')->get();
+        $jumlah = 0;
         foreach ($tempPreOrder as $item) {
             if($item->metodePembayaran){
                 $expired_pembayaran = Carbon::parse($item->created_at)->addDay($item->metodePembayaran->nilai);
-                if($expired_pembayaran <= now()){
+                if($expired_pembayaran <= now() && $jumlah < 5){
                     array_push($this->listPreOrder, $item);
+                    $jumlah++;
                 }
             }
         }

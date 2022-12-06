@@ -14,7 +14,7 @@ class PekerjaanHariIni extends Component
         $this->listPekerjaanHariIni = LaporanPekerjaan::whereDate('tanggal_pekerjaan', now())
         ->where('jam_selesai', null)
         ->where('signature', null)
-        ->limit(5)
+        ->take(5)
         ->get();
 
         $this->totalPekerjaanHariIni = LaporanPekerjaan::whereDate('tanggal_pekerjaan', now())
