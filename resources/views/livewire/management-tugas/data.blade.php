@@ -79,7 +79,7 @@
                                 <td>{{ $item->project ? $item->project->no_mfg : '-' }}</td>
                                 <td>
                                     @foreach ($item->teknisi as $nama)
-                                    {{ $nama->user ? $item->user->name : '-' }},
+                                    {{ $nama->user ? $nama->user->name : '-' }},
                                     @endforeach
                                 </td>
                                 <td>{{ Carbon\Carbon::parse($item->tanggal_pekerjaan)->locale('id')->isoFormat('DD/MM/YYYY')
