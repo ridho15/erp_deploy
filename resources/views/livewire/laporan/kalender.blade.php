@@ -77,6 +77,16 @@
                                 Dari <span class="fw-bold">{{ $item->supplierOrder->supplier->name }}</span>
                                 <p>{{ $item->description }}</p>
                             @endif
+                            <div class="text-end">
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-icon btn-light" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Agenda" wire:click="$emit('onClickHapus', {{ $item->id }})">
+                                        <i class="fas fa-trash text-danger"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-icon btn-light" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Agenda" wire:click="setDataAgenda({{ $item->id }})">
+                                        <i class="fas fa-edit text-success"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 @endforeach
@@ -242,6 +252,13 @@
 
             calendar.render();
         }
+
+        Livewire.on('onClickHapus', async (id) => {
+            const response = await alertConfirm("Peringatan !", "Apakah kamu yakin ingin menghapus data ?")
+            if(response.isConfirmed == true){
+                Livewire.emit('hapusAgenda', id)
+            }
+        })
 
     </script>
 @endpush
