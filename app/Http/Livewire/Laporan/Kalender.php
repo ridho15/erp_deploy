@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Laporan;
 
+use App\Http\Controllers\HelperController;
 use App\Models\CalenderPenagihan;
 use App\Models\PreOrder;
 use App\Models\SupplierOrder;
@@ -11,7 +12,9 @@ class Kalender extends Component
 {
     public $listeners = [
         'simpanCalenderPenagihan',
-        'updateCalenderPenagihan'
+        'updateCalenderPenagihan',
+        'setTanggalClick',
+        'hapusTanggalAgenda'
     ];
     public $showForm = false;
 
@@ -24,8 +27,14 @@ class Kalender extends Component
     public $listAccounts;
 
     public $listEvents = [];
+    public $listAgenda = [];
+    public $tanggalClick = null;
     public function render()
     {
+        $this->listAgenda = [];
+        if($this->tanggalClick){
+            $this->listAgenda = CalenderPenagihan::whereDate('tanggal',$this->tanggalClick)->get();
+        }
         if($this->tipe != null){
             if ($this->tipe == 1) {
                 $this->listAccounts = PreOrder::whereHas('quotation', function($query){
@@ -44,6 +53,7 @@ class Kalender extends Component
             $this->listAccounts = [];
         }
 
+        $this->listEvents = [];
         $this->listCalenderPenagihan = CalenderPenagihan::get();
         foreach ($this->listCalenderPenagihan as $item) {
             if($item->tanggal != null){
@@ -106,6 +116,23 @@ class Kalender extends Component
         ]);
 
         $message = "Berhasil mengupdate data";
+        activity()->causedBy(HelperController::user())->log("Mengupdate data calender penagihan");
+        return session()->flash('success', $message);
+    }
+
+    public function setTanggalClick($tanggal){
+        $this->tanggalClick = date('Y-m-d', strtotime($tanggal));
+    }
+
+    public function hapusTanggalAgenda($id){
+        $calenderPenagihan = CalenderPenagihan::find($id);
+        if(!$calenderPenagihan){
+            $message = "Data tidak ditemukan";
+            return session()->flash('fail', $message);
+        }
+
+        activity()->causedBy(HelperController::user())->log("Menghapus tanggal agenda");
+        $message = "Berhasil mengeluarkan agenda dari tanggal";
         return session()->flash('success', $message);
     }
 }
