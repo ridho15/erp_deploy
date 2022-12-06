@@ -150,7 +150,7 @@
                                                 <span class="badge badge-secondary">Belum Dikerjakan</span>
                                             @endif
                                         @else
-                                            Tidak ada pekerjaan
+                                            Belum Dikerjakan
                                         @endif
                                     </td>
                                     <td><?= $item->status_pembayaran ?></td>
