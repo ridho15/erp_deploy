@@ -46,6 +46,7 @@ class LaporanPerawatanLift extends Component
     {
         $this->listKondisi = Kondisi::get();
         $this->listPekerjaan = Pekerjaan::get();
+        $this->periode = $this->laporanPekerjaan->periode;
         // $this->listTemplatePekerjaan = TemplatePekerjaan::where(function($query){
         //     $query->where('nama_pekerjaan', 'LIKE', '%' . $this->cari . '%')
         //     ->orWhereHas('parent', function($query){
@@ -59,9 +60,10 @@ class LaporanPerawatanLift extends Component
         // })
         // ->where('id_form_master', $this->laporanPekerjaan->id_form_master)->get();
 
-        $this->listTemplatePekerjaan = TemplatePekerjaan::where('id_parent', null)->where('id_form_master', $this->laporanPekerjaan->id_form_master)->get();
+        $this->listTemplatePekerjaan = TemplatePekerjaan::where('id_parent', null)->whereHas('detail', function($query){
+            $query->where('periode', 'LIKE', '%' . $this->periode . '%');
+        })->where('id_form_master', $this->laporanPekerjaan->id_form_master)->get();
         $this->listLaporanPekerjaanChecklist = LaporanPekerjaanChecklist::where('id_laporan_pekerjaan', $this->id_laporan_pekerjaan)->get();
-        $this->periode = $this->laporanPekerjaan->periode;
 
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.daftar-tugas.laporan-perawatan-lift');
