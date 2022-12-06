@@ -14,7 +14,8 @@ class Kalender extends Component
         'simpanCalenderPenagihan',
         'updateCalenderPenagihan',
         'setTanggalClick',
-        'hapusTanggalAgenda'
+        'hapusTanggalAgenda',
+        'showHideForm'
     ];
     public $showForm = false;
 
@@ -137,5 +138,9 @@ class Kalender extends Component
         activity()->causedBy(HelperController::user())->log("Menghapus tanggal agenda");
         $message = "Berhasil mengeluarkan agenda dari tanggal";
         return session()->flash('success', $message);
+    }
+
+    public function showHideForm(){
+        $this->showForm = !$this->showForm;
     }
 }

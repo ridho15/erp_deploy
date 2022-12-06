@@ -11,7 +11,7 @@
             </div>
             @include('helper.alert-message')
             <div class="text-end mb-5">
-                <button class="btn btn-sm btn-outline btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Agenda" wire:click="$emit('onClickTambahAgenda')">
+                <button class="btn btn-sm btn-outline btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Agenda" wire:click="showHideForm">
                     <i class="fa-solid fa-plus"></i> Tambah
                 </button>
             </div>
@@ -243,8 +243,5 @@
             calendar.render();
         }
 
-        Livewire.on('onClickTambahAgenda', () => {
-            @this.set('showForm', true)
-        })
     </script>
 @endpush
