@@ -15,7 +15,9 @@ class Kalender extends Component
         'updateCalenderPenagihan',
         'setTanggalClick',
         'hapusTanggalAgenda',
-        'showHideForm'
+        'showHideForm',
+        'hapusAgenda',
+        'setDataAgenda'
     ];
     public $showForm = false;
 
@@ -142,5 +144,33 @@ class Kalender extends Component
 
     public function showHideForm(){
         $this->showForm = !$this->showForm;
+    }
+
+    public function hapusAgenda($id){
+        $calenderPenagihan = CalenderPenagihan::find($id);
+        if(!$calenderPenagihan){
+            $message = "Data agenda tidak ditemukan";
+            return session()->flash('fail', $message);
+        }
+
+        $calenderPenagihan->delete();
+        $message = "Berhasil menghapus data agenda";
+        activity()->causedBy(HelperController::user())->log("Menghapus tanggal agenda");
+        return session()->flash('success', $message);
+    }
+
+    public function setDataAgenda($id){
+        $calenderPenagihan = CalenderPenagihan::find($id);
+        if(!$calenderPenagihan){
+            $message = "Data agenda tidak ditemukan";
+            return session()->flash('fail', $message);
+        }
+
+        $this->id_calender_penagihan = $calenderPenagihan->id;
+        $this->tipe = $calenderPenagihan->tipe;
+        $this->id_accounts = $calenderPenagihan->id_accounts;
+        $this->description = $calenderPenagihan->description;
+        $this->tanggal = $calenderPenagihan->tanggal;
+        $this->showForm = true;
     }
 }
