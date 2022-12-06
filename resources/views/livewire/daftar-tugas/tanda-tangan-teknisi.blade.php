@@ -17,7 +17,7 @@
                 <div class="row">
                     @foreach ($listLaporanPekerjaanUser as $index => $item)
                     <div class="col-md-4 text-center mb-5">
-                        <label for="" class="form-label">Tanda Tangan {{ $item->user->name }}</label>
+                        <label for="" class="form-label">Tanda Tangan {{ $item->user ? $item->user->name : '-' }}</label>
                         <div class="position-relative">
                             <canvas id="signature-pad-{{ $index }}" class="signature-pad border rounded w-100 tanda-tangan" style="height: 200px;"></canvas>
                         </div>

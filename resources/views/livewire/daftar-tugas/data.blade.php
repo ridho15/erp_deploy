@@ -48,7 +48,7 @@
                                     <td>{{ $item->project ? $item->project->nama : '-' }}</td>
                                     <td>
                                         @foreach ($item->teknisi as $nama)
-                                        {{ $nama->user->name }},
+                                        {{ $nama->user ?$nama->user->name : '-' }},
                                         @endforeach
                                     </td>
                                     <td>{{ $item->jam_mulai_formatted ?? '-' }}</td>

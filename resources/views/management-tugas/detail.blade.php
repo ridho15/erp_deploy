@@ -158,7 +158,7 @@
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
                             : @foreach ($laporanPekerjaan->teknisi as $item)
-                                {{ $item->user->name }},
+                                {{ $item->user ? $item->user->name : '-' }},
                             @endforeach
                         </div>
                     </div>
