@@ -30,6 +30,7 @@ class AccountPayable extends Component
                 $query->where('name', 'LIKE', '%' . $this->cari . '%');
             });
         })->whereHas('supplier')
+        ->orderBy('updated_at', 'DESC')
         ->paginate($this->total_show);
 
         $data['listSupplierOrder'] = $this->listSupplierOrder;

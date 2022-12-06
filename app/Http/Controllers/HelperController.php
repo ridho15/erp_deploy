@@ -176,7 +176,7 @@ class HelperController extends Controller
                         'route' => 'laporan.kalender'
                     ]),
                     collect([
-                        'nama' => 'Stok Minimum',
+                        'nama' => 'Stock Minimum',
                         'icon' => '<span class="bullet bullet-dot"></span>',
                         'role' => ['Super Admin', 'Manager'],
                         'active' => 'spareparts',

@@ -11,13 +11,13 @@ class PekerjaanHariIni extends Component
     public $totalPekerjaanHariIni;
     public function render()
     {
-        $this->listPekerjaanHariIni = LaporanPekerjaan::whereDate('jam_mulai', now())
+        $this->listPekerjaanHariIni = LaporanPekerjaan::whereDate('tanggal_pekerjaan', now())
         ->where('jam_selesai', null)
         ->where('signature', null)
         ->limit(5)
         ->get();
 
-        $this->totalPekerjaanHariIni = LaporanPekerjaan::whereDate('jam_mulai', now())
+        $this->totalPekerjaanHariIni = LaporanPekerjaan::whereDate('tanggal_pekerjaan', now())
         ->where('jam_selesai', null)
         ->where('signature', null)
         ->count();
