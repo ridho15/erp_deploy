@@ -92,7 +92,7 @@
                                                     <span class="badge badge-secondary">Belum Dikerjakan</span>
                                                 @endif
                                             @else
-                                                Tidak ada pekerjaan
+                                                Belum dikerjakan
                                             @endif
                                         </td>
                                         <td><?= $item->keterangan ?? '-' ?></td>
