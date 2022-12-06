@@ -42,6 +42,22 @@
     </div>
     <div class="row mb-7">
         <div class="col-md-4">
+            Version
+        </div>
+        <div class="col-md">
+            : <span class="fw-bold">{{ $barang->version }} V</span>
+        </div>
+    </div>
+    <div class="row mb-7">
+        <div class="col-md-4">
+            Harga Modal
+        </div>
+        <div class="col-md">
+            : <span class="fw-bold">{{ $barang->harga_modal_formatted }}</span>
+        </div>
+    </div>
+    <div class="row mb-7">
+        <div class="col-md-4">
             Harga
         </div>
         <div class="col-md">

@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Barang;
 
 use App\Http\Controllers\HelperController;
 use App\Models\Barang;
-use App\Models\BarangStockLog;
 use App\Models\Merk;
 use App\Models\Satuan;
 use App\Models\TipeBarang;
@@ -19,7 +18,14 @@ class Form extends Component
         $this->helper = new HelperController();
     }
 
-    public $listeners = ['setDataBarang', 'simpanDataBarang', 'changeTipeBarang', 'changeMerk', 'changeSatuan'];
+    public $listeners = [
+        'setDataBarang',
+        'simpanDataBarang',
+        'changeTipeBarang',
+        'changeMerk',
+        'changeSatuan',
+        'changeVersion'
+    ];
     public $id_barang;
     public $nama;
     public $harga;
@@ -33,12 +39,16 @@ class Form extends Component
     public $listTipeBarang;
     public $listSatuan;
     public $deskripsi;
+    public $version;
+
+    public $listVersion = [];
 
     public function render()
     {
         $this->listMerk = Merk::get();
         $this->listTipeBarang = TipeBarang::get();
         $this->listSatuan = Satuan::get();
+        $this->listVersion = HelperController::getListVersion();
 
         $this->dispatchBrowserEvent('contentChange');
 
@@ -58,6 +68,7 @@ class Form extends Component
         $this->id_tipe_barang = null;
         $this->stock = null;
         $this->min_stock = null;
+        $this->version = null;
     }
 
     public function simpanDataBarang()
@@ -71,6 +82,7 @@ class Form extends Component
             'id_tipe_barang' => 'required|numeric',
             'deskripsi' => 'nullable|string',
             'harga_modal' => 'required|numeric',
+            'version' => 'required|numeric',
         ], [
             'nama.required' => 'Nama tidak boleh kosong',
             'nama.string' => 'Nama tidak valid !',
@@ -85,7 +97,7 @@ class Form extends Component
             'id_tipe_barang.numeric' => 'Tipe barang tidak valid !',
             'deskripsi.string' => 'Deskripsi barang tidak valid !',
             'harga_modal.required' => 'Harga modal tidak boleh kosong',
-            'harga_modal.numeric' => 'Harga modal tidak valid !'
+            'harga_modal.numeric' => 'Harga modal tidak valid !',
         ]);
 
         // Check Merk
@@ -121,6 +133,7 @@ class Form extends Component
         $data['id_tipe_barang'] = $this->id_tipe_barang;
         $data['deskripsi'] = $this->deskripsi;
         $data['harga_modal'] = $this->harga_modal;
+        $data['version'] = $this->version;
 
         Barang::updateOrCreate([
             'id' => $this->id_barang
@@ -155,6 +168,7 @@ class Form extends Component
         $this->id_tipe_barang = $barang->id_tipe_barang;
         $this->deskripsi = $barang->deskripsi;
         $this->harga_modal = $barang->harga_modal;
+        $this->version = $barang->version;
     }
 
     public function changeTipeBarang($id_tipe_barang)
@@ -170,5 +184,10 @@ class Form extends Component
     public function changeSatuan($id_satuan)
     {
         $this->id_satuan = $id_satuan;
+    }
+
+    public function changeVersion($version)
+    {
+        $this->version = $version;
     }
 }

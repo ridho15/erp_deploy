@@ -20,6 +20,7 @@
                 <th>Satuan</th>
                 <th>Harga</th>
                 <th>Jumlah / Qty</th>
+                <th>Version</th>
                 <th>Tipe Barang</th>
                 <th>Catatan Teknisi</th>
                 <th>Peminjam</th>
@@ -42,6 +43,8 @@
                         <td>{{ $item->barang->satuan->nama_satuan }}</td>
                         <td>{{ $item->barang->harga_formatted }}</td>
                         <td>{{ $item->qty }}</td>
+                        <td>{{ $item->version }} V</td>
+                        <td>{{ $item->tipeBarang ? $item->tipeBarang->tipe_barang : '-' }}</td>
                         <td>{{ $item->barang->tipeBarang->tipe_barang }}</td>
                         <td>{{ $item->catatan_teknisi }}</td>
                         <td>{{ $item->userPeminjam ? $item->userPeminjam->name : '-' }}</td>

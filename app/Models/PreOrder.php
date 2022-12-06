@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\HelperController;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -22,6 +23,7 @@ class PreOrder extends Model
     ];
 
     protected $appends = [
+        'no_ref',
         'status_formatted',
         'total',
         'total_bayar',
@@ -31,6 +33,11 @@ class PreOrder extends Model
         'sudah_bayar',
         'ppn'
     ];
+
+    public function getNoRefAttribute(){
+        $helper = new HelperController;
+        return "PO" . $helper->format_num($this->id);
+    }
 
     public function getSudahBayarAttribute(){
         $preOrderBayar = PreOrderBayar::where('id_pre_order', $this->id)->get();

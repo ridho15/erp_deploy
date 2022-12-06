@@ -8,6 +8,7 @@ use App\Models\LaporanPekerjaan;
 use App\Models\LaporanPekerjaanBarang;
 use App\Models\QuotationDetail;
 use App\Models\SupplierOrderDetailTemp;
+use App\Models\TipeBarang;
 use Livewire\Component;
 
 class LaporanSparepart extends Component
@@ -30,8 +31,15 @@ class LaporanSparepart extends Component
     public $tambahBarang = false;
     public $listBarang = [];
     public $barang;
+    public $version;
+    public $id_tipe_barang;
+
+    public $listTipeBarang;
+    public $listVersion;
     public function render()
     {
+        $this->listTipeBarang = TipeBarang::get();
+        $this->listVersion = HelperController::getListVersion();
         $this->listBarang = Barang::get();
         $this->listLaporanPekerjaanBarang = LaporanPekerjaanBarang::where(function($query){
             $query->whereHas('barang', function($query){

@@ -24,6 +24,7 @@
                 <th>Satuan</th>
                 <th>Harga</th>
                 <th>Jumlah / Qty</th>
+                <th>Version</th>
                 <th>Tipe Barang</th>
                 <th>Catatan Teknisi</th>
                 <th>Yang Meminjamkan</th>
@@ -46,7 +47,8 @@
                         <td>{{ $item->barang->satuan->nama_satuan }}</td>
                         <td>{{ $item->barang->harga_formatted }}</td>
                         <td>{{ $item->qty }}</td>
-                        <td>{{ $item->barang->tipeBarang->tipe_barang }}</td>
+                        <td>{{ $item->version }} V</td>
+                        <td>{{ $item->tipeBarang->tipe_barang }}</td>
                         <td>{{ $item->catatan_teknisi }}</td>
                         <td>{{ $item->userMeminjamkan ? $item->userMeminjamkan->name : '-' }}</td>
                         <td><?= $item->status_formatted ?></td>
@@ -232,6 +234,30 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
+                            <div class="col-md-4 mb-5">
+                                <label for="" class="form-label required">Version</label>
+                                <select name="version" wire:model="version" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_tambah_peminjaman_barang" required>
+                                    <option value="">Pilih</option>
+                                    @foreach ($listVersion as $item)
+                                        <option value="{{ $item }}">{{ $item }} V</option>
+                                    @endforeach
+                                </select>
+                                @error('version')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-4 mb-5">
+                                <label for="" class="form-label required">Tipe</label>
+                                <select name="id_tipe_barang" wire:model="id_tipe_barang" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_tambah_peminjaman_barang" required>
+                                    <option value="">Pilih</option>
+                                    @foreach ($listTipeBarang as $item)
+                                        <option value="{{ $item->id }}">{{ $item->tipe_barang }}</option>
+                                    @endforeach
+                                </select>
+                                @error('id_tipe_barang')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
                         </div>
                     </div>
 
@@ -355,6 +381,8 @@
 
         window.addEventListener('contentChange', function(){
             $('select[name="id_laporan_pekerjaan"]').select2();
+            $('select[name="id_tipe_barang"]').select2();
+            $('select[name="version"]').select2();
             $('select[name="id_barang"]').select2();
         })
 
@@ -364,6 +392,14 @@
 
         $('select[name="id_barang"]').on('change', function(){
             @this.set('id_barang', $(this).val())
+        });
+
+        $('select[name="id_tipe_barang"]').on('change', function(){
+            @this.set('id_tipe_barang', $(this).val())
+        });
+
+        $('select[name="version"]').on('change', function(){
+            @this.set('version', $(this).val())
         });
 
         Livewire.on('onClickBatalkan', async (id) => {

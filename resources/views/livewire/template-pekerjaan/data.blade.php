@@ -12,8 +12,7 @@
     <div class="card-body">
         @include('helper.alert-message')
         <div class="text-center">
-            @include('helper.simple-loading', ['target' => 'cari,hapusTemplatePekerjaan', 'message' => 'Memuat
-            data...'])
+            @include('helper.simple-loading', ['target' => 'cari,hapusTemplatePekerjaan', 'message' => 'Memuat data...'])
         </div>
         <div class="row mb-5">
             <div class="col-md-3">
@@ -58,15 +57,15 @@
                                             wire:click="$emit('onClickHapusTemplatePekerjaan', {{ $item->id }})">
                                             <i class="bi bi-trash-fill"></i>
                                         </button>
-                                        {{-- <button class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip"
+                                        <button class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip"
                                             data-bs-placement="top" title="Tambah Uraian Pekerjaan"
                                             wire:click="$emit('onClickTambahUraianPekerjaan', {{ $item->id }})">
                                             <i class="bi bi-plus-circle"></i>
-                                        </button> --}}
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
-                            @foreach ($item->children as $number => $value)
+                            @foreach ($item->detail as $number => $value)
                                 <tr>
                                     <td>{{ $number + 1 }}</td>
                                     <td>{{ $value->nama_pekerjaan }}</td>
@@ -84,30 +83,30 @@
                                         <div class="btn-group">
                                             <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip"
                                                 data-bs-placement="top" title="Edit Template Pekerjaan"
-                                                wire:click="$emit('onClickEditTemplatePekerjaan', {{ $value->id }})">
+                                                wire:click="$emit('onClickEditTemplatePekerjaanParent', {{ $value->id }})">
                                                 <i class="bi bi-pencil-square"></i>
                                             </button>
                                             <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="Edit Template Pekerjaan"
-                                                wire:click="$emit('onClickHapusTemplatePekerjaan', {{ $value->id }})">
+                                                data-bs-placement="top" title="Hapus Template Pekerjaan"
+                                                wire:click="$emit('onClickHapusTemplatePekerjaanParent', {{ $value->id }})">
                                                 <i class="bi bi-trash-fill"></i>
                                             </button>
-                                            {{-- <button class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip"
+                                            <button class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip"
                                                 data-bs-placement="top" title="Tambah Uraian Pekerjaan"
-                                                wire:click="$emit('onClickTambahUraianPekerjaan', {{ $item->id }})">
+                                                wire:click="$emit('onClickTambahUraianPekerjaanParent',{{ $value->id }})">
                                                 <i class="bi bi-plus-circle"></i>
-                                            </button> --}}
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
-                                @foreach ($value->children as $number2 => $value2)
+                                @foreach ($value->children as $numberChild => $child)
                                     <tr>
-                                        <td>{{ $number + 1 }}</td>
-                                        <td>{{ $value2->nama_pekerjaan }}</td>
+                                        <td>{{ $number + 1 }}.{{ $numberChild + 1 }}</td>
+                                        <td>{{ $child->nama_pekerjaan }}</td>
                                         <td>
-                                            @if ($value2->periode && is_array(json_decode($value2->periode)))
-                                                @if (count(json_decode($value2->periode)) > 0)
-                                                    @foreach (json_decode($value2->periode) as $periode)
+                                            @if ($child->periode && is_array(json_decode($child->periode)))
+                                                @if (count(json_decode($child->periode)) > 0)
+                                                    @foreach (json_decode($child->periode) as $periode)
                                                         {{ $periode }},
                                                     @endforeach
                                                     Bulan
@@ -118,17 +117,17 @@
                                             <div class="btn-group">
                                                 <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip"
                                                     data-bs-placement="top" title="Edit Template Pekerjaan"
-                                                    wire:click="$emit('onClickEditTemplatePekerjaan', {{ $value2->id }})">
+                                                    wire:click="$emit('onClickEditTemplatePekerjaanDetail', {{ $child->id }})">
                                                     <i class="bi bi-pencil-square"></i>
                                                 </button>
                                                 <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip"
                                                     data-bs-placement="top" title="Edit Template Pekerjaan"
-                                                    wire:click="$emit('onClickHapusTemplatePekerjaan', {{ $value2->id }})">
+                                                    wire:click="$emit('onClickHapusTemplatePekerjaanDetail', {{ $child->id }})">
                                                     <i class="bi bi-trash-fill"></i>
                                                 </button>
                                                 {{-- <button class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip"
                                                     data-bs-placement="top" title="Tambah Uraian Pekerjaan"
-                                                    wire:click="$emit('onClickTambahUraianPekerjaan', {{ $item->id }})">
+                                                    wire:click="$emit('onClickTambahUraianPekerjaan', {{ $child->id }})">
                                                     <i class="bi bi-plus-circle"></i>
                                                 </button> --}}
                                             </div>
@@ -148,7 +147,7 @@
     </div>
 
     @livewire('template-pekerjaan.form')
-    @livewire('template-pekerjaan.form-detail')
+    @livewire('template-pekerjaan.form-detail', ['id_form_master' => $id_form_master])
 </div>
 
 @push('js')
@@ -167,10 +166,22 @@
             $('#modal_form.template-pekerjaan').modal('show')
         })
 
+        Livewire.on('onClickEditTemplatePekerjaanDetail', (id) => {
+            Livewire.emit('setDataTemplatePekerjaanDetail', id)
+            $('#modal_form_edit_pekerjaan_detail').modal('show')
+        })
+
         Livewire.on('onClickHapusTemplatePekerjaan', async(id) => {
             const response = await alertConfirm('Peringatan !', 'Apakah kamu yakin ingin menghapus data ?')
             if(response.isConfirmed == true){
                 Livewire.emit('hapusTemplatePekerjaan', id)
+            }
+        })
+
+        Livewire.on('onClickHapusTemplatePekerjaanDetail', async(id) => {
+            const response = await alertConfirm('Peringatan !', 'Apakah kamu yakin ingin menghapus data ?')
+            if(response.isConfirmed == true){
+                Livewire.emit('hapusTemplatePekerjaanDetail', id)
             }
         })
 
@@ -189,6 +200,28 @@
         Livewire.on('onClickTambahUraianPekerjaan', (id) => {
             Livewire.emit('setIdTemplatePekerjaan', id)
             $('#modal_form_detail_pekerjaan').modal('show')
+        })
+
+        Livewire.on('onClickTambahUraianPekerjaanDetail', (id_template_pekerjaan,id) => {
+            Livewire.emit('setIdTemplatePekerjaanDetail',id_template_pekerjaan, id)
+            $('#modal_form_detail_pekerjaan').modal('show')
+        })
+
+        Livewire.on('onClickEditTemplatePekerjaanParent', (id_template_pekerjaan_detail) => {
+            Livewire.emit('setTemplatePekerjaanDetailParent', id_template_pekerjaan_detail);
+            $('#modal_form_detail_pekerjaan').modal('show')
+        })
+
+        Livewire.on('onClickTambahUraianPekerjaanParent', (id_template_pekerjaan_detail) => {
+            Livewire.emit('setIdParentTemplatePekerjaanDetail', id_template_pekerjaan_detail);
+            $('#modal_form_detail_pekerjaan').modal('show')
+        })
+
+        Livewire.on('onClickHapusTemplatePekerjaanParent', async (id_template_pekerjaan_detail) => {
+            const response = await alertConfirm("Peringatan", "Apakah kamu ingin menghapus data ?")
+            if(response.isConfirmed == true){
+                Livewire.emit('hapusTemplatePekerjaanDetailParent', id_template_pekerjaan_detail)
+            }
         })
 </script>
 @endpush

@@ -21,6 +21,7 @@ class Barang extends Model
         'id_satuan',
         'id_tipe_barang',
         'deskripsi',
+        'version'
     ];
 
     protected $appends = ['harga_formatted', 'sku', 'harga_modal_formatted', 'total_order'];

@@ -19,7 +19,9 @@ class LaporanPekerjaanBarang extends Model
         'status',
         'konfirmasi',
         'peminjam',
-        'meminjamkan'
+        'meminjamkan',
+        'id_tipe_barang',
+        'version'
     ];
 
     protected $appends = ['status_formatted'];
@@ -52,5 +54,9 @@ class LaporanPekerjaanBarang extends Model
 
     public function userMeminjamkan(){
         return $this->belongsTo(User::class, 'meminjamkan');
+    }
+
+    public function tipeBarang(){
+        return $this->belongsTo(TipeBarang::class, 'id_tipe_barang');
     }
 }

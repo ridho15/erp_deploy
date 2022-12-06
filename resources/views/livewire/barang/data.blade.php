@@ -28,6 +28,7 @@
                    <th>Merek</th>
                    <th>Stock</th>
                    <th>Satuan</th>
+                   <th>Version</th>
                    <th>Harga</th>
                    <th>Harga Modal</th>
                    <th>Minimal Stock</th>
@@ -46,6 +47,11 @@
                                 <td>{{ $item->merk ? $item->merk->nama_merk : '-' }}</td>
                                 <td>{{ $item->stock }}</td>
                                 <td>{{ $item->satuan->nama_satuan }}</td>
+                                <td>
+                                    @if ($item->version)
+                                        {{ $item->version }} V
+                                    @endif
+                                </td>
                                 <td>{{ $item->harga_formatted }}</td>
                                 <td>{{ $item->harga_modal_formatted }}</td>
                                 <td>{{ $item->min_stock }}</td>

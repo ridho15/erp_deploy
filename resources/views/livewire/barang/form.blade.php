@@ -27,6 +27,18 @@
                                 @enderror
                             </div>
                             <div class="mb-5 col-md-6">
+                                <label for="" class="form-label required">Version</label>
+                                <select name="version" class="form-select form-select-solid" wire:model="version" data-control="select2" data-drodown-parent="#modal_form" required>
+                                    <option value="">Pilih</option>
+                                    @foreach ($listVersion as $item)
+                                        <option value="{{ $item }}">{{ $item }} V</option>
+                                    @endforeach
+                                </select>
+                                @error('version')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-5 col-md-6">
                                 <label for="" class="form-label required">Harga Modal</label>
                                 <input type="number" class="form-control form-control-solid" name="harga_modal" wire:model="harga_modal" placeholder="Masukkan harga" required>
                                 @error('harga_modal')
@@ -125,6 +137,10 @@
 
         $('select[name="id_satuan"]').on('change', function(){
             Livewire.emit('changeSatuan', $(this).val())
+        })
+
+        $('select[name="version"]').on('change', function(){
+            Livewire.emit('changeVersion', $(this).val())
         })
 
         Livewire.on("finishSimpanData", (status, message) => {

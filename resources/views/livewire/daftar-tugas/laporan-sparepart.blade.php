@@ -75,6 +75,30 @@
                                     @enderror
                                 </div>
                                 <div class="mb-5">
+                                    <label for="" class="form-label required">Version</label>
+                                    <select name="version" wire:model="version" class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih" required>
+                                        <option value="">Pilih</option>
+                                        @foreach ($listVersion as $item)
+                                            <option value="{{ $item }}">{{ $item }} V</option>
+                                        @endforeach
+                                    </select>
+                                    @error('version')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div class="mb-5">
+                                    <label for="" class="form-label required">TIpe Barang</label>
+                                    <select name="id_tipe_barang" wire:model="id_tipe_barang" class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih Barang" required>
+                                        <option value="">Pilih</option>
+                                        @foreach ($listTipeBarang as $item)
+                                            <option value="{{ $item->id }}">{{ $item->tipe_barang }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('id_tipe_barang')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div class="mb-5">
                                     <label for="" class="form-label required">Jumlah / Qty</label>
                                     <input type="number" class="form-control form-control-solid" name="qty" wire:model="qty" placeholder="Masukkan jumlah" required>
                                     @error('qty')
@@ -125,6 +149,7 @@
                    <th>SKU</th>
                    <th>Nama Barang</th>
                    <th>Tipe Barang</th>
+                   <th>Version</th>
                    <th>Harga</th>
                    <th>Satuan</th>
                    <th>Qty</th>
@@ -145,7 +170,12 @@
                                     </a>
                                 </td>
                                 <td>{{ $item->barang->nama }}</td>
-                                <td>{{ $item->barang->tipeBarang->tipe_barang }}</td>
+                                <td>{{ $item->tipeBarang ? $item->tipeBarang->tipe_barang : null }}</td>
+                                <td>
+                                    @if ($item->version)
+                                        {{ $item->version }} V
+                                    @endif
+                                </td>
                                 <td>{{ $item->barang->harga_formatted }}</td>
                                 <td>{{ $item->barang->satuan->nama_satuan }}</td>
                                 <td>{{ $item->qty }}</td>
@@ -168,7 +198,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="10" class="text-center text-gray-500">Tidak ada data</td>
+                            <td colspan="11" class="text-center text-gray-500">Tidak ada data</td>
                         </tr>
                     @endif
                  </tbody>
@@ -187,6 +217,16 @@
             $('select[name="id_barang"]').select2();
             $('select[name="id_barang"]').on('change', function(){
                 @this.set('id_barang', $(this).val())
+            })
+
+            $('select[name="version"]').select2();
+            $('select[name="version"]').on('change', function(){
+                @this.set('version', $(this).val())
+            })
+
+            $('select[name="id_tipe_barang"]').select2();
+            $('select[name="id_tipe_barang"]').on('change', function(){
+                @this.set('id_tipe_barang', $(this).val())
             })
         })
 
