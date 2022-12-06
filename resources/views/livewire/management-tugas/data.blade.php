@@ -55,7 +55,6 @@
                         <thead>
                             <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200 sticky">
                                 <th>No</th>
-                                <th>Customer</th>
                                 <th>Project</th>
                                 <th>No.MFG</th>
                                 <th>Pekerja</th>
@@ -65,6 +64,7 @@
                                 <th>Periode</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
+                                <th>Customer</th>
                                 <th>Form</th>
                                 <th>Jumlah Service</th>
                             </tr>
@@ -74,7 +74,6 @@
                             @foreach ($listLaporanPekerjaan as $index => $item)
                             <tr>
                                 <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
-                                <td>{{ $item->customer->nama }}</td>
                                 <td>{{ $item->project ? $item->project->nama : '-' }}</td>
                                 <td>{{ $item->project ? $item->project->no_mfg : '-' }}</td>
                                 <td>
@@ -82,8 +81,7 @@
                                     {{ $nama->user ? $nama->user->name : '-' }},
                                     @endforeach
                                 </td>
-                                <td>{{ Carbon\Carbon::parse($item->tanggal_pekerjaan)->locale('id')->isoFormat('DD/MM/YYYY')
-                                    ?? '-' }}</td>
+                                <td>{{ Carbon\Carbon::parse($item->tanggal_pekerjaan)->locale('id')->isoFormat('DD/MM/YYYY') ?? '-' }}</td>
                                 <td>{{ $item->jam_mulai_formatted ?? '-' }}</td>
                                 <td>
                                     @if ($item->jam_selesai)
@@ -145,6 +143,7 @@
                                         </a>
                                     </div>
                                 </td>
+                                <td>{{ $item->customer->nama }}</td>
                                 <td>{{ $item->formMaster->nama }} ({{ $item->formMaster->kode }})</td>
                                 <td>
                                     @php
