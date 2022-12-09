@@ -6,6 +6,7 @@ use App\Http\Controllers\HelperController;
 use App\Models\Barang;
 use App\Models\IsiRak;
 use App\Models\Rak;
+use App\Models\RakLog;
 use Livewire\Component;
 
 class FormIsiRak extends Component
@@ -85,6 +86,13 @@ class FormIsiRak extends Component
             ]);
         }
 
+        RakLog::create([
+            'id_rak' => $this->id_rak,
+            'id_barang' => $this->id_barang,
+            'jumlah' => $this->jumlah,
+            'status' => 1,
+            'keterangan' => 'Barang Masuk'
+        ]);
 
         $message = "Barang berhasil di masukkan ke dalam rak";
         activity()->causedBy(HelperController::user())->log("Memasukkan barang ke dalam rak");
@@ -167,6 +175,14 @@ class FormIsiRak extends Component
                 'jumlah' => $isiRak->jumlah - $this->jumlah
             ]);
         }
+
+        RakLog::create([
+            'id_rak' => $this->id_rak,
+            'id_barang' => $this->id_barang,
+            'status' => 3,
+            'jumlah' => $this->jumlah,
+            'keterangan' => 'Dipindahkan'
+        ]);
 
         $message = "Berhasil memindahkan barang ke rak lain";
         activity()->causedBy(HelperController::user())->log("Melakukan pemindahan barang ke rak lain");

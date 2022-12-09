@@ -29,6 +29,8 @@
                             <th>Status Aktif</th>
                             <th>Tipe User</th>
                             <th>Jabatan</th>
+                            <th>Email</th>
+                            <th>No Hp</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -44,6 +46,8 @@
                             </td>
                             <td>{{ $item->tipeUser->nama_tipe }}</td>
                             <td>{{ $item->jabatan }}</td>
+                            <td>{{ $item->email }}</td>
+                            <td>{{ $item->phone }}</td>
                             <td>
                                 <div class="btn-group">
                                     <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip"
@@ -63,6 +67,7 @@
                                     </a>
                                 </div>
                             </td>
+
                         </tr>
                         @endforeach
                         @else

@@ -56,6 +56,10 @@ Route::get('/foo', function () {
 Route::get('/login', [AutentikasiController::class, 'login'])->name('login');
 Route::post('/login', [AutentikasiController::class, 'postLogin'])->name('post.login');
 Route::get('/logout', [AutentikasiController::class, 'logout'])->name('logout');
+Route::get('/forgot-password', [AutentikasiController::class, 'forgotPassword'])->name('forgot-password');
+Route::post('/forgot-password', [AutentikasiController::class, 'postForgotPassword'])->name('post.forgot-password');
+Route::post('/reset-ulang-password', [AutentikasiController::class, 'postResetUlangPassword'])->name('post.reset-ulang-password');
+Route::get('/reset-ulang-password/{token}', [AutentikasiController::class, 'resetUlangPassword'])->name('reset-ulang-password');
 
 Route::middleware('auth.user')->group(function () {
     Route::middleware('auth.pekerja')->group(function(){

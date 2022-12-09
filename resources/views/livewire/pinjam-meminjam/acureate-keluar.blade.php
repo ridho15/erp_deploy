@@ -16,7 +16,9 @@
                 <th>No</th>
                 <th>SKU</th>
                 <th>Nama</th>
+                <th>Rak</th>
                 <th>Qty</th>
+                <th>Peminjam</th>
                 <th>Check</th>
             </tr>
             </thead>
@@ -25,9 +27,15 @@
                 @foreach ($listAcurateKeluar as $index => $item)
                     <tr>
                         <td>{{ $index + 1 }}</td>
-                        <td>{{ $item->barang->sku }}</td>
-                        <td>{{ $item->barang->nama }}</td>
+                        <td>
+                            <a href="{{ route('barang.detail', ['id' => $item->id_barang]) }}" class="text-dark">
+                                {{ $item->barang->sku }}
+                            </a>
+                        </td>
+                        <td>{{ $item->barang ? $item->barang->nama : '-' }}</td>
+                        <td>{{ $item->rak ? $item->rak->nama_rak . "(" . $item->rak->kode_rak . ")" : '-' }}</td>
                         <td>{{ $item->qty }}</td>
+                        <td>{{ $item->userPeminjam ? $item->userPeminjam->name : '-' }}</td>
                         <td>
                             <div class="form-check form-check-custom form-check-solid">
                                 <input class="form-check-input" type="checkbox" value="1" wire:click="simpanCheck({{ $item->id }})" @if($item->check == 1) checked @endif id="flexCheckDefault"/>
@@ -37,7 +45,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td colspan="5" class="text-center text-gray-500">Tidak ada data</td>
+                    <td colspan="7" class="text-center text-gray-500">Tidak ada data</td>
                 </tr>
             @endif
             </tbody>

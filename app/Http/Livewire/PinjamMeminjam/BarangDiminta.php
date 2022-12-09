@@ -5,7 +5,10 @@ namespace App\Http\Livewire\PinjamMeminjam;
 use App\Http\Controllers\HelperController;
 use App\Models\Barang;
 use App\Models\BarangStockLog;
+use App\Models\IsiRak;
 use App\Models\LaporanPekerjaanBarang;
+use App\Models\LaporanPekerjaanBarangLog;
+use App\Models\Rak;
 use App\Models\SupplierOrderDetailTemp;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -27,8 +30,13 @@ class BarangDiminta extends Component
     public $id_laporan_pekerjaan_barang;
     public $laporanPekerjaanBarang;
     public $barang;
+    public $listRak = [];
+    public $id_barang;
+    public $id_rak;
+    public $estimasi;
     public function render()
     {
+
         $this->listBarangDiminta = LaporanPekerjaanBarang::where(function($query){
             $query->where('catatan_teknisi', 'LIKE', '%' . $this->cari . '%')
             ->orWhere('keterangan_customer', 'LIKE', '%' . $this->cari . '%')
@@ -45,9 +53,13 @@ class BarangDiminta extends Component
 
         if ($this->laporanPekerjaanBarang) {
             $this->barang = $this->laporanPekerjaanBarang->barang;
+            $this->listRak = Rak::whereHas('isiRak', function($query){
+                $query->where('id_barang', $this->laporanPekerjaanBarang->id_barang);
+            })->get();
         }
 
         $data['listBarangDiminta'] = $this->listBarangDiminta;
+        $this->dispatchBrowserEvent('contentChange');
         return view('livewire.pinjam-meminjam.barang-diminta', $data);
     }
 
@@ -69,6 +81,11 @@ class BarangDiminta extends Component
             'meminjamkan' => session()->get('id_user')
         ]);
 
+        LaporanPekerjaanBarangLog::create([
+            'id_laporan_pekerjaan_barang' => $laporanPekerjaanBarang->id,
+            'status' => 0
+        ]);
+
         $message = "Berhasil mengupdate data";
         activity()->causedBy(HelperController::user())->log("Menolak atau mengabaikan peminjaman barang");
         $this->emit('finishSimpanData', 1, $message);
@@ -78,12 +95,18 @@ class BarangDiminta extends Component
     public function confirmasiPeminjamanBarang(){
         $this->validate([
             'qty' => 'required|numeric',
-            'id_laporan_pekerjaan_barang' => 'required|numeric'
+            'id_laporan_pekerjaan_barang' => 'required|numeric',
+            'id_rak' => 'required|numeric',
+            'estimasi' => 'required|string'
         ], [
             'id_laporan_pekerjaan_barang.required' => 'Data tidak valid !',
             'id_laporan_pekerjaan_barang.numeric' => 'Data tidak valid !',
             'qty.required' => 'Jumlah barang tidak boleh kosong',
-            'qty.numeric' => 'Jumlah barang tidak valid !'
+            'qty.numeric' => 'Jumlah barang tidak valid !',
+            'id_rak.required' => 'Rak belum dipilih',
+            'id_rak.numeric' => 'Rak tidak valid !',
+            'estimasi' => 'Estimasi Peminjaman belum diisi',
+            'estimasi.string' => 'Estimasi peminjaman tidak valid !'
         ]);
 
         $laporanPekerjaanBarang = LaporanPekerjaanBarang::find($this->id_laporan_pekerjaan_barang);
@@ -99,6 +122,14 @@ class BarangDiminta extends Component
 
         if($this->qty <= 0){
             $message = "Jumlah barang tidak boleh 0 atau kurang dari 0!";
+            return session()->flash('fail', $message);
+        }
+
+        $rak = Rak::find($this->id_rak);
+        $jumlahTersediaDalamRak = IsiRak::where('id_rak', $this->id_rak)->where('id_barang', $laporanPekerjaanBarang->id_barang)
+        ->sum('jumlah');
+        if($jumlahTersediaDalamRak < $this->qty){
+            $message = "Jumlah barang pada Rak " . $rak->kode_rak . ' tidak mencukupi. silahkan isi rak terlebih dahulu';
             return session()->flash('fail', $message);
         }
 
@@ -125,36 +156,9 @@ class BarangDiminta extends Component
 
             $this->emit('finishSimpanData', 0, $response['message']);
             return session()->flash('fail', $response['message']);
-            // $qty = $this->qty - $barang->stock;
-
-            // $barang->barangStockChange($barang->stock, 1);
-
-            //
-
-
-            // $jumlahSisaBarangDiminta = $laporanPekerjaanBarang->qty - $barang->stock;
-            // if ($jumlahSisaBarangDiminta > 0) {
-            //     LaporanPekerjaanBarang::create([
-            //         'id_laporan_pekerjaan' => $laporanPekerjaanBarang->id_laporan_pekerjaan,
-            //         'id_barang' => $laporanPekerjaanBarang->id_barang,
-            //         'catatan_teknisi' => $laporanPekerjaanBarang->catatan_teknisi,
-            //         'keterangan_customer' => $laporanPekerjaanBarang->keterangan_customer,
-            //         'qty' => $jumlahSisaBarangDiminta,
-            //         'status' => 1,
-            //         'konfirmasi' => 0
-            //     ]);
-            // }
-
-            // $laporanPekerjaanBarang->update([
-            //     'status' => 1,
-            //     'qty' => $barang->stock,
-            //     'konfirmasi' => 1
-            // ]);
-
-            // $message = "Stock kurang dari barang yang diminta. Barang yang kurang sudah masuk pada temporary supplier order";
         }else{
             if($this->qty != $laporanPekerjaanBarang->qty){
-                LaporanPekerjaanBarang::create([
+                $laporanPekerjaanBarangNew = LaporanPekerjaanBarang::create([
                     'id_laporan_pekerjaan' => $laporanPekerjaanBarang->id_laporan_pekerjaan,
                     'id_barang' => $laporanPekerjaanBarang->id_barang,
                     'catatan_teknisi' => $laporanPekerjaanBarang->catatan_teknisi,
@@ -162,28 +166,52 @@ class BarangDiminta extends Component
                     'qty' => $laporanPekerjaanBarang->qty - $this->qty,
                     'status' => 1,
                     'konfirmasi' => 0,
+                    'estimasi' => date('Y-m-d H:i:s', strtotime($this->estimasi))
+                ]);
+
+                LaporanPekerjaanBarangLog::create([
+                    'id_laporan_pekerjaan_barang' => $laporanPekerjaanBarangNew->id,
+                    'status' => 1
                 ]);
 
                 $laporanPekerjaanBarang->update([
-                    'status' => 1,
                     'qty' => $this->qty,
                     'konfirmasi' => 1,
-                    'meminjamkan' => session()->get('id_user')
+                    'meminjamkan' => session()->get('id_user'),
+                    'estimasi' => date('Y-m-d H:i:s', strtotime($this->estimasi))
+                ]);
+
+                LaporanPekerjaanBarangLog::create([
+                    'id_laporan_pekerjaan_barang' => $laporanPekerjaanBarang->id,
+                    'status' => 1,
+                    'keterangan' => 'Dikonfirmasi'
                 ]);
             }else{
                 $laporanPekerjaanBarang->update([
-                    'status' => 1,
                     'konfirmasi' => 1,
-                    'meminjamkan' => session()->get('id_user')
+                    'meminjamkan' => session()->get('id_user'),
+                    'estimasi' => date('Y-m-d H:i:s', strtotime($this->estimasi))
+                ]);
+
+                LaporanPekerjaanBarangLog::create([
+                    'id_laporan_pekerjaan_barang' => $laporanPekerjaanBarang->id,
+                    'status' => 1,
+                    'keterangan' => 'Dikonfirmasi'
                 ]);
             }
             $message = "Berhasil mengupdate data";
         }
+
+        $laporanPekerjaanBarang->update([
+            'id_rak' => $this->id_rak,
+            'estimasi' => date('Y-m-d H:i:s', strtotime($this->estimasi))
+        ]);
+
         activity()->causedBy(HelperController::user())->log("Mengkonfirmasi peminjaman barang");
 
         $this->emit('refreshBarangDipinjam');
         $this->emit('refreshStockBarang');
-        $this->emit('refreshAcurateMasuk');
+        $this->emit('refreshAcurateKeluar');
         $this->emit('finishSimpanData', 1, $message);
         return session()->flash('success', $message);
     }
@@ -205,5 +233,9 @@ class BarangDiminta extends Component
         $this->id_laporan_pekerjaan_barang = $laporanPekerjaanBarang->id;
         $this->qty = $laporanPekerjaanBarang->qty;
         $this->laporanPekerjaanBarang = $laporanPekerjaanBarang;
+        $this->id_barang = $laporanPekerjaanBarang->id_barang;
+        if ($laporanPekerjaanBarang->estimasi) {
+            $this->estimasi = date('Y-m-d H:i', strtotime($laporanPekerjaanBarang->estimasi));
+        }
     }
 }

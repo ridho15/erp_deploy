@@ -1,6 +1,6 @@
 <div>
     <div wire:ignore.self class="modal fade user" tabindex="-1" id="modal_form">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title">Form User</h3>
@@ -20,54 +20,70 @@
                         <div class="text-center">
                             @include('helper.simple-loading', ['target' => 'simpanDataUser', 'message' => 'Menyimpan data ...'])
                         </div>
-                        <div class="mb-5">
-                            <label for="" class="form-label required">Nama</label>
-                            <input type="text" class="form-control form-control-solid" name="name" wire:model="name" placeholder="Masukkan nama" required>
-                            @error('name')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                        <div class="mb-5">
-                            <label for="" class="form-label required">Username</label>
-                            <input type="text" class="form-control form-control-solid" name="username" wire:model="username" placeholder="Masukkan username" required>
-                            @error('username')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                        <div class="mb-5">
-                            <label for="" class="form-label required">Password</label>
-                            <input type="password" class="form-control form-control-solid" name="password" wire:model="password" placeholder="Masukkan password">
-                            @error('password')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                            <small class="">Keterangan boleh dikosongkan ketika edit data</small>
-                        </div>
-                        <div class="mb-5">
-                            <label for="" class="form-label required">Tipe User</label>
-                            <select name="id_tipe_user" class="form-select form-select-solid" wire:model="id_tipe_user" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih tipe user" required>
-                                <option value="">Pilih</option>
-                                @foreach ($listTipeUser as $item)
-                                    <option value="{{ $item->id }}">{{ $item->nama_tipe }}</option>
-                                @endforeach
-                            </select>
-                            @error('id_tipe_user')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                        <div class="mb-5">
-                            <label for="" class="form-label">Jabatan</label>
-                            <input type="text" name="jabatan" wire:model="jabatan" class="form-control form-control-solid" placeholder="Masukkan jabatan">
-                            @error('jabatan')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                        <div class="d-flex flex-stack w-lg-50">
-                            <label class="form-check form-switch form-check-custom form-check-solid">
-                                <input class="form-check-input" type="checkbox" value="1" wire:model="is_active" checked="checked"/>
-                                <span class="form-check-label fw-semibold text-muted">
-                                    Aktif
-                                </span>
-                            </label>
+                        <div class="row">
+                            <div class="col-md-6 mb-5">
+                                <label for="" class="form-label required">Nama</label>
+                                <input type="text" class="form-control form-control-solid" name="name" wire:model="name" placeholder="Masukkan nama" required>
+                                @error('name')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 mb-5">
+                                <label for="" class="form-label required">Username</label>
+                                <input type="text" class="form-control form-control-solid" name="username" wire:model="username" placeholder="Masukkan username" required>
+                                @error('username')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 mb-5">
+                                <label for="" class="form-label required">Password</label>
+                                <input type="password" class="form-control form-control-solid" name="password" wire:model="password" placeholder="Masukkan password">
+                                @error('password')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                                <small class="">Keterangan boleh dikosongkan ketika edit data</small>
+                            </div>
+                            <div class="col-md-6 mb-5">
+                                <label for="" class="form-label required">Tipe User</label>
+                                <select name="id_tipe_user" class="form-select form-select-solid" wire:model="id_tipe_user" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih tipe user" required>
+                                    <option value="">Pilih</option>
+                                    @foreach ($listTipeUser as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nama_tipe }}</option>
+                                    @endforeach
+                                </select>
+                                @error('id_tipe_user')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 mb-5">
+                                <label for="" class="form-label">Jabatan</label>
+                                <input type="text" name="jabatan" wire:model="jabatan" class="form-control form-control-solid" placeholder="Masukkan jabatan">
+                                @error('jabatan')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 mb-5">
+                                <label for="" class="form-label">Email</label>
+                                <input type="text" name="email" class="form-control form-control-solid" wire:model="email" placeholder="Masukkan email">
+                                @error('phone')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 mb-5">
+                                <label for="" class="form-label">Phone</label>
+                                <input type="text" name="phone" class="form-control form-control-solid" wire:model="phone" placeholder="Masukkan email">
+                                @error('phone')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 mb-5 d-flex flex-stack w-lg-50">
+                                <label class="form-check form-switch form-check-custom form-check-solid">
+                                    <input class="form-check-input" type="checkbox" value="1" wire:model="is_active" checked="checked"/>
+                                    <span class="form-check-label fw-semibold text-muted">
+                                        Aktif
+                                    </span>
+                                </label>
+                            </div>
                         </div>
                     </div>
 

@@ -2,6 +2,7 @@
 
 @section('content')
     @livewire('rak.detail', ['id_rak' => $rak->id])
+    @livewire('rak.log', ['id_rak' => $rak->id])
     @livewire('rak.form')
     @livewire('rak.form-isi-rak')
 @endsection

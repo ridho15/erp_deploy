@@ -21,7 +21,8 @@ class Barang extends Component
     public function render()
     {
         $this->supplier = Supplier::find($this->id_supplier);
-        $this->listSupplierBarang = SupplierBarang::where(function($query){
+        $this->listSupplierBarang = SupplierBarang::whereHas('barang')
+        ->where(function($query){
             $query->whereHas('barang', function($query){
                 $query->where('nama' ,'LIKE', '%' . $this->cari . '%');
             });

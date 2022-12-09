@@ -57,7 +57,11 @@ class Kalender extends Component
         }
 
         $this->listEvents = [];
-        $this->listCalenderPenagihan = CalenderPenagihan::get();
+        $this->listCalenderPenagihan = CalenderPenagihan::where(function($query){
+            $query->whereHas('preOrder')
+            ->orWhereHas('supplierOrder');
+        })
+        ->get();
         foreach ($this->listCalenderPenagihan as $item) {
             if($item->tanggal != null){
                 $title = $item->tipe == 1 ? "Receivable" : "Payable";

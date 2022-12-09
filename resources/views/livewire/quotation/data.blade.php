@@ -163,7 +163,7 @@
                 <div class="modal-body">
                     @include('helper.alert-message')
                     <div class="text-center">
-                        @include('helper.simple-loading', ['target' => 'simpanMetodePembayaran', 'message' => 'Menyimpan data ...'])
+                        @include('helper.simple-loading', ['target' => null, 'message' => 'Menyimpan data ...'])
                     </div>
                     <div class="mb-5">
                         <label for="" class="form-label">Tanggal Dibuat</label>
@@ -182,6 +182,24 @@
                         </select>
                     </div>
                     <div class="row">
+                        <div class="col-md-6 mb-5">
+                            <label for="" class="form-label">Status Quotation</label>
+                            <select name="status_quotation" wire:model="status_quotation" class="form-select form-select-solid" data-placeholder="Pilih">
+                                <option value="">Pilih</option>
+                                <option value="0">Quotation Gagal</option>
+                                <option value="1">Quotation Berhasil</option>
+                                <option value="2">Po Sudah Dibuat</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-5">
+                            <label for="" class="form-label">Status Pekerjaan</label>
+                            <select name="status_pekerjaan" wire:model="status_pekerjaan" class="form-select form-select-solid" data-placeholder="Pilih">
+                                <option value="">Pilih</option>
+                                <option value="0">Belum Dikerjakan</option>
+                                <option value="1">Sedang Dikerjakan</option>
+                                <option value="2">Selesai</option>
+                            </select>
+                        </div>
                         <div class="col-md-6 mb-5">
                             <label for="" class="form-label">Status Kirim</label>
                             <select name="status_kirim" wire:model="status_kirim" class="form-select form-select-solid" data-placeholder="Pilih">

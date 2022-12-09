@@ -1,13 +1,13 @@
 <div class="card shadow-sm">
     <div class="card-body">
         <div class="d-flex align-items-center justify-content-between mb-10">
-            <h3>PO Penagihan</h3>
+            <h3>PO Masuk</h3>
             @if (count($listPreOrder) > 0)
                 <div class="p-1 position-relative">
                     <div class="position-absolute d-flex align-items-center justify-content-center top-0 end-0 rounded-circle bg-danger" style="height: 20px; width: 20px">
                         <span class="fw-bold text-white">{{ count($listPreOrder) }}</span>
                     </div>
-                    <a href="{{ route('management-tugas') }}" class="btn btn-sm btn-icon btn-light" data-bs-toggle="tooltip" data-bs-placement="top" title="Lihat Semua">
+                    <a href="{{ route('pre-order') }}" class="btn btn-sm btn-icon btn-light" data-bs-toggle="tooltip" data-bs-placement="top" title="Lihat Semua">
                         <i class="fa-solid fa-eye"></i>
                     </a>
                 </div>

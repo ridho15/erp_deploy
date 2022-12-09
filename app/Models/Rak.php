@@ -19,4 +19,8 @@ class Rak extends Model
     public function isiRak(){
         return $this->hasMany(IsiRak::class, 'id_rak');
     }
+
+    public function rakLog(){
+        return $this->hasMany(RakLog::class, 'id_rak');
+    }
 }

@@ -13,7 +13,7 @@ class AccountReceivable extends Component
     use WithPagination;
     public $paginationTheme = 'bootstrap';
     public $cari;
-    public $total_show;
+    public $total_show = 10;
 
     public $status_pekerjaan;
     public $status_pembayaran;
@@ -48,6 +48,7 @@ class AccountReceivable extends Component
                 });
             })->where(function($query){
                 $query->where('keterangan', 'LIKE', '%' . $this->cari . '%')
+                ->orWhere('id', 'LIKE', '%' . $this->cari . '%')
                 ->orWhereHas('user', function($query){
                     $query->where('name', 'LIKE' , '%' . $this->cari . '%');
                 })->orWhereHas('customer', function($query){

@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\CPU\Helpers;
+use App\Mail\SendForgotPasswordToEmail;
 use App\Models\LoginLogs;
 use App\Models\User;
 use App\Models\UserLog;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class AutentikasiController extends Controller
@@ -103,5 +106,94 @@ class AutentikasiController extends Controller
         session()->forget('token');
 
         return redirect()->route('login')->with('success', 'Logout Berhasil');
+    }
+
+    public function forgotPassword(){
+        return view('autentikasi.forgot-password');
+    }
+
+    public function postForgotPassword(Request $request){
+        $data = $request->only('email');
+        $validate = Validator::make($data, [
+            'email' => 'required|email'
+        ], [
+            'email.required' => 'Email tidak boleh kosong',
+            'email.email' => 'Email tidak valid !'
+        ]);
+
+        if($validate->fails()){
+            return redirect()->back()->with('fail', $validate->errors()->all()['0']);
+        }
+
+        $user = User::where('email', $data['email'])->first();
+        if(!$user){
+            $message = "Email pada user tidak ditemukan. Silahkan masukkan email lainnya atau hubungi administrator";
+            return redirect()->back()->with('fail', $message);
+        }
+
+        // $crypt = new CryptController;
+        // $carbon = Carbon::now()->addMinutes(30);
+        // $data['user'] = $user;
+        // $dataToken = json_encode([
+        //     'id' => $user->id,
+        //     'email' => $user->emai,
+        //     'expired_at' => $carbon->format('Y-m-d H:i:s')
+        // ]);
+        // $token = $crypt->crypt($dataToken);
+        // $data['token'] = $token;
+        // $data['url'] = url('/reset-ulang-password/' . $token);
+
+        Mail::to($user->email)->send(new SendForgotPasswordToEmail($user));
+        $message = "Berhasil mengirim alamat untuk mereset ulang password. Silahkan check email anda";
+
+        return redirect()->back()->with('success', $message);
+    }
+
+    public function resetUlangPassword($token){
+        $crypt = new CryptController;
+        $dataToken = $crypt->crypt($token, 'd');
+        $dataToken = json_decode($dataToken);
+        if(strtotime($dataToken->expired_at) < strtotime(now())){
+            return view('helper.expired-page');
+        }
+
+        $data['token'] = $token;
+        return view('autentikasi.reset-password', $data);
+    }
+
+    public function postResetUlangPassword(Request $request){
+        $crypt = new CryptController;
+        $data = $request->only('password', 'password_konfirmasi', 'token');
+        $validate = Validator::make($data, [
+            'password' => 'required|string',
+            'password_konfirmasi' => 'required|string|same:password',
+            'token' => 'required|string'
+        ]);
+
+        if($validate->fails()){
+            return redirect()->back()->with('fail', $validate->errors()->all()[0]);
+        }
+
+        $dataToken = $crypt->crypt($data['token'], 'd');
+        $dataToken = json_decode($dataToken);
+
+        if(strtotime($dataToken->expired_at) < strtotime(now())){
+            return view('helper.expired-page');
+        }
+
+        $user = User::find($dataToken->id);
+        if(!$user){
+            return response()->json([
+                'status' => false,
+                'message' => 'Data user tidak ditemukan',
+                'data' => null
+            ]);
+        }
+
+        $user->update([
+            'password' => Hash::make($data['password'])
+        ]);
+
+        return redirect()->route('login')->with('success', 'Berhasil mengupdate password. Silahkan login kembali');
     }
 }

@@ -18,17 +18,19 @@
             <thead>
             <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
                 <th>No</th>
-                <th>Kode Pekerjaan</th>
+                <th>Proyek</th>
                 <th>SKU</th>
                 <th>Barang</th>
                 <th>Satuan</th>
-                <th>Harga</th>
+                <th>Estimasi Peminjaman</th>
                 <th>Jumlah / Qty</th>
                 <th>Version</th>
                 <th>Tipe Barang</th>
                 <th>Catatan Teknisi</th>
-                <th>Yang Meminjamkan</th>
                 <th>Status</th>
+                <th>Yang Meminjamkan</th>
+                <th>Peminjam</th>
+                <th>Tanggal</th>
                 <th>Aksi</th>
             </tr>
             </thead>
@@ -45,13 +47,32 @@
                         </td>
                         <td>{{ $item->barang ? $item->barang->nama : '-' }}</td>
                         <td>{{ $item->barang? $item->barang->satuan->nama_satuan : '-' }}</td>
-                        <td>{{ $item->barang ? $item->barang->harga_formatted : '-' }}</td>
+                        <td>
+                            @if ($item->estimasi)
+                                {{ date('d-m-Y H:i', strtotime($item->estimasi)) }}
+                            @else
+                                -
+                            @endif
+                        </td>
                         <td>{{ $item->qty }}</td>
                         <td>{{ $item->version }} V</td>
                         <td>{{ $item->tipeBarang ? $item->tipeBarang->tipe_barang : '-' }}</td>
                         <td>{{ $item->catatan_teknisi }}</td>
-                        <td>{{ $item->userMeminjamkan ? $item->userMeminjamkan->name : '-' }}</td>
                         <td><?= $item->status_formatted ?></td>
+                        <td>{{ $item->userMeminjamkan ? $item->userMeminjamkan->name : '-' }}</td>
+                        <td>{{ $item->userPeminjam ? $item->userPeminjam->name : '-' }}</td>
+                        <td>
+                            @php
+                                $laporanPekerjaanBarangLog = \App\Models\LaporanPekerjaanBarangLog::where('id_laporan_pekerjaan_barang', $item->id)
+                                ->where('status', 2)
+                                ->orderBy('updated_at', 'ASC')
+                                ->first();
+
+                                if($laporanPekerjaanBarangLog){
+                                    echo date('d-m-Y H:i', strtotime($laporanPekerjaanBarangLog->updated_at));
+                                }
+                            @endphp
+                        </td>
                         <td>
                             <div class="btn-group">
                                 <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Kembalikan Barang Kegudang" wire:click="$emit('onClickKembalikan', {{ $item->id }})">
@@ -63,7 +84,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td colspan="12" class="text-center text-gray-500">Tidak ada data</td>
+                    <td colspan="14" class="text-center text-gray-500">Tidak ada data</td>
                 </tr>
             @endif
             </tbody>

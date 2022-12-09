@@ -27,7 +27,8 @@ class Detail extends Component
         $this->listIsiRak = IsiRak::where('id_rak', $this->id_rak)
         ->where(function($query){
             $query->whereHas('barang', function($query){
-                $query->where('nama', 'LIKE', '%' . $this->cari . '%');
+                $query->where('nama', 'LIKE', '%' . $this->cari . '%')
+                ->orWhere('id', 'LIKE', '%' . $this->cari . '%');
             });
         })->paginate($this->total_show);
 
