@@ -7,6 +7,7 @@ use App\Models\Barang;
 use App\Models\BarangStockLog;
 use App\Models\LaporanPekerjaan;
 use App\Models\LaporanPekerjaanBarang;
+use App\Models\LaporanPekerjaanBarangLog;
 use App\Models\TipeBarang;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -109,7 +110,7 @@ class BarangDipinjam extends Component
         }
 
         if($this->qty != $laporanPekerjaanBarang->qty){
-            LaporanPekerjaanBarang::create([
+            $laporanPekerjaanBarangTemp = LaporanPekerjaanBarang::create([
                 'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan,
                 'id_barang' => $this->id_barang,
                 'qty' => $laporanPekerjaanBarang->qty - $this->qty,
@@ -117,6 +118,11 @@ class BarangDipinjam extends Component
                 'konfirmasi' => 0,
                 'id_tipe_barang' => $laporanPekerjaanBarang->id_tipe_barang,
                 'version' => $laporanPekerjaanBarang->version
+            ]);
+
+            LaporanPekerjaanBarangLog::create([
+                'id_laporan_pekerjaan_barang' => $laporanPekerjaanBarangTemp->id,
+                'status' => 2,
             ]);
         }
 
@@ -126,12 +132,18 @@ class BarangDipinjam extends Component
             'konfirmasi' => 0
         ]);
 
+        LaporanPekerjaanBarangLog::create([
+            'id_laporan_pekerjaan_barang' => $laporanPekerjaanBarang->id,
+            'status' => 3,
+            'keterangan' => 'Dibalikkan'
+        ]);
+
         $message = 'Berhasil mengembalikan barang ke gudang';
         activity()->causedBy(HelperController::user())->log("Melakukan pengembalian barang ke gudang");
         $this->emit('refreshBarangDiminta');
         $this->emit('refreshStockBarang');
         $this->emit('refreshBarangDibalikan');
-        $this->emit('refreshAcurateKeluar');
+        $this->emit('refreshAcurateMasuk');
         $this->emit('finishSimpanData', 1, $message);
         return session()->flash('success', $message);
     }
@@ -181,7 +193,7 @@ class BarangDipinjam extends Component
             return session()->flash('fail', $response['message']);
         }
 
-        LaporanPekerjaanBarang::updateOrCreate([
+        $laporanPekerjaanBarang = LaporanPekerjaanBarang::updateOrCreate([
             'id' => $this->id_laporan_pekerjaan_barang
         ], [
             'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan,
@@ -190,6 +202,11 @@ class BarangDipinjam extends Component
             'status' => 2,
             'version' => $this->version,
             'id_tipe_barang' => $this->id_tipe_barang,
+        ]);
+
+        LaporanPekerjaanBarangLog::create([
+            'id_laporan_pekerjaan_barang' => $laporanPekerjaanBarang->id,
+            'status' => 2
         ]);
 
         $message = 'Berhasil memasukkan barang ke laporan pekerjaan';

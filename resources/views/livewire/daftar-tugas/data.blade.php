@@ -307,7 +307,7 @@
                                     Merk
                                 </div>
                                 <div class="col-md-8 col-8 fw-bold">
-                                    : {{ $laporanPekerjaan->merk->nama_merk }}
+                                    : {{ $laporanPekerjaan->merk ? $laporanPekerjaan->merk->nama_merk : '-' }}
                                 </div>
                             </div>
                             <div class="row mb-5">
@@ -315,7 +315,7 @@
                                     Nama Form
                                 </div>
                                 <div class="col-md-8 col-8 fw-bold">
-                                    : {{ $laporanPekerjaan->formMaster->nama }}
+                                    : {{ $laporanPekerjaan->formMaster ? $laporanPekerjaan->formMaster->nama : '-' }}
                                 </div>
                             </div>
                             <div class="row mb-5">
@@ -323,7 +323,7 @@
                                     Kode Form
                                 </div>
                                 <div class="col-md-8 col-8 fw-bold">
-                                    : {{ $laporanPekerjaan->formMaster->kode }}
+                                    : {{ $laporanPekerjaan->formMaster ? $laporanPekerjaan->formMaster->kode : '-' }}
                                 </div>
                             </div>
                             <div class="row mb-5">
@@ -353,6 +353,27 @@
                                         <span class="badge badge-warning">Laporan Pekerjaan</span>
                                     @else
                                         {{ $laporanPekerjaan->periode }} Bulan
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-4 col-4">
+                                    Tanggal Pekerjaan
+                                </div>
+                                <div class="col-md-8 col-8 fw-bold">
+                                    : <span class="fw-bold">{{ date('d-m-Y', strtotime($laporanPekerjaan->tanggal_pekerjaan)) }}</span>
+                                    <span class="fw-bold">Pukul {{ $laporanPekerjaan->jam_mulai ? date('H:i', strtotime($laporanPekerjaan->jam_mulai)) : '-' }}</span>
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-4 col-4">
+                                    Tanggal Estimasi
+                                </div>
+                                <div class="col-md-8 col-8 fw-bold">
+                                    : @if ($laporanPekerjaan->tanggal_estimasi)
+                                        <span class="fw-bold">{{ date('d-m-Y', strtotime($laporanPekerjaan->tanggal_estimasi)) }}</span>
+                                    @else
+                                        -
                                     @endif
                                 </div>
                             </div>

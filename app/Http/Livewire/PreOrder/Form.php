@@ -5,6 +5,7 @@ namespace App\Http\Livewire\PreOrder;
 use App\Http\Controllers\HelperController;
 use App\Models\BarangStockLog;
 use App\Models\Customer;
+use App\Models\LaporanPekerjaanBarangLog;
 use App\Models\MetodePembayaran;
 use App\Models\PreOrder;
 use App\Models\PreOrderDetail;
@@ -155,6 +156,11 @@ class Form extends Component
                     $item->update([
                         'status' => 4,
                         'konfirmasi' => 0
+                    ]);
+
+                    LaporanPekerjaanBarangLog::create([
+                        'id_laporan_pekerjaan_barang' => $item->id,
+                        'status' => 4
                     ]);
 
                     BarangStockLog::create([

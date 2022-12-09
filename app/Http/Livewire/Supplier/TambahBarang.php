@@ -10,7 +10,11 @@ use Livewire\Component;
 
 class TambahBarang extends Component
 {
-    public $listeners = ['simpanSupplierBarang', 'setIdSupplier', 'setIdBarang'];
+    public $listeners = [
+        'simpanSupplierBarang',
+        'setIdSupplier',
+        'setIdBarang'
+    ];
     public $id_supplier;
     public $id_barang;
     public $listBarang;

@@ -4,6 +4,7 @@
     $web_config = [
     'web_logo' => App\CPU\Helpers::config('logo')->first() ? App\CPU\Helpers::config('logo')->first()->value : '',
     'web_name' => App\CPU\Helpers::config('name')->first() ? App\CPU\Helpers::config('name')->first()->value : '',
+    'nama_perusahaan' => App\CPU\Helpers::config('name')->first() ? App\CPU\Helpers::config('name')->first()->value : '',
     ];
 @endphp
 
@@ -41,8 +42,12 @@
             <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-10 order-2 order-lg-1">
                 <div class="d-flex flex-center flex-column flex-lg-row-fluid">
                     <div class="w-lg-500px p-10">
-                        <form class="form w-100" novalidate="novalidate" action="#" method="POST">
+                        <form class="form w-100" novalidate="novalidate" action="#" method="POST" id="form_login">
                             @csrf
+                            <div class="text-center d-none" id="show_loading">
+                                <img src="{{ asset('/assets/images/loading.svg') }}" style="height: 50px; width: 50px; object-fit: contain">
+                                <span class="d-block">Sedang melakukan login</span>
+                            </div>
                             <div class="text-center mb-11">
                                 <img src="{{ asset($web_config['web_logo']) }}" onerror="this.src='{{ asset('/assets/images/icon.png') }}'"
                                     style="width: 100px; height: 100px; object-fit: contain" alt="">
@@ -62,7 +67,7 @@
                             </div>
                             <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
                                 <div></div>
-                                <a href="#" class="link-primary">Forgot Password ?</a>
+                                <a href="{{ route('forgot-password') }}" class="link-primary">Forgot Password ?</a>
                             </div>
                             <div class="d-grid mb-10">
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -71,6 +76,9 @@
                     </div>
                 </div>
                 <div class="d-flex flex-center flex-wrap px-5">
+                    <div class="d-flex fw-semibold text-dark fs-base">
+                        <a href="#" class="text-gray-800 text-hover-primary">{{ $web_config['nama_perusahaan'] }}</a>
+                    </div>
                     <div class="d-flex fw-semibold text-primary fs-base">
                         <a href="#" class="px-5" target="_blank">Terms</a>
                         <a href="#" class="px-5" target="_blank">Plans</a>
@@ -114,6 +122,10 @@
             if("{{ session()->has('fail') }}"){
                 alertMessage(0, "{{ session('fail') }}")
             }
+
+            $('#form_login').on('submit', function(){
+                $('#show_loading').removeClass('d-none');
+            })
     </script>
 </body>
 

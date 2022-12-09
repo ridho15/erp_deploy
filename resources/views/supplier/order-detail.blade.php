@@ -37,6 +37,7 @@
 
     @livewire('supplier.form-order')
     @livewire('supplier.order-detail-form', ['id_supplier_order' => $supplierOrder->id])
+    @livewire('supplier.order-to-rak', ['id_supplier_order' => $supplierOrder->id])
 @endsection
 
 @section('js')
@@ -51,11 +52,12 @@
         })
 
         $('.btn-finish').on('click', async function(){
-            const id = $(this).data('id')
-            const response = await alertConfirmCustom('Peringatan !', "Stock barang akan bertambah dan tidak dapat di restore ulang. apakah kamu yakin ?", 'Ya, Selesai')
-            if(response.isConfirmed == true){
-                Livewire.emit('finishSupplierOrder', id);
-            }
+            $('#modal_form_to_rak').modal('show')
+            // const id = $(this).data('id')
+            // const response = await alertConfirmCustom('Peringatan !', "Stock barang akan bertambah dan tidak dapat di restore ulang. apakah kamu yakin ?", 'Ya, Selesai')
+            // if(response.isConfirmed == true){
+            //     Livewire.emit('finishSupplierOrder', id);
+            // }
         })
 
         $('.btn-pembayaran').on('click', function(){

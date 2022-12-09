@@ -21,7 +21,9 @@ class LaporanPekerjaanBarang extends Model
         'peminjam',
         'meminjamkan',
         'id_tipe_barang',
-        'version'
+        'version',
+        'id_rak',
+        'estimasi'
     ];
 
     protected $appends = ['status_formatted'];
@@ -58,5 +60,13 @@ class LaporanPekerjaanBarang extends Model
 
     public function tipeBarang(){
         return $this->belongsTo(TipeBarang::class, 'id_tipe_barang');
+    }
+
+    public function laporanPekerjaanBarangLog(){
+        return $this->hasMany(LaporanPekerjaanBarangLog::class, 'id_laporan_pekerjaan_barang');
+    }
+
+    public function rak(){
+        return $this->belongsTo(Rak::class, 'id_rak');
     }
 }

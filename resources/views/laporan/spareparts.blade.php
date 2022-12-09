@@ -61,10 +61,10 @@
                                             </div>
                                         </td>
                                     </tr>
+                                @php
+                                    $nomor++;
+                                @endphp
                             @endif
-                            @php
-                                $nomor++;
-                            @endphp
                         @endforeach
                     </tbody>
                 </table>

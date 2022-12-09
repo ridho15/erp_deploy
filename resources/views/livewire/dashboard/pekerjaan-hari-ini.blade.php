@@ -1,7 +1,7 @@
 <div class="card shadow-sm">
     <div class="card-body">
         <div class="d-flex align-items-center justify-content-between mb-10">
-            <h3>Laporan Pekerjaan</h3>
+            <h3>Penjadwalan</h3>
             @if ($totalPekerjaanHariIni > 0)
                 <div class="p-1 position-relative">
                     <div class="position-absolute d-flex align-items-center justify-content-center top-0 end-0 rounded-circle bg-danger" style="height: 20px; width: 20px">

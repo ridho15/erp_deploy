@@ -12,7 +12,7 @@ class PreOrder extends Component
     public function render()
     {
         $this->listPreOrder = [];
-        $tempPreOrder = ModelsPreOrder::orderBy('created_at', 'DESC')->get();
+        $tempPreOrder = ModelsPreOrder::orderBy('created_at', 'DESC')->limit(5)->get();
         $jumlah = 0;
         foreach ($tempPreOrder as $item) {
             if($item->metodePembayaran){

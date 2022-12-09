@@ -57,14 +57,6 @@
                         </div>
                         <div class="row mb-5">
                             <div class="col-md-4 col-4">
-                                Sales
-                            </div>
-                            <div class="col-md-8 col-8">
-                                : {{ $quotation ? $quotation->sales : '-' }}
-                            </div>
-                        </div>
-                        <div class="row mb-5">
-                            <div class="col-md-4 col-4">
                                 Email Pelanggan
                             </div>
                             <div class="col-md-8 col-8">

@@ -338,7 +338,7 @@ class HelperController extends Controller
                         'route' => 'merk'
                     ]),
                     collect([
-                        'nama' => 'Tupe Barang',
+                        'nama' => 'Tipe Barang',
                         'icon' => '<span class="bullet bullet-dot"></span>',
                         'role' => ['Super Admin', 'Manager'],
                         'active' => 'tipe-barang',

@@ -119,6 +119,13 @@
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
+                                <div class="mb-5">
+                                    <label for="" class="form-label">Estimasi Peminjaman</label>
+                                    <input type="datetime-local" name="estimasi" wire:model="estimasi" class="form-control form-control-solid" required>
+                                    @error('estimasi')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
                             </div>
                             <div class="row justify-content-end mb-5">
                                 <div class="text-end">
@@ -150,8 +157,8 @@
                    <th>Nama Barang</th>
                    <th>Tipe Barang</th>
                    <th>Version</th>
-                   <th>Harga</th>
                    <th>Satuan</th>
+                   <th>Estimasi Peminjaman</th>
                    <th>Qty</th>
                    <th>Catatan Teknisi</th>
                    <th>Keterangan Customer</th>
@@ -176,8 +183,14 @@
                                         {{ $item->version }} V
                                     @endif
                                 </td>
-                                <td>{{ $item->barang->harga_formatted }}</td>
                                 <td>{{ $item->barang->satuan->nama_satuan }}</td>
+                                <td>
+                                    @if ($item->estimasi)
+                                        {{ date('d-m-Y H:i', strtotime($item->estimasi)) }}
+                                    @else
+                                        -
+                                    @endif
+                                </td>
                                 <td>{{ $item->qty }}</td>
                                 <td>{{ $item->catatan_teknisi }}</td>
                                 <td>{{ $item->keterangan_customer }}</td>
@@ -198,7 +211,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="11" class="text-center text-gray-500">Tidak ada data</td>
+                            <td colspan="12" class="text-center text-gray-500">Tidak ada data</td>
                         </tr>
                     @endif
                  </tbody>

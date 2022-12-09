@@ -122,4 +122,8 @@ class Barang extends Model
     public function totalOrder(){
         return $this->hasMany(PreOrderDetail::class, 'id_barang')->count();
     }
+
+    public function rakLog(){
+        return $this->hasMany(RakLog::class, 'id_barang');
+    }
 }

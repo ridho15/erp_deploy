@@ -12,6 +12,7 @@
           <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
            <th>No</th>
            <th>Supplier</th>
+           <th>SKU</th>
            <th>Barang</th>
            <th>Merk</th>
            <th>Tipe Barang</th>
@@ -26,6 +27,7 @@
                     <tr>
                         <td>{{ $index + 1 }}</td>
                         <td>{{ $item->supplier->name }}</td>
+                        <td>{{ $item->barang->sku }}</td>
                         <td>{{ $item->barang->nama }}</td>
                         <td>{{ $item->barang->merk ? $item->barang->merk->nama_merk : '-' }}</td>
                         <td>{{ $item->barang->tipeBarang->tipe_barang }}</td>

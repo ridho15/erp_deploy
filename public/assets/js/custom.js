@@ -1,3 +1,4 @@
+$('.modal').modal({backdrop: 'static', keyboard: false})
 function alertMessage(status, message){
     if(status == 1){
         icon = 'success';

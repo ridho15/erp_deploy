@@ -2,10 +2,18 @@
     @include('helper.alert-message')
     <div class="row mb-7">
         <div class="col-md-4">
+            No Ref
+        </div>
+        <div class="col-md">
+            : <span class="fw-bold">{{ $supplierOrder->no_ref }}</span>
+        </div>
+    </div>
+    <div class="row mb-7">
+        <div class="col-md-4">
             Supplier
         </div>
         <div class="col-md">
-            : <span class="fw-bold">{{ $supplierOrder->supplier->name }}</span>
+            : <span class="fw-bold">{{ $supplierOrder->supplier ? $supplierOrder->supplier->name : '-' }}</span>
         </div>
     </div>
     <div class="row mb-7">
@@ -13,7 +21,7 @@
             User Order
         </div>
         <div class="col-md">
-            : <span class="fw-bold">{{ $supplierOrder->user->name }}</span>
+            : <span class="fw-bold">{{ $supplierOrder->user ? $supplierOrder->user->name : '-' }}</span>
         </div>
     </div>
     <div class="row mb-7">

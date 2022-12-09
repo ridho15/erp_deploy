@@ -14,6 +14,7 @@ class IsiRak extends Model
         'id_rak',
         'id_barang',
         'jumlah',
+        'kode_masuk'
     ];
 
     public function rak(){

@@ -99,6 +99,7 @@ class OrderDetailForm extends Component
         $this->resetInputFields();
         $this->emit('refreshSupplierOrderDetail');
         $this->emit('refreshSupplierOrder');
+        $this->emit('refreshOrderToRak');
         $this->emit('finishSimpanData', 1, $message);
         return session()->flash('success', $message);
     }
