@@ -106,7 +106,7 @@
                     </div>
                     <!--end::Close-->
                 </div>
-                <form action="#" wire:submit.prevent="simpanDataPeminjamanBarang">
+                <form action="#" wire:submit.prevent="simpanDataPeminjamanBarang" id="form_peminjaman_barang">
 
                     <div class="modal-body">
                         <div class="row mb-5">
@@ -306,7 +306,7 @@
                     <!--end::Close-->
                 </div>
 
-                <form action="#" wire:submit.prevent="balikanBarangPinjaman">
+                <form action="#" wire:submit.prevent="balikanBarangPinjaman" id="form_peminjaman_barang">
                     <div class="modal-body">
                         @include('helper.alert-message')
                         <div class="text-center">
@@ -411,7 +411,7 @@
             @this.set('id_laporan_pekerjaan', $(this).val())
         });
 
-        $('select[name="id_barang"]').on('change', function(){
+        $('#form_peminjaman_barang select[name="id_barang"]').on('change', function(){
             @this.set('id_barang', $(this).val())
         });
 

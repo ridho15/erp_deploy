@@ -55,6 +55,7 @@
                         <thead>
                             <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200 sticky">
                                 <th>No</th>
+                                <th>Nomor Pekerjaan</th>
                                 <th>Project</th>
                                 <th>No.MFG</th>
                                 <th>Pekerja</th>
@@ -74,6 +75,7 @@
                             @foreach ($listLaporanPekerjaan as $index => $item)
                             <tr>
                                 <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
+                                <td>{{ $item->kode_pekerjaan }}</td>
                                 <td>{{ $item->project ? $item->project->nama : '-' }}</td>
                                 <td>{{ $item->project ? $item->project->no_mfg : '-' }}</td>
                                 <td>
@@ -161,7 +163,7 @@
                             @endforeach
                             @else
                             <tr>
-                                <td colspan="15" class="text-center text-gray-500">Tidak ada data</td>
+                                <td colspan="16" class="text-center text-gray-500">Tidak ada data</td>
                             </tr>
                             @endif
                         </tbody>

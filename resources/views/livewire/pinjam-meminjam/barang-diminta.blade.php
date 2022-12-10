@@ -1,4 +1,12 @@
 <div>
+    <div class="text-end">
+        <button class="btn btn-sm btn-outline btn-outline-warning mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Permintaan Barang" wire:click="$emit('onClickNomorITT')">
+            <i class="fa-solid fa-hashtag"></i> Nomor ITT
+        </button>
+        <button class="btn btn-sm btn-outline btn-outline-primary mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Permintaan Barang" wire:click="$emit('onClickTambahPermintaanBarang')">
+            <i class="bi bi-plus-circle"></i> Permintaan Barang
+        </button>
+    </div>
     @include('helper.alert-message')
     <div class="text-center">
         @include('helper.simple-loading', ['target' => 'cari,hapusBarang', 'message' => 'Memuat data...'])
@@ -81,7 +89,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td colspan="13" class="text-center text-gray-500">Tidak ada data</td>
+                    <td colspan="14" class="text-center text-gray-500">Tidak ada data</td>
                 </tr>
             @endif
             </tbody>
@@ -209,6 +217,9 @@
             </div>
         </div>
     </div>
+
+    @livewire('pinjam-meminjam.form-permintaan-barang')
+    @livewire('pinjam-meminjam.nomor-itt')
 </div>
 
 @push('js')
@@ -240,6 +251,15 @@
         Livewire.on('finishSimpanData', (status, message) => {
             $('.modal').modal('hide')
             alertMessage(status, message);
+        })
+
+        Livewire.on('onClickTambahPermintaanBarang', () => {
+            Livewire.emit('refreshFormPermintaanBarang')
+            $('#modal_form_permintaan_barang').modal('show')
+        })
+
+        Livewire.on('onClickNomorITT', () => {
+            $('#modal_nomor_itt').modal('show')
         })
     </script>
 @endpush

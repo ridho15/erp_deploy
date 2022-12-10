@@ -23,7 +23,8 @@ class LaporanPekerjaanBarang extends Model
         'id_tipe_barang',
         'version',
         'id_rak',
-        'estimasi'
+        'estimasi',
+        'nomor_itt'
     ];
 
     protected $appends = ['status_formatted'];

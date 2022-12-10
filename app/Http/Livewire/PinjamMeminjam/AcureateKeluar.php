@@ -6,6 +6,7 @@ use App\Http\Controllers\HelperController;
 use App\Models\Barang;
 use App\Models\LaporanPekerjaanBarang;
 use App\Models\LaporanPekerjaanBarangLog;
+use App\Models\NomorPeminjamanHarian;
 use App\Models\Rak;
 use App\Models\RakLog;
 use Livewire\Component;
@@ -23,6 +24,9 @@ class AcureateKeluar extends Component
     public $cari;
 
     protected $listAcurateKeluar;
+
+    public $nomor_itt;
+    public $id_laporan_pekerjaan_barang;
     public function render()
     {
         $this->listAcurateKeluar = LaporanPekerjaanBarang::whereHas('barang')
@@ -48,6 +52,16 @@ class AcureateKeluar extends Component
             return session()->flash('fail', $message);
         }
 
+        // Check Nomor ITT Harian
+        $checkNomorITTHarian = NomorPeminjamanHarian::where('itt_start', '<', $this->nomor_itt)
+        ->where('itt_end', '>', $this->nomor_itt)->whereDate('tanggal', now())
+        ->first();
+
+        if(!$checkNomorITTHarian){
+            $message = "Nomor ITT yang dimasukkan tidak valid !";
+            return session()->flash('fail', $message);
+        }
+
         // $barang = Barang::find($laporanPekerjaanBarang->id_barang);
         // if($laporanPekerjaanBarang->laporanPekerjaan->quotation){
         //     $id_quotation = $laporanPekerjaanBarang->laporanPekerjaan->quotation->id;
@@ -62,7 +76,8 @@ class AcureateKeluar extends Component
 
         $laporanPekerjaanBarang->update([
             'status' => 2,
-            'konfirmasi' => 0
+            'konfirmasi' => 0,
+            'nomor_itt' => $this->nomor_itt,
         ]);
 
         LaporanPekerjaanBarangLog::create([

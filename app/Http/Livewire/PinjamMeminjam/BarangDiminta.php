@@ -20,7 +20,7 @@ class BarangDiminta extends Component
         'refreshBarangDiminta' => '$refresh',
         'abaikanPeminjamanBarang',
         'confirmasiPeminjamanBarang',
-        'setLaporanPekerjaanBarang'
+        'setLaporanPekerjaanBarang',
     ];
     public $paginationTheme = 'bootstrap';
     public $cari;
@@ -31,6 +31,7 @@ class BarangDiminta extends Component
     public $laporanPekerjaanBarang;
     public $barang;
     public $listRak = [];
+
     public $id_barang;
     public $id_rak;
     public $estimasi;
@@ -221,6 +222,7 @@ class BarangDiminta extends Component
         $this->qty = null;
         $this->laporanPekerjaanBarang = null;
         $this->barang = null;
+
     }
 
     public function setLaporanPekerjaanBarang($id){
@@ -238,4 +240,5 @@ class BarangDiminta extends Component
             $this->estimasi = date('Y-m-d H:i', strtotime($laporanPekerjaanBarang->estimasi));
         }
     }
+
 }
