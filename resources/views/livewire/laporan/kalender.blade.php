@@ -161,9 +161,23 @@
                                             <button class="btn btn-sm btn-icon btn-light" wire:click="hapusTanggalAgenda({{ $item->id }})">
                                                 <i class="fa-solid fa-trash-can text-danger"></i>
                                             </button>
-                                            <a href="{{ $item->tipe == 1 ? route('pre-order.detail', ['id' => $item->preOrder->id]) : route('supplier.order-detail', ['id' => $item->supplierOrder->id])}}" class="btn btn-sm btn-icon btn-light">
-                                                <i class="fa-solid fa-eye text-primary"></i>
-                                            </a>
+                                            @if ($item->tipe == 1)
+                                                <a href="{{ $item->tipe == 1 ? route('pre-order.detail', ['id' => $item->preOrder->id]) : route('supplier.order-detail', ['id' => $item->supplierOrder->id])}}" class="btn btn-sm btn-icon btn-light">
+                                                    <i class="fa-solid fa-eye text-primary"></i>
+                                                </a>
+                                            @elseif($item->tipe == 2)
+                                                <a href="{{ $item->tipe == 1 ? route('pre-order.detail', ['id' => $item->preOrder->id]) : route('supplier.order-detail', ['id' => $item->supplierOrder->id])}}" class="btn btn-sm btn-icon btn-light">
+                                                    <i class="fa-solid fa-eye text-primary"></i>
+                                                </a>
+                                            @elseif($item->tipe == 3)
+                                                <a href="{{ route('quotation.detail', ['id' => $item->quotation->id]) }}" class="btn btn-sm btn-icon btn-light">
+                                                    <i class="fa-solid fa-eye text-primary"></i>
+                                                </a>
+                                            @elseif($item->tipe == 4)
+                                                <a href="{{ route('management-tugas.detail', ['id' => $item->laporanPekerjaan->id]) }}" class="btn btn-sm btn-icon btn-light">
+                                                    <i class="fa-solid fa-eye text-primary"></i>
+                                                </a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
