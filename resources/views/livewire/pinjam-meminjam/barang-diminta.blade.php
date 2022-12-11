@@ -1,4 +1,12 @@
 <div>
+    <div class="text-end">
+        <button class="btn btn-sm btn-outline btn-outline-warning mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Permintaan Barang" wire:click="$emit('onClickNomorITT')">
+            <i class="fa-solid fa-hashtag"></i> Nomor ITT
+        </button>
+        <button class="btn btn-sm btn-outline btn-outline-primary mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Permintaan Barang" wire:click="$emit('onClickTambahPermintaanBarang')">
+            <i class="bi bi-plus-circle"></i> Permintaan Barang
+        </button>
+    </div>
     @include('helper.alert-message')
     <div class="text-center">
         @include('helper.simple-loading', ['target' => 'cari,hapusBarang', 'message' => 'Memuat data...'])
@@ -20,6 +28,7 @@
                 <th>Satuan</th>
                 <th>Estimasi Peminjaman</th>
                 <th>Jumlah / Qty</th>
+                <th>ITT</th>
                 <th>Version</th>
                 <th>Tipe Barang</th>
                 <th>Catatan Teknisi</th>
@@ -50,6 +59,7 @@
                             @endif
                         </td>
                         <td>{{ $item->qty }}</td>
+                        <td>{{ $item->nomor_itt }}</td>
                         <td>{{ $item->version }} V</td>
                         <td>{{ $item->tipeBarang ? $item->tipeBarang->tipe_barang : '-' }}</td>
                         <td>{{ $item->catatan_teknisi }}</td>
@@ -81,7 +91,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td colspan="13" class="text-center text-gray-500">Tidak ada data</td>
+                    <td colspan="15" class="text-center text-gray-500">Tidak ada data</td>
                 </tr>
             @endif
             </tbody>
@@ -200,6 +210,13 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
+                        <div class="mb-5">
+                            <label for="" class="form-label required">ITT</label>
+                            <input type="number" name="nomor_itt" class="form-control form-control-solid" wire:model="nomor_itt" placeholder="Nomor ITT" required>
+                            @error('nomor_itt')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
@@ -209,6 +226,9 @@
             </div>
         </div>
     </div>
+
+    @livewire('pinjam-meminjam.form-permintaan-barang')
+    @livewire('pinjam-meminjam.nomor-itt')
 </div>
 
 @push('js')
@@ -240,6 +260,15 @@
         Livewire.on('finishSimpanData', (status, message) => {
             $('.modal').modal('hide')
             alertMessage(status, message);
+        })
+
+        Livewire.on('onClickTambahPermintaanBarang', () => {
+            Livewire.emit('refreshFormPermintaanBarang')
+            $('#modal_form_permintaan_barang').modal('show')
+        })
+
+        Livewire.on('onClickNomorITT', () => {
+            $('#modal_nomor_itt').modal('show')
         })
     </script>
 @endpush

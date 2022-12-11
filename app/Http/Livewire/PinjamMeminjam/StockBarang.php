@@ -14,25 +14,34 @@ class StockBarang extends Component
     ];
     public $paginationTheme = 'bootstrap';
     public $cari;
+    public $arrayCari;
     public $total_show = 10;
     protected $listBarang;
     public $stockKurang = false;
     public function render()
     {
-        $this->listBarang = Barang::where(function($query){
-            $query->where('nama', 'LIKE', '%' . $this->cari . '%')
-            ->orWhere('stock', 'LIKE', '%' . $this->cari . '%')
-            ->orWhere('min_stock', 'LIKE', '%' . $this->cari . '%')
-            ->orWhere('harga', 'LIKE', '%' . $this->cari . '%')
-            ->orWhere('deskripsi', 'LIKE', '%' . $this->cari . '%')
-            ->orWhereHas('satuan', function($query){
-                $query->where('nama_satuan', 'LIKE', '%' . $this-> cari . '%');
-            })->orWhereHas('tipeBarang', function($query){
-                $query->where('tipe_barang', 'LIKE', '%' . $this->cari . '%');
-            })->orWhereHas('merk', function($query){
-                $query->where('nama_merk', 'LIKE', '%' . $this->cari . '%');
-            });
-        })->orderBy('stock', 'ASC')->paginate($this->total_show);
+        if($this->cari){
+            $this->arrayCari = explode('-', $this->cari);
+            $cariBarang = array_key_exists(0, $this->arrayCari) ? $this->arrayCari[0] : null;
+            $merk = array_key_exists(1, $this->arrayCari) ? $this->arrayCari[1] : null;
+            $satuan = array_key_exists(2, $this->arrayCari) ? $this->arrayCari[2] : null;
+            $tipeBarang = array_key_exists(3, $this->arrayCari) ? $this->arrayCari[3] : null;
+            $deskripsi = array_key_exists(4, $this->arrayCari) ? $this->arrayCari[4] : null;
+            $this->listBarang = Barang::where(function($query)use($cariBarang,$merk,$satuan,$tipeBarang,$deskripsi){
+                $query->where('nama', 'LIKE', '%' . $cariBarang . '%')
+                ->where('deskripsi', 'LIKE', '%' . $deskripsi . '%')
+                ->whereHas('satuan', function($query)use($satuan){
+                    $query->where('nama_satuan', 'LIKE', '%' . $satuan . '%');
+                })->whereHas('tipeBarang', function($query)use($tipeBarang){
+                    $query->where('tipe_barang', 'LIKE' ,'%' . $tipeBarang . '%');
+                })->whereHas('merk', function($query)use($merk){
+                    $query->where('nama_merk', 'LIKE', '%' . $merk . '%');
+                });
+            })->orderBy('stock', 'ASC')->paginate($this->total_show);
+        }else{
+            $this->listBarang = Barang::orderBy('stock', 'ASC')->paginate($this->total_show);
+        }
+
         $data['listBarang'] = $this->listBarang;
         return view('livewire.pinjam-meminjam.stock-barang', $data);
     }

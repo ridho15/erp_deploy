@@ -14,7 +14,7 @@ class Data extends Component
     public $listeners = [
         'refreshUser' => '$refresh',
         'clickTambah',
-        'hapusUser',
+        'hapusSatuan',
     ];
     public $total_show = 10;
     public $cari;
@@ -35,16 +35,16 @@ class Data extends Component
     {
     }
 
-    public function hapusUser($id)
+    public function hapusSatuan($id)
     {
-        $user = Satuan::find($id);
-        if (!$user) {
+        $satuan = Satuan::find($id);
+        if (!$satuan) {
             $message = 'Data tidak ditemukan';
 
             return $this->emit('finishDataUser', 0, $message);
         }
 
-        $user->delete();
+        $satuan->delete();
         $message = 'Berhasil menghapus data';
         activity()->causedBy(HelperController::user())->log("Menghapus data satuan");
 

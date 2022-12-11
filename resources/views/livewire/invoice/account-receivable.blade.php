@@ -33,10 +33,10 @@
                    <th>Pembuat</th>
                    <th>Tipe Pembayaran</th>
                    <th>Metode Pembayaran</th>
-                   {{-- <th>Status Pekerjaan</th> --}}
                    <th>Status Pembayaran</th>
                    <th>Keterangan</th>
                    <th>File</th>
+                   <th>Tanggal Tempo Pembayaran</th>
                    <th>Aksi</th>
                   </tr>
                  </thead>
@@ -63,19 +63,6 @@
                                         -
                                     @endif
                                 </td>
-                                {{-- <td>
-                                    @if ($item->quotation && $item->quotation->laporanPekerjaan)
-                                        @if ($item->quotation->laporanPekerjaan->signature != null && $item->quotation->laporanPekerjaan->jam_selesai != null)
-                                            <span class="badge badge-success">Selesai</span>
-                                        @elseif($item->quotation->laporanPekerjaan->jam_mulai != null)
-                                            <span class="badge badge-warning">Sedang Dikerjakan</span>
-                                        @else
-                                            <span class="badge badge-secondary">Belum Dikerjakan</span>
-                                        @endif
-                                    @else
-                                        Tidak ada pekerjaan
-                                    @endif
-                                </td> --}}
                                 <td><?= $item->status_pembayaran ?></td>
                                 <td><?= $item->keterangan ?? '-' ?></td>
                                 <td>
@@ -85,6 +72,7 @@
                                         </a>
                                     @endif
                                 </td>
+                                <td>{{ date('d-m-Y', strtotime($item->tanggal_tempo_pembayaran)) }}</td>
                                 <td>
                                     <div class="btn-group">
                                         {{-- <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Pre Order" wire:click="$emit('onClickEdit', {{ $item }})">

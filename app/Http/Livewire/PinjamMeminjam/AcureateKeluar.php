@@ -6,6 +6,7 @@ use App\Http\Controllers\HelperController;
 use App\Models\Barang;
 use App\Models\LaporanPekerjaanBarang;
 use App\Models\LaporanPekerjaanBarangLog;
+use App\Models\NomorPeminjamanHarian;
 use App\Models\Rak;
 use App\Models\RakLog;
 use Livewire\Component;
@@ -23,6 +24,9 @@ class AcureateKeluar extends Component
     public $cari;
 
     protected $listAcurateKeluar;
+
+    public $nomor_itt;
+    public $id_laporan_pekerjaan_barang;
     public function render()
     {
         $this->listAcurateKeluar = LaporanPekerjaanBarang::whereHas('barang')
@@ -48,21 +52,10 @@ class AcureateKeluar extends Component
             return session()->flash('fail', $message);
         }
 
-        // $barang = Barang::find($laporanPekerjaanBarang->id_barang);
-        // if($laporanPekerjaanBarang->laporanPekerjaan->quotation){
-        //     $id_quotation = $laporanPekerjaanBarang->laporanPekerjaan->quotation->id;
-        // }else{
-        //     $id_quotation = null;
-        // }
-        // $response = $barang->barangStockChange($laporanPekerjaanBarang->qty, 1, $id_quotation);
-
-        // if($response['status'] == 0){
-        //     return session()->flash('fail', $response['message']);
-        // }
-
         $laporanPekerjaanBarang->update([
             'status' => 2,
-            'konfirmasi' => 0
+            'konfirmasi' => 0,
+            'nomor_itt' => $this->nomor_itt,
         ]);
 
         LaporanPekerjaanBarangLog::create([
@@ -109,9 +102,11 @@ class AcureateKeluar extends Component
         }
 
         $message = "Berhasil mengkonfirmasi data";
+        $this->nomor_itt = null;
         activity()->causedBy(HelperController::user())->log("Mengkonfirmasi barang accurate keluar");
         $this->emit('refreshBarangDipinjam');
         $this->emit('refreshBarangDikasih');
+        $this->emit('finishSimpanData', 1, $message);
         return session()->flash('success', $message);
     }
 }

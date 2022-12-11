@@ -25,6 +25,7 @@
                 <th>Estimasi Peminjaman</th>
                 <th>Jumlah / Qty</th>
                 <th>Version</th>
+                <th>Nomor ITT</th>
                 <th>Tipe Barang</th>
                 <th>Catatan Teknisi</th>
                 <th>Status</th>
@@ -56,6 +57,7 @@
                         </td>
                         <td>{{ $item->qty }}</td>
                         <td>{{ $item->version }} V</td>
+                        <td>{{ $item->nomor_itt }}</td>
                         <td>{{ $item->tipeBarang ? $item->tipeBarang->tipe_barang : '-' }}</td>
                         <td>{{ $item->catatan_teknisi }}</td>
                         <td><?= $item->status_formatted ?></td>
@@ -84,7 +86,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td colspan="14" class="text-center text-gray-500">Tidak ada data</td>
+                    <td colspan="16" class="text-center text-gray-500">Tidak ada data</td>
                 </tr>
             @endif
             </tbody>
@@ -106,7 +108,7 @@
                     </div>
                     <!--end::Close-->
                 </div>
-                <form action="#" wire:submit.prevent="simpanDataPeminjamanBarang">
+                <form action="#" wire:submit.prevent="simpanDataPeminjamanBarang" id="form_peminjaman_barang">
 
                     <div class="modal-body">
                         <div class="row mb-5">
@@ -306,7 +308,7 @@
                     <!--end::Close-->
                 </div>
 
-                <form action="#" wire:submit.prevent="balikanBarangPinjaman">
+                <form action="#" wire:submit.prevent="balikanBarangPinjaman" id="form_peminjaman_barang">
                     <div class="modal-body">
                         @include('helper.alert-message')
                         <div class="text-center">
@@ -411,7 +413,7 @@
             @this.set('id_laporan_pekerjaan', $(this).val())
         });
 
-        $('select[name="id_barang"]').on('change', function(){
+        $('#form_peminjaman_barang select[name="id_barang"]').on('change', function(){
             @this.set('id_barang', $(this).val())
         });
 

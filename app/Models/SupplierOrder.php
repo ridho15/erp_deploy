@@ -21,7 +21,8 @@ class SupplierOrder extends Model
         'keterangan',
         'id_tipe_pembayaran',
         'id_metode_pembayaran',
-        'status_pembayaran'
+        'status_pembayaran',
+        'tanggal_tempo_pembayaran'
     ];
 
     protected $appends = [

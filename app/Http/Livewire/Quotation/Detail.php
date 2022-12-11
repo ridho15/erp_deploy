@@ -16,7 +16,9 @@ class Detail extends Component
         'setDataBarang',
         'changeTambahBarang',
         'changeQty',
-        'changeBarang'
+        'changeBarang',
+        'showHideInputPPN',
+        'updatePPN'
     ];
     public $id_quotation;
     public $quotation;
@@ -28,7 +30,9 @@ class Detail extends Component
     public $cari;
     public $listBarang = [];
     public $harga_barang;
+    public $n_ppn;
     public $show_input_harga = false;
+    public $showInputPPN = false;
     public function render()
     {
         $this->quotation = Quotation::find($this->id_quotation);
@@ -40,6 +44,7 @@ class Detail extends Component
 
     public function mount($id_quotation){
         $this->id_quotation = $id_quotation;
+        $this->n_ppn = Quotation::find($this->id_quotation)->ppn;
     }
 
     public function hapusDataBarang($id){
@@ -170,5 +175,17 @@ class Detail extends Component
         if($this->barang){
             $this->harga_barang = $this->barang->harga;
         }
+    }
+
+    public function showHideInputPPN(){
+        $this->showInputPPN = !$this->showInputPPN;
+    }
+
+    public function updatePPN(){
+        $this->quotation->update([
+            'ppn' => $this->n_ppn
+        ]);
+
+        $this->showInputPPN = false;
     }
 }

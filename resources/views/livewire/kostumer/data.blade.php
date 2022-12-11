@@ -29,6 +29,7 @@
                    <th>Nomor HP</th>
                    <th>Alamat</th>
                    <th>Barang Perlengkapan</th>
+                   <th>PPN (%)</th>
                    <th>Status</th>
                    <th>Aksi</th>
                   </tr>
@@ -43,14 +44,8 @@
                                 <td>{{ $item->email }}</td>
                                 <td>{{ $item->no_hp }}</td>
                                 <td>{{ $item->alamat }}</td>
-                                <td>
-                                    {{ $item->barang_customer }}
-                                    {{-- <ul>
-                                        @foreach ($item->list_barang as $nama_barang)
-                                            <li>{{ $nama_barang }}</li>
-                                        @endforeach
-                                    </ul> --}}
-                                </td>
+                                <td>{{ $item->barang_customer }}</td>
+                                <td>{{ $item->ppn }}</td>
                                 <td><?= $item->status_formatted ?></td>
                                 <td>
                                     <div class="btn-group">
@@ -69,7 +64,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="8" class="text-center text-gray-500">Tidak ada data</td>
+                            <td colspan="10" class="text-center text-gray-500">Tidak ada data</td>
                         </tr>
                     @endif
                  </tbody>

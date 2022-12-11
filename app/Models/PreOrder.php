@@ -19,7 +19,8 @@ class PreOrder extends Model
         'id_customer',
         'keterangan',
         'file',
-        'id_metode_pembayaran'
+        'id_metode_pembayaran',
+        'tanggal_tempo_pembayaran'
     ];
 
     protected $appends = [
@@ -33,6 +34,19 @@ class PreOrder extends Model
         'sudah_bayar',
         'ppn'
     ];
+
+    public function getPpnAttribute(){
+        $preOrderDetail = PreOrderDetail::where('id_pre_order', $this->id)->get();
+        $n_ppn = $this->quotation ? $this->quotation->ppn : 11;
+        $total_bayar = 0;
+        foreach ($preOrderDetail as $item) {
+            $total_bayar += $item->sub_total;
+        }
+
+        $ppn = $total_bayar * ($n_ppn/100); //PPN default 11%;
+
+        return $ppn;
+    }
 
     public function getNoRefAttribute(){
         $helper = new HelperController;
@@ -57,18 +71,6 @@ class PreOrder extends Model
         }
 
         return $total_bayar;
-    }
-
-    public function getPpnAttribute(){
-        $preOrderDetail = PreOrderDetail::where('id_pre_order', $this->id)->get();
-        $total_bayar = 0;
-        foreach ($preOrderDetail as $item) {
-            $total_bayar += $item->sub_total;
-        }
-
-        $ppn = $total_bayar * (11/100); //PPN 11%;
-
-        return $ppn;
     }
 
     public function getStatusPembayaranKodeAttribute(){
@@ -106,11 +108,12 @@ class PreOrder extends Model
     public function getTotalBayarAttribute(){
         $preOrderDetail = PreOrderDetail::where('id_pre_order', $this->id)->get();
         $total_bayar = 0;
+        $n_ppn = $this->quotation ? $this->quotation->ppn : 11;
         foreach ($preOrderDetail as $item) {
             $total_bayar += $item->sub_total;
         }
 
-        $ppn = $total_bayar * (11/100); //PPN 11%;
+        $ppn = $total_bayar * ($n_ppn/100); //PPN 11%;
 
         return $total_bayar + $ppn;
     }
@@ -118,11 +121,12 @@ class PreOrder extends Model
     public function getTotalBayarFormattedAttribute(){
         $preOrderDetail = PreOrderDetail::where('id_pre_order', $this->id)->get();
         $total_bayar = 0;
+        $n_ppn = $this->quotation ? $this->quotation->ppn : 11;
         foreach ($preOrderDetail as $item) {
             $total_bayar += $item->sub_total;
         }
 
-        $ppn = $total_bayar * (11/100); //ppn 11 %;
+        $ppn = $total_bayar * ($n_ppn/100); //ppn 11 %;
 
         return 'Rp. ' . number_format($total_bayar + $ppn,0,',','.');
     }

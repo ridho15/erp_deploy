@@ -155,7 +155,7 @@
                         </tr>
                     @endforeach
                     @php
-                        $ppn = 11/100*$subTotal;
+                        $ppn = $n_ppn/100*$subTotal;
                         $total = $ppn + $subTotal;
                     @endphp
                     <tr>
@@ -163,7 +163,26 @@
                         <td colspan="2" class="fw-bold text-end">{{ 'Rp. ' . number_format($subTotal,0,',','.') }}</td>
                     </tr>
                     <tr>
-                        <td colspan="7" class="text-center fw-bold fst-italic">PPN 11%</td>
+                        <td colspan="7" class="text-center fw-bold fst-italic">
+                            <div>PPN {{ $quotation->ppn }} %
+                                @if ($quotation->status_like == null)
+                                    <span class="mx-2" style="cursor: pointer" wire:click="showHideInputPPN">
+                                        <i class="fas fa-edit"></i>
+                                    </span>
+                                @endif
+                            </div>
+                            @if ($showInputPPN)
+                                <div class="text-center d-flex justify-content-center align-items-center">
+                                    <input type="number" class="form-control" name="n_ppn" wire:model="n_ppn" placeholder="{{ $n_ppn }}" required style="width: 100px">
+                                    <span style="cursor: pointer" class="mx-2" wire:click="showHideInputPPN">
+                                        <i class="fa-regular fa-circle-xmark text-danger"></i>
+                                    </span>
+                                    <span style="cursor: pointer" class="mx-2" wire:click="updatePPN">
+                                        <i class="fa-regular fa-circle-check text-success"></i>
+                                    </span>
+                                </div>
+                            @endif
+                        </td>
                         <td colspan="2" class="fw-bold text-end">{{ 'Rp. ' . number_format($ppn,0,',','.') }}</td>
                     </tr>
                     <tr>

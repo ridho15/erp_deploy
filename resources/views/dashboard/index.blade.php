@@ -34,8 +34,11 @@
                                     </a>
                                     <a href="javascript:"
                                         class="btn btn-sm btn-light-success fw-bold ms-2 fs-8 py-1 px-3"
-                                        data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan">{{
-                                        \App\CPU\Helpers::getTipeUser($log->user->id_tipe_user) }}</a>
+                                        data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan">
+                                        @foreach (session()->get('list_tipe_user') as $item)
+                                            {{ $item }},
+                                        @endforeach
+                                    </a>
                                 </div>
                                 <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
                                     <a href="javascript:" data-bs-toggle="tooltip" title="Alamat IP"
@@ -208,9 +211,6 @@
             <div class="col-md-6 mb-5">
                 @livewire('dashboard.stock-minimum')
             </div>
-            {{-- <div class="col-md-6  mb-5">
-                @livewire('dashboard.log-stock')
-            </div> --}}
             <div class="col-md-6 mb-5">
                 @livewire('dashboard.pre-order')
             </div>

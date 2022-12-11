@@ -43,10 +43,10 @@ class Form extends Component
         $this->username = $user->username;
         $this->name = $user->name;
         $this->is_active = $user->is_active;
-        $this->id_tipe_user = $user->id_tipe_user;
         $this->jabatan = $user->jabatan;
         $this->email = $user->email;
         $this->phone = $user->phone;
+        $this->id_tipe_user = json_decode($user->id_tipe_user);
     }
 
     public function simpanDataUser(){
@@ -54,7 +54,7 @@ class Form extends Component
             'name' => 'required|string',
             'username' => 'required|string',
             'password' => 'nullable|string',
-            'id_tipe_user' => 'required|numeric',
+            'id_tipe_user' => 'required|array',
             'jabatan' => 'required|string',
             'email' => 'nullable|email',
             'phone' => 'nullable|numeric'
@@ -65,7 +65,7 @@ class Form extends Component
             'username.string' => 'Username tidak valid !',
             'password.string' => 'Password tidak valid !',
             'id_tipe_user.required' => 'Tipe User tidak boleh kosong',
-            'id_tipe_user.numeric' => 'Tipe user tidak valid !',
+            'id_tipe_user.array' => 'Tipe user tidak valid !',
             'jabatan.string' => 'Jabatan tidak valid !',
             'email.email' => 'Email tidak valid !',
             'phone.numeric' => 'Nomor HP tidak valid !',
@@ -122,7 +122,7 @@ class Form extends Component
             $data['password'] = Hash::make($this->password);
         }
         $data['is_active'] = $this->is_active ? 1 : 0;
-        $data['id_tipe_user'] = $this->id_tipe_user;
+        $data['id_tipe_user'] = json_encode($this->id_tipe_user);
         User::updateOrCreate([
             'id' => $this->id_user
         ], $data);

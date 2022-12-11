@@ -23,9 +23,9 @@ class AutentikasiPekerja
         ->first();
 
         if ($loginLogs) {
-            $workerUser = $loginLogs->user->tipeUser->nama_tipe == 'Worker';
-            $superUser = $loginLogs->user->tipeUser->nama_tipe == 'Super Admin';
-            $managerUser = $loginLogs->user->tipeUser->nama_tipe == 'Manager';
+            $workerUser = in_array("Worker", session()->get('list_tipe_user'));
+            $superUser = in_array('Super Admin', session()->get('list_tipe_user'));
+            $managerUser = in_array('Manager', session()->get('list_tipe_user'));
             if ($workerUser || $superUser || $managerUser) {
                 return $next($request);
             } else {

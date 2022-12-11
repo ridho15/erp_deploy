@@ -46,6 +46,9 @@
                 <li class="nav-item mt-2">
                     <a class="nav-link text-active-primary ms-0 me-10 py-5" data-bs-toggle="tab" href="#laporan_sparepart">Laporan Sparepart</a>
                 </li>
+                <li class="nav-item mt-2">
+                    <a class="nav-link text-active-primary ms-0 me-10 py-5" data-bs-toggle="tab" href="#history_peminjaman_barang">History Peminjaman Barang</a>
+                </li>
                 {{-- <li class="nav-item mt-2">
                     <a class="nav-link text-active-primary ms-0 me-10 py-5" data-bs-toggle="tab" href="#tanda_tangan_teknisi">Tanda Tangan Teknisi</a>
                 </li> --}}
@@ -61,6 +64,9 @@
         </div>
         <div class="tab-pane fade" id="laporan_perawatan_lift" role="tabpanel">
             @livewire('daftar-tugas.laporan-perawatan-lift', ['id_laporan_pekerjaan' => $laporanPekerjaan->id])
+        </div>
+        <div class="tab-pane fade" id="history_peminjaman_barang" role="tabpanel">
+            @livewire('daftar-tugas.history-peminjaman-barang', ['id_laporan_pekerjaan' => $laporanPekerjaan->id])
         </div>
         {{-- <div class="tab-pane fade" id="tanda_tangan_teknisi" role="tabpanel">
             @livewire('daftar-tugas.tanda-tangan-teknisi', ['id_laporan_pekerjaan' => $laporanPekerjaan->id])

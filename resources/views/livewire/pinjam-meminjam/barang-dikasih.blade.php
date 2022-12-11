@@ -22,6 +22,7 @@
                 <th>Estimasi Peminjaman</th>
                 <th>Jumlah / Qty</th>
                 <th>Version</th>
+                <th>Nomor ITT</th>
                 <th>Tipe Barang</th>
                 <th>Status</th>
                 <th>Yang Meminjamkan</th>
@@ -51,6 +52,7 @@
                         </td>
                         <td>{{ $item->qty }}</td>
                         <td>{{ $item->version }} V</td>
+                        <td>{{ $item->nomor_itt }}</td>
                         <td>{{ $item->tipeBarang ? $item->tipeBarang->tipe_barang : '-' }}</td>
                         <td>
                             <span class="badge badge-warning">Diberikan</span>
@@ -72,7 +74,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td colspan="12" class="text-center text-gray-500">Tidak ada data</td>
+                    <td colspan="15" class="text-center text-gray-500">Tidak ada data</td>
                 </tr>
             @endif
             </tbody>
@@ -80,55 +82,3 @@
     </div>
     <div class="text-center">{{ $listBarangDikasih->links() }}</div>
 </div>
-
-@push('js')
-    <script>
-        $(document).ready(function () {
-
-        });
-
-        window.addEventListener('contentChange', function(){
-            $('select[name="id_laporan_pekerjaan"]').select2();
-            $('select[name="id_tipe_barang"]').select2();
-            $('select[name="version"]').select2();
-            $('select[name="id_barang"]').select2();
-        })
-
-        $('select[name="id_laporan_pekerjaan"]').on('change', function(){
-            @this.set('id_laporan_pekerjaan', $(this).val())
-        });
-
-        $('select[name="id_barang"]').on('change', function(){
-            @this.set('id_barang', $(this).val())
-        });
-
-        $('select[name="id_tipe_barang"]').on('change', function(){
-            @this.set('id_tipe_barang', $(this).val())
-        });
-
-        $('select[name="version"]').on('change', function(){
-            @this.set('version', $(this).val())
-        });
-
-        Livewire.on('onClickBatalkan', async (id) => {
-            const response = await alertConfirmCustom("Peringatan !", "Apakah kamu yakin ingin mengembalikan barang ke gudang?", 'Ya, Kembalikan')
-            if(response.isConfirmed == true){
-                Livewire.emit('balikanBarangPinjaman', id)
-            }
-        })
-
-        Livewire.on('onClickKembalikan', (id) => {
-            Livewire.emit('setBarangPinjaman', id)
-            $('#modal_kembalikan_barang').modal('show')
-        })
-
-        Livewire.on('finishSimpanData', (status, message) => {
-            $('.modal').modal('hide')
-            alertMessage(status, message);
-        })
-
-        Livewire.on('onClickTambahPeminjamanBarang', () => {
-            $('#modal_tambah_peminjaman_barang').modal('show');
-        })
-    </script>
-@endpush

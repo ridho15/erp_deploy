@@ -17,8 +17,13 @@ class LaporanPekerjaanBarangLog extends Model
     ];
 
     protected $appends = [
-        'status_formatted'
+        'status_formatted',
+        'tanggal_formatted'
     ];
+
+    public function getTanggalFormattedAttribute(){
+        return date('d-m-Y H:i', strtotime($this->updated_at));
+    }
 
     public function getStatusFormattedAttribute(){
         if($this->status == 1){

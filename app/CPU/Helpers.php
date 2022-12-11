@@ -22,11 +22,6 @@ class Helpers
             $q->where('jam_mulai', '!=', null)->where('jam_selesai', null);
         })->count();
 
-        // $status = 'Tersedia';
-        // if ($progress) {
-        //     $status = 'Bekerja';
-        // }
-
         return $progress;
     }
 

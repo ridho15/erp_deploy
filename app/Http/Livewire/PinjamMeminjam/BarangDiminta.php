@@ -8,6 +8,7 @@ use App\Models\BarangStockLog;
 use App\Models\IsiRak;
 use App\Models\LaporanPekerjaanBarang;
 use App\Models\LaporanPekerjaanBarangLog;
+use App\Models\NomorPeminjamanHarian;
 use App\Models\Rak;
 use App\Models\SupplierOrderDetailTemp;
 use Livewire\Component;
@@ -20,7 +21,7 @@ class BarangDiminta extends Component
         'refreshBarangDiminta' => '$refresh',
         'abaikanPeminjamanBarang',
         'confirmasiPeminjamanBarang',
-        'setLaporanPekerjaanBarang'
+        'setLaporanPekerjaanBarang',
     ];
     public $paginationTheme = 'bootstrap';
     public $cari;
@@ -31,12 +32,13 @@ class BarangDiminta extends Component
     public $laporanPekerjaanBarang;
     public $barang;
     public $listRak = [];
+
     public $id_barang;
     public $id_rak;
+    public $nomor_itt;
     public $estimasi;
     public function render()
     {
-
         $this->listBarangDiminta = LaporanPekerjaanBarang::where(function($query){
             $query->where('catatan_teknisi', 'LIKE', '%' . $this->cari . '%')
             ->orWhere('keterangan_customer', 'LIKE', '%' . $this->cari . '%')
@@ -97,7 +99,8 @@ class BarangDiminta extends Component
             'qty' => 'required|numeric',
             'id_laporan_pekerjaan_barang' => 'required|numeric',
             'id_rak' => 'required|numeric',
-            'estimasi' => 'required|string'
+            'estimasi' => 'required|string',
+            'nomor_itt' => 'required|numeric'
         ], [
             'id_laporan_pekerjaan_barang.required' => 'Data tidak valid !',
             'id_laporan_pekerjaan_barang.numeric' => 'Data tidak valid !',
@@ -106,13 +109,33 @@ class BarangDiminta extends Component
             'id_rak.required' => 'Rak belum dipilih',
             'id_rak.numeric' => 'Rak tidak valid !',
             'estimasi' => 'Estimasi Peminjaman belum diisi',
-            'estimasi.string' => 'Estimasi peminjaman tidak valid !'
+            'estimasi.string' => 'Estimasi peminjaman tidak valid !',
+            'nomor_itt.required' => 'Nomor ITT tidak boleh kosong',
+            'nomor_itt.numeric' => 'Nomor ITT tidak valid !'
         ]);
+
+        // Check Nomor ITT
+        $nomorPeminjamanHarian = NomorPeminjamanHarian::where('itt_start', '<=', $this->nomor_itt)
+        ->where('itt_end', '>=', $this->nomor_itt)
+        ->whereDate('tanggal', now())->first();
+        if(!$nomorPeminjamanHarian){
+            $message = "Nomor ITT tidak valid !. Silahkan coba gunakan nomor lain";
+            return session()->flash('fail', $message);
+        }
 
         $laporanPekerjaanBarang = LaporanPekerjaanBarang::find($this->id_laporan_pekerjaan_barang);
         if(!$laporanPekerjaanBarang){
             $message = "Data tidak ditemukan !";
             return session()->flash('fail', $message);
+        }
+
+        if($laporanPekerjaanBarang->nomor_itt != $this->nomor_itt){
+            $checkLaporanPekerjaanBarangNomorITT = LaporanPekerjaanBarang::where("nomor_itt", $this->nomor_itt)
+            ->whereDate('updated_at', $this->nomor_itt)->first();
+            if($checkLaporanPekerjaanBarangNomorITT){
+                $message = "Nomor ITT sudah digunakan. Silahkan gunakan nomor ITT yang lain";
+                return session()->flash('fail', $message);
+            }
         }
 
         if($this->qty > $laporanPekerjaanBarang->qty){
@@ -221,6 +244,7 @@ class BarangDiminta extends Component
         $this->qty = null;
         $this->laporanPekerjaanBarang = null;
         $this->barang = null;
+
     }
 
     public function setLaporanPekerjaanBarang($id){
@@ -234,8 +258,10 @@ class BarangDiminta extends Component
         $this->qty = $laporanPekerjaanBarang->qty;
         $this->laporanPekerjaanBarang = $laporanPekerjaanBarang;
         $this->id_barang = $laporanPekerjaanBarang->id_barang;
+        $this->nomor_itt = $laporanPekerjaanBarang->nomor_itt;
         if ($laporanPekerjaanBarang->estimasi) {
             $this->estimasi = date('Y-m-d H:i', strtotime($laporanPekerjaanBarang->estimasi));
         }
     }
+
 }

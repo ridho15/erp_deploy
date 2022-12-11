@@ -145,7 +145,8 @@ class LaporanPekerjaan extends Component
         ], [
             'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan,
             'status' => 0,
-            'id_customer' => $laporanPekerjaan->id_customer
+            'id_customer' => $laporanPekerjaan->id_customer,
+            'ppn' => $laporanPekerjaan->customer->ppn,
         ]);
 
         if($laporanPekerjaan->jam_selesai != null && $laporanPekerjaan->signature != null){

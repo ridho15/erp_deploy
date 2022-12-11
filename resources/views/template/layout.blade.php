@@ -31,6 +31,11 @@
     </div>
     @include('template.script')
     @stack('script')
+    <script>
+        $(document).ready(function () {
+            $('.modal').modal({backdrop: 'static', keyboard: false})
+        });
+    </script>
 </body>
 
 </html>

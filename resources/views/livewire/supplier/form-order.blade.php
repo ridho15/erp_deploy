@@ -64,6 +64,18 @@
                             @enderror
                         </div>
                         <div class="mb-5">
+                            <label for="" class="form-label required">Metode Pembayaran</label>
+                            <select name="id_metode_pembayaran" wire:model="id_metode_pembayaran" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form_order" data-placeholder="Pilih" required>
+                                <option value="">Pilih</option>
+                                @foreach ($listMetodePembayaran as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama_metode }}</option>
+                                @endforeach
+                            </select>
+                            @error('id_metode_pembayaran')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="mb-5">
                             <label for="" class="form-label">Keterangan</label>
                             <textarea name="keterangan" wire:model="keterangan" class="form-control form-control-solid" placeholder="Masukkan keterangan"></textarea>
                             @error('keterangan')
@@ -95,6 +107,10 @@
             $('select[name="id_tipe_pembayaran"]').on('change', function(){
                 Livewire.emit('changeTipePembayaran', $(this).val())
             })
+
+            $('select[name="id_metode_pembayaran"]').on('change', function(){
+                Livewire.emit('changeMetodePembayaran', $(this).val())
+            })
         });
 
         window.addEventListener('contentChange',function(){
@@ -102,6 +118,7 @@
             // $('select[name="status_order"]').select2()
             $('.supplier-order').select2()
             $('select[name="id_tipe_pembayaran"]').select2()
+            $('select[name="id_metode_pembayaran"]').select2()
             $('select[name="id_supplier"]').on('change', function(){
                 Livewire.emit('changeSupplier', $(this).val())
             })
@@ -113,13 +130,12 @@
             $('select[name="id_tipe_pembayaran"]').on('change', function(){
                 Livewire.emit('changeTipePembayaran', $(this).val())
             })
+
+            $('select[name="id_metode_pembayaran"]').on('change', function(){
+                Livewire.emit('changeTipePembayaran', $(this).val())
+            })
         })
 
-
-
-        function refreshSelect(){
-
-        }
 
         Livewire.on("finishSimpanData", (status, message) => {
             $('.modal').modal('hide')

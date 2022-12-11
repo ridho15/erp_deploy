@@ -2,7 +2,7 @@
     <div class="card shadow-sm">
         <div class="card-header">
             <h3 class="card-title">
-                Sattuan
+                Satuan
             </h3>
             <div class="card-toolbar">
                 <button class="btn btn-sm btn-outline btn-outline-primary" wire:click="$emit('onClickTambah')"><i
@@ -83,7 +83,7 @@
         Livewire.on('onClickHapus',async(id) => {
             const response = await alertConfirm('Peringatan !', "Apakah kamu yakin ingin menghapus data ?");
             if(response.isConfirmed == true){
-                Livewire.emit('hapusUser', id)
+                Livewire.emit('hapusSatuan', id)
             }
         })
 
