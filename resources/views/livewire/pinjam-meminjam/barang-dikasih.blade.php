@@ -22,7 +22,7 @@
                 <th>Estimasi Peminjaman</th>
                 <th>Jumlah / Qty</th>
                 <th>Version</th>
-                <th>Nomor ITT</th>
+                <th>Nomor ITT/ITS</th>
                 <th>Tipe Barang</th>
                 <th>Status</th>
                 <th>Yang Meminjamkan</th>

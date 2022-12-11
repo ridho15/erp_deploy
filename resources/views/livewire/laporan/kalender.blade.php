@@ -24,6 +24,8 @@
                                 <option value="">Pilih</option>
                                 <option value="1">Receivable</option>
                                 <option value="2">Payable</option>
+                                <option value="3">Quotation</option>
+                                <option value="4">Laporan Pekerjaan</option>
                             </select>
                             @error('tipe')
                                 <small class="text-danger">{{ $message }}</small>
@@ -37,7 +39,7 @@
                                     <option value="{{ $item->id }}">{{ $item->no_ref }}</option>
                                 @endforeach
                             </select>
-                            @error('tipe')
+                            @error('id_accounts')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
@@ -75,6 +77,16 @@
                                 <span class="fw-bold">Payable</span>
                                 <span class="">{{ $item->supplierOrder->no_ref }}</span>
                                 Dari <span class="fw-bold">{{ $item->supplierOrder->supplier->name }}</span>
+                                <p>{{ $item->description }}</p>
+                            @elseif($item->tipe == 3)
+                                <span class="fw-bold">Quotation</span>
+                                <span class="">{{ $item->quotation->no_ref }}</span>
+                                Dari <span class="fw-bold">{{ $item->quotation->customer->nama }}</span>
+                                <p>{{ $item->description }}</p>
+                            @elseif($item->tipe == 4)
+                                <span class="fw-bold">Laporan Pekerjaan</span>
+                                <span class="">{{ $item->laporanPekerjaan->kode_pekerjaan }}</span>
+                                Dari <span class="fw-bold">{{ $item->laporanPekerjaan->project->nama }} ({{ $item->laporanPekerjaan->project->kode }})</span>
                                 <p>{{ $item->description }}</p>
                             @endif
                             <div class="text-end">
@@ -133,15 +145,39 @@
                                         <span class="">{{ $item->supplierOrder->no_ref }}</span>
                                         Dari <span class="fw-bold">{{ $item->supplierOrder->supplier->name }}</span>
                                         <p>{{ $item->description }}</p>
+                                    @elseif($item->tipe == 3)
+                                        <span class="fw-bold">Quotation</span>
+                                        <span class="">{{ $item->quotation->no_ref }}</span>
+                                        Dari <span class="fw-bold">{{ $item->quotation->no_ref }}</span>
+                                        <p>{{ $item->description }}</p>
+                                    @elseif($item->tipe == 4)
+                                        <span class="fw-bold">Laporan Pekerjaan</span>
+                                        <span class="">{{ $item->laporanPekerjaan->kode_pekerjaan }}</span>
+                                        Dari <span class="fw-bold">{{ $item->laporanPekerjaan->kode_pekerjaan }}</span>
+                                        <p>{{ $item->description }}</p>
                                     @endif
                                     <div class="text-end">
                                         <div class="btn-group">
                                             <button class="btn btn-sm btn-icon btn-light" wire:click="hapusTanggalAgenda({{ $item->id }})">
                                                 <i class="fa-solid fa-trash-can text-danger"></i>
                                             </button>
-                                            <a href="{{ $item->tipe == 1 ? route('pre-order.detail', ['id' => $item->preOrder->id]) : route('supplier.order-detail', ['id' => $item->supplierOrder->id])}}" class="btn btn-sm btn-icon btn-light">
-                                                <i class="fa-solid fa-eye text-primary"></i>
-                                            </a>
+                                            @if ($item->tipe == 1)
+                                                <a href="{{ $item->tipe == 1 ? route('pre-order.detail', ['id' => $item->preOrder->id]) : route('supplier.order-detail', ['id' => $item->supplierOrder->id])}}" class="btn btn-sm btn-icon btn-light">
+                                                    <i class="fa-solid fa-eye text-primary"></i>
+                                                </a>
+                                            @elseif($item->tipe == 2)
+                                                <a href="{{ $item->tipe == 1 ? route('pre-order.detail', ['id' => $item->preOrder->id]) : route('supplier.order-detail', ['id' => $item->supplierOrder->id])}}" class="btn btn-sm btn-icon btn-light">
+                                                    <i class="fa-solid fa-eye text-primary"></i>
+                                                </a>
+                                            @elseif($item->tipe == 3)
+                                                <a href="{{ route('quotation.detail', ['id' => $item->quotation->id]) }}" class="btn btn-sm btn-icon btn-light">
+                                                    <i class="fa-solid fa-eye text-primary"></i>
+                                                </a>
+                                            @elseif($item->tipe == 4)
+                                                <a href="{{ route('management-tugas.detail', ['id' => $item->laporanPekerjaan->id]) }}" class="btn btn-sm btn-icon btn-light">
+                                                    <i class="fa-solid fa-eye text-primary"></i>
+                                                </a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -186,8 +222,6 @@
                 @this.set('id_accounts', $(this).val())
             })
         })
-
-
 
         function renderCalender(){
             // Initialize the external events -- for more info please visit the official site: https://fullcalendar.io/demos
