@@ -34,11 +34,18 @@ class LaporanPekerjaan extends Model
     ];
 
     protected $appends = [
+        'no_ref',
         'kode_pekerjaan',
         'jam_mulai_formatted',
         'jam_selesai_formatted',
         'list_pekerja',
     ];
+
+    public function getNoRefAttribute(){
+        $helper = new HelperController();
+
+        return 'PK'.$helper->format_num($this->id);
+    }
 
     public function getListPekerjaAttribute()
     {

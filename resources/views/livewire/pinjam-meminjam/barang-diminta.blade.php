@@ -1,7 +1,7 @@
 <div>
     <div class="text-end">
         <button class="btn btn-sm btn-outline btn-outline-warning mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Permintaan Barang" wire:click="$emit('onClickNomorITT')">
-            <i class="fa-solid fa-hashtag"></i> Nomor ITT
+            <i class="fa-solid fa-hashtag"></i> Nomor ITT/ITTS
         </button>
         <button class="btn btn-sm btn-outline btn-outline-primary mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Permintaan Barang" wire:click="$emit('onClickTambahPermintaanBarang')">
             <i class="bi bi-plus-circle"></i> Permintaan Barang
@@ -28,7 +28,7 @@
                 <th>Satuan</th>
                 <th>Estimasi Peminjaman</th>
                 <th>Jumlah / Qty</th>
-                <th>ITT</th>
+                <th>ITT/ITS</th>
                 <th>Version</th>
                 <th>Tipe Barang</th>
                 <th>Catatan Teknisi</th>
@@ -211,8 +211,8 @@
                             @enderror
                         </div>
                         <div class="mb-5">
-                            <label for="" class="form-label required">ITT</label>
-                            <input type="number" name="nomor_itt" class="form-control form-control-solid" wire:model="nomor_itt" placeholder="Nomor ITT" required>
+                            <label for="" class="form-label required">ITT/ITS</label>
+                            <input type="number" name="nomor_itt" class="form-control form-control-solid" wire:model="nomor_itt" placeholder="Nomor ITT/ITS" required>
                             @error('nomor_itt')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror

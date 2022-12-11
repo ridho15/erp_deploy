@@ -127,7 +127,7 @@
                                     @enderror
                                 </div>
                                 <div class="mb-5">
-                                    <label for="" class="form-label required">Nomor ITT</label>
+                                    <label for="" class="form-label required">Nomor ITT/ITS</label>
                                     <input type="number" name="nomor_itt" wire:model="nomor_itt" class="form-control form-control-solid" placeholder="Masukkan nomor" required>
                                     @error('nomor_itt')
                                         <small class="text-danger">{{ $message }}</small>

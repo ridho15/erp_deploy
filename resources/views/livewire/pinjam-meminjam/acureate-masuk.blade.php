@@ -17,7 +17,7 @@
                 <th>SKU</th>
                 <th>Nama</th>
                 <th>Rak</th>
-                <th>ITT</th>
+                <th>ITT/ITS</th>
                 <th>Qty</th>
                 <th>Peminjam</th>
                 <th>Check</th>

@@ -4,7 +4,9 @@ namespace App\Http\Livewire\Laporan;
 
 use App\Http\Controllers\HelperController;
 use App\Models\CalenderPenagihan;
+use App\Models\LaporanPekerjaan;
 use App\Models\PreOrder;
+use App\Models\Quotation;
 use App\Models\SupplierOrder;
 use Livewire\Component;
 
@@ -51,6 +53,13 @@ class Kalender extends Component
                 ->where('status_order', '!=', 0)
                 ->whereHas('supplier')
                 ->get();
+            }elseif($this->tipe == 4){
+                $this->listAccounts = LaporanPekerjaan::where('signature', null)
+                ->where('jam_selesai', null)
+                ->get();
+            }elseif($this->tipe == 3){
+                $this->listAccounts = Quotation::where('status_like', 2)
+                ->get();
             }
         }else{
             $this->listAccounts = [];
@@ -59,16 +68,23 @@ class Kalender extends Component
         $this->listEvents = [];
         $this->listCalenderPenagihan = CalenderPenagihan::where(function($query){
             $query->whereHas('preOrder')
-            ->orWhereHas('supplierOrder');
+            ->orWhereHas('supplierOrder')
+            ->orWhereHas('quotation')
+            ->orWhereHas('laporanPekerjaan');
         })
         ->get();
+
         foreach ($this->listCalenderPenagihan as $item) {
             if($item->tanggal != null){
                 $title = $item->tipe == 1 ? "Receivable" : "Payable";
                 if($item->tipe == 1){
-                    $title = $title . " - " . $item->preOrder->no_ref;
-                }else{
-                    $title = $title . " - " . $item->supplierOrder->no_ref;
+                    $title = "Receivable - " . $item->preOrder->no_ref;
+                }elseif($item->tipe == 2){
+                    $title = "Payable - " . $item->supplierOrder->no_ref;
+                }elseif($item->tipe == 3){
+                    $title = "Quotation - " . $item->quotation->no_ref;
+                }elseif($item->tipe == 4){
+                    $title = "Laporan Pekerjaan " . $item->laporanPekerjaan->kode_pekerjaan;
                 }
                 array_push($this->listEvents, collect([
                     'title' => $title,

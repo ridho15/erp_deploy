@@ -24,6 +24,8 @@
                                 <option value="">Pilih</option>
                                 <option value="1">Receivable</option>
                                 <option value="2">Payable</option>
+                                <option value="3">Quotation</option>
+                                <option value="4">Laporan Pekerjaan</option>
                             </select>
                             @error('tipe')
                                 <small class="text-danger">{{ $message }}</small>
@@ -37,7 +39,7 @@
                                     <option value="{{ $item->id }}">{{ $item->no_ref }}</option>
                                 @endforeach
                             </select>
-                            @error('tipe')
+                            @error('id_accounts')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
@@ -75,6 +77,16 @@
                                 <span class="fw-bold">Payable</span>
                                 <span class="">{{ $item->supplierOrder->no_ref }}</span>
                                 Dari <span class="fw-bold">{{ $item->supplierOrder->supplier->name }}</span>
+                                <p>{{ $item->description }}</p>
+                            @elseif($item->tipe == 3)
+                                <span class="fw-bold">Quotation</span>
+                                <span class="">{{ $item->quotation->no_ref }}</span>
+                                Dari <span class="fw-bold">{{ $item->quotation->customer->nama }}</span>
+                                <p>{{ $item->description }}</p>
+                            @elseif($item->tipe == 4)
+                                <span class="fw-bold">Laporan Pekerjaan</span>
+                                <span class="">{{ $item->laporanPekerjaan->kode_pekerjaan }}</span>
+                                Dari <span class="fw-bold">{{ $item->laporanPekerjaan->project->nama }} ({{ $item->laporanPekerjaan->project->kode }})</span>
                                 <p>{{ $item->description }}</p>
                             @endif
                             <div class="text-end">
@@ -133,6 +145,16 @@
                                         <span class="">{{ $item->supplierOrder->no_ref }}</span>
                                         Dari <span class="fw-bold">{{ $item->supplierOrder->supplier->name }}</span>
                                         <p>{{ $item->description }}</p>
+                                    @elseif($item->tipe == 3)
+                                        <span class="fw-bold">Quotation</span>
+                                        <span class="">{{ $item->quotation->no_ref }}</span>
+                                        Dari <span class="fw-bold">{{ $item->quotation->no_ref }}</span>
+                                        <p>{{ $item->description }}</p>
+                                    @elseif($item->tipe == 4)
+                                        <span class="fw-bold">Laporan Pekerjaan</span>
+                                        <span class="">{{ $item->laporanPekerjaan->kode_pekerjaan }}</span>
+                                        Dari <span class="fw-bold">{{ $item->laporanPekerjaan->kode_pekerjaan }}</span>
+                                        <p>{{ $item->description }}</p>
                                     @endif
                                     <div class="text-end">
                                         <div class="btn-group">
@@ -186,8 +208,6 @@
                 @this.set('id_accounts', $(this).val())
             })
         })
-
-
 
         function renderCalender(){
             // Initialize the external events -- for more info please visit the official site: https://fullcalendar.io/demos
