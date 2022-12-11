@@ -13,6 +13,7 @@ use App\Models\PreOrderLog;
 use App\Models\Quotation;
 use App\Models\QuotationDetail;
 use App\Models\TipePembayaran;
+use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -105,6 +106,13 @@ class Form extends Component
             return session()->flash('fail', $message);
         }
 
+        // Check Metode Pembayaran
+        $metodePembayaran = MetodePembayaran::find($this->id_metode_pembayaran);
+        if(!$metodePembayaran){
+            $message = "Metode pembayaran tidak ditemukan";
+            return session()->flash('fail', $message);
+        }
+
         $data['id_quotation'] = $this->id_quotation;
         $data['id_tipe_pembayaran'] = $this->id_tipe_pembayaran;
         $data['status'] = 1;
@@ -112,6 +120,7 @@ class Form extends Component
         $data['id_customer'] = $this->id_customer;
         $data['keterangan'] = $this->keterangan;
         $data['id_metode_pembayaran'] = $this->id_metode_pembayaran;
+        $data['tanggal_tempo_pembayaran'] = Carbon::now()->addDays($metodePembayaran->nilai);
 
         if($this->file){
             $path = $this->file->store('public/pre-order');

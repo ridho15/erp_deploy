@@ -306,6 +306,14 @@
                             </div>
                             <div class="row mb-5">
                                 <div class="col-md-4 col-4">
+                                    Nomor Pekerjaan
+                                </div>
+                                <div class="col-md-8 col-8 fw-bold">
+                                    : {{ $laporanPekerjaan->kode_pekerjaan }}
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-4 col-4">
                                     Merk
                                 </div>
                                 <div class="col-md-8 col-8 fw-bold">

@@ -28,6 +28,7 @@
                 <th>Satuan</th>
                 <th>Estimasi Peminjaman</th>
                 <th>Jumlah / Qty</th>
+                <th>ITT</th>
                 <th>Version</th>
                 <th>Tipe Barang</th>
                 <th>Catatan Teknisi</th>
@@ -58,6 +59,7 @@
                             @endif
                         </td>
                         <td>{{ $item->qty }}</td>
+                        <td>{{ $item->nomor_itt }}</td>
                         <td>{{ $item->version }} V</td>
                         <td>{{ $item->tipeBarang ? $item->tipeBarang->tipe_barang : '-' }}</td>
                         <td>{{ $item->catatan_teknisi }}</td>
@@ -89,7 +91,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td colspan="14" class="text-center text-gray-500">Tidak ada data</td>
+                    <td colspan="15" class="text-center text-gray-500">Tidak ada data</td>
                 </tr>
             @endif
             </tbody>
@@ -205,6 +207,13 @@
                             <label for="" class="form-label required">Tanggal Estimasi</label>
                             <input type="datetime-local" name="estimasi" class="form-control form-control-solid" wire:model="estimasi" required>
                             @error('estimasi')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="mb-5">
+                            <label for="" class="form-label required">ITT</label>
+                            <input type="number" name="nomor_itt" class="form-control form-control-solid" wire:model="nomor_itt" placeholder="Nomor ITT" required>
+                            @error('nomor_itt')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>

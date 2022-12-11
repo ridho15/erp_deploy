@@ -22,8 +22,8 @@ class AutentikasiUserSuperAdmin
         ->where('is_active', 1)
         ->first();
         if ($loginLogs) {
-            $superUser = $loginLogs->user->tipeUser->nama_tipe == 'Super Admin';
-            $userManager = $loginLogs->user->tipeUser->nama_tipe == 'Manager';
+            $superUser = in_array("Super Admin", session()->get('list_tipe_user'));
+            $userManager = in_array("Manager", session()->get('list_tipe_user'));
             if ($superUser || $userManager) {
                 return $next($request);
             } else {

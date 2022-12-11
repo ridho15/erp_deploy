@@ -51,7 +51,7 @@ class Barang extends Model
     }
 
     public function satuan(){
-        return $this->belongsTo(Satuan::class, 'id_satuan');
+        return $this->belongsTo(Satuan::class, 'id_satuan')->withTrashed();
     }
 
     public function supplierBarang(){
@@ -63,7 +63,7 @@ class Barang extends Model
     }
 
     public function tipeBarang(){
-        return $this->belongsTo(TipeBarang::class, 'id_tipe_barang');
+        return $this->belongsTo(TipeBarang::class, 'id_tipe_barang')->withTrashed();
     }
 
     public function barangStockChange($jumlah, $status, $id_quotation = null){

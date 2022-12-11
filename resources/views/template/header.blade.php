@@ -117,6 +117,7 @@
                     </div>
                 </div>
             </div>
+            @livewire('notifikasi')
             <div class="d-flex align-items-center ms-1 ms-lg-3">
                 <div class="btn btn-color-gray-800 btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px position-relative btn btn-color-gray-800 btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
                     <span class="svg-icon svg-icon-2x">
@@ -129,19 +130,17 @@
                 <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-200px" data-kt-menu="true">
                     <div class="menu-item px-3">
                         <div class="menu-content text-center px-3">
-                            {{-- <div class="symbol symbol-50px me-5">
-                                <img alt="Logo" src="{{ asset($user->foto) }}" />
-                            </div> --}}
                             <div class="text-center">
                                 <div class="fw-bold text-center fs-5">{{ $user->name }}</div>
-                                <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">{{ $user->tipeUser->nama_tipe }}</a>
+                                <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">
+                                    @foreach (session()->get('list_tipe_user') as $item)
+                                        {{ $item }},
+                                    @endforeach
+                                </a>
                             </div>
                         </div>
                     </div>
                     <div class="separator my-2"></div>
-                    {{-- <div class="menu-item px-5">
-                        <a href="account/overview.html" class="menu-link px-5">My Profile</a>
-                    </div> --}}
                     <div class="menu-item px-5">
                         <a href="{{ route('logout') }}" class="menu-link px-5">Sign Out</a>
                     </div>

@@ -48,19 +48,19 @@ class LaporanPekerjaanBarang extends Model
     }
 
     public function barang(){
-        return $this->belongsTo(Barang::class, 'id_barang');
+        return $this->belongsTo(Barang::class, 'id_barang')->withTrashed();
     }
 
     public function userPeminjam(){
-        return $this->belongsTo(User::class, 'peminjam');
+        return $this->belongsTo(User::class, 'peminjam')->withTrashed();
     }
 
     public function userMeminjamkan(){
-        return $this->belongsTo(User::class, 'meminjamkan');
+        return $this->belongsTo(User::class, 'meminjamkan')->withTrashed();
     }
 
     public function tipeBarang(){
-        return $this->belongsTo(TipeBarang::class, 'id_tipe_barang');
+        return $this->belongsTo(TipeBarang::class, 'id_tipe_barang')->withTrashed();
     }
 
     public function laporanPekerjaanBarangLog(){
@@ -68,6 +68,6 @@ class LaporanPekerjaanBarang extends Model
     }
 
     public function rak(){
-        return $this->belongsTo(Rak::class, 'id_rak');
+        return $this->belongsTo(Rak::class, 'id_rak')->withTrashed();
     }
 }

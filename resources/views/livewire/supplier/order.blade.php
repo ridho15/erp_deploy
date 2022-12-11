@@ -22,6 +22,7 @@
            <th>Tanggal Order</th>
            <th>Tipe Pembayaran</th>
            <th>Keterangan</th>
+           <th>Tanggal Tempo Pembayaran</th>
            <th>Aksi</th>
           </tr>
          </thead>
@@ -39,6 +40,7 @@
                         <td>{{ $item->tanggal_order_formatted }}</td>
                         <td>{{ $item->tipePembayaran ? $item->tipePembayaran->nama_tipe : '-' }}</td>
                         <td>{{ $item->keterangan }}</td>
+                        <td>{{ date('d-m-Y', strtotime($item->tanggal_tempo_pembayaran)) }}</td>
                         <td>
                             <div class="btn-group">
                                 <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Supplier Order" wire:click="$emit('onClickEdit', {{ $item->id }})">
@@ -56,7 +58,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td colspan="11" class="text-center text-gray-500">Tidak ada data</td>
+                    <td colspan="12" class="text-center text-gray-500">Tidak ada data</td>
                 </tr>
             @endif
          </tbody>

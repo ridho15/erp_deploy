@@ -30,23 +30,17 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TipeBarangController;
 use App\Http\Controllers\WebConfigurationController;
 use App\Http\Controllers\WorkerController;
+use App\Models\Barang;
 use App\Models\Quotation;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('testing')->group(function () {
-    Route::get('/', function () {
-        $quotation = Quotation::first();
-        $data['quotation'] = $quotation;
-
-        return view('mail.send-quotation', $data);
-    })->name('testing');
-    Route::get('/export-pdf', [DashboardController::class, 'exportPdf'])->name('testing.export-pdf');
-    Route::get('/view-mail', function () {
-        $data['quotation'] = Quotation::find(3);
-
-        return view('mail.send-quotation', $data);
-    });
+Route::get('/testing', function(){
+    $barang = Barang::get();
+    foreach ($barang as $item) {
+        echo $item->satuan->nama_satuan;
+    }
+    return true;
 });
 
 Route::get('/foo', function () {

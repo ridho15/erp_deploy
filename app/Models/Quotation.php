@@ -22,7 +22,8 @@ class Quotation extends Model
         'hal',
         'konfirmasi',
         'sales',
-        'status_like'
+        'status_like',
+        'ppn',
     ];
 
     protected $appends = ['status_formatted', 'no_ref', 'updated_at_formatted', 'dibuat_pada'];

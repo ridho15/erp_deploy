@@ -17,6 +17,7 @@
                 <th>SKU</th>
                 <th>Nama</th>
                 <th>Rak</th>
+                <th>ITT</th>
                 <th>Qty</th>
                 <th>Peminjam</th>
                 <th>Check</th>
@@ -34,18 +35,20 @@
                         </td>
                         <td>{{ $item->barang ? $item->barang->nama : '-' }}</td>
                         <td>{{ $item->rak ? $item->rak->nama_rak . "(" . $item->rak->kode_rak . ")" : '-' }}</td>
+                        <td>{{ $item->nomor_itt }}</td>
                         <td>{{ $item->qty }}</td>
                         <td>{{ $item->userPeminjam ? $item->userPeminjam->name : '-' }}</td>
                         <td>
                             <div class="form-check form-check-custom form-check-solid">
-                                <input class="form-check-input" type="checkbox" value="1" wire:click="$emit('checkAccurateKeluar', {{ $item->id }})" @if($item->check == 1) checked @endif id="flexCheckDefault"/>
+                                {{-- <input class="form-check-input" type="checkbox" value="1" wire:click="$emit('checkAccurateKeluar', {{ $item->id }})" @if($item->check == 1) checked @endif id="flexCheckDefault"/> --}}
+                                <input class="form-check-input" type="checkbox" value="1" wire:click="simpanCheck({{ $item->id }})" @if($item->check == 1) checked @endif id="flexCheckDefault"/>
                             </div>
                         </td>
                     </tr>
                 @endforeach
             @else
                 <tr>
-                    <td colspan="7" class="text-center text-gray-500">Tidak ada data</td>
+                    <td colspan="8" class="text-center text-gray-500">Tidak ada data</td>
                 </tr>
             @endif
             </tbody>

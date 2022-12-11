@@ -16,6 +16,8 @@
                 <th>No</th>
                 <th>SKU</th>
                 <th>Nama</th>
+                <th>Rak</th>
+                <th>ITT</th>
                 <th>Qty</th>
                 <th>Peminjam</th>
                 <th>Check</th>
@@ -32,6 +34,8 @@
                             </a>
                         </td>
                         <td>{{ $item->barang->nama }}</td>
+                        <td>{{ $item->rak ? $item->rak->nama_rak . "(" . $item->rak->kode_rak . ")" : '-' }}</td>
+                        <td>{{ $item->nomor_itt }}</td>
                         <td>{{ $item->qty }}</td>
                         <td>{{ $item->userPeminjam ? $item->userPeminjam->name : '-' }}</td>
                         <td>
@@ -43,7 +47,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td colspan="5" class="text-center text-gray-500">Tidak ada data</td>
+                    <td colspan="8" class="text-center text-gray-500">Tidak ada data</td>
                 </tr>
             @endif
             </tbody>

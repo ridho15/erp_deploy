@@ -9,6 +9,7 @@ use App\Models\LaporanPekerjaanBarang;
 use App\Models\Rak;
 use App\Models\TipeBarang;
 use App\Models\User;
+use Dompdf\FrameReflower\NullFrameReflower;
 use Livewire\Component;
 
 class FormPermintaanBarang extends Component
@@ -20,6 +21,7 @@ class FormPermintaanBarang extends Component
     public $id_tipe_barang;
     public $version;
     public $estimasi;
+
     public $listeners = [
         'refreshFormPermintaanBarang' => '$refresh',
         'simpanPermintaanBarang'
@@ -82,7 +84,7 @@ class FormPermintaanBarang extends Component
                 'id_tipe_barang' => $this->id_tipe_barang,
                 'version' => $this->version,
                 'estimasi' => date('Y-m-d H:i:s', strtotime($this->estimasi)),
-                'status' => 1
+                'status' => 1,
             ]);
         }
 
@@ -90,8 +92,19 @@ class FormPermintaanBarang extends Component
         $message = "Berhasil menambah permintaan barang";
         activity()->causedBy(HelperController::user())->log("Melakukan permintaan barang secara manual");
 
+        $this->resetInputFields();
         $this->emit('refreshBarangDiminta');
         $this->emit('finishSimpanData', 1, $message);
         return session()->flash('success', $message);
+    }
+
+    public function resetInputFields(){
+        $this->id_laporan_pekerjaan = null;
+        $this->id_barang = null;
+        $this->qty = null;
+        $this->peminjam = null;
+        $this->id_tipe_barang = null;
+        $this->version = null;
+        $this->estimasi = null;
     }
 }

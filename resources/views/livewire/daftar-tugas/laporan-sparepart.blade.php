@@ -120,9 +120,16 @@
                                     @enderror
                                 </div>
                                 <div class="mb-5">
-                                    <label for="" class="form-label">Estimasi Peminjaman</label>
+                                    <label for="" class="form-label required">Estimasi Peminjaman</label>
                                     <input type="datetime-local" name="estimasi" wire:model="estimasi" class="form-control form-control-solid" required>
                                     @error('estimasi')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div class="mb-5">
+                                    <label for="" class="form-label required">Nomor ITT</label>
+                                    <input type="number" name="nomor_itt" wire:model="nomor_itt" class="form-control form-control-solid" placeholder="Masukkan nomor" required>
+                                    @error('nomor_itt')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
@@ -196,6 +203,11 @@
                                 <td>{{ $item->keterangan_customer }}</td>
                                 <td><?= $item->status_formatted ?></td>
                                 <td>
+                                    <div class="text-center">
+                                        @if ($item->tipeBarang && strtolower($item->tipeBarang->tipe_barang) == 'consumable')
+                                            C
+                                        @endif
+                                    </div>
                                     <div class="btn-group">
                                         @if ($item->status == 0 || $item->status == 1)
                                             <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" wire:click="$emit('onClickEditBarang', {{ $item->id }})">

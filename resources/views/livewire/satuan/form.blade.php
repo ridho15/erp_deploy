@@ -28,7 +28,7 @@
                         </div>
                         <div class="mb-5">
                             <label for="" class="form-label required">Nilai</label>
-                            <input type="number" class="form-control form-control-solid" name="nilai" wire:model="nilai" required>
+                            <input type="number" class="form-control form-control-solid" name="nilai" wire:model="nilai" placeholder="Masukkan nilai" required>
                             @error('nilai')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror

@@ -1,6 +1,6 @@
 <div>
     <div wire:ignore.self class="modal fade kostumer" tabindex="-1" id="modal_form">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title">Form Customer</h3>
@@ -20,40 +20,49 @@
                         <div class="text-center">
                             @include('helper.simple-loading', ['target' => 'simpanDataKostumer', 'message' => 'Menyimpan data ...'])
                         </div>
-                        <div class="mb-5">
-                            <label for="" class="form-label required">Nama</label>
-                            <input type="text" class="form-control form-control-solid" name="nama" wire:model="nama" placeholder="Masukkan nama" required>
-                            @error('nama')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                        <div class="mb-5">
-                            <label for="" class="form-label required">Nomor Hp</label>
-                            <input type="text" class="form-control form-control-solid" name="no_hp" wire:model="no_hp" placeholder="Ex: 0823 1234 5678" required>
-                            @error('no_hp')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                        <div class="mb-5">
-                            <label for="" class="form-label required">Email</label>
-                            <input type="email" class="form-control form-control-solid" name="email" wire:model="email" placeholder="Masukkan email" required>
-                            @error('email')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                        <div class="mb-5">
-                            <label for="" class="form-label required">Alamat</label>
-                            <textarea name="alamat" class="form-control form-control-solid" wire:model="alamat" placeholder="Masukkan alamat lengkap"></textarea>
-                            @error('alamat')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                        <div class="mb-5">
-                            <label for="" class="form-label">Barang Perlengkapan
-                            <textarea name="barang_customer" wire:model="barang_customer" class="form-control form-control-solid" placeholder="Masukkan barang customer"></textarea>
-                            @error('barang_customer')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
+                        <div class="row">
+                            <div class="mb-5 col-md-6">
+                                <label for="" class="form-label required">Nama</label>
+                                <input type="text" class="form-control form-control-solid" name="nama" wire:model="nama" placeholder="Masukkan nama" required>
+                                @error('nama')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-5 col-md-6">
+                                <label for="" class="form-label required">Nomor Hp</label>
+                                <input type="text" class="form-control form-control-solid" name="no_hp" wire:model="no_hp" placeholder="Ex: 0823 1234 5678" required>
+                                @error('no_hp')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-5 col-md-6">
+                                <label for="" class="form-label required">Email</label>
+                                <input type="email" class="form-control form-control-solid" name="email" wire:model="email" placeholder="Masukkan email" required>
+                                @error('email')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-5 col-md-6">
+                                <label for="" class="form-label required">Alamat</label>
+                                <textarea name="alamat" class="form-control form-control-solid" wire:model="alamat" placeholder="Masukkan alamat lengkap"></textarea>
+                                @error('alamat')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-5 col-md-6">
+                                <label for="" class="form-label required">Barang Perlengkapan</label>
+                                <textarea name="barang_customer" class="form-control form-control-solid" wire:model="barang_customer" placeholder="Masukkan barang customer"></textarea>
+                                @error('barang_customer')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-5 col-md-6">
+                                <label for="" class="form-label required">PPN (%)</label>
+                                <input type="number" name="ppn" class="form-control form-control-solid" wire:model="ppn" placeholder="Masukkan nilai ppn" required>
+                                @error('ppn')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
                         </div>
                         {{-- <div class="mb-5" wire:ignore>
                             <label for="" class="form-label">Barang</label>

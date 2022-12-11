@@ -39,14 +39,14 @@ class PreOrderDetail extends Model
     }
 
     public function barang(){
-        return $this->belongsTo(Barang::class, 'id_barang');
+        return $this->belongsTo(Barang::class, 'id_barang')->withTrashed();
     }
 
     public function preOrder(){
-        return $this->belongsTo(PreOrder::class, 'id_pre_order');
+        return $this->belongsTo(PreOrder::class, 'id_pre_order')->withTrashed();
     }
 
     public function satuan(){
-        return $this->belongsTo(Satuan::class, 'id_satuan');
+        return $this->belongsTo(Satuan::class, 'id_satuan')->withTrashed();
     }
 }

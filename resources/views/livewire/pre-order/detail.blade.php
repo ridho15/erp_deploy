@@ -48,6 +48,14 @@
                 @include('helper.alert-message')
                 <div class="row mb-5">
                     <div class="col-md-4 col-4">
+                        No Ref
+                    </div>
+                    <div class="col-md-8 col-8">
+                        : <span class="fw-bold">{{ $preOrder->no_ref }}</span>
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-md-4 col-4">
                         Customer
                     </div>
                     <div class="col-md-8 col-8">
@@ -130,7 +138,7 @@
                 </div>
                 <div class="row mb-5">
                     <div class="col-md-4 col-4">
-                        PPN 11%
+                        PPN {{ $preOrder->quotation ? $preOrder->quotation->ppn : 11 }}%
                     </div>
                     <div class="col-md-8 col-8">
                         : <span class="fw-bold">Rp.{{ number_format($preOrder->ppn,0,',','.') }}</span>

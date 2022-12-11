@@ -18,7 +18,8 @@ class Customer extends Model
         'alamat',
         'status',
         'id_barang_customer',
-        'barang_customer'
+        'barang_customer',
+        'ppn'
     ];
 
     protected $appends = ['status_formatted', 'kode', 'total_order'];

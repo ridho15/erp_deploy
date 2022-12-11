@@ -33,12 +33,12 @@ hr{
 .sticky{
     position: sticky !important;
     top: 0px;
-    z-index: 100;
+    z-index: 90;
 }
 
 th{
     background-color: white !important;
-    z-index: 100;
+    z-index: 90;
 }
 
 .fixed{

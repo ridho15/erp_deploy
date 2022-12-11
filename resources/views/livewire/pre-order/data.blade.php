@@ -20,23 +20,6 @@
                 <div class="col-md-3">
                     @include('helper.form-pencarian', ['model' => 'cari'])
                 </div>
-                {{-- <div class="col-md text-end">
-                    <label for="" class="form-label">Filter</label>
-                    <div class="d-flex align-items-center justify-content-end">
-                        <div class="form-check form-check-custom form-check-solid mx-2">
-                            <input class="form-check-input" type="checkbox" value="1" wire:model="selesai" id="flexCheckDefault"/>
-                            <label class="form-check-label" for="flexCheckDefault">
-                                Selesai
-                            </label>
-                        </div>
-                        <div class="form-check form-check-custom form-check-solid mx-2">
-                            <input class="form-check-input" type="checkbox" value="1" wire:model="belum_selesai" id="flexCheckDefault"/>
-                            <label class="form-check-label" for="flexCheckDefault">
-                                Belum Selesai
-                            </label>
-                        </div>
-                    </div>
-                </div> --}}
             </div>
 
             <div class="tables w-100" style="position: relative !important">
@@ -82,7 +65,6 @@
                                             @endif
                                         </td>
                                         <td>
-                                            {{-- <?= $item->status_formatted ?> --}}
                                             @if ($item->quotation && $item->quotation->laporanPekerjaan)
                                                 @if ($item->quotation->laporanPekerjaan->signature != null && $item->quotation->laporanPekerjaan->jam_selesai != null)
                                                     <span class="badge badge-success">Selesai</span>
@@ -140,7 +122,6 @@
                                         @endif
                                     </td>
                                     <td>
-                                        {{-- <?= $item->status_formatted ?> --}}
                                         @if ($item->quotation && $item->quotation->laporanPekerjaan)
                                             @if ($item->quotation->laporanPekerjaan->signature != null && $item->quotation->laporanPekerjaan->jam_selesai != null)
                                                 <span class="badge badge-success">Selesai</span>

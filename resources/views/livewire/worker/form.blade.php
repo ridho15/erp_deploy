@@ -45,7 +45,7 @@
                             </div>
                             <div class="col-md-6 mb-5">
                                 <label for="" class="form-label required">Tipe User</label>
-                                <select name="id_tipe_user" class="form-select form-select-solid" wire:model="id_tipe_user" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih tipe user" required>
+                                <select name="id_tipe_user" class="form-select form-select-solid" wire:model="id_tipe_user" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih tipe user" multiple required>
                                     <option value="">Pilih</option>
                                     @foreach ($listTipeUser as $item)
                                         <option value="{{ $item->id }}">{{ $item->nama_tipe }}</option>

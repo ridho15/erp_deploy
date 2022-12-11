@@ -22,6 +22,7 @@
                 <th>Estimasi Peminjaman</th>
                 <th>Jumlah / Qty</th>
                 <th>Version</th>
+                <th>Nomor ITT</th>
                 <th>Tipe Barang</th>
                 <th>Status</th>
                 <th>Yang Meminjamkan</th>
@@ -51,6 +52,7 @@
                         </td>
                         <td>{{ $item->qty }}</td>
                         <td>{{ $item->version }} V</td>
+                        <td>{{ $item->nomor_itt }}</td>
                         <td>{{ $item->tipeBarang ? $item->tipeBarang->tipe_barang : '-' }}</td>
                         <td>
                             <span class="badge badge-warning">Diberikan</span>
@@ -72,7 +74,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td colspan="12" class="text-center text-gray-500">Tidak ada data</td>
+                    <td colspan="15" class="text-center text-gray-500">Tidak ada data</td>
                 </tr>
             @endif
             </tbody>

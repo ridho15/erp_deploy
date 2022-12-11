@@ -27,7 +27,37 @@ class User extends Model
         'password', 'token',
     ];
 
-    protected $appends = ['is_active_formatted'];
+    protected $appends = ['is_active_formatted', 'list_tipe_user', 'nama_tipe_user'];
+
+    public function getNamaTipeUserAttribute(){
+        $listIdTipeUser = json_decode($this->id_tipe_user);
+        $tipeUser = "";
+        if (is_array($listIdTipeUser)) {
+            foreach ($listIdTipeUser as $index => $item) {
+                $data = TipeUser::find($item);
+                if($index == 0){
+                    $tipeUser = $data->nama_tipe . ',';
+                }else{
+                    $tipeUser = $tipeUser . $data->nama_tipe . ',';
+                }
+            }
+        }
+
+        return $tipeUser;
+    }
+
+    public function getListTipeUserAttribute(){
+        $listIdTipeUser = json_decode($this->id_tipe_user);
+        $tipeUser = [];
+        if (is_array($listIdTipeUser)) {
+            foreach ($listIdTipeUser as $item) {
+                $data = TipeUser::find($item);
+                array_push($tipeUser, $data->nama_tipe);
+            }
+        }
+
+        return $tipeUser;
+    }
 
     public function getIsActiveFormattedAttribute()
     {

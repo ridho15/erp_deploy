@@ -3,10 +3,12 @@
 namespace App\Http\Livewire\Supplier;
 
 use App\Http\Controllers\HelperController;
+use App\Models\MetodePembayaran;
 use App\Models\Supplier;
 use App\Models\SupplierOrder;
 use App\Models\SupplierOrderDetail;
 use App\Models\TipePembayaran;
+use Carbon\Carbon;
 use Livewire\Component;
 
 class FormOrder extends Component
@@ -24,6 +26,7 @@ class FormOrder extends Component
         'changeStatusOrder',
         'changeTipePembayaran',
         'setDataSupplierOrder',
+        'changeMetodePembayaran'
     ];
     public $id_supplier_order;
     public $id_supplier;
@@ -33,10 +36,12 @@ class FormOrder extends Component
     public $tanggal_order;
     public $keterangan;
     public $id_tipe_pembayaran;
+    public $id_metode_pembayaran;
 
     public $listSupplier;
     public $listStatusOrder;
     public $listTipePembayaran;
+    public $listMetodePembayaran;
 
     public function render()
     {
@@ -46,6 +51,7 @@ class FormOrder extends Component
         $this->listSupplier = Supplier::get();
         $this->listStatusOrder = $this->helper->getListStatusOrder()->where('status_order', '!=', 4);
         $this->listTipePembayaran = TipePembayaran::get();
+        $this->listMetodePembayaran = MetodePembayaran::get();
 
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.supplier.form-order');
@@ -63,6 +69,7 @@ class FormOrder extends Component
             'keterangan' => 'nullable|string',
             'id_tipe_pembayaran' => 'required|numeric',
             'status_order' => 'required|numeric',
+            'id_metode_pembayaran' => 'required|numeric'
         ], [
             'id_supplier.required' => 'Supplier belum dipilih !',
             'id_supplier.numeric' => 'Supplier tidak valid !',
@@ -73,6 +80,8 @@ class FormOrder extends Component
             'id_tipe_pembayaran.numeric' => 'Tipe pembayaran tidak valid !',
             'status_order.required' => 'Status order tidak boleh kosong',
             'status_order.numeric' => 'Status order tidak valid !',
+            'id_metode_pembayaran.required' => 'Metode pembayaran belum dipilih',
+            'id_metode_pembayaran.numeric' => 'Metode pembayaran tidak valid !',
         ]);
 
         // Check Supplier
@@ -87,7 +96,12 @@ class FormOrder extends Component
         $tipePembayaran = TipePembayaran::find($this->id_tipe_pembayaran);
         if (!$tipePembayaran) {
             $message = 'Tipe pembayaran tidak ditemukan';
+            return session()->flash('fail', $message);
+        }
 
+        $metodePembayaran = MetodePembayaran::find($this->id_metode_pembayaran);
+        if(!$metodePembayaran){
+            $message = "Metode pembayaran tidak ditemukan";
             return session()->flash('fail', $message);
         }
 
@@ -97,6 +111,8 @@ class FormOrder extends Component
         $data['tanggal_order'] = $this->tanggal_order;
         $data['keterangan'] = $this->keterangan;
         $data['id_tipe_pembayaran'] = $this->id_tipe_pembayaran;
+        $data['id_metode_pembayaran'] = $this->id_metode_pembayaran;
+        $data['tanggal_tempo_pembayaran'] = Carbon::parse($this->tanggal_order)->addDays($metodePembayaran->nilai);
         $total_harga = 0;
         if ($this->id_supplier_order) {
             $listSupplierOrderDetail = SupplierOrderDetail::where('id_supplier_order', $this->id_supplier_order)->get();
@@ -129,6 +145,7 @@ class FormOrder extends Component
         $this->tanggal_order = null;
         $this->keterangan = null;
         $this->id_tipe_pembayaran = null;
+        $this->id_metode_pembayaran = null;
     }
 
     public function changeSupplier($id_supplier)
@@ -161,7 +178,10 @@ class FormOrder extends Component
         $this->tanggal_order = date('Y-m-d', strtotime($supplierOrder->tanggal_order));
         $this->keterangan = $supplierOrder->keterangan;
         $this->id_tipe_pembayaran = $supplierOrder->id_tipe_pembayaran;
+        $this->id_metode_pembayaran = $supplierOrder->id_metode_pembayaran;
     }
 
-
+    public function changeMetodePembayaran($id_metode_pembayaran){
+        $this->id_metode_pembayaran = $id_metode_pembayaran;
+    }
 }

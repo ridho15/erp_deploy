@@ -22,7 +22,8 @@ class Data extends Component
             $query->where('nama', 'LIKE', '%' . $this->cari . '%')
             ->orWhere('no_hp', 'LIKE', '%' . $this->cari . '%')
             ->orWhere('alamat', 'LIKE', '%' . $this->cari . '%')
-            ->orWhere('email', 'LIKE', '%' . $this->cari . '%');
+            ->orWhere('email', 'LIKE', '%' . $this->cari . '%')
+            ->orWhere('ppn', 'LIKE', '%' . $this->cari . '%');
         })->paginate($this->total_show);
         $data['listKostumer'] = $this->listKostumer;
         return view('livewire.kostumer.data', $data);

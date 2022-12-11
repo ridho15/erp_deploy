@@ -7,6 +7,7 @@ use App\Models\Barang;
 use App\Models\LaporanPekerjaan;
 use App\Models\LaporanPekerjaanBarang;
 use App\Models\LaporanPekerjaanBarangLog;
+use App\Models\NomorPeminjamanHarian;
 use App\Models\QuotationDetail;
 use App\Models\SupplierOrderDetailTemp;
 use App\Models\TipeBarang;
@@ -35,6 +36,7 @@ class LaporanSparepart extends Component
     public $version;
     public $id_tipe_barang;
     public $estimasi;
+    public $nomor_itt;
 
     public $listTipeBarang;
     public $listVersion;
@@ -74,6 +76,7 @@ class LaporanSparepart extends Component
         $this->qty = $laporanPekerjaanBarang->qty;
         $this->version = $laporanPekerjaanBarang->version;
         $this->id_tipe_barang = $laporanPekerjaanBarang->id_tipe_barang;
+        $this->nomor_itt = $laporanPekerjaanBarang->nomor_itt;
         if ($laporanPekerjaanBarang->estimasi) {
             $this->estimasi = date('Y-m-d H:i', strtotime($laporanPekerjaanBarang->estimasi));
         }
@@ -116,7 +119,8 @@ class LaporanSparepart extends Component
             'keterangan_customer' => 'nullable|string',
             'version' => 'required|numeric',
             'id_tipe_barang' => 'required|numeric',
-            'estimasi' => 'required|string'
+            'estimasi' => 'required|string',
+            'nomor_itt' => 'required|numeric'
         ], [
             'id_barang.required' => 'Barang belum dipilih',
             'id_barang.numeric' => 'Data barang tidak valid !',
@@ -124,7 +128,29 @@ class LaporanSparepart extends Component
             'qty.numeric' => 'Jumlah barang tidak valid !',
             'catatan_teknisi.string' => 'Catatan teknisi tidak valid !',
             'keterangan_customer' => 'Keterangan customer tidak valid !',
+            'nomor_itt.required' => 'Nomor ITT tidak boleh kosong',
+            'nomor_itt.numeric' => 'Nomor ITT tidak valid !'
         ]);
+
+        // Check Nomor ITT
+        $nomorPeminjamanHarian = NomorPeminjamanHarian::where('itt_start', '<=', $this->nomor_itt)
+        ->where('itt_end', '>=', $this->nomor_itt)
+        ->whereDate('tanggal', now())->get();
+
+        if(!$nomorPeminjamanHarian){
+            $message = "Nomor ITT tidak valid !";
+            return session()->flash('fail', $message);
+        }
+
+        $laporanPekerjaanBarang = LaporanPekerjaanBarang::where('id', $this->id_laporan_pekerjaan_barang)->first();
+        if($laporanPekerjaanBarang && $laporanPekerjaanBarang->nomor_itt != $this->nomor_itt){
+            $checkLaporanPekerjaanBarangNomorITT = LaporanPekerjaanBarang::where('nomor_itt', $this->nomor_itt)
+            ->whereDate('updated_at', now())->first();
+            if($checkLaporanPekerjaanBarangNomorITT){
+                $message = "Nomor ITT sudah digunakan. Silahkan gunakan nomor lainnya";
+                return session()->flash('fail', $message);
+            }
+        }
 
         // Check data barang
         $barang = Barang::find($this->id_barang);
@@ -181,7 +207,8 @@ class LaporanSparepart extends Component
             'peminjam' => session()->get('id_user'),
             'version' => $this->version,
             'id_tipe_barang' => $this->id_tipe_barang,
-            'estimasi' => date('Y-m-d H:i:s', strtotime($this->estimasi))
+            'estimasi' => date('Y-m-d H:i:s', strtotime($this->estimasi)),
+            'nomor_itt' => $this->nomor_itt
         ]);
 
         LaporanPekerjaanBarangLog::create([

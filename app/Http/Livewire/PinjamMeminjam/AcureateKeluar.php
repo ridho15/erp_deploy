@@ -52,28 +52,6 @@ class AcureateKeluar extends Component
             return session()->flash('fail', $message);
         }
 
-        // Check Nomor ITT Harian
-        $checkNomorITTHarian = NomorPeminjamanHarian::where('itt_start', '<', $this->nomor_itt)
-        ->where('itt_end', '>', $this->nomor_itt)->whereDate('tanggal', now())
-        ->first();
-
-        if(!$checkNomorITTHarian){
-            $message = "Nomor ITT yang dimasukkan tidak valid !";
-            return session()->flash('fail', $message);
-        }
-
-        // $barang = Barang::find($laporanPekerjaanBarang->id_barang);
-        // if($laporanPekerjaanBarang->laporanPekerjaan->quotation){
-        //     $id_quotation = $laporanPekerjaanBarang->laporanPekerjaan->quotation->id;
-        // }else{
-        //     $id_quotation = null;
-        // }
-        // $response = $barang->barangStockChange($laporanPekerjaanBarang->qty, 1, $id_quotation);
-
-        // if($response['status'] == 0){
-        //     return session()->flash('fail', $response['message']);
-        // }
-
         $laporanPekerjaanBarang->update([
             'status' => 2,
             'konfirmasi' => 0,
@@ -124,9 +102,11 @@ class AcureateKeluar extends Component
         }
 
         $message = "Berhasil mengkonfirmasi data";
+        $this->nomor_itt = null;
         activity()->causedBy(HelperController::user())->log("Mengkonfirmasi barang accurate keluar");
         $this->emit('refreshBarangDipinjam');
         $this->emit('refreshBarangDikasih');
+        $this->emit('finishSimpanData', 1, $message);
         return session()->flash('success', $message);
     }
 }

@@ -22,8 +22,8 @@ class AutentikasiUserAdminGudang
         ->where('is_active', 1)
         ->first();
         if($loginLogs){
-            $adminGudang = $loginLogs->user->tipeUser->nama_tipe == 'Admin Gudang';
-            $superUser = $loginLogs->user->tipeUser->nama_tipe == 'Super Admin';
+            $adminGudang = in_array("Admin Gudang", session()->get('list_tipe_user'));
+            $superUser = in_array('Super Admin', session()->get('list_tipe_user'));
             if($adminGudang || $superUser){
                 return $next($request);
             }else{

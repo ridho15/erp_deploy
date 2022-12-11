@@ -12,7 +12,7 @@
                         $listMenu = \App\Http\Controllers\HelperController::sidebarControll();
                     @endphp
                     @foreach ($listMenu as $item)
-                        @if (in_array(session()->get('tipe_user_nama'), $item['role']))
+                        @if (array_intersect(session()->get('list_tipe_user'), $item['role']))
                             @if ($item['route'] == null)
                                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if(in_array($item['active'], $active)) show @endif">
                                     <span class="menu-link @if(in_array($item['active'], $active)) active @endif">
