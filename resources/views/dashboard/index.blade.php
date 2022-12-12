@@ -217,9 +217,9 @@
             <div class="col-md-6 mb-5">
                 @livewire('dashboard.supplier-order')
             </div>
-            <div class="col-md-6 mb-5">
+            {{-- <div class="col-md-6 mb-5">
                 @livewire('dashboard.jumlah-data')
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>
