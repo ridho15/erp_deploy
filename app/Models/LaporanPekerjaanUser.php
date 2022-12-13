@@ -17,10 +17,10 @@ class LaporanPekerjaanUser extends Model
     ];
 
     public function user(){
-        return $this->belongsTo(User::class, 'id_user');
+        return $this->belongsTo(User::class, 'id_user')->withTrashed();
     }
 
     public function laporanPekerjaan(){
-        return $this->belongsTo(LaporanPekerjaan::class, 'id_laporan_pekerjaan');
+        return $this->belongsTo(LaporanPekerjaan::class, 'id_laporan_pekerjaan')->withTrashed();
     }
 }
