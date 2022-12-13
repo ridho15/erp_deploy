@@ -609,12 +609,17 @@ class HelperController extends Controller
             ->where('id_accounts', $item->id)
             ->where('tanggal', $item->tanggal_tempo_pembayaran)
             ->first();
+            $description = 'Pembayaran Supplier Order ke ' . $item->supplier->name . ' sebesar ' . $item->total_harga_formatted . '. Silahkan lakukan pembayaran sebelum ' . date('d-m-Y', strtotime($item->tanggal_tempo_pembayaran));
             if(!$calenderPenagihan){
                 CalenderPenagihan::create([
                     'tipe' => 1,
                     'id_accounts' => $item->id,
                     'tanggal' => $item->tanggal_tempo_pembayaran,
-                    'description' => 'Pembayaran Supplier Order ke ' . $item->supplier->name . ' sebesar ' . $item->total_harga_formatted . '. Silahkan lakukan pembayaran sebelum ' . date('d-m-Y', strtotime($item->tanggal_tempo_pembayaran))
+                    'description' => $description
+                ]);
+            }else{
+                $calenderPenagihan->update([
+                    'description' => $description
                 ]);
             }
         }
@@ -633,12 +638,17 @@ class HelperController extends Controller
             ->where('tanggal', $item->tanggal_tempo_pembayaran)
             ->first();
 
+            $description = 'Penagihan PO ke ' . $item->customer->name . ' sebesar ' . $item->total_bayar_formatted . '. Silahkan lakukan pembayaran sebelum ' . date('d-m-Y', strtotime($item->tanggal_tempo_pembayaran));
             if(!$calenderPenagihan){
                 CalenderPenagihan::create([
                     'tipe' => 2,
                     'id_accounts' => $item->id,
                     'tanggal' => $item->tanggal_tempo_pembayaran,
-                    'description' => 'Penagihan PO ke ' . $item->customer->name . ' sebesar ' . $item->total_bayar_formatted . '. Silahkan lakukan pembayaran sebelum ' . date('d-m-Y', strtotime($item->tanggal_tempo_pembayaran))
+                    'description' => $description
+                ]);
+            }else{
+                $calenderPenagihan->update([
+                    'description' => $description
                 ]);
             }
         }
@@ -648,11 +658,12 @@ class HelperController extends Controller
         ->get();
 
         foreach ($quotation as $item) {
+            $description = 'Pembuatan Quotation dilakukan pada tanggal ' . date('d-m-Y', strtotime($item->created_at));
             CalenderPenagihan::create([
                 'tipe' => 3,
                 'id_accounts' => $item->id,
                 'tanggal' => $item->created_at,
-                'description' => 'Pembuatan Quotation dilakukan pada tanggal ' . date('d-m-Y', strtotime($item->created_at))
+                'description' => $description
             ]);
         }
 
@@ -662,11 +673,12 @@ class HelperController extends Controller
         ->where('jam_selesai', '!=', null)
         ->get();
         foreach ($laporanPekerjaan as $item) {
+            $description = 'Pekerjaan dengan kode pekerjaan ('. $item->no_ref .') pada Customer '. $item->customer->nama . ' Dilakukan pekerjaan pada tanggal ' . date('d-m-Y', strtotime($item->tanggal_pekerjaan));
             CalenderPenagihan::create([
                 'tipe' => 4,
                 'id_accounts' => $item->id,
                 'tanggal' => $item->tanggal_pekerjaan,
-                'description' => 'Pekerjaan dengan kode pekerjaan ('. $item->no_ref .') pada Customer '. $item->customer->nama . ' Dilakukan pekerjaan pada tanggal ' . date('d-m-Y', strtotime($item->tanggal_pekerjaan))
+                'description' => $description
             ]);
         }
     }
