@@ -149,12 +149,12 @@
                                         @elseif($item->tipe == 3)
                                             <span class="fw-bold">Quotation</span>
                                             <span class="">{{ $item->quotation->no_ref }}</span>
-                                            Dari <span class="fw-bold">{{ $item->quotation->no_ref }}</span>
+                                            Dari <span class="fw-bold">{{ $item->quotation->customer->nama }}</span>
                                             <p>{{ $item->description }}</p>
                                         @elseif($item->tipe == 4)
                                             <span class="fw-bold">Laporan Pekerjaan</span>
                                             <span class="">{{ $item->laporanPekerjaan->kode_pekerjaan }}</span>
-                                            Dari <span class="fw-bold">{{ $item->laporanPekerjaan->kode_pekerjaan }}</span>
+                                            Dari <span class="fw-bold">{{ $item->laporanPekerjaan->customer->nama }}</span>
                                             <p>{{ $item->description }}</p>
                                         @endif
                                         <div class="text-end">
