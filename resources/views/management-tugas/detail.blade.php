@@ -192,6 +192,14 @@
                     </div>
                     <div class="row mb-5">
                         <div class="col-md-4 col-4">
+                            Tanggal Pekerjaan
+                        </div>
+                        <div class="col-md-8 col-8">
+                            : {{ date('d/m/Y', strtotime($laporanPekerjaan->tanggal_pekerjaan)) }}
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-md-4 col-4">
                             Jam Mulai
                         </div>
                         <div class="col-md-8 col-8">
