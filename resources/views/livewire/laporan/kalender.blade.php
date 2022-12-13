@@ -134,53 +134,53 @@
                     <div class="row">
                         @if (count($listAgenda) > 0)
                             @foreach ($listAgenda as $item)
-                                <div class="col-md-4">
-                                    <div class="bg-light-secondary border rounded">
+                                <div class="col-md-4 mb-3">
+                                    <div class="bg-light-secondary p-5 border rounded">
                                         @if ($item->tipe == 1)
-                                        <span class="fw-bold">Receivable</span>
-                                        <span class="">{{ $item->preOrder->no_ref }}</span>
-                                        Dari <span class="fw-bold">{{ $item->preOrder->customer->nama }}</span>
-                                        <p>{{ $item->description }}</p>
-                                    @elseif($item->tipe == 2)
-                                        <span class="fw-bold">Payable</span>
-                                        <span class="">{{ $item->supplierOrder->no_ref }}</span>
-                                        Dari <span class="fw-bold">{{ $item->supplierOrder->supplier->name }}</span>
-                                        <p>{{ $item->description }}</p>
-                                    @elseif($item->tipe == 3)
-                                        <span class="fw-bold">Quotation</span>
-                                        <span class="">{{ $item->quotation->no_ref }}</span>
-                                        Dari <span class="fw-bold">{{ $item->quotation->no_ref }}</span>
-                                        <p>{{ $item->description }}</p>
-                                    @elseif($item->tipe == 4)
-                                        <span class="fw-bold">Laporan Pekerjaan</span>
-                                        <span class="">{{ $item->laporanPekerjaan->kode_pekerjaan }}</span>
-                                        Dari <span class="fw-bold">{{ $item->laporanPekerjaan->kode_pekerjaan }}</span>
-                                        <p>{{ $item->description }}</p>
-                                    @endif
-                                    <div class="text-end">
-                                        <div class="btn-group">
-                                            <button class="btn btn-sm btn-icon btn-light" wire:click="hapusTanggalAgenda({{ $item->id }})">
-                                                <i class="fa-solid fa-trash-can text-danger"></i>
-                                            </button>
-                                            @if ($item->tipe == 1)
-                                                <a href="{{ $item->tipe == 1 ? route('pre-order.detail', ['id' => $item->preOrder->id]) : route('supplier.order-detail', ['id' => $item->supplierOrder->id])}}" class="btn btn-sm btn-icon btn-light">
-                                                    <i class="fa-solid fa-eye text-primary"></i>
-                                                </a>
-                                            @elseif($item->tipe == 2)
-                                                <a href="{{ $item->tipe == 1 ? route('pre-order.detail', ['id' => $item->preOrder->id]) : route('supplier.order-detail', ['id' => $item->supplierOrder->id])}}" class="btn btn-sm btn-icon btn-light">
-                                                    <i class="fa-solid fa-eye text-primary"></i>
-                                                </a>
-                                            @elseif($item->tipe == 3)
-                                                <a href="{{ route('quotation.detail', ['id' => $item->quotation->id]) }}" class="btn btn-sm btn-icon btn-light">
-                                                    <i class="fa-solid fa-eye text-primary"></i>
-                                                </a>
-                                            @elseif($item->tipe == 4)
-                                                <a href="{{ route('management-tugas.detail', ['id' => $item->laporanPekerjaan->id]) }}" class="btn btn-sm btn-icon btn-light">
-                                                    <i class="fa-solid fa-eye text-primary"></i>
-                                                </a>
-                                            @endif
+                                            <span class="fw-bold">Receivable</span>
+                                            <span class="">{{ $item->preOrder->no_ref }}</span>
+                                            Dari <span class="fw-bold">{{ $item->preOrder->customer->nama }}</span>
+                                            <p>{{ $item->description }}</p>
+                                        @elseif($item->tipe == 2)
+                                            <span class="fw-bold">Payable</span>
+                                            <span class="">{{ $item->supplierOrder->no_ref }}</span>
+                                            Dari <span class="fw-bold">{{ $item->supplierOrder->supplier->name }}</span>
+                                            <p>{{ $item->description }}</p>
+                                        @elseif($item->tipe == 3)
+                                            <span class="fw-bold">Quotation</span>
+                                            <span class="">{{ $item->quotation->no_ref }}</span>
+                                            Dari <span class="fw-bold">{{ $item->quotation->no_ref }}</span>
+                                            <p>{{ $item->description }}</p>
+                                        @elseif($item->tipe == 4)
+                                            <span class="fw-bold">Laporan Pekerjaan</span>
+                                            <span class="">{{ $item->laporanPekerjaan->kode_pekerjaan }}</span>
+                                            Dari <span class="fw-bold">{{ $item->laporanPekerjaan->kode_pekerjaan }}</span>
+                                            <p>{{ $item->description }}</p>
+                                        @endif
+                                        <div class="text-end">
+                                            <div class="btn-group">
+                                                <button class="btn btn-sm btn-icon btn-light" wire:click="hapusTanggalAgenda({{ $item->id }})">
+                                                    <i class="fa-solid fa-trash-can text-danger"></i>
+                                                </button>
+                                                @if ($item->tipe == 1)
+                                                    <a href="{{ $item->tipe == 1 ? route('pre-order.detail', ['id' => $item->preOrder->id]) : route('supplier.order-detail', ['id' => $item->supplierOrder->id])}}" class="btn btn-sm btn-icon btn-light">
+                                                        <i class="fa-solid fa-eye text-primary"></i>
+                                                    </a>
+                                                @elseif($item->tipe == 2)
+                                                    <a href="{{ $item->tipe == 1 ? route('pre-order.detail', ['id' => $item->preOrder->id]) : route('supplier.order-detail', ['id' => $item->supplierOrder->id])}}" class="btn btn-sm btn-icon btn-light">
+                                                        <i class="fa-solid fa-eye text-primary"></i>
+                                                    </a>
+                                                @elseif($item->tipe == 3)
+                                                    <a href="{{ route('quotation.detail', ['id' => $item->quotation->id]) }}" class="btn btn-sm btn-icon btn-light">
+                                                        <i class="fa-solid fa-eye text-primary"></i>
+                                                    </a>
+                                                @elseif($item->tipe == 4)
+                                                    <a href="{{ route('management-tugas.detail', ['id' => $item->laporanPekerjaan->id]) }}" class="btn btn-sm btn-icon btn-light">
+                                                        <i class="fa-solid fa-eye text-primary"></i>
+                                                    </a>
+                                                @endif
+                                            </div>
                                         </div>
-                                    </div>
                                     </div>
                                 </div>
                             @endforeach
