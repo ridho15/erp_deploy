@@ -1,8 +1,14 @@
 <div>
     <div class="text-end">
-        <button class="btn btn-sm btn-outline btn-outline-warning mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Permintaan Barang" wire:click="$emit('onClickNomorITT')">
-            <i class="fa-solid fa-hashtag"></i> Nomor ITT/ITTS
-        </button>
+        @if ($btnStartItt == true)
+            <button class="btn btn-sm btn-outline btn-outline-primary mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Start ITT/ITS" wire:click="startItt">
+                # Start ITT/ITS
+            </button>
+        @else
+            <button class="btn btn-sm btn-outline btn-outline-primary mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="New ITT/ITS" wire:click="newItt">
+                # New ITT/ITS
+            </button>
+        @endif
         <button class="btn btn-sm btn-outline btn-outline-primary mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Permintaan Barang" wire:click="$emit('onClickTambahPermintaanBarang')">
             <i class="bi bi-plus-circle"></i> Permintaan Barang
         </button>
@@ -22,11 +28,11 @@
             <thead>
             <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
                 <th>No</th>
-                <th>Proyek</th>
+                <th>Nama Proyek</th>
                 <th>SKU</th>
                 <th>Barang</th>
                 <th>Satuan</th>
-                <th>Estimasi Peminjaman</th>
+                <th>Estimasi Kembali</th>
                 <th>Jumlah / Qty</th>
                 <th>ITT/ITS</th>
                 <th>Version</th>
@@ -59,7 +65,24 @@
                             @endif
                         </td>
                         <td>{{ $item->qty }}</td>
-                        <td>{{ $item->nomor_itt }}</td>
+                        <td class="text-center">{{ $item->nomorItt ? $item->nomorItt->nomor_itt : '-' }}
+                            @if ($item->nomorItt)
+                                <span class="" style="cursor: pointer" wire:click="setIdLaporanPekerjaanBarang({{ $item->id }})">
+                                    <i class="fas fa-edit"></i>
+                                </span>
+                                @if ($id_laporan_pekerjaan_barang == $item->id)
+                                    <div class="text-center mb-1">
+                                        <input type="number" class="form-control" name="nomor_itt" wire:model="nomor_itt">
+                                    </div>
+                                    <span class="mx-1" style="cursor: pointer" wire:click="closeEditItt" data-bs-toggle="tooltip" data-bs-placement="top" title="Close">
+                                        <i class="fa-regular fa-circle-xmark text-danger"></i>
+                                    </span>
+                                    <span class="mx-1" style="cursor: pointer" wire:click="simpanEditItt" data-bs-toggle="tooltip" data-bs-placement="top" title="Simpan">
+                                        <i class="fa-regular fa-circle-check text-success"></i>
+                                    </span>
+                                @endif
+                            @endif
+                        </td>
                         <td>{{ $item->version }} V</td>
                         <td>{{ $item->tipeBarang ? $item->tipeBarang->tipe_barang : '-' }}</td>
                         <td>{{ $item->catatan_teknisi }}</td>
@@ -204,16 +227,9 @@
                             @enderror
                         </div>
                         <div class="mb-5">
-                            <label for="" class="form-label required">Tanggal Estimasi</label>
+                            <label for="" class="form-label required">Estimasi Kembali</label>
                             <input type="datetime-local" name="estimasi" class="form-control form-control-solid" wire:model="estimasi" required>
                             @error('estimasi')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                        <div class="mb-5">
-                            <label for="" class="form-label required">ITT/ITS</label>
-                            <input type="number" name="nomor_itt" class="form-control form-control-solid" wire:model="nomor_itt" placeholder="Nomor ITT/ITS" required>
-                            @error('nomor_itt')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
@@ -228,7 +244,6 @@
     </div>
 
     @livewire('pinjam-meminjam.form-permintaan-barang')
-    @livewire('pinjam-meminjam.nomor-itt')
 </div>
 
 @push('js')
@@ -267,8 +282,5 @@
             $('#modal_form_permintaan_barang').modal('show')
         })
 
-        Livewire.on('onClickNomorITT', () => {
-            $('#modal_nomor_itt').modal('show')
-        })
     </script>
 @endpush

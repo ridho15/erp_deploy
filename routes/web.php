@@ -31,16 +31,14 @@ use App\Http\Controllers\TipeBarangController;
 use App\Http\Controllers\WebConfigurationController;
 use App\Http\Controllers\WorkerController;
 use App\Models\Barang;
+use App\Models\LaporanPekerjaanBarang;
 use App\Models\Quotation;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/testing', function(){
-    $barang = Barang::get();
-    foreach ($barang as $item) {
-        echo $item->satuan->nama_satuan;
-    }
-    return true;
+    $laporanPekerjaanBarang = LaporanPekerjaanBarang::with('nomotItt')->get();
+    return $laporanPekerjaanBarang;
 });
 
 Route::get('/foo', function () {

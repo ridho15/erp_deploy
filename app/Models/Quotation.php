@@ -76,4 +76,8 @@ class Quotation extends Model
     public function quotationSales(){
         return $this->hasMany(QuotationSales::class, 'id_quotation');
     }
+
+    public function agendaPembuatan(){
+        return $this->hasOne(CalenderPenagihan::class, 'id_accounts')->where('tipe', 3);
+    }
 }

@@ -101,7 +101,7 @@
                                 @enderror
                             </div>
                             <div class="mb-5 col-md-6">
-                                <label for="" class="form-label required">Tanggal Estimasi</label>
+                                <label for="" class="form-label required">Estimasi Kembali</label>
                                 <input type="datetime-local" name="estimasi" class="form-control form-control-solid" wire:model="estimasi" required>
                                 @error('estimasi')
                                     <small class="text-danger">{{ $message }}</small>

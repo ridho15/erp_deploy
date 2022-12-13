@@ -89,6 +89,7 @@ class AutentikasiController extends Controller
             }
 
             $this->buatNotifikasi();
+            HelperController::createAgenda();
 
             activity()->causedBy(HelperController::user())->log("Melakukan Login");
             return redirect()->route('dashboard')->with('success', 'Login Berhasil');
@@ -237,18 +238,6 @@ class AutentikasiController extends Controller
             $message = "Email pada user tidak ditemukan. Silahkan masukkan email lainnya atau hubungi administrator";
             return redirect()->back()->with('fail', $message);
         }
-
-        // $crypt = new CryptController;
-        // $carbon = Carbon::now()->addMinutes(30);
-        // $data['user'] = $user;
-        // $dataToken = json_encode([
-        //     'id' => $user->id,
-        //     'email' => $user->emai,
-        //     'expired_at' => $carbon->format('Y-m-d H:i:s')
-        // ]);
-        // $token = $crypt->crypt($dataToken);
-        // $data['token'] = $token;
-        // $data['url'] = url('/reset-ulang-password/' . $token);
 
         Mail::to($user->email)->send(new SendForgotPasswordToEmail($user));
         $message = "Berhasil mengirim alamat untuk mereset ulang password. Silahkan check email anda";

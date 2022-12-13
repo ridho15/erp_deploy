@@ -24,7 +24,7 @@ class LaporanPekerjaanBarang extends Model
         'version',
         'id_rak',
         'estimasi',
-        'nomor_itt'
+        'is_laporan_pinjam'
     ];
 
     protected $appends = ['status_formatted'];
@@ -69,5 +69,9 @@ class LaporanPekerjaanBarang extends Model
 
     public function rak(){
         return $this->belongsTo(Rak::class, 'id_rak')->withTrashed();
+    }
+
+    public function nomorItt(){
+        return $this->hasOne(NomorItt::class, 'id_laporan_pekerjaan_barang');
     }
 }

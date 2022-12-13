@@ -35,7 +35,7 @@
                         </td>
                         <td>{{ $item->barang->nama }}</td>
                         <td>{{ $item->rak ? $item->rak->nama_rak . "(" . $item->rak->kode_rak . ")" : '-' }}</td>
-                        <td>{{ $item->nomor_itt }}</td>
+                        <td>{{ $item->nomorItt ? $item->nomorItt->nomor_itt : '-' }}</td>
                         <td>{{ $item->qty }}</td>
                         <td>{{ $item->userPeminjam ? $item->userPeminjam->name : '-' }}</td>
                         <td>
