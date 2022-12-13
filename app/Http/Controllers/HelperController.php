@@ -673,7 +673,8 @@ class HelperController extends Controller
         ->where('jam_selesai', '!=', null)
         ->get();
         foreach ($laporanPekerjaan as $item) {
-            $description = 'Pekerjaan dengan kode pekerjaan ('. $item->no_ref .') pada Customer '. $item->customer->nama . ' Dilakukan pekerjaan pada tanggal ' . $item->tanggal_pekerjaan ? date('d-m-Y', strtotime($item->tanggal_pekerjaan)) : '-';
+            $tanggalPekerjaan = $item->tanggal_pekerjaan ? date('d-m-Y', strtotime($item->tanggal_pekerjaan)) : '-';
+            $description = 'Pekerjaan dengan kode pekerjaan ('. $item->no_ref .') pada Customer '. $item->customer->nama . ' Dilakukan pekerjaan pada tanggal ' . $tanggalPekerjaan;
             CalenderPenagihan::create([
                 'tipe' => 4,
                 'id_accounts' => $item->id,
