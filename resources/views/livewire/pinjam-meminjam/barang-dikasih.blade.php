@@ -27,7 +27,7 @@
                 <th>Status</th>
                 <th>Yang Meminjamkan</th>
                 <th>Peminjam</th>
-                <th>Tanggal</th>
+                <th>Tanggal Dikasih</th>
             </tr>
             </thead>
             <tbody>

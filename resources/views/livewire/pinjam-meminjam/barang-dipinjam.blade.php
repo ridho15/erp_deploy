@@ -31,7 +31,7 @@
                 <th>Status</th>
                 <th>Yang Meminjamkan</th>
                 <th>Peminjam</th>
-                <th>Tanggal</th>
+                <th>Tanggal Peminjaman</th>
                 <th>Aksi</th>
             </tr>
             </thead>

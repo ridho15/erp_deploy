@@ -174,4 +174,8 @@ class PreOrder extends Model
     public function preOrderBayar(){
         return $this->hasMany(PreOrderBayar::class, 'id_pre_order');
     }
+
+    public function agendaPenagihan(){
+        return $this->hasOne(CalenderPenagihan::class, 'id_accounts')->where('tipe', 2);
+    }
 }

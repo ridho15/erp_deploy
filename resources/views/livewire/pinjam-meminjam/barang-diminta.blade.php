@@ -40,7 +40,7 @@
                 <th>Catatan Teknisi</th>
                 <th>Peminjam</th>
                 <th>Status</th>
-                <th>Tanggal</th>
+                <th>Tanggal Peminjaman</th>
                 <th>Aksi</th>
             </tr>
             </thead>
