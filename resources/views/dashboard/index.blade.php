@@ -3,7 +3,7 @@
 @section('content')
 <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
     <div class="content flex-row-fluid" id="kt_content">
-        @php($log = \App\CPU\Helpers::getUserLogs(session()->get('user_log_id')))
+        @php($log = \App\CPU\Helpers::getUserLogs(session()->get('id_user')))
         <div class="card mb-5 mb-xl-10">
             <div class="card-body pt-9 pb-0">
                 <div class="d-flex flex-wrap flex-sm-nowrap mb-3">

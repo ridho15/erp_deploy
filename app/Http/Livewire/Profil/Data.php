@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Profil;
 
 use App\CPU\Helpers;
 use App\Http\Controllers\HelperController;
+use App\Models\ActivityLog;
 use App\Models\User;
 use App\Models\UserLog;
 use Carbon\Carbon;
@@ -34,9 +35,24 @@ class Data extends Component
     public $fotoView;
     public $c_newPassword;
     protected $profile;
+    public $lastIp;
+    public $userAgent;
+    public $lastLogin;
+    public $lastActivity;
+    public $lastPasswordChange;
 
     public function render()
     {
+        $userActivity = ActivityLog::where('causer_id', session()->get('id_user'))
+        ->orderBy('updated_at', 'DESC')->first();
+        $userLog = UserLog::where('id_user', session()->get('id_user'))
+        ->orderBy('updated_at', 'DESC')->first();
+
+        $this->lastIp = $userLog->last_ip;
+        $this->userAgent = $userLog->user_agent;
+        $this->lastLogin = $userLog->lastLogin;
+        $this->lastActivity = $userActivity->updated_at;
+        $this->lastPasswordChange = $userLog->lastPasswordChange;
         return view('livewire.profil.data');
     }
 
