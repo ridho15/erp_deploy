@@ -18,11 +18,11 @@
             <thead>
             <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
                 <th>No</th>
-                <th>Proyek</th>
+                <th>Nama Proyek</th>
                 <th>SKU</th>
                 <th>Barang</th>
                 <th>Satuan</th>
-                <th>Estimasi Peminjaman</th>
+                <th>Estimasi Kembali</th>
                 <th>Jumlah / Qty</th>
                 <th>Version</th>
                 <th>Nomor ITT/ITS</th>
@@ -57,7 +57,7 @@
                         </td>
                         <td>{{ $item->qty }}</td>
                         <td>{{ $item->version }} V</td>
-                        <td>{{ $item->nomor_itt }}</td>
+                        <td>{{ $item->nomorItt ? $item->nomorItt->nomor_itt : '-' }}</td>
                         <td>{{ $item->tipeBarang ? $item->tipeBarang->tipe_barang : '-' }}</td>
                         <td>{{ $item->catatan_teknisi }}</td>
                         <td><?= $item->status_formatted ?></td>

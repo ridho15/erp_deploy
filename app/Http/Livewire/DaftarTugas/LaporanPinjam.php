@@ -7,109 +7,66 @@ use App\Models\Barang;
 use App\Models\LaporanPekerjaan;
 use App\Models\LaporanPekerjaanBarang;
 use App\Models\LaporanPekerjaanBarangLog;
-use App\Models\NomorPeminjamanHarian;
 use App\Models\QuotationDetail;
 use App\Models\SupplierOrderDetailTemp;
-use App\Models\TipeBarang;
 use Livewire\Component;
+use Livewire\WithPagination;
 
-class LaporanSparepart extends Component
+class LaporanPinjam extends Component
 {
+    use WithPagination;
     public $listeners = [
-        'refreshLaporanPekerjaanBarang' => '$refresh',
-        'simpanLaporanPekerjaanBarang',
-        'hapusLaporanPekerjaanBarang',
-        'setDataLaporanPekerjaanBarang',
-        'changeTambahBarang'
+        'simpanLaporanPinjam'
     ];
-    public $listLaporanPekerjaanBarang = [];
-    public $id_laporan_pekerjaan_barang;
-    public $id_laporan_pekerjaan;
-    public $id_barang;
-    public $catatan_teknisi;
-    public $keterangan_customer;
-    public $qty;
+    public $paginationTheme = 'bootstrap';
     public $cari;
-    public $tambahBarang = false;
-    public $listBarang = [];
-    public $barang;
-    public $version;
-    public $id_tipe_barang;
-    public $estimasi;
+    public $total_show = 10;
+    public $id_tipe_barang = 1;
 
-    public $listTipeBarang;
-    public $listVersion;
+    protected $listLaporanPekerjaanBarang;
+    public $id_laporan_pekerjaan;
+    public $tambahBarang = false;
+    public $barang;
+    public $listBarang = [];
+    public $listVersion = [];
+    public $version;
+    public $id_barang;
+    public $qty;
+    public $estimasi;
+    public $keterangan_customer;
+    public $catatan_teknisi;
+    public $id_laporan_pekerjaan_barang;
     public function render()
     {
-        $this->listTipeBarang = TipeBarang::get();
+        $this->barang = Barang::find($this->id_barang);
+        $this->listBarang = Barang::where('id_tipe_barang', 1)
+        ->get();
         $this->listVersion = HelperController::getListVersion();
-        $this->listBarang = Barang::get();
         $this->listLaporanPekerjaanBarang = LaporanPekerjaanBarang::where(function($query){
             $query->whereHas('barang', function($query){
-                $query->where('nama', 'LIKE', '%' . $this->cari . '%');
+                $query->where('id', 'LIKE', '%' . $this->cari . '%')
+                ->orWhere('nama', 'LIKE', '%' . $this->cari . '%');
             });
-        })->where('is_laporan_pinjam', '!=', 1)->where('id_laporan_pekerjaan', $this->id_laporan_pekerjaan)->get();
-        if($this->id_barang){
-            $this->barang = Barang::find($this->id_barang);
-        }
-        $this->dispatchBrowserEvent('contentChange');
-        return view('livewire.daftar-tugas.laporan-sparepart');
+        })
+        ->where('is_laporan_pinjam', 1)
+        ->where('id_laporan_pekerjaan', $this->id_laporan_pekerjaan)
+        ->paginate($this->total_show);
+
+        $data['listLaporanPekerjaanBarang'] = $this->listLaporanPekerjaanBarang;
+
+        $this->dispatchBrowserEvent('contentChangeLaporanPinjam');
+        return view('livewire.daftar-tugas.laporan-pinjam', $data);
     }
 
     public function mount($id_laporan_pekerjaan){
         $this->id_laporan_pekerjaan = $id_laporan_pekerjaan;
     }
 
-    public function setDataLaporanPekerjaanBarang($id){
-        $laporanPekerjaanBarang = LaporanPekerjaanBarang::find($id);
-        if(!$laporanPekerjaanBarang){
-            $message = "Data laporan barang tidak ditemukan !";
-            return session()->flash('fail', $message);
-        }
-
-        $this->id_laporan_pekerjaan_barang = $laporanPekerjaanBarang->id;
-        $this->id_barang = $laporanPekerjaanBarang->id_barang;
-        $this->id_laporan_pekerjaan = $laporanPekerjaanBarang->id_laporan_pekerjaan;
-        $this->catatan_teknisi = $laporanPekerjaanBarang->catatan_teknisi;
-        $this->keterangan_customer = $laporanPekerjaanBarang->keterangan_customer;
-        $this->qty = $laporanPekerjaanBarang->qty;
-        $this->version = $laporanPekerjaanBarang->version;
-        $this->id_tipe_barang = $laporanPekerjaanBarang->id_tipe_barang;
-        if ($laporanPekerjaanBarang->estimasi) {
-            $this->estimasi = date('Y-m-d H:i', strtotime($laporanPekerjaanBarang->estimasi));
-        }
-    }
-
-    public function hapusLaporanPekerjaanBarang($id){
-        $laporanPekerjaanBarang = LaporanPekerjaanBarang::find($id);
-        if($laporanPekerjaanBarang->laporanPekerjaan->quotation){
-            $quotation = $laporanPekerjaanBarang->laporanPekerjaan->quotation;
-            $quotationDetail = QuotationDetail::where('id_quotation', $quotation->id)
-            ->where('qty', $laporanPekerjaanBarang->qty)
-            ->where('id_barang', $laporanPekerjaanBarang->id_barang)
-            ->first();
-            if($quotationDetail){
-                $quotationDetail->delete();
-            }
-        }
-        if(!$laporanPekerjaanBarang){
-            $message = "Data laporan barang tidak ditemukan !";
-            return session()->flash('fail', $message);
-        }
-
-        $laporanPekerjaanBarang->delete();
-        $message = "Data laporan barang berhasil dihapus";
-        activity()->causedBy(HelperController::user())->log("Barang berhasil di hapus dari laporan");
-
-        $this->emit('finishSimpanData', 1, $message);
-        return session()->flash('success', $message);
-    }
-
     public function changeTambahBarang(){
         $this->tambahBarang = !$this->tambahBarang;
     }
 
-    public function simpanLaporanPekerjaanBarang(){
+    public function simpanLaporanPinjam(){
         $this->validate([
             'id_barang' => 'required|numeric',
             'qty' => 'required|numeric',
@@ -193,6 +150,7 @@ class LaporanSparepart extends Component
             'version' => $this->version,
             'id_tipe_barang' => $this->id_tipe_barang,
             'estimasi' => date('Y-m-d H:i:s', strtotime($this->estimasi)),
+            'is_laporan_pinjam' => 1
         ]);
 
         LaporanPekerjaanBarangLog::create([

@@ -2,7 +2,7 @@
     <div class="card shadow-sm">
         <div class="card-header">
             <h3 class="card-title">
-                Laporan Penggunaan Barang
+                Laporan Pinjam
             </h3>
             <div class="card-toolbar">
                 <button class="btn btn-sm btn-outline btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Spareparts" wire:click="changeTambahBarang">
@@ -12,9 +12,9 @@
         </div>
         <div class="card-body">
             @if ($tambahBarang)
-                <form action="#" method="POST" wire:submit.prevent="simpanLaporanPekerjaanBarang">
+                <form action="#" method="POST" wire:submit.prevent="simpanLaporanPinjam" id="form_laporan_pinjam">
                     <div class="text-center">
-                        @include('helper.simple-loading', ['target' => 'simpanLaporanPekerjaanBarang', 'message' => 'Sedang menyimpan data ...'])
+                        @include('helper.simple-loading', ['target' => 'simpanLaporanPinjam', 'message' => 'Sedang menyimpan data ...'])
                     </div>
                     <div class="row">
                         <div class="col-md-6">
@@ -83,18 +83,6 @@
                                         @endforeach
                                     </select>
                                     @error('version')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                </div>
-                                <div class="mb-5">
-                                    <label for="" class="form-label required">TIpe Barang</label>
-                                    <select name="id_tipe_barang" wire:model="id_tipe_barang" class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih Barang" required>
-                                        <option value="">Pilih</option>
-                                        @foreach ($listTipeBarang as $item)
-                                            <option value="{{ $item->id }}">{{ $item->tipe_barang }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('id_tipe_barang')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
@@ -222,6 +210,7 @@
                  </tbody>
                 </table>
             </div>
+            {{ $listLaporanPekerjaanBarang->links() }}
         </div>
     </div>
 </div>
@@ -231,33 +220,33 @@
         $(document).ready(function () {
         });
 
-        window.addEventListener('contentChange', function(){
-            $('select[name="id_barang"]').select2();
-            $('select[name="id_barang"]').on('change', function(){
+        window.addEventListener('contentChangeLaporanPinjam', function(){
+            $('#form_laporan_pinjam select[name="id_barang"]').select2();
+            $('#form_laporan_pinjam select[name="id_barang"]').on('change', function(){
                 @this.set('id_barang', $(this).val())
             })
 
-            $('select[name="version"]').select2();
-            $('select[name="version"]').on('change', function(){
-                @this.set('version', $(this).val())
+            $('#form_laporan_pinjam select[name="version"]').select2();
+            $('#form_laporan_pinjam select[name="version"]').on('change', function(){
+                    @this.set('version', $(this).val())
             })
 
-            $('select[name="id_tipe_barang"]').select2();
-            $('select[name="id_tipe_barang"]').on('change', function(){
+            $('#form_laporan_pinjam select[name="id_tipe_barang"]').select2();
+            $('#form_laporan_pinjam select[name="id_tipe_barang"]').on('change', function(){
                 @this.set('id_tipe_barang', $(this).val())
             })
         })
 
 
-        Livewire.on('onClickEditBarang', (id) => {
-            Livewire.emit('setDataLaporanPekerjaanBarang', id)
+        Livewire.on('onClickEditBarangLaporanPinjam', (id) => {
+            Livewire.emit('setDataLaporanPekerjaanBarangLaporanPinjam', id)
             @this.set('tambahBarang', true)
         })
 
-        Livewire.on('onClickHapusBarang', async(id) => {
+        Livewire.on('onClickHapusBarangLaporanPinjam', async(id) => {
             const response = await alertConfirm('Peringatan !', "Apakah kamu yakin ingin menghapus barang ?")
             if(response.isConfirmed == true){
-                Livewire.emit('hapusLaporanPekerjaanBarang', id)
+                Livewire.emit('hapusLaporanPekerjaanBarangLaporanPinjam', id)
             }
         })
 

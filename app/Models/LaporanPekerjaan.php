@@ -144,4 +144,8 @@ class LaporanPekerjaan extends Model
     public function quotation(){
         return $this->hasOne(Quotation::class, 'id_laporan_pekerjaan');
     }
+
+    public function agendaLaporanPekerjaan(){
+        return $this->hasOne(CalenderPenagihan::class, 'id_accounts')->where('tipe', 4);
+    }
 }

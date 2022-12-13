@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CalenderPenagihan;
+use App\Models\LaporanPekerjaan;
+use App\Models\PreOrder;
+use App\Models\Quotation;
+use App\Models\SupplierOrder;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -590,5 +595,79 @@ class HelperController extends Controller
 
     static public function user(){
         return User::find(session()->get('id_user'));
+    }
+
+    static public function createAgenda(){
+        // Check Agenda Account Payable
+        $accountPayable = SupplierOrder::where('status_pembayaran', '!=', 2)
+        ->where('status_order', '!=', 0)
+        ->where('tanggal_tempo_pembayaran', '>=', now())
+        ->get();
+
+        foreach ($accountPayable as $item) {
+            $calenderPenagihan = CalenderPenagihan::where('tipe', 1)
+            ->where('id_accounts', $item->id)
+            ->where('tanggal', $item->tanggal_tempo_pembayaran)
+            ->first();
+            if(!$calenderPenagihan){
+                CalenderPenagihan::create([
+                    'tipe' => 1,
+                    'id_accounts' => $item->id,
+                    'tanggal' => $item->tanggal_tempo_pembayaran,
+                    'description' => 'Pembayaran Supplier Order ke ' . $item->supplier->name . ' sebesar ' . $item->total_harga_formatted . '. Silahkan lakukan pembayaran sebelum ' . date('d-m-Y', strtotime($item->tanggal_tempo_pembayaran))
+                ]);
+            }
+        }
+
+        // Check Agenda Account Receivable
+        $accountReceivable = PreOrder::whereHas('quotation', function($query){
+            $query->whereHas('laporanPekerjaan', function($query){
+                $query->where('signature', '!=', null)
+                ->where('jam_selesai', '!=', null);
+            });
+        })->where('status', '!=', 3)->where('tanggal_tempo_pembayaran', '>=', now())->get();
+
+        foreach ($accountReceivable as $item) {
+            $calenderPenagihan = CalenderPenagihan::where('tipe', 2)
+            ->where('id_accounts', $item->id)
+            ->where('tanggal', $item->tanggal_tempo_pembayaran)
+            ->first();
+
+            if(!$calenderPenagihan){
+                CalenderPenagihan::create([
+                    'tipe' => 2,
+                    'id_accounts' => $item->id,
+                    'tanggal' => $item->tanggal_tempo_pembayaran,
+                    'description' => 'Penagihan PO ke ' . $item->customer->name . ' sebesar ' . $item->total_bayar_formatted . '. Silahkan lakukan pembayaran sebelum ' . date('d-m-Y', strtotime($item->tanggal_tempo_pembayaran))
+                ]);
+            }
+        }
+
+        // Check Quotation
+        $quotation = Quotation::doesntHave('agendaPembuatan')
+        ->get();
+
+        foreach ($quotation as $item) {
+            CalenderPenagihan::create([
+                'tipe' => 3,
+                'id_accounts' => $item->id,
+                'tanggal' => $item->created_at,
+                'description' => 'Pembuatan Quotation dilakukan pada tanggal ' . date('d-m-Y', strtotime($item->created_at))
+            ]);
+        }
+
+        //Laporan Pekerjaan
+        $laporanPekerjaan = LaporanPekerjaan::doesntHave('agendaLaporanPekerjaan')
+        ->where('signature', '!=', null)
+        ->where('jam_selesai', '!=', null)
+        ->get();
+        foreach ($laporanPekerjaan as $item) {
+            CalenderPenagihan::create([
+                'tipe' => 4,
+                'id_accounts' => $item->id,
+                'tanggal' => $item->tanggal_pekerjaan,
+                'description' => 'Pekerjaan dengan kode pekerjaan ('. $item->no_ref .') pada Customer '. $item->customer->nama . ' Dilakukan pekerjaan pada tanggal ' . date('d-m-Y', strtotime($item->tanggal_pekerjaan))
+            ]);
+        }
     }
 }

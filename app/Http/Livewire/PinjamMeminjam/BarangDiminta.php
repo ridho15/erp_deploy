@@ -8,6 +8,7 @@ use App\Models\BarangStockLog;
 use App\Models\IsiRak;
 use App\Models\LaporanPekerjaanBarang;
 use App\Models\LaporanPekerjaanBarangLog;
+use App\Models\NomorItt;
 use App\Models\NomorPeminjamanHarian;
 use App\Models\Rak;
 use App\Models\SupplierOrderDetailTemp;
@@ -22,6 +23,10 @@ class BarangDiminta extends Component
         'abaikanPeminjamanBarang',
         'confirmasiPeminjamanBarang',
         'setLaporanPekerjaanBarang',
+        'startItt',
+        'newItt',
+        'setIdLaporanPekerjaanBarang',
+        'closeEditItt'
     ];
     public $paginationTheme = 'bootstrap';
     public $cari;
@@ -37,8 +42,17 @@ class BarangDiminta extends Component
     public $id_rak;
     public $nomor_itt;
     public $estimasi;
+    public $btnStartItt = true;
     public function render()
     {
+        $nomorItt = NomorItt::whereDate('nomor_tanggal', now())
+        ->first();
+        if($nomorItt){
+            $this->btnStartItt = false;
+        }else{
+            $this->btnStartItt = true;
+        }
+
         $this->listBarangDiminta = LaporanPekerjaanBarang::where(function($query){
             $query->where('catatan_teknisi', 'LIKE', '%' . $this->cari . '%')
             ->orWhere('keterangan_customer', 'LIKE', '%' . $this->cari . '%')
@@ -51,6 +65,9 @@ class BarangDiminta extends Component
             $query->where('status', 1)
             ->orWhere('status', 0);
         })->where('konfirmasi', 0)->orderBy('updated_at', 'DESC')
+        ->whereHas('nomorItt', function($query){
+            $query->orderBy('nomor_itt');
+        })
         ->paginate($this->total_show);
 
         if ($this->laporanPekerjaanBarang) {
@@ -100,7 +117,6 @@ class BarangDiminta extends Component
             'id_laporan_pekerjaan_barang' => 'required|numeric',
             'id_rak' => 'required|numeric',
             'estimasi' => 'required|string',
-            'nomor_itt' => 'required|numeric'
         ], [
             'id_laporan_pekerjaan_barang.required' => 'Data tidak valid !',
             'id_laporan_pekerjaan_barang.numeric' => 'Data tidak valid !',
@@ -110,18 +126,7 @@ class BarangDiminta extends Component
             'id_rak.numeric' => 'Rak tidak valid !',
             'estimasi' => 'Estimasi Peminjaman belum diisi',
             'estimasi.string' => 'Estimasi peminjaman tidak valid !',
-            'nomor_itt.required' => 'Nomor ITT tidak boleh kosong',
-            'nomor_itt.numeric' => 'Nomor ITT tidak valid !'
         ]);
-
-        // Check Nomor ITT
-        $nomorPeminjamanHarian = NomorPeminjamanHarian::where('itt_start', '<=', $this->nomor_itt)
-        ->where('itt_end', '>=', $this->nomor_itt)
-        ->whereDate('tanggal', now())->first();
-        if(!$nomorPeminjamanHarian){
-            $message = "Nomor ITT tidak valid !. Silahkan coba gunakan nomor lain";
-            return session()->flash('fail', $message);
-        }
 
         $laporanPekerjaanBarang = LaporanPekerjaanBarang::find($this->id_laporan_pekerjaan_barang);
         if(!$laporanPekerjaanBarang){
@@ -264,4 +269,72 @@ class BarangDiminta extends Component
         }
     }
 
+    public function startItt(){
+        $nomorItt = NomorItt::whereDate('nomor_tanggal', now())
+        ->first();
+        if($nomorItt){
+            $message = "Nomor ITT/ITS pada hari ini sudah ada. silahkan klik tombol New ITT/ITS";
+            return session()->flash('fail', $message);
+        }
+
+        $laporanPekerjaanBarang = LaporanPekerjaanBarang::where('status', 1)
+        ->doesntHave('nomorItt')->orderBy('updated_at', 'ASC')->first();
+        if($laporanPekerjaanBarang){
+            NomorItt::create([
+                'id_laporan_pekerjaan_barang' => $laporanPekerjaanBarang->id,
+                'nomor_itt' => 1,
+                'nomor_tanggal' => now()
+            ]);
+
+            $message = "Berhasil membuat Nomor ITT/ITS baru";
+            return session()->flash('success', $message);
+        }else{
+            $message = "Belum ada peminjaman barang hari ini";
+            return session()->flash('fail', $message);
+        }
+    }
+
+    public function newItt(){
+        $nomorIttBaru = NomorItt::whereDate('nomor_tanggal', now())
+        ->orderBy('nomor_itt', 'DESC')->first();
+
+        $nomorIttBaru = $nomorIttBaru->nomor_itt + 1;
+        $laporanPekerjaanBarang = LaporanPekerjaanBarang::where('status', 1)
+        ->doesntHave('nomorItt')
+        ->orderBy('updated_at', 'ASC')->first();
+        if($laporanPekerjaanBarang){
+            NomorItt::create([
+                'id_laporan_pekerjaan_barang' => $laporanPekerjaanBarang->id,
+                'nomor_itt' => $nomorIttBaru,
+                'nomor_tanggal' => now()
+            ]);
+            $message = "Berhasil memasang nomor ITT/ITS";
+            return session()->flash('success', $message);
+        }else{
+            $message = "Nomor ITT sudah terpasang semua ke barang diminta";
+            return session()->flash('success', $message);
+        }
+    }
+
+    public function setIdLaporanPekerjaanBarang($id){
+        $this->id_laporan_pekerjaan_barang = $id;
+        $this->nomor_itt = NomorItt::where('id_laporan_pekerjaan_barang', $this->id_laporan_pekerjaan_barang)->first()->nomor_itt;
+    }
+
+    public function closeEditItt(){
+        $this->id_laporan_pekerjaan_barang = null;
+        $this->nomor_itt = null;
+    }
+
+    public function simpanEditItt(){
+        $nomorItt = NomorItt::where('id_laporan_pekerjaan_barang', $this->id_laporan_pekerjaan_barang)->first();
+        if($nomorItt){
+            $nomorItt->update([
+                'nomor_itt' => $this->nomor_itt
+            ]);
+        }
+
+        $this->id_laporan_pekerjaan_barang = null;
+        $this->nomor_itt = null;
+    }
 }

@@ -23,6 +23,9 @@
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="tab" href="#barang_dikasih">Barang Dikasih</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#history_peminjaman_barang">History</a>
+                </li>
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="barang_diminta" role="tabpanel">
@@ -42,6 +45,9 @@
                 </div>
                 <div class="tab-pane fade" id="barang_dikasih" role="tabpanel">
                     @livewire('pinjam-meminjam.barang-dikasih')
+                </div>
+                <div class="tab-pane fade" id="history_peminjaman_barang" role="tabpanel">
+                    @livewire('pinjam-meminjam.history')
                 </div>
             </div>
         </div>

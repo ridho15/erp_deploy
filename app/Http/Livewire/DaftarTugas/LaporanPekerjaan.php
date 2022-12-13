@@ -3,10 +3,12 @@
 namespace App\Http\Livewire\DaftarTugas;
 
 use App\Http\Controllers\HelperController;
+use App\Models\Barang;
 use App\Models\BarangStockLog;
 use App\Models\CatatanTeknisiPekerjaan;
 use App\Models\LaporanPekerjaan as ModelsLaporanPekerjaan;
 use App\Models\LaporanPekerjaanBarang;
+use App\Models\LaporanPekerjaanBarangLog;
 use App\Models\LaporanPekerjaanFoto;
 use App\Models\Quotation;
 use App\Models\QuotationDetail;
@@ -151,7 +153,7 @@ class LaporanPekerjaan extends Component
 
         if($laporanPekerjaan->jam_selesai != null && $laporanPekerjaan->signature != null){
             foreach ($listSparepart as $item) {
-                if ($item->status == 2) {
+                if ($item->is_laporan_pinjam != 1 && $item->status == 2) {
                     QuotationDetail::updateOrCreate([
                         'id_quotation' => $quotation->id,
                         'id_barang' => $item->id_barang
@@ -163,12 +165,49 @@ class LaporanPekerjaan extends Component
                         'id_satuan' => $item->barang->id_satuan,
                         'deskripsi' => $item->barang->deskripsi,
                     ]);
+                }elseif($item->is_laporan_pinjam == 1 && $item->status == 2){
+                    $this->balikanBarangPinjaman($item->id);
                 }
             }
         }
 
         activity()->causedBy(HelperController::user())->log("Membuat quotation");
         return redirect()->route('management-tugas.export', ['id' => $laporanPekerjaan->id]);
+    }
+
+    public function balikanBarangPinjaman($id_laporan_pekerjaan_barang){
+        $laporanPekerjaanBarang = LaporanPekerjaanBarang::find($id_laporan_pekerjaan_barang);
+        if(!$laporanPekerjaanBarang){
+            $message = "Data tidak ditemukan !";
+            $this->emit('finishSimpanData', 0, $message);
+            return session()->flash('fail', $message);
+        }
+
+        $barang = Barang::find($laporanPekerjaanBarang->id_barang);
+        if($laporanPekerjaanBarang->laporanPekerjaan->quotation){
+            $id_quotation = $laporanPekerjaanBarang->laporanPekerjaan->quotation->id;
+        }else{
+            $id_quotation = null;
+        }
+        $response = $barang->barangStockChange($laporanPekerjaanBarang->qty, 5, $id_quotation);
+        if($response['status'] == 0){
+            return session()->flash('fail', $response['message']);
+        }
+
+        $laporanPekerjaanBarang->update([
+            'status' => 3,
+            'konfirmasi' => 0
+        ]);
+
+        LaporanPekerjaanBarangLog::create([
+            'id_laporan_pekerjaan_barang' => $laporanPekerjaanBarang->id,
+            'status' => 3,
+            'keterangan' => 'Dibalikkan'
+        ]);
+
+        $message = 'Berhasil mengembalikan barang ke gudang';
+        activity()->causedBy(HelperController::user())->log("Melakukan pengembalian barang ke gudang");
+        return session()->flash('success', $message);
     }
 
     public function resetInputFields(){

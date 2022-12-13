@@ -20,7 +20,7 @@
                     <div class="row align-items-end">
                         <div class="col-md-4 mb-5">
                             <label for="" class="form-label">Tipe</label>
-                            <select name="tipe" wire:model="tipe" class="form-select form-select-solid" data-control="select2" required>
+                            <select name="tipe" wire:model="tipe" class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih" required>
                                 <option value="">Pilih</option>
                                 <option value="1">Receivable</option>
                                 <option value="2">Payable</option>
@@ -33,7 +33,7 @@
                         </div>
                         <div class="col-md-4 mb-5">
                             <label for="" class="form-label">Accounts</label>
-                            <select name="id_accounts" wire:model="id_accounts" class="form-select form-select-solid" data-control="select2" required>
+                            <select name="id_accounts" wire:model="id_accounts" class="form-select form-select-solid" data-placeholder="Pilih" data-control="select2" required>
                                 <option value="">Pilih</option>
                                 @foreach ($listAccounts as $item)
                                     <option value="{{ $item->id }}">{{ $item->no_ref }}</option>
