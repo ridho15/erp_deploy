@@ -134,8 +134,9 @@
                     <div class="row">
                         @if (count($listAgenda) > 0)
                             @foreach ($listAgenda as $item)
-                                <div class="col-md-4 bg-light-secondary border rounded p-5 mx-2 my-2">
-                                    @if ($item->tipe == 1)
+                                <div class="col-md-4">
+                                    <div class="bg-light-secondary border rounded">
+                                        @if ($item->tipe == 1)
                                         <span class="fw-bold">Receivable</span>
                                         <span class="">{{ $item->preOrder->no_ref }}</span>
                                         Dari <span class="fw-bold">{{ $item->preOrder->customer->nama }}</span>
@@ -179,6 +180,7 @@
                                                 </a>
                                             @endif
                                         </div>
+                                    </div>
                                     </div>
                                 </div>
                             @endforeach
