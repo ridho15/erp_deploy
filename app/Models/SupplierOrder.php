@@ -88,4 +88,8 @@ class SupplierOrder extends Model
     public function supplierOrderPembayaran(){
         return $this->hasMany(SupplierOrderPembayaran::class, 'id_supplier_order');
     }
+
+    public function agendaPembayaran(){
+        return $this->hasOne(CalenderPenagihan::class, 'id_accounts')->where('tipe', 1);
+    }
 }

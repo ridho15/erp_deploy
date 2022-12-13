@@ -53,7 +53,8 @@ class BarangDiminta extends Component
             $this->btnStartItt = true;
         }
 
-        $this->listBarangDiminta = LaporanPekerjaanBarang::where(function($query){
+        $this->listBarangDiminta = LaporanPekerjaanBarang::with('nomorItt')
+        ->where(function($query){
             $query->where('catatan_teknisi', 'LIKE', '%' . $this->cari . '%')
             ->orWhere('keterangan_customer', 'LIKE', '%' . $this->cari . '%')
             ->orWhere('qty', 'LIKE', '%' . $this->cari . '%')
@@ -64,10 +65,7 @@ class BarangDiminta extends Component
         })->where(function($query){
             $query->where('status', 1)
             ->orWhere('status', 0);
-        })->where('konfirmasi', 0)->orderBy('updated_at', 'DESC')
-        ->whereHas('nomorItt', function($query){
-            $query->orderBy('nomor_itt');
-        })
+        })->where('konfirmasi', 0)
         ->paginate($this->total_show);
 
         if ($this->laporanPekerjaanBarang) {

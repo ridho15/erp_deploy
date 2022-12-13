@@ -599,9 +599,9 @@ class HelperController extends Controller
 
     static public function createAgenda(){
         // Check Agenda Account Payable
-        $accountPayable = SupplierOrder::where('status_pembayaran', '!=', 2)
+        $accountPayable = SupplierOrder::doesntHave('agendaPembayaran')
+        ->where('status_pembayaran', '!=', 2)
         ->where('status_order', '!=', 0)
-        ->where('tanggal_tempo_pembayaran', '>=', now())
         ->get();
 
         foreach ($accountPayable as $item) {
@@ -625,12 +625,13 @@ class HelperController extends Controller
         }
 
         // Check Agenda Account Receivable
-        $accountReceivable = PreOrder::whereHas('quotation', function($query){
+        $accountReceivable = PreOrder::doesntHave('agendaPenagihan')
+        ->whereHas('quotation', function($query){
             $query->whereHas('laporanPekerjaan', function($query){
                 $query->where('signature', '!=', null)
                 ->where('jam_selesai', '!=', null);
             });
-        })->where('status', '!=', 3)->where('tanggal_tempo_pembayaran', '>=', now())->get();
+        })->where('status', '!=', 3)->get();
 
         foreach ($accountReceivable as $item) {
             $calenderPenagihan = CalenderPenagihan::where('tipe', 2)
