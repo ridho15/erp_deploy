@@ -1,14 +1,11 @@
 <div>
     <div class="text-end">
-        @if ($btnStartItt == true)
-            <button class="btn btn-sm btn-outline btn-outline-primary mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Start ITT/ITS" wire:click="startItt">
-                # Start ITT/ITS
-            </button>
-        @else
-            <button class="btn btn-sm btn-outline btn-outline-primary mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="New ITT/ITS" wire:click="newItt">
-                # New ITT/ITS
-            </button>
-        @endif
+        <button class="btn btn-sm btn-outline btn-outline-primary mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="New ITT/ITS" wire:click="newItt" @if($btnStartItt == true) disabled @endif>
+            # New ITT/ITS
+        </button>
+        <button class="btn btn-sm btn-outline btn-outline-primary mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Start ITT/ITS" wire:click="startItt" @if($btnStartItt == false) disabled @endif>
+            # Start ITT/ITS
+        </button>
         <button class="btn btn-sm btn-outline btn-outline-primary mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Permintaan Barang" wire:click="$emit('onClickTambahPermintaanBarang')">
             <i class="bi bi-plus-circle"></i> Permintaan Barang
         </button>
