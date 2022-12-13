@@ -1,51 +1,36 @@
 <div>
     <div class="toolbar d-flex flex-stack mb-0 mb-lg-n4 pt-5" id="kt_toolbar">
-        <!--begin::Container-->
         <div id="kt_toolbar_container" class="container-xxl d-flex flex-stack flex-wrap">
-            <!--begin::Page title-->
             <div class="page-title d-flex flex-column me-3">
-                <!--begin::Title-->
                 <h1 class="d-flex text-dark fw-bold my-1 fs-3">Ubah Profil Pengguna</h1>
-                <!--end::Title-->
-                <!--begin::Breadcrumb-->
                 <ul class="breadcrumb breadcrumb-dot fw-semibold text-gray-600 fs-7 my-1">
             </div>
-            <!--end::Page title-->
         </div>
-        <!--end::Container-->
     </div>
     <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
-        <!--begin::Post-->
         <div class="content flex-row-fluid" id="kt_content">
-            <!--begin::Navbar-->
             <div class="card mb-5 mb-xl-10">
                 <div class="card-body pt-9 pb-0">
-                    <!--begin::Details-->
                     <div class="d-flex flex-wrap flex-sm-nowrap mb-3">
-                        <!--begin: Pic-->
                         <div class="me-7 mb-4">
                             <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                                <img src="{{ asset($fotoView) }}" alt="image">
+                                <img src="{{ $fotoView ? asset($fotoView) : asset('assets/images/user.gif') }}" alt="image">
                                 <div
                                     class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px">
                                 </div>
                             </div>
                         </div>
-                        <!--end::Pic-->
-                        @php($log = App\CPU\Helpers::getUserLogs(session()->get('user_log_id')))
-                        <!--begin::Info-->
+                        @php
+                            $log = App\CPU\Helpers::getUserLogs(session()->get('id_user'));
+                        @endphp
                         <div class="flex-grow-1">
-                            <!--begin::Title-->
                             <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
-                                <!--begin::User-->
                                 <div class="d-flex flex-column">
-                                    <!--begin::Name-->
                                     <div class="d-flex align-items-center mb-2">
                                         <a href="javascript:"
                                             class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">{{
-                                            $log->user->name }}</a>
+                                            $log->first() ? $log->first()->user->name : '-' }}</a>
                                         <a href="javascript:">
-                                            <!--begin::Svg Icon | path: icons/duotune/general/gen026.svg-->
                                             <span class="svg-icon svg-icon-1 svg-icon-primary">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
                                                     viewBox="0 0 24 24">
@@ -57,19 +42,20 @@
                                                         fill="white"></path>
                                                 </svg>
                                             </span>
-                                            <!--end::Svg Icon-->
                                         </a>
                                         <a href="javascript:"
                                             class="btn btn-sm btn-light-success fw-bold ms-2 fs-8 py-1 px-3"
-                                            data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan">{{
-                                            App\CPU\Helpers::getTipeUser(session()->get('id_tipe_user')) }}</a>
+                                            data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan">
+                                            @php
+                                                foreach(session()->get('list_tipe_user') as $item){
+                                                    echo $item;
+                                                }
+                                            @endphp
+                                        </a>
                                     </div>
-                                    <!--end::Name-->
-                                    <!--begin::Info-->
                                     <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
                                         <a href="javascript:"
                                             class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
-                                            <!--begin::Svg Icon | path: icons/duotune/communication/com006.svg-->
                                             <span class="svg-icon svg-icon-4 me-1">
                                                 <svg width="24" height="24" stroke-width="1.5" viewBox="0 0 24 24"
                                                     fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -86,12 +72,10 @@
                                                         stroke-linejoin="round" />
                                                 </svg>
                                             </span>
-                                            <!--end::Svg Icon-->
-                                            {{ $log->last_ip }}
+                                            {{ $lastIp }}
                                         </a>
                                         <a href="javascript:"
                                             class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
-                                            <!--begin::Svg Icon | path: icons/duotune/general/gen018.svg-->
                                             <span class="svg-icon svg-icon-4 me-1">
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
@@ -103,11 +87,9 @@
                                                         fill="currentColor"></path>
                                                 </svg>
                                             </span>
-                                            <!--end::Svg Icon-->SF, Bay Area
                                         </a>
                                         <a href="javascript:"
                                             class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
-                                            <!--begin::Svg Icon | path: icons/duotune/communication/com011.svg-->
                                             <span class="svg-icon svg-icon-4 me-1">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
                                                     <path fill="currentColor"
@@ -125,27 +107,17 @@
                                                         stroke-linejoin="round" stroke-width="2" d="M10 16h4" />
                                                 </svg>
                                             </span>
-                                            <!--end::Svg Icon-->
-                                            {{ $log->user_agent }}
+                                            {{ $userAgent }}
                                         </a>
                                     </div>
-                                    <!--end::Info-->
                                 </div>
-                                <!--end::User-->
                             </div>
-                            <!--end::Title-->
-                            <!--begin::Stats-->
                             <div class="d-flex flex-wrap flex-stack">
-                                <!--begin::Wrapper-->
                                 <div class="d-flex flex-column flex-grow-1 pe-8">
-                                    <!--begin::Stats-->
                                     <div class="d-flex flex-wrap">
-                                        <!--begin::Stat-->
                                         <div
                                             class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                            <!--begin::Number-->
                                             <div class="d-flex align-items-center">
-                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
                                                 <span class="svg-icon svg-icon-3 svg-icon-success me-2">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                         fill="currentColor" class="bi bi-calendar-date"
@@ -155,9 +127,8 @@
                                                         <path
                                                             d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
                                                     </svg> </span>
-                                                <!--end::Svg Icon-->
-                                                @if ($log->lastLogin)
-                                                @php($date = Carbon\Carbon::parse($log->lastLogin)->isoFormat('dddd, D
+                                                @if ($lastLogin)
+                                                @php($date = Carbon\Carbon::parse($lastLogin)->isoFormat('dddd, D
                                                 MMMM Y'))
                                                 <div class="fs-2 fw-bold counted" data-kt-countup="true"
                                                     data-kt-countup-value="4500" data-kt-countup-prefix="$"
@@ -169,19 +140,12 @@
                                                     data-kt-initialized="1">Belum ada data</div>
                                                 @endif
                                             </div>
-                                            <!--end::Number-->
-                                            <!--begin::Label-->
                                             <div class="fw-semibold fs-6 text-gray-400 text-capitalize">Terakhir masuk
                                             </div>
-                                            <!--end::Label-->
                                         </div>
-                                        <!--end::Stat-->
-                                        <!--begin::Stat-->
                                         <div
                                             class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                            <!--begin::Number-->
                                             <div class="d-flex align-items-center">
-                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr065.svg-->
                                                 <span class="svg-icon svg-icon-3 svg-icon-danger me-2">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                         fill="currentColor" class="bi bi-calendar-date"
@@ -192,9 +156,8 @@
                                                             d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
                                                     </svg>
                                                 </span>
-                                                <!--end::Svg Icon-->
-                                                @if ($log->activity)
-                                                @php($dates = Carbon\Carbon::parse($log->activity)->isoFormat('dddd, D
+                                                @if ($lastActivity)
+                                                @php($dates = Carbon\Carbon::parse($lastActivity)->isoFormat('dddd, D
                                                 MMMM Y'))
                                                 <div class="fs-2 fw-bold counted" data-kt-countup="true"
                                                     data-kt-countup-value="4500" data-kt-countup-prefix="$"
@@ -206,19 +169,12 @@
                                                     data-kt-initialized="1">Belum ada data</div>
                                                 @endif
                                             </div>
-                                            <!--end::Number-->
-                                            <!--begin::Label-->
                                             <div class="fw-semibold fs-6 text-gray-400 text-capitalize">Aktivitas
                                                 Terakhir</div>
-                                            <!--end::Label-->
                                         </div>
-                                        <!--end::Stat-->
-                                        <!--begin::Stat-->
                                         <div
                                             class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                            <!--begin::Number-->
                                             <div class="d-flex align-items-center">
-                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
                                                 <span class="svg-icon svg-icon-3 svg-icon-success me-2">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                         fill="currentColor" class="bi bi-calendar-date"
@@ -228,10 +184,9 @@
                                                         <path
                                                             d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
                                                     </svg> </span>
-                                                <!--end::Svg Icon-->
-                                                @if ($log->lastPasswordChange)
+                                                @if ($lastPasswordChange)
                                                 @php($dated =
-                                                Carbon\Carbon::parse($log->lastPasswordChange)->isoFormat('dddd, D MMMM
+                                                Carbon\Carbon::parse($lastPasswordChange)->isoFormat('dddd, D MMMM
                                                 Y - H:m'))
                                                 <div class="fs-2 fw-bold counted" data-kt-countup="true"
                                                     data-kt-countup-value="4500" data-kt-countup-prefix="$"
@@ -243,61 +198,37 @@
                                                     data-kt-initialized="1">Belum ada data</div>
                                                 @endif
                                             </div>
-                                            <!--end::Number-->
-                                            <!--begin::Label-->
                                             <div class="fw-semibold fs-6 text-gray-400">Kata Sandi Berubah</div>
-                                            <!--end::Label-->
                                         </div>
-                                        <!--end::Stat-->
                                     </div>
-                                    <!--end::Stats-->
                                 </div>
-                                <!--end::Wrapper-->
                             </div>
-                            <!--end::Stats-->
                         </div>
-                        <!--end::Info-->
                     </div>
-                    <!--end::Details-->
                 </div>
             </div>
-            <!--end::Navbar-->
-            <!--begin::Basic info-->
             <div class="card mb-5 mb-xl-10">
-                <!--begin::Card header-->
                 <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse"
                     data-bs-target="#kt_account_profile_details" aria-expanded="true"
                     aria-controls="kt_account_profile_details">
-                    <!--begin::Card title-->
                     <div class="card-title m-0">
                         <h3 class="fw-bold m-0 text-capitalize">Detail data pengguna</h3>
                     </div>
-                    <!--end::Card title-->
                 </div>
-                <!--begin::Card header-->
-                <!--begin::Content-->
                 <div id="kt_account_settings_profile_details" class="collapse show">
                     @include('helper.alert-message')
                     <div class="text-center">
                         @include('helper.simple-loading', ['target' => 'simpanDataPreOrder', 'message' => 'Menyimpan
                         data ...'])
                     </div>
-                    <!--begin::Form-->
                     <form id="kt_account_profile_details_form" class="form fv-plugins-bootstrap5 fv-plugins-framework"
                         enctype="multipart/form-data" action="#" wire:submit.prevent="simpanProfile">
-                        <!--begin::Card body-->
                         <div class="card-body border-top p-9">
-                            <!--begin::Input group-->
                             <div class="row mb-6">
-                                <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label fw-semibold fs-6">Foto</label>
-                                <!--end::Label-->
-                                <!--begin::Col-->
                                 <div class="col-lg-8">
-                                    <!--begin::Image input-->
                                     <div class="image-input image-input-outline" data-kt-image-input="true"
                                         style="background-image: url('../assets/media/svg/avatars/blank.svg')">
-                                        <!--begin::Preview existing avatar-->
                                         <div class="image-input-wrapper w-125px h-125px d-flex justify-content-center">
                                             @if ($foto)
                                             <img src="{{ $foto->temporaryUrl() }}" class="preview-img h-100">
@@ -312,77 +243,47 @@
                                                 <span class="visually-hidden">Loading...</span>
                                             </div>
                                         </div>
-                                        <!--end::Preview existing avatar-->
-                                        <!--begin::Label-->
                                         <label
                                             class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                                             data-kt-image-input-action="change" data-bs-toggle="tooltip"
                                             aria-label="Change avatar" data-kt-initialized="1">
                                             <i class="bi bi-pencil-fill fs-7"></i>
-                                            <!--begin::Inputs-->
                                             <input type="file" name="avatar" accept=".png, .jpg, .jpeg"
                                                 wire:model="foto">
-                                            <!--end::Inputs-->
                                         </label>
-                                        <!--end::Label-->
-                                        <!--begin::Cancel-->
                                         <span
                                             class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                                             data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
                                             aria-label="Cancel avatar" data-kt-initialized="1">
                                             <i class="bi bi-x fs-2"></i>
                                         </span>
-                                        <!--end::Cancel-->
-                                        <!--begin::Remove-->
                                         <span
                                             class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                                             data-kt-image-input-action="remove" data-bs-toggle="tooltip"
                                             aria-label="Remove avatar" data-kt-initialized="1">
                                             <i class="bi bi-x fs-2"></i>
                                         </span>
-                                        <!--end::Remove-->
                                     </div>
-                                    <!--end::Image input-->
-                                    <!--begin::Hint-->
                                     <div class="form-text">Tipe gambar yang diizinkan: png, jpg, jpeg.</div>
-                                    <!--end::Hint-->
                                 </div>
-                                <!--end::Col-->
                             </div>
-                            <!--end::Input group-->
-                            <!--begin::Input group-->
                             <div class="row mb-6">
-                                <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label required fw-semibold fs-6">Username</label>
-                                <!--end::Label-->
-                                <!--begin::Col-->
                                 <div class="col-lg-8">
-                                    <!--begin::Row-->
                                     <div class="row">
-                                        <!--begin::Col-->
                                         <div class="col-lg-12 fv-row fv-plugins-icon-container">
                                             <input type="text" name="username"
                                                 class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                                                 placeholder="Username" wire:model="username">
                                             <div class="fv-plugins-message-container invalid-feedback"></div>
                                         </div>
-                                        <!--end::Col-->
                                     </div>
-                                    <!--end::Row-->
                                 </div>
-                                <!--end::Col-->
                             </div>
-                            <!--end::Input group-->
-                            <!--begin::Input group-->
                             <div class="row mb-6">
-                                <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label required fw-semibold fs-6">Nama Lengkap</label>
-                                <!--end::Label-->
-                                <!--begin::Col-->
                                 <div class="col-lg-8">
-                                    <!--begin::Row-->
                                     <div class="row">
-                                        <!--begin::Col-->
                                         <div class="col-lg-12 fv-row fv-plugins-icon-container">
                                             <input type="text" name="name" wire:model="name"
                                                 class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
@@ -392,19 +293,11 @@
                                             @enderror
                                             <div class="fv-plugins-message-container invalid-feedback"></div>
                                         </div>
-                                        <!--end::Col-->
                                     </div>
-                                    <!--end::Row-->
                                 </div>
-                                <!--end::Col-->
                             </div>
-                            <!--end::Input group-->
-                            <!--begin::Input group-->
                             <div class="row mb-6">
-                                <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label required fw-semibold fs-6">Email</label>
-                                <!--end::Label-->
-                                <!--begin::Col-->
                                 <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                     <input type="email" name="email" wire:model="email"
                                         class="form-control form-control-lg form-control-solid"
@@ -414,19 +307,13 @@
                                     @enderror
                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                 </div>
-                                <!--end::Col-->
                             </div>
-                            <!--end::Input group-->
-                            <!--begin::Input group-->
                             <div class="row mb-6">
-                                <!--begin::Label-->
                                 <label class="col-lg-4 col-form-label fw-semibold fs-6">
                                     <span class="required">Handphone</span>
                                     <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
                                         aria-label="Phone number must be active" data-kt-initialized="1"></i>
                                 </label>
-                                <!--end::Label-->
-                                <!--begin::Col-->
                                 <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                     <input type="tel" name="phone" wire:model="phone"
                                         class="form-control form-control-lg form-control-solid"
@@ -436,46 +323,30 @@
                                     @enderror
                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                 </div>
-                                <!--end::Col-->
                             </div>
-                            <!--end::Input group-->
                         </div>
-                        <!--end::Card body-->
-                        <!--begin::Actions-->
                         <div class="card-footer d-flex justify-content-end py-6 px-9">
                             <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Simpan Perubahan</button>
                         </div>
-                        <!--end::Actions-->
                         <input type="hidden">
                     </form>
-                    <!--end::Form-->
                 </div>
-                <!--end::Content-->
             </div>
-            <!--end::Basic info-->
-            <!--begin::Sign-in Method-->
+
             <div class="card mb-5 mb-xl-10">
-                <!--begin::Card header-->
                 <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse"
                     data-bs-target="#kt_account_signin_method">
                     <div class="card-title m-0">
                         <h3 class="fw-bold m-0">Ganti Password</h3>
                     </div>
                 </div>
-                <!--end::Card header-->
-                <!--begin::Content-->
                 <div id="kt_account_settings_signin_method" class="collapse show">
-                    <!--begin::Card body-->
                     <div class="card-body border-top p-9">
-                        <!--begin::Password-->
                         <div class="d-flex flex-wrap align-items-center mb-10">
-                            <!--begin::Label-->
                             <div id="kt_signin_password">
                                 <div class="fs-6 fw-bold mb-1">Password</div>
                                 <div class="fw-semibold text-gray-600">************</div>
                             </div>
-                            <!--end::Label-->
-                            <!--begin::Modal-->
                             <div class="modal fade" wire:ignore.self tabindex="-1" id="password_change"
                                 wire:submit.prevent="changePassword">
                                 <div class="modal-dialog">
@@ -483,12 +354,16 @@
                                         <div class="modal-header">
                                             <h3 class="modal-title">Penggantian Password</h3>
 
-                                            <!--begin::Close-->
                                             <div class="btn btn-icon btn-sm btn-active-light-primary ms-2"
                                                 data-bs-dismiss="modal" aria-label="Close">
-                                                <span class="svg-icon svg-icon-1"></span>
+                                                <span class="svg-icon svg-icon-1">
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor"/>
+                                                        <rect x="7" y="15.3137" width="12" height="2" rx="1" transform="rotate(-45 7 15.3137)" fill="currentColor"/>
+                                                        <rect x="8.41422" y="7" width="12" height="2" rx="1" transform="rotate(45 8.41422 7)" fill="currentColor"/>
+                                                    </svg>
+                                                </span>
                                             </div>
-                                            <!--end::Close-->
                                         </div>
                                         <form action="#" wire:submit.prevent="changePassword">
                                             <div class="modal-body">
@@ -526,22 +401,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--end::Modal-->
-                            <!--begin::Action-->
                             <div id="kt_signin_password_button" class="ms-auto">
                                 <button class="btn btn-light btn-active-light-primary"
                                     wire:click="$emit('onClickUbah')">Ganti Password</button>
                             </div>
-                            <!--end::Action-->
                         </div>
-                        <!--end::Password-->
                     </div>
-                    <!--end::Card body-->
                 </div>
-                <!--end::Content-->
             </div>
         </div>
-        <!--end::Post-->
     </div>
 </div>
 @push('js')

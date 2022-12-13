@@ -1,5 +1,5 @@
 @extends('template.layout')
 
 @section('content')
-@livewire('profil.data')
+  @livewire('profil.data')
 @endsection

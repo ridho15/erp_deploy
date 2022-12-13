@@ -2,6 +2,7 @@
 
 namespace App\CPU;
 
+use App\Models\ActivityLog;
 use App\Models\Barang;
 use App\Models\Kondisi;
 use App\Models\LaporanPekerjaan;
@@ -338,16 +339,16 @@ class Helpers
 
     public static function getUserLogs($id)
     {
-        $log = UserLog::with('user')->find($id);
+        // $log = UserLog::with('user')->find($id);
+        $log = ActivityLog::where('causer_id', $id)->get();
 
         return $log;
     }
 
-    public static function getTipeUser($id)
+    public static function getTipeUser($listTipeUser)
     {
-        $tipe = TipeUser::find($id);
-
-        return $tipe->nama_tipe;
+        $tipe = null;
+        return $tipe ? $tipe->nama_tipe : null;
     }
 
     public static function regexUserAgent($ua)
