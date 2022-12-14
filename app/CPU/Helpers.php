@@ -337,11 +337,16 @@ class Helpers
         return $x;
     }
 
-    public static function getUserLogs($id)
+    public static function getUserActivity()
     {
         // $log = UserLog::with('user')->find($id);
         $log = ActivityLog::with('user')
-        ->where('causer_id', $id)->orderBy('updated_at', 'DESC')->first();
+        ->where('causer_id', session()->get('id_user'))->orderBy('updated_at', 'DESC')->first();
+        return $log;
+    }
+
+    public static function getUserLogs(){
+        $log = UserLog::with('user')->find(session()->get('id_user'));
         return $log;
     }
 

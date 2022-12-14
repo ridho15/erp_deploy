@@ -21,7 +21,7 @@
                             </div>
                         </div>
                         @php
-                            $log = App\CPU\Helpers::getUserLogs(session()->get('id_user'));
+                            $log = App\CPU\Helpers::getUserLogs();
                         @endphp
                         <div class="flex-grow-1">
                             <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
@@ -29,7 +29,7 @@
                                     <div class="d-flex align-items-center mb-2">
                                         <a href="javascript:"
                                             class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">{{
-                                            $log->first() ? $log->first()->user->name : '-' }}</a>
+                                            $log->user->name }}</a>
                                         <a href="javascript:">
                                             <span class="svg-icon svg-icon-1 svg-icon-primary">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
@@ -46,11 +46,9 @@
                                         <a href="javascript:"
                                             class="btn btn-sm btn-light-success fw-bold ms-2 fs-8 py-1 px-3"
                                             data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan">
-                                            @php
-                                                foreach(session()->get('list_tipe_user') as $item){
-                                                    echo $item;
-                                                }
-                                            @endphp
+                                            @foreach (session()->get('list_tipe_user') as $item)
+                                                {{ $item }},
+                                            @endforeach
                                         </a>
                                     </div>
                                     <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
@@ -128,12 +126,12 @@
                                                             d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
                                                     </svg> </span>
                                                 @if ($lastLogin)
-                                                @php($date = Carbon\Carbon::parse($lastLogin)->isoFormat('dddd, D
-                                                MMMM Y'))
-                                                <div class="fs-2 fw-bold counted" data-kt-countup="true"
-                                                    data-kt-countup-value="4500" data-kt-countup-prefix="$"
-                                                    data-kt-initialized="1">{{ App\CPU\Helpers::dateChange($date) }}
-                                                </div>
+                                                    @php($date = Carbon\Carbon::parse($lastLogin)->isoFormat('dddd, D
+                                                    MMMM Y'))
+                                                    <div class="fs-2 fw-bold counted" data-kt-countup="true"
+                                                        data-kt-countup-value="4500" data-kt-countup-prefix="$"
+                                                        data-kt-initialized="1">{{ App\CPU\Helpers::dateChange($date) }}
+                                                    </div>
                                                 @else
                                                 <div class="fs-2 fw-bold counted text-capitalize" data-kt-countup="true"
                                                     data-kt-countup-value="4500" data-kt-countup-prefix="$"
