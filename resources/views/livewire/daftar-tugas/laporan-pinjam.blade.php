@@ -63,7 +63,7 @@
                         <div class="col-md-6">
                             <div class="row mb-5">
                                 <div class="mb-5">
-                                    <label for="" class="form-label required">Barang / Sparepart</label>
+                                    <label for="" class="form-label required">Tools</label>
                                     <select name="id_barang" wire:model="id_barang" class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih Barang" required>
                                         <option value="">Pilih</option>
                                         @foreach ($listBarang as $item)
