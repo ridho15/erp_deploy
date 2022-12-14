@@ -3,7 +3,10 @@
 @section('content')
 <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
     <div class="content flex-row-fluid" id="kt_content">
-        @php($log = \App\CPU\Helpers::getUserLogs(session()->get('id_user')))
+        @php
+            $activitiy = \App\CPU\Helpers::getUserActivity();
+            $log = \App\CPU\Helpers::getUserLogs();
+        @endphp
         <div class="card mb-5 mb-xl-10">
             <div class="card-body pt-9 pb-0">
                 <div class="d-flex flex-wrap flex-sm-nowrap mb-3">
@@ -18,7 +21,7 @@
                                 <div class="d-flex align-items-center mb-2">
                                     <a href="javascript:"
                                         class="text-gray-900 text-hover-primary fs-2 fw-bold me-1 text-capitalize">{{
-                                        $log->user->name }}</a>
+                                        $activitiy->user->name }}</a>
                                     <a href="javascript:">
                                         <span class="svg-icon svg-icon-1 svg-icon-primary">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
@@ -74,6 +77,7 @@
                                                     fill="currentColor"></path>
                                             </svg>
                                         </span>
+
                                     </a>
                                     <a href="javascript:" data-bs-toggle="tooltip" title="Agen Pengguna"
                                         class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
@@ -170,9 +174,9 @@
                                                         d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
                                                 </svg>
                                             </span>
-                                            @if ($log->user->lastPasswordChange)
+                                            @if ($log->lastPasswordChange)
                                             @php($dated =
-                                            Carbon\Carbon::parse($log->user->lastPasswordChange)->isoFormat('dddd, D
+                                            Carbon\Carbon::parse($log->lastPasswordChange)->isoFormat('dddd, D
                                             MMMM Y - H:m'))
                                             <div class="fs-2 fw-bold counted" data-kt-countup="true"
                                                 data-kt-countup-value="4500" data-kt-countup-prefix="$"
