@@ -25,7 +25,7 @@ class OrderTemporary extends Component
                 $query->where('nama', 'LIKE', '%' . $this->cari . '%')
                 ->orWhere('deskripsi', 'LIKE', '%' . $this->cari . '%');
             });
-        })->orderBy('created_at', 'DESC')->get();
+        })->where('status', 0)->orderBy('created_at', 'DESC')->get();
 
         return view('livewire.supplier.order-temporary');
     }
