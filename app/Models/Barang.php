@@ -39,7 +39,7 @@ class Barang extends Model
     }
 
     public function merk(){
-        return $this->belongsTo(Merk::class, 'id_merk');
+        return $this->belongsTo(Merk::class, 'id_merk')->withTrashed();
     }
 
     public function barangKategori(){
