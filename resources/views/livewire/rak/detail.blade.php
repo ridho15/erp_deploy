@@ -60,7 +60,7 @@
                                     <a href="{{ route('barang.detail', ['id' => $item->id_barang]) }}" class="text-dark">{{ $item->barang->sku }}</a>
                                 </td>
                                 <td>{{ $item->barang->nama }}</td>
-                                <td>{{ $item->barang->merk->nama_merk }}</td>
+                                <td>{{ $item->barang->merk ? $item->barang->merk->nama_merk : '-' }}</td>
                                 <td>{{ $item->barang->satuan->nama_satuan }}</td>
                                 <td>{{ $item->jumlah }}</td>
                                 <td>
