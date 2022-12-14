@@ -340,8 +340,8 @@ class Helpers
     public static function getUserLogs($id)
     {
         // $log = UserLog::with('user')->find($id);
-        $log = ActivityLog::where('causer_id', $id)->get();
-
+        $log = ActivityLog::with('user')
+        ->where('causer_id', $id)->orderBy('updated_at', 'DESC')->first();
         return $log;
     }
 
