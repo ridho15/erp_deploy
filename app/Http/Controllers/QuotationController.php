@@ -21,6 +21,22 @@ class QuotationController extends Controller
         return view('quotation.index', $data);
     }
 
+    public function preview($id){
+        $quotation = Quotation::find($id);
+        if(!$quotation){
+            return redirect()->back()->with('fail', 'Quotation tidak ditemukan !');
+        }
+
+        $data['title'] = 'Quotation';
+        $data['active'] = ['quotation'];
+        $data['breadCrumb'] = ['Quotation', 'Data', 'Preview'];
+        $data['quotation'] = $quotation;
+        $data['user'] = User::find(session()->get('id_user'));
+
+        // return view('pdf_view.quotation', $data);
+        return view('quotation.preview', $data);
+    }
+
     public function detail($id)
     {
         $quotation = Quotation::find($id);
@@ -43,8 +59,6 @@ class QuotationController extends Controller
             return redirect()->back()->with('fail', 'Data quotation tidak ditemukan');
         }
         $data['quotation'] = $quotation;
-        $data['user'] = User::find(session()->get('id_user'));
-
         $data['user'] = User::find(session()->get('id_user'));
         $data['web_name'] = WebConfig::where('type', 'name')->first()->value;
         $data['web_description'] = WebConfig::where('type', 'description')->first()->value;

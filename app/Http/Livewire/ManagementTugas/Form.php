@@ -9,6 +9,7 @@ use App\Models\LaporanPekerjaan;
 use App\Models\LaporanPekerjaanBarang;
 use App\Models\LaporanPekerjaanUser;
 use App\Models\Merk;
+use App\Models\PreOrder;
 use App\Models\ProjectV2;
 use App\Models\Quotation;
 use App\Models\User;
@@ -20,7 +21,8 @@ class Form extends Component
         'simpanManagementTugas',
         'setDataManagementTugas',
         'changeCustomer',
-        'changeQuotation'
+        'changeQuotation',
+        'changePurchaseOrder'
     ];
     public $id_laporan_pekerjaan;
     public $id_customer;
@@ -37,6 +39,8 @@ class Form extends Component
     public $tanggal_estimasi;
     public $no_mfg;
     public $id_quotation;
+    public $id_purchase_order;
+    public $service_ke;
 
     public $listIdUser = [];
 
@@ -46,17 +50,11 @@ class Form extends Component
     public $listUser = [];
     public $listFormMaster = [];
     public $listQuotation = [];
+    public $listPurchaseOrder = [];
 
     public function render()
     {
-        $this->listCustomer = Customer::get();
-        $this->listProject = ProjectV2::get();
-        $this->listMerk = Merk::get();
-        $this->listUser = User::get();
-        $this->listFormMaster = FormMaster::get();
-        $this->listQuotation = Quotation::doesntHave('laporanPekerjaan')
-        ->orWhere('id_laporan_pekerjaan', $this->id_laporan_pekerjaan)
-        ->orderBy('updated_at', 'DESC')->get();
+
 
         if($this->id_project){
             $project = ProjectV2::find($this->id_project);
@@ -70,6 +68,15 @@ class Form extends Component
 
     public function mount()
     {
+        $this->listCustomer = Customer::get();
+        $this->listProject = ProjectV2::get();
+        $this->listMerk = Merk::get();
+        $this->listUser = User::get();
+        $this->listFormMaster = FormMaster::get();
+        $this->listQuotation = Quotation::doesntHave('laporanPekerjaan')
+        ->orWhere('id_laporan_pekerjaan', $this->id_laporan_pekerjaan)
+        ->orderBy('updated_at', 'DESC')->get();
+        $this->listPurchaseOrder = PreOrder::get();
     }
 
     public function changeQuotation($id_quotation){
@@ -87,10 +94,12 @@ class Form extends Component
             'id_project' => 'required|numeric',
             'id_merk' => 'required|numeric',
             'id_form_master' => 'required|numeric',
-            'nomor_lift' => 'required|numeric',
+            'nomor_lift' => 'required|string',
             'tanggal' => 'required',
             'tanggal_estimasi' => 'nullable|string',
-            'id_quotation' => 'nullable|numeric'
+            'id_quotation' => 'nullable|numeric',
+            'keterangan' => 'nullable|string',
+            'service_ke' => 'nullable|string'
         ], [
             'id_customer.required' => 'Customer belum dipilih',
             'id_customer.numeric' => 'Customer tidak valid !',
@@ -99,12 +108,14 @@ class Form extends Component
             'id_merk.required' => 'Merk belum dipilih',
             'id_merk.numeric' => 'Merk tidak valid !',
             'nomor_lift.required' => 'Nomor lift tidak boleh kosong',
-            'nomor_lift.numeric' => 'Nomor Lift tidak valid !',
+            'nomor_lift.string' => 'Nomor Lift tidak valid !',
             'id_form_master.required' => 'Form belum dipilih',
             'tanggal.required' => 'Tanggal Pekerjaan belum dipilih',
             'id_form_master.numeric' => 'Form tidak valid !',
             'tanggal_estimasi.string' => 'Tanggal estimasi tidak valid !',
-            'id_quotation.numeric' => 'Quotation tidak valid !'
+            'id_quotation.numeric' => 'Quotation tidak valid !',
+            'keterangan.string' => 'Keterangan tidak valid !',
+            'service_ke.string' => 'Service ke tidak valid !'
         ]);
 
         if($this->is_emergency_call == 1){
@@ -152,9 +163,10 @@ class Form extends Component
             'tanggal_pekerjaan' => $this->tanggal,
             'id_form_master' => $this->id_form_master,
             'is_emergency_call' => $this->is_emergency_call ?? 0,
-            'tanggal_estimasi' => $this->tanggal_estimasi ? date('Y-m-d H:i:s', strtotime($this->tanggal_estimasi)) : null
+            'tanggal_estimasi' => $this->tanggal_estimasi ? date('Y-m-d H:i:s', strtotime($this->tanggal_estimasi)) : null,
+            'keterangan' => $this->keterangan,
+            'service_ke' => $this->service_ke
         ]);
-
 
 
         LaporanPekerjaanUser::where('id_laporan_pekerjaan', $laporanPekerjaan->id)
@@ -215,6 +227,8 @@ class Form extends Component
         $this->listIdUser = [];
         $this->is_emergency_call = null;
         $this->tanggal_estimasi = null;
+        $this->keterangan = null;
+        $this->service_ke = null;
     }
 
     public function setDataManagementTugas($id)
@@ -236,6 +250,8 @@ class Form extends Component
         $this->tanggal = $laporanPekerjaan->tanggal_pekerjaan;
         $this->is_emergency_call = $laporanPekerjaan->is_emergency_call;
         $this->id_quotation = $laporanPekerjaan->quotation ? $laporanPekerjaan->quotation->id : null;
+        $this->keterangan = $laporanPekerjaan->keterangan;
+        $this->service_ke = $laporanPekerjaan->service_ke;
         if($laporanPekerjaan->tanggal_estimasi){
             $this->tanggal_estimasi = date('d-m-Y H:i', strtotime($laporanPekerjaan->tanggal_estimasi));
         }
@@ -248,5 +264,14 @@ class Form extends Component
     public function changeCustomer($id_customer)
     {
         $this->id_customer = $id_customer;
+    }
+
+    public function changePurchaseOrder($id_purchase_order){
+        $this->id_purchase_order = $id_purchase_order;
+        $purchaseOrder = PreOrder::find($this->id_purchase_order);
+        if(!$purchaseOrder){
+            return session()->flash('fail', 'Data PO tidak ditemukan');
+        }
+        $this->id_quotation = $purchaseOrder->id_quotation;
     }
 }

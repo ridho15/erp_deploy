@@ -14,7 +14,8 @@
                     <div class="d-flex flex-wrap flex-sm-nowrap mb-3">
                         <div class="me-7 mb-4">
                             <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                                <img src="{{ $fotoView ? asset($fotoView) : asset('assets/images/user.gif') }}" alt="image">
+                                <img src="{{ $fotoView ? asset($fotoView) : asset('assets/images/user.gif') }}"
+                                    alt="image">
                                 <div
                                     class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px">
                                 </div>
@@ -28,8 +29,7 @@
                                 <div class="d-flex flex-column">
                                     <div class="d-flex align-items-center mb-2">
                                         <a href="javascript:"
-                                            class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">{{
-                                            $log->user->name }}</a>
+                                            class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">{{ $log->user->name }}</a>
                                         <a href="javascript:">
                                             <span class="svg-icon svg-icon-1 svg-icon-primary">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
@@ -55,8 +55,9 @@
                                         <a href="javascript:"
                                             class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
                                             <span class="svg-icon svg-icon-4 me-1">
-                                                <svg width="24" height="24" stroke-width="1.5" viewBox="0 0 24 24"
-                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <svg width="24" height="24" stroke-width="1.5"
+                                                    viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
                                                     <path
                                                         d="M2 15V9C2 5.68629 4.68629 3 8 3H16C19.3137 3 22 5.68629 22 9V15C22 18.3137 19.3137 21 16 21H8C4.68629 21 2 18.3137 2 15Z"
                                                         stroke="currentColor" />
@@ -89,18 +90,20 @@
                                         <a href="javascript:"
                                             class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
                                             <span class="svg-icon svg-icon-4 me-1">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                    fill="none">
                                                     <path fill="currentColor"
                                                         d="M19 6v5H5V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
                                                     <path stroke="currentColor" stroke-linecap="round"
                                                         stroke-linejoin="round" stroke-width="2"
                                                         d="M3 11h2m16.5 0H19m0 0V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v5m14 0H5" />
-                                                    <circle cx="7" cy="17" r="3" fill="currentColor"
-                                                        stroke="currentColor" stroke-linecap="round"
+                                                    <circle cx="7" cy="17" r="3"
+                                                        fill="currentColor" stroke="currentColor" stroke-linecap="round"
                                                         stroke-linejoin="round" stroke-width="2" />
-                                                    <circle cx="17" cy="17" r="3" fill="currentColor"
-                                                        stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="2" />
+                                                    <circle cx="17" cy="17" r="3"
+                                                        fill="currentColor" stroke="currentColor"
+                                                        stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" />
                                                     <path stroke="currentColor" stroke-linecap="round"
                                                         stroke-linejoin="round" stroke-width="2" d="M10 16h4" />
                                                 </svg>
@@ -117,25 +120,28 @@
                                             class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                             <div class="d-flex align-items-center">
                                                 <span class="svg-icon svg-icon-3 svg-icon-success me-2">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                        fill="currentColor" class="bi bi-calendar-date"
-                                                        viewBox="0 0 16 16">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                        height="16" fill="currentColor"
+                                                        class="bi bi-calendar-date" viewBox="0 0 16 16">
                                                         <path
                                                             d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z" />
                                                         <path
                                                             d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
                                                     </svg> </span>
                                                 @if ($lastLogin)
-                                                    @php($date = Carbon\Carbon::parse($lastLogin)->isoFormat('dddd, D
-                                                    MMMM Y'))
+                                                    @php
+                                                        $date = Carbon\Carbon::parse($lastLogin)->isoFormat('dddd, D MMMM Y');
+                                                    @endphp
                                                     <div class="fs-2 fw-bold counted" data-kt-countup="true"
                                                         data-kt-countup-value="4500" data-kt-countup-prefix="$"
-                                                        data-kt-initialized="1">{{ App\CPU\Helpers::dateChange($date) }}
+                                                        data-kt-initialized="1">
+                                                        {{ App\CPU\Helpers::dateChange($date) }}
                                                     </div>
                                                 @else
-                                                <div class="fs-2 fw-bold counted text-capitalize" data-kt-countup="true"
-                                                    data-kt-countup-value="4500" data-kt-countup-prefix="$"
-                                                    data-kt-initialized="1">Belum ada data</div>
+                                                    <div class="fs-2 fw-bold counted text-capitalize"
+                                                        data-kt-countup="true" data-kt-countup-value="4500"
+                                                        data-kt-countup-prefix="$" data-kt-initialized="1">Belum ada
+                                                        data</div>
                                                 @endif
                                             </div>
                                             <div class="fw-semibold fs-6 text-gray-400 text-capitalize">Terakhir masuk
@@ -145,9 +151,9 @@
                                             class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                             <div class="d-flex align-items-center">
                                                 <span class="svg-icon svg-icon-3 svg-icon-danger me-2">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                        fill="currentColor" class="bi bi-calendar-date"
-                                                        viewBox="0 0 16 16">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                        height="16" fill="currentColor"
+                                                        class="bi bi-calendar-date" viewBox="0 0 16 16">
                                                         <path
                                                             d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z" />
                                                         <path
@@ -155,16 +161,19 @@
                                                     </svg>
                                                 </span>
                                                 @if ($lastActivity)
-                                                @php($dates = Carbon\Carbon::parse($lastActivity)->isoFormat('dddd, D
-                                                MMMM Y'))
-                                                <div class="fs-2 fw-bold counted" data-kt-countup="true"
-                                                    data-kt-countup-value="4500" data-kt-countup-prefix="$"
-                                                    data-kt-initialized="1">{{ App\CPU\Helpers::dateChange($dates) }}
-                                                </div>
+                                                    @php
+                                                        $dates = Carbon\Carbon::parse($lastActivity)->isoFormat('dddd, D MMMM Y');
+                                                    @endphp
+                                                    <div class="fs-2 fw-bold counted" data-kt-countup="true"
+                                                        data-kt-countup-value="4500" data-kt-countup-prefix="$"
+                                                        data-kt-initialized="1">
+                                                        {{ App\CPU\Helpers::dateChange($dates) }}
+                                                    </div>
                                                 @else
-                                                <div class="fs-2 fw-bold counted text-capitalize" data-kt-countup="true"
-                                                    data-kt-countup-value="4500" data-kt-countup-prefix="$"
-                                                    data-kt-initialized="1">Belum ada data</div>
+                                                    <div class="fs-2 fw-bold counted text-capitalize"
+                                                        data-kt-countup="true" data-kt-countup-value="4500"
+                                                        data-kt-countup-prefix="$" data-kt-initialized="1">Belum ada
+                                                        data</div>
                                                 @endif
                                             </div>
                                             <div class="fw-semibold fs-6 text-gray-400 text-capitalize">Aktivitas
@@ -174,26 +183,28 @@
                                             class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                             <div class="d-flex align-items-center">
                                                 <span class="svg-icon svg-icon-3 svg-icon-success me-2">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                        fill="currentColor" class="bi bi-calendar-date"
-                                                        viewBox="0 0 16 16">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                        height="16" fill="currentColor"
+                                                        class="bi bi-calendar-date" viewBox="0 0 16 16">
                                                         <path
                                                             d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z" />
                                                         <path
                                                             d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
                                                     </svg> </span>
                                                 @if ($lastPasswordChange)
-                                                @php($dated =
-                                                Carbon\Carbon::parse($lastPasswordChange)->isoFormat('dddd, D MMMM
-                                                Y - H:m'))
-                                                <div class="fs-2 fw-bold counted" data-kt-countup="true"
-                                                    data-kt-countup-value="4500" data-kt-countup-prefix="$"
-                                                    data-kt-initialized="1">{{ App\CPU\Helpers::dateChange($dated) }}
-                                                </div>
+                                                    @php
+                                                        $dated = Carbon\Carbon::parse($lastPasswordChange)->isoFormat('dddd, D MMMM Y - H:m');
+                                                    @endphp
+                                                    <div class="fs-2 fw-bold counted" data-kt-countup="true"
+                                                        data-kt-countup-value="4500" data-kt-countup-prefix="$"
+                                                        data-kt-initialized="1">
+                                                        {{ App\CPU\Helpers::dateChange($dated) }}
+                                                    </div>
                                                 @else
-                                                <div class="fs-2 fw-bold counted text-capitalize" data-kt-countup="true"
-                                                    data-kt-countup-value="4500" data-kt-countup-prefix="$"
-                                                    data-kt-initialized="1">Belum ada data</div>
+                                                    <div class="fs-2 fw-bold counted text-capitalize"
+                                                        data-kt-countup="true" data-kt-countup-value="4500"
+                                                        data-kt-countup-prefix="$" data-kt-initialized="1">Belum ada
+                                                        data</div>
                                                 @endif
                                             </div>
                                             <div class="fw-semibold fs-6 text-gray-400">Kata Sandi Berubah</div>
@@ -216,8 +227,11 @@
                 <div id="kt_account_settings_profile_details" class="collapse show">
                     @include('helper.alert-message')
                     <div class="text-center">
-                        @include('helper.simple-loading', ['target' => 'simpanDataPreOrder', 'message' => 'Menyimpan
-                        data ...'])
+                        @include('helper.simple-loading', [
+                            'target' => 'simpanDataPreOrder',
+                            'message' => 'Menyimpan
+                                                                                                data ...',
+                        ])
                     </div>
                     <form id="kt_account_profile_details_form" class="form fv-plugins-bootstrap5 fv-plugins-framework"
                         enctype="multipart/form-data" action="#" wire:submit.prevent="simpanProfile">
@@ -229,11 +243,11 @@
                                         style="background-image: url('../assets/media/svg/avatars/blank.svg')">
                                         <div class="image-input-wrapper w-125px h-125px d-flex justify-content-center">
                                             @if ($foto)
-                                            <img src="{{ $foto->temporaryUrl() }}" class="preview-img h-100">
+                                                <img src="{{ $foto->temporaryUrl() }}" class="preview-img h-100">
                                             @else
-                                            <img src="{{ $fotoView ? asset($fotoView) : 'undefined' }}"
-                                                class="preview-img h-100"
-                                                onerror="this.src='{{ asset('assets/images/user.gif') }}'">
+                                                <img src="{{ $fotoView ? asset($fotoView) : 'undefined' }}"
+                                                    class="preview-img h-100"
+                                                    onerror="this.src='{{ asset('assets/images/user.gif') }}'">
                                             @endif
 
                                             <div class="spinner-border text-danger" role="status" wire:loading
@@ -287,7 +301,7 @@
                                                 class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                                                 placeholder="Masukan nama lengkap">
                                             @error('id_customer')
-                                            <small class="text-danger">{{ $name }}</small>
+                                                <small class="text-danger">{{ $name }}</small>
                                             @enderror
                                             <div class="fv-plugins-message-container invalid-feedback"></div>
                                         </div>
@@ -301,7 +315,7 @@
                                         class="form-control form-control-lg form-control-solid"
                                         placeholder="Masukan Email">
                                     @error('email')
-                                    <small class="text-danger">{{ $message }}</small>
+                                        <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                 </div>
@@ -317,14 +331,15 @@
                                         class="form-control form-control-lg form-control-solid"
                                         placeholder="Phone number">
                                     @error('phone')
-                                    <small class="text-danger">{{ $message }}</small>
+                                        <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer d-flex justify-content-end py-6 px-9">
-                            <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Simpan Perubahan</button>
+                            <button type="submit" class="btn btn-primary"
+                                id="kt_account_profile_details_submit">Simpan Perubahan</button>
                         </div>
                         <input type="hidden">
                     </form>
@@ -342,8 +357,25 @@
                     <div class="card-body border-top p-9">
                         <div class="d-flex flex-wrap align-items-center mb-10">
                             <div id="kt_signin_password">
-                                <div class="fs-6 fw-bold mb-1">Password</div>
-                                <div class="fw-semibold text-gray-600">************</div>
+                                <div class="fs-6 fw-bold mb-1">Password <span class="ms-5 text-primary"
+                                        style="cursor: pointer;" wire:click="changeShowPassword">
+                                        @if ($showPassword == false)
+                                            <i class="fa-solid fa-eye"></i>
+                                        @elseif($showPassword == true)
+                                            <i class="fa-solid fa-eye-slash"></i>
+                                        @endif
+                                    </span></div>
+                                <div class="fw-semibold text-gray-600">
+                                    @php
+                                        $user = \App\CPU\Helpers::getUser();
+                                        if ($showPassword == true) {
+                                            echo $user->password;
+                                            echo '<br>  <small class="text-danger">Password dalam mode ke amanan. Password asli tidak bisa di tampilkan</small>';
+                                        }else {
+                                            echo '************';
+                                        }
+                                    @endphp
+                                </div>
                             </div>
                             <div class="modal fade" wire:ignore.self tabindex="-1" id="password_change"
                                 wire:submit.prevent="changePassword">
@@ -355,10 +387,17 @@
                                             <div class="btn btn-icon btn-sm btn-active-light-primary ms-2"
                                                 data-bs-dismiss="modal" aria-label="Close">
                                                 <span class="svg-icon svg-icon-1">
-                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor"/>
-                                                        <rect x="7" y="15.3137" width="12" height="2" rx="1" transform="rotate(-45 7 15.3137)" fill="currentColor"/>
-                                                        <rect x="8.41422" y="7" width="12" height="2" rx="1" transform="rotate(45 8.41422 7)" fill="currentColor"/>
+                                                    <svg width="24" height="24" viewBox="0 0 24 24"
+                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <rect opacity="0.3" x="2" y="2"
+                                                            width="20" height="20" rx="10"
+                                                            fill="currentColor" />
+                                                        <rect x="7" y="15.3137" width="12"
+                                                            height="2" rx="1"
+                                                            transform="rotate(-45 7 15.3137)" fill="currentColor" />
+                                                        <rect x="8.41422" y="7" width="12"
+                                                            height="2" rx="1"
+                                                            transform="rotate(45 8.41422 7)" fill="currentColor" />
                                                     </svg>
                                                 </span>
                                             </div>
@@ -372,8 +411,8 @@
                                                         wire:model="oldPassword" />
                                                 </div>
                                                 @error('newPassword')
-                                                <small class="text-danger mb-5" style="margin-top: -10px;">{{ $message
-                                                    }}</small>
+                                                    <small class="text-danger mb-5"
+                                                        style="margin-top: -10px;">{{ $message }}</small>
                                                 @enderror
 
                                                 <div class="input-group mb-5">
@@ -411,16 +450,16 @@
     </div>
 </div>
 @push('js')
-<script>
-    Livewire.on('finishSimpanData', (status, message) => {
+    <script>
+        Livewire.on('finishSimpanData', (status, message) => {
             alertMessage(status, message)
         })
-    Livewire.on('onClickUbah', () => {
-        $('#password_change').modal('show')
-    })
-    Livewire.on('finishSimpanData', (status, message) => {
+        Livewire.on('onClickUbah', () => {
+            $('#password_change').modal('show')
+        })
+        Livewire.on('finishSimpanData', (status, message) => {
             $('.modal').modal('hide')
             alertMessage(status, message);
-    })
-</script>
+        })
+    </script>
 @endpush

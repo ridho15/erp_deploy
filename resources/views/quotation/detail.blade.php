@@ -8,6 +8,9 @@
                 </a> Detail Quotation
             </h3>
             <div class="card-toolbar">
+                <a href="{{ route('quotation.preview', ['id' => $quotation->id]) }}" target="_blank" class="btn btn-sm btn-outline btn-outline-info mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Preview Quotation">
+                    <i class="fa-solid fa-magnifying-glass"></i> Preview
+                </a>
                 <a href="{{ route('quotation.export', ['id' => $quotation->id]) }}" class="btn btn-sm btn-outline btn-outline-danger mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cetak PDF">
                     <i class="bi bi-printer"></i> Cetak
                 </a>
@@ -182,7 +185,7 @@
                     </div>
                     <div class="row mb-5">
                         <div class="col-md-4 col-4">
-                            Sales
+                            PIC
                         </div>
                         <div class="col-md-8 col-8">
                             : <span class="fw-bold">

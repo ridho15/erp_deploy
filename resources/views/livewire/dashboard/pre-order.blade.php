@@ -18,9 +18,9 @@
              <thead>
               <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
                <th>No</th>
-               <th>Quotation</th>
-               <th>Tipe Pembayaran</th>
-               <th>Keterangan</th>
+               <th>Purchase Order</th>
+               <th>Customer Name</th>
+               <th>Nama Project</th>
                <th>Status</th>
                <th>Aksi</th>
               </tr>
@@ -30,16 +30,22 @@
                     @foreach ($listPreOrder as $index => $item)
                         <tr>
                             <td>{{ $index + 1 }}</td>
+                            <td>{{ $item->no_ref }}</td>
+                            <td>{{ $item->customer->nama }}</td>
                             <td>
-                                @if ($item->quotation)
-                                    {{ $item->quotation->no_ref }}
+                                @if (isset($item->quotation->laporanPekerjaan->project))
+                                    {{ $item->quotation->laporanPekerjaan->project->nama }}
                                 @else
                                     -
                                 @endif
                             </td>
-                            <td>{{ $item->tipePembayaran ? $item->tipePembayaran->nama_tipe : '-' }}</td>
-                            <td><?= $item->keterangan ? $item->keterangan : '-' ?></td>
-                            <td><?= $item->status_formatted ?></td>
+                            <td>
+                                @if (isset($item->quotation->laporanPekerjaan->project))
+                                    {{ $item->quotation->laporanPekerjaan->nomor_lift }}
+                                @else
+                                    -
+                                @endif
+                            </td>
                             <td>
                                 <div class="btn-group">
                                     <a href="{{ route('pre-order.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-light" data-bs-toggle="tooltip" data-bs-placement="top" title="Lihat Barang">

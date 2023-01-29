@@ -122,6 +122,7 @@ Route::middleware('auth.user')->group(function () {
             Route::get('/detail/{id}', [QuotationController::class, 'detail'])->name('quotation.detail');
             Route::get('/export/{id}', [QuotationController::class, 'export'])->name('quotation.export');
             Route::get('konfirmasi/{id}', [QuotationController::class, 'konfirmasi'])->name('quotation.konfirmasi');
+            Route::get('preview/{id}', [QuotationController::class, 'preview'])->name('quotation.preview');
         });
 
         Route::prefix('kostumer')->group(function () {

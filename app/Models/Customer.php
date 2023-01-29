@@ -40,4 +40,12 @@ class Customer extends Model
         $helper = new HelperController;
         return 'C' . $helper->format_num($this->id);
     }
+
+    public function laporanPekerjaan(){
+        return $this->hasMany(LaporanPekerjaan::class, 'id_customer');
+    }
+
+    public function project(){
+        return $this->hasOne(ProjectV2::class, 'id_customer');
+    }
 }

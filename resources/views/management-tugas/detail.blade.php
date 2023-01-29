@@ -244,6 +244,14 @@
                     </div>
                     <div class="row mb-5">
                         <div class="col-md-4 col-4">
+                            Keterangan
+                        </div>
+                        <div class="col-md-8 col-8">
+                            : {{ $laporanPekerjaan->keterangan }}
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-md-4 col-4">
                             Catatan Customer
                         </div>
                         <div class="col-md-8 col-8">

@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Storage;
 
 class Helpers
 {
+    public static function getUser(){
+        return User::find(session()->get('id_user'));
+    }
     public function checkTeknisi($id)
     {
         $progress = LaporanPekerjaanUser::whereHas('laporanPekerjaan')->where('id_user', $id)->whereHas('laporanPekerjaan', function ($q) {
@@ -26,7 +29,7 @@ class Helpers
         return $progress;
     }
 
-    public function checkPekerjaanTeknisiHariIni($id){
+    public static function checkPekerjaanTeknisiHariIni($id){
         $progress = LaporanPekerjaanUser::whereHas('laporanPekerjaan')->where('id_user', $id)->whereHas('laporanPekerjaan', function($query){
             $query->whereDate('jam_mulai', now())->where('jam_selesai',  null);
         })->count();
@@ -34,7 +37,7 @@ class Helpers
         return $progress;
     }
 
-    public function checkPekerjaanTeknisiLainnya($id){
+    public static function checkPekerjaanTeknisiLainnya($id){
         $progress = LaporanPekerjaanUser::whereHas('laporanPekerjaan')->where('id_user', $id)->whereHas('laporanPekerjaan', function($query){
             $query->whereDate('jam_mulai', '!=', now())->where('jam_selesai', null);
         })->count();
@@ -213,10 +216,9 @@ class Helpers
         return $pekerjaan->keterangan;
     }
 
-    public function getAuthUser($id)
+    public static function getAuthUser($id)
     {
         $user = User::with('tipeUser')->find($id);
-
         return $user;
     }
 
