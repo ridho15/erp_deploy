@@ -153,7 +153,7 @@
                     </div>
                     <div class="col-md-8 col-8">
                         : @isset($preOrder->quotation->laporanPekerjaan)
-                            {{ $preOrder->quotation->laporanPekerjaan }}
+                            {{ $preOrder->quotation->laporanPekerjaan->nomor_lift }}
                         @endisset
                     </div>
                 </div>
