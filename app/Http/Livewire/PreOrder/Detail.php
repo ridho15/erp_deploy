@@ -75,6 +75,7 @@ class Detail extends Component
         $this->listCustomer = Customer::get();
         $project = ProjectV2::find($this->id_customer);
         if ($project) {
+            $this->id_project = $project->id;
             $this->namaProject = $project->nama;
         }
 
