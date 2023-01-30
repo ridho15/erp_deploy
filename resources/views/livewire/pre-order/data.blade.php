@@ -94,8 +94,11 @@
                                         </td>
                                         <td>
                                             <div class="btn-group">
-                                                <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Purchase Order" wire:click="$emit('onClickEdit', {{ $item }})">
+                                                {{-- <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Purchase Order" wire:click="$emit('onClickEdit', {{ $item }})">
                                                     <i class="bi bi-pencil-square"></i>
+                                                </button> --}}
+                                                <button class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Preview Purchase order" wire:click="$emit('onClickPreview', {{ $item->id }})">
+                                                    <i class="fa-solid fa-magnifying-glass"></i>
                                                 </button>
                                                 <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Purchase Order" wire:click="$emit('onClickHapus', {{ $item->id }})">
                                                     <i class="bi bi-trash-fill"></i>
@@ -164,6 +167,9 @@
                                             </button>
                                             <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Purchase Order" wire:click="$emit('onClickHapus', {{ $item->id }})">
                                                 <i class="bi bi-trash-fill"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Preview Purchase order" wire:click="$emit('onClickPreview', {{ $item->id }})">
+                                                <i class="fa-solid fa-magnifying-glass"></i>
                                             </button>
                                             <a href="{{ route('pre-order.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Kelola Purchase Order" target="blank">
                                                 <i class="bi bi-eye-fill"></i>
@@ -257,6 +263,8 @@
             </div>
         </div>
     </div>
+
+
 </div>
 
 @push('js')
@@ -313,6 +321,11 @@
 
         Livewire.on('onClickFilter', () => {
             $('#modal_filter').modal('show')
+        })
+
+        Livewire.on('onClickPreview', (id) => {
+            Livewire.emit('setPurchaseOrderPreview', id)
+            $('#modal_preview').modal('show')
         })
     </script>
 @endpush

@@ -22,7 +22,8 @@ class PreOrder extends Model
         'file',
         'id_metode_pembayaran',
         'tanggal_tempo_pembayaran',
-        'id_laporan_pekerjaan'
+        // 'id_laporan_pekerjaan',
+        // 'diskon'
     ];
 
     protected $appends = [
@@ -34,7 +35,7 @@ class PreOrder extends Model
         'status_pembayaran',
         'status_pembayaran_kode',
         'sudah_bayar',
-        'ppn'
+        'ppn',
     ];
 
     public function getPpnAttribute(){
@@ -179,9 +180,5 @@ class PreOrder extends Model
 
     public function agendaPenagihan(){
         return $this->hasOne(CalenderPenagihan::class, 'id_accounts')->where('tipe', 2);
-    }
-
-    public function laporanPekerjaan(){
-        return $this->belongsTo(LaporanPekerjaan::class, 'id_laporan_pekerjaan');
     }
 }
