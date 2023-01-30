@@ -35,6 +35,7 @@ class Form extends Component
     public $keterangan;
     public $id_metode_pembayaran;
     public $file;
+    public $no_ref;
 
     public $listQuotation = [];
     public $listTipePembayaran = [];
@@ -121,6 +122,7 @@ class Form extends Component
         $data['keterangan'] = $this->keterangan;
         $data['id_metode_pembayaran'] = $this->id_metode_pembayaran;
         $data['tanggal_tempo_pembayaran'] = Carbon::now()->addDays($metodePembayaran->nilai);
+        $data['no_ref'] = $this->no_ref;
 
         if($this->file){
             $path = $this->file->store('public/pre-order');
@@ -201,6 +203,7 @@ class Form extends Component
         $this->id_customer = null;
         $this->keterangan = null;
         $this->id_metode_pembayaran = null;
+        $this->no_ref = null;
     }
 
     public function changeKeterangan($keterangan){
@@ -221,6 +224,7 @@ class Form extends Component
         $this->id_tipe_pembayaran = $preOrder->id_tipe_pembayaran;
         $this->id_metode_pembayaran = $preOrder->id_metode_pembayaran;
         $this->keterangan = $preOrder->keterangan;
+        $this->no_ref = $preOrder->no_ref;
     }
 
     public function hapusFile(){

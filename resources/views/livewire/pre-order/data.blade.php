@@ -8,7 +8,7 @@
                 <button class="mx-2 btn btn-sm btn-outline btn-outline-warning btn-acitve-light-warning mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Filter Data" wire:click="$emit('onClickFilter')">
                     <i class="fas fa-filter"></i> Filter
                 </button>
-                {{-- <button class="btn btn-sm btn-outline btn-outline-primary" wire:click="$emit('onClickTambah')"><i class="bi bi-plus-circle"></i> Tambah</button> --}}
+                <button class="btn btn-sm btn-outline btn-outline-primary" wire:click="$emit('onClickTambah')"><i class="bi bi-plus-circle"></i> Manual / Add PO</button>
             </div>
         </div>
         <div class="card-body">
@@ -28,14 +28,15 @@
                   <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200 sticky">
                    <th>No</th>
                    <th>No Ref</th>
-                   <th>Kode Quotation</th>
+                   <th>Nomor/No Quotation</th>
                    <th>Customer</th>
-                   <th>User</th>
-                   <th>Tipe Pembayaran</th>
-                   <th>Metode Pembayaran</th>
+                   <th>Project Name</th>
+                   <th>Nomor Unit Lift</th>
                    <th>Status Pekerjaan</th>
+                   <th>Status Pembayaran</th>
                    <th>Keterangan</th>
                    <th>File</th>
+                   <th>User</th>
                    <th>Aksi</th>
                   </tr>
                  </thead>
@@ -50,16 +51,15 @@
                                         <td>{{ $item->quotation? $item->quotation->no_ref : '-' }}</td>
                                         <td>{{ $item->customer ? $item->customer->nama : '-'}} {{ $item->customer ? $item->customer->kode : '-' }}</td>
                                         <td>
-                                            @if ($item->user)
-                                                {{ $item->user->name }}
+                                            @if (isset($item->quotation->laporanPekerjaan->project))
+                                                {{ $item->quotation->laporanPekerjaan->project->nama }}
                                             @else
-                                                Dikonfirmasi Pelanggan
+                                                -
                                             @endif
                                         </td>
-                                        <td>{{ $item->tipePembayaran->nama_tipe }}</td>
                                         <td>
-                                            @if ($item->metodePembayaran)
-                                                {{ $item->metodePembayaran->nama_metode }}
+                                            @if (isset($item->quotation->laporanPekerjaan))
+                                                {{ $item->quotation->laporanPekerjaan->nomor_lift }}
                                             @else
                                                 -
                                             @endif
@@ -86,18 +86,26 @@
                                             @endif
                                         </td>
                                         <td>
+                                            @if ($item->user)
+                                                {{ $item->user->name }}
+                                            @else
+                                                Dikonfirmasi Pelanggan
+                                            @endif
+                                        </td>
+                                        <td>
                                             <div class="btn-group">
-                                                <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Pre Order" wire:click="$emit('onClickEdit', {{ $item }})">
+                                                <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Purchase Order" wire:click="$emit('onClickEdit', {{ $item }})">
                                                     <i class="bi bi-pencil-square"></i>
                                                 </button>
-                                                <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Pre order" wire:click="$emit('onClickHapus', {{ $item->id }})">
+                                                <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Purchase Order" wire:click="$emit('onClickHapus', {{ $item->id }})">
                                                     <i class="bi bi-trash-fill"></i>
                                                 </button>
-                                                <a href="{{ route('pre-order.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Kelola Pre Order" target="blank">
+                                                <a href="{{ route('pre-order.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Kelola Purchase Order" target="blank">
                                                     <i class="bi bi-eye-fill"></i>
                                                 </a>
                                             </div>
                                         </td>
+
                                     </tr>
                                 @endif
                             @else
@@ -107,16 +115,15 @@
                                     <td>{{ $item->quotation? $item->quotation->no_ref : '-' }}</td>
                                     <td>{{ $item->customer ? $item->customer->nama : '-'}} {{ $item->customer ? $item->customer->kode : '-' }}</td>
                                     <td>
-                                        @if ($item->user)
-                                            {{ $item->user->name }}
+                                        @if (isset($item->quotation->laporanPekerjaan->project))
+                                            {{ $item->quotation->laporanPekerjaan->project->nama }}
                                         @else
-                                            Dikonfirmasi Pelanggan
+                                            -
                                         @endif
                                     </td>
-                                    <td>{{ $item->tipePembayaran ? $item->tipePembayaran->nama_tipe : '-' }}</td>
                                     <td>
-                                        @if ($item->metodePembayaran)
-                                            {{ $item->metodePembayaran->nama_metode }}
+                                        @if (isset($item->quotation->laporanPekerjaan))
+                                            {{ $item->quotation->laporanPekerjaan->nomor_lift }}
                                         @else
                                             -
                                         @endif
@@ -144,14 +151,21 @@
                                         @endif
                                     </td>
                                     <td>
+                                        @if ($item->user)
+                                            {{ $item->user->name }}
+                                        @else
+                                            Dikonfirmasi Pelanggan
+                                        @endif
+                                    </td>
+                                    <td>
                                         <div class="btn-group">
-                                            <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Pre Order" wire:click="$emit('onClickEdit', {{ $item }})">
+                                            <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Purchase Order" wire:click="$emit('onClickEdit', {{ $item }})">
                                                 <i class="bi bi-pencil-square"></i>
                                             </button>
-                                            <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Pre order" wire:click="$emit('onClickHapus', {{ $item->id }})">
+                                            <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Purchase Order" wire:click="$emit('onClickHapus', {{ $item->id }})">
                                                 <i class="bi bi-trash-fill"></i>
                                             </button>
-                                            <a href="{{ route('pre-order.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Kelola Pre Order" target="blank">
+                                            <a href="{{ route('pre-order.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Kelola Purchase Order" target="blank">
                                                 <i class="bi bi-eye-fill"></i>
                                             </a>
                                         </div>
@@ -192,7 +206,7 @@
                         @include('helper.simple-loading', ['target' => 'simpanMetodePembayaran', 'message' => 'Menyimpan data ...'])
                     </div>
                     <div class="mb-5">
-                        <label for="" class="form-label">Tanggal Pre Order</label>
+                        <label for="" class="form-label">Tanggal Purchase Order</label>
                         <input type="date" class="form-control form-control-solid" name="tanggal_preorder" wire:model="tanggal_preorder" data-dropdown-parent="#modal_filter" placeholder="Pilih Tanggal" autocomplete="off" required>
                         @error('tanggal_preorder')
                             <small class="text-danger">{{ $message }}</small>

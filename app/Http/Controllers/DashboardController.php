@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CPU\Helpers;
 use App\Models\Kategori;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;

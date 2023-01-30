@@ -12,6 +12,7 @@ class PreOrder extends Model
     use HasFactory, SoftDeletes;
     protected $table = 'pre_order';
     protected $fillable = [
+        'no_ref',
         'id_quotation',
         'status',
         'id_tipe_pembayaran',
@@ -20,11 +21,12 @@ class PreOrder extends Model
         'keterangan',
         'file',
         'id_metode_pembayaran',
-        'tanggal_tempo_pembayaran'
+        'tanggal_tempo_pembayaran',
+        'id_laporan_pekerjaan'
     ];
 
     protected $appends = [
-        'no_ref',
+        // 'no_ref',
         'status_formatted',
         'total',
         'total_bayar',
@@ -48,10 +50,10 @@ class PreOrder extends Model
         return $ppn;
     }
 
-    public function getNoRefAttribute(){
-        $helper = new HelperController;
-        return "PO" . $helper->format_num($this->id);
-    }
+    // public function getNoRefAttribute(){
+    //     $helper = new HelperController;
+    //     return "PO" . $helper->format_num($this->id);
+    // }
 
     public function getSudahBayarAttribute(){
         $preOrderBayar = PreOrderBayar::where('id_pre_order', $this->id)->get();
@@ -144,15 +146,15 @@ class PreOrder extends Model
     }
 
     public function customer(){
-        return $this->belongsTo(Customer::class, 'id_customer');
+        return $this->belongsTo(Customer::class, 'id_customer')->withTrashed();
     }
 
     public function quotation(){
-        return $this->belongsTo(Quotation::class, 'id_quotation');
+        return $this->belongsTo(Quotation::class, 'id_quotation')->withTrashed();
     }
 
     public function tipePembayaran(){
-        return $this->belongsTo(TipePembayaran::class, 'id_tipe_pembayaran');
+        return $this->belongsTo(TipePembayaran::class, 'id_tipe_pembayaran')->withTrashed();
     }
 
     public function preOrderDetail(){
@@ -160,7 +162,7 @@ class PreOrder extends Model
     }
 
     public function user(){
-        return $this->belongsTo(User::class, 'id_user');
+        return $this->belongsTo(User::class, 'id_user')->withTrashed();
     }
 
     public function log(){
@@ -168,7 +170,7 @@ class PreOrder extends Model
     }
 
     public function metodePembayaran(){
-        return $this->belongsTo(MetodePembayaran::class, 'id_metode_pembayaran');
+        return $this->belongsTo(MetodePembayaran::class, 'id_metode_pembayaran')->withTrashed();
     }
 
     public function preOrderBayar(){
@@ -177,5 +179,9 @@ class PreOrder extends Model
 
     public function agendaPenagihan(){
         return $this->hasOne(CalenderPenagihan::class, 'id_accounts')->where('tipe', 2);
+    }
+
+    public function laporanPekerjaan(){
+        return $this->belongsTo(LaporanPekerjaan::class, 'id_laporan_pekerjaan');
     }
 }

@@ -56,7 +56,7 @@
                             </div>
                             <div class="mb-5 col-md-6">
                                 <label for="" class="form-label required">Form</label>
-                                <select name="id_form_master" wire:model="id_form_master" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih Project" required>
+                                <select name="id_form_master" wire:model="id_form_master" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih Form Service" required>
                                     <option value="">Pilih</option>
                                     @foreach ($listFormMaster as $item)
                                         <option value="{{ $item->id }}" @if($item->id == $id_form_master) selected @endif>{{ $item->nama }} - {{ $item->kode }}</option>
@@ -67,14 +67,14 @@
                                 @enderror
                             </div>
                             <div class="mb-5 col-md-6">
-                                <label for="" class="form-label">Quotation</label>
-                                <select name="id_quotation" class="form-select form-select-solid" wire:model='id_quotation' data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih">
+                                <label for="" class="form-label">Purchase Order</label>
+                                <select name="id_purchase_order" class="form-select form-select-solid" wire:model='id_purchase_order' data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih">
                                     <option value="">Pilih</option>
-                                    @foreach ($listQuotation as $item)
+                                    @foreach ($listPurchaseOrder as $item)
                                         <option value="{{ $item->id }}">{{ $item->no_ref }}</option>
                                     @endforeach
                                 </select>
-                                @error('id_quotation')
+                                @error('id_purchase_order')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
@@ -94,8 +94,15 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
+                            <div class="mb-5 col-md-6">
+                                <label for="tanggal">Tanggal Pekerjaan</label>
+                                <input type="date" class="form-control form-control-solid" name="tanggal" wire:model="tanggal" placeholder="Pilih Tanggal">
+                                @error('tanggal')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
                             <div class="mb-5 col-md-6" wire:ignore>
-                                <label for="" class="form-label">Pekerja</label>
+                                <label for="" class="form-label">Teknisi</label>
                                 <select name="listIdUser" wire:model="listIdUser" class="form-select form-select-solid" multiple data-control="select2" data-dropdown-parent="#modal_form" multiple data-placeholder="Pilih">
                                     <option value="">Pilih</option>
                                     @foreach ($listUser as $item)
@@ -103,13 +110,6 @@
                                     @endforeach
                                 </select>
                                 @error('id_user')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="mb-5 col-md-6">
-                                <label for="tanggal">Tanggal Pekerjaan</label>
-                                <input type="date" class="form-control form-control-solid" name="tanggal" wire:model="tanggal" placeholder="Pilih Tanggal">
-                                @error('tanggal')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
@@ -134,8 +134,20 @@
                             </div>
                             <div class="mb-5 col-md-6">
                                 <label for="" class="form-label required">Nomor Lift</label>
-                                <input type="number" class="form-control form-control-solid" name="nomor_lift" wire:model="nomor_lift" placeholder="Masukkan nomor lift" required>
+                                <input type="text" class="form-control form-control-solid" name="nomor_lift" wire:model="nomor_lift" placeholder="Masukkan nomor lift" required>
                                 @error('nomor_lift')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-5 col-md-6">
+                                <label for="" class="form-label">Service Ke</label>
+                                <input type="text" class="form-control form-control-solid" name="service_ke" wire:model="service_ke" placeholder="Masukkan service ke" required>
+                                <small>Contoh : 3/12</small>
+                            </div>
+                            <div class="mb-5 col-md-6">
+                                <label for="" class="form-label">Keterangan</label>
+                                <textarea class="form-control form-control-solid" name="keterangan" wire:model="keterangan" placeholder="Masukkan catatan / keterangan"></textarea>
+                                @error('keterangan')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
@@ -195,8 +207,8 @@
                 @this.set('periode', $(this).val())
             })
 
-            $('select[name="id_quotation"]').on('change', function(){
-                Livewire.emit('changeQuotation', $(this).val())
+            $('select[name="id_purchase_order"]').on('change', function(){
+                Livewire.emit('chnagePurchaseOrder', $(this).val())
             })
         }
 

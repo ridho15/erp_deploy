@@ -31,6 +31,7 @@ class LaporanPekerjaan extends Model
         'confirmasi_customer_barang',
         'is_emergency_call',
         'is_check_detail',
+        'service_ke'
     ];
 
     protected $appends = [

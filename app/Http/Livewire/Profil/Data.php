@@ -20,7 +20,12 @@ class Data extends Component
     use WithPagination;
     use WithFileUploads;
     public $paginationTheme = 'bootstrap';
-    public $listeners = ['simpanProfile', 'refreshProfile' => '$refresh', 'changePassword'];
+    public $listeners = [
+        'simpanProfile',
+        'refreshProfile' => '$refresh',
+        'changePassword',
+        'changeShowPassword',
+    ];
     public $total_show = 10;
     public $cari;
 
@@ -40,6 +45,8 @@ class Data extends Component
     public $lastLogin;
     public $lastActivity;
     public $lastPasswordChange;
+
+    public $showPassword = false;
 
     public function render()
     {
@@ -179,5 +186,9 @@ class Data extends Component
         }
 
         activity()->causedBy(HelperController::user())->log("Melakukan update password");
+    }
+
+    public function changeShowPassword(){
+        $this->showPassword = !$this->showPassword;
     }
 }

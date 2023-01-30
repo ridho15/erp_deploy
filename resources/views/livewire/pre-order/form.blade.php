@@ -19,6 +19,13 @@
                             @include('helper.simple-loading', ['target' => 'simpanDataPreOrder', 'message' => 'Menyimpan data ...'])
                         </div>
                         <div class="row">
+                            <div class="col-md-12 mb-5">
+                                <label for="" class="form-label required">Nomor PO</label>
+                                <input type="text" class="form-control form-control-solid" name="no_ref" placeholder="Masukkan nomor PO" wire:model='no_ref' required>
+                                @error('no_ref')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
                             <div class="col-md-6 mb-5">
                                 <label for="" class="form-label required">Customer</label>
                                 <select name="id_customer" wire:model="id_customer" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih" required>
