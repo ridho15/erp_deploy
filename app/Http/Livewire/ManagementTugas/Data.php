@@ -45,21 +45,20 @@ class Data extends Component
                 $query->where('nomor_lift', 'LIKE', '%'.$this->cari.'%')
                 ->orWhere('keterangan', 'LIKE', '%'.$this->cari.'%')
                 ->orWhere('jam_mulai', 'LIKE', '%'.$this->cari.'%')
-                ->orWhere('jam_selesai', 'LIKE', '%'.$this->cari.'%')
                 ->orWhere('tanggal_pekerjaan', 'LIKE', '%'.$this->cari.'%')
                 ->orWhereHas('customer', function ($query) {
                     $query->where('nama', 'LIKE', '%'.$this->cari.'%');
                 })->orWhereHas('project', function ($query) {
                     $query->where('nama', 'LIKE', '%'.$this->cari.'%');
                 });
-            })->whereHas('formMaster')->orderBy('created_at', 'DESC')->paginate($this->total_show);
+            })->where('jam_selesai', null)
+            ->where('signature', null)->whereHas('formMaster')->orderBy('created_at', 'DESC')->paginate($this->total_show);
         }
         elseif($this->status_pekerjaan != null || $this->tanggal_pekerjaan != null || $this->id_project != null){
             $this->listLaporanPekerjaan = LaporanPekerjaan::where(function($query) {
                 $query->where('nomor_lift', 'LIKE', '%'.$this->cari.'%')
                 ->orWhere('keterangan', 'LIKE', '%'.$this->cari.'%')
                 ->orWhere('jam_mulai', 'LIKE', '%'.$this->cari.'%')
-                ->orWhere('jam_selesai', 'LIKE', '%'.$this->cari.'%')
                 ->orWhere('tanggal_pekerjaan', 'LIKE', '%'.$this->cari.'%')
                 ->orWhereHas('customer', function ($query) {
                     $query->where('nama', 'LIKE', '%'.$this->cari.'%');
@@ -81,9 +80,11 @@ class Data extends Component
                     }
                 })->orWhere('id_project', $this->id_project);
             })
+            ->where('jam_selesai', null)
+            ->where('signature', null)
             ->whereHas('formMaster')->orderBy('created_at', 'DESC')->paginate($this->total_show);
         }else{
-            $this->listLaporanPekerjaan = LaporanPekerjaan::whereHas('formMaster')->orderBy('created_at', 'DESC')->paginate($this->total_show);
+            $this->listLaporanPekerjaan = LaporanPekerjaan::whereHas('formMaster')->orderBy('created_at', 'DESC')->where('jam_selesai', null)->where('signature', null)->paginate($this->total_show);
         }
 
         $this->listProject = ProjectV2::get();

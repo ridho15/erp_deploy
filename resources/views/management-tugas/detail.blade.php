@@ -172,6 +172,14 @@
                     </div>
                     <div class="row mb-5">
                         <div class="col-md-4 col-4">
+                            Keterangan
+                        </div>
+                        <div class="col-md-8 col-8 fw-bold">
+                            : {{ $laporanPekerjaan->keterangan ?? '-' }}
+                        </div>
+                    </div>
+                    <div class="row mb-5">
+                        <div class="col-md-4 col-4">
                             Periode
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
