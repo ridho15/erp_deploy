@@ -9,29 +9,72 @@
             </div>
         </div>
         <div class="card-body">
+            <div class="alert alert-dismissible bg-light-primary d-flex flex-column flex-sm-row p-5 mb-10">
+                <span class="svg-icon svg-icon-primary svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path opacity="0.3"
+                            d="M5.78001 21.115L3.28001 21.949C3.10897 22.0059 2.92548 22.0141 2.75004 21.9727C2.57461 21.9312 2.41416 21.8418 2.28669 21.7144C2.15923 21.5869 2.06975 21.4264 2.0283 21.251C1.98685 21.0755 1.99507 20.892 2.05201 20.7209L2.886 18.2209L7.22801 13.879L10.128 16.774L5.78001 21.115Z"
+                            fill="currentColor" />
+                        <path
+                            d="M21.7 8.08899L15.911 2.30005C15.8161 2.2049 15.7033 2.12939 15.5792 2.07788C15.455 2.02637 15.3219 1.99988 15.1875 1.99988C15.0531 1.99988 14.92 2.02637 14.7958 2.07788C14.6717 2.12939 14.5589 2.2049 14.464 2.30005L13.74 3.02295C13.548 3.21498 13.4402 3.4754 13.4402 3.74695C13.4402 4.01849 13.548 4.27892 13.74 4.47095L14.464 5.19397L11.303 8.35498C10.1615 7.80702 8.87825 7.62639 7.62985 7.83789C6.38145 8.04939 5.2293 8.64265 4.332 9.53601C4.14026 9.72817 4.03256 9.98855 4.03256 10.26C4.03256 10.5315 4.14026 10.7918 4.332 10.984L13.016 19.667C13.208 19.859 13.4684 19.9668 13.74 19.9668C14.0115 19.9668 14.272 19.859 14.464 19.667C15.3575 18.77 15.9509 17.618 16.1624 16.3698C16.374 15.1215 16.1932 13.8383 15.645 12.697L18.806 9.53601L19.529 10.26C19.721 10.452 19.9814 10.5598 20.253 10.5598C20.5245 10.5598 20.785 10.452 20.977 10.26L21.7 9.53601C21.7952 9.44108 21.8706 9.32825 21.9221 9.2041C21.9737 9.07995 22.0002 8.94691 22.0002 8.8125C22.0002 8.67809 21.9737 8.54505 21.9221 8.4209C21.8706 8.29675 21.7952 8.18392 21.7 8.08899Z"
+                            fill="currentColor" />
+                    </svg>
+                </span>
+
+                <div class="d-flex flex-column pe-0 pe-sm-10">
+                    <h4 class="fw-semibold">Informasi</h4>
+                    <ul>
+                        <li>
+                            <span>Jam selesai tidak dapat di edit, akan automatis terisi ketika tanda tangan customer sudah di berika dan data sudah berhasil disimpan.</span>
+                        </li>
+                        <li>
+                            <span>Untuk keterangan pekerjaan / catatan teknisi selesai mengetikan catatan lalu tekan <strong>Enter</strong> maka catatan yang baru di masukkan akan tampil. lalu isi checklist ya atau tidak, berikan minimal 1 untuk mengkonfirmasi pekerjaan sudah dikerjakan atau belum</span>
+                        </li>
+                        <li>
+                            <span>Untuk tanda tangan silahkan isi tanda tangan customer pada area yang sudah diberikan, lalu pilih tombol centang baru dan simpan. maka data berhasil di simpan dan jam selesai akan terisi secara automatis</span>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <button type="button"
+                    class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto"
+                    data-bs-dismiss="alert">
+                    <span class="svg-icon svg-icon-1 svg-icon-primary">...</span>
+                </button>
+            </div>
             <form action="#" method="POST" wire:submit.prevent="simpanLaporanPekerjaan" id="FormLaporanPekerjaan">
                 @include('helper.alert-message')
                 <div class="text-center">
-                    @include('helper.simple-loading', ['target' => 'simpanLaporanPekerjaan', 'message' => 'Sedang menyimpan data ...'])
+                    @include('helper.simple-loading', [
+                        'target' => 'simpanLaporanPekerjaan',
+                        'message' => 'Sedang menyimpan data ...',
+                    ])
                 </div>
                 <div class="row mb-5">
                     <div class="col-md mb-5">
                         <label for="" class="form-label">Tanggal</label>
-                        <input type="text" class="form-control form-control-solid" name="tanggal" placeholder="Masukkan tanggal" value="{{ $tanggal ? date('d-m-Y', strtotime($tanggal)) : null }}" disabled>
+                        <input type="text" class="form-control form-control-solid" name="tanggal"
+                            placeholder="Masukkan tanggal"
+                            value="{{ $tanggal ? date('d-m-Y', strtotime($tanggal)) : null }}" disabled>
                         @error('tanggal')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md mb-5">
                         <label for="" class="form-label">Jam Mulai</label>
-                        <input type="text" class="form-control form-control-solid" name="jam_mulai" placeholder="Masukkan waktu" value="{{ $jam_mulai ? date('H:i', strtotime($jam_mulai)) : null }}" disabled>
+                        <input type="text" class="form-control form-control-solid" name="jam_mulai"
+                            placeholder="Masukkan waktu"
+                            value="{{ $jam_mulai ? date('H:i', strtotime($jam_mulai)) : null }}" disabled>
                         @error('jam_mulai')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md mb-5">
                         <label for="" class="form-label">Jam Selesai</label>
-                        <input type="text" class="form-control form-control-solid" name="jam_selesai" placeholder="Masukkan waktu" value="{{ $jam_selesai ? date('H:i', strtotime($jam_selesai)) : null }}" disabled>
+                        <input type="text" class="form-control form-control-solid" name="jam_selesai"
+                            placeholder="Masukkan waktu"
+                            value="{{ $jam_selesai ? date('H:i', strtotime($jam_selesai)) : null }}" disabled>
                         @error('jam_selesai')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -40,8 +83,10 @@
                 <div class="row mb-5">
                     <div class="mb-5 col-md-6">
                         <div class="mb-3" wire:ignore>
-                            <label for="" class="form-label required">Keterangan Pekerja / Catatan Teknisi</label>
-                            <input type="text" name="catatan_teknisi" class="form-control form-control-solid" placeholder="Masukkan catatan">
+                            <label for="" class="form-label required">Keterangan Pekerja / Catatan
+                                Teknisi</label>
+                            <input type="text" name="catatan_teknisi" class="form-control form-control-solid"
+                                placeholder="Masukkan catatan">
 
                             {{-- <textarea name="keterangan_laporan_pekerjaan" class="form-control form-control-solid" placeholder="Masukkan keterangan / Catatan" cols="30" rows="5" wire:model='keterangan_laporan_pekerjaan'></textarea> --}}
                         </div>
@@ -56,7 +101,9 @@
                                 @foreach ($listCatatanTeknisi as $item)
                                     <tr>
                                         <td>
-                                            <button type="button" class="btn btn-sm btn-icon btn-light-active-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Catatan" wire:click="hapusCatatanTeknisi({{ $item->id }})">
+                                            <button type="button" class="btn btn-sm btn-icon btn-light-active-danger"
+                                                data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Catatan"
+                                                wire:click="hapusCatatanTeknisi({{ $item->id }})">
                                                 <i class="fa-solid fa-trash-can text-danger"></i>
                                             </button>
                                         </td>
@@ -64,13 +111,21 @@
                                             {{ $item->keterangan }}
                                         </td>
                                         <td class="px-2">
-                                            <div class="form-check form-check-custom form-check-solid mb-2 form-check-sm">
-                                                <input class="form-check-input" type="checkbox" value="1" @if($item->status === 1) checked @endif id="flexCheckDefault" wire:click="checkCatatanTeknisi({{ $item->id }}, 1)"/>
+                                            <div
+                                                class="form-check form-check-custom form-check-solid mb-2 form-check-sm">
+                                                <input class="form-check-input" type="checkbox" value="1"
+                                                    @if ($item->status === 1) checked @endif
+                                                    id="flexCheckDefault"
+                                                    wire:click="checkCatatanTeknisi({{ $item->id }}, 1)" />
                                             </div>
                                         </td>
                                         <td class="px-2">
-                                            <div class="form-check form-check-custom form-check-solid mb-2 form-check-sm">
-                                                <input class="form-check-input" type="checkbox" value="1" @if($item->status === 0) checked @endif id="flexCheckDefault" wire:click="checkCatatanTeknisi({{ $item->id }}, 0)"/>
+                                            <div
+                                                class="form-check form-check-custom form-check-solid mb-2 form-check-sm">
+                                                <input class="form-check-input" type="checkbox" value="1"
+                                                    @if ($item->status === 0) checked @endif
+                                                    id="flexCheckDefault"
+                                                    wire:click="checkCatatanTeknisi({{ $item->id }}, 0)" />
                                             </div>
                                         </td>
                                     </tr>
@@ -95,13 +150,13 @@
                                 <div class="form-check form-check-custom form-check-solid mb-2 form-check-sm">
                                     <div class="d-flex flex-column align-items-center mx-2">
                                         <small>Ya</small>
-                                        <input class="form-check-input" type="checkbox" value="1" @if($item->status === 1) checked @endif id="flexCheckDefault" wire:click="checkCatatanTeknisi({{ $item->id }}, 1)"/>
+                                        <input class="form-check-input" type="checkbox" value="1" @if ($item->status === 1) checked @endif id="flexCheckDefault" wire:click="checkCatatanTeknisi({{ $item->id }}, 1)"/>
                                     </div>
                                 </div>
                                 <div class="form-check form-check-custom form-check-solid form-check-danger mb-2 form-check-sm">
                                     <div class="d-flex flex-column align-items-center mx-2">
                                         <small>Tidak</small>
-                                        <input class="form-check-input" type="checkbox" value="1" @if($item->status === 0) checked @endif id="flexCheckDefault" wire:click="checkCatatanTeknisi({{ $item->id }}, 0)"/>
+                                        <input class="form-check-input" type="checkbox" value="1" @if ($item->status === 0) checked @endif id="flexCheckDefault" wire:click="checkCatatanTeknisi({{ $item->id }}, 0)"/>
                                     </div>
                                 </div>
                             </div>
@@ -110,35 +165,42 @@
 
                     <div class="mb-5 col-md-6">
                         <label for="" class="form-label required">Catatan Client / Pelanggan</label>
-                        <textarea name="catatan_pelanggan" wire:model="catatan_pelanggan" class="form-control form-control-solid" placeholder="Masukkan keterangan / Catatan" cols="30" rows="5"></textarea>
+                        <textarea name="catatan_pelanggan" wire:model="catatan_pelanggan" class="form-control form-control-solid"
+                            placeholder="Masukkan keterangan / Catatan" cols="30" rows="5"></textarea>
                         @error('catatan_pelanggan')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 mb-5"
-                        x-data="{ isUploading: false, progress: 0 }"
+                    <div class="col-md-6 mb-5" x-data="{ isUploading: false, progress: 0 }"
                         x-on:livewire-upload-start="isUploading = true"
                         x-on:livewire-upload-finish="isUploading = false, progress = 0"
                         x-on:livewire-upload-error="isUploading = false"
-                        x-on:livewire-upload-progress="progress = $event.detail.progress"
-                    >
+                        x-on:livewire-upload-progress="progress = $event.detail.progress">
                         <label for="" class="form-label">Upload Foto</label>
                         <div class="border rounded text-center py-5 px-2">
-                            <label for="upload_file" class="btn btn-sm btn-icon btn-outline btn-outline-dashed btn-outline-primary btn-active-light-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Upload Foto">
-                                <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2022-10-09-043348/core/html/src/media/icons/duotune/general/gen035.svg-->
-                                <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor"/>
-                                    <rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)" fill="currentColor"/>
-                                    <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="currentColor"/>
+                            <label for="upload_file"
+                                class="btn btn-sm btn-icon btn-outline btn-outline-dashed btn-outline-primary btn-active-light-primary"
+                                data-bs-toggle="tooltip" data-bs-placement="top" title="Upload Foto">
+                                <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.3" x="2" y="2" width="20"
+                                            height="20" rx="5" fill="currentColor" />
+                                        <rect x="10.8891" y="17.8033" width="12" height="2"
+                                            rx="1" transform="rotate(-90 10.8891 17.8033)"
+                                            fill="currentColor" />
+                                        <rect x="6.01041" y="10.9247" width="12" height="2"
+                                            rx="1" fill="currentColor" />
                                     </svg>
                                 </span>
-                                <!--end::Svg Icon-->
                             </label>
-                            <input type="file" wire:model="foto" hidden accept="image/*" multiple id="upload_file">
+                            <input type="file" wire:model="foto" hidden accept="image/*" multiple
+                                id="upload_file">
                             <div x-show="isUploading" class="progress mt-5">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" x-bind:style="`width: ${progress}%`"></div>
+                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                                    role="progressbar" aria-label="Animated striped example" aria-valuenow="75"
+                                    aria-valuemin="0" aria-valuemax="100" x-bind:style="`width: ${progress}%`"></div>
                             </div>
                             @error('foto.*')
                                 <small class="text-danger">{{ $message }}</small>
@@ -147,10 +209,12 @@
                                 @foreach ($foto as $index => $item)
                                     <div class="col-md-4">
                                         <div class="image-hover border rounded position-relative text-center">
-                                            <div class="position-absolute w-100 h-100 rounded d-flex align-items-center justify-content-center" wire:click="$emit('onClickHapusFotoByIndex', {{ $index }})">
+                                            <div class="position-absolute w-100 h-100 rounded d-flex align-items-center justify-content-center"
+                                                wire:click="$emit('onClickHapusFotoByIndex', {{ $index }})">
                                                 <i class="bi bi-trash-fill text-danger fs-2"></i>
                                             </div>
-                                            <img src="{{ $item->temporaryUrl() }}" class="img-fluid rounded" alt="">
+                                            <img src="{{ $item->temporaryUrl() }}" class="img-fluid rounded"
+                                                alt="">
                                         </div>
                                     </div>
                                 @endforeach
@@ -159,7 +223,8 @@
                     </div>
                     <div class="col-md-6 mb-5">
                         <label for="" class="form-label">Keterangan Foto</label>
-                        <textarea name="keterangan_foto" wire:model="keterangan_foto" class="form-control form-control-solid" placeholder="Masukkan keterangan foto" cols="30" rows="5"></textarea>
+                        <textarea name="keterangan_foto" wire:model="keterangan_foto" class="form-control form-control-solid"
+                            placeholder="Masukkan keterangan foto" cols="30" rows="5"></textarea>
                     </div>
                 </div>
                 <div class="row justify-content-end align-items-start mb-5">
@@ -168,10 +233,14 @@
                             @if (count($laporanPekerjaan->laporanPekerjaanFoto) > 0)
                                 @foreach ($laporanPekerjaan->laporanPekerjaanFoto as $item)
                                     <div class="image-hover border rounded position-relative text-center m-2">
-                                        <div class="position-absolute w-100 h-100 rounded d-flex align-items-center justify-content-center" wire:click="$emit('onClickHapusFoto', {{ $item->id }})" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $item->keterangan }}">
+                                        <div class="position-absolute w-100 h-100 rounded d-flex align-items-center justify-content-center"
+                                            wire:click="$emit('onClickHapusFoto', {{ $item->id }})"
+                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="{{ $item->keterangan }}">
                                             <i class="bi bi-trash-fill text-danger fs-2"></i>
                                         </div>
-                                        <img src="{{ asset('storage' . $item->file) }}" class="rounded" alt="" width="200" height="200" style="object-fit: cover">
+                                        <img src="{{ asset('storage' . $item->file) }}" class="rounded"
+                                            alt="" width="200" height="200" style="object-fit: cover">
                                     </div>
                                 @endforeach
                             @else
@@ -184,13 +253,18 @@
                     <div class="col-md-4 text-center mb-5">
                         <label for="" class="form-label">Tanda Tangan</label>
                         <div class="position-relative">
-                            <canvas id="signature-pad" class="signature-pad border rounded w-100" style="height: 200px;"></canvas>
+                            <canvas id="signature-pad" class="signature-pad border rounded w-100"
+                                style="height: 200px;"></canvas>
                         </div>
                         <div class="d-flex align-items-center justify-content-center mb-5">
-                            <button type="button" class="btn btn-sm btn-icon btn-outline btn-outline-danger mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Clear" wire:click="$emit('onClickClear')">
+                            <button type="button" class="btn btn-sm btn-icon btn-outline btn-outline-danger mx-2"
+                                data-bs-toggle="tooltip" data-bs-placement="top" title="Clear"
+                                wire:click="$emit('onClickClear')">
                                 <i class="fa-solid fa-circle-xmark"></i>
                             </button>
-                            <button type="button" class="btn btn-sm btn-icon btn-outline btn-outline-primary mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Selesai" wire:click="$emit('onClickFiks')">
+                            <button type="button" class="btn btn-sm btn-icon btn-outline btn-outline-primary mx-2"
+                                data-bs-toggle="tooltip" data-bs-placement="top" title="Selesai"
+                                wire:click="$emit('onClickFiks')">
                                 <i class="fa-solid fa-circle-check"></i>
                             </button>
                         </div>
@@ -204,7 +278,8 @@
                     </div>
                 </div>
                 <div class="text-end">
-                    <button class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Simpan Laporan">
+                    <button class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Simpan Laporan">
                         <i class="fa-solid fa-floppy-disk"></i> Simpan
                     </button>
                 </div>
@@ -216,7 +291,7 @@
 @push('js')
     <script>
         var signaturePad = null;
-        $(document).ready(function () {
+        $(document).ready(function() {
             const canvas = document.querySelector("canvas");
             $('input[name="tanggal"]').flatpickr({
                 dateFormat: 'd-m-Y'
@@ -235,7 +310,7 @@
             });
         });
 
-        window.addEventListener('contentChange', function(){
+        window.addEventListener('contentChange', function() {
             $('input[name="tanggal"]').flatpickr({
                 dateFormat: 'd-m-Y'
             })
@@ -255,16 +330,16 @@
 
         })
 
-        Livewire.on('onClickHapusFotoByIndex',async(index) => {
+        Livewire.on('onClickHapusFotoByIndex', async (index) => {
             const response = await alertConfirm("Peringatan !", "Apakah kamu yakin ingin menghapus foto ?")
-            if(response.isConfirmed == true){
+            if (response.isConfirmed == true) {
                 Livewire.emit('hapusFotoByIndex', index)
             }
         })
 
-        Livewire.on('onClickHapusFoto', async(id) => {
+        Livewire.on('onClickHapusFoto', async (id) => {
             const response = await alertConfirm("Peringatan !", "Apakah kamu yakin ingin menghapus foto ?")
-            if(response.isConfirmed == true){
+            if (response.isConfirmed == true) {
                 Livewire.emit('hapusFoto', id)
             }
         })
@@ -274,7 +349,7 @@
         })
 
         Livewire.on('onClickClear', () => {
-            if(signaturePad != null){
+            if (signaturePad != null) {
                 signaturePad.clear();
             }
 
@@ -282,16 +357,16 @@
         })
 
         Livewire.on('onClickFiks', () => {
-            if(signaturePad != null){
+            if (signaturePad != null) {
                 var data = signaturePad.toDataURL('image/png');
                 Livewire.emit('base64ToImage', data)
             }
         })
 
-        $('input[name="catatan_teknisi"]').on('keyup keypress', function(e){
+        $('input[name="catatan_teknisi"]').on('keyup keypress', function(e) {
             var keyCode = e.keyCode || e.which;
             const catatan_teknisi = $(this).val();
-            if(keyCode === 13){
+            if (keyCode === 13) {
                 e.preventDefault();
                 Livewire.emit('addCatatanTeknisi', catatan_teknisi)
                 return false;

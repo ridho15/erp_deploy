@@ -66,7 +66,7 @@
                                     Tanggal
                                 </div>
                                 <div class="col-md-8 col-8">
-                                    : <span class="fw-bold">{{ date('d-m-Y', strtotime($laporanPekerjaan->jam_mulai)) }}</span>
+                                    : <span class="fw-bold">{{ $laporanPekerjaan->jam_mulai != null ? date('d-m-Y', strtotime($laporanPekerjaan->jam_mulai)) : '-' }}</span>
                                 </div>
                             </div>
                             <div class="row mb-5">
@@ -74,7 +74,7 @@
                                     Jam Mulai
                                 </div>
                                 <div class="col-md-8 col-8">
-                                    : <span class="fw-bold">{{ date('H:i', strtotime($laporanPekerjaan->jam_mulai)) }}</span>
+                                    : <span class="fw-bold">{{ $laporanPekerjaan->jam_mulai != null ? date('H:i', strtotime($laporanPekerjaan->jam_mulai)) : '-' }}</span>
                                 </div>
                             </div>
                             <div class="row mb-5">

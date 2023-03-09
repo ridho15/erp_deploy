@@ -2,11 +2,11 @@
     <div class="card-body">
         <div class="d-flex align-items-center justify-content-between mb-10">
             <h3>Penjadwalan</h3>
-            @if ($totalPekerjaanHariIni > 0)
+            @if ($totalPekerjaan > 0)
                 <div class="p-1 position-relative">
                     <div class="position-absolute d-flex align-items-center justify-content-center top-0 end-0 rounded-circle bg-danger"
                         style="height: 20px; width: 20px">
-                        <span class="fw-bold text-white">{{ $totalPekerjaanHariIni }}</span>
+                        <span class="fw-bold text-white">{{ $totalPekerjaan }}</span>
                     </div>
                     <a href="{{ route('management-tugas') }}" class="btn btn-sm btn-icon btn-light"
                         data-bs-toggle="tooltip" data-bs-placement="top" title="Lihat Semua">
@@ -30,8 +30,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if (count($listPekerjaanHariIni) > 0)
-                        @foreach ($listPekerjaanHariIni as $index => $item)
+                    @if (count($listPekerjaan) > 0)
+                        @foreach ($listPekerjaan as $index => $item)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $item->kode_pekerjaan }}</td>
