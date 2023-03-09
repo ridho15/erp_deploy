@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'asset_url' => env('APP_URL', 'https://erp.medialatihan.com/master/public/'),
+    'asset_url' => "https://erp.medialatihan.com/master/public/",
 
     /*
     |--------------------------------------------------------------------------
@@ -68,7 +68,7 @@ return [
     |
     */
 
-    'app_url' => null,
+    'app_url' => "https://erp.medialatihan.com",
 
     /*
     |--------------------------------------------------------------------------
