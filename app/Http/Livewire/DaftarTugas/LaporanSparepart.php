@@ -39,6 +39,7 @@ class LaporanSparepart extends Component
 
     public $listTipeBarang;
     public $listVersion;
+    public $nomor_itt;
     public function render()
     {
         $this->listTipeBarang = TipeBarang::get();
@@ -75,9 +76,6 @@ class LaporanSparepart extends Component
         $this->qty = $laporanPekerjaanBarang->qty;
         $this->version = $laporanPekerjaanBarang->version;
         $this->id_tipe_barang = $laporanPekerjaanBarang->id_tipe_barang;
-        if ($laporanPekerjaanBarang->estimasi) {
-            $this->estimasi = date('Y-m-d H:i', strtotime($laporanPekerjaanBarang->estimasi));
-        }
     }
 
     public function hapusLaporanPekerjaanBarang($id){
@@ -117,7 +115,6 @@ class LaporanSparepart extends Component
             'keterangan_customer' => 'nullable|string',
             'version' => 'required|numeric',
             'id_tipe_barang' => 'required|numeric',
-            'estimasi' => 'required|string',
         ], [
             'id_barang.required' => 'Barang belum dipilih',
             'id_barang.numeric' => 'Data barang tidak valid !',
@@ -192,7 +189,6 @@ class LaporanSparepart extends Component
             'peminjam' => session()->get('id_user'),
             'version' => $this->version,
             'id_tipe_barang' => $this->id_tipe_barang,
-            'estimasi' => date('Y-m-d H:i:s', strtotime($this->estimasi)),
         ]);
 
         LaporanPekerjaanBarangLog::create([

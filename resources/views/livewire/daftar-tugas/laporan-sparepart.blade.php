@@ -79,7 +79,7 @@
                                     <select name="version" wire:model="version" class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih" required>
                                         <option value="">Pilih</option>
                                         @foreach ($listVersion as $item)
-                                            <option value="{{ $item }}">{{ $item }} V</option>
+                                            <option value="{{ $item }}">V{{ $item }}</option>
                                         @endforeach
                                     </select>
                                     @error('version')
@@ -119,13 +119,13 @@
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
-                                <div class="mb-5">
+                                {{-- <div class="mb-5">
                                     <label for="" class="form-label required">Estimasi Kembali</label>
                                     <input type="datetime-local" name="estimasi" wire:model="estimasi" class="form-control form-control-solid" required>
                                     @error('estimasi')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="row justify-content-end mb-5">
                                 <div class="text-end">
@@ -158,7 +158,6 @@
                    <th>Tipe Barang</th>
                    <th>Version</th>
                    <th>Satuan</th>
-                   <th>Estimasi Kembali</th>
                    <th>Qty</th>
                    <th>Catatan Teknisi</th>
                    <th>Keterangan Customer</th>
@@ -184,13 +183,6 @@
                                     @endif
                                 </td>
                                 <td>{{ $item->barang->satuan->nama_satuan }}</td>
-                                <td>
-                                    @if ($item->estimasi)
-                                        {{ date('d-m-Y H:i', strtotime($item->estimasi)) }}
-                                    @else
-                                        -
-                                    @endif
-                                </td>
                                 <td>{{ $item->qty }}</td>
                                 <td>{{ $item->catatan_teknisi }}</td>
                                 <td>{{ $item->keterangan_customer }}</td>

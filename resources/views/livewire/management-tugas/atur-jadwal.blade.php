@@ -50,7 +50,7 @@
                                     No Lift
                                 </div>
                                 <div class="col-md-8 col-8">
-                                    : <span class="fw-bold">{{ $laporanPekerjaan->no_lift }}</span>
+                                    : <span class="fw-bold">{{ $laporanPekerjaan->nomor_lift }}</span>
                                 </div>
                             </div>
                             <div class="row mb-5">
