@@ -25,13 +25,19 @@
                     <h4 class="fw-semibold">Informasi</h4>
                     <ul>
                         <li>
-                            <span>Jam selesai tidak dapat di edit, akan automatis terisi ketika tanda tangan customer sudah di berika dan data sudah berhasil disimpan.</span>
+                            <span>Jam selesai tidak dapat di edit, akan automatis terisi ketika tanda tangan customer
+                                sudah di berika dan data sudah berhasil disimpan.</span>
                         </li>
                         <li>
-                            <span>Untuk keterangan pekerjaan / catatan teknisi selesai mengetikan catatan lalu tekan <strong>Enter</strong> maka catatan yang baru di masukkan akan tampil. lalu isi checklist ya atau tidak, berikan minimal 1 untuk mengkonfirmasi pekerjaan sudah dikerjakan atau belum</span>
+                            <span>Untuk keterangan pekerjaan / catatan teknisi selesai mengetikan catatan lalu tekan
+                                <strong>Enter</strong> maka catatan yang baru di masukkan akan tampil. lalu isi
+                                checklist ya atau tidak, berikan minimal 1 untuk mengkonfirmasi pekerjaan sudah
+                                dikerjakan atau belum</span>
                         </li>
                         <li>
-                            <span>Untuk tanda tangan silahkan isi tanda tangan customer pada area yang sudah diberikan, lalu pilih tombol centang baru dan simpan. maka data berhasil di simpan dan jam selesai akan terisi secara automatis</span>
+                            <span>Untuk tanda tangan silahkan isi tanda tangan customer pada area yang sudah diberikan,
+                                lalu pilih tombol centang baru dan simpan. maka data berhasil di simpan dan jam selesai
+                                akan terisi secara automatis</span>
                         </li>
                     </ul>
 
@@ -54,27 +60,27 @@
                 <div class="row mb-5">
                     <div class="col-md mb-5">
                         <label for="" class="form-label">Tanggal</label>
-                        <input type="text" class="form-control form-control-solid" name="tanggal"
-                            placeholder="Masukkan tanggal"
-                            value="{{ $tanggal ? date('d-m-Y', strtotime($tanggal)) : null }}" disabled>
+                        <input type="date" class="form-control form-control-solid" name="tanggal"
+                        wire:model="tanggal"
+                            placeholder="Pilih tanggal">
                         @error('tanggal')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md mb-5">
                         <label for="" class="form-label">Jam Mulai</label>
-                        <input type="text" class="form-control form-control-solid" name="jam_mulai"
+                        <input type="time" class="form-control form-control-solid" name="jam_mulai"
                             placeholder="Masukkan waktu"
-                            value="{{ $jam_mulai ? date('H:i', strtotime($jam_mulai)) : null }}" disabled>
+                            wire:model="jam_mulai">
                         @error('jam_mulai')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     <div class="col-md mb-5">
                         <label for="" class="form-label">Jam Selesai</label>
-                        <input type="text" class="form-control form-control-solid" name="jam_selesai"
-                            placeholder="Masukkan waktu"
-                            value="{{ $jam_selesai ? date('H:i', strtotime($jam_selesai)) : null }}" disabled>
+                        <input type="datetime" class="form-control form-control-solid" name="jam_selesai"
+                        wire:model="jam_selesai"
+                            placeholder="-">
                         @error('jam_selesai')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror

@@ -53,8 +53,8 @@ class LaporanPekerjaan extends Component
         $this->laporanPekerjaan = ModelsLaporanPekerjaan::find($this->id_laporan_pekerjaan);
         $this->keterangan_laporan_pekerjaan = $this->laporanPekerjaan->keterangan;
         $this->catatan_pelanggan = $this->laporanPekerjaan->catatan_pelanggan;
-        $this->tanggal = $this->laporanPekerjaan->jam_mulai;
-        $this->jam_mulai = $this->laporanPekerjaan->jam_mulai;
+        $this->tanggal = date('Y-m-d', strtotime($this->laporanPekerjaan->jam_mulai));
+        $this->jam_mulai = date('H:i:s', strtotime($this->laporanPekerjaan->jam_mulai));
         $this->jam_selesai = $this->laporanPekerjaan->jam_selesai;
         $this->signature = $this->laporanPekerjaan->signature;
     }
@@ -89,9 +89,8 @@ class LaporanPekerjaan extends Component
         $data['keterangan'] = $this->keterangan_laporan_pekerjaan;
         $data['catatan_pelanggan'] = $this->catatan_pelanggan;
         if($this->signature){
-            $this->jam_selesai = now();
             $data['signature'] = $this->signature;
-            $data['jam_selesai'] = $this->jam_selesai;
+            $data['jam_selesai'] = date('Y-m-d H:i:s', strtotime($this->jam_selesai));
             $laporanPekerjaan->update($data);
             foreach ($laporanPekerjaan->laporanPekerjaanBarang as $barang) {
                 if($barang->barang && $barang->status == 2){

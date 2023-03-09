@@ -79,7 +79,7 @@
                                     <select name="version" wire:model="version" class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih" required>
                                         <option value="">Pilih</option>
                                         @foreach ($listVersion as $item)
-                                            <option value="{{ $item }}">{{ $item }} V</option>
+                                            <option value="{{ $item }}">V{{ $item }}</option>
                                         @endforeach
                                     </select>
                                     @error('version')
