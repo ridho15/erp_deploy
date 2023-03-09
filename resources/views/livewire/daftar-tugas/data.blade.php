@@ -417,6 +417,10 @@
                                                     ({{ $item->status == 1 ? 'Ya' : 'Tidak' }}),
                                                 </div>
                                             @endforeach
+                                        @elseif($laporanPekerjaan->keterangan != null)
+                                        <div class="col-md-12 text-center fw-bold">
+                                            {{ $laporanPekerjaan->keterangan }}
+                                        </div>
                                         @else
                                             <div class="col-md-12 text-center text-gray-500">
                                                 Belum ada catatan
