@@ -43,6 +43,8 @@ class Data extends Component
                 });
             })->where('dikirim', 1)
             ->whereHas('formMaster')
+            ->where('signature', null)
+            ->where('jam_selesai', null)
             ->orderBy('created_at', 'DESC')
             ->paginate($this->total_show);
         }elseif($this->tanggal_pekerjaan != null || $this->id_project != null || $this->status_pekerjaan != null){
@@ -61,9 +63,7 @@ class Data extends Component
                     if($this->status_pekerjaan == 0){
                         $query->where('jam_mulai', null);
                     }elseif($this->status_pekerjaan == 1){
-                        $query->where('jam_mulai', '!=', null)
-                        ->where('jam_selesai', null)
-                        ->where('signature', null);
+                        $query->where('jam_mulai', '!=', null);
                     }elseif($this->status_pekerjaan == 2){
                         $query->where('jam_selesai', '!=', null)
                         ->where('signature', '!=', null);
@@ -72,9 +72,13 @@ class Data extends Component
             })->where('dikirim', 1)
             ->whereHas('formMaster')
             ->orderBy('created_at', 'DESC')
+            ->where('signature', null)
+            ->where('jam_selesai', null)
             ->paginate($this->total_show);
         }else{
             $this->listLaporanPekerjaan = LaporanPekerjaan::where('dikirim', 1)
+            ->where('signature', null)
+            ->where('jam_selesai', null)
             ->whereHas('formMaster')->orderBy('created_at', 'DESC')->paginate($this->total_show);
         }
 

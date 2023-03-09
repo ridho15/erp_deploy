@@ -182,7 +182,6 @@
                             <option value="">Pilih</option>
                             <option value="0">Belum Dikerjakan</option>
                             <option value="1">Sedang Dikerjakan</option>
-                            <option value="2">Selesai</option>
                         </select>
                     </div>
                 </div>
