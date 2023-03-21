@@ -29,12 +29,6 @@ class LaporanPekerjaanBarang extends Model
 
     protected $appends = ['status_formatted'];
 
-    // public function getNomorIttAttribute(){
-    //     $nomorItt = NomorItt::where('id_laporan_pekerjaan_barang', $this->id)->first();
-
-    //     return $nomorItt ? $nomorItt->nomor_itt : '-';
-    // }
-
     public function getStatusFormattedAttribute(){
         if($this->status == 1){
             return '<span class="badge badge-info">Diminta</span>';

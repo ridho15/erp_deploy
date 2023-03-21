@@ -44,7 +44,7 @@
                             <th>No</th>
                             <th>Nomor Pekerjaan</th>
                             <th>Project</th>
-                            <th>Nomor Unit Lift</th>
+                            <th>Nomor Unit - Lift</th>
                             <th>Pekerja</th>
                             <th>Tanggal Pekerjaan</th>
                             <th>Estimasi Selesai</th>
@@ -66,8 +66,8 @@
                                 <tr>
                                     <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
                                     <td>{{ $item->kode_pekerjaan }}</td>
-                                    <td>{{ $item->project ? $item->project->nama : '-' }}</td>
-                                    <td>{{ $item->nomor_lift }}</td>
+                                    <td>{{ $item->projectUnit->project->nama }}</td>
+                                    <td>{{ $item->projectUnit->no_unit }} {{ $item->nomor_lift }}</td>
                                     <td>
                                         @foreach ($item->teknisi as $nama)
                                             {{ $nama->user ? $nama->user->name : '-' }},
@@ -87,10 +87,10 @@
                                         {{ $item->jam_selesai_formatted ?? '-' }}
                                     </td>
                                     <td>
-                                        @if ($item->is_emergency_call == 1)
-                                            <span class="badge badge-warning">Laporan Pekerjaan</span>
-                                        @else
+                                        @if ($item->periode)
                                             {{ $item->periode }} Bulan
+                                        @else
+                                         -
                                         @endif
                                     </td>
                                     <td>
@@ -100,6 +100,9 @@
                                             <span class="badge badge-warning">Sedang Dikerjakan</span>
                                         @else
                                             <span class="badge badge-secondary">Belum Dikerjakan</span>
+                                        @endif
+                                        @if ($item->is_emergency_call == 1)
+                                            <span class="badge badge-warning">Laporan Pekerjaan</span>
                                         @endif
                                     </td>
                                     <td>
@@ -140,7 +143,7 @@
                                             </a>
                                         </div>
                                     </td>
-                                    <td>{{ $item->customer->nama }}</td>
+                                    <td>{{ $item->projectUnit->project->customer->nama }}</td>
                                     <td>{{ $item->formMaster->nama }} ({{ $item->formMaster->kode }})</td>
                                     <td>
                                         @php

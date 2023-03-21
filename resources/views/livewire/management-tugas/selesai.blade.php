@@ -40,7 +40,7 @@
                             <th>Form</th>
                             <th>Jumlah Service</th>
                             <th>No.MFG</th>
-
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -85,7 +85,7 @@
                                             <span class="badge badge-secondary">Belum Dikerjakan</span>
                                         @endif
                                     </td>
-                                    <td>{{ $item->customer->nama }}</td>
+                                    <td>{{ $item->projectUnit->project->customer->nama }}</td>
                                     <td>{{ $item->formMaster->nama }} ({{ $item->formMaster->kode }})</td>
                                     <td>
                                         @php
@@ -100,6 +100,15 @@
                                         @endphp
                                     </td>
                                     <td>{{ $item->project ? $item->project->no_mfg : '-' }}</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="{{ route('management-tugas.export', ['id' => $item->id]) }}"
+                                                class="btn btn-sm btn-icon btn-warning" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" title="Cetak Management Tugas">
+                                                <i class="bi bi-printer"></i>
+                                            </a>
+                                        </div>
+                                    </td>
                                 </tr>
                             @endforeach
                         @else

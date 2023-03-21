@@ -3,6 +3,7 @@
 @section('content')
     @livewire('project.data')
     @livewire('project.form')
+    @livewire('project.unit')
 @endsection
 
 @section('js')

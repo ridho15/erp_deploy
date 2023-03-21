@@ -469,7 +469,7 @@ class HelperController extends Controller
 
     public static function getListVersion(){
         $version = [];
-        for ($i=1; $i <= 10; $i++) {
+        for ($i=0; $i <= 10; $i++) {
             array_push($version,$i);
         }
 

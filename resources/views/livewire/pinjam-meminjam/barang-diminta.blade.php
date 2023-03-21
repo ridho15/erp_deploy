@@ -224,8 +224,9 @@
                             @enderror
                         </div>
                         <div class="mb-5">
-                            <label for="" class="form-label required">Estimasi Kembali</label>
-                            <input type="datetime-local" name="estimasi" class="form-control form-control-solid" wire:model="estimasi" required>
+                            <label for="" class="form-label">Estimasi Kembali</label>
+                            <input type="datetime-local" name="estimasi" class="form-control form-control-solid" wire:model="estimasi">
+                            <small>Jika barang bertipe sparepart cukup dikosongkan saja</small>
                             @error('estimasi')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror

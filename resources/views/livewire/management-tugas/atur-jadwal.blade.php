@@ -34,7 +34,7 @@
                                     Kode Project
                                 </div>
                                 <div class="col-md-8 col-8">
-                                    : <span class="fw-bold">{{ $laporanPekerjaan->project->kode }}</span>
+                                    : <span class="fw-bold">{{ $laporanPekerjaan->projectUnit->project->kode }}</span>
                                 </div>
                             </div>
                             <div class="row mb-5">
@@ -42,7 +42,15 @@
                                     Nama Project
                                 </div>
                                 <div class="col-md-8 col-8">
-                                    : <span class="fw-bold">{{ $laporanPekerjaan->project->nama }}</span>
+                                    : <span class="fw-bold">{{ $laporanPekerjaan->projectUnit->project->nama }}</span>
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-4 col-4">
+                                    Unit
+                                </div>
+                                <div class="col-md-8 col-8">
+                                    : <span class="fw-bold">{{ $laporanPekerjaan->projectUnit->no_unit }} {{ $laporanPekerjaan->projectUnit->nama_unit }}</span>
                                 </div>
                             </div>
                             <div class="row mb-5">
@@ -128,7 +136,7 @@
                             <hr>
                         @endif
                         <div class="mb-5">
-                            <label for="" class="form-label required">Tanggal</label>
+                            <label for="" class="form-label">Tanggal</label>
                             <input type="text" class="form-control form-control-solid" name="tanggal" wire:model="tanggal" placeholder="Tanggal" disabled>
                             @error('tanggal')
                                 <small class="text-danger">{{ $message }}</small>
@@ -136,7 +144,7 @@
                         </div>
                         <div class="mb-5">
                             <label for="" class="form-label required">Waktu Mulai</label>
-                            <input type="text" class="form-control form-control-solid" name="jam_mulai" wire:model="jam_mulai" placeholder="Masukkan waktu mulai" required>
+                            <input type="datetime-local" class="form-control form-control-solid" name="jam_mulai" wire:model="jam_mulai" placeholder="Masukkan waktu mulai" required>
                             @error('jam_mulai')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -156,19 +164,19 @@
 @push('js')
     <script>
         $(document).ready(function () {
-            $('input[name="jam_mulai"]').flatpickr({
-                enableTime: true,
-                dateFormat: "Y-m-d H:i:s",
-            })
+            // $('input[name="jam_mulai"]').flatpickr({
+            //     enableTime: true,
+            //     dateFormat: "Y-m-d H:i:s",
+            // })
 
             $('select[name="listIdUser"]').select2()
         });
 
         window.addEventListener('contentChangeFormAturJadwal', () => {
-            $('input[name="jam_mulai"]').flatpickr({
-                enableTime: true,
-                dateFormat: "Y-m-d H:i:s",
-            })
+            // $('input[name="jam_mulai"]').flatpickr({
+            //     enableTime: true,
+            //     dateFormat: "Y-m-d H:i:s",
+            // })
 
             $('select[name="listIdUser"]').select2()
 

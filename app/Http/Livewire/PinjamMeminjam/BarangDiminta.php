@@ -114,7 +114,7 @@ class BarangDiminta extends Component
             'qty' => 'required|numeric',
             'id_laporan_pekerjaan_barang' => 'required|numeric',
             'id_rak' => 'required|numeric',
-            'estimasi' => 'required|string',
+            'estimasi' => 'nullable|string',
         ], [
             'id_laporan_pekerjaan_barang.required' => 'Data tidak valid !',
             'id_laporan_pekerjaan_barang.numeric' => 'Data tidak valid !',
@@ -122,13 +122,17 @@ class BarangDiminta extends Component
             'qty.numeric' => 'Jumlah barang tidak valid !',
             'id_rak.required' => 'Rak belum dipilih',
             'id_rak.numeric' => 'Rak tidak valid !',
-            'estimasi' => 'Estimasi Peminjaman belum diisi',
             'estimasi.string' => 'Estimasi peminjaman tidak valid !',
         ]);
 
         $laporanPekerjaanBarang = LaporanPekerjaanBarang::find($this->id_laporan_pekerjaan_barang);
         if(!$laporanPekerjaanBarang){
             $message = "Data tidak ditemukan !";
+            return session()->flash('fail', $message);
+        }
+
+        if($laporanPekerjaanBarang->barang->id_tipe_barang == 1 && $this->estimasi == null){
+            $message = "Estimasi belum diisi";
             return session()->flash('fail', $message);
         }
 
@@ -192,7 +196,7 @@ class BarangDiminta extends Component
                     'qty' => $laporanPekerjaanBarang->qty - $this->qty,
                     'status' => 1,
                     'konfirmasi' => 0,
-                    'estimasi' => date('Y-m-d H:i:s', strtotime($this->estimasi))
+                    'estimasi' => $this->estimasi ? date('Y-m-d H:i:s', strtotime($this->estimasi)) : null
                 ]);
 
                 LaporanPekerjaanBarangLog::create([
@@ -204,7 +208,7 @@ class BarangDiminta extends Component
                     'qty' => $this->qty,
                     'konfirmasi' => 1,
                     'meminjamkan' => session()->get('id_user'),
-                    'estimasi' => date('Y-m-d H:i:s', strtotime($this->estimasi))
+                    'estimasi' => $this->estimasi ? date('Y-m-d H:i:s', strtotime($this->estimasi)) : null
                 ]);
 
                 LaporanPekerjaanBarangLog::create([
@@ -216,7 +220,7 @@ class BarangDiminta extends Component
                 $laporanPekerjaanBarang->update([
                     'konfirmasi' => 1,
                     'meminjamkan' => session()->get('id_user'),
-                    'estimasi' => date('Y-m-d H:i:s', strtotime($this->estimasi))
+                    'estimasi' => $this->estimasi ? date('Y-m-d H:i:s', strtotime($this->estimasi)) : null
                 ]);
 
                 LaporanPekerjaanBarangLog::create([
@@ -230,7 +234,7 @@ class BarangDiminta extends Component
 
         $laporanPekerjaanBarang->update([
             'id_rak' => $this->id_rak,
-            'estimasi' => date('Y-m-d H:i:s', strtotime($this->estimasi))
+            'estimasi' => $this->estimasi ? date('Y-m-d H:i:s', strtotime($this->estimasi)) : null
         ]);
 
         activity()->causedBy(HelperController::user())->log("Mengkonfirmasi peminjaman barang");
@@ -263,7 +267,7 @@ class BarangDiminta extends Component
         $this->id_barang = $laporanPekerjaanBarang->id_barang;
         $this->nomor_itt = $laporanPekerjaanBarang->nomor_itt;
         if ($laporanPekerjaanBarang->estimasi) {
-            $this->estimasi = date('Y-m-d H:i', strtotime($laporanPekerjaanBarang->estimasi));
+            $this->estimasi = $this->estimasi ? date('Y-m-d H:i', strtotime($laporanPekerjaanBarang->estimasi)) : null;
         }
     }
 

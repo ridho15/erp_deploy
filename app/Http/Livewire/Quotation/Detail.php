@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Quotation;
 
 use App\Http\Controllers\HelperController;
 use App\Models\Barang;
+use App\Models\LaporanPekerjaanBarang;
 use App\Models\Quotation;
 use App\Models\QuotationDetail;
 use Livewire\Component;
@@ -33,28 +34,39 @@ class Detail extends Component
     public $n_ppn;
     public $show_input_harga = false;
     public $showInputPPN = false;
+    public $deskripsi;
+
     public function render()
     {
         $this->quotation = Quotation::find($this->id_quotation);
-        $this->listBarang = Barang::get();
-
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.quotation.detail');
     }
 
-    public function mount($id_quotation){
+    public function mount($id_quotation)
+    {
         $this->id_quotation = $id_quotation;
         $this->n_ppn = Quotation::find($this->id_quotation)->ppn;
+        $this->listBarang = Barang::where('id_tipe_barang', '2')
+            ->get();
     }
 
-    public function hapusDataBarang($id){
+    public function hapusDataBarang($id)
+    {
         $quotationDetail = QuotationDetail::find($id);
-        if(!$quotationDetail){
+        if (!$quotationDetail) {
             $message = "Data tidak ditemukan !";
             $this->emit('finishRefreshBarang', 0, $message);
             return session()->flash('fail', $message);
         }
 
+        $laporanPekerjaanBarang = LaporanPekerjaanBarang::where("id_barang", $quotationDetail->id_barang)
+        ->where('id_laporan_pekerjaan', $quotationDetail->quotation->id_laporan_pekerjaan)
+        ->where('qty', $quotationDetail->qty)
+        ->first();
+        if($laporanPekerjaanBarang != null){
+            $laporanPekerjaanBarang->delete();
+        }
         $quotationDetail->delete();
         $message = "Berhasil menghapus data";
         activity()->causedBy(HelperController::user())->log("Menghapus data barang pada quotation");
@@ -62,25 +74,28 @@ class Detail extends Component
         return session()->flash('success', $message);
     }
 
-    public function simpanDataBarang(){
+    public function simpanDataBarang()
+    {
         $this->validate([
             'id_barang' => 'required|numeric',
             'qty' => 'required|numeric',
+            'deskripsi' => 'nullable|string'
         ], [
             'id_barang.required' => 'Barang belum dipilih',
             'id_barang.numeric' => 'Barang tidak valid !',
             'qty.required' => 'Jumlah tidak boleh kosong',
             'qty.numeric' => 'Jumlah tidak valid !',
+            'deskripsi.required' => 'Deskripsi tidak valid !'
         ]);
 
         $barang = Barang::find($this->id_barang);
-        if(!$barang){
+        if (!$barang) {
             $message = "Data barang tidak ditemukan !";
             $this->emit('finishRefreshBarang', 0, $message);
             return session()->flash('fail', $message);
         }
 
-        if($this->qty <= 0){
+        if ($this->qty <= 0) {
             $message = "Jumlah 0 tidak berlaku. minimal 1";
             $this->emit('finishRefreshBarang', 0, $message);
             return session()->flash('fail', $message);
@@ -88,23 +103,23 @@ class Detail extends Component
 
         // checkstock yang sudah digunakan
         $quotationDetail = QuotationDetail::where('id_barang', $this->id_barang)
-        ->where('id_quotation', $this->id_quotation)->get();
+            ->where('id_quotation', $this->id_quotation)->get();
         $stockTerpakai = 0;
         foreach ($quotationDetail as $item) {
             $stockTerpakai += $item->qty;
         }
         $stockTerpakai += $this->qty;
 
-        if($this->id_quotation_detail != null){
+        if ($this->id_quotation_detail != null) {
             $quotationDetail = QuotationDetail::find($this->id_quotation_detail);
-            if($this->qty != $quotationDetail->qty){
-                if($this->qty > ($barang->stock + $quotationDetail->qty)){
+            if ($this->qty != $quotationDetail->qty) {
+                if ($this->qty > ($barang->stock + $quotationDetail->qty)) {
                     $message = "Stock tidak mencukupi. silahkan hubungi warehouse";
                     return session()->flash('fail', $message);
                 }
             }
-        }else{
-            if($stockTerpakai > $barang->stock){
+        } else {
+            if ($stockTerpakai > $barang->stock) {
                 $message = "Stock tidak cukup";
                 $this->emit('finishRefreshBarang', 0, $message);
                 return session()->flash('fail', $message);
@@ -120,7 +135,7 @@ class Detail extends Component
             'harga' => $this->harga_barang,
             'qty' => $this->qty,
             'id_satuan' => $barang->id_satuan,
-            'deskripsi' => $barang->deskripsi
+            'deskripsi' => $this->deskripsi
         ]);
 
         $message = "Berhasil menyimpan data";
@@ -132,16 +147,19 @@ class Detail extends Component
         return session()->flash('success', $message);
     }
 
-    public function resetInputFields(){
+    public function resetInputFields()
+    {
         $this->id_quotation_detail = null;
         $this->id_barang = null;
         $this->qty = null;
+        $this->deskripsi = null;
     }
 
-    public function setDataBarang($id){
+    public function setDataBarang($id)
+    {
         $this->tambahBarang = true;
         $quotationDetail = QuotationDetail::find($id);
-        if(!$quotationDetail){
+        if (!$quotationDetail) {
             $message = "Data quotation barang tidak ditemukan !";
             $this->emit('finishRefreshBarang', 0, $message);
             return session()->flash('fail', $message);
@@ -150,38 +168,44 @@ class Detail extends Component
         $this->id_barang = $quotationDetail->id_barang;
         $this->qty = $quotationDetail->qty;
         $this->barang = $quotationDetail->barang;
-        if($this->barang){
+        $this->deskripsi = $quotationDetail->deskripsi;
+        if ($this->barang) {
             $this->harga_barang = $quotationDetail->harga;
         }
     }
 
-    public function changeTambahBarang(){
+    public function changeTambahBarang()
+    {
         $this->tambahBarang = !$this->tambahBarang;
     }
 
-    public function changeQty(){
-        if($this->qty && $this->id_barang){
+    public function changeQty()
+    {
+        if ($this->qty && $this->id_barang) {
             $this->barang = Barang::find($this->id_barang);
-            if($this->qty > $this->barang->stock){
+            if ($this->qty > $this->barang->stock) {
                 $message = "Stock tidak cukup";
                 return session()->flash('fail', $message);
             }
         }
     }
 
-    public function changeBarang($id_barang){
+    public function changeBarang($id_barang)
+    {
         $this->id_barang = $id_barang;
         $this->barang = Barang::find($this->id_barang);
-        if($this->barang){
+        if ($this->barang) {
             $this->harga_barang = $this->barang->harga;
         }
     }
 
-    public function showHideInputPPN(){
+    public function showHideInputPPN()
+    {
         $this->showInputPPN = !$this->showInputPPN;
     }
 
-    public function updatePPN(){
+    public function updatePPN()
+    {
         $this->quotation->update([
             'ppn' => $this->n_ppn
         ]);

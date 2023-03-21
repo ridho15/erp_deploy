@@ -46,15 +46,10 @@ class Form extends Component
     public function render()
     {
         $this->listTipePembayaran = TipePembayaran::get();
-        $this->listQuotation = Quotation::whereDoesntHave('preOrder')
-        ->where(function($query){
-                $query->where('id_customer', $this->id_customer)
-                ->orWhereHas('laporanPekerjaan', function($query){
-                    $query->where('id_customer', $this->id_customer);
-                });
-            })->get();
+        $this->listQuotation = Quotation::whereHas('project', function($query){
+            $query->where('id_customer', $this->id_customer);
+        })->get();
         // $this->listQuotation = Quotation::get();
-        $this->listCustomer = Customer::get();
         $this->listMetodePembayaran = MetodePembayaran::get();
 
         $this->dispatchBrowserEvent('contentChange');
@@ -68,6 +63,8 @@ class Form extends Component
             $this->id_customer = $quotationSuccess->id_customer;
             $this->id_quotation = $quotationSuccess->id;
         }
+
+        $this->listCustomer = Customer::get();
     }
 
     public function simpanDataPreOrder(){

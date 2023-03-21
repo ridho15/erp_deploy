@@ -13,30 +13,27 @@
         <br>
         <div>
             <span style="margin-bottom: 10px">Kepada Yth:</span><br>
-            <span style="font-weight: bold; margin-bottom: 10px">{{ $quotation->customer->nama }}</span><br>
-            <span style="margin-bottom: 10px">{{ $quotation->customer->alamat }}</span><br>
+            <span style="font-weight: bold; margin-bottom: 10px">{{ $quotation->project->customer->nama }}</span><br>
+            <span style="margin-bottom: 10px">{{ $quotation->project->customer->alamat }}</span><br>
         </div>
         <br>
         <table>
             <tr>
-                <td style="font-weight: bold;">Nama - Nomor Hp</td>
+                <td style="font-weight: bold;">Nama Project</td>
                 <td style="font-weight: bold">:
-                    @if ($quotation->laporanPekerjaan)
-                        {{ $quotation->laporanPekerjaan->customer->nama }} -
-                        {{ $quotation->laporanPekerjaan->customer->no_hp }}
-                    @elseif($quotation->customer)
-                        {{ $quotation->customer->nama }} - {{ $quotation->customer->no_hp }}
-                    @endif
+                    {{ $quotation->project->nama }}
+                </td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold">No Handphone</td>
+                <td style="font-weight: bold">:
+                    {{ $quotation->project->no_hp }}
                 </td>
             </tr>
             <tr>
                 <td style="font-weight: bold">Email</td>
                 <td style="font-weight: bold">:
-                    @if ($quotation->laporanPekerjaan)
-                        {{ $quotation->laporanPekerjaan->customer->email }}
-                    @elseif($quotation->customer)
-                        {{ $quotation->customer->email }}
-                    @endif
+                    {{ $quotation->project->email }}
                 </td>
             </tr>
             <tr>
@@ -50,9 +47,10 @@
             <table id="data">
                 <thead>
                     <tr>
-                        <th>No.</th>
+                        <th style="width: 20px">No.</th>
+                        <th>Nama Barang</th>
                         <th>Keterangan</th>
-                        <th>Jumlah</th>
+                        <th style="width: 50px">Jumlah</th>
                         <th>Satuan</th>
                         <th>Satuan Harga</th>
                         <th>Harga Total</th>
@@ -70,6 +68,7 @@
                             <tr>
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $item->barang->nama }}</td>
+                                <td style="text-align: start">{{ $item->deskripsi }}</td>
                                 <td style="text-align: end">{{ $item->qty }}</td>
                                 <td style="text-align: center">{{ $item->satuan->nama_satuan }}</td>
                                 <td style="text-align: end">{{ $item->harga_formatted }}</td>
@@ -81,17 +80,17 @@
                             $total = $subTotal + $ppn;
                         @endphp
                         <tr>
-                            <td colspan="5" style="text-align: center; font-weight: bold; font-style: italic">Sub
+                            <td colspan="6" style="text-align: center; font-weight: bold; font-style: italic">Sub
                                 Total</td>
                             <td style="font-weight: bold; text-align: end">{{ 'Rp. ' . number_format($subTotal, 0, ',', '.') }}</td>
                         </tr>
                         <tr>
-                            <td colspan="5" style="text-align: center; font-weight: bold; font-style: italic">PPN 10%
+                            <td colspan="6" style="text-align: center; font-weight: bold; font-style: italic">PPN 10%
                             </td>
                             <td style="font-weight: bold; text-align: end">{{ 'Rp. ' . number_format($ppn, 0, ',', '.') }}</td>
                         </tr>
                         <tr>
-                            <td colspan="5" style="text-align: center; font-weight: bold; font-style: italic">Total
+                            <td colspan="6" style="text-align: center; font-weight: bold; font-style: italic">Total
                             </td>
                             <td style="font-weight: bold; text-align: end">{{ 'Rp. ' . number_format($total, 0, ',', '.') }}</td>
                         </tr>
@@ -116,7 +115,6 @@
                 PT. Mitra Global Kencana
             </span>
             <br>
-            <img src="" alt="Tanda Tangan" height="200" width="100" style="object-fit: contain">
             <br>
             <br>
             <br>

@@ -21,9 +21,9 @@ class Selesai extends Component
             ->where('jam_selesai', '!=', null)
             ->where(function ($query) {
                 $query->where('id', 'LIKE', '%' . $this->cari . '%')
-                    ->orWhereHas('project', function ($query) {
-                        $query->where('nama', 'LIKE', '%' . $this->cari . '%')
-                            ->orWhere('no_unit', 'LIKE', '%' . $this->cari . '%');
+                    ->orWhereHas('projectUnit', function ($query) {
+                        $query->where('nama_unit', 'LIKE', '%' . $this->cari . '%')
+                        ->orWhere('no_unit', 'LIKE', '%' . $this->cari . '%');
                     })->orWhereHas('teknisi', function ($query) {
                         $query->whereHas('user', function ($query) {
                             $query->where('name', 'LIKE', '%' . $this->cari . '%');

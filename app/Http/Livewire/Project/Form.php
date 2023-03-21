@@ -15,6 +15,8 @@ class Form extends Component
     public $id_project;
     public $kode;
     public $nama;
+    public $email;
+    public $no_hp;
     public $no_unit;
     public $no_mfg;
     public $alamat;
@@ -23,27 +25,29 @@ class Form extends Component
     public $listCustomer;
     public $tanggal;
     public $map;
+    public $penanggung_jawab;
     public $listIdSales = [];
     public $total_pekerjaan;
-
     public $listSales = [];
     public function render()
     {
-        $this->listCustomer = Customer::get();
-        $this->listSales = Sales::get();
+
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.project.form');
     }
 
     public function mount(){
-
+        $this->listCustomer = Customer::get();
+        $this->listSales = Sales::get();
     }
 
     public function simpanProject(){
         $this->validate([
             'kode' => 'required|string',
             'nama' => 'required|string',
-            'no_unit' => 'nullable|numeric',
+            'penanggung_jawab' => 'required|string',
+            'email' => 'required|email',
+            'no_hp' => 'required|numeric|digits_between:11,12',
             'no_mfg' => 'nullable|numeric',
             'alamat' => 'required|string',
             'catatan' => 'nullable|string',
@@ -56,7 +60,8 @@ class Form extends Component
             'kode.string' => 'Kode tidak valid !',
             'nama.required' => 'Nama project tidak boleh kosong',
             'nama.string' => 'Nama tidak valid !',
-            'no_unit.numeric' => 'Nomor unit tidak valid !',
+            'penanggung_jawab.required' => 'Penanggung jawab project tidak boleh kosong',
+            'penanggung_jawab.string' => 'Penanggung jawab project tidak valid !',
             'no_mfg.numeric' => 'Nomor MFG tidak valid !',
             'alamat.required' => 'Alamat tidak boleh kosong',
             'alamat.string' => 'Alamat tidak valid !',
@@ -80,12 +85,14 @@ class Form extends Component
         ], [
             'kode' => $this->kode,
             'nama' => $this->nama,
-            'no_unit' => $this->no_unit,
+            'no_hp' => $this->no_hp,
+            'email' => $this->email,
             'no_mfg' => $this->no_mfg,
             'alamat' => $this->alamat,
             'catatan' => $this->catatan,
             'id_customer' => $this->id_customer,
             'map' => $this->map,
+            'penanggung_jawab' => $this->penanggung_jawab,
             'tanggal' => date('Y-m-d', strtotime($this->tanggal)),
             'total_pekerjaan' => $this->total_pekerjaan
         ]);
@@ -111,7 +118,6 @@ class Form extends Component
         $this->id_project = null;
         $this->kode = null;
         $this->nama = null;
-        $this->no_unit = null;
         $this->no_mfg = null;
         $this->alamat = null;
         $this->catatan = null;
@@ -120,6 +126,9 @@ class Form extends Component
         $this->listIdSales = [];
         $this->tanggal = null;
         $this->total_pekerjaan = null;
+        $this->no_hp = null;
+        $this->email = null;
+        $this->penanggung_jawab = null;
     }
 
     public function setDataProject($id){
@@ -132,7 +141,6 @@ class Form extends Component
         $this->id_project = $project->id;
         $this->kode = $project->kode;
         $this->nama = $project->nama;
-        $this->no_unit = $project->no_unit;
         $this->no_mfg = $project->no_mfg;
         $this->alamat = $project->alamat;
         $this->catatan = $project->catatan;
@@ -140,6 +148,9 @@ class Form extends Component
         $this->map = $project->map;
         $this->tanggal = $project->tanggal;
         $this->total_pekerjaan = $project->total_pekerjaan;
+        $this->no_hp = $project->no_hp;
+        $this->email = $project->email;
+        $this->penanggung_jawab = $project->penanggung_jawab;
 
         $this->listIdSales = [];
         foreach ($project->salesProject as $item) {

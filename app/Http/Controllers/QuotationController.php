@@ -32,6 +32,7 @@ class QuotationController extends Controller
         $data['breadCrumb'] = ['Quotation', 'Data', 'Preview'];
         $data['quotation'] = $quotation;
         $data['user'] = User::find(session()->get('id_user'));
+        $data['web_logo'] = WebConfig::where('type', 'web_logo')->first();
 
         // return view('pdf_view.quotation', $data);
         return view('quotation.preview', $data);
@@ -60,14 +61,14 @@ class QuotationController extends Controller
         }
         $data['quotation'] = $quotation;
         $data['user'] = User::find(session()->get('id_user'));
-        $data['web_name'] = WebConfig::where('type', 'name')->first()->value;
-        $data['web_description'] = WebConfig::where('type', 'description')->first()->value;
-        $data['web_phone'] = WebConfig::where('type', 'phone')->first()->value;
-        $data['web_email'] = WebConfig::where('type', 'email')->first()->value;
-        $data['web_faksimili'] = WebConfig::where('type', 'faksimili')->first()->value;
-        $data['web_logo_perusahaan'] = WebConfig::where('type', 'logo_perusahaan')->first()->value;
-        $data['web_alamat'] = WebConfig::where('type', 'alamat')->first()->value;
-        $data['web_logo'] = WebConfig::where('type', 'logo')->first()->value;
+        $data['web_name'] = WebConfig::where('type', 'web_name')->first()->value;
+        $data['web_description'] = WebConfig::where('type', 'web_description')->first()->value;
+        $data['web_phone'] = WebConfig::where('type', 'web_phone')->first()->value;
+        $data['web_email'] = WebConfig::where('type', 'web_email')->first()->value;
+        $data['web_faksimili'] = WebConfig::where('type', 'web_faksimili')->first()->value;
+        $data['web_logo_perusahaan'] = WebConfig::where('type', 'web_logo_perusahaan')->first()->value;
+        $data['web_alamat'] = WebConfig::where('type', 'web_alamat')->first()->value;
+        $data['web_logo'] = WebConfig::where('type', 'web_logo')->first();
         $pdf = Pdf::loadView('pdf_view.quotation', $data);
 
         return $pdf->download('quotation_'.strtotime(now()).'.pdf');
@@ -90,12 +91,7 @@ class QuotationController extends Controller
             ]);
         }
 
-        $id_customer = null;
-        if($quotation->laporanPekerjaan){
-            $id_customer = $quotation->laporanPekerjaan->id_customer;
-        }elseif($quotation->customer){
-            $id_customer = $quotation->id_customer;
-        }
+        $id_customer = $quotation->project->id_customer;
 
         $preOrder = PreOrder::updateOrCreate([
             'id_quotation' => $id

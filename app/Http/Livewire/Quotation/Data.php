@@ -36,16 +36,17 @@ class Data extends Component
     public $status_pekerjaan;
     public function render()
     {
-        $this->listProject = ProjectV2::get();
         if($this->cari != null || $this->tanggal_dibuat != null || $this->id_project != null || $this->status_kirim != null || $this->status_konfirmasi != null || $this->status_quotation != null || $this->status_pekerjaan != null){
             $this->listQuotation = Quotation::where(function($query){
                 $query->where('keterangan', 'LIKE', '%' . $this->cari . '%')
                 ->orWhere('id', 'LIKE', '%' . $this->cari . '%')
                 ->orWhere('hal' ,'LIKE', '%' . $this->cari . '%')
                 ->orWhereHas('laporanPekerjaan', function($query){
-                    $query->whereHas('project', function($query){
-                        $query->where('nama', 'LIKE', '%' . $this->cari . '%')
-                        ->orWhere('kode', 'LIKE', '%' . $this->cari . '$');
+                    $query->whereHas('projectUnit', function($query){
+                        $query->whereHas('project', function($query){
+                            $query->where('nama', 'LIKE', '%' . $this->cari . '%')
+                            ->orWhere('kode', 'LIKE', '%' . $this->cari . '$');
+                        });
                     });
                 });
             })
@@ -53,7 +54,9 @@ class Data extends Component
                 if ($this->tanggal_dibuat != null || $this->id_project != null || $this->status_kirim != null || $this->status_konfirmasi != null || $this->status_quotation != null || $this->status_pekerjaan != null) {
                     $query->whereDate('created_at', $this->tanggal_dibuat)
                     ->orWhereHas('laporanPekerjaan', function($query){
-                        $query->where('id_project', $this->id_project)
+                        $query->whereHas('projectUnit', function($query){
+                            $query->where('id_project', $this->id_project);
+                        })
                         ->orWhere(function($query){
                             if($this->status_pekerjaan == 0){
                                 $query->where('jam_mulai', null);
@@ -76,6 +79,7 @@ class Data extends Component
             ->paginate($this->total_show);
         }else{
             $this->listQuotation = Quotation::orderBy('created_at', 'DESC')
+            ->whereHas('project')
             ->paginate($this->total_show);
         }
         $data['listQuotation'] = $this->listQuotation;
@@ -85,6 +89,7 @@ class Data extends Component
     }
 
     public function mount(){
+        $this->listProject = ProjectV2::get();
     }
 
     public function hapusQuotation($id){
@@ -94,7 +99,10 @@ class Data extends Component
 
             return session()->flash('fail', $mesasge);
         }
-
+        if($quotation->laporanPekerjaan && $quotation->laporanPekerjaan->jam_selesai != null && $quotation->laporanPekerjaan->signature != null){
+            $message = 'Quotation tidak dapat di hapus karena pekerjaan di dalam quotation sudah selesai';
+            return session()->flash('fail', $message);
+        }
         $quotation->delete();
         $message = "Berhasil menghapus quotation";
         activity()->causedBy(HelperController::user())->log($message);
@@ -110,12 +118,13 @@ class Data extends Component
             $this->emit('finishRefreshData',0, $mesasge);
             return session()->flash('fail', $mesasge);
         }
-        $email = null;
-        if($quotation->laporanPekerjaan){
-            $email = $quotation->laporanPekerjaan->customer->email;
-        }elseif($quotation->customer){
-            $email = $quotation->customer->email;
+        $email = $quotation->project->email;
+        if($email == null){
+            $message = "Email tidak boleh kosong atau email belum terpasang ke project";
+            $this->emit('finishRefreshData', 0, $message);
+            return session()->flash('fail', $message);
         }
+
         if ($email) {
             Mail::to($email)->send(new SendQuotationMail($id));
             $quotation->update([
@@ -173,6 +182,5 @@ class Data extends Component
 
         activity()->causedBy(HelperController::user())->log("Submit quotation to pre order");
         return redirect()->route('pre-order', ['show_modal' => true])->with('success', $message);
-        // return session()->flash('success', $mesasge);
     }
 }
