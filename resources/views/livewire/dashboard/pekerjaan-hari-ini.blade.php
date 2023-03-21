@@ -35,7 +35,7 @@
                             <tr>
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $item->kode_pekerjaan }}</td>
-                                <td>{{ $item->project->kode }} {{ $item->project->nama }}</td>
+                                <td>{{ $item->projectUnit->project->kode }} {{ $item->projectUnit->project->nama }}</td>
                                 <td>{{ $item->nomor_lift }}</td>
                                 <td>
                                     @foreach ($item->teknisi as $nama)

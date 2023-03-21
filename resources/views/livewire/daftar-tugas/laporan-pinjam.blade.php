@@ -101,13 +101,6 @@
                                     @enderror
                                 </div>
                                 <div class="mb-5">
-                                    <label for="" class="form-label">Keterangan Customer</label>
-                                    <textarea name="keterangan_customer" wire:model="keterangan_customer" class="form-control form-control-solid" placeholder="Masukkan catatan"></textarea>
-                                    @error('keterangan_customer')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                </div>
-                                <div class="mb-5">
                                     <label for="" class="form-label required">Estimasi Kembali</label>
                                     <input type="datetime-local" name="estimasi" wire:model="estimasi" class="form-control form-control-solid" required>
                                     @error('estimasi')
@@ -149,7 +142,6 @@
                    <th>Estimasi Kembali</th>
                    <th>Qty</th>
                    <th>Catatan Teknisi</th>
-                   <th>Keterangan Customer</th>
                    <th>Status</th>
                    <th>Aksi</th>
                   </tr>
@@ -181,7 +173,6 @@
                                 </td>
                                 <td>{{ $item->qty }}</td>
                                 <td>{{ $item->catatan_teknisi }}</td>
-                                <td>{{ $item->keterangan_customer }}</td>
                                 <td><?= $item->status_formatted ?></td>
                                 <td>
                                     <div class="text-center">
@@ -204,7 +195,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="12" class="text-center text-gray-500">Tidak ada data</td>
+                            <td colspan="11" class="text-center text-gray-500">Tidak ada data</td>
                         </tr>
                     @endif
                  </tbody>

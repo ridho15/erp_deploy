@@ -48,8 +48,8 @@
                                 <td>{{ $item->stock }}</td>
                                 <td>{{ $item->satuan->nama_satuan }}</td>
                                 <td>
-                                    @if ($item->version)
-                                        {{ $item->version }} V
+                                    @if ($item->version != null)
+                                        V{{ $item->version }}
                                     @endif
                                 </td>
                                 <td>{{ $item->harga_formatted }}</td>

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\CPU\Helpers;
+use App\Models\CatatanTeknisiPekerjaan;
 use App\Models\LaporanPekerjaan;
+use App\Models\WebConfig;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class ManagementTugasController extends Controller
@@ -41,9 +44,12 @@ class ManagementTugasController extends Controller
         $listTemplatePekerjaan = $laporanPekerjaan->formMaster->templatePekerjaan;
         $data['laporanPekerjaan'] = $laporanPekerjaan;
         $data['listTemplatePekerjaan'] = $listTemplatePekerjaan;
-        $pdf = Pdf::loadView('pdf_view.laporan_pekerjaan', $data);
+        $data['web_logo'] = WebConfig::where('type', 'logo')->first();
+        $data['web_name'] = WebConfig::where('type', 'web_name')->first();
+        $data['listCatatanTeknisiPekerjaan'] = CatatanTeknisiPekerjaan::where('id_laporan_pekerjaan', $id)->get();
+        // $pdf = Pdf::loadView('pdf_view.laporan_pekerjaan', $data);
 
-        return $pdf->download('laporan_pekerjaan_'.strtotime(now()).'.pdf');
+        // return $pdf->download('laporan_pekerjaan_'.strtotime(now()).'.pdf');
 
         return view('pdf_view.laporan_pekerjaan', $data);
     }

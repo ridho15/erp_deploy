@@ -1043,6 +1043,7 @@ class ComposerStaticInite1ab89f42751b0b0a0261a184d67ddd7
         'Database\\Seeders\\TipePerubahanStockSeeder' => __DIR__ . '/../..' . '/database/seeders/TipePerubahanStockSeeder.php',
         'Database\\Seeders\\TipeUserSeeder' => __DIR__ . '/../..' . '/database/seeders/TipeUserSeeder.php',
         'Database\\Seeders\\UserAdminSeeder' => __DIR__ . '/../..' . '/database/seeders/UserAdminSeeder.php',
+        'Database\\Seeders\\WebConfigSeeder' => __DIR__ . '/../..' . '/database/seeders/WebConfigSeeder.php',
         'DebugBar\\Bridge\\CacheCacheCollector' => __DIR__ . '/..' . '/maximebf/debugbar/src/DebugBar/Bridge/CacheCacheCollector.php',
         'DebugBar\\Bridge\\DoctrineCollector' => __DIR__ . '/..' . '/maximebf/debugbar/src/DebugBar/Bridge/DoctrineCollector.php',
         'DebugBar\\Bridge\\MonologCollector' => __DIR__ . '/..' . '/maximebf/debugbar/src/DebugBar/Bridge/MonologCollector.php',

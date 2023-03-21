@@ -60,7 +60,7 @@
                                 @enderror
                             </div>
                             <div class="mb-5 col-md-6">
-                                <label for="" class="form-label requried">Tipe Barang</label>
+                                <label for="" class="form-label required">Tipe Barang</label>
                                 <select name="id_tipe_barang" class="form-select form-select-solid" wire:model='id_tipe_barang' data-dropdown-parent="#modal_form" data-placeholder="Pilih" data-control="select2">
                                     <option value="">Pilih</option>
                                     @foreach ($listTipeBarang as $item)
@@ -72,7 +72,7 @@
                                 @enderror
                             </div>
                             <div class="mb-5 col-md-6">
-                                <label for="" class="form-label">Merk</label>
+                                <label for="" class="form-label required">Merk</label>
                                 <select name="id_merk" class="form-select form-select-solid" wire:model='id_merk' data-dropdown-parent="#modal_form" data-placeholder="Pilih" data-control="select2">
                                     <option value="">Pilih</option>
                                     @foreach ($listMerk as $item)
@@ -84,7 +84,7 @@
                                 @enderror
                             </div>
                             <div class="mb-5 col-md-6">
-                                <label for="" class="form-label">Satuan</label>
+                                <label for="" class="form-label required">Satuan</label>
                                 <select name="id_satuan" class="form-select form-select-solid" wire:model='id_satuan' data-dropdown-parent="#modal_form" data-placeholder="Pilih" data-control="select2">
                                     <option value="">Pilih</option>
                                     @foreach ($listSatuan as $item)

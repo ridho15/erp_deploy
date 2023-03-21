@@ -26,7 +26,7 @@
                     <ul>
                         <li>
                             <span>Jam selesai tidak dapat di edit, akan automatis terisi ketika tanda tangan customer
-                                sudah di berika dan data sudah berhasil disimpan.</span>
+                                sudah di berikan dan data sudah berhasil disimpan.</span>
                         </li>
                         <li>
                             <span>Untuk keterangan pekerjaan / catatan teknisi selesai mengetikan catatan lalu tekan
@@ -36,7 +36,7 @@
                         </li>
                         <li>
                             <span>Untuk tanda tangan silahkan isi tanda tangan customer pada area yang sudah diberikan,
-                                lalu pilih tombol centang baru dan simpan. maka data berhasil di simpan dan jam selesai
+                                lalu pilih tombol centang biru dan simpan. maka data berhasil di simpan dan jam selesai
                                 akan terisi secara automatis</span>
                         </li>
                     </ul>
@@ -46,7 +46,18 @@
                 <button type="button"
                     class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto"
                     data-bs-dismiss="alert">
-                    <span class="svg-icon svg-icon-1 svg-icon-primary">...</span>
+                    <span class="svg-icon svg-icon-1 svg-icon-primary">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3"
+                                d="M20.5543 4.37824L12.1798 2.02473C12.0626 1.99176 11.9376 1.99176 11.8203 2.02473L3.44572 4.37824C3.18118 4.45258 3 4.6807 3 4.93945V13.569C3 14.6914 3.48509 15.8404 4.4417 16.984C5.17231 17.8575 6.18314 18.7345 7.446 19.5909C9.56752 21.0295 11.6566 21.912 11.7445 21.9488C11.8258 21.9829 11.9129 22 12.0001 22C12.0872 22 12.1744 21.983 12.2557 21.9488C12.3435 21.912 14.4326 21.0295 16.5541 19.5909C17.8169 18.7345 18.8277 17.8575 19.5584 16.984C20.515 15.8404 21 14.6914 21 13.569V4.93945C21 4.6807 20.8189 4.45258 20.5543 4.37824Z"
+                                fill="currentColor" />
+                            <rect x="9" y="13.0283" width="7.3536" height="1.2256" rx="0.6128"
+                                transform="rotate(-45 9 13.0283)" fill="currentColor" />
+                            <rect x="9.86664" y="7.93359" width="7.3536" height="1.2256" rx="0.6128"
+                                transform="rotate(45 9.86664 7.93359)" fill="currentColor" />
+                        </svg>
+                    </span>
                 </button>
             </div>
             <form action="#" method="POST" wire:submit.prevent="simpanLaporanPekerjaan" id="FormLaporanPekerjaan">
@@ -61,8 +72,7 @@
                     <div class="col-md mb-5">
                         <label for="" class="form-label">Tanggal</label>
                         <input type="date" class="form-control form-control-solid" name="tanggal"
-                        wire:model="tanggal"
-                            placeholder="Pilih tanggal">
+                            wire:model="tanggal" placeholder="Pilih tanggal">
                         @error('tanggal')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -70,8 +80,7 @@
                     <div class="col-md mb-5">
                         <label for="" class="form-label">Jam Mulai</label>
                         <input type="time" class="form-control form-control-solid" name="jam_mulai"
-                            placeholder="Masukkan waktu"
-                            wire:model="jam_mulai">
+                            placeholder="Masukkan waktu" wire:model="jam_mulai">
                         @error('jam_mulai')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -79,8 +88,7 @@
                     <div class="col-md mb-5">
                         <label for="" class="form-label">Jam Selesai</label>
                         <input type="datetime" class="form-control form-control-solid" name="jam_selesai"
-                        wire:model="jam_selesai"
-                            placeholder="-">
+                            wire:model="jam_selesai" placeholder="-">
                         @error('jam_selesai')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -93,8 +101,6 @@
                                 Teknisi</label>
                             <input type="text" name="catatan_teknisi" class="form-control form-control-solid"
                                 placeholder="Masukkan catatan">
-
-                            {{-- <textarea name="keterangan_laporan_pekerjaan" class="form-control form-control-solid" placeholder="Masukkan keterangan / Catatan" cols="30" rows="5" wire:model='keterangan_laporan_pekerjaan'></textarea> --}}
                         </div>
                         <table>
                             <tr>
@@ -145,28 +151,6 @@
                                 </tr>
                             @endif
                         </table>
-                        {{-- @foreach ($listCatatanTeknisi as $item)
-                            <div class="d-flex align-items-center mb-5">
-                                <button type="button" class="btn btn-sm btn-icon btn-light-active-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Catatan" wire:click="hapusCatatanTeknisi({{ $item->id }})">
-                                    <i class="fa-solid fa-trash-can text-danger"></i>
-                                </button>
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    {{ $item->keterangan }}
-                                </label>
-                                <div class="form-check form-check-custom form-check-solid mb-2 form-check-sm">
-                                    <div class="d-flex flex-column align-items-center mx-2">
-                                        <small>Ya</small>
-                                        <input class="form-check-input" type="checkbox" value="1" @if ($item->status === 1) checked @endif id="flexCheckDefault" wire:click="checkCatatanTeknisi({{ $item->id }}, 1)"/>
-                                    </div>
-                                </div>
-                                <div class="form-check form-check-custom form-check-solid form-check-danger mb-2 form-check-sm">
-                                    <div class="d-flex flex-column align-items-center mx-2">
-                                        <small>Tidak</small>
-                                        <input class="form-check-input" type="checkbox" value="1" @if ($item->status === 0) checked @endif id="flexCheckDefault" wire:click="checkCatatanTeknisi({{ $item->id }}, 0)"/>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach --}}
                     </div>
 
                     <div class="mb-5 col-md-6">
@@ -300,7 +284,7 @@
         $(document).ready(function() {
             const canvas = document.querySelector("canvas");
             $('input[name="tanggal"]').flatpickr({
-                dateFormat: 'd-m-Y'
+                dateFormat: 'Y-m-d'
             })
             $('input[name="jam_mulai"]').flatpickr({
                 enableTime: true,
@@ -318,7 +302,7 @@
 
         window.addEventListener('contentChange', function() {
             $('input[name="tanggal"]').flatpickr({
-                dateFormat: 'd-m-Y'
+                dateFormat: 'Y-m-d'
             })
             $('input[name="jam_mulai"]').flatpickr({
                 enableTime: true,
@@ -328,12 +312,6 @@
                 enableTime: true,
                 dateFormat: 'H:i'
             })
-
-            // signaturePad = new SignaturePad(document.getElementById('signature-pad'), {
-            //     backgroundColor: 'rgba(255, 255, 255, 0)',
-            //     penColor: 'rgb(0, 0, 0)'
-            // });
-
         })
 
         Livewire.on('onClickHapusFotoByIndex', async (index) => {

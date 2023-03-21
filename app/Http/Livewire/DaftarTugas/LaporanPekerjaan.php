@@ -90,7 +90,7 @@ class LaporanPekerjaan extends Component
         $data['catatan_pelanggan'] = $this->catatan_pelanggan;
         if($this->signature){
             $data['signature'] = $this->signature;
-            $data['jam_selesai'] = date('Y-m-d H:i:s', strtotime($this->jam_selesai));
+            $data['jam_selesai'] = now();
             $laporanPekerjaan->update($data);
             foreach ($laporanPekerjaan->laporanPekerjaanBarang as $barang) {
                 if($barang->barang && $barang->status == 2){
@@ -146,8 +146,8 @@ class LaporanPekerjaan extends Component
         ], [
             'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan,
             'status' => 0,
-            'id_customer' => $laporanPekerjaan->id_customer,
-            'ppn' => $laporanPekerjaan->customer->ppn,
+            'id_customer' => $laporanPekerjaan->projectUnit->project->id_customer,
+            'ppn' => $laporanPekerjaan->projectUnit->project->customer->ppn,
         ]);
 
         if($laporanPekerjaan->jam_selesai != null && $laporanPekerjaan->signature != null){

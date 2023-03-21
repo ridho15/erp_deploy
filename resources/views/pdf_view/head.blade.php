@@ -4,7 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {{-- <link href="{{ asset('/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" /> --}}
-    <title>Quotation</title>
+    <title>Document</title>
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;

@@ -127,6 +127,12 @@ class Data extends Component
             return session()->flash('fail', $message);
         }
 
+        if($laporanPekerjaan->quotation){
+            $laporanPekerjaan->quotation->update([
+                'id_laporan_pekerjaan' => null
+            ]);
+        }
+        
         $laporanPekerjaan->delete();
         $message = 'Data management tugas berhasil dihapus';
         activity()->causedBy(HelperController::user())->log("Data management tugas di hapus");

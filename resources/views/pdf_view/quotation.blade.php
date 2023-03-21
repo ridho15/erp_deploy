@@ -48,7 +48,7 @@
                     <th>Nama Barang</th>
                     <th>Keterangan</th>
                     <th style="width: 20px">Jumlah</th>
-                    <th>Satuan</th>
+                    <th style="width: 20px">Satuan</th>
                     <th>Satuan Harga</th>
                     <th>Harga Total</th>
                 </tr>
@@ -108,6 +108,8 @@
         <span style="font-weight: bold">
             PT. Mitra Global Kencana
         </span>
+        <br>
+        <br>
         <br>
         <br>
         <br>

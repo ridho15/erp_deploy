@@ -33,8 +33,8 @@ class LaporanSparepart extends Component
     public $tambahBarang = false;
     public $listBarang = [];
     public $barang;
-    public $version;
-    public $id_tipe_barang;
+    public $version = 0;
+    public $id_tipe_barang = 2;
     public $estimasi;
 
     public $listTipeBarang;
@@ -42,28 +42,32 @@ class LaporanSparepart extends Component
     public $nomor_itt;
     public function render()
     {
-        $this->listTipeBarang = TipeBarang::get();
-        $this->listVersion = HelperController::getListVersion();
-        $this->listBarang = Barang::get();
-        $this->listLaporanPekerjaanBarang = LaporanPekerjaanBarang::where(function($query){
-            $query->whereHas('barang', function($query){
+        $this->listBarang = Barang::where('id_tipe_barang', $this->id_tipe_barang)
+            ->get();
+        $this->listLaporanPekerjaanBarang = LaporanPekerjaanBarang::where(function ($query) {
+            $query->whereHas('barang', function ($query) {
                 $query->where('nama', 'LIKE', '%' . $this->cari . '%');
             });
         })->where('is_laporan_pinjam', '!=', 1)->where('id_laporan_pekerjaan', $this->id_laporan_pekerjaan)->get();
-        if($this->id_barang){
+        if ($this->id_barang) {
             $this->barang = Barang::find($this->id_barang);
         }
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.daftar-tugas.laporan-sparepart');
     }
 
-    public function mount($id_laporan_pekerjaan){
+    public function mount($id_laporan_pekerjaan)
+    {
+        $this->listVersion = HelperController::getListVersion();
+        $this->listTipeBarang = TipeBarang::get();
+
         $this->id_laporan_pekerjaan = $id_laporan_pekerjaan;
     }
 
-    public function setDataLaporanPekerjaanBarang($id){
+    public function setDataLaporanPekerjaanBarang($id)
+    {
         $laporanPekerjaanBarang = LaporanPekerjaanBarang::find($id);
-        if(!$laporanPekerjaanBarang){
+        if (!$laporanPekerjaanBarang) {
             $message = "Data laporan barang tidak ditemukan !";
             return session()->flash('fail', $message);
         }
@@ -74,26 +78,27 @@ class LaporanSparepart extends Component
         $this->catatan_teknisi = $laporanPekerjaanBarang->catatan_teknisi;
         $this->keterangan_customer = $laporanPekerjaanBarang->keterangan_customer;
         $this->qty = $laporanPekerjaanBarang->qty;
-        $this->version = $laporanPekerjaanBarang->version;
-        $this->id_tipe_barang = $laporanPekerjaanBarang->id_tipe_barang;
+        $this->id_tipe_barang = $laporanPekerjaanBarang->barang->id_tipe_barang;
     }
 
-    public function hapusLaporanPekerjaanBarang($id){
+    public function hapusLaporanPekerjaanBarang($id)
+    {
         $laporanPekerjaanBarang = LaporanPekerjaanBarang::find($id);
-        if($laporanPekerjaanBarang->laporanPekerjaan->quotation){
-            $quotation = $laporanPekerjaanBarang->laporanPekerjaan->quotation;
-            $quotationDetail = QuotationDetail::where('id_quotation', $quotation->id)
-            ->where('qty', $laporanPekerjaanBarang->qty)
-            ->where('id_barang', $laporanPekerjaanBarang->id_barang)
-            ->first();
-            if($quotationDetail){
-                $quotationDetail->delete();
-            }
-        }
-        if(!$laporanPekerjaanBarang){
+        if (!$laporanPekerjaanBarang) {
             $message = "Data laporan barang tidak ditemukan !";
             return session()->flash('fail', $message);
         }
+        if ($laporanPekerjaanBarang->laporanPekerjaan->quotation) {
+            $quotation = $laporanPekerjaanBarang->laporanPekerjaan->quotation;
+            $quotationDetail = QuotationDetail::where('id_quotation', $quotation->id)
+                ->where('qty', $laporanPekerjaanBarang->qty)
+                ->where('id_barang', $laporanPekerjaanBarang->id_barang)
+                ->first();
+            if ($quotationDetail) {
+                $quotationDetail->delete();
+            }
+        }
+        
 
         $laporanPekerjaanBarang->delete();
         $message = "Data laporan barang berhasil dihapus";
@@ -103,17 +108,18 @@ class LaporanSparepart extends Component
         return session()->flash('success', $message);
     }
 
-    public function changeTambahBarang(){
+    public function changeTambahBarang()
+    {
         $this->tambahBarang = !$this->tambahBarang;
     }
 
-    public function simpanLaporanPekerjaanBarang(){
+    public function simpanLaporanPekerjaanBarang()
+    {
         $this->validate([
             'id_barang' => 'required|numeric',
             'qty' => 'required|numeric',
             'catatan_teknisi' => 'nullable|string',
             'keterangan_customer' => 'nullable|string',
-            'version' => 'required|numeric',
             'id_tipe_barang' => 'required|numeric',
         ], [
             'id_barang.required' => 'Barang belum dipilih',
@@ -125,41 +131,40 @@ class LaporanSparepart extends Component
         ]);
 
         $laporanPekerjaanBarang = LaporanPekerjaanBarang::where('id', $this->id_laporan_pekerjaan_barang)->first();
-        if($laporanPekerjaanBarang && $laporanPekerjaanBarang->nomor_itt != $this->nomor_itt){
+        if ($laporanPekerjaanBarang && $laporanPekerjaanBarang->nomor_itt != $this->nomor_itt) {
             $checkLaporanPekerjaanBarangNomorITT = LaporanPekerjaanBarang::where('nomor_itt', $this->nomor_itt)
-            ->whereDate('updated_at', now())->first();
-            if($checkLaporanPekerjaanBarangNomorITT){
+                ->whereDate('updated_at', now())->first();
+            if ($checkLaporanPekerjaanBarangNomorITT) {
                 $message = "Nomor ITT sudah digunakan. Silahkan gunakan nomor lainnya";
                 return session()->flash('fail', $message);
             }
         }
-
         // Check data barang
         $barang = Barang::find($this->id_barang);
-        if(!$barang){
+        if (!$barang) {
             $message = "Data barang tidak ditemukan !";
             return session()->flash('fail', $message);
         }
 
-        if($this->qty <= 0){
+        if ($this->qty <= 0) {
             $message = "Jumlah barang tidak boleh 0 atau lebih rendah dari 0";
             return session()->flash('fail', $message);
         }
 
         $laporanPekerjaanBarang = LaporanPekerjaanBarang::where('id_barang', $this->id_barang)
-        ->where('id_laporan_pekerjaan', $this->id_laporan_pekerjaan)->get();
+            ->where('id_laporan_pekerjaan', $this->id_laporan_pekerjaan)->get();
         $stockDiminta = 0;
         foreach ($laporanPekerjaanBarang as $value) {
             $stockDiminta += $value->qty;
         }
 
-        if($this->id_laporan_pekerjaan_barang){
+        if ($this->id_laporan_pekerjaan_barang) {
             $stockDiminta = $this->qty;
-        }else{
+        } else {
             $stockDiminta += $this->qty;
         }
 
-        if($stockDiminta > $barang->stock){
+        if ($stockDiminta > $barang->stock) {
             $jumlah_kurang = $stockDiminta - $barang->stock;
             $stock_sekarang = $barang->stock;
             $jumlah_diminta = $stockDiminta;
@@ -197,14 +202,14 @@ class LaporanSparepart extends Component
         ]);
 
         $laporanPekerjaan = LaporanPekerjaan::find($this->id_laporan_pekerjaan);
-        if($laporanPekerjaan->quotation){
+        if ($laporanPekerjaan->quotation && $this->id_laporan_pekerjaan_barang == null) {
             QuotationDetail::create([
                 'id_quotation' => $laporanPekerjaan->quotation->id,
                 'id_barang' => $this->id_barang,
                 'harga' => $barang->harga,
                 'qty' => $this->qty,
                 'id_satuan' => $barang->id_satuan,
-                'deskripsi' => $barang->deskripsi
+                'deskripsi' => $this->catatan_teknisi
             ]);
         }
 
@@ -216,7 +221,8 @@ class LaporanSparepart extends Component
         return session()->flash('success', $message);
     }
 
-    public function resetInputFields(){
+    public function resetInputFields()
+    {
         $this->id_laporan_pekerjaan_barang = null;
         $this->id_barang = null;
         $this->keterangan_customer = null;

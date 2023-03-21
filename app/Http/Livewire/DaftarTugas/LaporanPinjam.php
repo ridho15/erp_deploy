@@ -33,7 +33,6 @@ class LaporanPinjam extends Component
     public $id_barang;
     public $qty;
     public $estimasi;
-    public $keterangan_customer;
     public $catatan_teknisi;
     public $id_laporan_pekerjaan_barang;
     public function render()
@@ -71,7 +70,6 @@ class LaporanPinjam extends Component
             'id_barang' => 'required|numeric',
             'qty' => 'required|numeric',
             'catatan_teknisi' => 'nullable|string',
-            'keterangan_customer' => 'nullable|string',
             'version' => 'required|numeric',
             'id_tipe_barang' => 'required|numeric',
             'estimasi' => 'required|string',
@@ -81,7 +79,6 @@ class LaporanPinjam extends Component
             'qty.required' => 'Jumlah barang tidak boleh kosong',
             'qty.numeric' => 'Jumlah barang tidak valid !',
             'catatan_teknisi.string' => 'Catatan teknisi tidak valid !',
-            'keterangan_customer' => 'Keterangan customer tidak valid !',
         ]);
 
         $laporanPekerjaanBarang = LaporanPekerjaanBarang::where('id', $this->id_laporan_pekerjaan_barang)->first();
@@ -142,7 +139,6 @@ class LaporanPinjam extends Component
             'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan,
             'id_barang' => $this->id_barang,
             'qty' => $this->qty,
-            'keterangan_customer' => $this->keterangan_customer,
             'catatan_teknisi' => $this->catatan_teknisi,
             'status' => 1,
             'konfirmasi' => 0,
@@ -181,7 +177,6 @@ class LaporanPinjam extends Component
     public function resetInputFields(){
         $this->id_laporan_pekerjaan_barang = null;
         $this->id_barang = null;
-        $this->keterangan_customer = null;
         $this->catatan_teknisi = null;
         $this->qty = null;
         $this->id_tipe_barang = null;

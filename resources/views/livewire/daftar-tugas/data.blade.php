@@ -49,8 +49,8 @@
                                 <tr>
                                     <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
                                     <td>{{ $item->kode_pekerjaan }}</td>
-                                    <td>{{ $item->customer->nama }}</td>
-                                    <td>{{ $item->project ? $item->project->nama : '-' }}</td>
+                                    <td>{{ $item->projectUnit->project->customer->nama }}</td>
+                                    <td>{{ $item->projectUnit->project->nama }}</td>
                                     <td>
                                         @foreach ($item->teknisi as $nama)
                                             {{ $nama->user ? $nama->user->name : '-' }},
@@ -65,10 +65,10 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if ($item->is_emergency_call == 1)
-                                            <span class="badge badge-warning">Laporan Pekerjaan</span>
-                                        @else
+                                        @if ($item->periode)
                                             {{ $item->periode }} Bulan
+                                        @else
+                                            -
                                         @endif
                                     </td>
                                     <td>
@@ -78,6 +78,9 @@
                                             <span class="badge badge-warning">Sedang Dikerjakan</span>
                                         @else
                                             <span class="badge badge-secondary">Belum Dikerjakan</span>
+                                        @endif
+                                        @if ($item->is_emergency_call == 1)
+                                            <span class="badge badge-warning">Laporan Pekerjaan</span>
                                         @endif
                                     </td>
                                     <td>
@@ -105,14 +108,6 @@
                                     <td>{{ $item->formMaster->nama }} ({{ $item->formMaster->kode }})</td>
                                     <td>
                                         {{ $item->keterangan }}
-                                        {{-- @if (count($item->catatanTeknisiPekerjaan) > 0)
-                                            @foreach ($item->catatanTeknisiPekerjaan as $catatanTeknisiPekerjaan)
-                                                <div class="col-md">
-                                                    {{ $catatanTeknisiPekerjaan->keterangan }}
-                                                    ({{ $catatanTeknisiPekerjaan->status == 1 ? 'Ya' : 'Tidak' }}),
-                                                </div>
-                                            @endforeach
-                                        @endif --}}
                                     </td>
                                 </tr>
                             @endforeach
@@ -231,7 +226,7 @@
                                         Nama
                                     </div>
                                     <div class="col-md-8 col-8 fw-bold">
-                                        : {{ $laporanPekerjaan->customer->nama }}
+                                        : {{ $laporanPekerjaan->projectUnit->project->customer->nama }}
                                     </div>
                                 </div>
                                 <div class="row mb-5">
@@ -239,7 +234,7 @@
                                         No HP
                                     </div>
                                     <div class="col-md-8 col-8 fw-bold">
-                                        : {{ $laporanPekerjaan->customer->no_hp }}
+                                        : {{ $laporanPekerjaan->projectUnit->project->customer->no_hp }}
                                     </div>
                                 </div>
                                 <div class="row mb-5">
@@ -247,7 +242,7 @@
                                         Email
                                     </div>
                                     <div class="col-md-8 col-8 fw-bold">
-                                        : {{ $laporanPekerjaan->customer->no_hp }}
+                                        : {{ $laporanPekerjaan->projectUnit->project->customer->no_hp }}
                                     </div>
                                 </div>
                                 <div class="row mb-5">
@@ -255,15 +250,15 @@
                                         Alamat
                                     </div>
                                     <div class="col-md-8 col-8 fw-bold">
-                                        : {{ $laporanPekerjaan->customer->alamat }}
+                                        : {{ $laporanPekerjaan->projectUnit->project->customer->alamat }}
                                     </div>
                                 </div>
                                 <div class="row mb-5">
                                     <div class="col-md-4 col-4">
-                                        Barang Perlengkapan
+                                        Keterangan Lainnya
                                     </div>
                                     <div class="col-md-8 col-8 fw-bold">
-                                        : {{ $laporanPekerjaan->customer->barang_customer }}
+                                        : {{ $laporanPekerjaan->projectUnit->project->customer->barang_customer }}
                                     </div>
                                 </div>
                             </div>
@@ -276,7 +271,7 @@
                                         Nama
                                     </div>
                                     <div class="col-md-8 col-8 fw-bold">
-                                        : {{ $laporanPekerjaan->project ? $laporanPekerjaan->project->nama : '-' }}
+                                        : {{ $laporanPekerjaan->projectUnit->project->nama }}
                                     </div>
                                 </div>
                                 <div class="row mb-5">
@@ -284,7 +279,7 @@
                                         Kode
                                     </div>
                                     <div class="col-md-8 col-8 fw-bold">
-                                        : {{ $laporanPekerjaan->project ? $laporanPekerjaan->project->kode : '-' }}
+                                        : {{ $laporanPekerjaan->projectUnit->project->kode }}
                                     </div>
                                 </div>
                                 <div class="row mb-5">
@@ -292,7 +287,7 @@
                                         No Unit
                                     </div>
                                     <div class="col-md-8 col-8 fw-bold">
-                                        : {{ $laporanPekerjaan->project ? $laporanPekerjaan->project->no_unit : '-' }}
+                                        : {{ $laporanPekerjaan->projectUnit->no_unit }}
                                     </div>
                                 </div>
                                 <div class="row mb-5">
@@ -300,7 +295,7 @@
                                         No MFG
                                     </div>
                                     <div class="col-md-8 col-8 fw-bold">
-                                        : {{ $laporanPekerjaan->project ? $laporanPekerjaan->project->no_mfg : '-' }}
+                                        : {{ $laporanPekerjaan->projectUnit->project->no_mfg }}
                                     </div>
                                 </div>
                                 <div class="row mb-5">
@@ -308,7 +303,7 @@
                                         Alamat
                                     </div>
                                     <div class="col-md-8 col-8 fw-bold">
-                                        : {{ $laporanPekerjaan->project ? $laporanPekerjaan->project->alamat : '-' }}
+                                        : {{ $laporanPekerjaan->projectUnit->project->alamat }}
                                     </div>
                                 </div>
                             </div>
@@ -368,18 +363,29 @@
                                         @endforeach
                                     </div>
                                 </div>
-                                <div class="row mb-5">
-                                    <div class="col-md-4 col-4">
-                                        Periode
+                                @if ($laporanPekerjaan->is_emergency_call == 1)
+                                    <div class="row mb-5">
+                                        <div class="col-md-4 col-4">
+                                            Jenis
+                                        </div>
+                                        <div class="col-md-8 col-8 fw-bold">
+                                            :<span class="badge badge-warning">Laporan Pekerjaan</span>
+                                        </div>
                                     </div>
-                                    <div class="col-md-8 col-8 fw-bold">
-                                        : @if ($laporanPekerjaan->is_emergency_call == 1)
-                                            <span class="badge badge-warning">Laporan Pekerjaan</span>
-                                        @else
-                                            {{ $laporanPekerjaan->periode }} Bulan
-                                        @endif
+                                @else
+                                    <div class="row mb-5">
+                                        <div class="col-md-4 col-4">
+                                            Periode
+                                        </div>
+                                        <div class="col-md-8 col-8 fw-bold">
+                                            : @if ($laporanPekerjaan->is_emergency_call == 1)
+                                                <span class="badge badge-warning">Laporan Pekerjaan</span>
+                                            @else
+                                                {{ $laporanPekerjaan->periode }} Bulan
+                                            @endif
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                                 <div class="row mb-5">
                                     <div class="col-md-4 col-4">
                                         Tanggal Pekerjaan
@@ -407,19 +413,20 @@
                             </div>
                             <div class="col-md-6 mb-10">
                                 <div class="mb-5">
-                                    <div class="mb-3">Catatan Teknisi : </div>
+                                    <div class="mb-3">Catatan Untuk Teknisi : </div>
                                     <div class="row">
                                         @if (count($laporanPekerjaan->catatanTeknisiPekerjaan) > 0)
                                             @foreach ($laporanPekerjaan->catatanTeknisiPekerjaan as $item)
                                                 <div class="col-md fw-bold">
                                                     {{ $item->keterangan }}
-                                                    ({{ $item->status == 1 ? 'Ya' : 'Tidak' }}),
+                                                    ({{ $item->status == 1 ? 'Ya' : 'Tidak' }})
+                                                    ,
                                                 </div>
                                             @endforeach
                                         @elseif($laporanPekerjaan->keterangan != null)
-                                        <div class="col-md-12 text-center fw-bold">
-                                            {{ $laporanPekerjaan->keterangan }}
-                                        </div>
+                                            <div class="col-md-12 text-center fw-bold">
+                                                {{ $laporanPekerjaan->keterangan }}
+                                            </div>
                                         @else
                                             <div class="col-md-12 text-center text-gray-500">
                                                 Belum ada catatan

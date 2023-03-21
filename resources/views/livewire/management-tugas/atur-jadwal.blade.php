@@ -136,7 +136,7 @@
                             <hr>
                         @endif
                         <div class="mb-5">
-                            <label for="" class="form-label required">Tanggal</label>
+                            <label for="" class="form-label">Tanggal</label>
                             <input type="text" class="form-control form-control-solid" name="tanggal" wire:model="tanggal" placeholder="Tanggal" disabled>
                             @error('tanggal')
                                 <small class="text-danger">{{ $message }}</small>
@@ -144,7 +144,7 @@
                         </div>
                         <div class="mb-5">
                             <label for="" class="form-label required">Waktu Mulai</label>
-                            <input type="text" class="form-control form-control-solid" name="jam_mulai" wire:model="jam_mulai" placeholder="Masukkan waktu mulai" required>
+                            <input type="datetime-local" class="form-control form-control-solid" name="jam_mulai" wire:model="jam_mulai" placeholder="Masukkan waktu mulai" required>
                             @error('jam_mulai')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -164,19 +164,19 @@
 @push('js')
     <script>
         $(document).ready(function () {
-            $('input[name="jam_mulai"]').flatpickr({
-                enableTime: true,
-                dateFormat: "Y-m-d H:i:s",
-            })
+            // $('input[name="jam_mulai"]').flatpickr({
+            //     enableTime: true,
+            //     dateFormat: "Y-m-d H:i:s",
+            // })
 
             $('select[name="listIdUser"]').select2()
         });
 
         window.addEventListener('contentChangeFormAturJadwal', () => {
-            $('input[name="jam_mulai"]').flatpickr({
-                enableTime: true,
-                dateFormat: "Y-m-d H:i:s",
-            })
+            // $('input[name="jam_mulai"]').flatpickr({
+            //     enableTime: true,
+            //     dateFormat: "Y-m-d H:i:s",
+            // })
 
             $('select[name="listIdUser"]').select2()
 

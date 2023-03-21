@@ -64,7 +64,7 @@
                     </div>
                     <div class="row mb-5">
                         <div class="col-md-4 col-4">
-                            List Perlengkapan
+                            Keterangan Lainnya
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
                             : {{ $laporanPekerjaan->projectUnit->project->customer->barang_customer }}
@@ -172,7 +172,7 @@
                     </div>
                     <div class="row mb-5">
                         <div class="col-md-4 col-4">
-                            Keterangan
+                            Keterangan Untuk Teknisi
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
                             : {{ $laporanPekerjaan->keterangan ?? '-' }}
@@ -266,18 +266,6 @@
                             : {{ $laporanPekerjaan->catatan_customer }}
                         </div>
                     </div>
-                    {{-- <div class="row mb-5">
-                        <div class="col-md-4 col-4">
-                            Signature
-                        </div>
-                        <div class="col-md-8 col-8">
-                            : @if ($laporanPekerjaan->signature)
-                                <img src="{{ asset('storage' . $laporanPekerjaan->signature) }}" class="border rounded" alt="" height="100" width="100" style="object-fit: contain">
-                            @else
-                                Belum ada tanda tangan
-                            @endif
-                        </div>
-                    </div> --}}
                 </div>
                 <div class="col-md-4">
                     <div class="mb-5 fw-bold">
@@ -312,7 +300,7 @@
                            <th>No</th>
                            <th>SKU</th>
                            <th>Nama Barang</th>
-                           <th>Jumlah / Qty</th>
+                           <th>Qty</th>
                           </tr>
                          </thead>
                          <tbody>
@@ -322,7 +310,7 @@
                                         <td>{{ $index + 1 }}</td>
                                         <td>{{ $item->barang->sku }}</td>
                                         <td>{{ $item->barang->nama }}</td>
-                                        <td>{{ $item->qty }}</td>
+                                        <td style="text-align: end">{{ $item->qty }}</td>
                                     </tr>
                                 @endforeach
                             @else

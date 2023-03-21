@@ -32,13 +32,7 @@
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $item->no_ref }}</td>
                             <td>{{ $item->customer->nama }}</td>
-                            <td>
-                                @if (isset($item->quotation->laporanPekerjaan->project))
-                                    {{ $item->quotation->laporanPekerjaan->project->nama }}
-                                @else
-                                    -
-                                @endif
-                            </td>
+                            <td>{{ $item->quotation->project->nama }}</td>
                             <td>
                                 @if (isset($item->quotation->laporanPekerjaan->project))
                                     {{ $item->quotation->laporanPekerjaan->nomor_lift }}

@@ -32,6 +32,7 @@ class QuotationController extends Controller
         $data['breadCrumb'] = ['Quotation', 'Data', 'Preview'];
         $data['quotation'] = $quotation;
         $data['user'] = User::find(session()->get('id_user'));
+        $data['web_logo'] = WebConfig::where('type', 'web_logo')->first();
 
         // return view('pdf_view.quotation', $data);
         return view('quotation.preview', $data);
@@ -67,7 +68,7 @@ class QuotationController extends Controller
         $data['web_faksimili'] = WebConfig::where('type', 'web_faksimili')->first()->value;
         $data['web_logo_perusahaan'] = WebConfig::where('type', 'web_logo_perusahaan')->first()->value;
         $data['web_alamat'] = WebConfig::where('type', 'web_alamat')->first()->value;
-        $data['web_logo'] = WebConfig::where('type', 'web_logo')->first()->value;
+        $data['web_logo'] = WebConfig::where('type', 'web_logo')->first();
         $pdf = Pdf::loadView('pdf_view.quotation', $data);
 
         return $pdf->download('quotation_'.strtotime(now()).'.pdf');

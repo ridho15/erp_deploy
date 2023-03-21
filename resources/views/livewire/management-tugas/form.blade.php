@@ -55,8 +55,20 @@
 
                             </div>
                             <div class="mb-5 col-md-6">
+                                <label for="" class="form-label">Quotation</label>
+                                <select name="id_quotation" wire:model="id_quotation" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih quotation">
+                                    <option value="">Pilih</option>
+                                    @foreach ($listQuotation as $item)
+                                        <option value="{{ $item->id }}" @if($item->id == $id_quotation) selected @endif>{{ $item->no_ref }}</option>
+                                    @endforeach
+                                </select>
+                                @error('id_quotation')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-5 col-md-6">
                                 <label for="" class="form-label required">Unit</label>
-                                <select name="id_project_unit" wire:model="id_project_unit" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih Project" required>
+                                <select name="id_project_unit" wire:model="id_project_unit" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih Unit" required>
                                     <option value="">Pilih</option>
                                     @foreach ($listUnit as $item)
                                         <option value="{{ $item->id }}" @if($item->id == $id_project_unit) selected @endif>{{ $item->no_unit }} - {{ $item->nama_unit }}</option>
@@ -65,7 +77,6 @@
                                 @error('id_project_unit')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
-
                             </div>
                             <div class="mb-5 col-md-6">
                                 <label for="" class="form-label required">Form</label>
@@ -94,6 +105,7 @@
                             <div class="mb-5 col-md-6">
                                 <label for="" class="form-label">No MFG</label>
                                 <input type="text" name="no_mfg" class="form-control form-control-solid" wire:model="no_mfg" placeholder="Nomor MFG" disabled>
+                                <small>Nomor MFG dapat di edit pada data project master</small>
                             </div>
                             <div class="mb-5 col-md-6">
                                 <label for="" class="form-label required">Merk</label>
@@ -153,8 +165,8 @@
                                 @enderror
                             </div>
                             <div class="mb-5 col-md-6">
-                                <label for="" class="form-label required">Service Ke</label>
-                                <input type="text" class="form-control form-control-solid" name="service_ke" wire:model="service_ke" placeholder="Masukkan service ke" required>
+                                <label for="" class="form-label">Service Ke</label>
+                                <input type="text" class="form-control form-control-solid" name="service_ke" wire:model="service_ke" placeholder="Masukkan service ke">
                                 <small>Contoh : 3/12</small>
                             </div>
                             <div class="mb-5 col-md-6">
@@ -228,6 +240,9 @@
 
             $('select[name="id_purchase_order"]').on('change', function(){
                 Livewire.emit('chnagePurchaseOrder', $(this).val())
+            })
+            $('select[name="id_quotation"]').on('change', function(){
+                Livewire.emit('changeQuotation', $(this).val())
             })
         }
 
