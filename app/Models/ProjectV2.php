@@ -13,10 +13,12 @@ class ProjectV2 extends Model
     protected $fillable = [
         'kode',
         'nama',
-        'no_unit',
+        'penanggung_jawab',
         'no_mfg',
         'alamat',
         'id_customer',
+        'no_hp',
+        'email',
         'catatan',
         'tanggal',
         'map',
@@ -27,11 +29,11 @@ class ProjectV2 extends Model
         return $this->belongsTo(Customer::class, 'id_customer');
     }
 
-    public function laporanPekerjaan(){
-        return $this->hasMany(LaporanPekerjaan::class, 'id_project');
-    }
-
     public function salesProject(){
         return $this->hasMany(SalesProject::class, 'id_project');
+    }
+
+    public function listUnit(){
+        return $this->hasMany(ProjectUnit::class, 'id_project');
     }
 }

@@ -34,12 +34,13 @@ class SendLog extends Component
             $this->emit('finishRefreshData',0, $mesasge);
             return session()->flash('fail', $mesasge);
         }
-        $email = null;
-        if($quotation->laporanPekerjaan){
-            $email = $quotation->laporanPekerjaan->customer->email;
-        }elseif($quotation->customer){
-            $email = $quotation->customer->email;
+        $email = $quotation->project->email;
+        if($email == null){
+            $message = "Email tidak boleh kosong atau email belum terpasang ke project";
+            $this->emit('finishRefreshData', 0, $message);
+            return session()->flash('fail', $message);
         }
+
         if ($email) {
             Mail::to($email)->send(new SendQuotationMail($id));
             $quotation->update([
@@ -52,7 +53,7 @@ class SendLog extends Component
             'tanggal' => now()
         ]);
         $message= "Quotation Berhasil dikirim";
-        activity()->causedBy(HelperController::user())->log("Mengirim data quotation ke user");
+        activity()->causedBy(HelperController::user())->log($message);
         $this->emit('finishRefreshData', 1, $message);
         return session()->flash('success', $message);
     }

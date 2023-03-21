@@ -33,11 +33,10 @@ class Detail extends Component
     public $n_ppn;
     public $show_input_harga = false;
     public $showInputPPN = false;
+    public $deskripsi;
+
     public function render()
     {
-        $this->quotation = Quotation::find($this->id_quotation);
-        $this->listBarang = Barang::get();
-
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.quotation.detail');
     }
@@ -45,6 +44,8 @@ class Detail extends Component
     public function mount($id_quotation){
         $this->id_quotation = $id_quotation;
         $this->n_ppn = Quotation::find($this->id_quotation)->ppn;
+        $this->listBarang = Barang::get();
+        $this->quotation = Quotation::find($this->id_quotation);
     }
 
     public function hapusDataBarang($id){
@@ -120,7 +121,7 @@ class Detail extends Component
             'harga' => $this->harga_barang,
             'qty' => $this->qty,
             'id_satuan' => $barang->id_satuan,
-            'deskripsi' => $barang->deskripsi
+            'deskripsi' => $this->deskripsi
         ]);
 
         $message = "Berhasil menyimpan data";
@@ -150,6 +151,7 @@ class Detail extends Component
         $this->id_barang = $quotationDetail->id_barang;
         $this->qty = $quotationDetail->qty;
         $this->barang = $quotationDetail->barang;
+        $this->deskripsi = $quotationDetail->deskripsi;
         if($this->barang){
             $this->harga_barang = $quotationDetail->harga;
         }

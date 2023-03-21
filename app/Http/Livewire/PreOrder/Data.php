@@ -62,8 +62,10 @@ class Data extends Component
                 });
             })->where(function($query){
                 $query->whereDate('created_at', date('Y-m-d', strtotime($this->tanggal_preorder)))
-                ->orWhere('id_customer', $this->id_customer_filter)
-                ->orWhere('id_user', $this->id_user_filter);
+                ->orWhere('id_user', $this->id_user_filter)
+                ->orWhereHas('project',function($query){
+                    $query->where('id_customer', $this->id_customer_filter);
+                });
             })->orderBy('updated_at', 'DESC')->paginate($this->total_show);
         }else{
             $this->listPreOrder = PreOrder::whereHas('quotation', function($query){

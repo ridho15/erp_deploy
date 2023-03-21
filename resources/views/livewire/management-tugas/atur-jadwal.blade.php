@@ -34,7 +34,7 @@
                                     Kode Project
                                 </div>
                                 <div class="col-md-8 col-8">
-                                    : <span class="fw-bold">{{ $laporanPekerjaan->project->kode }}</span>
+                                    : <span class="fw-bold">{{ $laporanPekerjaan->projectUnit->project->kode }}</span>
                                 </div>
                             </div>
                             <div class="row mb-5">
@@ -42,7 +42,15 @@
                                     Nama Project
                                 </div>
                                 <div class="col-md-8 col-8">
-                                    : <span class="fw-bold">{{ $laporanPekerjaan->project->nama }}</span>
+                                    : <span class="fw-bold">{{ $laporanPekerjaan->projectUnit->project->nama }}</span>
+                                </div>
+                            </div>
+                            <div class="row mb-5">
+                                <div class="col-md-4 col-4">
+                                    Unit
+                                </div>
+                                <div class="col-md-8 col-8">
+                                    : <span class="fw-bold">{{ $laporanPekerjaan->projectUnit->no_unit }} {{ $laporanPekerjaan->projectUnit->nama_unit }}</span>
                                 </div>
                             </div>
                             <div class="row mb-5">

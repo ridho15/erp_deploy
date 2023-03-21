@@ -45,12 +45,7 @@ class Data extends Component
                 $query->where('nomor_lift', 'LIKE', '%'.$this->cari.'%')
                 ->orWhere('keterangan', 'LIKE', '%'.$this->cari.'%')
                 ->orWhere('jam_mulai', 'LIKE', '%'.$this->cari.'%')
-                ->orWhere('tanggal_pekerjaan', 'LIKE', '%'.$this->cari.'%')
-                ->orWhereHas('customer', function ($query) {
-                    $query->where('nama', 'LIKE', '%'.$this->cari.'%');
-                })->orWhereHas('project', function ($query) {
-                    $query->where('nama', 'LIKE', '%'.$this->cari.'%');
-                });
+                ->orWhere('tanggal_pekerjaan', 'LIKE', '%'.$this->cari.'%');
             })->where('jam_selesai', null)
             ->where('signature', null)->whereHas('formMaster')->orderBy('created_at', 'DESC')->paginate($this->total_show);
         }

@@ -94,7 +94,10 @@ class Data extends Component
 
             return session()->flash('fail', $mesasge);
         }
-
+        if($quotation->laporanPekerjaan && $quotation->laporanPekerjaan->jam_selesai != null && $quotation->laporanPekerjaan->signature != null){
+            $message = 'Quotation tidak dapat di hapus karena pekerjaan di dalam quotation sudah selesai';
+            return session()->flash('fail', $message);
+        }
         $quotation->delete();
         $message = "Berhasil menghapus quotation";
         activity()->causedBy(HelperController::user())->log($message);
@@ -110,12 +113,13 @@ class Data extends Component
             $this->emit('finishRefreshData',0, $mesasge);
             return session()->flash('fail', $mesasge);
         }
-        $email = null;
-        if($quotation->laporanPekerjaan){
-            $email = $quotation->laporanPekerjaan->customer->email;
-        }elseif($quotation->customer){
-            $email = $quotation->customer->email;
+        $email = $quotation->project->email;
+        if($email == null){
+            $message = "Email tidak boleh kosong atau email belum terpasang ke project";
+            $this->emit('finishRefreshData', 0, $message);
+            return session()->flash('fail', $message);
         }
+
         if ($email) {
             Mail::to($email)->send(new SendQuotationMail($id));
             $quotation->update([
@@ -173,6 +177,5 @@ class Data extends Component
 
         activity()->causedBy(HelperController::user())->log("Submit quotation to pre order");
         return redirect()->route('pre-order', ['show_modal' => true])->with('success', $message);
-        // return session()->flash('success', $mesasge);
     }
 }

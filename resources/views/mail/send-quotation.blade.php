@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Quotation</title>
     <style>
         html,body { padding: 0; margin:0; }
         th, td{
@@ -47,9 +47,8 @@
 						</div>
                         <div>
                             <span>Kepada Yth:</span><br>
-                            <strong>Bp.Hartono</strong><br>
-                            <span>Jl.Kusuma Atmaja No.27</span><br>
-                            <span>Menteng, Jakarta Pusat</span> <br>
+                            <strong>{{ $quotation->project->penanggung_jawab }}</strong><br>
+                            <span>{{ $quotation->project->alamat }}</span><br>
                         </div>
                         <br>
                         @if ($quotation->laporanPekerjaan)
@@ -94,11 +93,11 @@
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
                                             <td>{{ $item->barang->nama }}</td>
-                                            <td>{{ $item->harga_formatted }}</td>
+                                            <td style="text-align: end">{{ $item->harga_formatted }}</td>
                                             <td>{{ $item->qty }}</td>
                                             <td>{{ $item->satuan->nama_satuan }}</td>
                                             <td>{{ $item->deskripsi }}</td>
-                                            <td>{{ $item->sub_total_formatted }}</td>
+                                            <td style="text-align: end">{{ $item->sub_total_formatted }}</td>
                                         </tr>
                                     @endforeach
                                     @php
@@ -106,15 +105,15 @@
                                     @endphp
                                     <tr>
                                         <td colspan="6" style="font-style: italic; text-align: center; font-weight: bold">Sub Total</td>
-                                        <td style="font-weight: bold">{{ 'Rp.' . number_format($subTotal,0,',','.') }}</td>
+                                        <td style="font-weight: bold; text-align: end">{{ 'Rp.' . number_format($subTotal,0,',','.') }}</td>
                                     </tr>
                                     <tr>
                                         <td colspan="6" style="font-style: italic; text-align: center; font-weight: bold">PPN 10%</td>
-                                        <td style="font-weight: bold">{{ 'Rp.' . number_format(10/100*$subTotal,0,',','.') }}</td>
+                                        <td style="font-weight: bold; text-align: end">{{ 'Rp.' . number_format(10/100*$subTotal,0,',','.') }}</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="6" style="font-style: italic; text-align: center; font-weight: bold">PPN 10%</td>
-                                        <td style="font-weight: bold">{{ 'Rp.' . number_format($total,0,',','.') }}</td>
+                                        <td colspan="6" style="font-style: italic; text-align: center; font-weight: bold">Total Harga</td>
+                                        <td style="font-weight: bold; text-align: end">{{ 'Rp.' . number_format($total,0,',','.') }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -122,7 +121,7 @@
                         <br>
                         <div>
                             <span>Keterangan : </span><br>
-                            {{ $quotation->keterangan }}
+                            <?= $quotation->keterangan ?>
                             <br>
                             <br>
                             <span>Atas perhatiannya kami ucapkan terima kasih.</span>

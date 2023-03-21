@@ -16,7 +16,7 @@
     @if ($tambahBarang)
     <form action="#" method="POST" wire:submit.prevent="simpanDataBarang">
         <div class="row mb-5">
-            <div class="col-md-6 mb-5">
+            <div class="col-md-4 mb-5">
                 <label for="" class="form-label required">Barang / Sparepart</label>
                 <select name="id_barang" wire:model="id_barang" class="form-select form-select-solid" data-control="select2" data-placeholder="Pilih" required>
                     <option value="">Pilih</option>
@@ -28,10 +28,17 @@
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label for="" class="form-label required">Qty / Jumlah</label>
                 <input type="number" class="form-control form-control-solid" name="qty" wire:model="qty" wire:change="changeQty" placeholder="Masukkan jumlah" required>
                 @error('qty')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+            <div class="col-md-4">
+                <label for="" class="form-label">Keterangan</label>
+                <input type="text" class="form-control form-control-solid" name="deskripsi" wire:model="deskripsi" placeholder="Masukkan keterangan">
+                @error('deskripsi')
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>

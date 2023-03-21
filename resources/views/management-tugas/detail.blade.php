@@ -35,7 +35,7 @@
                             Nama
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $laporanPekerjaan->customer->nama }}
+                            : {{ $laporanPekerjaan->projectUnit->project->customer->nama }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -43,7 +43,7 @@
                             No HP
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $laporanPekerjaan->customer->no_hp }}
+                            : {{ $laporanPekerjaan->projectUnit->project->customer->no_hp }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -51,7 +51,7 @@
                             Email
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $laporanPekerjaan->customer->no_hp }}
+                            : {{ $laporanPekerjaan->projectUnit->project->customer->email }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -59,7 +59,7 @@
                             Alamat
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $laporanPekerjaan->customer->alamat }}
+                            : {{ $laporanPekerjaan->projectUnit->project->customer->alamat }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -67,7 +67,7 @@
                             List Perlengkapan
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $laporanPekerjaan->customer->barang_customer }}
+                            : {{ $laporanPekerjaan->projectUnit->project->customer->barang_customer }}
                         </div>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
                             Nama
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $laporanPekerjaan->project ? $laporanPekerjaan->project->nama : '-' }}
+                            : {{ $laporanPekerjaan->projectUnit->project ? $laporanPekerjaan->projectUnit->project->nama : '-' }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -88,7 +88,7 @@
                             Kode
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $laporanPekerjaan->project ? $laporanPekerjaan->project->kode : '-' }}
+                            : {{ $laporanPekerjaan->projectUnit->project ? $laporanPekerjaan->projectUnit->project->kode : '-' }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -96,7 +96,7 @@
                             No Unit
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $laporanPekerjaan->project ? $laporanPekerjaan->project->no_unit : '-' }}
+                            : {{ $laporanPekerjaan->projectUnit->no_unit }} {{ $laporanPekerjaan->projectUnit->nama_unit }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -104,7 +104,7 @@
                             No MFG
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $laporanPekerjaan->project ? $laporanPekerjaan->project->no_mfg : '-' }}
+                            : {{ $laporanPekerjaan->projectUnit->project ? $laporanPekerjaan->projectUnit->project->no_mfg : '-' }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -112,7 +112,7 @@
                             Alamat
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $laporanPekerjaan->project ? $laporanPekerjaan->project->alamat : '-' }}
+                            : {{ $laporanPekerjaan->projectUnit->project ? $laporanPekerjaan->projectUnit->project->alamat : '-' }}
                         </div>
                     </div>
                 </div>

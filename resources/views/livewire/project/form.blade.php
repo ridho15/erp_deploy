@@ -34,6 +34,27 @@
                                 @enderror
                             </div>
                             <div class="col-md-6 mb-5">
+                                <label for="" class="form-label required">Penanggung Jawab</label>
+                                <input type="text" class="form-control form-control-solid" name="penanggung_jawab" wire:model="penanggung_jawab" placeholder="Masukkan nama" required>
+                                @error('penanggung_jawab')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 mb-5">
+                                <label for="" class="form-label required">Email</label>
+                                <input type="email" class="form-control form-control-solid" name="email" wire:model="email" placeholder="Masukkan email" required>
+                                @error('email')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 mb-5">
+                                <label for="" class="form-label required">No Hp</label>
+                                <input type="number" class="form-control form-control-solid" name="no_hp" wire:model="no_hp" placeholder="Masukkan no_hp" required>
+                                @error('no_hp')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 mb-5">
                                 <label for="" class="form-label required">Customer</label>
                                 <select name="id_customer" class="form-select form-select-solid" wire:model="id_customer" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih" required>
                                     <option value="">Pilih</option>
@@ -42,13 +63,6 @@
                                     @endforeach
                                 </select>
                                 @error('id_customer')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="col-md-6 mb-5">
-                                <label for="" class="form-label">No Unit</label>
-                                <input type="number" class="form-control form-control-solid" name="no_unit" wire:model="no_unit" placeholder="Masukkan Nomor Unit" required>
-                                @error('no_unit')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>

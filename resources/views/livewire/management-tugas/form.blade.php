@@ -55,6 +55,19 @@
 
                             </div>
                             <div class="mb-5 col-md-6">
+                                <label for="" class="form-label required">Unit</label>
+                                <select name="id_project_unit" wire:model="id_project_unit" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih Project" required>
+                                    <option value="">Pilih</option>
+                                    @foreach ($listUnit as $item)
+                                        <option value="{{ $item->id }}" @if($item->id == $id_project_unit) selected @endif>{{ $item->no_unit }} - {{ $item->nama_unit }}</option>
+                                    @endforeach
+                                </select>
+                                @error('id_project_unit')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+
+                            </div>
+                            <div class="mb-5 col-md-6">
                                 <label for="" class="form-label required">Form</label>
                                 <select name="id_form_master" wire:model="id_form_master" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih Form Service" required>
                                     <option value="">Pilih</option>
@@ -95,7 +108,7 @@
                                 @enderror
                             </div>
                             <div class="mb-5 col-md-6">
-                                <label for="tanggal">Tanggal Pekerjaan</label>
+                                <label for="tanggal" class="form-label required">Tanggal Pekerjaan</label>
                                 <input type="date" class="form-control form-control-solid" name="tanggal" wire:model="tanggal" placeholder="Pilih Tanggal">
                                 @error('tanggal')
                                     <small class="text-danger">{{ $message }}</small>
@@ -114,7 +127,7 @@
                                 @enderror
                             </div>
                             <div class="mb-5 col-md-6">
-                                <label for="tanggal">Tanggal Estimasi</label>
+                                <label for="tanggal" class="form-label">Tanggal Estimasi</label>
                                 <input type="datetime-local" class="form-control form-control-solid" name="tanggal_estimasi" wire:model="tanggal_estimasi" placeholder="Pilih Tanggal">
                                 @error('tanggal_estimasi')
                                     <small class="text-danger">{{ $message }}</small>
@@ -140,7 +153,7 @@
                                 @enderror
                             </div>
                             <div class="mb-5 col-md-6">
-                                <label for="" class="form-label">Service Ke</label>
+                                <label for="" class="form-label required">Service Ke</label>
                                 <input type="text" class="form-control form-control-solid" name="service_ke" wire:model="service_ke" placeholder="Masukkan service ke" required>
                                 <small>Contoh : 3/12</small>
                             </div>
@@ -177,11 +190,13 @@
         function refreshSelect(){
             $('select[name="id_customer"]').select2()
             $('select[name="id_project"]').select2()
+            $('select[name="id_project_unit"]').select2()
             $('select[name="id_merk"]').select2()
             $('select[name="listIdUser"]').select2()
             $('select[name="id_form_master"]').select2()
             $('select[name="periode"]').select2()
             $('select[name="id_quotation"]').select2()
+            $('select[name="id_purchase_order"]').select2()
 
             $('select[name="id_customer"]').on('change', function(){
                 @this.set('id_customer', $(this).val())
@@ -189,6 +204,10 @@
 
             $('select[name="id_project"]').on('change', function(){
                 @this.set('id_project', $(this).val())
+            })
+
+            $('select[name="id_project_unit"]').on('change', function(){
+                @this.set('id_project_unit', $(this).val())
             })
 
             $('select[name="id_merk"]').on('change', function(){

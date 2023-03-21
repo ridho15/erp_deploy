@@ -15,6 +15,7 @@
             <div class="text-center">
                 @include('helper.simple-loading', ['target' => null, 'message' => 'Memuat data...'])
             </div>
+            @include('helper.alert-message')
             <div class="row mb-5">
                 <div class="col-md-3">
                     @include('helper.form-pencarian', ['model' => 'cari'])
@@ -45,7 +46,8 @@
                             <tr>
                                 <td>{{ ($page - 1) * $total_show  + $index + 1 }}</td>
                                 <td>{{ $item->no_ref }}</td>
-                                <td>{{ $item->laporanPekerjaan ? $item->laporanPekerjaan->project->kode : '-' }}</td>
+                                <td>{{ $item->project->kode }}</td>
+                                <td>{{ $item->project->nama }}</td>
                                 <td>{{ $item->laporanPekerjaan ? $item->laporanPekerjaan->project->nama : '-' }}</td>
                                 <td>
                                     @if ($item->laporanPekerjaan)
@@ -84,17 +86,6 @@
                                         <span class="badge badge-success">Sudah dikonfirmasi</span>
                                     @endif
                                 </td>
-                                {{-- <td>
-                                    @if ($item->file)
-                                        <a href="{{ $item->file ? asset('storage' . $item->file) : '#' }}" class="btn btn-icon btn-sm btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Dowload File" target="blank">
-                                            <i class="fa-solid fa-file"></i>
-                                        </a>
-                                    @else
-                                        <div class="text-center text-gray-500">
-                                            Tidak ada file
-                                        </div>
-                                    @endif
-                                </td> --}}
                                 <td>
                                     {{ $item->dibuat_pada }}
                                 </td>
@@ -117,6 +108,9 @@
                                         <a href="{{ route('quotation.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail Quotation">
                                             <i class="bi bi-info-circle-fill"></i>
                                         </a>
+                                        <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Quotation" wire:click="$emit('onClickHapus', {{ $item->id }})">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
                                         @if ($item->status_like === null)
                                             <button class="btn btn-sm btn-icon btn-danger" wire:click="$emit('onClickQuotationGagal', {{ $item->id }})" data-bs-toggle="tooltip" data-bs-placement="top" title="Quotation Gagal">
                                                 <i class="fa-solid fa-thumbs-down"></i>

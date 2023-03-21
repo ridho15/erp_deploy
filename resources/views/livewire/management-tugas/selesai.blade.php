@@ -85,7 +85,7 @@
                                             <span class="badge badge-secondary">Belum Dikerjakan</span>
                                         @endif
                                     </td>
-                                    <td>{{ $item->customer->nama }}</td>
+                                    <td>{{ $item->projectUnit }}</td>
                                     <td>{{ $item->formMaster->nama }} ({{ $item->formMaster->kode }})</td>
                                     <td>
                                         @php

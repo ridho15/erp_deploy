@@ -14,8 +14,7 @@ class LaporanPekerjaan extends Model
     use SoftDeletes;
     protected $table = 'laporan_pekerjaan';
     protected $fillable = [
-        'id_customer',
-        'id_project',
+        'id_project_unit',
         'id_merk',
         'nomor_lift',
         'keterangan',
@@ -98,14 +97,9 @@ class LaporanPekerjaan extends Model
         }
     }
 
-    public function customer()
+    public function projectUnit()
     {
-        return $this->belongsTo(Customer::class, 'id_customer')->withTrashed();
-    }
-
-    public function project()
-    {
-        return $this->belongsTo(ProjectV2::class, 'id_project')->withTrashed();
+        return $this->belongsTo(ProjectUnit::class, 'id_project_unit')->withTrashed();
     }
 
     public function merk()

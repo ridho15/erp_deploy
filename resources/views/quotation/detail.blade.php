@@ -3,24 +3,29 @@
     <div class="card shadow-sm">
         <div class="card-header">
             <h3 class="card-title">
-                <a href="{{ route('quotation') }}" class="btn btn-sm btn-icon btn-light me-5" data-bs-toggle="tooltip" data-bs-placement="top" title="Kembali">
+                <a href="{{ route('quotation') }}" class="btn btn-sm btn-icon btn-light me-5" data-bs-toggle="tooltip"
+                    data-bs-placement="top" title="Kembali">
                     <i class="fa-solid fa-arrow-left"></i>
                 </a> Detail Quotation
             </h3>
             <div class="card-toolbar">
-                <a href="{{ route('quotation.preview', ['id' => $quotation->id]) }}" target="_blank" class="btn btn-sm btn-outline btn-outline-info mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Preview Quotation">
+                <a href="{{ route('quotation.preview', ['id' => $quotation->id]) }}" target="_blank"
+                    class="btn btn-sm btn-outline btn-outline-info mx-2" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Preview Quotation">
                     <i class="fa-solid fa-magnifying-glass"></i> Preview
                 </a>
-                <a href="{{ route('quotation.export', ['id' => $quotation->id]) }}" class="btn btn-sm btn-outline btn-outline-danger mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Cetak PDF">
+                <a href="{{ route('quotation.export', ['id' => $quotation->id]) }}"
+                    class="btn btn-sm btn-outline btn-outline-danger mx-2" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Cetak PDF">
                     <i class="bi bi-printer"></i> Cetak
                 </a>
-                <a href="#" class="btn btn-sm btn-outline btn-outline-primary mx-2 btn-send-quotation" data-bs-toggle="tooltip" data-bs-placement="top" title="Kirim Quotation" data-id="{{ $quotation->id }}">
+                <a href="#" class="btn btn-sm btn-outline btn-outline-primary mx-2 btn-send-quotation"
+                    data-bs-toggle="tooltip" data-bs-placement="top" title="Kirim Quotation" data-id="{{ $quotation->id }}">
                     <i class="fa-solid fa-paper-plane"></i> Kirim
                 </a>
             </div>
         </div>
         <div class="card-body">
-            @if ($quotation->laporanPekerjaan)
             <div class="row mb-7">
                 <div class="col-md-4 mb-10">
                     <div class="mb-5 fw-bold">
@@ -31,7 +36,7 @@
                             Nama
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $quotation->laporanPekerjaan->customer->nama }}
+                            : {{ $quotation->project->customer->nama }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -39,7 +44,7 @@
                             No HP
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $quotation->laporanPekerjaan->customer->no_hp }}
+                            : {{ $quotation->project->customer->no_hp }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -47,7 +52,7 @@
                             Email
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $quotation->laporanPekerjaan->customer->email }}
+                            : {{ $quotation->project->customer->email }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -55,7 +60,7 @@
                             Alamat
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $quotation->laporanPekerjaan->customer->alamat }}
+                            : {{ $quotation->project->customer->alamat }}
                         </div>
                     </div>
                 </div>
@@ -68,7 +73,7 @@
                             Nama
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $quotation->laporanPekerjaan->project->nama }}
+                            : {{ $quotation->project->nama }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -76,7 +81,7 @@
                             Kode
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $quotation->laporanPekerjaan->project->kode }}
+                            : {{ $quotation->project->kode }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -84,7 +89,9 @@
                             No Unit
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $quotation->laporanPekerjaan->project->no_unit }}
+                            : @foreach ($quotation->project->listUnit as $unit)
+                                {{ $unit->no_unit }} {{ $unit->nama_unit }},
+                            @endforeach
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -92,7 +99,7 @@
                             No MFG
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $quotation->laporanPekerjaan->project->no_mfg }}
+                            : {{ $quotation->project->no_mfg }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -100,63 +107,64 @@
                             Alamat
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $quotation->laporanPekerjaan->project->alamat }}
+                            : {{ $quotation->project->alamat }}
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-10">
-                    <div class="mb-5 fw-bold">
-                        Data Tambahan
+                @if ($quotation->laporanPekerjaan)
+                    <div class="col-md-4 mb-10">
+                        <div class="mb-5 fw-bold">
+                            Data Tambahan
+                        </div>
+                        <div class="row mb-5">
+                            <div class="col-md-4 col-4">
+                                Merk
+                            </div>
+                            <div class="col-md-8 col-8 fw-bold">
+                                : {{ $quotation->laporanPekerjaan->merk->nama_merk }}
+                            </div>
+                        </div>
+                        <div class="row mb-5">
+                            <div class="col-md-4 col-4">
+                                Nama Form
+                            </div>
+                            <div class="col-md-8 col-8 fw-bold">
+                                : {{ $quotation->laporanPekerjaan->formMaster->nama }}
+                            </div>
+                        </div>
+                        <div class="row mb-5">
+                            <div class="col-md-4 col-4">
+                                Kode Form
+                            </div>
+                            <div class="col-md-8 col-8 fw-bold">
+                                : {{ $quotation->laporanPekerjaan->formMaster->kode }}
+                            </div>
+                        </div>
+                        <div class="row mb-5">
+                            <div class="col-md-4 col-4">
+                                Nomor Lift
+                            </div>
+                            <div class="col-md-8 col-8 fw-bold">
+                                : {{ $quotation->laporanPekerjaan->nomor_lift }}
+                            </div>
+                        </div>
+                        <div class="row mb-5">
+                            <div class="col-md-4 col-4">
+                                Teknisi
+                            </div>
+                            <div class="col-md-8 col-8 fw-bold">
+                                : @if ($quotation->laporanPekerjaan)
+                                    @foreach ($quotation->laporanPekerjaan->teknisi as $item)
+                                        {{ $item->user->name }},
+                                    @endforeach
+                                @else
+                                    -
+                                @endif
+                            </div>
+                        </div>
                     </div>
-                    <div class="row mb-5">
-                        <div class="col-md-4 col-4">
-                            Merk
-                        </div>
-                        <div class="col-md-8 col-8 fw-bold">
-                            : {{ $quotation->laporanPekerjaan->merk->nama_merk }}
-                        </div>
-                    </div>
-                    <div class="row mb-5">
-                        <div class="col-md-4 col-4">
-                            Nama Form
-                        </div>
-                        <div class="col-md-8 col-8 fw-bold">
-                            : {{ $quotation->laporanPekerjaan->formMaster->nama }}
-                        </div>
-                    </div>
-                    <div class="row mb-5">
-                        <div class="col-md-4 col-4">
-                            Kode Form
-                        </div>
-                        <div class="col-md-8 col-8 fw-bold">
-                            : {{ $quotation->laporanPekerjaan->formMaster->kode }}
-                        </div>
-                    </div>
-                    <div class="row mb-5">
-                        <div class="col-md-4 col-4">
-                            Nomor Lift
-                        </div>
-                        <div class="col-md-8 col-8 fw-bold">
-                            : {{ $quotation->laporanPekerjaan->nomor_lift }}
-                        </div>
-                    </div>
-                    <div class="row mb-5">
-                        <div class="col-md-4 col-4">
-                            Teknisi
-                        </div>
-                        <div class="col-md-8 col-8 fw-bold">
-                            : @if ($quotation->laporanPekerjaan)
-                                @foreach ($quotation->laporanPekerjaan->teknisi as $item)
-                                    {{ $item->user->name }},
-                                @endforeach
-                            @else
-                                -
-                            @endif
-                        </div>
-                    </div>
-                </div>
+                @endif
             </div>
-            @endif
             <div class="row mb-5">
                 <div class="col-md-4">
                     <div class="row mb-5">
@@ -200,7 +208,9 @@
                             File
                         </div>
                         <div class="col-md-8 col-8">
-                            : <a href="{{ $quotation->file ? asset('storage' . $quotation->file) : '#' }}" class="btn btn-sm btn-icon btn-light" data-bs-toggle="tooltip" data-bs-placement="top" title="Lihat File">
+                            : <a href="{{ $quotation->file ? asset('storage' . $quotation->file) : '#' }}"
+                                class="btn btn-sm btn-icon btn-light" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="Lihat File">
                                 <i class="fa-solid fa-file"></i>
                             </a>
                         </div>
@@ -231,11 +241,11 @@
 
 @section('js')
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
 
         });
 
-        $('.btn-send-quotation').on('click', function(){
+        $('.btn-send-quotation').on('click', function() {
             const id = $(this).data('id')
             Livewire.emit('sendQuotationToCustomer', id)
         })

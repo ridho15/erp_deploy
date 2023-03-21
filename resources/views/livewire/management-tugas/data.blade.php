@@ -66,7 +66,7 @@
                                 <tr>
                                     <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
                                     <td>{{ $item->kode_pekerjaan }}</td>
-                                    <td>{{ $item->project ? $item->project->nama : '-' }}</td>
+                                    <td>{{ $item->projectUnit->project->nama }}</td>
                                     <td>{{ $item->nomor_lift }}</td>
                                     <td>
                                         @foreach ($item->teknisi as $nama)
@@ -140,7 +140,7 @@
                                             </a>
                                         </div>
                                     </td>
-                                    <td>{{ $item->customer->nama }}</td>
+                                    <td>{{ $item->projectUnit->project->customer->nama }}</td>
                                     <td>{{ $item->formMaster->nama }} ({{ $item->formMaster->kode }})</td>
                                     <td>
                                         @php
