@@ -32,12 +32,9 @@ class Data extends Component
     public $id_user_filter;
     public $listCustomer = [];
     public $listUser = [];
+
     public function render()
     {
-
-        $this->listCustomer = Customer::get();
-        $this->listUser = User::get();
-
         if ($this->cari) {
             $this->listPreOrder = PreOrder::whereHas('quotation', function($query){
                 $query->whereHas('laporanPekerjaan', function($query){
@@ -63,17 +60,21 @@ class Data extends Component
             })->where(function($query){
                 $query->whereDate('created_at', date('Y-m-d', strtotime($this->tanggal_preorder)))
                 ->orWhere('id_user', $this->id_user_filter)
-                ->orWhereHas('project',function($query){
-                    $query->where('id_customer', $this->id_customer_filter);
+                ->orWhereHas('projectUnit', function($query){
+                    $query->whereHas('project', function($query){
+                        $query->orWhere('id_customer', $this->id_customer_filter);
+                    });
                 });
             })->orderBy('updated_at', 'DESC')->paginate($this->total_show);
         }else{
-            $this->listPreOrder = PreOrder::whereHas('quotation', function($query){
-                $query->whereHas('laporanPekerjaan', function($query){
-                    $query->where('signature', null)
-                    ->orWhere('jam_selesai', null);
-                })->doesntHave('laporanPekerjaan', 'or');
-            })->orderBy('updated_at', 'DESC')->paginate($this->total_show);
+            // $this->listPreOrder = PreOrder::orWhereHas('quotation', function($query){
+            //     $query->whereHas('laporanPekerjaan', function($query){
+            //         $query->where('signature', null)
+            //         ->orWhere('jam_selesai', null);
+            //     })->doesntHave('laporanPekerjaan', 'or');
+            // })->orderBy('updated_at', 'DESC')->paginate($this->total_show);
+
+            $this->listPreOrder = PreOrder::orderBy('updated_at', 'DESC')->paginate($this->total_show);
         }
 
         $data['listPreOrder'] = $this->listPreOrder;
@@ -82,7 +83,8 @@ class Data extends Component
     }
 
     public function mount(){
-
+        $this->listCustomer = Customer::get();
+        $this->listUser = User::get();
     }
 
     public function hapusPreOrder($id){

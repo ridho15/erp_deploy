@@ -17,7 +17,7 @@ class PreOrder extends Model
         'status',
         'id_tipe_pembayaran',
         'id_user',
-        'id_customer',
+        'id_project_unit',
         'keterangan',
         'file',
         'id_metode_pembayaran',
@@ -40,7 +40,13 @@ class PreOrder extends Model
 
     public function getPpnAttribute(){
         $preOrderDetail = PreOrderDetail::where('id_pre_order', $this->id)->get();
-        $n_ppn = $this->quotation ? $this->quotation->ppn : 11;
+        if($this->quotation){
+            $n_ppn = $this->quotation->ppn;
+        }elseif(isset($this->projectUnit->project->customer)){
+            $n_ppn = $this->projectUnit->project->customer->ppn;
+        }else{
+            $n_ppn = 11;
+        }
         $total_bayar = 0;
         foreach ($preOrderDetail as $item) {
             $total_bayar += $item->sub_total;
@@ -88,7 +94,7 @@ class PreOrder extends Model
         }elseif($sudah_bayar != 0){
             return 1;
         }else{
-            return 1;
+            return null;
         }
     }
 
@@ -99,12 +105,12 @@ class PreOrder extends Model
             $sudah_bayar += $item->pembayaran_sekarang;
         }
 
-        if($this->total_bayar == $sudah_bayar){
+        if($this->total_bayar == $sudah_bayar && count($preOrderBayar) > 0){
             return '<span class="badge badge-success">Lunas</span>';
         }elseif($sudah_bayar != 0){
             return '<span class="badge badge-warning">Belum Lunas</span>';
         }else{
-            return '<span class="badge badge-secondary">Belum Bayar</span>';
+            return '<span class="badge badge-warning">Belum ada pembayaran</span>';
         }
     }
 
@@ -146,8 +152,8 @@ class PreOrder extends Model
         }
     }
 
-    public function customer(){
-        return $this->belongsTo(Customer::class, 'id_customer')->withTrashed();
+    public function projectUnit(){
+        return $this->belongsTo(ProjectUnit::class, 'id_project_unit')->withTrashed();
     }
 
     public function quotation(){

@@ -2,7 +2,6 @@
 
 @section('content')
     @livewire('pre-order.detail', ['id_pre_order' => $preOrder->id])
-
     @livewire('pre-order.form')
 @endsection
 

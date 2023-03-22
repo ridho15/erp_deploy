@@ -23,6 +23,7 @@ class DetailBarang extends Component
     public $qty;
     public $keterangan;
     public $barang;
+    public $harga;
     public $cari;
     public $tambahBarang = false;
     public $id_pre_order_detail;
@@ -98,7 +99,7 @@ class DetailBarang extends Component
         ],[
             'id_pre_order' => $this->id_pre_order,
             'id_barang' => $this->id_barang,
-            'harga' => $barang->harga,
+            'harga' => $this->harga,
             'qty' => $this->qty,
             'id_satuan' => $barang->id_satuan,
             'keterangan' => $this->keterangan
@@ -120,6 +121,7 @@ class DetailBarang extends Component
         $this->barang = null;
         $this->qty = null;
         $this->keterangan = null;
+        $this->harga = null;
     }
 
     public function changeKeterangan($keterangan){
@@ -139,6 +141,7 @@ class DetailBarang extends Component
         $this->id_barang = $preOrderDetail->id_barang;
         $this->qty = $preOrderDetail->qty;
         $this->keterangan = $preOrderDetail->keterangan;
+        $this->harga = $preOrderDetail->harga;
     }
 
     public function hapusBarang($id){

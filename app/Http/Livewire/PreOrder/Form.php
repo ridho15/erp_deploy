@@ -10,6 +10,8 @@ use App\Models\MetodePembayaran;
 use App\Models\PreOrder;
 use App\Models\PreOrderDetail;
 use App\Models\PreOrderLog;
+use App\Models\ProjectUnit;
+use App\Models\ProjectV2;
 use App\Models\Quotation;
 use App\Models\QuotationDetail;
 use App\Models\TipePembayaran;
@@ -32,6 +34,8 @@ class Form extends Component
     public $id_tipe_pembayaran;
     public $id_user;
     public $id_customer;
+    public $id_project;
+    public $id_project_unit;
     public $keterangan;
     public $id_metode_pembayaran;
     public $file;
@@ -40,17 +44,15 @@ class Form extends Component
     public $listQuotation = [];
     public $listTipePembayaran = [];
     public $listCustomer = [];
+    public $listProject = [];
+    public $listProjectUnit = [];
     public $listMetodePembayaran = [];
     public $show_modal = false;
 
     public function render()
     {
-        $this->listTipePembayaran = TipePembayaran::get();
-        $this->listQuotation = Quotation::whereHas('project', function($query){
-            $query->where('id_customer', $this->id_customer);
-        })->get();
-        // $this->listQuotation = Quotation::get();
-        $this->listMetodePembayaran = MetodePembayaran::get();
+        $this->listProject = ProjectV2::where('id_customer', $this->id_customer)->get();
+        $this->listProjectUnit = ProjectUnit::where('id_project', $this->id_project)->get();
 
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.pre-order.form');
@@ -59,24 +61,26 @@ class Form extends Component
     public function mount($show_modal = false){
         $this->show_modal = $show_modal;
         $quotationSuccess = Quotation::where('status_like', 1)->first();
-        if($quotationSuccess){
+        if($quotationSuccess && ($show_modal == 1 || $show_modal == true)){
             $this->id_customer = $quotationSuccess->id_customer;
             $this->id_quotation = $quotationSuccess->id;
         }
 
         $this->listCustomer = Customer::get();
+        $this->listMetodePembayaran = MetodePembayaran::get();
+        $this->listTipePembayaran = TipePembayaran::get();
+        $this->listQuotation = Quotation::where('status_like', 1)->get();
     }
 
     public function simpanDataPreOrder(){
         $this->validate([
             'id_quotation' => 'nullable|numeric',
             'id_tipe_pembayaran' => 'required|numeric',
-            'id_customer' => 'required|numeric',
+            'id_project_unit' => 'nullable|numeric',
             'keterangan' => 'nullable|string',
         ], [
             'id_quotation.numeric' => 'Quotation tidak valid !',
-            'id_customer.required' => 'Customer belum dipilih !',
-            'id_customer.numeric' => 'Customer tidak valid !',
+            'id_project_unit.numeric' => 'Customer tidak valid !',
             'id_tipe_pembayaran.required' => 'Tipe Pembayaran belum dipilih',
             'id_tipe_pembayaran.numeric' => 'Tipe pembayaran tidak valid !',
             'keterangan.string' => 'Keterangan tidak valid !'
@@ -98,9 +102,9 @@ class Form extends Component
         }
 
         // Check Data Customer
-        $customer = Customer::find($this->id_customer);
-        if(!$customer){
-            $message = "Data customer tidak ditemukan !";
+        $projectUnit = ProjectUnit::find($this->id_project_unit);
+        if($this->show_modal == false && !$projectUnit){
+            $message = "Data Project tidak ditemukan !";
             return session()->flash('fail', $message);
         }
 
@@ -115,7 +119,7 @@ class Form extends Component
         $data['id_tipe_pembayaran'] = $this->id_tipe_pembayaran;
         $data['status'] = 1;
         $data['id_user'] = session()->get('id_user');
-        $data['id_customer'] = $this->id_customer;
+        $data['id_project_unit'] = $this->id_project_unit;
         $data['keterangan'] = $this->keterangan;
         $data['id_metode_pembayaran'] = $this->id_metode_pembayaran;
         $data['tanggal_tempo_pembayaran'] = Carbon::now()->addDays($metodePembayaran->nilai);
@@ -158,7 +162,7 @@ class Form extends Component
             ]);
         }
 
-        if ($quotation->laporanPekerjaan) {
+        if ($quotation && $quotation->laporanPekerjaan) {
             foreach ($quotation->laporanPekerjaan->laporanPekerjaanBarang as $item) {
                 if ($item->status == 2) {
                     $item->update([
@@ -198,9 +202,12 @@ class Form extends Component
         $this->status = null;
         $this->id_user = null;
         $this->id_customer = null;
+        $this->id_project = null;
+        $this->id_project_unit = null;
         $this->keterangan = null;
         $this->id_metode_pembayaran = null;
         $this->no_ref = null;
+        $this->show_modal = false;
     }
 
     public function changeKeterangan($keterangan){
@@ -217,11 +224,13 @@ class Form extends Component
 
         $this->id_pre_order = $preOrder->id;
         $this->id_quotation = $preOrder->id_quotation;
-        $this->id_customer = $preOrder->id_customer;
         $this->id_tipe_pembayaran = $preOrder->id_tipe_pembayaran;
         $this->id_metode_pembayaran = $preOrder->id_metode_pembayaran;
         $this->keterangan = $preOrder->keterangan;
         $this->no_ref = $preOrder->no_ref;
+        $this->id_project_unit = $preOrder->id_project_unit;
+        $this->id_project = $preOrder->projectUnit->id_project;
+        $this->id_customer = $preOrder->projectUnit->project->id_customer;
     }
 
     public function hapusFile(){

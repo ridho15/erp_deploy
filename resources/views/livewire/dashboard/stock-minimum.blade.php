@@ -14,7 +14,7 @@
             @endif
         </div>
         <div class="table-responsive">
-            <table id="table_list_barang" class="table table-rounded table-striped border gy-7 gs-7">
+            <table id="table_list_stock" class="table table-rounded table-striped border gy-7 gs-7">
                 <thead>
                 <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
                 <th>No</th>

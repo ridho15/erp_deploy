@@ -1,5 +1,5 @@
 <div>
-    <div class="h4 fw-bold">Log Pre Order</div>
+    <div class="h4 fw-bold">Purchase Order</div>
     <div class="table-responsive">
         <table class="table table-rounded table-striped border gy-7 gs-7">
         <thead>

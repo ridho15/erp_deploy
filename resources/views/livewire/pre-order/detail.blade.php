@@ -66,10 +66,10 @@
             <div class="col-md-4 mb-5">
                 <div class="d-flex align-items-center justify-content-between mb-5">
                     <h4 class="fw-bold mb-5">Customer</h4>
-                    <button class="btn btn-sm btn-icon btn-light-success" data-bs-toggle="tooltip"
+                    {{-- <button class="btn btn-sm btn-icon btn-light-success" data-bs-toggle="tooltip"
                         data-bs-placement="top" title="Edit" wire:click="changeShowFormCustomer">
                         <i class="fas fa-edit"></i>
-                    </button>
+                    </button> --}}
                 </div>
                 @if ($showFormCustomer == true)
                     <div class="border rounded p-5 mb-5">
@@ -134,7 +134,11 @@
                         Nama
                     </div>
                     <div class="col-md-8 col-8">
-                        : {{ $preOrder->customer->nama }}
+                        : @if (isset($preOrder->quotation->project->customer))
+                            {{ $preOrder->quotation->project->customer->nama }}
+                        @elseif(isset($preOrder->projectUnit->project->customer))
+                            {{ $preOrder->projectUnit->project->customer->nama }}
+                        @endif
                     </div>
                 </div>
                 <div class="row mb-5">
@@ -142,19 +146,21 @@
                         Nama Project
                     </div>
                     <div class="col-md-8 col-8">
-                        : @isset($preOrder->customer->project)
-                            {{ $preOrder->customer->project->nama }}
-                        @endisset
+                        : @if (isset($preOrder->quotation->project))
+                            {{ $preOrder->quotation->project->nama }}
+                        @elseif(isset($preOrder->projectUnit->project))
+                            {{ $preOrder->projectUnit->project->nama }}
+                        @endif
                     </div>
                 </div>
                 <div class="row mb-5">
                     <div class="col-md-4 col-4">
-                        Nomor Lift
+                        Nomor Unit
                     </div>
                     <div class="col-md-8 col-8">
-                        : @isset($preOrder->quotation->laporanPekerjaan)
-                            {{ $preOrder->quotation->laporanPekerjaan->nomor_lift }}
-                        @endisset
+                        : @if (isset($preOrder->projectUnit))
+                            {{ $preOrder->projectUnit->no_unit }} {{ $preOrder->projectUnit->nama_unit }}
+                        @endif
                     </div>
                 </div>
                 <div class="row mb-5">
@@ -162,9 +168,11 @@
                         BA
                     </div>
                     <div class="col-md-8 col-8">
-                        : @isset($preOrder->quotation->laporanPekerjaan->merk)
+                        : @if (isset($preOrder->quotation->laporanPekerjaan->merk))
                             {{ $preOrder->quotation->laporanPekerjaan->merk->nama_merk }}
-                        @endisset
+                        @else
+                            -
+                        @endif
                     </div>
                 </div>
                 <div class="row mb-5">
@@ -172,7 +180,11 @@
                         Barang Customer
                     </div>
                     <div class="col-md-8 col-8">
-                        : {{ $preOrder->customer->barang_customer }}
+                        : @if (isset($preOrder->quotation->laporanPekerjaan->customer))
+                            {{ $preOrder->quotation->laporanPekerjaan->customer->barang_customer }}
+                        @elseif(isset($preOrder->projectUnit->project->customer))
+                            {{ $preOrder->projectUnit->project->customer->barang_customer }}
+                        @endif
                     </div>
                 </div>
                 <div class="row mb-5">
@@ -180,7 +192,20 @@
                         PPN (%)
                     </div>
                     <div class="col-md-8 col-8">
-                        : {{ $preOrder->customer->ppn }}%
+                        : {{ $ppn }}% <span style="cursor: pointer;" wire:click="showEditPpn"><i
+                                class="fas fa-edit"></i></span>
+                        <div class="form-group text-end mt-5" @if ($show_edit == false) hidden @endif>
+                            <input type="text" class="form-control form-control-solid" name="ppn"
+                                wire:model="ppn">
+                            <div class="mt-5">
+                                <button class="btn btn-sm btn-icon btn-danger" wire:click="showEditPpn">
+                                    <i class="fas fa-times-circle"></i>
+                                </button>
+                                <button class="btn btn-sm btn-icon btn-success" wire:click="simpanPpn">
+                                    <i class="fas fa-check-circle"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -340,83 +365,90 @@
                     </button>
                 </div>
                 @if ($showFormPembayaran == true)
-                <div class="border rounded p-5">
-                    <form action="#" wire:submit.prevent="simpanUpdatePembayaran" method="POST">
-                        @include('helper.alert-message')
-                        <div class="text-center">
-                            @include('helper.simple-loading', ['target' => 'simpanUpdatePembayaran', 'message' => 'Loading ...'])
-                        </div>
-                        <div class="mb-5">
-                            <label for="" class="form-label">Metode Pembayaran</label>
-                            <select name="id_metode_pembayaran" class="form-select form-select-solid"
-                                wire:model="id_metode_pembayaran" data-control="select2" required>
-                                <option value="">Pilih</option>
-                                @foreach ($listMetodePembayaran as $item)
-                                    <option value="{{ $item->id }}">{{ $item->nama_metode }}</option>
-                                @endforeach
-                            </select>
-                            @error('id_metode_pembayaran')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                        <div class="mb-5">
-                            <label for="" class="form-label">Tipe Pembayaran</label>
-                            <select name="id_tipe_pembayaran" class="form-select form-select-solid"
-                                wire:model="id_tipe_pembayaran" data-control="select2" required>
-                                <option value="">Pilih</option>
-                                @foreach ($listTipePembayaran as $item)
-                                    <option value="{{ $item->id }}">{{ $item->nama_tipe }}</option>
-                                @endforeach
-                            </select>
-                            @error('id_tipe_pembayaran')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                        <div class="mb-5">
-                            <label for="" class="form-label">Keterangan</label>
-                            <textarea name="keterangan" class="form-control form-control-solid" wire:model="keterangan"></textarea>
-                            @error('keterangan')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                        <div class="mb-5" x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
-                            x-on:livewire-upload-finish="isUploading = false, progress = 0"
-                            x-on:livewire-upload-error="isUploading = false"
-                            x-on:livewire-upload-progress="progress = $event.detail.progress" wire:ignore>
-                            <label for="" class="form-label">File</label>
-                            <input type="file" id="file" name="file" wire:model="file"
-                                class="form-control form-control-solid" hidden accept=".jpg,.png,.jpeg,.docx,.pdf,.xlsx">
+                    <div class="border rounded p-5">
+                        <form action="#" wire:submit.prevent="simpanUpdatePembayaran" method="POST">
+                            @include('helper.alert-message')
                             <div class="text-center">
-                                <label for="file"
-                                    class="btn btn-sm btn-outline btn-outline-primary btn-outline-dashed btn-active-light-primary"
-                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Pilih File">
-                                    <i class="fa-solid fa-file"></i> Upload File
-                                </label>
+                                @include('helper.simple-loading', [
+                                    'target' => 'simpanUpdatePembayaran',
+                                    'message' => 'Loading ...',
+                                ])
                             </div>
-                            <div x-show="isUploading" class="progress mt-5">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
-                                    role="progressbar" aria-label="Animated striped example" aria-valuenow="75"
-                                    aria-valuemin="0" aria-valuemax="100" x-bind:style="`width: ${progress}%`"></div>
+                            <div class="mb-5">
+                                <label for="" class="form-label">Metode Pembayaran</label>
+                                <select name="id_metode_pembayaran" class="form-select form-select-solid"
+                                    wire:model="id_metode_pembayaran" data-control="select2" required>
+                                    <option value="">Pilih</option>
+                                    @foreach ($listMetodePembayaran as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nama_metode }}</option>
+                                    @endforeach
+                                </select>
+                                @error('id_metode_pembayaran')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
-                            @error('file')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                            @if ($file)
-                                <div class="d-flex align-items-center justify-content-center mt-5">
-                                    <span class="me-5">{{ $file->getClientOriginalName() }}</span>
-                                    <span class="" wire:click="hapusFile" style="cursor: pointer">
-                                        <i class="fa-solid fa-trash-can text-danger"></i>
-                                    </span>
+                            <div class="mb-5">
+                                <label for="" class="form-label">Tipe Pembayaran</label>
+                                <select name="id_tipe_pembayaran" class="form-select form-select-solid"
+                                    wire:model="id_tipe_pembayaran" data-control="select2" required>
+                                    <option value="">Pilih</option>
+                                    @foreach ($listTipePembayaran as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nama_tipe }}</option>
+                                    @endforeach
+                                </select>
+                                @error('id_tipe_pembayaran')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-5">
+                                <label for="" class="form-label">Keterangan</label>
+                                <textarea name="keterangan" class="form-control form-control-solid" wire:model="keterangan"></textarea>
+                                @error('keterangan')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-5" x-data="{ isUploading: false, progress: 0 }"
+                                x-on:livewire-upload-start="isUploading = true"
+                                x-on:livewire-upload-finish="isUploading = false, progress = 0"
+                                x-on:livewire-upload-error="isUploading = false"
+                                x-on:livewire-upload-progress="progress = $event.detail.progress" wire:ignore>
+                                <label for="" class="form-label">File</label>
+                                <input type="file" id="file" name="file" wire:model="file"
+                                    class="form-control form-control-solid" hidden
+                                    accept=".jpg,.png,.jpeg,.docx,.pdf,.xlsx">
+                                <div class="text-center">
+                                    <label for="file"
+                                        class="btn btn-sm btn-outline btn-outline-primary btn-outline-dashed btn-active-light-primary"
+                                        data-bs-toggle="tooltip" data-bs-placement="top" title="Pilih File">
+                                        <i class="fa-solid fa-file"></i> Upload File
+                                    </label>
                                 </div>
-                            @endif
-                        </div>
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-sm btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Simpan">
-                                <i class="fa-solid fa-floppy-disk"></i> Simpan
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                                <div x-show="isUploading" class="progress mt-5">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                                        role="progressbar" aria-label="Animated striped example" aria-valuenow="75"
+                                        aria-valuemin="0" aria-valuemax="100" x-bind:style="`width: ${progress}%`">
+                                    </div>
+                                </div>
+                                @error('file')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                                @if ($file)
+                                    <div class="d-flex align-items-center justify-content-center mt-5">
+                                        <span class="me-5">{{ $file->getClientOriginalName() }}</span>
+                                        <span class="" wire:click="hapusFile" style="cursor: pointer">
+                                            <i class="fa-solid fa-trash-can text-danger"></i>
+                                        </span>
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-sm btn-primary" data-bs-toggle="tooltip"
+                                    data-bs-placement="top" title="Simpan">
+                                    <i class="fa-solid fa-floppy-disk"></i> Simpan
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 @endif
                 <div class="row mb-5">
                     <div class="col-md-4">
@@ -491,6 +523,7 @@
         function select2() {
             $('select[name="id_customer"]').select2();
             $('select[name="id_merk"]').select2();
+
             $('select[name="id_customer"]').on('change', function() {
                 Livewire.emit('changeCustomer', $(this).val())
             })

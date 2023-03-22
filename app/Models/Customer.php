@@ -22,11 +22,7 @@ class Customer extends Model
         'ppn'
     ];
 
-    protected $appends = ['status_formatted', 'kode', 'total_order'];
-
-    public function getTotalOrderAttribute(){
-        return PreOrder::where("id_customer", $this->id)->count();
-    }
+    protected $appends = ['status_formatted', 'kode'];
 
     public function getStatusFormattedAttribute(){
         if($this->status == 1){

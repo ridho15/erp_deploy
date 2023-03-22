@@ -119,6 +119,14 @@
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
+                <div class="mb-5">
+                    <label for="" class="form-label required">Harga</label>
+                    <input type="number" name="harga" wire:model="harga" class="form-control form-control-solid"
+                        placeholder="Masukkan harga" required>
+                    @error('harga')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
                 <div class="mb-5" wire:ignore>
                     <label for="" class="form-label">Keterangan</label>
                     <textarea name="keterangan" wire:model="keterangan" class="form-control form-control-solid"
@@ -201,17 +209,26 @@
                 @endif
             </tbody>
             <tfoot>
+                @php
+                    $total = $preOrder->total;
+                    if (isset($preOrder->quotation)) {
+                        $ppn = $preOrder->quotation->ppn;
+                    }elseif(isset($preOrder->projectUnit->project->customer)){
+                        $ppn = $preOrder->projectUnit->project->customer->ppn;
+                    }
+                    $total_bayar = $preOrder->total_bayar_formatted;
+                @endphp
                 <tr>
                     <td colspan="7" class="text-center fw-bold">Subtotal</td>
-                    <td colspan="2" class="text-end fw-bold">Rp. {{ number_format($preOrder->total,0,',','.') }}</td>
+                    <td colspan="2" class="text-end fw-bold">Rp. {{ number_format($total,0,',','.') }}</td>
                 </tr>
                 <tr>
-                    <td colspan="7" class="text-center fw-bold">PPN ({{ $preOrder->customer->ppn }}%)</td>
+                    <td colspan="7" class="text-center fw-bold">PPN ({{ $ppn }}%)</td>
                     <td colspan="2" class="text-end fw-bold">Rp.{{ number_format($preOrder->ppn,0,',','.') }}</td>
                 </tr>
                 <tr>
                     <td colspan="7" class="text-center fw-bold">Total</td>
-                    <td colspan="2" class="text-end fw-bold">{{ $preOrder->total_bayar_formatted }}</td>
+                    <td colspan="2" class="text-end fw-bold">{{ $total_bayar }}</td>
                 </tr>
             </tfoot>
         </table>

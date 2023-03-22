@@ -28,7 +28,8 @@ class Detail extends Component
         'changeCustomer',
         'simpanUpdateCustomer',
         'changeMerk',
-        'simpanUpdatePembayaran'
+        'simpanUpdatePembayaran',
+        'showEditPpn'
     ];
     public $id_pre_order;
     public $preOrder;
@@ -51,6 +52,10 @@ class Detail extends Component
     public $namaProject;
     public $nomor_lift;
     public $merk;
+    public $id_project_unit;
+    public $id_quotation;
+    public $ppn;
+    public $show_edit = false;
     public function render()
     {
         $this->preOrder = PreOrder::find($this->id_pre_order);
@@ -68,11 +73,11 @@ class Detail extends Component
         $this->id_metode_pembayaran = $preOrder->id_metode_pembayaran;
         $this->id_tipe_pembayaran = $preOrder->id_tipe_pembayaran;
         $this->keterangan = $preOrder->keterangan;
-        $this->id_customer = $preOrder->id_customer;
+        $this->id_quotation = $preOrder->id_quotation;
+        $this->id_project_unit = $preOrder->id_project_unit;
         foreach ($preOrder->preOrderBayar as $item) {
             $this->total_bayar += $item->pembayaran_sekarang;
         }
-        $this->listCustomer = Customer::get();
         $project = ProjectV2::find($this->id_customer);
         if ($project) {
             $this->id_project = $project->id;
@@ -85,7 +90,14 @@ class Detail extends Component
         }else{
             $this->nomor_lift = 'Belum ada pekerjaan';
         }
+
+        if(isset($preOrder->quotation)){
+            $this->ppn = $preOrder->quotation->ppn;
+        }elseif(isset($preOrder->projectUnit->project->customer)){
+            $this->ppn = $preOrder->projectUnit->project->customer->ppn;
+        }
         $this->listMerk = Merk::get();
+        $this->listCustomer = Customer::get();
         $this->listMetodePembayaran = MetodePembayaran::get();
         $this->listTipePembayaran = TipePembayaran::get();
     }
@@ -238,5 +250,25 @@ class Detail extends Component
         activity()->causedBy(HelperController::user())->log("Mengupdate pembayaran pada PO");
         $this->emit('finishSimpanData', 1, $message);
         return session()->flash('success', $message);
+    }
+
+    public function showEditPpn(){
+        $this->show_edit = !$this->show_edit;
+    }
+
+    public function simpanPpn(){
+        $preOrder = PreOrder::find($this->id_pre_order);
+        if(isset($preOrder->quotation)){
+            $preOrder->quotation->update([
+                'ppn' => $this->ppn
+            ]);
+        }elseif($preOrder->projectUnit->project->customer){
+            $preOrder->projectUnit->project->customer->update([
+                'ppn' => $this->ppn
+            ]);
+        }
+
+        $this->show_edit = false;
+        $this->emit('refreshPreOrderDetail');
     }
 }
