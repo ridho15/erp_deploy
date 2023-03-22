@@ -4,7 +4,14 @@
 
 <body style="padding-top: 10px; padding-bottom: 10px; padding-right: 20px; padding-left: 20px;">
     <div class="container">
+        @if (isset($show_back))
+            <div style="text-align: center; margin-bottom: 10px">
+                <a href="{{ route('quotation') }}" class="btn btn-sm btn-primary">Kembali</a>
+            </div>
+        @endif
         @include('pdf_view.header')
+        <div>
+        </div>
         <div>
             <div style="float: left; width: 50%; margin-bottom: 10px">Ref. No: {{ $quotation->no_ref }}</div>
             <div style="float: right; width: 50%; text-align: right; margin-bottom: 10px">Jakarta,
@@ -82,17 +89,21 @@
                         <tr>
                             <td colspan="6" style="text-align: center; font-weight: bold; font-style: italic">Sub
                                 Total</td>
-                            <td style="font-weight: bold; text-align: end">{{ 'Rp. ' . number_format($subTotal, 0, ',', '.') }}</td>
+                            <td style="font-weight: bold; text-align: end">
+                                {{ 'Rp. ' . number_format($subTotal, 0, ',', '.') }}</td>
                         </tr>
                         <tr>
-                            <td colspan="6" style="text-align: center; font-weight: bold; font-style: italic">PPN 10%
+                            <td colspan="6" style="text-align: center; font-weight: bold; font-style: italic">PPN
+                                {{ $quotation->ppn }}%
                             </td>
-                            <td style="font-weight: bold; text-align: end">{{ 'Rp. ' . number_format($ppn, 0, ',', '.') }}</td>
+                            <td style="font-weight: bold; text-align: end">
+                                {{ 'Rp. ' . number_format($ppn, 0, ',', '.') }}</td>
                         </tr>
                         <tr>
                             <td colspan="6" style="text-align: center; font-weight: bold; font-style: italic">Total
                             </td>
-                            <td style="font-weight: bold; text-align: end">{{ 'Rp. ' . number_format($total, 0, ',', '.') }}</td>
+                            <td style="font-weight: bold; text-align: end">
+                                {{ 'Rp. ' . number_format($total, 0, ',', '.') }}</td>
                         </tr>
                     @else
                         <tr>

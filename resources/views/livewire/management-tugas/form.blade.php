@@ -219,7 +219,7 @@
             })
 
             $('select[name="id_project_unit"]').on('change', function(){
-                @this.set('id_project_unit', $(this).val())
+                Livewire.emit('changeProjectUnit', $(this).val())
             })
 
             $('select[name="id_merk"]').on('change', function(){

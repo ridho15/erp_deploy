@@ -16,7 +16,8 @@ class DetailBarang extends Component
         'simpanBarang',
         'hapusBarang',
         'setBarang',
-        'changeKeterangan'
+        'changeKeterangan',
+        'changeBarang'
     ];
     public $id_pre_order;
     public $id_barang;
@@ -39,9 +40,6 @@ class DetailBarang extends Component
             });
         })->where('id_pre_order', $this->id_pre_order)->get();
 
-        if($this->id_barang){
-            $this->barang = Barang::find($this->id_barang);
-        }
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.pre-order.detail-barang');
     }
@@ -158,5 +156,11 @@ class DetailBarang extends Component
         $this->emit('refreshPreOrderPembayaran');
         $this->emit('finishRefreshData', 1, $message);
         return session()->flash('success', $message);
+    }
+
+    public function changeBarang($id_barang){
+        $this->id_barang = $id_barang;
+        $this->barang = Barang::find($this->id_barang);
+        $this->harga = $this->barang->harga;
     }
 }

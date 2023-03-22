@@ -8,7 +8,6 @@
                 <button class="mx-2 btn btn-sm btn-outline btn-outline-warning btn-acitve-light-warning mx-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Filter Data" wire:click="$emit('onClickFilter')">
                     <i class="fas fa-filter"></i> Filter
                 </button>
-                {{-- <button class="btn btn-sm btn-outline btn-outline-primary" wire:click="$emit('onClickTambah')"><i class="bi bi-plus-circle"></i> Tambah</button> --}}
             </div>
         </div>
         <div class="card-body">
@@ -50,7 +49,6 @@
                    <th>User</th>
                    <th>Tipe Pembayaran</th>
                    <th>Metode Pembayaran</th>
-                   {{-- <th>Status Pekerjaan</th> --}}
                    <th>Status Pembayaran</th>
                    <th>Keterangan</th>
                    <th>File</th>
@@ -64,7 +62,14 @@
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $item->no_ref }}</td>
                                 <td>{{ $item->quotation? $item->quotation->no_ref : '-' }}</td>
-                                <td>{{ $item->customer ? $item->customer->nama : '-'}} {{ $item->customer ? $item->customer->kode : '-' }}</td>
+                                <td>
+                                    @if (isset($item->quotation->project->customer))
+                                        {{ $item->quotation->project->customer->nama }} {{ $item->quotation->project->customer->kode }}
+                                    @elseif(isset($item->projectUnit->project->customer)){
+                                        {{ $item->projectUnit->project->customer->nama }} {{ $item->projectUnit->project->customer->kode }}
+                                    }
+                                    @endif
+                                </td>
                                 <td>
                                     @if ($item->user)
                                         {{ $item->user->name }}
@@ -80,19 +85,6 @@
                                         -
                                     @endif
                                 </td>
-                                {{-- <td>
-                                    @if ($item->quotation && $item->quotation->laporanPekerjaan)
-                                        @if ($item->quotation->laporanPekerjaan->signature != null && $item->quotation->laporanPekerjaan->jam_selesai != null)
-                                            <span class="badge badge-success">Selesai</span>
-                                        @elseif($item->quotation->laporanPekerjaan->jam_mulai != null)
-                                            <span class="badge badge-warning">Sedang Dikerjakan</span>
-                                        @else
-                                            <span class="badge badge-secondary">Belum Dikerjakan</span>
-                                        @endif
-                                    @else
-                                        Tidak ada pekerjaan
-                                    @endif
-                                </td> --}}
                                 <td><?= $item->status_pembayaran ?></td>
                                 <td><?= $item->keterangan ?? '-' ?></td>
                                 <td>
@@ -104,12 +96,6 @@
                                 </td>
                                 <td>
                                     <div class="btn-group">
-                                        {{-- <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Pre Order" wire:click="$emit('onClickEdit', {{ $item }})">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Pre order" wire:click="$emit('onClickHapus', {{ $item->id }})">
-                                            <i class="bi bi-trash-fill"></i>
-                                        </button> --}}
                                         <a href="{{ route('pre-order.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Kelola Pre Order" target="blank">
                                             <i class="bi bi-eye-fill"></i>
                                         </a>
@@ -151,8 +137,8 @@
                     </div>
                     <div class="mb-5">
                         <label for="" class="form-label">Tanggal Pre Order</label>
-                        <input type="date" class="form-control form-control-solid" name="tanggal_preorder" wire:model="tanggal_preorder" data-dropdown-parent="#modal_filter" placeholder="Pilih Tanggal" autocomplete="off" required>
-                        @error('tanggal_preorder')
+                        <input type="date" class="form-control form-control-solid" name="tanggal" wire:model="tanggal" data-dropdown-parent="#modal_filter" placeholder="Pilih Tanggal" autocomplete="off" required>
+                        @error('tanggal')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>

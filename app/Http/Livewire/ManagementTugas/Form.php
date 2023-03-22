@@ -24,6 +24,7 @@ class Form extends Component
         'changeCustomer',
         'changeQuotation',
         'changePurchaseOrder',
+        'changeProjectUnit'
     ];
     public $id_laporan_pekerjaan;
     public $id_customer;
@@ -62,7 +63,10 @@ class Form extends Component
             $this->no_mfg = $project->no_mfg;
         }
         $this->listProject = ProjectV2::where('id_customer', $this->id_customer)->get();
-        $this->listUnit = ProjectUnit::where('id_project', $this->id_project)->get();
+        $this->listUnit = ProjectUnit::where('id_project', $this->id_project)->where(function ($query) {
+            $query->doesntHave('laporanPekerjaan')
+                ->orWhere('id', $this->id_project_unit);
+        })->get();
         $this->listQuotation = Quotation::where('id_project', $this->id_project)
             ->doesntHave('laporanPekerjaan')->get();
         $this->dispatchBrowserEvent('contentChange');
@@ -185,6 +189,23 @@ class Form extends Component
                     ]);
                 }
             }
+        } elseif (isset($unit->purchaseOrder) && $this->id_laporan_pekerjaan == null) {
+            $purchaseOrder = $unit->purchaseOrder;
+            foreach ($purchaseOrder->preOrderDetail as $item) {
+                LaporanPekerjaanBarang::updateOrCreate([
+                    'id_laporan_pekerjaan' => $laporanPekerjaan->id,
+                    'id_barang' => $item->id_barang,
+                    'qty' => $item->qty,
+                    'status' => 0
+                ], [
+                    'id_laporan_pekerjaan' => $laporanPekerjaan->id,
+                    'id_barang' => $item->id_barang,
+                    'qty' => $item->qty,
+                    'status' => 1,
+                    'konfirmasi' => 0,
+                    'peminjam' => session()->get('id_user')
+                ]);
+            }
         }
 
         $message = 'Data berhasil disimpan';
@@ -242,6 +263,18 @@ class Form extends Component
 
         $this->id_project = $laporanPekerjaan->projectUnit->id_project;
         $this->id_customer = $laporanPekerjaan->projectUnit->project->id_customer;
+
+        $projectUnit = ProjectUnit::find($this->id_project_unit);
+        if ($projectUnit && $projectUnit->purchaseOrder) {
+            $this->id_purchase_order = $projectUnit->purchaseOrder->id;
+        }
+
+        if ($this->id_purchase_order) {
+            $this->listPurchaseOrder = PreOrder::where('id', $this->id_purchase_order)->get();
+        } else {
+            $this->listPurchaseOrder = PreOrder::where('no_ref', '!=', null)
+                ->get();
+        }
     }
 
     public function changeCustomer($id_customer)
@@ -257,5 +290,21 @@ class Form extends Component
             return session()->flash('fail', 'Data PO tidak ditemukan');
         }
         $this->id_quotation = $purchaseOrder->id_quotation;
+    }
+
+    public function changeProjectUnit($id_project_unit)
+    {
+        $this->id_project_unit = $id_project_unit;
+        $projectUnit = ProjectUnit::find($this->id_project_unit);
+        if ($projectUnit && $projectUnit->purchaseOrder) {
+            $this->id_purchase_order = $projectUnit->purchaseOrder->id;
+        }
+
+        if ($this->id_purchase_order) {
+            $this->listPurchaseOrder = PreOrder::where('id', $this->id_purchase_order)->get();
+        } else {
+            $this->listPurchaseOrder = PreOrder::where('no_ref', '!=', null)
+                ->get();
+        }
     }
 }

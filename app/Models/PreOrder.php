@@ -57,11 +57,6 @@ class PreOrder extends Model
         return $ppn;
     }
 
-    // public function getNoRefAttribute(){
-    //     $helper = new HelperController;
-    //     return "PO" . $helper->format_num($this->id);
-    // }
-
     public function getSudahBayarAttribute(){
         $preOrderBayar = PreOrderBayar::where('id_pre_order', $this->id)->get();
         $sudah_bayar = 0;

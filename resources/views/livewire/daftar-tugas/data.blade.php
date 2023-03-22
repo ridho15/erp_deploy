@@ -306,6 +306,18 @@
                                         : {{ $laporanPekerjaan->projectUnit->project->alamat }}
                                     </div>
                                 </div>
+                                <div class="row mb-5">
+                                    <div class="col-md-4 col-4">
+                                        Nomor PO
+                                    </div>
+                                    <div class="col-md-8 col-8 fw-bold">
+                                        : @if (isset($laporanPekerjaan->projectUnit->purchaseOrder))
+                                            {{ $laporanPekerjaan->projectUnit->purchaseOrder->no_ref }}
+                                        @else
+                                            -
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-6 mb-10">
                                 <div class="mb-5 fw-bold">
@@ -440,6 +452,56 @@
                                         {{ $laporanPekerjaan->catatan_pelanggan }}
                                     </div>
                                 </div>
+                                <div class="my-5">
+                                    <label for="" class="form-label">Data Barang</label>
+                                </div>
+                                @if (isset($laporanPekerjaan->projectUnit->purchaseOrder))
+                                    @php
+                                        $listPreOrderDetail = $laporanPekerjaan->projectUnit->purchaseOrder->preOrderDetail;
+                                    @endphp
+                                    <div class="table-responsive">
+                                        <table class="table table-rounded table-striped border gy-7 gs-7">
+                                            <thead>
+                                                <tr
+                                                    class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
+                                                    <th>SKU</th>
+                                                    <th>Nama Barang</th>
+                                                    <th style="width: 10px">Jumlah</th>
+                                                    <th>Satuan</th>
+                                                    <th>Keterangan</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (count($listPreOrderDetail) > 0)
+                                                    @foreach ($listPreOrderDetail as $index => $item)
+                                                        <tr>
+                                                            <td>
+                                                                <a href="{{ route('barang.detail', ['id' => $item->id_barang]) }}"
+                                                                    class="text-dark">
+                                                                    {{ $item->barang->sku }}
+                                                                    <span data-bs-toggle="tooltip"
+                                                                        data-bs-placement="top"
+                                                                        title="Lihat Detail Barang">
+                                                                        <i class="bi bi-question-circle"></i>
+                                                                    </span>
+                                                                </a>
+                                                            </td>
+                                                            <td>{{ $item->barang->nama }}</td>
+                                                            <td>{{ $item->qty }}</td>
+                                                            <td>{{ $item->satuan->nama_satuan }}</td>
+                                                            <td><?= $item->keterangan ?></td>
+                                                        </tr>
+                                                    @endforeach
+                                                @else
+                                                    <tr>
+                                                        <td colspan="5" class="text-center text-gray-500">Tidak ada
+                                                            data</td>
+                                                    </tr>
+                                                @endif
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                @endif
                             </div>
                         </div>
 

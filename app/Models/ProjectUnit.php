@@ -21,6 +21,10 @@ class ProjectUnit extends Model
     }
 
     public function laporanPekerjaan(){
-        return $this->hasMany(LaporanPekerjaan::class, 'id_project_unit');
+        return $this->hasOne(LaporanPekerjaan::class, 'id_project_unit');
+    }
+
+    public function purchaseOrder(){
+        return $this->hasOne(PreOrder::class, 'id_project_unit');
     }
 }

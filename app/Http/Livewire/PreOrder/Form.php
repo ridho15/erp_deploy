@@ -52,7 +52,8 @@ class Form extends Component
     public function render()
     {
         $this->listProject = ProjectV2::where('id_customer', $this->id_customer)->get();
-        $this->listProjectUnit = ProjectUnit::where('id_project', $this->id_project)->get();
+        $this->listProjectUnit = ProjectUnit::where('id_project', $this->id_project)
+        ->doesntHave('purchaseOrder')->get();
 
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.pre-order.form');

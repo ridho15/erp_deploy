@@ -258,7 +258,7 @@
         window.addEventListener('contentChange', function() {
             $('select[name="id_barang"]').select2()
             $('select[name="id_barang"]').on('change', function() {
-                @this.set('id_barang', $(this).val())
+                Livewire.emit('changeBarang', $(this).val())
             })
         })
 

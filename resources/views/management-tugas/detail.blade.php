@@ -115,6 +115,18 @@
                             : {{ $laporanPekerjaan->projectUnit->project ? $laporanPekerjaan->projectUnit->project->alamat : '-' }}
                         </div>
                     </div>
+                    <div class="row mb-5">
+                        <div class="col-md-4 col-4">
+                            Nomor PO
+                        </div>
+                        <div class="col-md-8 col-8 fw-bold">
+                            : @if (isset($laporanPekerjaan->projectUnit->purchaseOrder))
+                                {{ $laporanPekerjaan->projectUnit->purchaseOrder->no_ref }}
+                            @else
+                                -
+                            @endif
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-4 mb-10">
                     <div class="mb-5 fw-bold">

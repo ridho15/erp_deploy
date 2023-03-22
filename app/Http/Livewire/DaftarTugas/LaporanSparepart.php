@@ -8,6 +8,7 @@ use App\Models\LaporanPekerjaan;
 use App\Models\LaporanPekerjaanBarang;
 use App\Models\LaporanPekerjaanBarangLog;
 use App\Models\NomorPeminjamanHarian;
+use App\Models\PreOrderDetail;
 use App\Models\QuotationDetail;
 use App\Models\SupplierOrderDetailTemp;
 use App\Models\TipeBarang;
@@ -98,7 +99,17 @@ class LaporanSparepart extends Component
                 $quotationDetail->delete();
             }
         }
-        
+
+        if (isset($laporanPekerjaanBarang->laporanPekerjaan->projectUnit->purchaseOrder)) {
+            $preOrderDetail = PreOrderDetail::where('id_barang', $laporanPekerjaanBarang->id_barang)
+            ->where('id_pre_order', $laporanPekerjaanBarang->laporanPekerjaan->projectUnit->purchaseOrder->id)
+            ->where('qty', $laporanPekerjaanBarang->qty)
+            ->first();
+
+            if($preOrderDetail){
+                $preOrderDetail->delete();
+            }
+        }
 
         $laporanPekerjaanBarang->delete();
         $message = "Data laporan barang berhasil dihapus";
@@ -139,6 +150,7 @@ class LaporanSparepart extends Component
                 return session()->flash('fail', $message);
             }
         }
+
         // Check data barang
         $barang = Barang::find($this->id_barang);
         if (!$barang) {
@@ -210,6 +222,18 @@ class LaporanSparepart extends Component
                 'qty' => $this->qty,
                 'id_satuan' => $barang->id_satuan,
                 'deskripsi' => $this->catatan_teknisi
+            ]);
+        }
+
+        if(isset($laporanPekerjaan->projectUnit->purchaseOrder)){
+            PreOrderDetail::create([
+                'id_pre_order' => $laporanPekerjaan->projectUnit->purchaseOrder->id,
+                'id_barang' => $this->id_barang,
+                'harga' => $barang->harga,
+                'qty' => $this->qty,
+                'id_satuan' => $barang->id_satuan,
+                'keterangan' => $this->catatan_teknisi,
+                'status' => 0
             ]);
         }
 
