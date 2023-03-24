@@ -29,7 +29,7 @@
                             <div class="col-md-8 col-8">
                                 : <span class="fw-bold"></span>
                                 <span
-                                    class="fw-bold">{{ $quotation && $quotation->project ? $quotation->project->kode : '-' }}</span>
+                                    class="fw-bold">{{ $quotation && $quotation->projectUnit->project ? $quotation->projectUnit->project->kode : '-' }}</span>
                             </div>
                         </div>
                         <div class="row mb-5">
@@ -38,7 +38,7 @@
                             </div>
                             <div class="col-md-8 col-8">
                                 : <span
-                                    class="fw-bold">{{ $quotation && $quotation->project ? $quotation->project->nama : '-' }}</span>
+                                    class="fw-bold">{{ $quotation && $quotation->projectUnit->project ? $quotation->projectUnit->project->nama : '-' }}</span>
                             </div>
                         </div>
                         <div class="row mb-5">
@@ -47,7 +47,7 @@
                             </div>
                             <div class="col-md-8 col-8">
                                 : <span
-                                    class="fw-bold">{{ $quotation && isset($quotation->project) ? $quotation->project->penanggung_jawab : '-' }}</span>
+                                    class="fw-bold">{{ $quotation && isset($quotation->projectUnit->project) ? $quotation->projectUnit->project->penanggung_jawab : '-' }}</span>
                             </div>
                         </div>
                         <div class="row mb-5">
@@ -56,7 +56,7 @@
                             </div>
                             <div class="col-md-8 col-8">
                                 : <span
-                                    class="fw-bold">{{ $quotation && isset($quotation->project) ? $quotation->project->email : '-' }}</span>
+                                    class="fw-bold">{{ $quotation && isset($quotation->projectUnit->project) ? $quotation->projectUnit->project->email : '-' }}</span>
                             </div>
                         </div>
                         <div class="row mb-5">
@@ -65,7 +65,7 @@
                             </div>
                             <div class="col-md-8 col-8">
                                 : <span
-                                    class="fw-bold">{{ $quotation && isset($quotation->project) ? $quotation->project->no_hp : '-' }}</span>
+                                    class="fw-bold">{{ $quotation && isset($quotation->projectUnit->project) ? $quotation->projectUnit->project->no_hp : '-' }}</span>
                                 </span>
                             </div>
                         </div>

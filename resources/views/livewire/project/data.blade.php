@@ -83,7 +83,7 @@
                                     </td>
                                     <td>
                                         @if ($item->tanggal)
-                                            {{ date('d-m-Y', strtotime($item->tanggal)) }}
+                                            {{ $item->tanggal ? date('d-m-Y', strtotime($item->tanggal)) : null }}
                                         @endif
                                     </td>
                                     <td>
