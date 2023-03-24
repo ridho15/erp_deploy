@@ -25,10 +25,10 @@ class QuotationSendLog extends Model
     }
 
     public function quotation(){
-        return $this->belongsTo(Quotation::class, 'id_quotation');
+        return $this->belongsTo(Quotation::class, 'id_quotation')->withTrashed();
     }
 
     public function user(){
-        return $this->belongsTo(User::class, 'id_user');
+        return $this->belongsTo(User::class, 'id_user')->withTrashed();
     }
 }

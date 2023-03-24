@@ -70,6 +70,6 @@ class User extends Model
 
     public function tipeUser()
     {
-        return $this->belongsTo(TipeUser::class, 'id_tipe_user');
+        return $this->belongsTo(TipeUser::class, 'id_tipe_user')->withTrashed();
     }
 }

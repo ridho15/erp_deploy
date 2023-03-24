@@ -21,12 +21,12 @@ class CustomerOrder extends Model
 
     public function customer()
     {
-        return $this->belongsTo(Customer::class, 'id_customer');
+        return $this->belongsTo(Customer::class, 'id_customer')->withTrashed();
     }
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_user');
+        return $this->belongsTo(User::class, 'id_user')->withTrashed();
     }
 
     public function detail()
@@ -36,7 +36,7 @@ class CustomerOrder extends Model
 
     public function CustomerOrderDetail()
     {
-        return $this->belongsTo(CustomerOrderDetail::class, 'id', 'id_customer_order');
+        return $this->belongsTo(CustomerOrderDetail::class, 'id', 'id_customer_order')->withTrashed();
     }
 
     public function getStatusOrderFormattedAttribute()

@@ -17,6 +17,6 @@ class NomorItt extends Model
     ];
 
     public function laporanPekerjaanBarang(){
-        return $this->belongsTo(LaporanPekerjaanBarang::class, 'id_laporan_pekerjaan_barang');
+        return $this->belongsTo(LaporanPekerjaanBarang::class, 'id_laporan_pekerjaan_barang')->withTrashed();
     }
 }

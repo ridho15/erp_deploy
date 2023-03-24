@@ -49,10 +49,10 @@ class SupplierOrderDetail extends Model
     }
 
     public function supplierOrder(){
-        return $this->belongsTo(SupplierOrder::class, 'id_supplier_order');
+        return $this->belongsTo(SupplierOrder::class, 'id_supplier_order')->withTrashed();
     }
 
     public function barang(){
-        return $this->belongsTo(Barang::class, 'id_barang');
+        return $this->belongsTo(Barang::class, 'id_barang')->withTrashed();
     }
 }

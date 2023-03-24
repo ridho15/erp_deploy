@@ -16,10 +16,10 @@ class QuotationSales extends Model
     ];
 
     public function sales(){
-        return $this->belongsTo(Sales::class, 'id_sales');
+        return $this->belongsTo(Sales::class, 'id_sales')->withTrashed();
     }
 
     public function quotation(){
-        return $this->belongsTo(Quotation::class, 'id_quotation');
+        return $this->belongsTo(Quotation::class, 'id_quotation')->withTrashed();
     }
 }

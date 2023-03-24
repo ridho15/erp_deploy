@@ -37,6 +37,6 @@ class PreOrderBayar extends Model
     }
 
     public function preOrder(){
-        return $this->belongsTo(PreOrder::class, 'id_pre_order');
+        return $this->belongsTo(PreOrder::class, 'id_pre_order')->withTrashed();
     }
 }

@@ -16,10 +16,10 @@ class ProjectDetailSubUser extends Model
     ];
 
     public function user(){
-        return $this->belongsTo(User::class, 'id_user');
+        return $this->belongsTo(User::class, 'id_user')->withTrashed();
     }
 
     public function projectDetailSub(){
-        return $this->belongsTo(ProjectDetailSub::class, 'id_project_detail_subs');
+        return $this->belongsTo(ProjectDetailSub::class, 'id_project_detail_subs')->withTrashed();
     }
 }

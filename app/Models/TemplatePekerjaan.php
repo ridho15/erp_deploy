@@ -23,14 +23,14 @@ class TemplatePekerjaan extends Model
     }
 
     public function formMaster(){
-        return $this->belongsTo(FormMaster::class, 'id_form_master');
+        return $this->belongsTo(FormMaster::class, 'id_form_master')->withTrashed();
     }
 
     public function children(){
-        return $this->hasMany(TemplatePekerjaan::class, 'id_parent');
+        return $this->hasMany(TemplatePekerjaan::class, 'id_parent')->withTrashed();
     }
 
     public function parent(){
-        return $this->belongsTo(TemplatePekerjaan::class, 'id_parent');
+        return $this->belongsTo(TemplatePekerjaan::class, 'id_parent')->withTrashed();
     }
 }

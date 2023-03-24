@@ -59,7 +59,7 @@ class TemplatePekerjaanDetail extends Model
 
     public function templatePekerjaan()
     {
-        return $this->belongsTo(TemplatePekerjaan::class, 'id_template_pekerjaan');
+        return $this->belongsTo(TemplatePekerjaan::class, 'id_template_pekerjaan')->withTrashed();
     }
 
     public function children(){
@@ -67,6 +67,6 @@ class TemplatePekerjaanDetail extends Model
     }
 
     public function parent(){
-        return $this->belongsTo(TemplatePekerjaanDetail::class, 'id_parent');
+        return $this->belongsTo(TemplatePekerjaanDetail::class, 'id_parent')->withTrashed();
     }
 }

@@ -33,10 +33,10 @@ class RakLog extends Model
     }
 
     public function barang(){
-        return $this->belongsTo(Barang::class, 'id_barang');
+        return $this->belongsTo(Barang::class, 'id_barang')->withTrashed();
     }
 
     public function rak(){
-        return $this->belongsTo(Rak::class, 'id_rak');
+        return $this->belongsTo(Rak::class, 'id_rak')->withTrashed();
     }
 }

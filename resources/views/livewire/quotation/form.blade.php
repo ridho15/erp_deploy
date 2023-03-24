@@ -56,7 +56,7 @@
                             </div>
                             <div class="col-md-8 col-8">
                                 : <span
-                                    class="fw-bold">{{ $quotation && isset($quotation->project) ? $quotation->project->email: '-' }}</span>
+                                    class="fw-bold">{{ $quotation && isset($quotation->project) ? $quotation->project->email : '-' }}</span>
                             </div>
                         </div>
                         <div class="row mb-5">
@@ -106,8 +106,7 @@
                                 Status
                             </div>
                             <div class="col-md-8 col-8">
-                                : <span
-                                    class="fw-bold"><?= $quotation ? $quotation->status_formatted : null ?></span>
+                                : <span class="fw-bold"><?= $quotation ? $quotation->status_formatted : null ?></span>
                             </div>
                         </div>
                         <hr class="my-5">

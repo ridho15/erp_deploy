@@ -21,7 +21,8 @@ class Barang extends Model
         'id_satuan',
         'id_tipe_barang',
         'deskripsi',
-        'version'
+        'version',
+        'nomor'
     ];
 
     protected $appends = ['harga_formatted', 'sku', 'harga_modal_formatted', 'total_order'];
@@ -104,7 +105,7 @@ class Barang extends Model
 
     public function getSkuAttribute(){
         $helper = new HelperController;
-        return "B" . $helper->format_num($this->id);
+        return "B" . $helper->format_num($this->nomor);
     }
 
     public function isiRak(){

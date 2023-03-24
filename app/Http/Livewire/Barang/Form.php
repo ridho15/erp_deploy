@@ -40,6 +40,7 @@ class Form extends Component
     public $listSatuan;
     public $deskripsi;
     public $version;
+    public $nomor;
 
     public $listVersion = [];
 
@@ -69,6 +70,7 @@ class Form extends Component
         $this->stock = null;
         $this->min_stock = null;
         $this->version = null;
+        $this->nomor = null;
     }
 
     public function simpanDataBarang()
@@ -83,6 +85,7 @@ class Form extends Component
             'deskripsi' => 'nullable|string',
             'harga_modal' => 'required|numeric',
             'version' => 'required|numeric',
+            'nomor' => 'required|numeric'
         ], [
             'nama.required' => 'Nama tidak boleh kosong',
             'nama.string' => 'Nama tidak valid !',
@@ -98,6 +101,8 @@ class Form extends Component
             'deskripsi.string' => 'Deskripsi barang tidak valid !',
             'harga_modal.required' => 'Harga modal tidak boleh kosong',
             'harga_modal.numeric' => 'Harga modal tidak valid !',
+            'nomor.required' => 'SKU tidak boleh kosong',
+            'nomor.numeric' => 'SKU tidak valid !'
         ]);
 
         // Check Merk
@@ -109,22 +114,34 @@ class Form extends Component
         }
 
         $tipeBarang = TipeBarang::find($this->id_tipe_barang);
-        if(!$tipeBarang){
+        if (!$tipeBarang) {
             $message = "Tipe barang tidak ditemukan !";
             return session()->flash('fail', $message);
         }
 
-        if($this->min_stock < 0){
+        if ($this->min_stock < 0) {
             $message = "Minimal stock tidak valid !. minimal adalah 0";
             return session()->flash('fail', $message);
         }
 
-        if($this->id_barang){
-            $barang = Barang::find($this->id_barang);
+        // Pasangt stok & Check SKU;
+        $barang = Barang::find($this->id_barang);
+        if ($barang) {
             $data['stock'] = $barang->stock;
-        }else{
+            if ($this->nomor != $barang->nomor) {
+                $checkNomor = $this->checkNomor();
+                if ($checkNomor['status'] == 0) {
+                    return session()->flash('fail', $checkNomor['message']);
+                }
+            }
+        } else {
             $data['stock'] = 0;
+            $checkNomor = $this->checkNomor();
+            if ($checkNomor['status'] == 0) {
+                return session()->flash('fail', $checkNomor['message']);
+            }
         }
+
         $data['nama'] = $this->nama;
         $data['harga'] = $this->harga;
         $data['min_stock'] = $this->min_stock;
@@ -134,6 +151,7 @@ class Form extends Component
         $data['deskripsi'] = $this->deskripsi;
         $data['harga_modal'] = $this->harga_modal;
         $data['version'] = $this->version;
+        $data['nomor'] = $this->nomor;
 
         Barang::updateOrCreate([
             'id' => $this->id_barang
@@ -146,6 +164,23 @@ class Form extends Component
         $this->emit('finishSimpanData', 1, $message);
 
         return session()->flash('success', $message);
+    }
+
+    public function checkNomor()
+    {
+        $checkNomor = Barang::where('nomor', $this->nomor)->first();
+        if ($checkNomor) {
+            $message = "Nomor SKU sudah digunakan";
+            return [
+                'status' => 0,
+                'message' => $message
+            ];
+        } else {
+            return [
+                'status' => 1,
+                'message' => 'Berhasil'
+            ];
+        }
     }
 
     public function setDataBarang($id)
@@ -169,6 +204,7 @@ class Form extends Component
         $this->deskripsi = $barang->deskripsi;
         $this->harga_modal = $barang->harga_modal;
         $this->version = $barang->version;
+        $this->nomor = $barang->nomor;
     }
 
     public function changeTipeBarang($id_tipe_barang)

@@ -54,7 +54,7 @@ class Quotation extends Model
     }
 
     public function project(){
-        return $this->belongsTo(ProjectV2::class, 'id_project');
+        return $this->belongsTo(ProjectV2::class, 'id_project')->withTrashed();
     }
 
     public function getNoRefAttribute(){

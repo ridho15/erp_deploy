@@ -2,6 +2,14 @@
     @include('helper.alert-message')
     <div class="row mb-7">
         <div class="col-md-4">
+            SKU
+        </div>
+        <div class="col-md">
+            : <span class="fw-bold">{{ $barang->sku }}</span>
+        </div>
+    </div>
+    <div class="row mb-7">
+        <div class="col-md-4">
             Nama Barang
         </div>
         <div class="col-md">
