@@ -46,7 +46,7 @@ class Quotation extends Model
     }
 
     public function laporanPekerjaan(){
-        return $this->belongsTo(LaporanPekerjaan::class, 'id_laporan_pekerjaan');
+        return $this->belongsTo(LaporanPekerjaan::class, 'id_laporan_pekerjaan')->withTrashed();
     }
 
     public function quotationDetail(){

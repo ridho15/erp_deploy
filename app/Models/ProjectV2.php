@@ -26,7 +26,7 @@ class ProjectV2 extends Model
     ];
 
     public function customer(){
-        return $this->belongsTo(Customer::class, 'id_customer')->trashed();
+        return $this->belongsTo(Customer::class, 'id_customer')->withTrashed();
     }
 
     public function salesProject(){
