@@ -147,7 +147,7 @@
                         {{ $item }},
                     @endforeach
                 </td>
-                <td style="text-align: center">Client</td>
+                <td style="text-align: start">Client</td>
             </tr>
         </table>
     </div>

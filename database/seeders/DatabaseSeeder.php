@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
             TipePerubahanStockSeeder::class,
             TipeUserSeeder::class,
             UserAdminSeeder::class,
-            FormMasterSeeder::class,
             TipePembayaranSeeder::class,
+            FormMasterSeeder::class,
         ]);
     }
 }

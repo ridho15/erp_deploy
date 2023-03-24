@@ -90,7 +90,7 @@
                 </tr>
             @else
                 <tr>
-                    <td colspan="6" style="text-align: center; font-weight: bold">Tidak ada data</td>
+                    <td colspan="7" style="text-align: center; font-weight: bold">Tidak ada data</td>
                 </tr>
             @endif
             </tbody>
