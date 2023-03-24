@@ -1,5 +1,6 @@
 <head>
-    <title>{{ $title }} | {{ $web_config['web_name'] ? $web_config['web_name'] : 'Nama Aplikasi belum diatur' }}</title>
+    <title>{{ $title }} | {{ $web_config['web_name'] ? $web_config['web_name'] : 'Nama Aplikasi belum diatur' }}
+    </title>
     <meta charset="utf-8" />
     <meta name="description" content="PT.Mitra Global Kencana" />
     <meta name="keywords" content="PT.Mitra Global Kencana" />
@@ -87,6 +88,24 @@
             border-left: inherit;
             border-radius: 0 0.3125rem 0.3125rem 0;
         }
+
+        /* width */
+        ::-webkit-scrollbar {
+            width: 10px !important;
+            height: 15px !important;
+        }
+/*
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1 !important;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #888 !important;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555 !important;
+        } */
 
     </style>
 </head>

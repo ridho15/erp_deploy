@@ -21,7 +21,7 @@
                 @include('helper.simple-loading', [
                     'target' => 'cari,hapusManagementTugas',
                     'message' => 'Memuat
-                                                data...',
+                                                                data...',
                 ])
             </div>
             <div class="alert alert-dismissible bg-light-primary d-flex flex-column flex-sm-row p-5 mb-10">
@@ -40,10 +40,12 @@
                     <h4 class="fw-semibold">Informasi</h4>
                     <ul>
                         <li>
-                            <span>Jika unit tidak ditemukan setelah project di pilih. Silahkan isi data unit terlebih dahulu pada bagian <strong>Project Master</strong>.</span>
+                            <span>Jika unit tidak ditemukan setelah project di pilih. Silahkan isi data unit terlebih
+                                dahulu pada bagian <strong>Project Master</strong>.</span>
                         </li>
                         <li>
-                            <span>Untuk pembuatan management tugas dari quotation silahkan pilih quotation pada form untuk membuat <strong>Management Tugas</strong> yang baru.</span>
+                            <span>Untuk pembuatan management tugas dari quotation silahkan pilih quotation pada form
+                                untuk membuat <strong>Management Tugas</strong> yang baru.</span>
                         </li>
                     </ul>
                 </div>

@@ -35,6 +35,7 @@
                             <th>Customer</th>
                             <th>Alamat</th>
                             <th>Catatan</th>
+                            <th>No Unit</th>
                             <th>No MFG</th>
                             <th>Sales</th>
                             <th>Lokasi</th>
@@ -56,6 +57,12 @@
                                     <td>{{ $item->customer->nama }}</td>
                                     <td>{{ $item->alamat }}</td>
                                     <td>{{ $item->catatan }}</td>
+                                    <td>
+                                        @foreach ($item->listUnit as $unit)
+                                            ({{ $unit->no_unit }} {{ $unit->nama_unit }})
+                                            ,
+                                        @endforeach
+                                    </td>
                                     <td>{{ $item->no_mfg }}</td>
                                     <td>
                                         @foreach ($item->salesProject as $salesProject)
