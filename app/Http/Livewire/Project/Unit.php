@@ -31,7 +31,7 @@ class Unit extends Component
 
     public function simpanUnit(){
         $this->validate([
-            'no_unit' => 'required|numeric',
+            'no_unit' => 'required|string',
             'nama_unit' => 'required|string'
         ]);
 

@@ -64,7 +64,7 @@
                             </div>
                             <div class="col-md-6 mb-5">
                                 <label for="" class="form-label required">Nomor Unit</label>
-                                <input type="number" name="no_unit" wire:model="no_unit" class="form-control form-control-solid" placeholder="Nomor Unit" aria-describedby="basic-addon2"/>
+                                <input type="text" name="no_unit" wire:model="no_unit" class="form-control form-control-solid" placeholder="Nomor Unit" aria-describedby="basic-addon2"/>
                                 @error('no_unit')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
