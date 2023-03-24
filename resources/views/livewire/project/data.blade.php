@@ -35,7 +35,6 @@
                             <th>Customer</th>
                             <th>Alamat</th>
                             <th>Catatan</th>
-                            <th>No Unit</th>
                             <th>No MFG</th>
                             <th>Sales</th>
                             <th>Lokasi</th>
@@ -57,11 +56,6 @@
                                     <td>{{ $item->customer->nama }}</td>
                                     <td>{{ $item->alamat }}</td>
                                     <td>{{ $item->catatan }}</td>
-                                    <td>
-                                        @foreach ($item->listUnit as $unit)
-                                            ({{ $unit->no_unit }} {{ $unit->nama_unit }}),
-                                        @endforeach
-                                    </td>
                                     <td>{{ $item->no_mfg }}</td>
                                     <td>
                                         @foreach ($item->salesProject as $salesProject)
@@ -88,8 +82,8 @@
                                         @php
                                             $total_pekerjaan_selesai = 0;
                                             foreach ($item->listUnit as $index => $unit) {
-                                                foreach ($unit->laporanPekerjaan as $value) {
-                                                    if ($value->signature != null && $value->jam_selesai != null) {
+                                                if ($unit->laporanPekerjaan != null) {
+                                                    if ($unit->laporanPekerjaan->signature != null && $unit->laporanPekerjaan->jam_selesai != null) {
                                                         $total_pekerjaan_selesai++;
                                                     }
                                                 }
@@ -105,7 +99,7 @@
                                                 <i class="bi bi-pencil-square"></i>
                                             </button>
                                             <button class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip"
-                                                data-bs-placement="top" title="Lihat Unit"
+                                                data-bs-placement="top" title="Isi Data Unit"
                                                 wire:click="$emit('onClickUnit', {{ $item->id }})">
                                                 <i class="fas fa-circle-info"></i>
                                             </button>

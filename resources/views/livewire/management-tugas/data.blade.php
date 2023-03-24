@@ -21,8 +21,49 @@
                 @include('helper.simple-loading', [
                     'target' => 'cari,hapusManagementTugas',
                     'message' => 'Memuat
-                                data...',
+                                                data...',
                 ])
+            </div>
+            <div class="alert alert-dismissible bg-light-primary d-flex flex-column flex-sm-row p-5 mb-10">
+                <span class="svg-icon svg-icon-primary svg-icon-2hx"><svg width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path opacity="0.3"
+                            d="M5.78001 21.115L3.28001 21.949C3.10897 22.0059 2.92548 22.0141 2.75004 21.9727C2.57461 21.9312 2.41416 21.8418 2.28669 21.7144C2.15923 21.5869 2.06975 21.4264 2.0283 21.251C1.98685 21.0755 1.99507 20.892 2.05201 20.7209L2.886 18.2209L7.22801 13.879L10.128 16.774L5.78001 21.115Z"
+                            fill="currentColor" />
+                        <path
+                            d="M21.7 8.08899L15.911 2.30005C15.8161 2.2049 15.7033 2.12939 15.5792 2.07788C15.455 2.02637 15.3219 1.99988 15.1875 1.99988C15.0531 1.99988 14.92 2.02637 14.7958 2.07788C14.6717 2.12939 14.5589 2.2049 14.464 2.30005L13.74 3.02295C13.548 3.21498 13.4402 3.4754 13.4402 3.74695C13.4402 4.01849 13.548 4.27892 13.74 4.47095L14.464 5.19397L11.303 8.35498C10.1615 7.80702 8.87825 7.62639 7.62985 7.83789C6.38145 8.04939 5.2293 8.64265 4.332 9.53601C4.14026 9.72817 4.03256 9.98855 4.03256 10.26C4.03256 10.5315 4.14026 10.7918 4.332 10.984L13.016 19.667C13.208 19.859 13.4684 19.9668 13.74 19.9668C14.0115 19.9668 14.272 19.859 14.464 19.667C15.3575 18.77 15.9509 17.618 16.1624 16.3698C16.374 15.1215 16.1932 13.8383 15.645 12.697L18.806 9.53601L19.529 10.26C19.721 10.452 19.9814 10.5598 20.253 10.5598C20.5245 10.5598 20.785 10.452 20.977 10.26L21.7 9.53601C21.7952 9.44108 21.8706 9.32825 21.9221 9.2041C21.9737 9.07995 22.0002 8.94691 22.0002 8.8125C22.0002 8.67809 21.9737 8.54505 21.9221 8.4209C21.8706 8.29675 21.7952 8.18392 21.7 8.08899Z"
+                            fill="currentColor" />
+                    </svg>
+                </span>
+
+                <div class="d-flex flex-column pe-0 pe-sm-10">
+                    <h4 class="fw-semibold">Informasi</h4>
+                    <ul>
+                        <li>
+                            <span>Jika unit tidak ditemukan setelah project di pilih. Silahkan isi data unit terlebih dahulu pada bagian <strong>Project Master</strong>.</span>
+                        </li>
+                        <li>
+                            <span>Untuk pembuatan management tugas dari quotation silahkan pilih quotation pada form untuk membuat <strong>Management Tugas</strong> yang baru.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <button type="button"
+                    class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto"
+                    data-bs-dismiss="alert">
+                    <span class="svg-icon svg-icon-1 svg-icon-primary">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3"
+                                d="M20.5543 4.37824L12.1798 2.02473C12.0626 1.99176 11.9376 1.99176 11.8203 2.02473L3.44572 4.37824C3.18118 4.45258 3 4.6807 3 4.93945V13.569C3 14.6914 3.48509 15.8404 4.4417 16.984C5.17231 17.8575 6.18314 18.7345 7.446 19.5909C9.56752 21.0295 11.6566 21.912 11.7445 21.9488C11.8258 21.9829 11.9129 22 12.0001 22C12.0872 22 12.1744 21.983 12.2557 21.9488C12.3435 21.912 14.4326 21.0295 16.5541 19.5909C17.8169 18.7345 18.8277 17.8575 19.5584 16.984C20.515 15.8404 21 14.6914 21 13.569V4.93945C21 4.6807 20.8189 4.45258 20.5543 4.37824Z"
+                                fill="currentColor" />
+                            <rect x="9" y="13.0283" width="7.3536" height="1.2256" rx="0.6128"
+                                transform="rotate(-45 9 13.0283)" fill="currentColor" />
+                            <rect x="9.86664" y="7.93359" width="7.3536" height="1.2256" rx="0.6128"
+                                transform="rotate(45 9.86664 7.93359)" fill="currentColor" />
+                        </svg>
+                    </span>
+                </button>
             </div>
             <div class="row mb-5 justify-content-between">
                 <div class="col-md-3 col-6">
@@ -90,7 +131,7 @@
                                         @if ($item->periode)
                                             {{ $item->periode }} Bulan
                                         @else
-                                         -
+                                            -
                                         @endif
                                     </td>
                                     <td>
