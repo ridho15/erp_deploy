@@ -79,7 +79,7 @@ class Data extends Component
             ->paginate($this->total_show);
         }else{
             $this->listQuotation = Quotation::orderBy('created_at', 'DESC')
-            ->whereHas('project')
+            ->whereHas('projectUnit')
             ->paginate($this->total_show);
         }
         $data['listQuotation'] = $this->listQuotation;

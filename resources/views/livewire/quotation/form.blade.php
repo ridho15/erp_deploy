@@ -234,6 +234,42 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
+                            <div class="col-md-6 mb-5">
+                                <label for="" class="form-label required">Unit</label>
+                                <select name="id_project_unit" wire:model="id_project_unit"
+                                    class="form-select form-select-solid" data-control="select2"
+                                    data-dropdown-parent="#modal_form_manual" data-placeholder="Pilih" required>
+                                    <option value="">Pilih</option>
+                                    @foreach ($listProjectUnit as $item)
+                                        <option value="{{ $item->id }}">{{ $item->no_unit }} {{ $item->nama_unit }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('id_project_unit')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-5 col-md-6">
+                                <label for="" class="form-label">Sales</label>
+                                <select name="listIdSales" wire:model="listIdSales"
+                                    class="form-select form-select-solid" data-control="select2"
+                                    data-placeholder="Pilih" multiple>
+                                    <option value="">Pilih</option>
+                                    @foreach ($listSales as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                    @endforeach
+                                </select>
+                                @error('listIdSales')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-5 col-md-6">
+                                <label for="" class="form-label">Perihal</label>
+                                <textarea name="hal" class="form-control form-control-solid" wire:model="hal" placeholder="Masukkan perihal"></textarea>
+                                @error('hal')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
                         </div>
                         <div class="mb-5" wire:ignore>
                             <label for="" class="form-label">Keterangan</label>
@@ -243,26 +279,8 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                        <div class="mb-5">
-                            <label for="" class="form-label">Perihal</label>
-                            <textarea name="hal" class="form-control form-control-solid" wire:model="hal" placeholder="Masukkan perihal"></textarea>
-                            @error('hal')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                        <div class="mb-5">
-                            <label for="" class="form-label">Sales</label>
-                            <select name="listIdSales" wire:model="listIdSales" class="form-select form-select-solid"
-                                data-control="select2" data-placeholder="Pilih" multiple>
-                                <option value="">Pilih</option>
-                                @foreach ($listSales as $item)
-                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                @endforeach
-                            </select>
-                            @error('listIdSales')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
+
+
                         <div class="mb-5" x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
                             x-on:livewire-upload-finish="isUploading = false, progress = 0"
                             x-on:livewire-upload-error="isUploading = false"
@@ -315,6 +333,7 @@
         function refreshSelect() {
             $('select[name="id_customer"]').select2();
             $('select[name="id_project"]').select2();
+            $('select[name="id_project_unit"]').select2();
 
             $('select[name="id_customer"]').on('change', function() {
                 Livewire.emit('changeCustomer', $(this).val())
@@ -322,6 +341,10 @@
 
             $('select[name="id_project"]').on('change', function() {
                 Livewire.emit('changeProject', $(this).val())
+            })
+
+            $('select[name="id_project_unit"]').on('change', function() {
+                Livewire.emit('changeProjectUnit', $(this).val())
             })
 
             $('select[name="listIdSales"]').select2();

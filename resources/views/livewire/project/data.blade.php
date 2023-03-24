@@ -58,10 +58,11 @@
                                     <td>{{ $item->alamat }}</td>
                                     <td>{{ $item->catatan }}</td>
                                     <td>
-                                        @foreach ($item->listUnit as $unit)
-                                            ({{ $unit->no_unit }} {{ $unit->nama_unit }})
-                                            ,
+                                        <ul>
+                                            @foreach ($item->listUnit as $unit)
+                                            <li>({{ $unit->no_unit }} {{ $unit->nama_unit }})</li>
                                         @endforeach
+                                        </ul>
                                     </td>
                                     <td>{{ $item->no_mfg }}</td>
                                     <td>

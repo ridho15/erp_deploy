@@ -67,8 +67,8 @@ class Form extends Component
             $query->doesntHave('laporanPekerjaan')
                 ->orWhere('id', $this->id_project_unit);
         })->get();
-        $this->listQuotation = Quotation::where('id_project', $this->id_project)
-            ->doesntHave('laporanPekerjaan')->get();
+        $this->listQuotation = Quotation::where('id_project_unit', $this->id_project_unit)
+            ->doesntHave('projectUnit')->get();
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.management-tugas.form');
     }

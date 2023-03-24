@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Quotation;
 
 use App\Http\Controllers\HelperController;
 use App\Models\Customer;
+use App\Models\ProjectUnit;
 use App\Models\ProjectV2;
 use App\Models\Quotation;
 use App\Models\QuotationSales;
@@ -28,7 +29,8 @@ class Form extends Component
         'changeKeterangan',
         'changeCustomer',
         'changeSales',
-        'changeProject'
+        'changeProject',
+        'changeProjectUnit',
     ];
     public $id_quotation;
     public $id_project;
@@ -39,13 +41,16 @@ class Form extends Component
     public $hal;
     public $quotation;
     public $listCustomer;
+    public $id_project_unit;
     public $listIdSales = [];
     public $listProject = [];
+    public $listProjectUnit = [];
 
     public $listSales = [];
     public function render()
     {
         $this->listProject = ProjectV2::where('id_customer', $this->id_customer)->get();
+        $this->listProjectUnit = ProjectUnit::where('id_project', $this->id_project)->get();
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.quotation.form');
     }
@@ -59,7 +64,10 @@ class Form extends Component
         $this->validate([
             'status_response' => 'required|numeric',
             'id_tipe_pembayaran' => 'required|numeric',
+            'id_project_unit' => 'required|numeric',
         ], [
+            'id_project_unit.required' => 'Unit belum dipilih',
+            'id_project_unit.numeric' => 'Unit tidak valid !',
             'status_response.required' => 'Status Response belum dipilih',
             'status_response.numeric' => 'Status Response tidak valid !',
             'id_tipe_pembayaran.required' => 'Tipe pembayaran belum dipilih',
@@ -184,15 +192,15 @@ class Form extends Component
     public function simpanDataQuotation(){
         $this->validate([
             'id_customer' => 'required|numeric',
-            'id_project' => 'required|numeric',
+            'id_project_unit' => 'required|numeric',
             'keterangan' => 'nullable|string',
             'hal' => 'nullable|string',
             'file' => 'nullable|mimes:pdf,docx,xlsx|max:10240',
         ], [
             'id_customer.required' => 'Data customer tidak valid !',
             'id_customer.numeric' => 'Data customer tidak valid !',
-            'id_project.numeric' => 'Data Project tidak valid !',
-            'id_project.numeric' => 'Data Project tidak valid !',
+            'id_project_unit.numeric' => 'Data Project tidak valid !',
+            'id_project_unit.numeric' => 'Data Project tidak valid !',
             'keterangan.string' => 'Keterangan tidak valid !',
             'file.mimes' => 'File tidak valid !',
             'file.max' => 'Ukuran file terlalu besar, maximal 10Mb',
@@ -208,7 +216,7 @@ class Form extends Component
         }
 
         $data['id_customer'] = $this->id_customer;
-        $data['id_project'] = $this->id_project;
+        $data['id_project_unit'] = $this->id_project_unit;
         $data['keterangan'] = $this->keterangan;
         $data['hal'] = $this->hal;
         $data['ppn'] = $customer->ppn;
@@ -244,5 +252,9 @@ class Form extends Component
 
     public function changeProject($id_project){
         $this->id_project = $id_project;
+    }
+
+    public function changeProjectUnit($id_project_unit){
+        $this->id_project_unit = $id_project_unit;
     }
 }

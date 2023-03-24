@@ -36,7 +36,7 @@
                             Nama
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $quotation->project->customer->nama }}
+                            : {{ $quotation->projectUnit->project->customer->nama }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -44,7 +44,7 @@
                             No HP
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $quotation->project->customer->no_hp }}
+                            : {{ $quotation->projectUnit->project->customer->no_hp }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -52,7 +52,7 @@
                             Email
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $quotation->project->customer->email }}
+                            : {{ $quotation->projectUnit->project->customer->email }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -60,7 +60,7 @@
                             Alamat
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $quotation->project->customer->alamat }}
+                            : {{ $quotation->projectUnit->project->customer->alamat }}
                         </div>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                             Nama
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $quotation->project->nama }}
+                            : {{ $quotation->projectUnit->project->nama }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -81,7 +81,7 @@
                             Kode
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $quotation->project->kode }}
+                            : {{ $quotation->projectUnit->project->kode }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -89,9 +89,7 @@
                             No Unit
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : @foreach ($quotation->project->listUnit as $unit)
-                                {{ $unit->no_unit }} {{ $unit->nama_unit }},
-                            @endforeach
+                            : {{ $quotation->projectUnit->no_unit }} {{ $quotation->projectUnit->nama_unit }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -99,7 +97,7 @@
                             No MFG
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $quotation->project->no_mfg }}
+                            : {{ $quotation->projectUnit->project->no_mfg }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -107,7 +105,7 @@
                             Alamat
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $quotation->project->alamat }}
+                            : {{ $quotation->projectUnit->project->alamat }}
                         </div>
                     </div>
                 </div>

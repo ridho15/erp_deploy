@@ -29,6 +29,7 @@ class Data extends Component
     public $status_pekerjaan;
     public $tanggal_pekerjaan;
     public $id_project;
+    public $id_project_unit;
 
     public $listProject = [];
 
@@ -55,10 +56,9 @@ class Data extends Component
                 ->orWhere('keterangan', 'LIKE', '%'.$this->cari.'%')
                 ->orWhere('jam_mulai', 'LIKE', '%'.$this->cari.'%')
                 ->orWhere('tanggal_pekerjaan', 'LIKE', '%'.$this->cari.'%')
-                ->orWhereHas('customer', function ($query) {
-                    $query->where('nama', 'LIKE', '%'.$this->cari.'%');
-                })->orWhereHas('project', function ($query) {
-                    $query->where('nama', 'LIKE', '%'.$this->cari.'%');
+                ->orWhereHas('projectUnit', function ($query) {
+                    $query->where('no_unit', 'LIKE', '%'.$this->cari.'%')
+                    ->orWhere('nama_unit', 'LIKE', '%' . $this->cari . '%');
                 });
             })->where(function($query){
                 $query->whereDate('tanggal_pekerjaan', $this->tanggal_pekerjaan)
@@ -73,7 +73,9 @@ class Data extends Component
                         $query->where('jam_selesai', '!=', null)
                         ->where('signature', '!=', null);
                     }
-                })->orWhere('id_project', $this->id_project);
+                })->orWhereHas('projectUnit', function($query){
+                    $query->where('id_project', $this->id_project);
+                });
             })
             ->where('jam_selesai', null)
             ->where('signature', null)
@@ -82,7 +84,6 @@ class Data extends Component
             $this->listLaporanPekerjaan = LaporanPekerjaan::whereHas('formMaster')->orderBy('created_at', 'DESC')->where('jam_selesai', null)->where('signature', null)->paginate($this->total_show);
         }
 
-        $this->listProject = ProjectV2::get();
 
         $data['listLaporanPekerjaan'] = $this->listLaporanPekerjaan;
         $this->dispatchBrowserEvent('contentChange');
@@ -91,6 +92,7 @@ class Data extends Component
 
     public function mount()
     {
+        $this->listProject = ProjectV2::get();
     }
 
     public function filterData()
@@ -132,7 +134,7 @@ class Data extends Component
                 'id_laporan_pekerjaan' => null
             ]);
         }
-        
+
         $laporanPekerjaan->delete();
         $message = 'Data management tugas berhasil dihapus';
         activity()->causedBy(HelperController::user())->log("Data management tugas di hapus");

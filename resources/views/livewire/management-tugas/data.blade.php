@@ -20,8 +20,7 @@
             <div class="text-center">
                 @include('helper.simple-loading', [
                     'target' => 'cari,hapusManagementTugas',
-                    'message' => 'Memuat
-                                                                data...',
+                    'message' => 'Memuat data...',
                 ])
             </div>
             <div class="alert alert-dismissible bg-light-primary d-flex flex-column flex-sm-row p-5 mb-10">
@@ -109,8 +108,9 @@
                                 <tr>
                                     <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
                                     <td>{{ $item->kode_pekerjaan }}</td>
-                                    <td>{{ $item->projectUnit->project ? $item->projectUnit->project->nama : '-'}}</td>
-                                    <td>{{ $item->projectUnit ? $item->projectUnit->no_unit : '-' }} {{ $item->nomor_lift }}</td>
+                                    <td>{{ $item->projectUnit->project ? $item->projectUnit->project->nama : '-' }}</td>
+                                    <td>{{ $item->projectUnit ? $item->projectUnit->no_unit : '-' }}
+                                        {{ $item->nomor_lift }}</td>
                                     <td>
                                         @foreach ($item->teknisi as $nama)
                                             {{ $nama->user ? $nama->user->name : '-' }},
@@ -285,15 +285,26 @@
 
 @push('js')
     <script>
-        $(document).ready(function() {});
+        $(document).ready(function() {
+            select2();
+        });
 
         window.addEventListener('contentChange', function() {
-            $('select[name="status_pekerjaan"]').select2();
+            select2()
         })
 
-        $('select[name="status_pekerjaan"]').on('change', function() {
-            @this.set('status_pekerjaan', $(this).val())
-        })
+        function select2(){
+            $('select[name="status_pekerjaan"]').select2();
+            $('select[name="id_project"]').select2();
+            $('select[name="status_pekerjaan"]').on('change', function() {
+                @this.set('status_pekerjaan', $(this).val())
+            })
+
+            $('select[name="id_project"]').on('change', function() {
+                @this.set('id_project', $(this).val())
+            })
+        }
+
 
         Livewire.on('finishRefreshData', (status, message) => {
             $('.modal').modal('hide')

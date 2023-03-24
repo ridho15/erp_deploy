@@ -287,7 +287,7 @@
                                         No Unit
                                     </div>
                                     <div class="col-md-8 col-8 fw-bold">
-                                        : {{ $laporanPekerjaan->projectUnit->no_unit }}
+                                        : {{ $laporanPekerjaan->projectUnit->no_unit }} {{ $laporanPekerjaan->projectUnit->nama_unit }}
                                     </div>
                                 </div>
                                 <div class="row mb-5">

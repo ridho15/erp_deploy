@@ -20,27 +20,27 @@
         <br>
         <div>
             <span style="margin-bottom: 10px">Kepada Yth:</span><br>
-            <span style="font-weight: bold; margin-bottom: 10px">{{ $quotation->project->customer->nama }}</span><br>
-            <span style="margin-bottom: 10px">{{ $quotation->project->customer->alamat }}</span><br>
+            <span style="font-weight: bold; margin-bottom: 10px">{{ $quotation->projectUnit->project->customer->nama }}</span><br>
+            <span style="margin-bottom: 10px">{{ $quotation->projectUnit->project->customer->alamat }}</span><br>
         </div>
         <br>
         <table>
             <tr>
                 <td style="font-weight: bold;">Nama Project</td>
                 <td style="font-weight: bold">:
-                    {{ $quotation->project->nama }}
+                    {{ $quotation->projectUnit->project->nama }}
                 </td>
             </tr>
             <tr>
                 <td style="font-weight: bold">No Handphone</td>
                 <td style="font-weight: bold">:
-                    {{ $quotation->project->no_hp }}
+                    {{ $quotation->projectUnit->project->no_hp }}
                 </td>
             </tr>
             <tr>
                 <td style="font-weight: bold">Email</td>
                 <td style="font-weight: bold">:
-                    {{ $quotation->project->email }}
+                    {{ $quotation->projectUnit->project->email }}
                 </td>
             </tr>
             <tr>

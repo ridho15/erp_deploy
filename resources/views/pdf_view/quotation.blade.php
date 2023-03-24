@@ -10,27 +10,27 @@
     <br>
     <div>
         <span>Kepada Yth:</span><br>
-        <span style="font-weight: bold">{{ $quotation->project->customer->nama }}</span><br>
-        <span>{{ $quotation->project->alamat }}</span><br>
+        <span style="font-weight: bold">{{ $quotation->projectUnit->project->customer->nama }}</span><br>
+        <span>{{ $quotation->projectUnit->project->alamat }}</span><br>
     </div>
     <br>
     <table>
         <tr>
             <td style="font-weight: bold">Nama Project</td>
             <td style="font-weight: bold">:
-                {{ $quotation->project->nama }}
+                {{ $quotation->projectUnit->project->nama }}
             </td>
         </tr>
         <tr>
             <td style="font-weight: bold">Up</td>
             <td style="font-weight: bold">:
-                {{ $quotation->project->penanggung_jawab }} {{ $quotation->project->no_hp }}
+                {{ $quotation->projectUnit->project->penanggung_jawab }} {{ $quotation->projectUnit->project->no_hp }}
             </td>
         </tr>
         <tr>
             <td style="font-weight: bold">Email</td>
             <td style="font-weight: bold">:
-                {{ $quotation->project->email }}
+                {{ $quotation->projectUnit->project->email }}
             </td>
         </tr>
         <tr>
