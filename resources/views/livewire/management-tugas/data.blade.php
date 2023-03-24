@@ -109,8 +109,8 @@
                                 <tr>
                                     <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
                                     <td>{{ $item->kode_pekerjaan }}</td>
-                                    <td>{{ $item->projectUnit->project->nama }}</td>
-                                    <td>{{ $item->projectUnit->no_unit }} {{ $item->nomor_lift }}</td>
+                                    <td>{{ $item->projectUnit->project ? $item->projectUnit->project->nama : '-'}}</td>
+                                    <td>{{ $item->projectUnit ? $item->projectUnit->no_unit : '-' }} {{ $item->nomor_lift }}</td>
                                     <td>
                                         @foreach ($item->teknisi as $nama)
                                             {{ $nama->user ? $nama->user->name : '-' }},
