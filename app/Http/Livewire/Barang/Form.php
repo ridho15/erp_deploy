@@ -85,7 +85,8 @@ class Form extends Component
             'deskripsi' => 'nullable|string',
             'harga_modal' => 'required|numeric',
             'version' => 'required|numeric',
-            'nomor' => 'required|numeric'
+            'nomor' => 'required|numeric',
+            'stock' => 'required|numeric',
         ], [
             'nama.required' => 'Nama tidak boleh kosong',
             'nama.string' => 'Nama tidak valid !',
@@ -102,7 +103,9 @@ class Form extends Component
             'harga_modal.required' => 'Harga modal tidak boleh kosong',
             'harga_modal.numeric' => 'Harga modal tidak valid !',
             'nomor.required' => 'SKU tidak boleh kosong',
-            'nomor.numeric' => 'SKU tidak valid !'
+            'nomor.numeric' => 'SKU tidak valid !',
+            'stock.required' => 'Stock tidak boleh kosong',
+            'stock.numeric' => 'Stock tidak valid !'
         ]);
 
         // Check Merk
@@ -152,6 +155,7 @@ class Form extends Component
         $data['harga_modal'] = $this->harga_modal;
         $data['version'] = $this->version;
         $data['nomor'] = $this->nomor;
+        $data['stock'] = $this->stock;
 
         Barang::updateOrCreate([
             'id' => $this->id_barang
@@ -205,6 +209,7 @@ class Form extends Component
         $this->harga_modal = $barang->harga_modal;
         $this->version = $barang->version;
         $this->nomor = $barang->nomor;
+        $this->stock = $barang->stock;
     }
 
     public function changeTipeBarang($id_tipe_barang)
