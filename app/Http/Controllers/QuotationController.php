@@ -69,7 +69,7 @@ class QuotationController extends Controller
         $data['web_faksimili'] = WebConfig::where('type', 'web_faksimili')->first()->value;
         $data['web_logo_perusahaan'] = WebConfig::where('type', 'web_logo_perusahaan')->first()->value;
         $data['web_alamat'] = WebConfig::where('type', 'web_alamat')->first()->value;
-        $data['web_logo'] = WebConfig::where('type', 'web_logo')->first();
+        $data['web_logo'] = WebConfig::where('type', 'logo')->first();
         $pdf = Pdf::loadView('pdf_view.quotation', $data);
 
         return $pdf->download('quotation_'.strtotime(now()).'.pdf');
