@@ -78,7 +78,7 @@ class Form extends Component
         $this->validate([
             'nama' => 'required|string',
             'harga' => 'required|numeric',
-            'id_merk' => 'nullable|numeric',
+            'id_merk' => 'required|numeric',
             'min_stock' => 'required|numeric',
             'id_satuan' => 'required|numeric',
             'id_tipe_barang' => 'required|numeric',

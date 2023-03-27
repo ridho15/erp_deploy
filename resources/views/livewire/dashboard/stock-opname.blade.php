@@ -37,7 +37,7 @@
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $item->barang->sku }}</td>
                             <td>{{ $item->barang->nama }}</td>
-                            <td>{{ $item->barang->merk->nama_merk }}</td>
+                            <td>{{ $item->barang->merk ? $item->barang->merk->nama_merk : null }}</td>
                             <td>{{ $item->jumlah_tercatat ?? 0 }}</td>
                             <td>{{ $item->jumlah_mutasi ?? 0 }}</td>
                             <td>{{ $item->jumlah_terjual ?? 0 }}</td>

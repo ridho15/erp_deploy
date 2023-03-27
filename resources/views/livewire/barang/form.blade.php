@@ -103,7 +103,7 @@
                                 <label for="" class="form-label required">Merk</label>
                                 <select name="id_merk" class="form-select form-select-solid" wire:model='id_merk'
                                     data-dropdown-parent="#modal_form" data-placeholder="Pilih"
-                                    data-control="select2">
+                                    data-control="select2" required>
                                     <option value="">Pilih</option>
                                     @foreach ($listMerk as $item)
                                         <option value="{{ $item->id }}">{{ $item->nama_merk }}</option>

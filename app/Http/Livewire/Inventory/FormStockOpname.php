@@ -45,7 +45,8 @@ class FormStockOpname extends Component
             'id_barang' => 'required|numeric',
             'jumlah_tercatat' => 'required|numeric',
             'tanggal_input' => 'required|date',
-            'keterangan' => 'nullable|string'
+            'keterangan' => 'nullable|string',
+            // 'id_merk' => 'required|numeric'
         ], [
             'id_barang.required' => 'Barang belum dipilih',
             'id_barang.numeric' => 'Barang tidak valid !',
@@ -53,7 +54,9 @@ class FormStockOpname extends Component
             'jumlah_tercatat_numeric' => 'Jumlah tercatat tidak valid !',
             'tanggal_input.required' => 'Tanggal tidak boleh kosong',
             'tanggal_input.date' => 'Tanggal tidak valid !',
-            'keterangan.string' => 'Keterangan tidak valid !'
+            'keterangan.string' => 'Keterangan tidak valid !',
+            // 'id_merk.required' => 'Merk Belum dipilih',
+            // 'id_merk.numeric' => 'Merk tidak valid !'
         ]);
 
         $stockOpname = StockOpname::where('tanggal', $this->tanggal_input)

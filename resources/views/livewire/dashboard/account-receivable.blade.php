@@ -38,7 +38,7 @@
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $item->no_ref }}</td>
                                 <td>{{ $item->quotation? $item->quotation->no_ref : '-' }}</td>
-                                <td>{{ $item->customer ? $item->customer->nama : '-'}} {{ $item->customer ? $item->customer->kode : '-' }}</td>
+                                <td>{{ $item->projectUnit->project->customer ? $item->projectUnit->project->customer->nama : '-'}} {{ $item->customer ? $item->customer->kode : '-' }}</td>
                                 <td>
                                     @if ($item->user)
                                         {{ $item->user->name }}
