@@ -31,8 +31,8 @@
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $item->no_ref }}</td>
-                            <td>{{ $item->customer->nama }}</td>
-                            <td>{{ $item->quotation->project->nama }}</td>
+                            <td>{{ $item->projectUnit->project->customer->nama }}</td>
+                            <td>{{ $item->projectUnit->project->nama }}</td>
                             <td>
                                 @if (isset($item->quotation->laporanPekerjaan->project))
                                     {{ $item->quotation->laporanPekerjaan->nomor_lift }}
