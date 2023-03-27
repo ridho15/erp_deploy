@@ -430,7 +430,7 @@
                         style="object-fit: contain" alt="">
                 @endif
             </div><br>
-            <span>Nama : {{ $laporanPekerjaan->projectUnit->project->customer ? $laporanPekerjaan->projectUnit->project->customer->nama : '-' }}</span>
+            <span>Nama : {{ $laporanPekerjaan->projectUnit->project ? $laporanPekerjaan->projectUnit->project->penanggung_jawab : '-' }}</span>
         </div>
     </div>
 
