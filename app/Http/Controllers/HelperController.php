@@ -388,6 +388,13 @@ class HelperController extends Controller
                         'nama' => 'Kondisi',
                         'icon' => '<span class="bullet bullet-dot"></span>',
                         'role' => ['Super Admin', 'Manager'],
+                        'active' => 'kondisi',
+                        'route' => 'kondisi'
+                    ]),
+                    collect([
+                        'nama' => 'Sales',
+                        'icon' => '<span class="bullet bullet-dot"></span>',
+                        'role' => ['Super Admin', 'Manager'],
                         'active' => 'sales',
                         'route' => 'sales'
                     ]),

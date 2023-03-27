@@ -18,8 +18,7 @@ class Project extends Component
         $this->listProject = ProjectV2::where('id_customer', $this->id_customer)
         ->where(function($query){
             $query->where('kode', 'LIKE', '%' . $this->cari . '%')
-            ->orWhere('nama', 'LIKE', '%' . $this->cari . '%')
-            ->orWhere('no_unit', 'LIKE', '%' . $this->cari . '%');
+            ->orWhere('nama', 'LIKE', '%' . $this->cari . '%');
         })->get();
         return view('livewire.kustomer.project');
     }

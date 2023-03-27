@@ -87,27 +87,27 @@
                             $total = $subTotal + $ppn;
                         @endphp
                         <tr>
-                            <td colspan="6" style="text-align: center; font-weight: bold; font-style: italic">Sub
+                            <td colspan="7" style="text-align: center; font-weight: bold; font-style: italic">Sub
                                 Total</td>
                             <td style="font-weight: bold; text-align: end">
                                 {{ 'Rp. ' . number_format($subTotal, 0, ',', '.') }}</td>
                         </tr>
                         <tr>
-                            <td colspan="6" style="text-align: center; font-weight: bold; font-style: italic">PPN
+                            <td colspan="7" style="text-align: center; font-weight: bold; font-style: italic">PPN
                                 {{ $quotation->ppn }}%
                             </td>
                             <td style="font-weight: bold; text-align: end">
                                 {{ 'Rp. ' . number_format($ppn, 0, ',', '.') }}</td>
                         </tr>
                         <tr>
-                            <td colspan="6" style="text-align: center; font-weight: bold; font-style: italic">Total
+                            <td colspan="7" style="text-align: center; font-weight: bold; font-style: italic">Total
                             </td>
                             <td style="font-weight: bold; text-align: end">
                                 {{ 'Rp. ' . number_format($total, 0, ',', '.') }}</td>
                         </tr>
                     @else
                         <tr>
-                            <td colspan="6" style="text-align: center; font-weight: bold">Tidak ada data</td>
+                            <td colspan="7" style="text-align: center; font-weight: bold">Tidak ada data</td>
                         </tr>
                     @endif
                 </tbody>
