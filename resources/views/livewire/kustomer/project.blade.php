@@ -117,8 +117,8 @@
                             <td>
                                 @php
                                     $total_pekerjaan_selesai = 0;
-                                    foreach ($item->laporanPekerjaan as $index => $value) {
-                                        if ($value->signature != null && $value->jam_selesai != null) {
+                                    foreach ($item->listUnit as $index => $value) {
+                                        if (isset($value->laporanPekerjaan) && $value->laporanPekerjaan->signature != null && $value->laporanPekerjaan->jam_selesai != null) {
                                             $total_pekerjaan_selesai++;
                                         }
                                     }
