@@ -25,7 +25,7 @@
                         <div class="row">
                             <div class="mb-5 col-md-6">
                                 <label for="" class="form-label required">SKU</label>
-                                <input type="number" class="form-control form-control-solid" min="1"
+                                <input type="text" class="form-control form-control-solid"
                                     name="nomor" wire:model="nomor" placeholder="Masukkan nomor" required>
                                     <small>Isikan cuman angka saja contoh : 1</small>
                                 @error('nomor')

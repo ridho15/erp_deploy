@@ -140,24 +140,33 @@ class Form extends Component
 
             return session()->flash('fail', $message);
         }
-
+        if($this->id_laporan_pekerjaan == null){
+            $helper = new HelperController;
+            $number = LaporanPekerjaan::whereYear('created_at', date('Y'))
+            ->count();
+            $number = $helper->format_num($number + 1, 4, null);
+            if($this->is_emergency_call == 1){
+                $jenis = 'LP';
+            }else{
+                $jenis = 'SVC';
+            }
+            $data['no_ref'] = date('Y') . '/' . $jenis . '/' . $number;
+        }
         $quotation = Quotation::find($this->id_quotation);
+        $data['id_project_unit'] = $this->id_project_unit;
+        $data['id_merk'] = $this->id_merk;
+        $data['nomor_lift'] = $this->nomor_lift;
+        $data['periode'] = $this->periode;
+        $data['tanggal_pekerjaan'] = $this->tanggal;
+        $data['id_form_master'] = $this->id_form_master;
+        $data['is_emergency_call'] = $this->is_emergency_call ?? 0;
+        $data['tangal_estimasi'] = $this->tanggal_estimasi ? date('Y-m-d H:i:s', strtotime($this->tanggal_estimasi)) : null;
+        $data['keterangan'] = $this->keterangan;
+        $data['service_ke'] = $this->service_ke;
 
         $laporanPekerjaan = LaporanPekerjaan::updateOrCreate([
             'id' => $this->id_laporan_pekerjaan,
-        ], [
-            'id_project_unit' => $this->id_project_unit,
-            'id_merk' => $this->id_merk,
-            'nomor_lift' => $this->nomor_lift,
-            'periode' => $this->periode,
-            'tanggal_pekerjaan' => $this->tanggal,
-            'id_form_master' => $this->id_form_master,
-            'is_emergency_call' => $this->is_emergency_call ?? 0,
-            'tanggal_estimasi' => $this->tanggal_estimasi ? date('Y-m-d H:i:s', strtotime($this->tanggal_estimasi)) : null,
-            'keterangan' => $this->keterangan,
-            'service_ke' => $this->service_ke
-        ]);
-
+        ], $data);
 
         LaporanPekerjaanUser::where('id_laporan_pekerjaan', $laporanPekerjaan->id)
             ->delete();

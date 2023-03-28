@@ -104,8 +104,9 @@ class Barang extends Model
     }
 
     public function getSkuAttribute(){
-        $helper = new HelperController;
-        return "B" . $helper->format_num($this->nomor);
+        // $helper = new HelperController;
+        // return "B" . $helper->format_num($this->nomor);'
+        return $this->nomor;
     }
 
     public function isiRak(){

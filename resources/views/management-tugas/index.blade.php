@@ -3,8 +3,8 @@
     <div class="mb-5 hover-scroll-x">
         <div class="d-grid">
             <ul class="nav nav-tabs flex-nowrap text-nowrap">
-                <li class="nav-item active">
-                    <a class="nav-link btn btn-active-light btn-color-gray-600 btn-active-color-primary rounded-bottom-0 fw-bold"
+                <li class="nav-item">
+                    <a class="nav-link active btn btn-active-light btn-color-gray-600 btn-active-color-primary rounded-bottom-0 fw-bold"
                         data-bs-toggle="tab" href="#list">List</a>
                 </li>
                 <li class="nav-item">

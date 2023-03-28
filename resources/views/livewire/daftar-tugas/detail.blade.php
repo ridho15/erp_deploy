@@ -156,7 +156,7 @@
                     Nomor Pekerjaan
                 </div>
                 <div class="col-md-8 col-8 fw-bold">
-                    : {{ $laporanPekerjaan->kode_pekerjaan }}
+                    : {{ $laporanPekerjaan->no_ref }}
                 </div>
             </div>
             <div class="row mb-5">

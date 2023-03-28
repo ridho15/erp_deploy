@@ -38,8 +38,7 @@ class LaporanPinjam extends Component
     public function render()
     {
         $this->barang = Barang::find($this->id_barang);
-        $this->listBarang = Barang::where('id_tipe_barang', 1)
-        ->get();
+        $this->listBarang = Barang::get();
         $this->listVersion = HelperController::getListVersion();
         $this->listLaporanPekerjaanBarang = LaporanPekerjaanBarang::where(function($query){
             $query->whereHas('barang', function($query){

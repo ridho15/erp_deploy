@@ -45,6 +45,7 @@ class Data extends Component
             $this->listLaporanPekerjaan = LaporanPekerjaan::where(function($query) {
                 $query->where('nomor_lift', 'LIKE', '%'.$this->cari.'%')
                 ->orWhere('keterangan', 'LIKE', '%'.$this->cari.'%')
+                ->orWhere('no_ref', 'LIKE', '%'.$this->cari.'%')
                 ->orWhere('jam_mulai', 'LIKE', '%'.$this->cari.'%')
                 ->orWhere('tanggal_pekerjaan', 'LIKE', '%'.$this->cari.'%');
             })->where('jam_selesai', null)
@@ -54,6 +55,7 @@ class Data extends Component
             $this->listLaporanPekerjaan = LaporanPekerjaan::where(function($query) {
                 $query->where('nomor_lift', 'LIKE', '%'.$this->cari.'%')
                 ->orWhere('keterangan', 'LIKE', '%'.$this->cari.'%')
+                ->orWhere('no_ref', 'LIKE', '%'.$this->cari.'%')
                 ->orWhere('jam_mulai', 'LIKE', '%'.$this->cari.'%')
                 ->orWhere('tanggal_pekerjaan', 'LIKE', '%'.$this->cari.'%')
                 ->orWhereHas('projectUnit', function ($query) {

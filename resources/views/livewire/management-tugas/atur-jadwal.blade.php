@@ -26,7 +26,7 @@
                                     Kode Pekerjaan
                                 </div>
                                 <div class="col-md-8 col-8">
-                                    : <span class="fw-bold">{{ $laporanPekerjaan->kode_pekerjaan }}</span>
+                                    : <span class="fw-bold">{{ $laporanPekerjaan->no_ref }}</span>
                                 </div>
                             </div>
                             <div class="row mb-5">

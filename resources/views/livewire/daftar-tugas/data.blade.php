@@ -48,7 +48,7 @@
                             @foreach ($listLaporanPekerjaan as $index => $item)
                                 <tr>
                                     <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
-                                    <td>{{ $item->kode_pekerjaan }}</td>
+                                    <td>{{ $item->no_ref }}</td>
                                     <td>{{ $item->projectUnit->project->customer->nama }}</td>
                                     <td>{{ $item->projectUnit->project->nama }}</td>
                                     <td>
@@ -328,7 +328,7 @@
                                         Nomor Pekerjaan
                                     </div>
                                     <div class="col-md-8 col-8 fw-bold">
-                                        : {{ $laporanPekerjaan->kode_pekerjaan }}
+                                        : {{ $laporanPekerjaan->no_ref }}
                                     </div>
                                 </div>
                                 <div class="row mb-5">

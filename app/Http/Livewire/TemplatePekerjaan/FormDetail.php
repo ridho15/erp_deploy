@@ -41,18 +41,19 @@ class FormDetail extends Component
 
     public function render()
     {
-        if($this->isParent == true){
+        if ($this->isParent == true) {
             $this->listTemplatePekerjaan = TemplatePekerjaan::where('id_form_master', $this->id_form_master)->get();
-        }else{
+        } else {
             $this->listTemplatePekerjaan = TemplatePekerjaanDetail::where('id_parent', null)
-            ->where('id', $this->id_template_pekerjaan_detail)->get();
+                ->where('id', $this->id_template_pekerjaan_detail)->get();
         }
 
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.template-pekerjaan.form-detail');
     }
 
-    public function mount($id_form_master = null){
+    public function mount($id_form_master = null)
+    {
         $this->id_form_master = $id_form_master;
     }
 
@@ -75,13 +76,11 @@ class FormDetail extends Component
         $this->validate([
             'id_template_pekerjaan' => 'required|numeric',
             'nama_pekerjaan' => 'required|string',
-            'periode' => 'nullable|array'
         ], [
             'id_template_pekerjaan.required' => 'Induk Pekerjaan belum dipilih',
             'id_template_pekerjaan.numeric' => 'Induk Pekerjaan tidak valid !',
             'nama_pekerjaan.required' => 'Nama pekerjaan tidak boleh kosong',
             'nama_pekerjaan.string' => 'Nama pekerjaan tidak valid !',
-            'periode.array' => 'Periode tidak valid !'
         ]);
 
         $templatePekerjaan = TemplatePekerjaan::find($this->id_template_pekerjaan);
@@ -90,16 +89,16 @@ class FormDetail extends Component
             return session()->flash('fail', $message);
         }
 
-        if($this->isUpdate == true){
+        if ($this->isUpdate == true) {
             $templatePekerjaanDetail = TemplatePekerjaanDetail::find($this->id_template_pekerjaan_detail);
-            $templatePekerjaanDetail->update([
+            $templatePekerjaanDetail->update(
                 [
-                    'id_template_pekerjaan' => $this->id_template_pekerjaan_detail == null ? $this->id_template_pekerjaan : null,
+                    'id_template_pekerjaan' => $this->id_template_pekerjaan,
                     'nama_pekerjaan' => $this->nama_pekerjaan,
                     'periode' => json_encode($this->periode),
                 ]
-                ]);
-        }else{
+            );
+        } else {
             TemplatePekerjaanDetail::create([
                 'id_template_pekerjaan' => $this->id_parent ? null : $this->id_template_pekerjaan,
                 'nama_pekerjaan' => $this->nama_pekerjaan,
@@ -165,9 +164,10 @@ class FormDetail extends Component
         $this->id_parent = $detailPekerjaan->id_parent;
     }
 
-    public function setDataTemplatePekerjaanDetail($id_template_pekerjaan_detail){
+    public function setDataTemplatePekerjaanDetail($id_template_pekerjaan_detail)
+    {
         $templatePekerjaanDetail = TemplatePekerjaanDetail::find($id_template_pekerjaan_detail);
-        if(!$templatePekerjaanDetail){
+        if (!$templatePekerjaanDetail) {
             $message = "Data tidak ditemukan";
             return session()->flash('fail', $message);
         }
@@ -180,14 +180,15 @@ class FormDetail extends Component
         $this->id_template_pekerjaan = $templatePekerjaanDetail->id_template_pekerjaan;
     }
 
-    public function updateDetailPekerjaan(){
+    public function updateDetailPekerjaan()
+    {
         $this->validate([
             'nama_pekerjaan' => 'required|string',
             'periode' => 'required|array'
         ]);
 
         $templatePekerjaanDetail = TemplatePekerjaanDetail::find($this->id_template_pekerjaan_detail);
-        if($templatePekerjaanDetail){
+        if ($templatePekerjaanDetail) {
             $templatePekerjaanDetail->update([
                 'nama_pekerjaan' => $this->nama_pekerjaan,
                 'periode' => json_encode($this->periode)
@@ -201,11 +202,13 @@ class FormDetail extends Component
         return session()->flash('success', $message);
     }
 
-    public function setIsChild(){
+    public function setIsChild()
+    {
         $this->is_child = true;
     }
 
-    public function setTemplatePekerjaanDetailParent($id_template_pekerjaan_detail){
+    public function setTemplatePekerjaanDetailParent($id_template_pekerjaan_detail)
+    {
         $this->templatePekerjaanDetail = TemplatePekerjaanDetail::find($id_template_pekerjaan_detail);
         $this->id_template_pekerjaan = $this->templatePekerjaanDetail->id_template_pekerjaan;
         $this->id_template_pekerjaan_detail = $this->templatePekerjaanDetail->id;
@@ -215,7 +218,8 @@ class FormDetail extends Component
         $this->isUpdate = true;
     }
 
-    public function setIdParentTemplatePekerjaanDetail($id_template_pekerjaan_detail){
+    public function setIdParentTemplatePekerjaanDetail($id_template_pekerjaan_detail)
+    {
         $this->templatePekerjaanDetail = TemplatePekerjaanDetail::find($id_template_pekerjaan_detail);
         $this->id_parent = $id_template_pekerjaan_detail;
         $this->id_template_pekerjaan = $this->templatePekerjaanDetail->id_template_pekerjaan;

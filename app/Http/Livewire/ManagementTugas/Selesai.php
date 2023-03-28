@@ -20,7 +20,7 @@ class Selesai extends Component
         $this->listManagementTugas = LaporanPekerjaan::where('signature', '!=', null)
             ->where('jam_selesai', '!=', null)
             ->where(function ($query) {
-                $query->where('id', 'LIKE', '%' . $this->cari . '%')
+                $query->where('no_ref', 'LIKE', '%' . $this->cari . '%')
                     ->orWhereHas('projectUnit', function ($query) {
                         $query->where('nama_unit', 'LIKE', '%' . $this->cari . '%')
                         ->orWhere('no_unit', 'LIKE', '%' . $this->cari . '%');

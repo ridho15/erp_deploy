@@ -107,7 +107,7 @@
                             @foreach ($listLaporanPekerjaan as $index => $item)
                                 <tr>
                                     <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
-                                    <td>{{ $item->kode_pekerjaan }}</td>
+                                    <td>{{ $item->no_ref }}</td>
                                     <td>{{ $item->projectUnit->project ? $item->projectUnit->project->nama : '-' }}</td>
                                     <td>{{ $item->projectUnit ? $item->projectUnit->no_unit : '-' }}
                                         {{ $item->nomor_lift }}</td>

@@ -30,22 +30,16 @@ class LaporanPekerjaan extends Model
         'confirmasi_customer_barang',
         'is_emergency_call',
         'is_check_detail',
-        'service_ke'
+        'service_ke',
+        'no_ref'
     ];
 
     protected $appends = [
-        'no_ref',
         'kode_pekerjaan',
         'jam_mulai_formatted',
         'jam_selesai_formatted',
         'list_pekerja',
     ];
-
-    public function getNoRefAttribute(){
-        $helper = new HelperController();
-
-        return 'PK'.$helper->format_num($this->id);
-    }
 
     public function getListPekerjaAttribute()
     {
