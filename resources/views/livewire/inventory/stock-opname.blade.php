@@ -104,8 +104,8 @@
         })
 
         Livewire.on('onClickTambah', () => {
+            console.log('Testing');
             $('#modal_form_stock_opname').modal('show')
-            console.log("Testing");
         })
 
         function Change (){

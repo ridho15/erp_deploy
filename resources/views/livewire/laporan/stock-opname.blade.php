@@ -5,7 +5,7 @@
                 Stock Opname
             </h3>
             <div class="card-toolbar">
-                <button class="btn btn-sm btn-outline btn-outline-primary" wire:click="$emit('onClickTambah')"><i class="bi bi-plus-circle"></i> Tambah</button>
+                {{-- <button class="btn btn-sm btn-outline btn-outline-primary" wire:click="$emit('onClickTambah')"><i class="bi bi-plus-circle"></i> Tambah</button> --}}
             </div>
         </div>
         <div class="card-body">
@@ -35,7 +35,7 @@
                    <th>Merk</th>
                    <th>Jumlah Tercatat</th>
                    <th style="width: 100px">Jumlah Mutasi</th>
-                   <th style="width: 100px">Jumlah Terjual</th>
+                   {{-- <th style="width: 100px">Jumlah Terjual</th> --}}
                    <th style="width: 100px">Jumlah Terbaru</th>
                    <th>Keterangan</th>
                    <th>Tanggal</th>
@@ -52,7 +52,7 @@
                                 <td>{{ $item->barang->merk->nama_merk }}</td>
                                 <td>{{ $item->jumlah_tercatat ?? 0 }}</td>
                                 <td>{{ $item->jumlah_mutasi ?? 0 }}</td>
-                                <td>{{ $item->jumlah_terjual ?? 0 }}</td>
+                                {{-- <td>{{ $item->jumlah_terjual ?? 0 }}</td> --}}
                                 <td>{{ $item->jumlah_terbaru ?? 0 }}</td>
                                 <td>{{ $item->keterangan }}</td>
                                 <td>{{ date('d/m/Y', strtotime($item->tanggal)) }}</td>

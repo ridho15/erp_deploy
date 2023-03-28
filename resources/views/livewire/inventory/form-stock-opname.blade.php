@@ -46,13 +46,13 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                        <div class="col-md-6 mb-5">
+                        {{-- <div class="col-md-6 mb-5">
                             <label for="" class="form-label">Jumlah Terjual</label>
                             <input type="number" step="0.001" class="form-control form-control-solid" name="jumlah_terjual" wire:model="jumlah_terjual" placeholder="Masukkan jumlah terjual">
                             @error('jumlah_terjual')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
-                        </div>
+                        </div> --}}
                         <div class="col-md-6 mb-5">
                             <label for="" class="form-label">Jumlah Terbaru</label>
                             <input type="number" step="0.001" class="form-control form-control-solid" name="jumlah_terbaru" wire:model="jumlah_terbaru" placeholder="Masukkan jumlah terbaru">

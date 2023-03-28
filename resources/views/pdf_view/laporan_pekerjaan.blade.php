@@ -433,7 +433,7 @@
         </div>
         <br>
         <br>
-        @if ($total_row % 8 == 0)
+        @if ($total_row != 0 && $total_row % 8 == 0)
             <div class="page-break"></div>
         @endif
         <div>

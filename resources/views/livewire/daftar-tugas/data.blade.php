@@ -38,7 +38,6 @@
                             <th>Periode</th>
                             <th>Status</th>
                             <th>Aksi</th>
-                            <th>Kode Pekerjaan</th>
                             <th>Form</th>
                             <th>Catatan Teknisi</th>
                         </tr>
@@ -104,7 +103,6 @@
                                             </a>
                                         </div>
                                     </td>
-                                    <td>{{ $item->kode_pekerjaan }}</td>
                                     <td>{{ $item->formMaster->nama }} ({{ $item->formMaster->kode }})</td>
                                     <td>
                                         {{ $item->keterangan }}
