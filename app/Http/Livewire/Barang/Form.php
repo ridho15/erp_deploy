@@ -31,7 +31,6 @@ class Form extends Component
     public $harga;
     public $harga_modal;
     public $id_merk;
-    public $stock;
     public $min_stock;
     public $id_satuan;
     public $id_tipe_barang;
@@ -67,7 +66,6 @@ class Form extends Component
         $this->harga = null;
         $this->id_merk = null;
         $this->id_tipe_barang = null;
-        $this->stock = null;
         $this->min_stock = null;
         $this->version = null;
         $this->nomor = null;
@@ -86,7 +84,6 @@ class Form extends Component
             'harga_modal' => 'required|numeric',
             'version' => 'required|numeric',
             'nomor' => 'required|numeric',
-            'stock' => 'required|numeric',
         ], [
             'nama.required' => 'Nama tidak boleh kosong',
             'nama.string' => 'Nama tidak valid !',
@@ -104,8 +101,6 @@ class Form extends Component
             'harga_modal.numeric' => 'Harga modal tidak valid !',
             'nomor.required' => 'SKU tidak boleh kosong',
             'nomor.numeric' => 'SKU tidak valid !',
-            'stock.required' => 'Stock tidak boleh kosong',
-            'stock.numeric' => 'Stock tidak valid !'
         ]);
 
         // Check Merk
@@ -155,7 +150,6 @@ class Form extends Component
         $data['harga_modal'] = $this->harga_modal;
         $data['version'] = $this->version;
         $data['nomor'] = $this->nomor;
-        $data['stock'] = $this->stock;
 
         Barang::updateOrCreate([
             'id' => $this->id_barang
@@ -209,7 +203,6 @@ class Form extends Component
         $this->harga_modal = $barang->harga_modal;
         $this->version = $barang->version;
         $this->nomor = $barang->nomor;
-        $this->stock = $barang->stock;
     }
 
     public function changeTipeBarang($id_tipe_barang)

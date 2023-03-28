@@ -37,7 +37,7 @@
                             <th>Catatan</th>
                             <th>No Unit</th>
                             <th>No MFG</th>
-                            <th>Sales</th>
+                            <th>PIC</th>
                             <th>Lokasi</th>
                             <th>Tanggal Project</th>
                             <th>Total Pekerjaan</th>

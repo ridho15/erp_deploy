@@ -83,14 +83,14 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-                            <div class="mb-5 col-md-6">
+                            {{-- <div class="mb-5 col-md-6">
                                 <label for="" class="form-label required">Stock</label>
                                 <input type="number" class="form-control form-control-solid" name="stock"
                                     wire:model="stock" placeholder="Masukkan stock" required>
                                 @error('stock')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
-                            </div>
+                            </div> --}}
                             <div class="mb-5 col-md-6">
                                 <label for="" class="form-label required">Minimal Stock</label>
                                 <input type="number" class="form-control form-control-solid" name="min_stock"

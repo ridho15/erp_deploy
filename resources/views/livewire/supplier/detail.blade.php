@@ -34,6 +34,18 @@
     </div>
     <div class="row mb-5">
         <div class="col-md-5">
+            PIC
+        </div>
+        <div class="col-md">
+            : <span class="fw-bold">
+                @foreach ($supplier->supplierSales as $item)
+                    {{ $item->sales->nama }} ({{ $item->sales->no_hp }}),
+                @endforeach
+            </span>
+        </div>
+    </div>
+    <div class="row mb-5">
+        <div class="col-md-5">
             Status
         </div>
         <div class="col-md">

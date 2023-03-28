@@ -8,7 +8,6 @@
             @include('helper.form-pencarian', ['model' => 'cari'])
         </div>
     </div>
-
     <div class="table-responsive">
         <table class="table table-rounded table-striped border gy-7 gs-7">
             <thead>

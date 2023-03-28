@@ -22,6 +22,7 @@ class BarangMasuk extends Component
             ->orWhere('tanggal_perubahan', 'LIKE', '%' . $this->cari . '%')
             ->orWhereHas('barang', function($query){
                 $query->where('nama', 'LIKE', '%' . $this->cari . '%')
+                ->orWhere('nomor', 'LIKE', '%' . $this->cari . '%')
                 ->orWhere('deskripsi', 'LIKE', '%' . $this->cari . '%');
             });
         })->where('id_tipe_perubahan_stock', 3)->orderBy('created_at', 'DESC')->paginate($this->total_show);

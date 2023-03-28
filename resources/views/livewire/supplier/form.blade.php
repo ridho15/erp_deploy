@@ -42,6 +42,15 @@
                             @enderror
                         </div>
                         <div class="mb-5">
+                            <label for="" class="form-label">PIC</label>
+                            <select name="list_id_sales" class="form-select form-select-solid" wire:model="list_id_sales" data-dropdown-parent="#modal_form" data-placeholder="Pilih PIC" data-control="select2" multiple>
+                                <option value="">Pilih</option>
+                                @foreach ($listSales as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama }} - {{ $item->no_hp }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-5">
                             <label for="" class="form-label required">Alamat</label>
                             <textarea name="alamat" class="form-control form-control-solid" wire:model="alamat" placeholder="Masukkan alamat lengkap"></textarea>
                             @error('alamat')
@@ -71,8 +80,20 @@
 @push('js')
     <script>
         $(document).ready(function () {
-
+            select2()
         });
+
+        window.addEventListener('contentChange', () => {
+            select2()
+        })
+
+        function select2(){
+            $('select[name="list_id_sales"]').select2()
+
+            $('select[name="list_id_sales"]').on('change', function(){
+                Livewire.emit('changeSales', $(this).val())
+            })
+        }
 
         Livewire.on("finishSimpanData", (status, message) => {
             $('#modal_form').modal('hide')

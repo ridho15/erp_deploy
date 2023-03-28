@@ -35,7 +35,7 @@
                    <th>Merk</th>
                    <th>Jumlah Tercatat</th>
                    <th style="width: 100px">Jumlah Mutasi</th>
-                   <th style="width: 100px">Jumlah Terjual</th>
+                   {{-- <th style="width: 100px">Jumlah Terjual</th> --}}
                    <th style="width: 100px">Jumlah Terbaru</th>
                    <th>Keterangan</th>
                    <th>Tanggal</th>
@@ -55,9 +55,9 @@
                                 <td>
                                     <input type="number" step="0.001" class="form-control jumlah-mutasi" placeholder="0" value="{{ $item->jumlah_mutasi }}" data-id="{{ $item->id }}">
                                 </td>
-                                <td>
+                                {{-- <td>
                                     <input type="number" step="0.001" class="form-control jumlah-terjual" placeholder="0" value="{{ $item->jumlah_terjual }}" data-id="{{ $item->id }}">
-                                </td>
+                                </td> --}}
                                 <td>
                                     <input type="number" step="0.001" class="form-control jumlah-terbaru" placeholder="0" value="{{ $item->jumlah_terbaru }}" data-id="{{ $item->id }}">
                                 </td>

@@ -21,7 +21,7 @@
                 <th>Satuan</th>
                 <th>Estimasi Kembali</th>
                 <th>Jumlah / Qty</th>
-                <th>Version</th>
+                <th>Label</th>
                 <th>Nomor ITT/ITS</th>
                 <th>Tipe Barang</th>
                 <th>Status</th>
@@ -35,7 +35,7 @@
                 @foreach ($listBarangDikasih as $index => $item)
                     <tr>
                         <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
-                        <td>{{ $item->laporanPekerjaan ? $item->laporanPekerjaan->kode_pekerjaan : '-'}}</td>
+                        <td>{{ isset($item->laporanPekerjaan->projectUnit->project) ? $item->laporanPekerjaan->projectUnit->project->nama : null }}</td>
                         <td>
                             <a href="{{ route('barang.detail', ['id' => $item->id_barang]) }}" class="text-dark">
                                 {{ $item->barang->sku }}

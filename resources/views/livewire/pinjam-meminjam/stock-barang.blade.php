@@ -12,7 +12,7 @@
                         <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor"></path>
                     </svg>
                 </span>
-                <input type="text" class="search-input form-control form-control-solid ps-13" name="cari" wire:model="cari" placeholder="Nama Barang-Merk-Satuan-Tipe Barang-Deskripsi">
+                <input type="text" class="search-input form-control form-control-solid ps-13" name="cari" wire:model="cari" placeholder="Search ...">
                 <span class="position-absolute top-50 end-0 translate-middle-y lh-0 d-none me-5" data-kt-search-element="spinner">
                     <span class="spinner-border h-15px w-15px align-middle text-gray-400"></span>
                 </span>

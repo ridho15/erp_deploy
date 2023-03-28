@@ -15,7 +15,7 @@ class Supplier extends Model
         'no_hp',
         'alamat',
         'email',
-        'status'
+        'status',
     ];
 
     protected $appends = ['status_formatted'];
@@ -26,5 +26,9 @@ class Supplier extends Model
         }else{
             return "<span class='badge badge-secondary'>Tidak Aktif</span>";
         }
+    }
+
+    public function supplierSales(){
+        return $this->hasMany(SupplierSales::class, 'id_supplier');
     }
 }

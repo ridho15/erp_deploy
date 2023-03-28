@@ -28,6 +28,7 @@
                    <th>Nomor HP</th>
                    <th>Alamat</th>
                    <th>Status</th>
+                   <th>PIC</th>
                    <th>Aksi</th>
                   </tr>
                  </thead>
@@ -41,6 +42,11 @@
                                 <td>{{ $item->no_hp }}</td>
                                 <td>{{ $item->alamat }}</td>
                                 <td><?= $item->status_formatted ?></td>
+                                <td>
+                                    @foreach ($item->supplierSales as $supplierSales)
+                                        {{ $supplierSales->sales->nama }} ({{ $supplierSales->sales->no_hp }}),
+                                    @endforeach
+                                </td>
                                 <td>
                                     <div class="btn-group">
                                         <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Supplier" wire:click="$emit('onClickEdit', {{ $item->id }})">

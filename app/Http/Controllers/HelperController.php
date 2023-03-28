@@ -159,27 +159,27 @@ class HelperController extends Controller
                 'active' => 'laporan',
                 'route' => null,
                 'children' => collect([
-                    collect([
-                        'nama' => 'Account Payable',
-                        'icon' => '<span class="bullet bullet-dot"></span>',
-                        'role' => ['Super Admin', 'Manager'],
-                        'active' => 'laporan-account-payable',
-                        'route' => 'laporan.account-payable'
-                    ]),
-                    collect([
-                        'nama' => 'Account Receivable',
-                        'icon' => '<span class="bullet bullet-dot"></span>',
-                        'role' => ['Super Admin', 'Manager'],
-                        'active' => 'laporan-account-receivable',
-                        'route' => 'laporan.account-receivable'
-                    ]),
-                    collect([
-                        'nama' => 'Kalender Accounts',
-                        'icon' => '<span class="bullet bullet-dot"></span>',
-                        'role' => ['Super Admin', 'Manager'],
-                        'active' => 'kalender',
-                        'route' => 'laporan.kalender'
-                    ]),
+                    // collect([
+                    //     'nama' => 'Account Payable',
+                    //     'icon' => '<span class="bullet bullet-dot"></span>',
+                    //     'role' => ['Super Admin', 'Manager'],
+                    //     'active' => 'laporan-account-payable',
+                    //     'route' => 'laporan.account-payable'
+                    // ]),
+                    // collect([
+                    //     'nama' => 'Account Receivable',
+                    //     'icon' => '<span class="bullet bullet-dot"></span>',
+                    //     'role' => ['Super Admin', 'Manager'],
+                    //     'active' => 'laporan-account-receivable',
+                    //     'route' => 'laporan.account-receivable'
+                    // ]),
+                    // collect([
+                    //     'nama' => 'Kalender Accounts',
+                    //     'icon' => '<span class="bullet bullet-dot"></span>',
+                    //     'role' => ['Super Admin', 'Manager'],
+                    //     'active' => 'kalender',
+                    //     'route' => 'laporan.kalender'
+                    // ]),
                     collect([
                         'nama' => 'Stock Minimum',
                         'icon' => '<span class="bullet bullet-dot"></span>',
@@ -201,20 +201,20 @@ class HelperController extends Controller
                         'active' => 'log-activity',
                         'route' => 'laporan.log-activity'
                     ]),
-                    collect([
-                        'nama' => 'Revenue',
-                        'icon' => '<span class="bullet bullet-dot"></span>',
-                        'role' => ['Super Admin', 'Manager'],
-                        'active' => 'grafik-penjualan',
-                        'route' => 'laporan.grafik-penjualan'
-                    ]),
-                    collect([
-                        'nama' => 'Gross Profit',
-                        'icon' => '<span class="bullet bullet-dot"></span>',
-                        'role' => ['Super Admin', 'Manager'],
-                        'active' => 'profit-po',
-                        'route' => 'laporan.profit-pre-order'
-                    ]),
+                    // collect([
+                    //     'nama' => 'Revenue',
+                    //     'icon' => '<span class="bullet bullet-dot"></span>',
+                    //     'role' => ['Super Admin', 'Manager'],
+                    //     'active' => 'grafik-penjualan',
+                    //     'route' => 'laporan.grafik-penjualan'
+                    // ]),
+                    // collect([
+                    //     'nama' => 'Gross Profit',
+                    //     'icon' => '<span class="bullet bullet-dot"></span>',
+                    //     'role' => ['Super Admin', 'Manager'],
+                    //     'active' => 'profit-po',
+                    //     'route' => 'laporan.profit-pre-order'
+                    // ]),
                 ])
             ]),
 

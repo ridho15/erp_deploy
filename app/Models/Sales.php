@@ -16,4 +16,8 @@ class Sales extends Model
         'alamat',
         'nama_perusahaan',
     ];
+
+    public function supplierSales(){
+        return $this->hasMany(SupplierSales::class, 'id_sales');
+    }
 }

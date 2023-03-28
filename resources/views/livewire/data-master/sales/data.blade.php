@@ -38,8 +38,8 @@
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ $item->no_hp }}</td>
-                                <td>{{ $item->alamat }}</td>
                                 <td>{{ $item->nama_perusahaan }}</td>
+                                <td>{{ $item->alamat }}</td>
                                 <td>
                                     <div class="btn-group">
                                         <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Metode Pembayaran" wire:click="$emit('onClickEdit', {{ $item->id }})">

@@ -58,12 +58,6 @@ class BarangDipinjam extends Component
         })->where('status', 2)->where('konfirmasi', 0)->orderBy('updated_at', 'DESC')
         ->paginate($this->total_show);
 
-        $this->listLaporanPekerjaan = LaporanPekerjaan::where('jam_selesai', null)
-        ->orWhere('signature', null)
-        ->get();
-
-        $this->listBarang = Barang::get();
-
         if ($this->id_laporan_pekerjaan) {
             $this->laporanPekerjaan = LaporanPekerjaan::find($this->id_laporan_pekerjaan);
         }
@@ -82,7 +76,10 @@ class BarangDipinjam extends Component
     }
 
     public function mount(){
-
+        $this->listBarang = Barang::get();
+        $this->listLaporanPekerjaan = LaporanPekerjaan::where('jam_selesai', null)
+        ->orWhere('signature', null)
+        ->get();
     }
 
     public function balikanBarangPinjaman(){

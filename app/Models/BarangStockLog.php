@@ -25,7 +25,7 @@ class BarangStockLog extends Model
     public $appends = ['tanggal_perubahan_formatted'];
 
     public function getTanggalPerubahanFormattedAttribute(){
-        $carbon = Carbon::parse($this->tanggal_perubahan)->locale('id')->isoFormat("dddd, DD MMMM YYYY HH:mm");
+        $carbon = Carbon::parse($this->tanggal_perubahan)->locale('id')->isoFormat("DD MMMM YYYY HH:mm");
         return $carbon;
     }
 

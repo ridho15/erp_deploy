@@ -32,7 +32,7 @@
                 <th>Estimasi Kembali</th>
                 <th>Jumlah / Qty</th>
                 <th>ITT/ITS</th>
-                <th>Version</th>
+                <th>Label</th>
                 <th>Tipe Barang</th>
                 <th>Catatan Teknisi</th>
                 <th>Peminjam</th>
@@ -46,7 +46,7 @@
                 @foreach ($listBarangDiminta as $index => $item)
                     <tr>
                         <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
-                        <td>{{ $item->laporanPekerjaan? $item->laporanPekerjaan->kode_pekerjaan : '-' }}</td>
+                        <td>{{ isset($item->laporanPekerjaan->projectUnit->project) ? $item->laporanPekerjaan->projectUnit->project->nama : null }}</td>
                         <td>
                             <a href="{{ route('barang.detail', ['id' => $item->id_barang]) }}" class="text-dark">
                                 {{ $item->barang->sku }}
@@ -160,14 +160,6 @@
                                 </div>
                                 <div class="col-md-8 col-8">
                                     : <span class="fw-bold">{{ $barang->nama }}</span>
-                                </div>
-                            </div>
-                            <div class="row mb-5">
-                                <div class="col-md-4 col-4">
-                                    Harga
-                                </div>
-                                <div class="col-md-8 col-8">
-                                    : <span class="fw-bold">{{ $barang->harga_formatted }}</span>
                                 </div>
                             </div>
                             <div class="row mb-5">

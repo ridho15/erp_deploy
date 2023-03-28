@@ -20,6 +20,7 @@ class LaporanPekerjaanBarang extends Model
         'konfirmasi',
         'peminjam',
         'meminjamkan',
+        'penerima',
         'id_tipe_barang',
         'version',
         'id_rak',
@@ -57,6 +58,10 @@ class LaporanPekerjaanBarang extends Model
 
     public function userMeminjamkan(){
         return $this->belongsTo(User::class, 'meminjamkan')->withTrashed();
+    }
+
+    public function userPenerima(){
+        return $this->belongsTo(User::class, 'penerima');
     }
 
     public function tipeBarang(){

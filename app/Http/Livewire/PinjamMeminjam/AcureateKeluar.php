@@ -55,6 +55,7 @@ class AcureateKeluar extends Component
         $laporanPekerjaanBarang->update([
             'status' => 2,
             'konfirmasi' => 0,
+            'penerima' => session()->get('id_user'),
             'nomor_itt' => $this->nomor_itt,
         ]);
 

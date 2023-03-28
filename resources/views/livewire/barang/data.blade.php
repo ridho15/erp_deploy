@@ -28,7 +28,7 @@
                    <th>Merek</th>
                    <th>Stock</th>
                    <th>Satuan</th>
-                   <th>Version</th>
+                   <th>Label</th>
                    <th>Harga</th>
                    <th>Harga Modal</th>
                    <th>Minimal Stock</th>

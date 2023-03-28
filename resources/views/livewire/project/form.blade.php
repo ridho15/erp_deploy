@@ -95,7 +95,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-6 mb-5">
-                                <label for="" class="form-label">Sales</label>
+                                <label for="" class="form-label">PIC</label>
                                 <select name="listIdSales" wire:model="listIdSales" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_form" data-placeholder="Pilih" multiple>
                                     <option value="">Pilih</option>
                                     @foreach ($listSales as $item)

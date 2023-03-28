@@ -24,7 +24,7 @@
                 <th>Satuan</th>
                 <th>Estimasi Kembali</th>
                 <th>Jumlah / Qty</th>
-                <th>Version</th>
+                <th>Label</th>
                 <th>Nomor ITT/ITS</th>
                 <th>Tipe Barang</th>
                 <th>Catatan Teknisi</th>
@@ -40,7 +40,7 @@
                 @foreach ($listBarangDipinjam as $index => $item)
                     <tr>
                         <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
-                        <td>{{ $item->laporanPekerjaan ? $item->laporanPekerjaan->kode_pekerjaan : '-'}}</td>
+                        <td>{{ isset($item->laporanPekerjaan->projectUnit->project) ? $item->laporanPekerjaan->projectUnit->project->nama : null }}</td>
                         <td>
                             <a href="{{ route('barang.detail', ['id' => $item->id_barang]) }}" class="text-dark">
                                 {{ $item->barang->sku }}
@@ -57,7 +57,7 @@
                         </td>
                         <td>{{ $item->qty }}</td>
                         <td>{{ $item->version }} V</td>
-                        <td>{{ $item->nomorItt ? $item->nomorItt->nomor_itt : '-' }}</td>
+                        <td>{{ isset($item->nomorItt) ? $item->nomorItt->nomor_itt : '-' }}</td>
                         <td>{{ $item->tipeBarang ? $item->tipeBarang->tipe_barang : '-' }}</td>
                         <td>{{ $item->catatan_teknisi }}</td>
                         <td><?= $item->status_formatted ?></td>
@@ -188,14 +188,6 @@
                                 </div>
                                 <div class="row mb-5">
                                     <div class="col-md-4 col-4">
-                                        Harga
-                                    </div>
-                                    <div class="col-md-8 col-8">
-                                        : <span class="fw-bold">{{ $barang->harga_formatted }}</span>
-                                    </div>
-                                </div>
-                                <div class="row mb-5">
-                                    <div class="col-md-4 col-4">
                                         Stock
                                     </div>
                                     <div class="col-md-8 col-8">
@@ -258,7 +250,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-4 mb-5">
-                                <label for="" class="form-label required">Version</label>
+                                <label for="" class="form-label required">Label</label>
                                 <select name="version" wire:model="version" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_tambah_peminjaman_barang" required>
                                     <option value="">Pilih</option>
                                     @foreach ($listVersion as $item)
@@ -334,14 +326,6 @@
                                 </div>
                                 <div class="col-md-8 col-8">
                                     : <span class="fw-bold">{{ $barang->nama }}</span>
-                                </div>
-                            </div>
-                            <div class="row mb-5">
-                                <div class="col-md-4 col-4">
-                                    Harga
-                                </div>
-                                <div class="col-md-8 col-8">
-                                    : <span class="fw-bold">{{ $barang->harga_formatted }}</span>
                                 </div>
                             </div>
                             <div class="row mb-5">

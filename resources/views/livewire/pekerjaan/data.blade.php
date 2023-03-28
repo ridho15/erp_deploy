@@ -81,7 +81,7 @@
         Livewire.on('onClickHapus', async (id) => {
             const response = await alertConfirm('Peringatan !', "Apakah kamu yakin ingin menghapus kondisi ?");
             if(response.isConfirmed == true){
-                Livewire.emit('hapusPekerjaan', id)
+                Livewire.emit('hapusKondisi', id)
             }
         })
     </script>

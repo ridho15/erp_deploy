@@ -11,7 +11,10 @@ class Data extends Component
 {
     use WithPagination;
     public $paginationTheme = 'bootstrap';
-    public $listeners = ['refreshPekerjaan' => '$refresh', 'hapusKondisi'];
+    public $listeners = [
+        'refreshPekerjaan' => '$refresh',
+        'hapusKondisi'
+    ];
     protected $listKondisi;
     public $total_show = 10;
     public $cari;
@@ -19,8 +22,8 @@ class Data extends Component
     public function render()
     {
         $this->listKondisi = Pekerjaan::where(function ($query) {
-            $query->where('kode', 'LIKE', '%'.$this->cari.'%')
-            ->orWhere('keterangan', 'LIKE', '%'.$this->cari.'%');
+            $query->where('kode', 'LIKE', '%' . $this->cari . '%')
+                ->orWhere('keterangan', 'LIKE', '%' . $this->cari . '%');
         })->paginate($this->total_show);
         $data['listKondisi'] = $this->listKondisi;
 
