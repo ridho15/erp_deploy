@@ -97,7 +97,9 @@
             Change()
         });
 
-        window.addEventListener('contentChange', Change)
+        window.addEventListener('contentChange', () => {
+            Change()
+        })
 
         Livewire.on('onClickTambah', () => {
             $('#modal_form_stock_opname').modal('show')
