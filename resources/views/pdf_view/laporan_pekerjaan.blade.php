@@ -61,7 +61,7 @@
                 </table>
             </div>
             <div>
-                <table>
+                {{-- <table>
                     @foreach ($listCatatanTeknisiPekerjaan as $item)
                         <tr>
                             <td colspan="2" class="d-flex align-items-center">
@@ -75,7 +75,7 @@
                             </td>
                         </tr>
                     @endforeach
-                </table>
+                </table> --}}
             </div>
         </div>
     </div>
@@ -95,7 +95,12 @@
         </div>
         <div class="py-3 px-5"
             style="border: 1px solid black; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 100px;">
-            {{ $laporanPekerjaan->keterangan }}
+            <ul>
+                @foreach ($listCatatanTeknisiPekerjaan as $item)
+                    <li>{{ $item->keterangan }}</li>
+                @endforeach
+                <li>{{ $laporanPekerjaan->keterangan }}</li>
+            </ul>
         </div>
     </div>
     <div class="mb-10">
@@ -258,166 +263,179 @@
                 </tr> --}}
                 </thead>
                 <tbody style="border: 1px solid black">
-                    @foreach ($listTemplatePekerjaan as $item)
-                        <tr>
-                            <td class="fw-bold text-capitalize">
-                                {{ \App\CPU\Helpers::numberToLetter($loop->iteration) }}
-                            </td>
-                            <td class="fw-bold text-capitalize">{{ $item->nama_pekerjaan }}</td>
-                            <td>
-                                @if ($item->kondisi != null && is_array(json_decode($item->kondisi)))
-                                    @foreach (json_decode($item->kondisi) as $kondisi)
-                                        {{ $kondisi }}
-                                    @endforeach
-                                @endif
-                            </td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        @foreach ($item->detail as $index => $detail)
-                            @php
-                                $laporanPekerjaanChecklist = count($laporanPekerjaan->laporanPekerjaanChecklist) > 0 ? $laporanPekerjaan->laporanPekerjaanChecklist : null;
-                                if ($laporanPekerjaanChecklist) {
-                                    $laporanPekerjaanChecklist = $laporanPekerjaanChecklist->where('id_template_pekerjaan_detail', $detail->id)->first();
-                                }
-                            @endphp
+                    @php
+                        $total_row = 0;
+                    @endphp
+                    @if (count($listTemplatePekerjaan) > 0)
+                        @foreach ($listTemplatePekerjaan as $item)
                             <tr>
-                                <td>{{ $index + 1 }}</td>
-                                <td>{{ $detail->nama_pekerjaan }}</td>
+                                <td class="fw-bold text-capitalize">
+                                    {{ \App\CPU\Helpers::numberToLetter($loop->iteration) }}
+                                </td>
+                                <td class="fw-bold text-capitalize">{{ $item->nama_pekerjaan }}</td>
                                 <td>
-                                    @if ($detail->kondisi != null)
-                                        @if (is_array(json_decode($detail->kondisi)))
-                                            @foreach (json_decode($detail->kondisi) as $val)
-                                                {{ $val }}
-                                            @endforeach
-                                        @endif
+                                    @if ($item->kondisi != null && is_array(json_decode($item->kondisi)))
+                                        @foreach (json_decode($item->kondisi) as $kondisi)
+                                            {{ $kondisi }}
+                                        @endforeach
                                     @endif
                                 </td>
-                                {{-- @if ($periode > 0)
-                                <td @if (0 < $detail->periode) style="background-color: black" @endif>
-                                    <span class="badge me-1 badge-info  text-light">
-                                        @php
-                                            $periodeKondisiLift = null;
-                                            $laporanPekerjaanChecklist = $laporanPekerjaan->laporanPekerjaanChecklist->where('id_template_pekerjaan_detail', $detail->id)->first();
-                                            if ($laporanPekerjaanChecklist) {
-                                                $periodeKondisiLift = $laporanPekerjaanChecklist->perawatanLiftKondisi->where('periode', 1)->first();
-                                                if ($periodeKondisiLift) {
-                                                    $periodeKondisiLift = $periodeKondisiLift->kondisi->keterangan;
-                                                }
-                                            }
+                                <td></td>
+                                <td></td>
+                            </tr>
 
-                                            echo $periodeKondisiLift;
-                                        @endphp
-                                    </span>
-                                </td>
-                            @endif
-                            @if ($periode > 1)
-                                <td @if (1 < $detail->periode) style="background-color: black" @endif>
-                                    <span class="badge me-1 badge-info  text-light">
-                                        @php
-                                            $periodeKondisiLift = null;
-                                            $laporanPekerjaanChecklist = $laporanPekerjaan->laporanPekerjaanChecklist->where('id_template_pekerjaan_detail', $detail->id)->first();
-                                            if ($laporanPekerjaanChecklist) {
-                                                $periodeKondisiLift = $laporanPekerjaanChecklist->perawatanLiftKondisi->where('periode', 2)->first();
-                                                if ($periodeKondisiLift) {
-                                                    $periodeKondisiLift = $periodeKondisiLift->kondisi->keterangan;
-                                                }
-                                            }
-
-                                            echo $periodeKondisiLift;
-                                        @endphp
-                                    </span>
-                                </td>
-                            @endif
-                            @if ($periode > 2)
-                                <td @if (2 < $detail->periode) style="background-color: black" @endif>
-                                    <span class="badge me-1 badge-info  text-light">
-                                        @php
-                                            $periodeKondisiLift = null;
-                                            $laporanPekerjaanChecklist = $laporanPekerjaan->laporanPekerjaanChecklist->where('id_template_pekerjaan_detail', $detail->id)->first();
-                                            if ($laporanPekerjaanChecklist) {
-                                                $periodeKondisiLift = $laporanPekerjaanChecklist->perawatanLiftKondisi->where('periode', 3)->first();
-                                                if ($periodeKondisiLift) {
-                                                    $periodeKondisiLift = $periodeKondisiLift->kondisi->keterangan;
-                                                }
-                                            }
-
-                                            echo $periodeKondisiLift;
-                                        @endphp
-                                    </span>
-                                </td>
-                            @endif
-                            @if ($periode > 5)
-                                <td @if (5 < $detail->periode) style="background-color: black" @endif>
-                                    <span class="badge me-1 badge-info  text-light">
-                                        @php
-                                            $periodeKondisiLift = null;
-                                            $laporanPekerjaanChecklist = $laporanPekerjaan->laporanPekerjaanChecklist->where('id_template_pekerjaan_detail', $detail->id)->first();
-                                            if ($laporanPekerjaanChecklist) {
-                                                $periodeKondisiLift = $laporanPekerjaanChecklist->perawatanLiftKondisi->where('periode', 6)->first();
-                                                if ($periodeKondisiLift) {
-                                                    $periodeKondisiLift = $periodeKondisiLift->kondisi->keterangan;
-                                                }
-                                            }
-
-                                            echo $periodeKondisiLift;
-                                        @endphp
-                                    </span>
-                                </td>
-                            @endif
-                            @if ($periode > 11)
-                                <td @if (11 < $detail->periode) style="background-color: black" @endif>
-                                    <span class="badge me-1 badge-info  text-light">
-                                        @php
-                                            $periodeKondisiLift = null;
-                                            $laporanPekerjaanChecklist = $laporanPekerjaan->laporanPekerjaanChecklist->where('id_template_pekerjaan_detail', $detail->id)->first();
-                                            if ($laporanPekerjaanChecklist) {
-                                                $periodeKondisiLift = $laporanPekerjaanChecklist->perawatanLiftKondisi->where('periode', 12)->first();
-                                                if ($periodeKondisiLift) {
-                                                    $periodeKondisiLift = $periodeKondisiLift->kondisi->keterangan;
-                                                }
-                                            }
-
-                                            echo $periodeKondisiLift;
-                                        @endphp
-                                    </span>
-                                </td>
-                            @endif --}}
-                                <td>
+                            @foreach ($item->detail as $index => $detail)
+                                @php
+                                    $laporanPekerjaanChecklist = count($laporanPekerjaan->laporanPekerjaanChecklist) > 0 ? $laporanPekerjaan->laporanPekerjaanChecklist : null;
+                                    if ($laporanPekerjaanChecklist) {
+                                        $laporanPekerjaanChecklist = $laporanPekerjaanChecklist->where('id_template_pekerjaan_detail', $detail->id)->first();
+                                    }
+                                @endphp
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $detail->nama_pekerjaan }}</td>
+                                    <td>
+                                        {{ isset($laporanPekerjaanChecklist) ? $laporanPekerjaanChecklist->kondisi : null }}
+                                    </td>
+                                    {{-- @if ($periode > 0)
+                            <td @if (0 < $detail->periode) style="background-color: black" @endif>
+                                <span class="badge me-1 badge-info  text-light">
                                     @php
-                                        $keterangan = null;
+                                        $periodeKondisiLift = null;
                                         $laporanPekerjaanChecklist = $laporanPekerjaan->laporanPekerjaanChecklist->where('id_template_pekerjaan_detail', $detail->id)->first();
                                         if ($laporanPekerjaanChecklist) {
-                                            $keterangan = $laporanPekerjaanChecklist->keterangan;
+                                            $periodeKondisiLift = $laporanPekerjaanChecklist->perawatanLiftKondisi->where('periode', 1)->first();
+                                            if ($periodeKondisiLift) {
+                                                $periodeKondisiLift = $periodeKondisiLift->kondisi->keterangan;
+                                            }
                                         }
 
-                                        echo $keterangan;
+                                        echo $periodeKondisiLift;
                                     @endphp
-                                </td>
-                                <td>
-                                    <span class="badge me-1 badge-info  text-light">
+                                </span>
+                            </td>
+                        @endif
+                        @if ($periode > 1)
+                            <td @if (1 < $detail->periode) style="background-color: black" @endif>
+                                <span class="badge me-1 badge-info  text-light">
+                                    @php
+                                        $periodeKondisiLift = null;
+                                        $laporanPekerjaanChecklist = $laporanPekerjaan->laporanPekerjaanChecklist->where('id_template_pekerjaan_detail', $detail->id)->first();
+                                        if ($laporanPekerjaanChecklist) {
+                                            $periodeKondisiLift = $laporanPekerjaanChecklist->perawatanLiftKondisi->where('periode', 2)->first();
+                                            if ($periodeKondisiLift) {
+                                                $periodeKondisiLift = $periodeKondisiLift->kondisi->keterangan;
+                                            }
+                                        }
+
+                                        echo $periodeKondisiLift;
+                                    @endphp
+                                </span>
+                            </td>
+                        @endif
+                        @if ($periode > 2)
+                            <td @if (2 < $detail->periode) style="background-color: black" @endif>
+                                <span class="badge me-1 badge-info  text-light">
+                                    @php
+                                        $periodeKondisiLift = null;
+                                        $laporanPekerjaanChecklist = $laporanPekerjaan->laporanPekerjaanChecklist->where('id_template_pekerjaan_detail', $detail->id)->first();
+                                        if ($laporanPekerjaanChecklist) {
+                                            $periodeKondisiLift = $laporanPekerjaanChecklist->perawatanLiftKondisi->where('periode', 3)->first();
+                                            if ($periodeKondisiLift) {
+                                                $periodeKondisiLift = $periodeKondisiLift->kondisi->keterangan;
+                                            }
+                                        }
+
+                                        echo $periodeKondisiLift;
+                                    @endphp
+                                </span>
+                            </td>
+                        @endif
+                        @if ($periode > 5)
+                            <td @if (5 < $detail->periode) style="background-color: black" @endif>
+                                <span class="badge me-1 badge-info  text-light">
+                                    @php
+                                        $periodeKondisiLift = null;
+                                        $laporanPekerjaanChecklist = $laporanPekerjaan->laporanPekerjaanChecklist->where('id_template_pekerjaan_detail', $detail->id)->first();
+                                        if ($laporanPekerjaanChecklist) {
+                                            $periodeKondisiLift = $laporanPekerjaanChecklist->perawatanLiftKondisi->where('periode', 6)->first();
+                                            if ($periodeKondisiLift) {
+                                                $periodeKondisiLift = $periodeKondisiLift->kondisi->keterangan;
+                                            }
+                                        }
+
+                                        echo $periodeKondisiLift;
+                                    @endphp
+                                </span>
+                            </td>
+                        @endif
+                        @if ($periode > 11)
+                            <td @if (11 < $detail->periode) style="background-color: black" @endif>
+                                <span class="badge me-1 badge-info  text-light">
+                                    @php
+                                        $periodeKondisiLift = null;
+                                        $laporanPekerjaanChecklist = $laporanPekerjaan->laporanPekerjaanChecklist->where('id_template_pekerjaan_detail', $detail->id)->first();
+                                        if ($laporanPekerjaanChecklist) {
+                                            $periodeKondisiLift = $laporanPekerjaanChecklist->perawatanLiftKondisi->where('periode', 12)->first();
+                                            if ($periodeKondisiLift) {
+                                                $periodeKondisiLift = $periodeKondisiLift->kondisi->keterangan;
+                                            }
+                                        }
+
+                                        echo $periodeKondisiLift;
+                                    @endphp
+                                </span>
+                            </td>
+                        @endif --}}
+                                    <td>
                                         @php
-                                            $periodeKondisiLift = null;
+                                            $keterangan = null;
                                             $laporanPekerjaanChecklist = $laporanPekerjaan->laporanPekerjaanChecklist->where('id_template_pekerjaan_detail', $detail->id)->first();
                                             if ($laporanPekerjaanChecklist) {
-                                                $periodeKondisiLift = $laporanPekerjaanChecklist->perawatanLiftKondisi->where('periode', $periode)->first();
-                                                if ($periodeKondisiLift) {
-                                                    $periodeKondisiLift = $periodeKondisiLift->kondisi->keterangan;
-                                                }
+                                                $keterangan = $laporanPekerjaanChecklist->keterangan;
                                             }
-
-                                            echo $periodeKondisiLift;
+                                            
+                                            echo $keterangan;
                                         @endphp
-                                    </span>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td>
+                                        <span class="badge me-1 badge-info  text-light">
+                                            @php
+                                                $periodeKondisiLift = null;
+                                                $laporanPekerjaanChecklist = $laporanPekerjaan->laporanPekerjaanChecklist->where('id_template_pekerjaan_detail', $detail->id)->first();
+                                                if ($laporanPekerjaanChecklist) {
+                                                    $periodeKondisiLift = $laporanPekerjaanChecklist->perawatanLiftKondisi->where('periode', $periode)->first();
+                                                    if ($periodeKondisiLift) {
+                                                        $periodeKondisiLift = $periodeKondisiLift->kondisi->keterangan;
+                                                    }
+                                                }
+                                                
+                                                echo $periodeKondisiLift;
+                                            @endphp
+                                        </span>
+                                    </td>
+                                </tr>
+                                @php
+                                    $total_row++;
+                                @endphp
+                            @endforeach
+                            @php
+                                $total_row++;
+                            @endphp
                         @endforeach
-                    @endforeach
+                    @else
+                        <tr>
+                            <td colspan="5" class="text-center">Tidak ada data</td>
+                        </tr>
+                    @endif
                 </tbody>
             </table>
         </div>
         <br>
         <br>
+        @if ($total_row % 8 == 0)
+            <div class="page-break"></div>
+        @endif
         <div>
             <div style="float: left; width: 50%">
                 <span>Dilaksanakan Oleh : @foreach ($laporanPekerjaan->teknisi as $item)
