@@ -53,5 +53,13 @@ class TipePerubahanStockSeeder extends Seeder
             'nama_tipe_perubahan' => 'Dikembalikan',
             'badge' => '<span class="badge badge-info">Dikembalikan</span>'
         ]);
+
+        TipePerubahanStock::updateOrCreate([
+            'id' => 6
+        ],[
+            'id' => 6,
+            'nama_tipe_perubahan' => 'Stock Opname',
+            'badge' => '<span class="badge badge-info">Stock Opname</span>'
+        ]);
     }
 }

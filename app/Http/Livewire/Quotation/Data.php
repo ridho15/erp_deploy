@@ -75,6 +75,7 @@ class Data extends Component
                     ->orWhere('status_like', $this->status_quotation);
                 }
             })
+            ->whereHas('projectUnit')
             ->orderBy('created_at', 'DESC')
             ->paginate($this->total_show);
         }else{

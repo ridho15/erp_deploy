@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Inventory;
 
 use App\Http\Controllers\HelperController;
 use App\Models\Barang;
+use App\Models\BarangStockLog;
 use App\Models\StockOpname;
 use Livewire\Component;
 
@@ -77,6 +78,22 @@ class FormStockOpname extends Component
             'keterangan' => $this->keterangan,
             'id_user' => session()->get('id_user')
         ]);
+
+        $barang = Barang::find($this->id_barang);
+        if($barang){
+            BarangStockLog::create([
+                'id_barang' => $this->id_barang,
+                'stock_awal' => $barang->stock,
+                'perubahan' => $this->jumlah_terbaru,
+                'tanggal_perubahan' => now(),
+                'id_tipe_perubahan_stock' => 6,
+                'id_user' => session()->get('id_user'),
+            ]);
+
+            $barang->update([
+                'stock' => $this->jumlah_terbaru
+            ]);
+        }
 
         $message = "Berhasil menyimpan data";
         activity()->causedBy(HelperController::user())->log("Menyimpan data stock opname");

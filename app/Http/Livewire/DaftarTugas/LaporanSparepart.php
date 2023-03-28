@@ -215,7 +215,7 @@ class LaporanSparepart extends Component
 
         $laporanPekerjaan = LaporanPekerjaan::find($this->id_laporan_pekerjaan);
         if ($laporanPekerjaan->quotation && $this->id_laporan_pekerjaan_barang == null) {
-            QuotationDetail::create([
+            $quotationDetail = QuotationDetail::create([
                 'id_quotation' => $laporanPekerjaan->quotation->id,
                 'id_barang' => $this->id_barang,
                 'harga' => $barang->harga,

@@ -92,9 +92,9 @@
                                 <tr>
                                     <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
                                     <td>{{ $item->no_ref }}</td>
-                                    <td>{{ $item->projectUnit->project->kode }}</td>
-                                    <td>{{ $item->projectUnit->project->nama }}</td>
-                                    <td>{{ $item->projectUnit->project->customer->nama }}</td>
+                                    <td>{{ isset($item->projectUnit->project) ? $item->projectUnit->project->kode : '-'}}</td>
+                                    <td>{{ isset($item->projectUnit->project) ? $item->projectUnit->project->nama : '-' }}</td>
+                                    <td>{{ isset($item->projectUnit->project) ? $item->projectUnit->project->customer->nama : '-' }}</td>
                                     <td>
                                         @if (count($item->quotationSales) > 0)
                                             @foreach ($item->quotationSales as $quotationSales)

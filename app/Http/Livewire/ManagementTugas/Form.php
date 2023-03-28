@@ -63,12 +63,8 @@ class Form extends Component
             $this->no_mfg = $project->no_mfg;
         }
         $this->listProject = ProjectV2::where('id_customer', $this->id_customer)->get();
-        $this->listUnit = ProjectUnit::where('id_project', $this->id_project)->where(function ($query) {
-            $query->doesntHave('laporanPekerjaan')
-                ->orWhere('id', $this->id_project_unit);
-        })->get();
-        $this->listQuotation = Quotation::where('id_project_unit', $this->id_project_unit)
-            ->doesntHave('projectUnit')->get();
+        $this->listUnit = ProjectUnit::where('id_project', $this->id_project)->get();
+        $this->listQuotation = Quotation::where('id_project_unit', $this->id_project_unit)->get();
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.management-tugas.form');
     }

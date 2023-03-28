@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Inventory;
 
 use App\Http\Controllers\HelperController;
 use App\Models\Barang;
+use App\Models\BarangStockLog;
 use App\Models\StockOpname as ModelsStockOpname;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -72,6 +73,22 @@ class StockOpname extends Component
             $stockOpname->update([
                 'jumlah_terbaru' => $jumlah_terbaru
             ]);
+
+            $barang = Barang::find($stockOpname->id_barang);
+            if($barang){
+                BarangStockLog::create([
+                    'id_barang' => $stockOpname->id_barang,
+                    'stock_awal' => $barang->stock,
+                    'perubahan' => $jumlah_terbaru,
+                    'tanggal_perubahan' => now(),
+                    'id_tipe_perubahan_stock' => 6,
+                    'id_user' => session()->get('id_user'),
+                ]);
+
+                $barang->update([
+                    'stock' => $jumlah_terbaru
+                ]);
+            }
         }
     }
 
