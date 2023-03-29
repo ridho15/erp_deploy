@@ -185,14 +185,14 @@
                                         <td>{{ $item->quotation ? $item->quotation->no_ref : '-' }}</td>
                                         <td>
                                             @if ($item->quotation)
-                                                {{ $item->quotation->project->customer->nama }}
+                                                {{ $item->quotation->projectUnit->project->customer->nama }}
                                             @else
                                                 {{ $item->projectUnit->project->customer->nama }}
                                             @endif
                                         </td>
                                         <td>
-                                            @if (isset($item->quotation->project))
-                                                {{ $item->quotation->project->nama }}
+                                            @if (isset($item->quotation->projectUnit->project))
+                                                {{ $item->quotation->projectUnit->project->nama }}
                                             @elseif(isset($item->projectUnit->project))
                                                 {{ $item->projectUnit->project->nama }}
                                             @endif
