@@ -59,10 +59,13 @@ class Detail extends Component
     public $show_edit = false;
     public function render()
     {
-        $this->preOrder = PreOrder::find($this->id_pre_order);
         if ($this->preOrder && $this->preOrder->quotation && $this->preOrder->quotation->laporanPekerjaan && ($this->preOrder->quotation->laporanPekerjaan->signature != null || $this->preOrder->quotation->laporanPekerjaan->jam_selesai != null)) {
             $this->isControl = true;
+        }elseif($this->preOrder && $this->preOrder->projectUnit->laporanPekerjaan && ($this->preOrder->projectUnit->laporanPekerjaan->signature != null || $this->preOrder->projectUnit->laporanPekerjaan->jam_selesai != null)){
+            $this->isControl = true;
         }
+        
+        
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.pre-order.detail');
     }
@@ -70,13 +73,13 @@ class Detail extends Component
     public function mount($id_pre_order)
     {
         $this->id_pre_order = $id_pre_order;
-        $preOrder = PreOrder::find($this->id_pre_order);
-        $this->id_metode_pembayaran = $preOrder->id_metode_pembayaran;
-        $this->id_tipe_pembayaran = $preOrder->id_tipe_pembayaran;
-        $this->keterangan = $preOrder->keterangan;
-        $this->id_quotation = $preOrder->id_quotation;
-        $this->id_project_unit = $preOrder->id_project_unit;
-        foreach ($preOrder->preOrderBayar as $item) {
+        $this->preOrder = PreOrder::find($this->id_pre_order);
+        $this->id_metode_pembayaran = $this->preOrder->id_metode_pembayaran;
+        $this->id_tipe_pembayaran = $this->preOrder->id_tipe_pembayaran;
+        $this->keterangan = $this->preOrder->keterangan;
+        $this->id_quotation = $this->preOrder->id_quotation;
+        $this->id_project_unit = $this->preOrder->id_project_unit;
+        foreach ($this->preOrder->preOrderBayar as $item) {
             $this->total_bayar += $item->pembayaran_sekarang;
         }
         $projectUnit = ProjectUnit::find($this->id_project_unit);
@@ -85,17 +88,17 @@ class Detail extends Component
             $this->namaProject = $projectUnit->project->nama;
         }
 
-        if($preOrder->id_quotation != null){
-            $this->nomor_lift = $preOrder->quotation->laporanPekerjaan->nomor_lift;
-            $this->id_merk = $preOrder->quotation->laporanPekerjaan->id_merk;
+        if($this->preOrder->id_quotation != null){
+            $this->nomor_lift = $this->preOrder->quotation->laporanPekerjaan->nomor_lift;
+            $this->id_merk = $this->preOrder->quotation->laporanPekerjaan->id_merk;
         }else{
             $this->nomor_lift = 'Belum ada pekerjaan';
         }
 
-        if($preOrder->id_quotation != null){
-            $this->ppn = $preOrder->quotation->ppn;
-        }elseif($preOrder->id_project_unit != null){
-            $this->ppn = $preOrder->projectUnit->project->customer->ppn;
+        if($this->preOrder->id_quotation != null){
+            $this->ppn = $this->preOrder->quotation->ppn;
+        }elseif($this->preOrder->id_project_unit != null){
+            $this->ppn = $this->preOrder->projectUnit->project->customer->ppn;
         }
         $this->listMerk = Merk::get();
         $this->listCustomer = Customer::get();
