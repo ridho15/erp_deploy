@@ -38,8 +38,10 @@ class Done extends Component
                 ->orWhereHas('user', function ($query) {
                     $query->where('name', 'LIKE', '%' . $this->cari . '%');
                 })->orWhereHas('quotation', function($query){
-                    $query->orWhereHas('project', function($query){
-                        $query->orWhere('id_customer', $this->id_customer_filter);
+                    $query->orWhereHas('projectUnit', function($query){
+                        $query->whereHas('project', function($query){
+                            $query->orWhere('id_customer', $this->id_customer_filter);
+                        });
                     });
                 })->orWhereHas('projectUnit', function($query){
                     $query->orWhereHas('project', function($query){
