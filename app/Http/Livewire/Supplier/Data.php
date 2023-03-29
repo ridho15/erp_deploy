@@ -19,7 +19,10 @@ class Data extends Component
     {
         $this->listSupplier = Supplier::where(function($query){
             $query->where('name', 'LIKE', '%' . $this->cari . '%')
-            ->orWhere('no_hp', 'LIKE', '%' . $this->cari . '%')
+            ->orWhere('no_hp_1', 'LIKE', '%' . $this->cari . '%')
+            ->orWhere('no_hp_2', 'LIKE', '%' . $this->cari . '%')
+            ->orWhere('telp_1', 'LIKE', '%' . $this->cari . '%')
+            ->orWhere('telp_2', 'LIKE', '%' . $this->cari . '%')
             ->orWhere('alamat', 'LIKE', '%' . $this->cari . '%')
             ->orWhere('email', 'LIKE', '%' . $this->cari . '%');
         })->orderBy('created_at', 'DESC')->paginate($this->total_show);

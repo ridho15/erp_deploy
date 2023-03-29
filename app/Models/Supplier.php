@@ -16,6 +16,10 @@ class Supplier extends Model
         'alamat',
         'email',
         'status',
+        'no_hp_1',
+        'no_hp_2',
+        'telp_1',
+        'telp_2'
     ];
 
     protected $appends = ['status_formatted'];
@@ -30,5 +34,9 @@ class Supplier extends Model
 
     public function supplierSales(){
         return $this->hasMany(SupplierSales::class, 'id_supplier');
+    }
+
+    public function supplierBarang(){
+        return $this->hasMany(SupplierBarang::class, 'id_supplier');
     }
 }

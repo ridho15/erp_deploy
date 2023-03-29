@@ -19,10 +19,34 @@
         </div>
         <div class="row mb-5">
             <div class="col-md-5">
-                No HP
+                No Hp #1
             </div>
             <div class="col-md">
-                : <span class="fw-bold">{{ $kostumer->no_hp }}</span>
+                : <span class="fw-bold">{{ $kostumer->no_hp_1 }}</span>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-md-5">
+                No Hp #2
+            </div>
+            <div class="col-md">
+                : <span class="fw-bold">{{ $kostumer->no_hp_2 }}</span>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-md-5">
+                Telp #2
+            </div>
+            <div class="col-md">
+                : <span class="fw-bold">{{ $kostumer->telp_1 }}</span>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-md-5">
+                Telp #2
+            </div>
+            <div class="col-md">
+                : <span class="fw-bold">{{ $kostumer->telp_2 }}</span>
             </div>
         </div>
         <div class="row mb-5">

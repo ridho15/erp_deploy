@@ -20,7 +20,10 @@ class Data extends Component
     {
         $this->listKostumer = Kostumer::where(function($query){
             $query->where('nama', 'LIKE', '%' . $this->cari . '%')
-            ->orWhere('no_hp', 'LIKE', '%' . $this->cari . '%')
+            ->orWhere('no_hp_1', 'LIKE', '%' . $this->cari . '%')
+            ->orWhere('no_hp_2', 'LIKE', '%' . $this->cari . '%')
+            ->orWhere('telp_1', 'LIKE', '%' . $this->cari . '%')
+            ->orWhere('telp_2', 'LIKE', '%' . $this->cari . '%')
             ->orWhere('alamat', 'LIKE', '%' . $this->cari . '%')
             ->orWhere('email', 'LIKE', '%' . $this->cari . '%')
             ->orWhere('ppn', 'LIKE', '%' . $this->cari . '%');

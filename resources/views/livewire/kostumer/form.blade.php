@@ -29,16 +29,37 @@
                                 @enderror
                             </div>
                             <div class="mb-5 col-md-6">
-                                <label for="" class="form-label required">Nomor Hp</label>
-                                <input type="text" class="form-control form-control-solid" name="no_hp" wire:model="no_hp" placeholder="Ex: 0823 1234 5678" required>
-                                @error('no_hp')
+                                <label for="" class="form-label required">Email</label>
+                                <input type="email" class="form-control form-control-solid" name="email" wire:model="email" placeholder="Masukkan email" required>
+                                @error('email')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="mb-5 col-md-6">
-                                <label for="" class="form-label required">Email</label>
-                                <input type="email" class="form-control form-control-solid" name="email" wire:model="email" placeholder="Masukkan email" required>
-                                @error('email')
+                                <label for="" class="form-label">No Hp #1</label>
+                                <input type="text" class="form-control form-control-solid" name="no_hp_1" wire:model="no_hp_1" placeholder="Ex: 0823 1234 5678">
+                                @error('no_hp_1')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-5 col-md-6">
+                                <label for="" class="form-label">No Hp #2</label>
+                                <input type="text" class="form-control form-control-solid" name="no_hp_2" wire:model="no_hp_2" placeholder="Ex: 0823 1234 5678">
+                                @error('no_hp_2')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-5 col-md-6">
+                                <label for="" class="form-label">Telp #1</label>
+                                <input type="text" class="form-control form-control-solid" name="telp_1" wire:model="telp_1" placeholder="Ex: 0823 1234 5678">
+                                @error('telp_1')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-5 col-md-6">
+                                <label for="" class="form-label">Telp #1</label>
+                                <input type="text" class="form-control form-control-solid" name="telp_2" wire:model="telp_2" placeholder="Ex: 0823 1234 5678">
+                                @error('telp_2')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
@@ -63,6 +84,28 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
+                            <div class="col-md-6 mb-5">
+                                <label for="">PIC</label>
+                                <select name="list_id_sales" class="form-control form-control-solid" wire:model="list_id_sales" data-dropdown-parent="#modal_form" data-control="select2" data-placeholder="Pilih PIC" multiple>
+                                    <option value="">Pilih</option>
+                                    @foreach ($listSales as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nama }} ({{ $item->no_hp }})</option>
+                                    @endforeach
+                                </select>
+                                @error('list_id_sales')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 mb-5">
+                                <div class="d-flex flex-stack w-lg-50">
+                                    <label class="form-check form-switch form-check-custom form-check-solid">
+                                        <input class="form-check-input" type="checkbox" value="1" wire:model="status" checked="checked"/>
+                                        <span class="form-check-label fw-semibold text-muted">
+                                            Aktif
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                         {{-- <div class="mb-5" wire:ignore>
                             <label for="" class="form-label">Barang</label>
@@ -73,14 +116,7 @@
                                 @endforeach
                             </select>
                         </div> --}}
-                        <div class="d-flex flex-stack w-lg-50">
-                            <label class="form-check form-switch form-check-custom form-check-solid">
-                                <input class="form-check-input" type="checkbox" value="1" wire:model="status" checked="checked"/>
-                                <span class="form-check-label fw-semibold text-muted">
-                                    Aktif
-                                </span>
-                            </label>
-                        </div>
+
                     </div>
 
                     <div class="modal-footer">
@@ -96,15 +132,23 @@
 @push('js')
     <script>
         $(document).ready(function () {
-
+            select2()
         });
-
-        $('select[name="id_barang_customer"]').on('change', function(){
-            @this.set('id_barang_customer', $(this).val())
-        })
-
+        
         window.addEventListener('contentChange', function(){
+            select2()
         })
+
+        function select2(){
+            $('select[name="list_id_sales"]').select2();
+            $('select[name="list_id_sales"]').on('change', function(){
+                Livewire.emit('changeSales', $(this).val())
+            });
+
+            $('select[name="id_barang_customer"]').on('change', function(){
+                @this.set('id_barang_customer', $(this).val())
+            })
+        }
 
         Livewire.on("finishSimpanData", (status, message) => {
             $('#modal_form').modal('hide')

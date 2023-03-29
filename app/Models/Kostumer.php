@@ -13,7 +13,10 @@ class Kostumer extends Model
     protected $table = 'customers';
     protected $fillable = [
         'nama',
-        'no_hp',
+        'no_hp_1',
+        'no_hp_2',
+        'telp_1',
+        'telp_2',
         'email',
         'alamat',
         'status',
@@ -48,5 +51,9 @@ class Kostumer extends Model
     public function getKodeAttribute(){
         $helper = new HelperController;
         return 'C' . $helper->format_num($this->id);
+    }
+
+    public function customerSales(){
+        return $this->hasMany(CustomerSales::class, 'id_customer');
     }
 }

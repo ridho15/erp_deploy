@@ -26,10 +26,14 @@
                    <th>Kode</th>
                    <th>Nama</th>
                    <th>Email</th>
-                   <th>Nomor HP</th>
+                   <th>Hp #1</th>
+                   <th>Hp #2</th>
+                   <th>Telp #1</th>
+                   <th>Telp #2</th>
                    <th>Alamat</th>
                    <th>Barang Perlengkapan</th>
                    <th>PPN (%)</th>
+                   <th>PIC</th>
                    <th>Status</th>
                    <th>Aksi</th>
                   </tr>
@@ -42,10 +46,18 @@
                                 <td>{{ $item->kode }}</td>
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ $item->email }}</td>
-                                <td>{{ $item->no_hp }}</td>
+                                <td>{{ $item->no_hp_1 }}</td>
+                                <td>{{ $item->no_hp_2 }}</td>
+                                <td>{{ $item->telp_1 }}</td>
+                                <td>{{ $item->telp_2 }}</td>
                                 <td>{{ $item->alamat }}</td>
                                 <td>{{ $item->barang_customer }}</td>
                                 <td>{{ $item->ppn }}</td>
+                                <td>
+                                    @foreach ($item->customerSales as $customerSales)
+                                        {{ $customerSales->sales->nama }} ({{ $customerSales->sales->no_hp }}), 
+                                    @endforeach
+                                </td>
                                 <td><?= $item->status_formatted ?></td>
                                 <td>
                                     <div class="btn-group">

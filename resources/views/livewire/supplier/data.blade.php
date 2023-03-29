@@ -25,10 +25,14 @@
                    <th>No</th>
                    <th>Nama</th>
                    <th>Email</th>
-                   <th>Nomor HP</th>
+                   <th>HP #1</th>
+                   <th>HP #2</th>
+                   <th>Telp #1</th>
+                   <th>Telp #2</th>
                    <th>Alamat</th>
                    <th>Status</th>
                    <th>PIC</th>
+                   <th>Produk</th>
                    <th>Aksi</th>
                   </tr>
                  </thead>
@@ -39,12 +43,20 @@
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->email }}</td>
-                                <td>{{ $item->no_hp }}</td>
+                                <td>{{ $item->no_hp_1 }}</td>
+                                <td>{{ $item->no_hp_2 }}</td>
+                                <td>{{ $item->telp_1 }}</td>
+                                <td>{{ $item->telp_2 }}</td>
                                 <td>{{ $item->alamat }}</td>
                                 <td><?= $item->status_formatted ?></td>
                                 <td>
                                     @foreach ($item->supplierSales as $supplierSales)
                                         {{ $supplierSales->sales->nama }} ({{ $supplierSales->sales->no_hp }}),
+                                    @endforeach
+                                </td>
+                                <td>
+                                    @foreach ($item->supplierBarang as $supplierBarang)
+                                        {{ $supplierBarang->barang->nama }} ({{ $supplierBarang->barang->nomor }}),
                                     @endforeach
                                 </td>
                                 <td>

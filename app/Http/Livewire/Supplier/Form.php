@@ -14,9 +14,12 @@ class Form extends Component
     public $id_supplier;
     public $name;
     public $email;
-    public $no_hp;
     public $alamat;
     public $status;
+    public $no_hp_1;
+    public $no_hp_2;
+    public $telp_1;
+    public $telp_2;
     public $list_id_sales;
 
     public $listSales = [];
@@ -36,15 +39,12 @@ class Form extends Component
         $this->validate([
             'name' => 'required|string',
             'email' => 'required|email',
-            'no_hp' => 'required|numeric|digits_between:11,12',
             'alamat' => 'required|string',
         ], [
             'name.required' => 'Nama tidak boleh kosong',
             'name.string' => 'Nama tidak valid !',
             'email.required' => 'Email tidak boleh kosong',
             'email.email' => 'Email tidak valid !',
-            'no_hp.required' => 'Nomor Hp harus diisi',
-            'no_hp.numeric' => 'Nomor Hp tidak valid !',
             'no_hp.digits_between' => 'Nomor HP tidak sesuai ketentuan !',
             'alamat.required' => 'Alamat tidak boleh kosong',
             'alamat.string' => "Alamat tidak valid !"
@@ -55,9 +55,12 @@ class Form extends Component
         ], [
             'name' => $this->name,
             'email' => $this->email,
-            'no_hp' => $this->no_hp,
             'alamat' => $this->alamat,
-            'status' => $this->status ? 1 : 0
+            'status' => $this->status ? 1 : 0,
+            'no_hp_1' => $this->no_hp_1,
+            'no_hp_2' => $this->no_hp_2,
+            'telp_1' => $this->telp_1,
+            'telp_2' => $this->telp_2,
         ]);
 
         SupplierSales::where('id_supplier', $supplier->id)
@@ -83,9 +86,12 @@ class Form extends Component
         $this->id_supplier = null;
         $this->name = null;
         $this->email = null;
-        $this->no_hp = null;
         $this->alamat = null;
         $this->status = null;
+        $this->no_hp_1 = null;
+        $this->no_hp_2 = null;
+        $this->telp_1 = null;
+        $this->telp_2 = null;
     }
 
     public function setDataSupplier($id)
@@ -99,10 +105,13 @@ class Form extends Component
 
         $this->id_supplier = $supplier->id;
         $this->name = $supplier->name;
-        $this->no_hp = $supplier->no_hp;
         $this->email = $supplier->email;
         $this->status = $supplier->status;
         $this->alamat = $supplier->alamat;
+        $this->no_hp_1 = $supplier->no_hp_1;
+        $this->no_hp_2 = $supplier->no_hp_2;
+        $this->telp_1 = $supplier->telp_1;
+        $this->telp_2 = $supplier->telp_2;
 
         $this->list_id_sales = [];
         foreach($supplier->supplierSales as $item){
