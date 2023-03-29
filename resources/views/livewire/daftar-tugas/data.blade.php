@@ -32,6 +32,7 @@
                             <th>Nomor Pekerjaan</th>
                             <th>Customer</th>
                             <th>Project</th>
+                            <th>No Unit</th>
                             <th>Pekerja</th>
                             <th>Jam Mulai</th>
                             <th>Jam Selesai</th>
@@ -50,6 +51,7 @@
                                     <td>{{ $item->no_ref }}</td>
                                     <td>{{ $item->projectUnit->project->customer->nama }}</td>
                                     <td>{{ $item->projectUnit->project->nama }}</td>
+                                    <td>{{ $item->projectUnit->no_unit }} {{ $item->projectUnit->nama_unit }}</td>
                                     <td>
                                         @foreach ($item->teknisi as $nama)
                                             {{ $nama->user ? $nama->user->name : '-' }},
@@ -111,7 +113,7 @@
                             @endforeach
                         @else
                             <tr>
-                                <td colspan="16" class="text-center text-gray-500">Tidak ada data</td>
+                                <td colspan="13" class="text-center text-gray-500">Tidak ada data</td>
                             </tr>
                         @endif
                     </tbody>

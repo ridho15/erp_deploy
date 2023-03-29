@@ -26,8 +26,6 @@ class Done extends Component
     protected $listPreOrder;
     public function render()
     {
-
-
         $this->listPreOrder = PreOrder::whereHas('quotation', function ($query) {
             $query->whereHas('laporanPekerjaan', function ($query) {
                 $query->where('signature', '!=', null)

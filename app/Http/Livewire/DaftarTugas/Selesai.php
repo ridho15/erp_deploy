@@ -21,7 +21,7 @@ class Selesai extends Component
             ->where(function ($query) {
                 $query->where('id', 'LIKE', '%' . $this->cari . '%')
                     ->orWhereHas('projectUnit', function ($query) {
-                        $query->whereHas('project', function($query){
+                        $query->whereHas('project', function ($query) {
                             $query->where('nama', 'LIKE', '%' . $this->cari . '%');
                         });
                     })->orWhereHas('teknisi', function ($query) {
@@ -29,7 +29,7 @@ class Selesai extends Component
                             $query->where('name', 'LIKE', '%' . $this->cari . '%');
                         });
                     });
-            })->paginate($this->total_show);
+            })->orderBy('updated_at', 'DESC')->paginate($this->total_show);
 
         $data['listLaporanPekerjaan'] = $this->listTugas;
         return view('livewire.daftar-tugas.selesai', $data);

@@ -31,6 +31,7 @@
         </tbody>
         </table>
     </div>
+    
     <div class="modal fade" tabindex="-1" id="modal_form_bayar" wire:ignore.self>
         <div class="modal-dialog">
             <div class="modal-content">

@@ -52,8 +52,7 @@ class Form extends Component
     public function render()
     {
         $this->listProject = ProjectV2::where('id_customer', $this->id_customer)->get();
-        $this->listProjectUnit = ProjectUnit::where('id_project', $this->id_project)
-        ->doesntHave('purchaseOrder')->get();
+        $this->listProjectUnit = ProjectUnit::where('id_project', $this->id_project)->get();
 
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.pre-order.form');
@@ -92,6 +91,15 @@ class Form extends Component
             if(!$quotation){
                 $message = "Data quotation tidak ditemukan !";
                 return session()->flash('fail', $message);
+            }
+        }else{
+            $quotation = Quotation::where('id_project_unit', $this->id_project_unit)
+            ->first();
+            if(!$quotation){
+                $message = "Data quotation tidak ditemukan !";
+                return session()->flash('fail', $message);
+            }else{
+                $this->id_quotation = $quotation->id;
             }
         }
 

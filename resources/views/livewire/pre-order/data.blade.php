@@ -31,10 +31,13 @@
                     <h4 class="fw-semibold">Informasi</h4>
                     <ul>
                         <li>
-                            <span>Tipe pembayaran adalah cara melakukan pembayaran yang dilakukan client dangan salah satu contoh : <strong>TOP, Payment Before Work, 3 Bulan dan lainnya</strong></span>
+                            <span>Tipe pembayaran adalah cara melakukan pembayaran yang dilakukan client dangan salah
+                                satu contoh : <strong>TOP, Payment Before Work, 3 Bulan dan lainnya</strong></span>
                         </li>
                         <li>
-                            <span>Metode Pembayaran adalah cara client / customer melakukan pengiriman uang ke perusahaan, contoh : <strong>semisal contoh TF dari bank mandiri, Cash, Link Aja</strong> </span>
+                            <span>Metode Pembayaran adalah cara client / customer melakukan pengiriman uang ke
+                                perusahaan, contoh : <strong>semisal contoh TF dari bank mandiri, Cash, Link
+                                    Aja</strong> </span>
                         </li>
                     </ul>
 
@@ -98,21 +101,21 @@
                                             <td>{{ $item->no_ref }}</td>
                                             <td>{{ $item->quotation ? $item->quotation->no_ref : '-' }}</td>
                                             <td>
-                                                @if ($item->quotation)
+                                                @if ($item->id_quotation != null)
                                                     {{ $item->quotation->projectUnit->project->customer->nama }}
                                                 @else
                                                     {{ $item->projectUnit->project->customer->nama }}
                                                 @endif
                                             </td>
                                             <td>
-                                                @if (isset($item->quotation->projectUnit->project))
+                                                @if ($item->id_quotation != null)
                                                     {{ $item->quotation->projectUnit->project->nama }}
                                                 @elseif(isset($item->projectUnit->project))
                                                     {{ $item->projectUnit->project->nama }}
                                                 @endif
                                             </td>
                                             <td>
-                                                @if (isset($item->quotation->laporanPekerjaan))
+                                                @if ($item->id_quotation != null)
                                                     {{ $item->quotation->laporanPekerjaan->nomor_lift }}
                                                 @elseif(isset($item->projectUnit))
                                                     {{ $item->projectUnit->no_unit }}
@@ -182,23 +185,23 @@
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
                                         <td>{{ $item->no_ref }}</td>
-                                        <td>{{ $item->quotation ? $item->quotation->no_ref : '-' }}</td>
+                                        <td>{{ $item->id_quotation != null ? $item->quotation->no_ref : '-' }}</td>
                                         <td>
-                                            @if ($item->quotation)
+                                            @if ($item->id_quotation != null)
                                                 {{ $item->quotation->projectUnit->project->customer->nama }}
                                             @else
                                                 {{ $item->projectUnit->project->customer->nama }}
                                             @endif
                                         </td>
                                         <td>
-                                            @if (isset($item->quotation->projectUnit->project))
+                                            @if ($item->id_quotation != null)
                                                 {{ $item->quotation->projectUnit->project->nama }}
                                             @elseif(isset($item->projectUnit->project))
                                                 {{ $item->projectUnit->project->nama }}
                                             @endif
                                         </td>
                                         <td>
-                                            @if (isset($item->quotation->laporanPekerjaan))
+                                            @if ($item->id_quotation != null)
                                                 {{ $item->quotation->laporanPekerjaan->nomor_lift }}
                                             @elseif(isset($item->projectUnit))
                                                 {{ $item->projectUnit->no_unit }}

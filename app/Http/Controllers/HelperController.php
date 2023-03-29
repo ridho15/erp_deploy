@@ -159,27 +159,27 @@ class HelperController extends Controller
                 'active' => 'laporan',
                 'route' => null,
                 'children' => collect([
-                    // collect([
-                    //     'nama' => 'Account Payable',
-                    //     'icon' => '<span class="bullet bullet-dot"></span>',
-                    //     'role' => ['Super Admin', 'Manager'],
-                    //     'active' => 'laporan-account-payable',
-                    //     'route' => 'laporan.account-payable'
-                    // ]),
-                    // collect([
-                    //     'nama' => 'Account Receivable',
-                    //     'icon' => '<span class="bullet bullet-dot"></span>',
-                    //     'role' => ['Super Admin', 'Manager'],
-                    //     'active' => 'laporan-account-receivable',
-                    //     'route' => 'laporan.account-receivable'
-                    // ]),
-                    // collect([
-                    //     'nama' => 'Kalender Accounts',
-                    //     'icon' => '<span class="bullet bullet-dot"></span>',
-                    //     'role' => ['Super Admin', 'Manager'],
-                    //     'active' => 'kalender',
-                    //     'route' => 'laporan.kalender'
-                    // ]),
+                    collect([
+                        'nama' => 'Account Payable',
+                        'icon' => '<span class="bullet bullet-dot"></span>',
+                        'role' => ['Super Admin', 'Manager'],
+                        'active' => 'laporan-account-payable',
+                        'route' => 'laporan.account-payable'
+                    ]),
+                    collect([
+                        'nama' => 'Account Receivable',
+                        'icon' => '<span class="bullet bullet-dot"></span>',
+                        'role' => ['Super Admin', 'Manager'],
+                        'active' => 'laporan-account-receivable',
+                        'route' => 'laporan.account-receivable'
+                    ]),
+                    collect([
+                        'nama' => 'Kalender Accounts',
+                        'icon' => '<span class="bullet bullet-dot"></span>',
+                        'role' => ['Super Admin', 'Manager'],
+                        'active' => 'kalender',
+                        'route' => 'laporan.kalender'
+                    ]),
                     collect([
                         'nama' => 'Stock Minimum',
                         'icon' => '<span class="bullet bullet-dot"></span>',
