@@ -124,7 +124,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                @if ($item->quotation && $item->quotation->laporanPekerjaan)
+                                                @if ($item->id_quotation != null && $item->quotation->laporanPekerjaan)
                                                     @if ($item->quotation->laporanPekerjaan->signature != null && $item->quotation->laporanPekerjaan->jam_selesai != null)
                                                         <span class="badge badge-success">Selesai</span>
                                                     @elseif($item->quotation->laporanPekerjaan->jam_mulai != null)
@@ -132,8 +132,18 @@
                                                     @else
                                                         <span class="badge badge-secondary">Belum Dikerjakan</span>
                                                     @endif
+                                                @elseif($item->id_project_unit != null && $item->projectUnit->laporanPekerjaan)
+                                                    @if (
+                                                        $item->projectUnit->laporanPekerjaan->signature != null &&
+                                                            $item->projectUnit->laporanPekerjaan->jam_selesai != null)
+                                                        <span class="badge badge-success">Selesai</span>
+                                                    @elseif($item->projectUnit->laporanPekerjaan->jam_mulai != null)
+                                                        <span class="badge badge-warning">Sedang Dikerjakan</span>
+                                                    @else
+                                                        <span class="badge badge-secondary">Belum Dikerjakan</span>
+                                                    @endif
                                                 @else
-                                                    Belum dikerjakan
+                                                    Belum Dikerjakan
                                                 @endif
                                             </td>
                                             <td><?= $item->keterangan ?? '-' ?></td>
@@ -211,10 +221,20 @@
                                             @endif
                                         </td>
                                         <td>
-                                            @if ($item->quotation && $item->quotation->laporanPekerjaan)
+                                            @if ($item->id_quotation != null && $item->quotation->laporanPekerjaan)
                                                 @if ($item->quotation->laporanPekerjaan->signature != null && $item->quotation->laporanPekerjaan->jam_selesai != null)
                                                     <span class="badge badge-success">Selesai</span>
                                                 @elseif($item->quotation->laporanPekerjaan->jam_mulai != null)
+                                                    <span class="badge badge-warning">Sedang Dikerjakan</span>
+                                                @else
+                                                    <span class="badge badge-secondary">Belum Dikerjakan</span>
+                                                @endif
+                                            @elseif($item->id_project_unit != null && $item->projectUnit->laporanPekerjaan)
+                                                @if (
+                                                    $item->projectUnit->laporanPekerjaan->signature != null &&
+                                                        $item->projectUnit->laporanPekerjaan->jam_selesai != null)
+                                                    <span class="badge badge-success">Selesai</span>
+                                                @elseif($item->projectUnit->laporanPekerjaan->jam_mulai != null)
                                                     <span class="badge badge-warning">Sedang Dikerjakan</span>
                                                 @else
                                                     <span class="badge badge-secondary">Belum Dikerjakan</span>
