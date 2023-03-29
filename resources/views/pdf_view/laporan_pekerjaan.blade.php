@@ -160,7 +160,7 @@
             </tr>
         </table>
     </div>
-    @if ($laporanPekerjaan->is_emergency_call == 0)
+    @if ($laporanPekerjaan->is_emergency_call == 1)
         <div class="page-break"></div>
         @include('pdf_view.header')
         <div class="text-center fw-bold mb-10" style="font-size: 13pt">Laporan Perawatan Lift</div>
@@ -242,7 +242,6 @@
                     colspan="@if ($periode == 1) 1 @elseif($periode == 2) 2 @elseif($periode == 3) 3 @elseif($periode == 6) 4 @elseif($periode == 12) 5 @endif "
                         class="text-center align-items-center">CHECKLIST</td> --}}
                         <td class="align-items-center text-center" style="width: 50%">KETERANGAN</td>
-                        <td class="align-items-center text-center"></td>
                     </tr>
                     {{-- <tr>
                     @if ($periode > 0)
@@ -280,7 +279,6 @@
                                         @endforeach
                                     @endif
                                 </td>
-                                <td></td>
                                 <td></td>
                             </tr>
 
@@ -398,7 +396,7 @@
                                             echo $keterangan;
                                         @endphp
                                     </td>
-                                    <td>
+                                    {{-- <td>
                                         <span class="badge me-1 badge-info  text-light">
                                             @php
                                                 $periodeKondisiLift = null;
@@ -413,7 +411,7 @@
                                                 echo $periodeKondisiLift;
                                             @endphp
                                         </span>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                                 @php
                                     $total_row++;
@@ -425,7 +423,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="5" class="text-center">Tidak ada data</td>
+                            <td colspan="4" class="text-center">Tidak ada data</td>
                         </tr>
                     @endif
                 </tbody>

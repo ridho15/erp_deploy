@@ -645,8 +645,13 @@ class HelperController extends Controller
             ->where('id_accounts', $item->id)
             ->where('tanggal', $item->tanggal_tempo_pembayaran)
             ->first();
-
-            $description = 'Penagihan PO ke ' . $item->customer->name . ' sebesar ' . $item->total_bayar_formatted . '. Silahkan lakukan pembayaran sebelum ' . date('d-m-Y', strtotime($item->tanggal_tempo_pembayaran));
+            $nama_customer = null;
+            if($item->id_quotation != null){
+                $nama_customer = $item->quotation->projectUnit->project->customer->nama;
+            }elseif($item->id_project_unit != null){
+                $nama_customer = $item->projectUnit->project->customer->nama;
+            }
+            $description = 'Penagihan PO ke ' . $nama_customer . ' sebesar ' . $item->total_bayar_formatted . '. Silahkan lakukan pembayaran sebelum ' . date('d-m-Y', strtotime($item->tanggal_tempo_pembayaran));
             if(!$calenderPenagihan){
                 CalenderPenagihan::create([
                     'tipe' => 2,
