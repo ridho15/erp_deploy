@@ -60,7 +60,9 @@ class Detail extends Component
     public function render()
     {
         $this->preOrder = PreOrder::find($this->id_pre_order);
-        if ($this->preOrder && $this->preOrder->quotation && $this->preOrder->quotation->laporanPekerjaan && ($this->preOrder->quotation->laporanPekerjaan->signature != null || $this->preOrder->quotation->laporanPekerjaan->jam_selesai != null)) {
+        if ($this->preOrder && $this->preOrder->id_quotation != null && $this->preOrder->quotation->id_laporan_pekerjaan != null && ($this->preOrder->quotation->laporanPekerjaan->signature != null || $this->preOrder->quotation->laporanPekerjaan->jam_selesai != null)) {
+            $this->isControl = true;
+        }elseif($this->preOrder && $this->preOrder->projectUnit->laporanPekerjaan && ($this->preOrder->projectUnit->laporanPekerjaan->signature != null || $this->preOrder->projectUnit->laporanPekerjaan->jam_selesai != null)){
             $this->isControl = true;
         }
         $this->dispatchBrowserEvent('contentChange');
