@@ -96,6 +96,13 @@
                 </div>
                 <div class="row mb-5">
                     <div class="mb-5 col-md-6">
+                        <label for="" class="form-label">Nama Client</label>
+                        <input type="text" name="nama_client" class="form-control form-control-solid" wire:model='nama_client' placeholder="Masukkan nama client">
+                        @error('nama_client')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="mb-5 col-md-6">
                         <div class="mb-3" wire:ignore>
                             <label for="" class="form-label required">Keterangan Pekerja / Catatan
                                 Teknisi</label>

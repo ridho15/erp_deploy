@@ -94,12 +94,13 @@
             Catatan Teknisi dan Keterangan Pekerja :
         </div>
         <div class="py-3 px-5"
-            style="border: 1px solid black; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 100px;">
+            style="border: 1px solid black; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; min-height: 100px">
             <ul>
                 @foreach ($listCatatanTeknisiPekerjaan as $item)
-                    <li>{{ $item->keterangan }}</li>
+                    @if ($item->keterangan != null)
+                        <li>{{ $item->keterangan }}</li>
+                    @endif
                 @endforeach
-                <li>{{ $laporanPekerjaan->keterangan }}</li>
             </ul>
         </div>
     </div>
@@ -137,12 +138,14 @@
                 </td>
             </tr>
             <tr style="width: 30%">
-                <td>Diketahui Oleh,</td>
+                <td></td>
                 <td>Diketahui Oleh, <br><strong>Pelanggan</strong></td>
             </tr>
             <tr style="width: 30%">
                 <td>
-                    <div style="height: 100px"></div>
+                    <div style="height: 100px; width: 200px; text-align: center">
+                        Auto generated, technician signature is not required
+                    </div>
                 </td>
                 <td>
                     <div style="height: 100px">
@@ -154,8 +157,8 @@
                 </td>
             </tr>
             <tr style="width: 30%">
-                <td>Nama: </td>
-                <td style="text-align: start">Client : {{ $laporanPekerjaan->projectUnit->project->penanggung_jawab }}
+                <td></td>
+                <td style="text-align: start">Client : {{ $laporanPekerjaan->nama_client }}
                 </td>
             </tr>
         </table>
@@ -392,7 +395,7 @@
                                             if ($laporanPekerjaanChecklist) {
                                                 $keterangan = $laporanPekerjaanChecklist->keterangan;
                                             }
-                                            
+
                                             echo $keterangan;
                                         @endphp
                                     </td>
@@ -407,7 +410,7 @@
                                                         $periodeKondisiLift = $periodeKondisiLift->kondisi->keterangan;
                                                     }
                                                 }
-                                                
+
                                                 echo $periodeKondisiLift;
                                             @endphp
                                         </span>
@@ -431,33 +434,56 @@
         </div>
         <br>
         <br>
-        @if ($total_row != 0 && $total_row % 8 == 0)
+        @if ($total_row != 0 && $total_row % 9 == 0)
             <div class="page-break"></div>
         @endif
         <div>
-            <div style="float: left; width: 50%">
-                <span>Dilaksanakan Oleh : @foreach ($laporanPekerjaan->teknisi as $item)
-                        {{ $item->user ? $item->user->name : '-' }},
-                    @endforeach
-                </span><br>
-                <span>Diketahui Oleh :</span><br>
-                <span class="fw-bold">Kepala Devisi</span><br>
-                <div style="height: 100px"></div><br>
-                <span>Nama : </span>
-            </div>
-            <div style="float: right; width: 50%">
-                <span></span><br>
-                <span>Diketahui Oleh :</span><br>
-                <span class="fw-bold">Pelanggan</span><br>
-                <div style="height: 100px">
-                    @if ($laporanPekerjaan->signature)
-                        <img src="{{ asset('storage' . $laporanPekerjaan->signature) }}" height="100" width="100"
-                            style="object-fit: contain" alt="">
-                    @endif
-                </div><br>
-                <span>Nama :
-                    {{ $laporanPekerjaan->projectUnit->project ? $laporanPekerjaan->projectUnit->project->penanggung_jawab : '-' }}</span>
-            </div>
+            <table class="w-100">
+                <tr>
+                    <td>Dilaksanakan Oleh : @foreach ($laporanPekerjaan->teknisi as $item)
+                            {{ $item->user ? $item->user->name : '-' }},
+                        @endforeach
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tanggal :
+                        {{ $laporanPekerjaan->jam_mulai ? date('Y-m-d', strtotime($laporanPekerjaan->jam_mulai)) : null }}
+                    </td>
+                </tr>
+                <tr style="width: 30%">
+
+                    <td>Jam Datang :
+                        {{ $laporanPekerjaan->jam_mulai ? date('H:i', strtotime($laporanPekerjaan->jam_mulai)) : null }}
+                    </td>
+                    <td>Jam Selesai :
+                        {{ $laporanPekerjaan->jam_selesai ? date('H:i', strtotime($laporanPekerjaan->jam_selesai)) : null }}
+                    </td>
+                </tr>
+                <tr style="width: 30%">
+                    <td></td>
+                    <td>Diketahui Oleh, <br><strong>Pelanggan</strong></td>
+                </tr>
+                <tr style="width: 30%">
+                    <td>
+                        <div style="height: 100px; width: 200px; text-align: center">
+                            Auto generated, technician signature is not required
+                        </div>
+                    </td>
+                    <td>
+                        <div style="height: 100px">
+                            @if ($laporanPekerjaan->signature)
+                                <img src="{{ asset('storage' . $laporanPekerjaan->signature) }}" height="100px"
+                                    width="100" style="object-fit: contain" alt="">
+                            @endif
+                        </div>
+                    </td>
+                </tr>
+                <tr style="width: 30%">
+                    <td></td>
+                    <td style="text-align: start">Client : {{ $laporanPekerjaan->nama_client }}
+                    </td>
+                </tr>
+            </table>
         </div>
     @endif
 

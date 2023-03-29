@@ -86,13 +86,8 @@
                             </div>
                             <div class="col-md-6 mb-5">
                                 <label for="">PIC</label>
-                                <select name="list_id_sales" class="form-control form-control-solid" wire:model="list_id_sales" data-dropdown-parent="#modal_form" data-control="select2" data-placeholder="Pilih PIC" multiple>
-                                    <option value="">Pilih</option>
-                                    @foreach ($listSales as $item)
-                                        <option value="{{ $item->id }}">{{ $item->nama }} ({{ $item->no_hp }})</option>
-                                    @endforeach
-                                </select>
-                                @error('list_id_sales')
+                                <input type="text" name="pic" class="form-control form-control-solid" wire:model="pic" placeholder="Masukkan nama PIC">
+                                @error('pic')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
@@ -134,7 +129,7 @@
         $(document).ready(function () {
             select2()
         });
-        
+
         window.addEventListener('contentChange', function(){
             select2()
         })

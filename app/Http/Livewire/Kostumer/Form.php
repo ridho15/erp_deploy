@@ -26,6 +26,7 @@ class Form extends Component
     public $list_id_sales = [];
     public $listBarangCustomer = [];
     public $listSales;
+    public $pic;
 
     public $barang_customer;
 
@@ -49,7 +50,8 @@ class Form extends Component
             // 'no_hp' => 'required|numeric|digits_between:11,12',
             'alamat' => 'required|string',
             'barang_customer' => 'nullable|string',
-            'ppn' => 'required|numeric'
+            'ppn' => 'required|numeric',
+            'pic' => 'nullable|string'
         ], [
             'nama.required' => 'Nama tidak boleh kosong',
             'nama.string' => 'Nama tidak valid !',
@@ -62,7 +64,8 @@ class Form extends Component
             'alamat.string' => 'Alamat tidak valid !',
             'barang_customer.string' => 'Barang customer tidak valid !',
             'ppn.required' => "PPN tidak boleh kosong",
-            'ppn.numeric' => 'PPN tidak valid !'
+            'ppn.numeric' => 'PPN tidak valid !',
+            'pic.string' => 'PIC tidak valid !'
         ]);
 
         $customer = Kostumer::updateOrCreate([
@@ -79,6 +82,7 @@ class Form extends Component
             'no_hp_2' => $this->no_hp_2,
             'telp_1' => $this->telp_1,
             'telp_2' => $this->telp_2,
+            'pic' => $this->pic,
         ]);
 
         CustomerSales::where('id_customer', $customer->id)->delete();
@@ -112,6 +116,7 @@ class Form extends Component
         $this->no_hp_2 = null;
         $this->telp_1 = null;
         $this->telp_2 = null;
+        $this->pic = null;
         $this->list_id_sales = [];
     }
 
@@ -137,6 +142,7 @@ class Form extends Component
         $this->no_hp_2 = $kostumer->no_hp_2;
         $this->telp_1 = $kostumer->telp_1;
         $this->telp_2 = $kostumer->telp_2;
+        $this->pic = $kostumer->pic;
 
         $this->list_id_sales = [];
         foreach ($kostumer->customerSales as $item) {

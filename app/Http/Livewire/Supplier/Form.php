@@ -21,6 +21,8 @@ class Form extends Component
     public $telp_1;
     public $telp_2;
     public $list_id_sales;
+    public $pic;
+    public $produk;
 
     public $listSales = [];
     public function render()
@@ -40,6 +42,8 @@ class Form extends Component
             'name' => 'required|string',
             'email' => 'required|email',
             'alamat' => 'required|string',
+            'pic' => 'nullable|string',
+            'produk' => 'nullable|string'
         ], [
             'name.required' => 'Nama tidak boleh kosong',
             'name.string' => 'Nama tidak valid !',
@@ -61,6 +65,8 @@ class Form extends Component
             'no_hp_2' => $this->no_hp_2,
             'telp_1' => $this->telp_1,
             'telp_2' => $this->telp_2,
+            'pic' => $this->pic,
+            'produk' => $this->produk,
         ]);
 
         SupplierSales::where('id_supplier', $supplier->id)
@@ -92,6 +98,8 @@ class Form extends Component
         $this->no_hp_2 = null;
         $this->telp_1 = null;
         $this->telp_2 = null;
+        $this->pic = null;
+        $this->produk = null;
     }
 
     public function setDataSupplier($id)
@@ -112,6 +120,8 @@ class Form extends Component
         $this->no_hp_2 = $supplier->no_hp_2;
         $this->telp_1 = $supplier->telp_1;
         $this->telp_2 = $supplier->telp_2;
+        $this->pic = $supplier->pic;
+        $this->produk = $supplier->produk;
 
         $this->list_id_sales = [];
         foreach($supplier->supplierSales as $item){

@@ -19,7 +19,9 @@ class Supplier extends Model
         'no_hp_1',
         'no_hp_2',
         'telp_1',
-        'telp_2'
+        'telp_2',
+        'pic',
+        'produk'
     ];
 
     protected $appends = ['status_formatted'];

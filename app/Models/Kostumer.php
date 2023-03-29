@@ -22,7 +22,8 @@ class Kostumer extends Model
         'status',
         'id_barang_customer',
         'barang_customer',
-        'ppn'
+        'ppn',
+        'pic',
     ];
 
     protected $appends = ['status_formatted', 'kode', 'list_barang'];

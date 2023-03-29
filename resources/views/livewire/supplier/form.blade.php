@@ -76,15 +76,10 @@
                             </div>
                             <div class="mb-5 col-md-6">
                                 <label for="" class="form-label">PIC</label>
-                                <select name="list_id_sales" class="form-select form-select-solid"
-                                    wire:model="list_id_sales" data-dropdown-parent="#modal_form"
-                                    data-placeholder="Pilih PIC" data-control="select2" multiple>
-                                    <option value="">Pilih</option>
-                                    @foreach ($listSales as $item)
-                                        <option value="{{ $item->id }}">{{ $item->nama }} - {{ $item->no_hp }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                                <input type="text" name="pic" class="form-control form-control-solid" wire:model="pic" placeholder="Masukkan nama PIC">
+                                @error('pic')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="mb-5 col-md-6">
                                 <label for="" class="form-label required">Alamat</label>
@@ -104,6 +99,13 @@
                                         </span>
                                     </label>
                                 </div>
+                            </div>
+                            <div class="mb-5 col-md-6">
+                                <label for="" class="form-label">Produk</label>
+                                <input type="text" name="produk" class="form-control form-control-solid" wire:model="produk" placeholder="Masukkan nama produk">
+                                @error('produk')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                     </div>

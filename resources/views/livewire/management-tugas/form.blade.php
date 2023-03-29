@@ -168,6 +168,16 @@
                                 <label for="" class="form-label">Service Ke</label>
                                 <input type="text" class="form-control form-control-solid" name="service_ke" wire:model="service_ke" placeholder="Masukkan service ke">
                                 <small>Contoh : 3/12</small>
+                                @error('service_ke')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-5 col-md-6">
+                                <label for="" class="form-label">Nama Client</label>
+                                <input type="text" class="form-control form-control-solid" name="nama_client" wire:model="nama_client" placeholder="Masukkan nama">
+                                @error('nama_client')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="mb-5 col-md-6">
                                 <label for="" class="form-label">Keterangan</label>

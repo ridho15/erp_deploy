@@ -49,16 +49,8 @@
                                 <td>{{ $item->telp_2 }}</td>
                                 <td>{{ $item->alamat }}</td>
                                 <td><?= $item->status_formatted ?></td>
-                                <td>
-                                    @foreach ($item->supplierSales as $supplierSales)
-                                        {{ $supplierSales->sales->nama }} ({{ $supplierSales->sales->no_hp }}),
-                                    @endforeach
-                                </td>
-                                <td>
-                                    @foreach ($item->supplierBarang as $supplierBarang)
-                                        {{ $supplierBarang->barang->nama }} ({{ $supplierBarang->barang->nomor }}),
-                                    @endforeach
-                                </td>
+                                <td>{{ $item->pic }}</td>
+                                <td>{{ $item->produk }}</td>
                                 <td>
                                     <div class="btn-group">
                                         <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Supplier" wire:click="$emit('onClickEdit', {{ $item->id }})">
@@ -76,7 +68,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="7" class="text-center text-gray-500">Tidak ada data</td>
+                            <td colspan="12" class="text-center text-gray-500">Tidak ada data</td>
                         </tr>
                     @endif
                  </tbody>

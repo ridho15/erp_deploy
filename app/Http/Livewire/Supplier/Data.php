@@ -24,6 +24,8 @@ class Data extends Component
             ->orWhere('telp_1', 'LIKE', '%' . $this->cari . '%')
             ->orWhere('telp_2', 'LIKE', '%' . $this->cari . '%')
             ->orWhere('alamat', 'LIKE', '%' . $this->cari . '%')
+            ->orWhere('pic', 'LIKE', '%' . $this->cari . '%')
+            ->orWhere('produk', 'LIKE', '%' . $this->cari . '%')
             ->orWhere('email', 'LIKE', '%' . $this->cari . '%');
         })->orderBy('created_at', 'DESC')->paginate($this->total_show);
         $data['listSupplier'] = $this->listSupplier;

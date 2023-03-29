@@ -44,6 +44,7 @@ class Form extends Component
     public $id_purchase_order;
     public $service_ke;
     public $id_project_unit;
+    public $nama_client;
 
     public $listIdUser = [];
 
@@ -95,7 +96,8 @@ class Form extends Component
             'tanggal_estimasi' => 'nullable|string',
             'id_quotation' => 'nullable|numeric',
             'keterangan' => 'nullable|string',
-            'service_ke' => 'nullable|string'
+            'service_ke' => 'nullable|string',
+            'nama_client' => 'nullable|string',
         ], [
             'id_project_unit.required' => 'Project belum dipilih',
             'id_project_unit.numeric' => 'Project tidak valid !',
@@ -109,7 +111,8 @@ class Form extends Component
             'tanggal_estimasi.string' => 'Tanggal estimasi tidak valid !',
             'id_quotation.numeric' => 'Quotation tidak valid !',
             'keterangan.string' => 'Keterangan tidak valid !',
-            'service_ke.string' => 'Service ke tidak valid !'
+            'service_ke.string' => 'Service ke tidak valid !',
+            'nama_client.string' => 'Nama client tidak valid !'
         ]);
 
         if ($this->is_emergency_call == 1) {
@@ -136,14 +139,14 @@ class Form extends Component
 
             return session()->flash('fail', $message);
         }
-        if($this->id_laporan_pekerjaan == null){
+        if ($this->id_laporan_pekerjaan == null) {
             $helper = new HelperController;
             $number = LaporanPekerjaan::whereYear('created_at', date('Y'))
-            ->count();
+                ->count();
             $number = $helper->format_num($number + 1, 4, null);
-            if($this->is_emergency_call == 1){
+            if ($this->is_emergency_call == 1) {
                 $jenis = 'LP';
-            }else{
+            } else {
                 $jenis = 'SVC';
             }
             $data['no_ref'] = date('Y') . '/' . $jenis . '/' . $number;
@@ -159,6 +162,7 @@ class Form extends Component
         $data['tangal_estimasi'] = $this->tanggal_estimasi ? date('Y-m-d H:i:s', strtotime($this->tanggal_estimasi)) : null;
         $data['keterangan'] = $this->keterangan;
         $data['service_ke'] = $this->service_ke;
+        $data['nama_client'] = $this->nama_client;
 
         $laporanPekerjaan = LaporanPekerjaan::updateOrCreate([
             'id' => $this->id_laporan_pekerjaan,
@@ -236,6 +240,7 @@ class Form extends Component
         $this->keterangan = null;
         $this->service_ke = null;
         $this->id_quotation = null;
+        $this->nama_client = null;
     }
 
     public function setDataManagementTugas($id)
@@ -258,6 +263,7 @@ class Form extends Component
         $this->id_quotation = $laporanPekerjaan->quotation ? $laporanPekerjaan->quotation->id : null;
         $this->keterangan = $laporanPekerjaan->keterangan;
         $this->service_ke = $laporanPekerjaan->service_ke;
+        $this->nama_client = $laporanPekerjaan->nama_client;
         if ($laporanPekerjaan->tanggal_estimasi) {
             $this->tanggal_estimasi = date('d-m-Y H:i', strtotime($laporanPekerjaan->tanggal_estimasi));
         }
@@ -301,9 +307,9 @@ class Form extends Component
     {
         $this->id_project_unit = $id_project_unit;
         $projectUnit = ProjectUnit::find($this->id_project_unit);
-        if ($projectUnit && $projectUnit->purchaseOrder) {
-            $this->id_purchase_order = $projectUnit->purchaseOrder->id;
-        }
+        // if ($projectUnit && $projectUnit->purchaseOrder) {
+        //     $this->id_purchase_order = $projectUnit->purchaseOrder->id;
+        // }
 
         if ($this->id_purchase_order) {
             $this->listPurchaseOrder = PreOrder::where('id', $this->id_purchase_order)->get();

@@ -39,6 +39,7 @@ class LaporanPekerjaan extends Component
     public $keterangan_foto;
     public $signature;
     public $laporanPekerjaan;
+    public $nama_client;
     public $listCatatanTeknisi = [];
     public function render()
     {
@@ -57,19 +58,22 @@ class LaporanPekerjaan extends Component
         $this->jam_mulai = date('H:i:s', strtotime($this->laporanPekerjaan->jam_mulai));
         $this->jam_selesai = $this->laporanPekerjaan->jam_selesai;
         $this->signature = $this->laporanPekerjaan->signature;
+        $this->nama_client = $this->laporanPekerjaan->nama_client;
     }
 
     public function simpanLaporanPekerjaan(){
         $this->validate([
             'catatan_pelanggan' => 'required|string',
-            'foto.*' => 'required|image|mimes:jpg,png,jpeg|max:10240'
+            'foto.*' => 'required|image|mimes:jpg,png,jpeg|max:10240',
+            'nama_client' => 'nullable|string'
         ], [
             'catatan_pelanggan.required' => 'Catatan tidak boleh kosong',
             'catatan_pelanggan.string' => 'Catatn tidak valid !',
             'foto.*.required' => 'Foto tidak boleh kosong',
             'foto.*.image' => 'Foto tidak valid !',
             'foto.*.mimes' => 'Foto tidak valid !',
-            'foto.*.max' => 'Ukuran foto terlalu besar. maximal 10MB'
+            'foto.*.max' => 'Ukuran foto terlalu besar. maximal 10MB',
+            'nama_client.string' => 'Nama client tidak valid !'
         ]);
 
         $laporanPekerjaan = ModelsLaporanPekerjaan::find($this->id_laporan_pekerjaan);
@@ -88,6 +92,7 @@ class LaporanPekerjaan extends Component
 
         $data['keterangan'] = $this->keterangan_laporan_pekerjaan;
         $data['catatan_pelanggan'] = $this->catatan_pelanggan;
+        $data['nama_client'] = $this->nama_client;
         if($this->signature){
             $data['signature'] = $this->signature;
             $data['jam_selesai'] = now();
@@ -213,6 +218,7 @@ class LaporanPekerjaan extends Component
         $this->keterangan_foto = null;
         $this->foto = [];
         $this->signature = null;
+        $this->nama_client = null;
     }
 
     public function base64ToImage($data){

@@ -16,7 +16,8 @@ class LaporanPinjam extends Component
 {
     use WithPagination;
     public $listeners = [
-        'simpanLaporanPinjam'
+        'simpanLaporanPinjam',
+        'setDataLaporanPekerjaanBarangLaporanPinjam'
     ];
     public $paginationTheme = 'bootstrap';
     public $cari;
@@ -34,6 +35,7 @@ class LaporanPinjam extends Component
     public $qty;
     public $estimasi;
     public $catatan_teknisi;
+    public $nomor_itt;
     public $id_laporan_pekerjaan_barang;
     public function render()
     {
@@ -81,14 +83,14 @@ class LaporanPinjam extends Component
         ]);
 
         $laporanPekerjaanBarang = LaporanPekerjaanBarang::where('id', $this->id_laporan_pekerjaan_barang)->first();
-        if($laporanPekerjaanBarang && $laporanPekerjaanBarang->nomor_itt != $this->nomor_itt){
-            $checkLaporanPekerjaanBarangNomorITT = LaporanPekerjaanBarang::where('nomor_itt', $this->nomor_itt)
-            ->whereDate('updated_at', now())->first();
-            if($checkLaporanPekerjaanBarangNomorITT){
-                $message = "Nomor ITT sudah digunakan. Silahkan gunakan nomor lainnya";
-                return session()->flash('fail', $message);
-            }
-        }
+        // if($laporanPekerjaanBarang && $laporanPekerjaanBarang->nomor_itt != $this->nomor_itt){
+        //     $checkLaporanPekerjaanBarangNomorITT = LaporanPekerjaanBarang::where('nomor_itt', $this->nomor_itt)
+        //     ->whereDate('updated_at', now())->first();
+        //     if($checkLaporanPekerjaanBarangNomorITT){
+        //         $message = "Nomor ITT sudah digunakan. Silahkan gunakan nomor lainnya";
+        //         return session()->flash('fail', $message);
+        //     }
+        // }
 
         // Check data barang
         $barang = Barang::find($this->id_barang);
@@ -181,5 +183,21 @@ class LaporanPinjam extends Component
         $this->id_tipe_barang = null;
         $this->version = null;
         $this->estimasi = null;
+    }
+
+    public function setDataLaporanPekerjaanBarangLaporanPinjam($id_laporan_pekerjaan_barang){
+        $laporanPekerjaanBarang = LaporanPekerjaanBarang::find($id_laporan_pekerjaan_barang);
+        if(!$laporanPekerjaanBarang){
+            $message = 'Data pinjman tidak ditemukan !';
+            return session()->flash('fail', $message);
+        }
+
+        $this->id_laporan_pekerjaan_barang = $laporanPekerjaanBarang->id;
+        $this->id_barang = $laporanPekerjaanBarang->id_barang;
+        $this->catatan_teknisi = $laporanPekerjaanBarang->catatan_teknisi;
+        $this->qty = $laporanPekerjaanBarang->qty;
+        $this->id_tipe_barang = $laporanPekerjaanBarang->id_tipe_barang;
+        $this->version = $laporanPekerjaanBarang->version;
+        $this->estimasi = $laporanPekerjaanBarang->estimasi;
     }
 }

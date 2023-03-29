@@ -31,7 +31,8 @@ class LaporanPekerjaan extends Model
         'is_emergency_call',
         'is_check_detail',
         'service_ke',
-        'no_ref'
+        'no_ref',
+        'nama_client',
     ];
 
     protected $appends = [
