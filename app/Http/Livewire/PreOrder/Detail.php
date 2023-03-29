@@ -12,6 +12,7 @@ use App\Models\MetodePembayaran;
 use App\Models\PreOrder;
 use App\Models\PreOrderLog;
 use App\Models\Project;
+use App\Models\ProjectUnit;
 use App\Models\ProjectV2;
 use App\Models\TipePembayaran;
 use Livewire\Component;
@@ -78,22 +79,22 @@ class Detail extends Component
         foreach ($preOrder->preOrderBayar as $item) {
             $this->total_bayar += $item->pembayaran_sekarang;
         }
-        $project = ProjectV2::find($this->id_customer);
-        if ($project) {
-            $this->id_project = $project->id;
-            $this->namaProject = $project->nama;
+        $projectUnit = ProjectUnit::find($this->id_project_unit);
+        if ($projectUnit) {
+            $this->id_project = $projectUnit->id_project;
+            $this->namaProject = $projectUnit->project->nama;
         }
 
-        if(isset($preOrder->quotation->laporanPekerjaan)){
+        if($preOrder->id_quotation != null){
             $this->nomor_lift = $preOrder->quotation->laporanPekerjaan->nomor_lift;
             $this->id_merk = $preOrder->quotation->laporanPekerjaan->id_merk;
         }else{
             $this->nomor_lift = 'Belum ada pekerjaan';
         }
 
-        if(isset($preOrder->quotation)){
+        if($preOrder->id_quotation != null){
             $this->ppn = $preOrder->quotation->ppn;
-        }elseif(isset($preOrder->projectUnit->project->customer)){
+        }elseif($preOrder->id_project_unit != null){
             $this->ppn = $preOrder->projectUnit->project->customer->ppn;
         }
         $this->listMerk = Merk::get();

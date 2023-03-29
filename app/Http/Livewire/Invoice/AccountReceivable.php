@@ -27,20 +27,19 @@ class AccountReceivable extends Component
 
     public function render()
     {
-        $this->listCustomer = Customer::get();
-        $this->listUser = User::get();
+
         if ($this->tanggal != null || $this->id_customer_filter != null || $this->id_user_filter != null || $this->status_pekerjaan != null || $this->status_pembayaran != null) {
             $this->listPreOrder = PreOrder::where(function ($query) {
                 $query->whereDate('created_at', date('Y-m-d', strtotime($this->tanggal)))
                     ->orWhere('id_customer', $this->id_customer_filter)
                     ->orWhere('id_user', $this->id_user_filter);
             })->where(function ($query) {
-                $query->orWhereHas('quotation', function($query){
+                $query->orWhereHas('quotation', function ($query) {
                     $query->whereHas('laporanPekerjaan', function ($query) {
                         $query->where('signature', '!=', null)
                             ->where('jam_selesai', '!=', null);
                     });
-                })->orWhereHas('projectUnit', function($query){
+                })->orWhereHas('projectUnit', function ($query) {
                     $query->whereHas('laporanPekerjaan', function ($query) {
                         $query->where('signature', '!=', null)
                             ->where('jam_selesai', '!=', null);
@@ -83,6 +82,8 @@ class AccountReceivable extends Component
 
     public function mount()
     {
+        $this->listCustomer = Customer::get();
+        $this->listUser = User::get();
     }
 
     public function clearFilter()
