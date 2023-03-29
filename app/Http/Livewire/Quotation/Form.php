@@ -125,7 +125,7 @@ class Form extends Component
 
         $data['keterangan'] = $this->keterangan;
         $data['hal'] = $this->hal;
-        $data['ppn'] = $quotation->project->customer->ppn;
+        $data['ppn'] = $quotation->projectUnit->project->customer->ppn;
         if($this->file){
             $path = $this->file->store('public/quotation_file');
             $path = str_replace('public', '', $path);
