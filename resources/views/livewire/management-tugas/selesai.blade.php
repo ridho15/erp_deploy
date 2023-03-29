@@ -50,7 +50,7 @@
                                     <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
                                     <td>{{ $item->no_ref }}</td>
                                     <td>{{ $item->project ? $item->project->nama : '-' }}</td>
-                                    <td>{{ $item->nomor_lift }}</td>
+                                    <td>{{ $item->projectUnit->no_unit }} {{ $projectUnit->nama_unit }}</td>
                                     <td>
                                         @foreach ($item->teknisi as $nama)
                                             {{ $nama->user ? $nama->user->name : '-' }},
