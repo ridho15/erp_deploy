@@ -110,14 +110,15 @@
                                             <td>
                                                 @if ($item->id_quotation != null)
                                                     {{ $item->quotation->projectUnit->project->nama }}
-                                                @elseif(isset($item->projectUnit->project))
+                                                @elseif($item->id_project_unit != null)
                                                     {{ $item->projectUnit->project->nama }}
                                                 @endif
                                             </td>
                                             <td>
                                                 @if ($item->id_quotation != null)
-                                                    {{ $item->quotation->laporanPekerjaan->nomor_lift }}
-                                                @elseif(isset($item->projectUnit))
+                                                    {{ $item->quotation->projectUnit->no_unit }}
+                                                    {{ $item->projectUnit->nama_unit }}
+                                                @elseif($item->id_project_unit != null)
                                                     {{ $item->projectUnit->no_unit }}
                                                     {{ $item->projectUnit->nama_unit }}
                                                 @endif
@@ -196,14 +197,15 @@
                                         <td>
                                             @if ($item->id_quotation != null)
                                                 {{ $item->quotation->projectUnit->project->nama }}
-                                            @elseif(isset($item->projectUnit->project))
+                                            @elseif($item->id_project_unit != null)
                                                 {{ $item->projectUnit->project->nama }}
                                             @endif
                                         </td>
                                         <td>
                                             @if ($item->id_quotation != null)
-                                                {{ $item->quotation->laporanPekerjaan->nomor_lift }}
-                                            @elseif(isset($item->projectUnit))
+                                                {{ $item->quotation->projectUnit->no_unit }}
+                                                {{ $item->quotation->projectUnit->nama_unit }}
+                                            @elseif($item->id_project_unit != null)
                                                 {{ $item->projectUnit->no_unit }}
                                                 {{ $item->projectUnit->nama_unit }}
                                             @endif
