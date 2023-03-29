@@ -96,7 +96,7 @@ class Form extends Component
             $quotation = Quotation::where('id_project_unit', $this->id_project_unit)
             ->first();
             if(!$quotation){
-                $message = "Data quotation tidak ditemukan !";
+                $message = "Data quotation tidak ditemukan ! atau Quotation belum dibuat";
                 return session()->flash('fail', $message);
             }else{
                 $this->id_quotation = $quotation->id;
