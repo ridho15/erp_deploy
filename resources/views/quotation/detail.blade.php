@@ -109,7 +109,7 @@
                         </div>
                     </div>
                 </div>
-                @if ($quotation->laporanPekerjaan)
+                @if ($quotation->id_laporan_pekerjaan != null)
                     <div class="col-md-4 mb-10">
                         <div class="mb-5 fw-bold">
                             Data Tambahan

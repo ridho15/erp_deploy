@@ -43,6 +43,20 @@
                         </div>
                         <div class="row mb-5">
                             <div class="col-md-4 col-4">
+                                No Unit
+                            </div>
+                            <div class="col-md-8 col-8">
+                                : <span class="fw-bold">
+                                    @if ($quotation)
+                                        {{ $quotation->projectUnit->no_unit }} {{ $quotation->projectUnit->nama_unit }}
+                                    @else
+                                        -
+                                    @endif
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row mb-5">
+                            <div class="col-md-4 col-4">
                                 Nama Penanggung Jawab
                             </div>
                             <div class="col-md-8 col-8">
@@ -241,7 +255,8 @@
                                     data-dropdown-parent="#modal_form_manual" data-placeholder="Pilih" required>
                                     <option value="">Pilih</option>
                                     @foreach ($listProjectUnit as $item)
-                                        <option value="{{ $item->id }}">{{ $item->no_unit }} {{ $item->nama_unit }}
+                                        <option value="{{ $item->id }}">{{ $item->no_unit }}
+                                            {{ $item->nama_unit }}
                                         </option>
                                     @endforeach
                                 </select>
