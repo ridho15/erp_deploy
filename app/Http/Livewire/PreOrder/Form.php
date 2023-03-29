@@ -92,16 +92,17 @@ class Form extends Component
                 $message = "Data quotation tidak ditemukan !";
                 return session()->flash('fail', $message);
             }
-        }else{
-            $quotation = Quotation::where('id_project_unit', $this->id_project_unit)
-            ->first();
-            if(!$quotation){
-                $message = "Data quotation tidak ditemukan ! atau Quotation belum dibuat";
-                return session()->flash('fail', $message);
-            }else{
-                $this->id_quotation = $quotation->id;
-            }
         }
+        // else{
+        //     $quotation = Quotation::where('id_project_unit', $this->id_project_unit)
+        //     ->first();
+        //     if(!$quotation){
+        //         $message = "Data quotation tidak ditemukan ! atau Quotation belum dibuat";
+        //         return session()->flash('fail', $message);
+        //     }else{
+        //         $this->id_quotation = $quotation->id;
+        //     }
+        // }
 
         // Check tipe pembayaran
         $tipePembayaran = TipePembayaran::find($this->id_tipe_pembayaran);
