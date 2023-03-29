@@ -34,31 +34,46 @@ class AccountReceivable extends Component
                 $query->whereDate('created_at', date('Y-m-d', strtotime($this->tanggal)))
                     ->orWhere('id_customer', $this->id_customer_filter)
                     ->orWhere('id_user', $this->id_user_filter);
-            })->whereHas('quotation', function ($query) {
-                $query->whereHas('laporanPekerjaan', function ($query) {
-                    $query->where('signature', '!=', null)
-                        ->where('jam_selesai', '!=', null);
+            })->where(function ($query) {
+                $query->orWhereHas('quotation', function($query){
+                    $query->whereHas('laporanPekerjaan', function ($query) {
+                        $query->where('signature', '!=', null)
+                            ->where('jam_selesai', '!=', null);
+                    });
+                })->orWhereHas('projectUnit', function($query){
+                    $query->whereHas('laporanPekerjaan', function ($query) {
+                        $query->where('signature', '!=', null)
+                            ->where('jam_selesai', '!=', null);
+                    });
                 });
             })->where('status', '!=', 3)->orderBy('updated_at', 'DESC')->paginate($this->total_show);
         } else {
-            $this->listPreOrder = PreOrder::whereHas('quotation', function ($query) {
-                $query->whereHas('laporanPekerjaan', function ($query) {
-                    $query->where('signature', '!=', null)
-                        ->where('jam_selesai', '!=', null);
+            $this->listPreOrder = PreOrder::where(function ($query) {
+                $query->orWhereHas('quotation', function ($query) {
+                    $query->whereHas('laporanPekerjaan', function ($query) {
+                        $query->where('signature', '!=', null)
+                            ->where('jam_selesai', '!=', null);
+                    });
+                })->orWhereHas('projectUnit', function ($query) {
+                    $query->whereHas('laporanPekerjaan', function ($query) {
+                        $query->where('signature', '!=', null)
+                            ->where('jam_selesai', '!=', null);
+                    });
                 });
-            })->where(function ($query) {
-                $query->where('keterangan', 'LIKE', '%' . $this->cari . '%')
-                    ->orWhere('id', 'LIKE', '%' . $this->cari . '%')
-                    ->orWhereHas('user', function ($query) {
-                        $query->where('name', 'LIKE', '%' . $this->cari . '%');
-                    })->orWhereHas('projectUnit', function ($query) {
-                        $query->whereHas('project', function ($query) {
-                            $query->whereHas('customer', function ($query) {
-                                $query->where('nama', 'LIKE', '%' . $this->cari . '%');
+            })
+                ->where(function ($query) {
+                    $query->where('keterangan', 'LIKE', '%' . $this->cari . '%')
+                        ->orWhere('id', 'LIKE', '%' . $this->cari . '%')
+                        ->orWhereHas('user', function ($query) {
+                            $query->where('name', 'LIKE', '%' . $this->cari . '%');
+                        })->orWhereHas('projectUnit', function ($query) {
+                            $query->whereHas('project', function ($query) {
+                                $query->whereHas('customer', function ($query) {
+                                    $query->where('nama', 'LIKE', '%' . $this->cari . '%');
+                                });
                             });
                         });
-                    });
-            })->where('status', '!=', 3)->orderBy('updated_at', 'DESC')->paginate($this->total_show);
+                })->where('status', '!=', 3)->orderBy('updated_at', 'DESC')->paginate($this->total_show);
         }
 
         $data['listPreOrder'] = $this->listPreOrder;

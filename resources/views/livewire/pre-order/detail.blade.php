@@ -25,7 +25,6 @@
             @endif
         </h3>
         <div class="card-toolbar">
-            {{ $isControl }}
             @if ($isControl == true && $preOrder->status != 3)
                 <button class="btn btn-sm btn-info" data-bs-toggle="tooltip" data-bs-placement="top"
                     title="Bayar Pre Order" wire:click="$emit('onClickBayar')">

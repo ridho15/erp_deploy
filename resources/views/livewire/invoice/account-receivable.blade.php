@@ -47,7 +47,7 @@
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $item->no_ref }}</td>
                                 <td>{{ $item->quotation? $item->quotation->no_ref : '-' }}</td>
-                                <td>{{ $item->customer ? $item->customer->nama : '-'}} {{ $item->customer ? $item->customer->kode : '-' }}</td>
+                                <td>{{ $item->projectUnit->project->customer->nama }}</td>
                                 <td>
                                     @if ($item->user)
                                         {{ $item->user->name }}
@@ -81,7 +81,7 @@
                                         <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Pre order" wire:click="$emit('onClickHapus', {{ $item->id }})">
                                             <i class="bi bi-trash-fill"></i>
                                         </button> --}}
-                                        <a href="{{ route('pre-order.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Kelola Pre Order" target="blank">
+                                        <a href="{{ route('pre-order.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Kelola Purchase Order" target="blank">
                                             <i class="bi bi-eye-fill"></i>
                                         </a>
                                     </div>
