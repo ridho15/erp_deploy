@@ -40,6 +40,6 @@ class LaporanPekerjaanBarangLog extends Model
     }
 
     public function laporanPekerjaanBarang(){
-        return $this->belongsTo(LaporanPekerjaanBarang::class, 'id_laporan_pekerjaan_barang')->withTrashed();
+        return $this->belongsTo(LaporanPekerjaanBarang::class, 'id_laporan_pekerjaan_barang')->withDefault();
     }
 }

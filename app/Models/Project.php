@@ -45,7 +45,7 @@ class Project extends Model
     }
 
     public function customer(){
-        return $this->belongsTo(Kostumer::class, 'id_customer')->withTrashed();
+        return $this->belongsTo(Kostumer::class, 'id_customer')->withDefault();
     }
 
     public function projectDetail(){

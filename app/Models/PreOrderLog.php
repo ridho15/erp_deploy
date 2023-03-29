@@ -31,7 +31,7 @@ class PreOrderLog extends Model
     }
 
     public function preOrder(){
-        return $this->belongsTo(PreOrder::class, 'id_pre_order')->withTrashed();
+        return $this->belongsTo(PreOrder::class, 'id_pre_order')->withDefault();
     }
 
     public function getTanggalFormattedAttribute(){

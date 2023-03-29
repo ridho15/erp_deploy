@@ -22,15 +22,15 @@ class QuotationDetail extends Model
     protected $appends = ['sub_total', 'sub_total_formatted', 'harga_formatted'];
 
     public function barang(){
-        return $this->belongsTo(Barang::class, 'id_barang')->withTrashed();
+        return $this->belongsTo(Barang::class, 'id_barang')->withDefault();
     }
 
     public function satuan(){
-        return $this->belongsTo(Satuan::class, 'id_satuan')->withTrashed();
+        return $this->belongsTo(Satuan::class, 'id_satuan')->withDefault();
     }
 
     public function quotation(){
-        return $this->belongsTo(Quotation::class, 'id_quotation')->withTrashed();
+        return $this->belongsTo(Quotation::class, 'id_quotation')->withDefault();
     }
 
     public function getHargaFormattedAttribute(){

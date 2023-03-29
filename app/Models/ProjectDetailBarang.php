@@ -26,10 +26,10 @@ class ProjectDetailBarang extends Model
     }
 
     public function projectDetail(){
-        return $this->belongsTo(ProjectDetail::class, 'id_project_detail')->withTrashed();
+        return $this->belongsTo(ProjectDetail::class, 'id_project_detail')->withDefault();
     }
 
     public function barang(){
-        return $this->belongsTo(Barang::class, 'id_barang')->withTrashed();
+        return $this->belongsTo(Barang::class, 'id_barang')->withDefault();
     }
 }

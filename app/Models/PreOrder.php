@@ -148,15 +148,15 @@ class PreOrder extends Model
     }
 
     public function projectUnit(){
-        return $this->belongsTo(ProjectUnit::class, 'id_project_unit')->withTrashed();
+        return $this->belongsTo(ProjectUnit::class, 'id_project_unit')->withDefault();
     }
 
     public function quotation(){
-        return $this->belongsTo(Quotation::class, 'id_quotation')->withTrashed();
+        return $this->belongsTo(Quotation::class, 'id_quotation')->withDefault();
     }
 
     public function tipePembayaran(){
-        return $this->belongsTo(TipePembayaran::class, 'id_tipe_pembayaran')->withTrashed();
+        return $this->belongsTo(TipePembayaran::class, 'id_tipe_pembayaran')->withDefault();
     }
 
     public function preOrderDetail(){
@@ -164,7 +164,7 @@ class PreOrder extends Model
     }
 
     public function user(){
-        return $this->belongsTo(User::class, 'id_user')->withTrashed();
+        return $this->belongsTo(User::class, 'id_user')->withDefault();
     }
 
     public function log(){
@@ -172,7 +172,7 @@ class PreOrder extends Model
     }
 
     public function metodePembayaran(){
-        return $this->belongsTo(MetodePembayaran::class, 'id_metode_pembayaran')->withTrashed();
+        return $this->belongsTo(MetodePembayaran::class, 'id_metode_pembayaran')->withDefault();
     }
 
     public function preOrderBayar(){

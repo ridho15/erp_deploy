@@ -20,15 +20,15 @@ class LaporanPekerjaanChecklist extends Model
     ];
 
     public function laporanPekerjaan(){
-        return $this->belongsTo(LaporanPekerjaan::class, 'id_laporan_pekerjaan')->withTrashed();
+        return $this->belongsTo(LaporanPekerjaan::class, 'id_laporan_pekerjaan')->withDefault();
     }
 
     public function templatePekerjaanDetail(){
-        return $this->belongsTo(TemplatePekerjaanDetail::class, 'id_template_pekerjaan_detail')->withTrashed();
+        return $this->belongsTo(TemplatePekerjaanDetail::class, 'id_template_pekerjaan_detail')->withDefault();
     }
 
     public function kondisi(){
-        return $this->belongsTo(Kondisi::class, 'id_kondisi')->withTrashed();
+        return $this->belongsTo(Kondisi::class, 'id_kondisi')->withDefault();
     }
 
     public function perawatanLiftKondisi(){

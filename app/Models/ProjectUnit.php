@@ -17,7 +17,7 @@ class ProjectUnit extends Model
     ];
 
     public function project(){
-        return $this->belongsTo(ProjectV2::class, 'id_project')->withTrashed();
+        return $this->belongsTo(ProjectV2::class, 'id_project')->withDefault();
     }
 
     public function laporanPekerjaan(){

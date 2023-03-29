@@ -16,10 +16,10 @@ class BarangKategori extends Model
     ];
 
     public function barang(){
-        return $this->belongsTo(Barang::class, 'id_barang')->withTrashed();
+        return $this->belongsTo(Barang::class, 'id_barang')->withDefault();
     }
 
     public function kategori(){
-        return $this->belongsTo(Kategori::class, 'id_kategori')->withTrashed();
+        return $this->belongsTo(Kategori::class, 'id_kategori')->withDefault();
     }
 }

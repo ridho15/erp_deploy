@@ -22,10 +22,10 @@ class StockOpname extends Model
     ];
 
     public function barang(){
-        return $this->belongsTo(Barang::class, 'id_barang')->withTrashed();
+        return $this->belongsTo(Barang::class, 'id_barang')->withDefault();
     }
 
     public function user(){
-        return $this->belongsTo(User::class, 'id_user')->withTrashed();
+        return $this->belongsTo(User::class, 'id_user')->withDefault();
     }
 }

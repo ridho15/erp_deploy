@@ -16,6 +16,6 @@ class ProjectDetailSubFoto extends Model
     ];
 
     public function projectDetailSub(){
-        return $this->belongsTo(ProjectDetailSub::class, 'id_project_detail_sub')->withTrashed();
+        return $this->belongsTo(ProjectDetailSub::class, 'id_project_detail_sub')->withDefault();
     }
 }

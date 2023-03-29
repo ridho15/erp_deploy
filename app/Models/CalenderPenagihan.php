@@ -30,18 +30,18 @@ class CalenderPenagihan extends Model
     }
 
     public function preOrder(){
-        return $this->belongsTo(PreOrder::class, 'id_accounts')->withTrashed();
+        return $this->belongsTo(PreOrder::class, 'id_accounts')->withDefault();
     }
 
     public function supplierOrder(){
-        return $this->belongsTo(SupplierOrder::class, 'id_accounts')->withTrashed();
+        return $this->belongsTo(SupplierOrder::class, 'id_accounts')->withDefault();
     }
 
     public function quotation(){
-        return $this->belongsTo(Quotation::class, 'id_accounts')->withTrashed();
+        return $this->belongsTo(Quotation::class, 'id_accounts')->withDefault();
     }
 
     public function laporanPekerjaan(){
-        return $this->belongsTo(LaporanPekerjaan::class, 'id_accounts')->withTrashed();
+        return $this->belongsTo(LaporanPekerjaan::class, 'id_accounts')->withDefault();
     }
 }

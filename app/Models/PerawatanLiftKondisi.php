@@ -17,10 +17,10 @@ class PerawatanLiftKondisi extends Model
     ];
 
     public function laporanPekerjaanCheckList(){
-        return $this->belongsTo(LaporanPekerjaanChecklist::class, 'id_laporan_pekerjaan_checklist')->withTrashed();
+        return $this->belongsTo(LaporanPekerjaanChecklist::class, 'id_laporan_pekerjaan_checklist')->withDefault();
     }
 
     public function kondisi(){
-        return $this->belongsTo(Kondisi::class,'id_kondisi')->withTrashed();
+        return $this->belongsTo(Kondisi::class,'id_kondisi')->withDefault();
     }
 }

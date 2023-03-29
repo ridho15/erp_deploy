@@ -16,10 +16,10 @@ class SupplierBarang extends Model
     ];
 
     public function supplier(){
-        return $this->belongsTo(Supplier::class, 'id_supplier')->withTrashed();
+        return $this->belongsTo(Supplier::class, 'id_supplier')->withDefault();
     }
 
     public function barang(){
-        return $this->belongsTo(Barang::class, 'id_barang')->withTrashed();
+        return $this->belongsTo(Barang::class, 'id_barang')->withDefault();
     }
 }

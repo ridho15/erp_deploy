@@ -21,6 +21,6 @@ class SupplierOrderDetailTemp extends Model
     ];
 
     public function barang(){
-        return $this->belongsTo(Barang::class, 'id_barang')->withTrashed();
+        return $this->belongsTo(Barang::class, 'id_barang')->withDefault();
     }
 }

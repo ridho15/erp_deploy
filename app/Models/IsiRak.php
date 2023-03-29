@@ -18,10 +18,10 @@ class IsiRak extends Model
     ];
 
     public function rak(){
-        return $this->belongsTo(Rak::class, 'id_rak')->withTrashed();
+        return $this->belongsTo(Rak::class, 'id_rak')->withDefault();
     }
 
     public function barang(){
-        return $this->belongsTo(Barang::class, 'id_barang')->withTrashed();
+        return $this->belongsTo(Barang::class, 'id_barang')->withDefault();
     }
 }

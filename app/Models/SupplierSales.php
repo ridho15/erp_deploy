@@ -16,10 +16,10 @@ class SupplierSales extends Model
     ];
 
     public function supplier(){
-        return $this->belongsTo(Supplier::class, 'id_supplier');
+        return $this->belongsTo(Supplier::class, 'id_supplier')->withDefault();
     }
 
     public function sales(){
-        return $this->belongsTo(Sales::class, 'id_sales');
+        return $this->belongsTo(Sales::class, 'id_sales')->withDefault();
     }
 }

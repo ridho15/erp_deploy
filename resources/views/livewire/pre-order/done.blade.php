@@ -63,8 +63,8 @@
                                 <td>{{ $item->no_ref }}</td>
                                 <td>{{ $item->quotation? $item->quotation->no_ref : '-' }}</td>
                                 <td>
-                                    @if (isset($item->quotation->project->customer))
-                                        {{ $item->quotation->project->customer->nama }} {{ $item->quotation->project->customer->kode }}
+                                    @if (isset($item->quotation->projectUnit->project->customer))
+                                        {{ $item->quotation->projectUnit->project->customer->nama }} {{ $item->quotation->projectUnit->project->customer->kode }}
                                     @elseif(isset($item->projectUnit->project->customer)){
                                         {{ $item->projectUnit->project->customer->nama }} {{ $item->projectUnit->project->customer->kode }}
                                     }

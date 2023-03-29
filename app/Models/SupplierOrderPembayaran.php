@@ -27,6 +27,6 @@ class SupplierOrderPembayaran extends Model
     }
 
     public function supplierOrder(){
-        return $this->belongsTo(SupplierOrder::class, 'id_supplier_order')->withTrashed();
+        return $this->belongsTo(SupplierOrder::class, 'id_supplier_order')->withDefault();
     }
 }

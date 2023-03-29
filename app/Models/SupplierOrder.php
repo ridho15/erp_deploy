@@ -70,19 +70,19 @@ class SupplierOrder extends Model
     }
 
     public function supplier(){
-        return $this->belongsTo(Supplier::class, 'id_supplier')->withTrashed();
+        return $this->belongsTo(Supplier::class, 'id_supplier')->withDefault();
     }
 
     public function user(){
-        return $this->belongsTo(User::class, 'id_user')->withTrashed();
+        return $this->belongsTo(User::class, 'id_user')->withDefault();
     }
 
     public function tipePembayaran(){
-        return $this->belongsTo(TipePembayaran::class, 'id_tipe_pembayaran')->withTrashed();
+        return $this->belongsTo(TipePembayaran::class, 'id_tipe_pembayaran')->withDefault();
     }
 
     public function metodePembayaran(){
-        return $this->belongsTo(MetodePembayaran::class, 'id_metode_pembayaran')->withTrashed();
+        return $this->belongsTo(MetodePembayaran::class, 'id_metode_pembayaran')->withDefault();
     }
 
     public function supplierOrderPembayaran(){

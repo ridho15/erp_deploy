@@ -22,7 +22,7 @@ class ProjectDetailSub extends Model
     ];
 
     public function projectDetail(){
-        return $this->belongsTo(ProjectDetail::class, 'id_project_detail')->withTrashed();
+        return $this->belongsTo(ProjectDetail::class, 'id_project_detail')->withDefault();
     }
 
     public function pekerja(){
@@ -30,22 +30,22 @@ class ProjectDetailSub extends Model
     }
 
     public function kondisi1Bulan(){
-        return $this->belongsTo(Kondisi::class, 'kondisi_1_bulan')->withTrashed();
+        return $this->belongsTo(Kondisi::class, 'kondisi_1_bulan')->withDefault();
     }
 
     public function kondisi2Bulan(){
-        return $this->belongsTo(Kondisi::class, 'kondisi_2_bulan')->withTrashed();
+        return $this->belongsTo(Kondisi::class, 'kondisi_2_bulan')->withDefault();
     }
 
     public function kondisi3Bulan(){
-        return $this->belongsTo(Kondisi::class, 'kondisi_3_bulan')->withTrashed();
+        return $this->belongsTo(Kondisi::class, 'kondisi_3_bulan')->withDefault();
     }
 
     public function kondisi6Bulan(){
-        return $this->belongsTo(Kondisi::class, 'kondisi_6_bulan')->withTrashed();
+        return $this->belongsTo(Kondisi::class, 'kondisi_6_bulan')->withDefault();
     }
 
     public function kondisi1Tahun(){
-        return $this->belongsTo(Kondisi::class, 'kondisi_1_tahun')->withTrashed();
+        return $this->belongsTo(Kondisi::class, 'kondisi_1_tahun')->withDefault();
     }
 }

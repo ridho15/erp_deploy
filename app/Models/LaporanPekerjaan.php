@@ -93,12 +93,12 @@ class LaporanPekerjaan extends Model
 
     public function projectUnit()
     {
-        return $this->belongsTo(ProjectUnit::class, 'id_project_unit')->withTrashed();
+        return $this->belongsTo(ProjectUnit::class, 'id_project_unit')->withDefault();
     }
 
     public function merk()
     {
-        return $this->belongsTo(Merk::class, 'id_merk')->withTrashed();
+        return $this->belongsTo(Merk::class, 'id_merk')->withDefault();
     }
 
     public function laporanPekerjaanBarang()
@@ -118,7 +118,7 @@ class LaporanPekerjaan extends Model
 
     public function formMaster()
     {
-        return $this->belongsTo(FormMaster::class, 'id_form_master')->withTrashed();
+        return $this->belongsTo(FormMaster::class, 'id_form_master')->withDefault();
     }
 
     public function teknisi()
