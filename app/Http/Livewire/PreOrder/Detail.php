@@ -64,7 +64,7 @@ class Detail extends Component
         }elseif($this->preOrder && $this->preOrder->projectUnit->laporanPekerjaan && ($this->preOrder->projectUnit->laporanPekerjaan->signature != null || $this->preOrder->projectUnit->laporanPekerjaan->jam_selesai != null)){
             $this->isControl = true;
         }
-        
+
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.pre-order.detail');
     }
@@ -265,7 +265,9 @@ class Detail extends Component
             $preOrder->quotation->update([
                 'ppn' => $this->ppn
             ]);
-        }elseif($preOrder->projectUnit->project->customer){
+        }
+
+        if($preOrder->projectUnit->project->customer){
             $preOrder->projectUnit->project->customer->update([
                 'ppn' => $this->ppn
             ]);

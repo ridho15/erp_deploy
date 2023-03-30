@@ -58,12 +58,14 @@ class Form extends Component
         return view('livewire.pre-order.form');
     }
 
-    public function mount($show_modal = false){
+    public function mount($show_modal = false, $id_quotation = null){
         $this->show_modal = $show_modal;
-        $quotationSuccess = Quotation::where('status_like', 1)->first();
+        $this->id_quotation = $id_quotation;
+        $quotationSuccess = Quotation::find($this->id_quotation);
         if($quotationSuccess && ($show_modal == 1 || $show_modal == true)){
-            $this->id_customer = $quotationSuccess->id_customer;
-            $this->id_quotation = $quotationSuccess->id;
+            $this->id_customer = $quotationSuccess->projectUnit->project->id_customer;
+            $this->id_project = $quotationSuccess->projectUnit->id_project;
+            $this->id_project_unit = $quotationSuccess->id_project_unit;
         }
 
         $this->listCustomer = Customer::get();
@@ -246,5 +248,21 @@ class Form extends Component
 
     public function hapusFile(){
         $this->file = null;
+    }
+
+    public function cancelQuotationSuccess(){
+        if($this->show_modal == 1 || $this->show_modal == true){
+            $quotation = Quotation::find($this->id_quotation);
+            if($quotation){
+                $quotation->update([
+                    'status_like' => null
+                ]);
+
+                return redirect()->route('quotation');
+            }else{
+                $message = "Data quotation tidak ditemukan !";
+                return session()->flash('fail', $message);
+            }
+        }
     }
 }

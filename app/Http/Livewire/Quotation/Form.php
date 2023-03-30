@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Quotation;
 
 use App\Http\Controllers\HelperController;
 use App\Models\Customer;
+use App\Models\Kostumer;
 use App\Models\ProjectUnit;
 use App\Models\ProjectV2;
 use App\Models\Quotation;
@@ -42,6 +43,9 @@ class Form extends Component
     public $quotation;
     public $listCustomer;
     public $id_project_unit;
+    public $nomor_quotation;
+    public $tanggal;
+    public $ppn;
     public $listIdSales = [];
     public $listProject = [];
     public $listProjectUnit = [];
@@ -65,13 +69,15 @@ class Form extends Component
             'status_response' => 'required|numeric',
             'id_tipe_pembayaran' => 'required|numeric',
             'id_project_unit' => 'required|numeric',
+            'nomor_quotation' => 'nullable|string',
         ], [
             'id_project_unit.required' => 'Unit belum dipilih',
             'id_project_unit.numeric' => 'Unit tidak valid !',
             'status_response.required' => 'Status Response belum dipilih',
             'status_response.numeric' => 'Status Response tidak valid !',
             'id_tipe_pembayaran.required' => 'Tipe pembayaran belum dipilih',
-            'id_tipe_pembayaran.numeric' => 'Tipe pembayaran tidak valid !'
+            'id_tipe_pembayaran.numeric' => 'Tipe pembayaran tidak valid !',
+            'nomor_quotation.string' => 'Nomor quotation tidak valid !'
         ]);
 
         // Check Tipe Pembayaran
@@ -107,6 +113,7 @@ class Form extends Component
             'keterangan' => 'nullable|string',
             'file' => 'nullable|mimes:pdf,docx,xlsx|max:10240',
             'hal' => 'nullable|string',
+            'nomor_quotation' => 'required|string'
         ], [
             'id_quotation.required' => 'Quotation tidak valid !',
             'id_quotation.numeric' => 'Quotation tidak valid !',
@@ -114,6 +121,8 @@ class Form extends Component
             'file.mimes' => 'File tidak valid !',
             'file.max' => 'Ukuran file terlalu besar, maximal 10Mb',
             'hal.string' => 'Perihal tidak valid !',
+            'nomor_quotation.required' => 'Nomor quotation tidak boleh kosong',
+            'nomor_quotation.string' => 'Nomor quotation tidak valid !',
         ]);
 
         $quotation = Quotation::find($this->id_quotation);
@@ -125,7 +134,9 @@ class Form extends Component
 
         $data['keterangan'] = $this->keterangan;
         $data['hal'] = $this->hal;
-        $data['ppn'] = $quotation->projectUnit->project->customer->ppn;
+        $data['ppn'] = $this->ppn;
+        $data['nomor_quotation'] = $this->nomor_quotation;
+        $data['tanggal'] = $this->tanggal;
         if($this->file){
             $path = $this->file->store('public/quotation_file');
             $path = str_replace('public', '', $path);
@@ -161,6 +172,9 @@ class Form extends Component
         $this->id_project = $quotation->id_project;
         $this->keterangan = $quotation->keterangan;
         $this->hal = $quotation->hal;
+        $this->nomor_quotation = $quotation->nomor_quotation;
+        $this->tanggal = $quotation->tanggal;
+        $this->ppn = $quotation->ppn;
         $this->quotation = $quotation;
 
         $this->listIdSales = [];
@@ -175,6 +189,9 @@ class Form extends Component
         $this->file = null;
         $this->keterangan = null;
         $this->listIdSales = [];
+        $this->nomor_quotation = null;
+        $this->ppn = null;
+        $this->tanggal = null;
     }
 
     public function onClickHapusFile(){
@@ -187,6 +204,8 @@ class Form extends Component
 
     public function changeCustomer($id_customer){
         $this->id_customer = $id_customer;
+        $customer = Kostumer::find($this->id_customer);
+        $this->ppn = $customer->ppn;
     }
 
     public function simpanDataQuotation(){
@@ -196,6 +215,7 @@ class Form extends Component
             'keterangan' => 'nullable|string',
             'hal' => 'nullable|string',
             'file' => 'nullable|mimes:pdf,docx,xlsx|max:10240',
+            'nomor_quotation' => 'nullable|string'
         ], [
             'id_customer.required' => 'Data customer tidak valid !',
             'id_customer.numeric' => 'Data customer tidak valid !',
@@ -205,6 +225,7 @@ class Form extends Component
             'file.mimes' => 'File tidak valid !',
             'file.max' => 'Ukuran file terlalu besar, maximal 10Mb',
             'hal.string' => 'Perihal tidak valid !',
+            'nomor_quotation.string' => 'Nomor Quotation tidak valid !'
         ]);
 
         // Check data customer
@@ -219,7 +240,9 @@ class Form extends Component
         $data['id_project_unit'] = $this->id_project_unit;
         $data['keterangan'] = $this->keterangan;
         $data['hal'] = $this->hal;
-        $data['ppn'] = $customer->ppn;
+        $data['ppn'] = $this->ppn;
+        $data['nomor_quotation'] = $this->nomor_quotation;
+        $data['tanggal'] = $this->tanggal;
         if($this->file){
             $path = $this->file->store('public/quotation_file');
             $path = str_replace('public', '', $path);

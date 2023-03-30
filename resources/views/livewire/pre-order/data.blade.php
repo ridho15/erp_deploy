@@ -85,6 +85,7 @@
                             <th>Nomor Unit Lift</th>
                             <th>Status Pekerjaan</th>
                             <th>Status Pembayaran</th>
+                            <th>Status PO</th>
                             <th>Keterangan</th>
                             <th>File</th>
                             <th>User</th>
@@ -144,6 +145,13 @@
                                                     @endif
                                                 @else
                                                     Belum Dikerjakan
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($item->deleted_at != null)
+                                                    <span class="badge badge-danger">PO Batal</span>
+                                                @else
+                                                    -
                                                 @endif
                                             </td>
                                             <td><?= $item->keterangan ?? '-' ?></td>
@@ -244,6 +252,13 @@
                                             @endif
                                         </td>
                                         <td><?= $item->status_pembayaran ?></td>
+                                        <td>
+                                            @if ($item->deleted_at != null)
+                                                <span class="badge badge-danger">PO Batal</span>
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
                                         <td><?= $item->keterangan ?? '-' ?></td>
                                         <td>
                                             @if ($item->file)
@@ -263,38 +278,41 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <div class="btn-group">
-                                                <button class="btn btn-sm btn-icon btn-success"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    title="Edit Purchase Order"
-                                                    wire:click="$emit('onClickEdit', {{ $item }})">
-                                                    <i class="bi bi-pencil-square"></i>
-                                                </button>
-                                                <button class="btn btn-sm btn-icon btn-danger"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top"
-                                                    title="Hapus Purchase Order"
-                                                    wire:click="$emit('onClickHapus', {{ $item->id }})">
-                                                    <i class="bi bi-trash-fill"></i>
-                                                </button>
-                                                <button class="btn btn-sm btn-icon btn-info" data-bs-toggle="tooltip"
-                                                    data-bs-placement="top" title="Preview Purchase order"
-                                                    wire:click="$emit('onClickPreview', {{ $item->id }})">
-                                                    <i class="fa-solid fa-magnifying-glass"></i>
-                                                </button>
-                                                <a href="{{ route('pre-order.detail', ['id' => $item->id]) }}"
-                                                    class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip"
-                                                    data-bs-placement="top" title="Kelola Purchase Order"
-                                                    target="blank">
-                                                    <i class="bi bi-eye-fill"></i>
-                                                </a>
-                                            </div>
+                                            @if ($item->deleted_at == null)
+                                                <div class="btn-group">
+                                                    <button class="btn btn-sm btn-icon btn-success"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        title="Edit Purchase Order"
+                                                        wire:click="$emit('onClickEdit', {{ $item }})">
+                                                        <i class="bi bi-pencil-square"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-icon btn-danger"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        title="Hapus Purchase Order"
+                                                        wire:click="$emit('onClickHapus', {{ $item->id }})">
+                                                        <i class="bi bi-trash-fill"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-icon btn-info"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        title="Preview Purchase order"
+                                                        wire:click="$emit('onClickPreview', {{ $item->id }})">
+                                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                                    </button>
+                                                    <a href="{{ route('pre-order.detail', ['id' => $item->id]) }}"
+                                                        class="btn btn-sm btn-icon btn-primary"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        title="Kelola Purchase Order" target="blank">
+                                                        <i class="bi bi-eye-fill"></i>
+                                                    </a>
+                                                </div>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endif
                             @endforeach
                         @else
                             <tr>
-                                <td colspan="12" class="text-center text-gray-500">Tidak ada data</td>
+                                <td colspan="13" class="text-center text-gray-500">Tidak ada data</td>
                             </tr>
                         @endif
                     </tbody>

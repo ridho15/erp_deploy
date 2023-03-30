@@ -163,7 +163,7 @@
             </tr>
         </table>
     </div>
-    @if ($laporanPekerjaan->is_emergency_call == 1)
+    @if ($laporanPekerjaan->is_emergency_call == 0)
         <div class="page-break"></div>
         @include('pdf_view.header')
         <div class="text-center fw-bold mb-10" style="font-size: 13pt">Laporan Perawatan Lift</div>

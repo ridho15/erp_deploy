@@ -15,7 +15,7 @@
         <div>
             <div style="float: left; width: 50%; margin-bottom: 10px">Ref. No: {{ $quotation->no_ref }}</div>
             <div style="float: right; width: 50%; text-align: right; margin-bottom: 10px">Jakarta,
-                {{ $quotation->updated_at_formatted }}</div>
+                {{ $quotation->tanggal_formatted }}</div>
         </div>
         <br>
         <div>
@@ -49,7 +49,7 @@
             </tr>
         </table>
         <br>
-        <div>Dengan Hormat, <br>
+        <div>Dengan Hormat, <br><br>
             Bersama ini kami ajukan penawaran harga sebagai berikut:
             <table id="data">
                 <thead>
@@ -83,24 +83,24 @@
                             </tr>
                         @endforeach
                         @php
-                            $ppn = (10 / 100) * $subTotal;
+                            $ppn = ($quotation->ppn / 100) * $subTotal;
                             $total = $subTotal + $ppn;
                         @endphp
                         <tr>
-                            <td colspan="7" style="text-align: center; font-weight: bold; font-style: italic">Sub
+                            <td colspan="6" style="text-align: center; font-weight: bold; font-style: italic">Sub
                                 Total</td>
                             <td style="font-weight: bold; text-align: end">
                                 {{ 'Rp. ' . number_format($subTotal, 0, ',', '.') }}</td>
                         </tr>
                         <tr>
-                            <td colspan="7" style="text-align: center; font-weight: bold; font-style: italic">PPN
+                            <td colspan="6" style="text-align: center; font-weight: bold; font-style: italic">PPN
                                 {{ $quotation->ppn }}%
                             </td>
                             <td style="font-weight: bold; text-align: end">
                                 {{ 'Rp. ' . number_format($ppn, 0, ',', '.') }}</td>
                         </tr>
                         <tr>
-                            <td colspan="7" style="text-align: center; font-weight: bold; font-style: italic">Total
+                            <td colspan="6" style="text-align: center; font-weight: bold; font-style: italic">Total
                             </td>
                             <td style="font-weight: bold; text-align: end">
                                 {{ 'Rp. ' . number_format($total, 0, ',', '.') }}</td>
@@ -117,7 +117,7 @@
             Keterangan:
             <?= $quotation->keterangan ?>
             <br>
-            Atas Perhatiannya kami ucapkan terimakasih.
+            Atas perhatiannya kami ucapkan terimakasih.
         </div>
         <br>
         <div>

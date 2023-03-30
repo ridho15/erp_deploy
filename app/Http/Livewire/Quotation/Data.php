@@ -41,6 +41,7 @@ class Data extends Component
                 $query->where('keterangan', 'LIKE', '%' . $this->cari . '%')
                 ->orWhere('id', 'LIKE', '%' . $this->cari . '%')
                 ->orWhere('hal' ,'LIKE', '%' . $this->cari . '%')
+                ->orWhere('nomor_quotation' ,'LIKE', '%' . $this->cari . '%')
                 ->orWhereHas('laporanPekerjaan', function($query){
                     $query->whereHas('projectUnit', function($query){
                         $query->whereHas('project', function($query){
@@ -182,6 +183,6 @@ class Data extends Component
         $message = "Quotation Berhasil";
 
         activity()->causedBy(HelperController::user())->log("Submit quotation to pre order");
-        return redirect()->route('pre-order', ['show_modal' => true])->with('success', $message);
+        return redirect()->route('pre-order', ['show_modal' => true, 'id_quotation' => $quotation->id])->with('success', $message);
     }
 }

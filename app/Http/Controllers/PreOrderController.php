@@ -16,6 +16,7 @@ class PreOrderController extends Controller
         $data['active'] = ['purchase-order','pre-order'];
         $data['breadCrumb'] = ['Pre Order', 'Data'];
         $data['show_modal'] = $request->show_modal;
+        $data['id_quotation'] = $request->id_quotation;
 
         return view('pre-order.index', $data);
     }

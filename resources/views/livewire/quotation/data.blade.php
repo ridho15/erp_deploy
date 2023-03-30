@@ -74,15 +74,17 @@
                             style="overflow-x: auto">
                             <th>No</th>
                             <th>No. Ref</th>
+                            <th>Pelanggan</th>
                             <th>Kode Project</th>
                             <th>Nama Project</th>
-                            <th>Pelanggan</th>
+                            <th>No. Unit</th>
                             <th>Sales</th>
                             <th>Status Pekerjaan</th>
                             <th>Status Kirim</th>
                             <th>Status Konfirmasi</th>
                             <th>Dibuat pada</th>
                             <th>Status Quotation</th>
+                            <th>Tanggal Quotation</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -92,9 +94,10 @@
                                 <tr>
                                     <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
                                     <td>{{ $item->no_ref }}</td>
+                                    <td>{{ isset($item->projectUnit->project) ? $item->projectUnit->project->customer->nama : '-' }}</td>
                                     <td>{{ isset($item->projectUnit->project) ? $item->projectUnit->project->kode : '-'}}</td>
                                     <td>{{ isset($item->projectUnit->project) ? $item->projectUnit->project->nama : '-' }}</td>
-                                    <td>{{ isset($item->projectUnit->project) ? $item->projectUnit->project->customer->nama : '-' }}</td>
+                                    <td>{{ $item->projectUnit->no_unit }} {{ $item->projectUnit->nama_unit }}</td>
                                     <td>
                                         @if (count($item->quotationSales) > 0)
                                             @foreach ($item->quotationSales as $quotationSales)
@@ -135,10 +138,13 @@
                                             <span class="badge badge-danger">Quotation Gagal</span>
                                         @elseif($item->status_like === 2)
                                             <span class="badge badge-primary">PO Sudah Dibuat</span>
+                                        @elseif($item->status_like === 3)
+                                            <span class="badge badge-danger">PO Dibatalkan</span>
                                         @else
                                             -
                                         @endif
                                     </td>
+                                    <td>{{ $item->tanggal ? date('d-m-y', strtotime($item->tanggal)) : '-'}}</td>
                                     <td>
                                         <div class="btn-group">
                                             <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip"

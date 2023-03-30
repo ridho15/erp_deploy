@@ -24,9 +24,11 @@ class Quotation extends Model
         'sales',
         'status_like',
         'ppn',
+        'nomor_quotation',
+        'tanggal'
     ];
 
-    protected $appends = ['status_formatted', 'no_ref', 'updated_at_formatted', 'dibuat_pada'];
+    protected $appends = ['status_formatted', 'no_ref', 'updated_at_formatted', 'dibuat_pada', 'tanggal_formatted'];
 
     public function getStatusFormattedAttribute(){
         $expiredTime = Carbon::parse($this->created_at)->addDays(3);
@@ -58,6 +60,7 @@ class Quotation extends Model
     }
 
     public function getNoRefAttribute(){
+        return $this->nomor_quotation;
         $helper = new HelperController;
         $bulan = date('m', strtotime($this->created_at));
         $tahun = date('y', strtotime($this->created_at));
@@ -66,6 +69,11 @@ class Quotation extends Model
 
     public function getUpdatedAtFormattedAttribute(){
         $carbon = Carbon::parse($this->updated_at)->locale('id')->isoFormat('DD MMMM YYYY');
+        return $carbon;
+    }
+
+    public function getTanggalFormattedAttribute(){
+        $carbon = Carbon::parse($this->tanggal)->locale('id')->isoFormat('DD MMMM YYYY');
         return $carbon;
     }
 

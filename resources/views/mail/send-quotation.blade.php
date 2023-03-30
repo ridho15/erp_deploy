@@ -59,20 +59,20 @@
                             </div>
                             <div>
                                 <span>Kepada Yth:</span><br>
-                                <strong>{{ $quotation->project->penanggung_jawab }}</strong><br>
-                                <span>{{ $quotation->project->alamat }}</span><br>
+                                <strong>{{ $quotation->projectUnit->project->penanggung_jawab }}</strong><br>
+                                <span>{{ $quotation->projectUnit->project->alamat }}</span><br>
                             </div>
                             <br>
                             @if ($quotation->laporanPekerjaan)
                                 <div>
                                     <span style="font-weight: bold">Up :
-                                        {{ $quotation->project->customer->nama }}</span><br>
+                                        {{ $quotation->projectUnit->project->customer->nama }}</span><br>
                                     <span style="font-weight: bold">Email :
-                                        {{ $quotation->project->customer->email }}</span><br>
+                                        {{ $quotation->projectUnit->project->customer->email }}</span><br>
                                     <span style="font-weight: bold">No Hp :
-                                        {{ $quotation->project->customer->no_hp }}</span><br>
+                                        {{ $quotation->projectUnit->project->customer->no_hp }}</span><br>
                                     <span style="font-weight: bold">Alamat :
-                                        {{ $quotation->project->customer->alamat }}</span><br>
+                                        {{ $quotation->projectUnit->project->customer->alamat }}</span><br>
                                 </div>
                             @endif
                             <br>

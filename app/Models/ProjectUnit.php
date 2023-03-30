@@ -27,4 +27,8 @@ class ProjectUnit extends Model
     public function purchaseOrder(){
         return $this->hasOne(PreOrder::class, 'id_project_unit');
     }
+
+    public function quotation(){
+        return $this->hasOne(Quotation::class, 'id_project_unit');
+    }
 }

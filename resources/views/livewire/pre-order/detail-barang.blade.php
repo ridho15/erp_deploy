@@ -211,9 +211,9 @@
             <tfoot>
                 @php
                     $total = $preOrder->total;
-                    if (isset($preOrder->quotation)) {
+                    if ($preOrder->id_quotation != null) {
                         $ppn = $preOrder->quotation->ppn;
-                    }elseif(isset($preOrder->projectUnit->project->customer)){
+                    }elseif($preOrder->id_project_unit != null && isset($preOrder->projectUnit->project->customer->ppn)){
                         $ppn = $preOrder->projectUnit->project->customer->ppn;
                     }
                     $total_bayar = $preOrder->total_bayar_formatted;

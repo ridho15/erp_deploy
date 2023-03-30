@@ -287,7 +287,8 @@
                                         No Unit
                                     </div>
                                     <div class="col-md-8 col-8 fw-bold">
-                                        : {{ $laporanPekerjaan->projectUnit->no_unit }} {{ $laporanPekerjaan->projectUnit->nama_unit }}
+                                        : {{ $laporanPekerjaan->projectUnit->no_unit }}
+                                        {{ $laporanPekerjaan->projectUnit->nama_unit }}
                                     </div>
                                 </div>
                                 <div class="row mb-5">
@@ -452,10 +453,10 @@
                                         {{ $laporanPekerjaan->catatan_pelanggan }}
                                     </div>
                                 </div>
-                                <div class="my-5">
-                                    <label for="" class="form-label">Data Barang</label>
-                                </div>
                                 @if (isset($laporanPekerjaan->projectUnit->purchaseOrder))
+                                    <div class="my-5">
+                                        <label for="" class="form-label">Data Barang</label>
+                                    </div>
                                     @php
                                         $listPreOrderDetail = $laporanPekerjaan->projectUnit->purchaseOrder->preOrderDetail;
                                     @endphp

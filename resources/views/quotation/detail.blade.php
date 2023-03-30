@@ -213,6 +213,16 @@
                             </a>
                         </div>
                     </div>
+                    <div class="row mb-5">
+                        <div class="col-md-4 col-4">
+                            Tanggal Quotation
+                        </div>
+                        <div class="col-md-8 col-8">
+                            : <span class="fw-bold">
+                                {{ $quotation->tanggal ? date('d-m-Y', strtotime($quotation->tanggal)) : '-' }}
+                            </span>
+                        </div>
+                    </div>
                 </div>
 
             </div>

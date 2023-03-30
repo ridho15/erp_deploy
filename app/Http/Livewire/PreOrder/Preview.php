@@ -42,11 +42,11 @@ class Preview extends Component
     }
 
     public function simpanPpn(){
-        if(isset($this->purchaseOrder->quotation)){
+        if($this->purchaseOrder->id_quotation != null){
             $this->purchaseOrder->quotation->update([
                 'ppn' => $this->ppn
             ]);
-        }elseif($this->purchaseOrder->projectUnit->project->customer){
+        }elseif($this->purchaseOrder->id_project_unit){
             $this->purchaseOrder->projectUnit->project->customer->update([
                 'ppn' => $this->ppn
             ]);

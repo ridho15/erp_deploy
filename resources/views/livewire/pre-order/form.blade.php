@@ -23,7 +23,7 @@
                             ])
                         </div>
                         <div class="row">
-                            <div class="col-md-12 mb-5">
+                            <div class="col-md-6 mb-5">
                                 <label for="" class="form-label required">Nomor PO</label>
                                 <input type="text" class="form-control form-control-solid" name="no_ref"
                                     placeholder="Masukkan nomor PO" wire:model='no_ref' required>
@@ -165,8 +165,12 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary"><i class="bi bi-box-arrow-down"></i>
+                        @if ($show_modal == true || $show_modal == 1)
+                            <button type="button" class="btn btn-sm btn-danger" wire:click="cancelQuotationSuccess"
+                                data-bs-dismiss="modal">Cancel & Back</button>
+                        @endif
+                        <button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-sm btn-primary"><i class="bi bi-box-arrow-down"></i>
                             Simpan</button>
                     </div>
                 </form>

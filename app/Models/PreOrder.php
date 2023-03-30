@@ -40,9 +40,9 @@ class PreOrder extends Model
 
     public function getPpnAttribute(){
         $preOrderDetail = PreOrderDetail::where('id_pre_order', $this->id)->get();
-        if($this->quotation){
+        if($this->id_quotation != null){
             $n_ppn = $this->quotation->ppn;
-        }elseif(isset($this->projectUnit->project->customer)){
+        }elseif($this->id_project_unit != null){
             $n_ppn = $this->projectUnit->project->customer->ppn;
         }else{
             $n_ppn = 11;
@@ -51,9 +51,7 @@ class PreOrder extends Model
         foreach ($preOrderDetail as $item) {
             $total_bayar += $item->sub_total;
         }
-
         $ppn = $total_bayar * ($n_ppn/100); //PPN default 11%;
-
         return $ppn;
     }
 

@@ -24,6 +24,16 @@
                         </div>
                         <div class="row mb-5">
                             <div class="col-md-4 col-4">
+                                Nomor Quotation
+                            </div>
+                            <div class="col-md-8 col-8">
+                                : <span class="fw-bold"></span>
+                                <span class="fw-bold">{{ $quotation ? $quotation->nomor_quotation : '-' }}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-5">
+
+                            <div class="col-md-4 col-4">
                                 Kode Project
                             </div>
                             <div class="col-md-8 col-8">
@@ -123,32 +133,68 @@
                                 : <span class="fw-bold"><?= $quotation ? $quotation->status_formatted : null ?></span>
                             </div>
                         </div>
+                        <div class="row mb-5">
+                            <div class="col-md-4 col-4">
+                                Tanggal Quotation
+                            </div>
+                            <div class="col-md-8 col-8">
+                                : <span class="fw-bold">
+                                    {{ $quotation && $quotation->tanggal != null ? date('d-m-Y', strtotime($quotation->tanggal)) : '-' }}
+                                </span>
+                            </div>
+                        </div>
                         <hr class="my-5">
+                        <div class="row">
+                            <div class="mb-5 col-md-6">
+                                <label for="" class="form-label required">Nomor Quotation</label>
+                                <input type="text" name="nomor_quotation" class="form-control form-control-solid"
+                                    wire:model="nomor_quotation" placeholder="Masukkan nomor quotation" required>
+                                @error('nomor_quotation')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-5 col-md-6">
+                                <label for="" class="form-label required">Tanggal</label>
+                                <input type="date" name="tanggal" class="form-control form-control-solid"
+                                    wire:model="tanggal" placeholder="Masukkan pilih" required>
+                                @error('tanggal')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-5 col-md-6">
+                                <label for="" class="form-label">Sales</label>
+                                <select name="listIdSales" wire:model="listIdSales"
+                                    class="form-select form-select-solid" data-control="select2"
+                                    data-placeholder="Pilih" multiple>
+                                    <option value="">Pilih</option>
+                                    @foreach ($listSales as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                    @endforeach
+                                </select>
+                                @error('listIdSales')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-5 col-md-6">
+                                <label for="" class="form-label">PPN (%)</label>
+                                <input type="number" name="ppn" class="form-control form-control-solid" wire:model="ppn" placeholder="Masukkan PPN" required>
+                                @error('ppn')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-5 col-md-6">
+                                <label for="" class="form-label">Perihal</label>
+                                <textarea name="hal" class="form-control form-control-solid" wire:model="hal" placeholder="Masukkan perihal"></textarea>
+                                @error('hal')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="mb-5" wire:ignore>
                             <label for="" class="form-label">Keterangan</label>
                             <textarea name="keterangan" wire:model="keterangan" class="form-control form-control-solid"
                                 placeholder="Masukkan keterangan"></textarea>
                             @error('keterangan')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                        <div class="mb-5">
-                            <label for="" class="form-label">Perihal</label>
-                            <textarea name="hal" class="form-control form-control-solid" wire:model="hal" placeholder="Masukkan perihal"></textarea>
-                            @error('hal')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                        <div class="mb-5">
-                            <label for="" class="form-label">Sales</label>
-                            <select name="listIdSales" wire:model="listIdSales" class="form-select form-select-solid"
-                                data-control="select2" data-placeholder="Pilih" multiple>
-                                <option value="">Pilih</option>
-                                @foreach ($listSales as $item)
-                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                @endforeach
-                            </select>
-                            @error('listIdSales')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
@@ -219,6 +265,22 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-5">
+                                <label for="" class="form-label required">Nomor Quotation</label>
+                                <input type="text" name="nomor_quotation" class="form-control form-control-solid"
+                                    wire:model="nomor_quotation" placeholder="Masukan nomor quotation" required>
+                                @error('nomor_quotation')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 mb-5">
+                                <label for="" class="form-label required">Tanggal Quotation</label>
+                                <input type="date" name="tanggal" class="form-control form-control-solid"
+                                    wire:model="tanggal" placeholder="Pilih tanggal" required>
+                                @error('tanggal')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-md-6 mb-5">
                                 <label for="" class="form-label required">Customer</label>
                                 <select name="id_customer" wire:model="id_customer"
                                     class="form-select form-select-solid" data-control="select2"
@@ -275,6 +337,13 @@
                                     @endforeach
                                 </select>
                                 @error('listIdSales')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="mb-5 col-md-6">
+                                <label for="" class="form-label">PPN (%)</label>
+                                <input type="number" name="ppn" class="form-control form-control-solid" wire:model="ppn" placeholder="Masukkan PPN" required>
+                                @error('ppn')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>

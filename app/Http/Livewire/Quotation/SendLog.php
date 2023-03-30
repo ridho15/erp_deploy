@@ -34,7 +34,7 @@ class SendLog extends Component
             $this->emit('finishRefreshData',0, $mesasge);
             return session()->flash('fail', $mesasge);
         }
-        $email = $quotation->project->email;
+        $email = $quotation->projectUnit->project->email;
         if($email == null){
             $message = "Email tidak boleh kosong atau email belum terpasang ke project";
             $this->emit('finishRefreshData', 0, $message);

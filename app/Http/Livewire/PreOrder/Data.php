@@ -36,21 +36,39 @@ class Data extends Component
     public function render()
     {
         if ($this->cari) {
-            $this->listPreOrder = PreOrder::whereHas('quotation', function($query){
-                $query->whereHas('laporanPekerjaan', function($query){
-                    $query->where('signature', null)
-                    ->orWhere('jam_selesai', null);
+            $this->listPreOrder = PreOrder::where(function($query){
+                $query->orWhereHas('quotation', function($query){
+                    $query->whereHas('laporanPekerjaan', function($query){
+                        $query->where('signature', null)
+                        ->orWhere('jam_selesai', null);
+                    });
+                })->orWhereHas('projectUnit', function($query){
+                    $query->whereHas('laporanPekerjaan', function($query){
+                        $query->where('signature', null)
+                        ->orWhere('jam_selesai', null);
+                    });
                 });
             })
             ->where(function($query){
                 $query->where('keterangan', 'LIKE', '%' . $this->cari . '%')
                 ->orWhere('id_quotation', 'LIKE', '%' . $this->cari . '%')
+                ->orWhere('no_ref', 'LIKE', '%' . $this->cari . '%')
+                ->orWhereHas('quotation', function($query){
+                    $query->where('nomor_quotation', 'LIKE', '%' . $this->cari . '%')
+                    ->orWhereHas('projectUnit', function($query){
+                        $query->whereHas('project', function($query){
+                            $query->where('nama', 'LIKE', '%' . $this->cari . '%');
+                        });
+                    });
+                })->orWherehas('projectUnit', function($query){
+                    $query->whereHas('project', function($query){
+                        $query->where('nama', 'LIKE', '%' . $this->cari . '%');
+                    });
+                })
                 ->orWhereHas('user', function($query){
                     $query->where('name', 'LIKE' , '%' . $this->cari . '%');
-                })->orWhereHas('customer', function($query){
-                    $query->where('nama','LIKE' ,'%' . $this->cari . '%');
                 });
-            })->orderBy('updated_at', 'DESC')->paginate($this->total_show);
+            })->orderBy('updated_at', 'DESC')->withTrashed()->paginate($this->total_show);
         }elseif ($this->tanggal_preorder != null || $this->status_pekerjaan != null || $this->id_customer_filter != null || $this->id_user_filter != null) {
             $this->listPreOrder = PreOrder::whereHas('quotation', function($query){
                 $query->whereHas('laporanPekerjaan', function($query){
@@ -65,7 +83,7 @@ class Data extends Component
                         $query->orWhere('id_customer', $this->id_customer_filter);
                     });
                 });
-            })->orderBy('updated_at', 'DESC')->paginate($this->total_show);
+            })->orderBy('updated_at', 'DESC')->withTrashed()->paginate($this->total_show);
         }else{
             // $this->listPreOrder = PreOrder::orWhereHas('quotation', function($query){
             //     $query->whereHas('laporanPekerjaan', function($query){
@@ -74,7 +92,7 @@ class Data extends Component
             //     })->doesntHave('laporanPekerjaan', 'or');
             // })->orderBy('updated_at', 'DESC')->paginate($this->total_show);
 
-            $this->listPreOrder = PreOrder::orderBy('updated_at', 'DESC')->paginate($this->total_show);
+            $this->listPreOrder = PreOrder::orderBy('updated_at', 'DESC')->withTrashed()->paginate($this->total_show);
         }
 
         $data['listPreOrder'] = $this->listPreOrder;
@@ -93,6 +111,19 @@ class Data extends Component
             $message = "Data Pre Order tidak ditemukan !";
             $this->emit('finishRefreshData', 0, $message);
             return session()->flash('fail', $message);
+        }
+
+        if($preOrder->id_quotation != null){
+            $quotation = Quotation::find($preOrder->id_quotation);
+            if($quotation){
+                $quotation->update([
+                    'status_like' => 0
+                ]);
+            }
+        }elseif($preOrder->id_project_unit && $preOrder->projectUnit->quotation){
+            $preOrder->projectUnit->quotation->update([
+                'status_like' => 0
+            ]);
         }
 
         $preOrder->delete();

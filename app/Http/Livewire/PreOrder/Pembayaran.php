@@ -26,27 +26,29 @@ class Pembayaran extends Component
     public function render()
     {
         $this->listPreOrderBayar = PreOrderBayar::where('id_pre_order', $this->id_pre_order)
-        ->orderBy('updated_at', 'DESC')
-        ->get();
+            ->orderBy('updated_at', 'DESC')
+            ->get();
         $total_bayar = 0;
         foreach ($this->listPreOrderBayar as $item) {
             $total_bayar += $item->pembayaran_sekarang;
         }
         $this->sudah_bayar = $total_bayar;
         $this->sisa_bayar = $this->preOrder->total_bayar - $this->sudah_bayar;
-        if($this->pembayaran_sekarang == null || $this->pembayaran_sekarang == 0){
+        if ($this->pembayaran_sekarang == null || $this->pembayaran_sekarang == 0) {
             $this->pembayaran_sekarang = $this->sisa_bayar;
         }
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.pre-order.pembayaran');
     }
 
-    public function mount($id_pre_order){
+    public function mount($id_pre_order)
+    {
         $this->id_pre_order = $id_pre_order;
         $this->preOrder = PreOrder::find($this->id_pre_order);
     }
 
-    public function simpanPreOrderBayar(){
+    public function simpanPreOrderBayar()
+    {
         $this->validate([
             'pembayaran_sekarang' => 'required|numeric'
         ], [
@@ -61,7 +63,7 @@ class Pembayaran extends Component
         }
 
         $this->sudah_bayar = $total_bayar;
-        if($this->preOrder->total_bayar < ($this->sudah_bayar + $this->pembayaran_sekarang)){
+        if ($this->preOrder->total_bayar < ($this->sudah_bayar + $this->pembayaran_sekarang)) {
             $message = 'Jumlah yang di bayarkan melebihi total pembayaran pre order';
             return session()->flash('fail', $message);
         }
@@ -72,7 +74,7 @@ class Pembayaran extends Component
         ]);
 
         foreach ($this->preOrder->preOrderDetail as $preOrderDetail) {
-            if($preOrderDetail->status == 0){
+            if ($preOrderDetail->status == 0) {
                 $preOrderDetail->update([
                     'status' => 1
                 ]);
@@ -96,7 +98,7 @@ class Pembayaran extends Component
             }
         }
 
-        if($this->preOrder->total_bayar == $this->preOrder->sudah_bayar){
+        if ($this->preOrder->total_bayar == $this->preOrder->sudah_bayar) {
             $this->preOrder->update([
                 'status' => 3
             ]);
@@ -106,8 +108,7 @@ class Pembayaran extends Component
                 'tanggal' => now(),
                 'status' => 3
             ]);
-
-        }elseif($this->preOrder->sudah_bayar > 0){
+        } elseif ($this->preOrder->sudah_bayar > 0) {
             $this->preOrder->update([
                 'status' => 2
             ]);
@@ -119,6 +120,28 @@ class Pembayaran extends Component
             ]);
         }
 
+        if ($this->preOrder->status == 3) {
+            foreach ($this->preOrder->preOrderDetail as $item) {
+                $item->barang->barangStockChange($item->qty, 4);
+
+                if ($this->preOrder->id_quotation != null && $this->preOrder->quotation->laporanPekerjaan && $this->preOrder->quotation->laporanPekerjaan->laporanPekerjaanBarang->where('id_barang', $preOrderDetail->id_barang)->first()) {
+                    $laporanPekerjaanBarang = $this->preOrder->quotation->laporanPekerjaan->laporanPekerjaanBarang->where('id_barang', $preOrderDetail->id_barang);
+                    foreach($laporanPekerjaanBarang as $item_2){
+                        $item_2->update([
+                            'status' => 4
+                        ]);
+                    }
+                }elseif($this->preOrder->id_project_unit != null && $this->preOrder->projectUnit->laporanPekerjaan){
+                    $laporanPekerjaanBarang = $this->preOrder->projectUnit->laporanPekerjaan->laporanPekerjaanBarang->where('id_barang', $preOrderDetail->id_barang);
+                    foreach($laporanPekerjaanBarang as $item_2){
+                        $item_2->update([
+                            'status' => 4
+                        ]);
+                    }
+                }
+            }
+        }
+
         $message = "Berhasil melakukan pembayaran";
         activity()->causedBy(HelperController::user())->log("Melakukan pembayaran Pre Order");
         $this->pembayaran_sekarang = 0;
@@ -127,7 +150,8 @@ class Pembayaran extends Component
         return session()->flash('success', $message);
     }
 
-    public function pembayaranLunas(){
+    public function pembayaranLunas()
+    {
         $this->pembayaran_sekarang = $this->sisa_bayar;
         $this->simpanPreOrderBayar();
     }

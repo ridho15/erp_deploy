@@ -86,7 +86,8 @@
                             <th>No</th>
                             <th>Nomor Pekerjaan</th>
                             <th>Project</th>
-                            <th>Nomor Unit - Lift</th>
+                            <th>Nomor Unit</th>
+                            <th>Nomor PO</th>
                             <th>Pekerja</th>
                             <th>Tanggal Pekerjaan</th>
                             <th>Estimasi Selesai</th>
@@ -109,8 +110,15 @@
                                     <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
                                     <td>{{ $item->no_ref }}</td>
                                     <td>{{ $item->projectUnit->project ? $item->projectUnit->project->nama : '-' }}</td>
-                                    <td>{{ $item->projectUnit ? $item->projectUnit->no_unit : '-' }}
-                                        {{ $item->nomor_lift }}</td>
+                                    <td>{{ $item->projectUnit ? $item->projectUnit->no_unit . '  ' . $item->projectUnit->nama_unit : '-' }}
+                                    </td>
+                                    <td>
+                                        @if (isset($item->projectUnit->purchaseOrder))
+                                            {{ $item->projectUnit->purchaseOrder->no_ref }}
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
                                     <td>
                                         @foreach ($item->teknisi as $nama)
                                             {{ $nama->user ? $nama->user->name : '-' }},
@@ -293,7 +301,7 @@
             select2()
         })
 
-        function select2(){
+        function select2() {
             $('select[name="status_pekerjaan"]').select2();
             $('select[name="id_project"]').select2();
             $('select[name="status_pekerjaan"]').on('change', function() {
