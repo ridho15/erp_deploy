@@ -257,7 +257,7 @@
         Livewire.on('onClickHapusBarangLaporanPinjam', async (id) => {
             const response = await alertConfirm('Peringatan !', "Apakah kamu yakin ingin menghapus barang ?")
             if (response.isConfirmed == true) {
-                Livewire.emit('hapusLaporanPekerjaanBarangLaporanPinjam', id)
+                Livewire.emit('hapusDataLaporanPekerjaanBarangLaporanPinjam', id)
             }
         })
 

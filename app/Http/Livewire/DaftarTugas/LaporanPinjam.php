@@ -17,7 +17,8 @@ class LaporanPinjam extends Component
     use WithPagination;
     public $listeners = [
         'simpanLaporanPinjam',
-        'setDataLaporanPekerjaanBarangLaporanPinjam'
+        'setDataLaporanPekerjaanBarangLaporanPinjam',
+        'hapusDataLaporanPekerjaanBarangLaporanPinjam'
     ];
     public $paginationTheme = 'bootstrap';
     public $cari;
@@ -37,11 +38,14 @@ class LaporanPinjam extends Component
     public $catatan_teknisi;
     public $nomor_itt;
     public $id_laporan_pekerjaan_barang;
+
+    protected $helper;
+    function __construct()
+    {
+        $this->helper = new HelperController;
+    }
     public function render()
     {
-        $this->barang = Barang::find($this->id_barang);
-        $this->listBarang = Barang::get();
-        $this->listVersion = HelperController::getListVersion();
         $this->listLaporanPekerjaanBarang = LaporanPekerjaanBarang::where(function($query){
             $query->whereHas('barang', function($query){
                 $query->where('id', 'LIKE', '%' . $this->cari . '%')
@@ -60,6 +64,9 @@ class LaporanPinjam extends Component
 
     public function mount($id_laporan_pekerjaan){
         $this->id_laporan_pekerjaan = $id_laporan_pekerjaan;
+        $this->barang = Barang::find($this->id_barang);
+        $this->listBarang = Barang::get();
+        $this->listVersion = HelperController::getListVersion();
     }
 
     public function changeTambahBarang(){
@@ -199,5 +206,21 @@ class LaporanPinjam extends Component
         $this->id_tipe_barang = $laporanPekerjaanBarang->id_tipe_barang;
         $this->version = $laporanPekerjaanBarang->version;
         $this->estimasi = $laporanPekerjaanBarang->estimasi;
+    }
+
+    public function hapusDataLaporanPekerjaanBarangLaporanPinjam($id_laporan_pekerjaan_barang){
+        $laporanPekerjaanBarang = LaporanPekerjaanBarang::find($id_laporan_pekerjaan_barang);
+        if(!$laporanPekerjaanBarang){
+            $message = 'Data pinjman tidak ditemukan !';
+            return session()->flash('fail', $message);
+        }
+
+        $laporanPekerjaanBarang->delete();
+        activity()->causedBy(HelperController::user())->log("Membatalkan peminjaman barang");
+        $message = "Membatalkan peminjaman barang";
+        $this->tambahBarang = false;
+        $this->resetInputFields();
+        $this->emit('finisSimpanData', 1, $message);
+        return session()->flash('success', $message);
     }
 }

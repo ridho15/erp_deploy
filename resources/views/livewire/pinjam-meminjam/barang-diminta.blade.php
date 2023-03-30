@@ -69,7 +69,7 @@
                                 </span>
                                 @if ($id_laporan_pekerjaan_barang == $item->id)
                                     <div class="text-center mb-1">
-                                        <input type="number" class="form-control" name="nomor_itt" wire:model="nomor_itt">
+                                        <input type="text" class="form-control" name="nomor_itt" wire:model="nomor_itt">
                                     </div>
                                     <span class="mx-1" style="cursor: pointer" wire:click="closeEditItt" data-bs-toggle="tooltip" data-bs-placement="top" title="Close">
                                         <i class="fa-regular fa-circle-xmark text-danger"></i>

@@ -51,7 +51,7 @@ class AutentikasiController extends Controller
 
         $user = User::where('username', $data['username'])->first();
         if (!$user) {
-            return redirect()->back()->with('fail', 'User dengan username '.$data['username'].' tidak ditemukan silahkan hubungi administrator');
+            return redirect()->back()->with('fail', 'User dengan username ' . $data['username'] . ' tidak ditemukan silahkan hubungi administrator');
         } else {
             if (!Hash::check($data['password'], $user->password)) {
                 return redirect()->back()->with('fail', 'Password salah. silahkan ulangi !');
@@ -66,7 +66,7 @@ class AutentikasiController extends Controller
             ]);
 
             $agent = Helpers::regexUserAgent($request->header('user-agent'));
-            $version = $agent['browser'].' '.$agent['version'];
+            $version = $agent['browser'] . ' ' . $agent['version'];
 
             $user_logs = UserLog::create([
                 'id_user' => $user->id,
@@ -81,10 +81,9 @@ class AutentikasiController extends Controller
             $request->session()->put('token', $loginLogs->token);
             $request->session()->put('list_tipe_user', $user->list_tipe_user);
             $request->session()->put('user_log_id', $user_logs->id);
-
-            if ($user->id_tipe_user == 4) {
+            if (in_array(4, json_decode($user->id_tipe_user))) {
                 return redirect()->route('daftar-tugas');
-            }elseif($user->id_tipe_user == 2){
+            } elseif (in_array(2, json_decode($user->id_tipe_user))) {
                 return redirect()->route('pre-order');
             }
 
@@ -96,30 +95,31 @@ class AutentikasiController extends Controller
         }
     }
 
-    public function buatNotifikasi(){
+    public function buatNotifikasi()
+    {
         $listBarang = Barang::get();
         $totalBarangMinimum = 0;
         foreach ($listBarang as $item) {
-            if($item->stock <= $item->min_stock){
+            if ($item->stock <= $item->min_stock) {
                 $totalBarangMinimum++;
             }
         }
 
         $message = "Ada barang dengan stock dibawah minimum dengan banyak barang " . $totalBarangMinimum . ' .Silahkan Check Stock Barang';
         $notifikasiStockMinimum = Notifikasi::whereDate('tanggal', now())
-        ->where('tipe_notifikasi', 1)
-        ->where('id_user', session()->get('id_user'))
-        ->first();
+            ->where('tipe_notifikasi', 1)
+            ->where('id_user', session()->get('id_user'))
+            ->first();
 
         if ($totalBarangMinimum > 0) {
-            if($notifikasiStockMinimum){
+            if ($notifikasiStockMinimum) {
                 $notifikasiStockMinimum->update([
                     'pesan' => $message,
                     'route' => 'laporan.spareparts',
                     'tanggal' => now(),
                     'status' => 0
                 ]);
-            }else{
+            } else {
                 Notifikasi::create([
                     'tipe_notifikasi' => 1,
                     'id_user' => session()->get('id_user'),
@@ -132,26 +132,26 @@ class AutentikasiController extends Controller
 
         $tanggal_jatuh_tempo = Carbon::now()->addDays(3);
         $totalSupplierOrder = SupplierOrder::where('status_pembayaran', '!=', 2)
-        ->where('status_order', 4)
-        ->whereDate('tanggal_tempo_pembayaran', '<=', $tanggal_jatuh_tempo)
-        ->count();
+            ->where('status_order', 4)
+            ->whereDate('tanggal_tempo_pembayaran', '<=', $tanggal_jatuh_tempo)
+            ->count();
 
         $message = "Ada pembayaran orderan ke supplier yang belum di lakukan berjumlah " . $totalSupplierOrder . ' .Silahkan check pembayaran Supplier Order';
 
         $notifikasiSupplierOrder = Notifikasi::whereDate('tanggal', now())
-        ->where('tipe_notifikasi', 2)
-        ->where('id_user', session()->get('id_user'))
-        ->first();
+            ->where('tipe_notifikasi', 2)
+            ->where('id_user', session()->get('id_user'))
+            ->first();
 
         if ($totalSupplierOrder > 0) {
-            if($notifikasiSupplierOrder){
+            if ($notifikasiSupplierOrder) {
                 $notifikasiSupplierOrder->update([
                     'pesan' => $message,
                     'route' => 'laporan.account-payable',
                     'tanggal' => now(),
                     'status' => 0,
                 ]);
-            }else{
+            } else {
                 Notifikasi::create([
                     'tipe_notifikasi' => 2,
                     'id_user' => session()->get('id_user'),
@@ -160,33 +160,32 @@ class AutentikasiController extends Controller
                     'route' => 'laporan.account-payable',
                 ]);
             }
-
         }
         $tanggal_jatuh_tempo = Carbon::now()->addDays(3);
-        $totalPreOrder = PreOrder::whereHas('quotation', function($query){
-            $query->whereHas('laporanPekerjaan', function($query){
+        $totalPreOrder = PreOrder::whereHas('quotation', function ($query) {
+            $query->whereHas('laporanPekerjaan', function ($query) {
                 $query->where('signature', '!=', null)
-                ->where('jam_selesai', '!=', null);
+                    ->where('jam_selesai', '!=', null);
             });
         })->whereDate('tanggal_tempo_pembayaran', '<=', $tanggal_jatuh_tempo)
-        ->count();
+            ->count();
 
         $message = "Ada pembayaran orderan dari customer yang belum di lakukan berjumlah " . $totalPreOrder . ' .Silahkan check pembayaran Pre order';
 
         $notifikasiPreOrder = Notifikasi::whereDate('tanggal', now())
-        ->where('tipe_notifikasi', 3)
-        ->where('id_user', session()->get('id_user'))
-        ->first();
+            ->where('tipe_notifikasi', 3)
+            ->where('id_user', session()->get('id_user'))
+            ->first();
 
         if ($totalPreOrder > 0) {
-            if($notifikasiPreOrder){
+            if ($notifikasiPreOrder) {
                 $notifikasiPreOrder->update([
                     'pesan' => $message,
                     'route' => 'laporan.account-receivable',
                     'tanggal' => now(),
                     'status' => 0
                 ]);
-            }else{
+            } else {
                 Notifikasi::create([
                     'tipe_notifikasi' => 3,
                     'id_user' => session()->get('id_user'),
@@ -201,8 +200,8 @@ class AutentikasiController extends Controller
     public function logout()
     {
         $loginLogs = LoginLogs::where('id_user', session()->get('id_user'))
-        ->where('token', session()->get('token'))
-        ->first();
+            ->where('token', session()->get('token'))
+            ->first();
         if ($loginLogs) {
             $loginLogs->update([
                 'is_active' => 0,
@@ -216,11 +215,13 @@ class AutentikasiController extends Controller
         return redirect()->route('login')->with('success', 'Logout Berhasil');
     }
 
-    public function forgotPassword(){
+    public function forgotPassword()
+    {
         return view('autentikasi.forgot-password');
     }
 
-    public function postForgotPassword(Request $request){
+    public function postForgotPassword(Request $request)
+    {
         $data = $request->only('email');
         $validate = Validator::make($data, [
             'email' => 'required|email'
@@ -229,12 +230,12 @@ class AutentikasiController extends Controller
             'email.email' => 'Email tidak valid !'
         ]);
 
-        if($validate->fails()){
+        if ($validate->fails()) {
             return redirect()->back()->with('fail', $validate->errors()->all()['0']);
         }
 
         $user = User::where('email', $data['email'])->first();
-        if(!$user){
+        if (!$user) {
             $message = "Email pada user tidak ditemukan. Silahkan masukkan email lainnya atau hubungi administrator";
             return redirect()->back()->with('fail', $message);
         }
@@ -245,11 +246,12 @@ class AutentikasiController extends Controller
         return redirect()->back()->with('success', $message);
     }
 
-    public function resetUlangPassword($token){
+    public function resetUlangPassword($token)
+    {
         $crypt = new CryptController;
         $dataToken = $crypt->crypt($token, 'd');
         $dataToken = json_decode($dataToken);
-        if(strtotime($dataToken->expired_at) < strtotime(now())){
+        if (strtotime($dataToken->expired_at) < strtotime(now())) {
             return view('helper.expired-page');
         }
 
@@ -257,7 +259,8 @@ class AutentikasiController extends Controller
         return view('autentikasi.reset-password', $data);
     }
 
-    public function postResetUlangPassword(Request $request){
+    public function postResetUlangPassword(Request $request)
+    {
         $crypt = new CryptController;
         $data = $request->only('password', 'password_konfirmasi', 'token');
         $validate = Validator::make($data, [
@@ -266,19 +269,19 @@ class AutentikasiController extends Controller
             'token' => 'required|string'
         ]);
 
-        if($validate->fails()){
+        if ($validate->fails()) {
             return redirect()->back()->with('fail', $validate->errors()->all()[0]);
         }
 
         $dataToken = $crypt->crypt($data['token'], 'd');
         $dataToken = json_decode($dataToken);
 
-        if(strtotime($dataToken->expired_at) < strtotime(now())){
+        if (strtotime($dataToken->expired_at) < strtotime(now())) {
             return view('helper.expired-page');
         }
 
         $user = User::find($dataToken->id);
-        if(!$user){
+        if (!$user) {
             return response()->json([
                 'status' => false,
                 'message' => 'Data user tidak ditemukan',

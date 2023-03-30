@@ -31,6 +31,7 @@ class Data extends Component
 
     public function render()
     {
+        $listTipeUser = json_decode(HelperController::user()->id_tipe_user);
         if ($this->cari != null) {
             $this->listLaporanPekerjaan = LaporanPekerjaan::where(function ($query) {
                 $query->where('nomor_lift', 'LIKE', '%' . $this->cari . '%')
@@ -44,6 +45,13 @@ class Data extends Component
                         });
                     });
             })->where('dikirim', 1)
+                ->where(function ($query) use ($listTipeUser) {
+                    if (in_array(4, $listTipeUser) && !in_array(1, $listTipeUser) && !in_array(2, $listTipeUser) && !in_array(3, $listTipeUser)) {
+                        $query->whereHas('teknisi', function ($query) {
+                            $query->where('id_user', session()->get('id_user'));
+                        });
+                    };
+                })
                 ->whereHas('formMaster')
                 ->where('signature', null)
                 ->where('jam_selesai', null)
@@ -72,10 +80,17 @@ class Data extends Component
                             $query->where('jam_selesai', '!=', null)
                                 ->where('signature', '!=', null);
                         }
-                    })->orWhereHas('projectUnit', function($query){
+                    })->orWhereHas('projectUnit', function ($query) {
                         $query->where('id_project', $this->id_project);
                     });
             })->where('dikirim', 1)
+                ->where(function ($query) use ($listTipeUser) {
+                    if (in_array(4, $listTipeUser) && !in_array(1, $listTipeUser) && !in_array(2, $listTipeUser) && !in_array(3, $listTipeUser)) {
+                        $query->whereHas('teknisi', function ($query) {
+                            $query->where('id_user', session()->get('id_user'));
+                        });
+                    };
+                })
                 ->whereHas('formMaster')
                 ->orderBy('created_at', 'DESC')
                 ->where('signature', null)
@@ -83,6 +98,13 @@ class Data extends Component
                 ->paginate($this->total_show);
         } else {
             $this->listLaporanPekerjaan = LaporanPekerjaan::where('dikirim', 1)
+                ->where(function ($query) use ($listTipeUser) {
+                    if (in_array(4, $listTipeUser) && !in_array(1, $listTipeUser) && !in_array(2, $listTipeUser) && !in_array(3, $listTipeUser)) {
+                        $query->whereHas('teknisi', function ($query) {
+                            $query->where('id_user', session()->get('id_user'));
+                        });
+                    };
+                })
                 ->where('signature', null)
                 ->where('jam_selesai', null)
                 ->whereHas('formMaster')->orderBy('created_at', 'DESC')->paginate($this->total_show);
@@ -94,7 +116,8 @@ class Data extends Component
         return view('livewire.daftar-tugas.data', $data);
     }
 
-    public function mount(){
+    public function mount()
+    {
         $this->listProject = ProjectV2::get();
     }
 
