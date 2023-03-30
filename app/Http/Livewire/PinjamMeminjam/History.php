@@ -16,22 +16,22 @@ class History extends Component
     protected $listLaporanPekerjaanBarangLog;
     public function render()
     {
-        $this->listLaporanPekerjaanBarangLog = LaporanPekerjaanBarangLog::where(function($query){
-            $query->whereHas('laporanPekerjaanBarang', function($query){
-                $query->whereHas('barang', function($query){
-                    $query->where('nama', 'LIKE' , '%' . $this->cari . '%')
-                    ->orWhere('id', 'LIKE', '%' . $this->cari . '%');
+        $this->listLaporanPekerjaanBarangLog = LaporanPekerjaanBarangLog::where(function ($query) {
+            $query->whereHas('laporanPekerjaanBarang', function ($query) {
+                $query->whereHas('barang', function ($query) {
+                    $query->where('nama', 'LIKE', '%' . $this->cari . '%')
+                        ->orWhere('nomor', 'LIKE', '%' . $this->cari . '%');
                 });
             });
         })
-        ->orderBy('updated_at', 'DESC')
-        ->paginate($this->total_show);
+            ->orderBy('updated_at', 'DESC')
+            ->paginate($this->total_show);
 
         $data['listLaporanPekerjaanBarangLog'] = $this->listLaporanPekerjaanBarangLog;
         return view('livewire.pinjam-meminjam.history', $data);
     }
 
-    public function mount(){
-
+    public function mount()
+    {
     }
 }

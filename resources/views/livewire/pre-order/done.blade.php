@@ -52,6 +52,7 @@
                    <th>Status Pembayaran</th>
                    <th>Keterangan</th>
                    <th>File</th>
+                   <th>Tanggal Pembuatan</th>
                    <th>Aksi</th>
                   </tr>
                  </thead>
@@ -94,6 +95,7 @@
                                         </a>
                                     @endif
                                 </td>
+                                <td>{{ $item->tanggal_pembuatan }}</td>
                                 <td>
                                     <div class="btn-group">
                                         <a href="{{ route('pre-order.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Kelola Pre Order" target="blank">
@@ -105,7 +107,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="11" class="text-center text-gray-500">Tidak ada data</td>
+                            <td colspan="12" class="text-center text-gray-500">Tidak ada data</td>
                         </tr>
                     @endif
                 </tbody>

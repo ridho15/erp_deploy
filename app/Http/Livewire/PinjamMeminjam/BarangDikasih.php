@@ -19,22 +19,23 @@ class BarangDikasih extends Component
     protected $listBarangDikasih;
     public function render()
     {
-        $this->listBarangDikasih = LaporanPekerjaanBarang::where(function($query){
+        $this->listBarangDikasih = LaporanPekerjaanBarang::where(function ($query) {
             $query->where('catatan_teknisi', 'LIKE', '%' . $this->cari . '%')
-            ->orWhere('keterangan_customer', 'LIKE', '%' . $this->cari . '%')
-            ->orWhere('qty', 'LIKE', '%' . $this->cari . '%')
-            ->orWHere('id_laporan_pekerjaan', 'LIKE', '%' . $this->cari . '%')
-            ->orWhereHas('barang', function($query){
-                $query->where('nama', 'LIKE', '%' . $this->cari . '%');
-            });
+                ->orWhere('keterangan_customer', 'LIKE', '%' . $this->cari . '%')
+                ->orWhere('qty', 'LIKE', '%' . $this->cari . '%')
+                ->orWHere('id_laporan_pekerjaan', 'LIKE', '%' . $this->cari . '%')
+                ->orWhereHas('barang', function ($query) {
+                    $query->where('nama', 'LIKE', '%' . $this->cari . '%')
+                        ->orWhere('nomor', 'LIKE', '%' . $this->cari . '%');
+                });
         })->where('status', 2)->where('konfirmasi', 0)->orderBy('updated_at', 'DESC')
-        ->paginate($this->total_show);
+            ->paginate($this->total_show);
 
         $data['listBarangDikasih'] = $this->listBarangDikasih;
         return view('livewire.pinjam-meminjam.barang-dikasih', $data);
     }
 
-    public function mount(){
-
+    public function mount()
+    {
     }
 }

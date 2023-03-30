@@ -35,7 +35,8 @@ class AcureateKeluar extends Component
             ->orWhere('keterangan_customer', 'LIKE', '%' . $this->cari . '%')
             ->orWhere('qty', 'LIKE', '%' . $this->cari . '%')
             ->orWhereHas('barang', function($query){
-                $query->where('nama', 'LIKE', '%' . $this->cari . '%');
+                $query->where('nama', 'LIKE', '%' . $this->cari . '%')
+                ->orWhere('nomor', 'LIKE','%' . $this->cari . '%');
             });
         })->where('status', 1)->where('konfirmasi', 1)->orderBy('updated_at', 'DESC')
         ->paginate($this->total_show);

@@ -26,23 +26,25 @@ class AcureateMasuk extends Component
     public function render()
     {
         $this->listAcurateMasuk = LaporanPekerjaanBarang::whereHas('barang')
-        ->where(function($query){
-            $query->where('catatan_teknisi', 'LIKE', '%' . $this->cari . '%')
-            ->orWhere('keterangan_customer', 'LIKE', '%' . $this->cari . '%')
-            ->orWhere('qty', 'LIKE', '%' . $this->cari . '%')
-            ->orWhereHas('barang', function($query){
-                $query->where('nama', 'LIKE', '%' . $this->cari . '%');
-            });
-        })->where('status', 3)->where('konfirmasi', 0)->orderBy('updated_at', 'DESC')
-        ->paginate($this->total_show);
+            ->where(function ($query) {
+                $query->where('catatan_teknisi', 'LIKE', '%' . $this->cari . '%')
+                    ->orWhere('keterangan_customer', 'LIKE', '%' . $this->cari . '%')
+                    ->orWhere('qty', 'LIKE', '%' . $this->cari . '%')
+                    ->orWhereHas('barang', function ($query) {
+                        $query->where('nama', 'LIKE', '%' . $this->cari . '%')
+                            ->orWhere('nomor', 'LIKE', '%' . $this->cari . '%');
+                    });
+            })->where('status', 3)->where('konfirmasi', 0)->orderBy('updated_at', 'DESC')
+            ->paginate($this->total_show);
 
         $data['listAcurateMasuk'] = $this->listAcurateMasuk;
         return view('livewire.pinjam-meminjam.acureate-masuk', $data);
     }
 
-    public function simpanCheck($id){
+    public function simpanCheck($id)
+    {
         $laporanPekerjaanBarang = LaporanPekerjaanBarang::find($id);
-        if(!$laporanPekerjaanBarang){
+        if (!$laporanPekerjaanBarang) {
             $message = "Data laporan pekerjaan barang tidak ditemukan";
             return session()->flash('fail', $message);
         }

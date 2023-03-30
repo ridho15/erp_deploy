@@ -60,7 +60,8 @@ class BarangDiminta extends Component
             ->orWhere('qty', 'LIKE', '%' . $this->cari . '%')
             ->orWHere('id_laporan_pekerjaan', 'LIKE', '%' . $this->cari . '%')
             ->orWhereHas('barang', function($query){
-                $query->where('nama', 'LIKE', '%' . $this->cari . '%');
+                $query->where('nama', 'LIKE', '%' . $this->cari . '%')
+                ->orWhere('nomor', 'LIKE', '%' . $this->cari . '%');
             });
         })->where(function($query){
             $query->where('status', 1)

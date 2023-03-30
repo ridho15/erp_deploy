@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Http\Controllers\HelperController;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -36,7 +37,12 @@ class PreOrder extends Model
         'status_pembayaran_kode',
         'sudah_bayar',
         'ppn',
+        'tanggal_pembuatan'
     ];
+
+    public function getTanggalPembuatanAttribute(){
+        return Carbon::make($this->created_at)->locale('id')->isoFormat('dddd MMMM YYYY');
+    }
 
     public function getPpnAttribute(){
         $preOrderDetail = PreOrderDetail::where('id_pre_order', $this->id)->get();

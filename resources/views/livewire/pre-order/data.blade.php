@@ -89,6 +89,7 @@
                             <th>Keterangan</th>
                             <th>File</th>
                             <th>User</th>
+                            <th>Tanggal Pembuatan</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -172,6 +173,7 @@
                                                     Dikonfirmasi Pelanggan
                                                 @endif
                                             </td>
+                                            <td>{{ $item->tanggal_pembuatan }}</td>
                                             <td>
                                                 <div class="btn-group">
                                                     {{-- <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Purchase Order" wire:click="$emit('onClickEdit', {{ $item }})">
@@ -277,6 +279,7 @@
                                                 Dikonfirmasi Pelanggan
                                             @endif
                                         </td>
+                                        <td>{{ $item->tanggal_pembuatan }}</td>
                                         <td>
                                             @if ($item->deleted_at == null)
                                                 <div class="btn-group">
@@ -312,7 +315,7 @@
                             @endforeach
                         @else
                             <tr>
-                                <td colspan="13" class="text-center text-gray-500">Tidak ada data</td>
+                                <td colspan="14" class="text-center text-gray-500">Tidak ada data</td>
                             </tr>
                         @endif
                     </tbody>
