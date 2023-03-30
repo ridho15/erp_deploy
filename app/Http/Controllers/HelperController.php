@@ -65,7 +65,7 @@ class HelperController extends Controller
                     collect([
                         'nama' => 'PO Keluar',
                         'icon' => '<span class="bullet bullet-dot"></span>',
-                        'role' => ['Super Admin', 'Manager'],
+                        'role' => ['Super Admin', 'Manager', 'Admin Gudang'],
                         'active' => 'supplier-order',
                         'route' => 'supplier.order'
                     ]),
@@ -155,14 +155,14 @@ class HelperController extends Controller
                             <path d="M20 8L14 2V6C14 7.10457 14.8954 8 16 8H20Z" fill="currentColor"/>
                             <path d="M10.3629 14.0084L8.92108 12.6429C8.57518 12.3153 8.03352 12.3153 7.68761 12.6429C7.31405 12.9967 7.31405 13.5915 7.68761 13.9453L10.2254 16.3488C10.6111 16.714 11.215 16.714 11.6007 16.3488L16.3124 11.8865C16.6859 11.5327 16.6859 10.9379 16.3124 10.5841C15.9665 10.2565 15.4248 10.2565 15.0789 10.5841L11.4631 14.0084C11.1546 14.3006 10.6715 14.3006 10.3629 14.0084Z" fill="currentColor"/>
                         </svg>',
-                'role' => ['Super Admin', 'Manager', 'Admin Gudan'],
+                'role' => ['Super Admin', 'Manager', 'Admin Gudang'],
                 'active' => 'laporan',
                 'route' => null,
                 'children' => collect([
                     collect([
                         'nama' => 'Account Payable',
                         'icon' => '<span class="bullet bullet-dot"></span>',
-                        'role' => ['Super Admin', 'Manager'],
+                        'role' => ['Super Admin', 'Manager', 'Admin Gudang'],
                         'active' => 'laporan-account-payable',
                         'route' => 'laporan.account-payable'
                     ]),
@@ -183,14 +183,14 @@ class HelperController extends Controller
                     collect([
                         'nama' => 'Stock Minimum',
                         'icon' => '<span class="bullet bullet-dot"></span>',
-                        'role' => ['Super Admin', 'Manager'],
+                        'role' => ['Super Admin', 'Manager', 'Admin Gudang'],
                         'active' => 'spareparts',
                         'route' => 'laporan.spareparts'
                     ]),
                     collect([
                         'nama' => 'Laporan Stok Opname',
                         'icon' => '<span class="bullet bullet-dot"></span>',
-                        'role' => ['Super Admin', 'Manager'],
+                        'role' => ['Super Admin', 'Manager', 'Admin Gudang'],
                         'active' => 'stock-opname-miss',
                         'route' => 'laporan.stock-opname'
                     ]),
@@ -224,21 +224,21 @@ class HelperController extends Controller
                             <path opacity="0.3" d="M21.25 18.525L13.05 21.825C12.35 22.125 11.65 22.125 10.95 21.825L2.75 18.525C1.75 18.125 1.75 16.725 2.75 16.325L4.04999 15.825L10.25 18.325C10.85 18.525 11.45 18.625 12.05 18.625C12.65 18.625 13.25 18.525 13.85 18.325L20.05 15.825L21.35 16.325C22.35 16.725 22.35 18.125 21.25 18.525ZM13.05 16.425L21.25 13.125C22.25 12.725 22.25 11.325 21.25 10.925L13.05 7.62502C12.35 7.32502 11.65 7.32502 10.95 7.62502L2.75 10.925C1.75 11.325 1.75 12.725 2.75 13.125L10.95 16.425C11.65 16.725 12.45 16.725 13.05 16.425Z" fill="currentColor"/>
                             <path d="M11.05 11.025L2.84998 7.725C1.84998 7.325 1.84998 5.925 2.84998 5.525L11.05 2.225C11.75 1.925 12.45 1.925 13.15 2.225L21.35 5.525C22.35 5.925 22.35 7.325 21.35 7.725L13.05 11.025C12.45 11.325 11.65 11.325 11.05 11.025Z" fill="currentColor"/>
                         </svg>',
-                'role' => ['Super Admin', 'Manager', 'Admi Gudang'],
+                'role' => ['Super Admin', 'Manager', 'Admin Gudang'],
                 'active' => 'inventory',
                 'route' => null,
                 'children' => collect([
                     collect([
                         'nama' => 'Stock',
                         'icon' => '<span class="bullet bullet-dot"></span>',
-                        'role' => ['Super Admin', 'Manager'],
+                        'role' => ['Super Admin', 'Manager', 'Admin Gudang'],
                         'active' => 'stock',
                         'route' => 'inventory'
                     ]),
                     collect([
                         'nama' => 'Stock Opname',
                         'icon' => '<span class="bullet bullet-dot"></span>',
-                        'role' => ['Super Admin', 'Manager'],
+                        'role' => ['Super Admin', 'Manager', 'Admin Gudang'],
                         'active' => 'stock-opname',
                         'route' => 'inventory.stock-opname'
                     ]),
@@ -252,7 +252,7 @@ class HelperController extends Controller
                     collect([
                         'nama' => 'Rak',
                         'icon' => '<span class="bullet bullet-dot"></span>',
-                        'role' => ['Super Admin', 'Manager', 'Admin Gudan'],
+                        'role' => ['Super Admin', 'Manager', 'Admin Gudang'],
                         'active' => 'rak',
                         'route' => 'rak'
                     ]),
@@ -282,7 +282,7 @@ class HelperController extends Controller
                             <path d="M18 5H17C16.4 5 16 4.6 16 4V2H19V4C19 4.6 18.6 5 18 5Z"
                                 fill="currentColor" />
                         </svg>',
-                'role' => ['Super Admin', 'Manager'],
+                'role' => ['Super Admin', 'Manager', 'Admin Gudang'],
                 'active' => 'data-master',
                 'route' => null,
                 'children' => collect([
@@ -310,7 +310,7 @@ class HelperController extends Controller
                     collect([
                         'nama' => 'Data Supplier',
                         'icon' => '<span class="bullet bullet-dot"></span>',
-                        'role' => ['Super Admin', 'Manager'],
+                        'role' => ['Super Admin', 'Manager', 'Admin Gudang'],
                         'active' => 'supplier',
                         'route' => 'supplier'
                     ]),
@@ -324,35 +324,35 @@ class HelperController extends Controller
                     collect([
                         'nama' => 'Barang',
                         'icon' => '<span class="bullet bullet-dot"></span>',
-                        'role' => ['Super Admin', 'Manager'],
+                        'role' => ['Super Admin', 'Manager', 'Admin Gudang'],
                         'active' => 'barang',
                         'route' => 'barang'
                     ]),
                     collect([
                         'nama' => 'Kategori',
                         'icon' => '<span class="bullet bullet-dot"></span>',
-                        'role' => ['Super Admin', 'Manager'],
+                        'role' => ['Super Admin', 'Manager', 'Admin Gudang'],
                         'active' => 'kategori',
                         'route' => 'kategori'
                     ]),
                     collect([
                         'nama' => 'Merk',
                         'icon' => '<span class="bullet bullet-dot"></span>',
-                        'role' => ['Super Admin', 'Manager'],
+                        'role' => ['Super Admin', 'Manager', 'Admin Gudang'],
                         'active' => 'merk',
                         'route' => 'merk'
                     ]),
                     collect([
                         'nama' => 'Tipe Barang',
                         'icon' => '<span class="bullet bullet-dot"></span>',
-                        'role' => ['Super Admin', 'Manager'],
+                        'role' => ['Super Admin', 'Manager', 'Admin Gudang'],
                         'active' => 'tipe-barang',
                         'route' => 'tipe-barang'
                     ]),
                     collect([
                         'nama' => 'Satuan',
                         'icon' => '<span class="bullet bullet-dot"></span>',
-                        'role' => ['Super Admin', 'Manager'],
+                        'role' => ['Super Admin', 'Manager', 'Admin Gudang'],
                         'active' => 'satuan',
                         'route' => 'satuan'
                     ]),
@@ -394,7 +394,7 @@ class HelperController extends Controller
                     collect([
                         'nama' => 'Sales',
                         'icon' => '<span class="bullet bullet-dot"></span>',
-                        'role' => ['Super Admin', 'Manager'],
+                        'role' => ['Super Admin', 'Manager', 'Admin Gudang'],
                         'active' => 'sales',
                         'route' => 'sales'
                     ]),

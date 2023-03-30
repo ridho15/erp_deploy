@@ -14,8 +14,9 @@
                     @foreach ($listMenu as $item)
                         @if (array_intersect(session()->get('list_tipe_user'), $item['role']))
                             @if ($item['route'] == null)
-                                <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if(in_array($item['active'], $active)) show @endif">
-                                    <span class="menu-link @if(in_array($item['active'], $active)) active @endif">
+                                <div data-kt-menu-trigger="click"
+                                    class="menu-item menu-accordion @if (in_array($item['active'], $active)) show @endif">
+                                    <span class="menu-link @if (in_array($item['active'], $active)) active @endif">
                                         <span class="menu-icon">
                                             <span class="svg-icon svg-icon-2">
                                                 <?= $item['icon'] ?>
@@ -26,21 +27,23 @@
                                     </span>
                                     <div class="menu-sub menu-sub-accordion">
                                         @foreach ($item['children'] as $child)
-                                            <div class="menu-item">
-                                                <a class="menu-link @if(in_array($child['active'], $active)) active @endif"
-                                                    href="{{ route($child['route']) }}">
-                                                    <span class="menu-bullet">
-                                                        <?= $child['icon'] ?>
-                                                    </span>
-                                                    <span class="menu-title">{{ $child['nama'] }}</span>
-                                                </a>
-                                            </div>
+                                            @if (array_intersect(session()->get('list_tipe_user'), $child['role']))
+                                                <div class="menu-item">
+                                                    <a class="menu-link @if (in_array($child['active'], $active)) active @endif"
+                                                        href="{{ route($child['route']) }}">
+                                                        <span class="menu-bullet">
+                                                            <?= $child['icon'] ?>
+                                                        </span>
+                                                        <span class="menu-title">{{ $child['nama'] }}</span>
+                                                    </a>
+                                                </div>
+                                            @endif
                                         @endforeach
                                     </div>
                                 </div>
                             @else
                                 <div class="menu-item">
-                                    <a class="menu-link @if(in_array($item['active'], $active)) active @endif"
+                                    <a class="menu-link @if (in_array($item['active'], $active)) active @endif"
                                         href="{{ route($item['route']) }}">
                                         <span class="menu-icon">
                                             <span class="svg-icon svg-icon-2">
