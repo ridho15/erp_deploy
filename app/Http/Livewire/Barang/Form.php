@@ -195,7 +195,6 @@ class Form extends Component
         $this->nama = $barang->nama;
         $this->harga = $barang->harga;
         $this->id_merk = $barang->id_merk;
-        $this->stock = $barang->stock;
         $this->min_stock = $barang->min_stock;
         $this->id_satuan = $barang->id_satuan;
         $this->id_tipe_barang = $barang->id_tipe_barang;

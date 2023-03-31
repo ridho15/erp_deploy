@@ -49,7 +49,8 @@ class LaporanPekerjaan extends Component
         return view('livewire.daftar-tugas.laporan-pekerjaan');
     }
 
-    public function mount($id_laporan_pekerjaan){
+    public function mount($id_laporan_pekerjaan)
+    {
         $this->id_laporan_pekerjaan = $id_laporan_pekerjaan;
         $this->laporanPekerjaan = ModelsLaporanPekerjaan::find($this->id_laporan_pekerjaan);
         $this->keterangan_laporan_pekerjaan = $this->laporanPekerjaan->keterangan;
@@ -61,7 +62,8 @@ class LaporanPekerjaan extends Component
         $this->nama_client = $this->laporanPekerjaan->nama_client;
     }
 
-    public function simpanLaporanPekerjaan(){
+    public function simpanLaporanPekerjaan()
+    {
         $this->validate([
             'catatan_pelanggan' => 'required|string',
             'foto.*' => 'required|image|mimes:jpg,png,jpeg|max:10240',
@@ -77,15 +79,15 @@ class LaporanPekerjaan extends Component
         ]);
 
         $laporanPekerjaan = ModelsLaporanPekerjaan::find($this->id_laporan_pekerjaan);
-        if(!$laporanPekerjaan){
+        if (!$laporanPekerjaan) {
             $message = "Laporan pekerjaan tidak valid !";
             return session()->flash('fail', $message);
         }
 
         // Checklist catatan Teknisi Laporan
         $catatanTeknisi = CatatanTeknisiPekerjaan::where('id_laporan_pekerjaan', $this->id_laporan_pekerjaan)
-        ->where('status', '!=', null)->get();
-        if(count($catatanTeknisi) == 0){
+            ->where('status', '!=', null)->get();
+        if (count($catatanTeknisi) == 0) {
             $message = "Catatan teknisi masih ada yang belum di check. silahkan di check terlebih dahulu";
             return session()->flash('fail', $message);
         }
@@ -93,12 +95,12 @@ class LaporanPekerjaan extends Component
         $data['keterangan'] = $this->keterangan_laporan_pekerjaan;
         $data['catatan_pelanggan'] = $this->catatan_pelanggan;
         $data['nama_client'] = $this->nama_client;
-        if($this->signature){
+        if ($this->signature) {
             $data['signature'] = $this->signature;
             $data['jam_selesai'] = now();
             $laporanPekerjaan->update($data);
             foreach ($laporanPekerjaan->laporanPekerjaanBarang as $barang) {
-                if($barang->barang && $barang->status == 2){
+                if ($barang->barang && $barang->status == 2) {
                     BarangStockLog::create([
                         'id_barang' => $barang->id_barang,
                         'stock_awal' => $barang->barang->stock + $barang->qty,
@@ -116,11 +118,11 @@ class LaporanPekerjaan extends Component
             }
             $this->emit('refreshLaporanPekerjaanBarang');
             $this->createQuotation();
-        }else{
+        } else {
             $laporanPekerjaan->update($data);
         }
 
-        if($this->foto){
+        if ($this->foto) {
             foreach ($this->foto as $item) {
                 $path = $item->store('public/asset_laporan/image');
                 $path = str_replace('public', '', $path);
@@ -139,12 +141,15 @@ class LaporanPekerjaan extends Component
         return session()->flash('success', $message);
     }
 
-    public function hapusFotoByIndex($index){
+    public function hapusFotoByIndex($index)
+    {
         unset($this->foto[$index]);
     }
 
-    public function createQuotation(){
-        $listSparepart = LaporanPekerjaanBarang::where('id_laporan_pekerjaan', $this->id_laporan_pekerjaan)->get();
+    public function createQuotation()
+    {
+        $listSparepart = LaporanPekerjaanBarang::where('id_laporan_pekerjaan', $this->id_laporan_pekerjaan)
+            ->where('id_tipe_barang', 2)->get();
         $laporanPekerjaan = ModelsLaporanPekerjaan::find($this->id_laporan_pekerjaan);
         $quotation = Quotation::updateOrCreate([
             'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan
@@ -153,15 +158,16 @@ class LaporanPekerjaan extends Component
             'status' => 0,
             'id_customer' => $laporanPekerjaan->projectUnit->project->id_customer,
             'ppn' => $laporanPekerjaan->projectUnit->project->customer->ppn,
+            'id_project_unit' => $laporanPekerjaan->id_project_unit,
         ]);
 
-        if($laporanPekerjaan->jam_selesai != null && $laporanPekerjaan->signature != null){
+        if ($laporanPekerjaan->jam_selesai != null && $laporanPekerjaan->signature != null) {
             foreach ($listSparepart as $item) {
-                if ($item->is_laporan_pinjam != 1 && $item->status == 2) {
+                if ($item->is_laporan_pinjam != 1 && $item->id_tipe_barang == 2) {
                     QuotationDetail::updateOrCreate([
                         'id_quotation' => $quotation->id,
                         'id_barang' => $item->id_barang
-                    ],[
+                    ], [
                         'id_quotation' => $quotation->id,
                         'id_barang' => $item->id_barang,
                         'harga' => $item->barang->harga,
@@ -169,7 +175,7 @@ class LaporanPekerjaan extends Component
                         'id_satuan' => $item->barang->id_satuan,
                         'deskripsi' => $item->barang->deskripsi,
                     ]);
-                }elseif($item->is_laporan_pinjam == 1 && $item->status == 2){
+                } elseif ($item->is_laporan_pinjam == 1 && $item->status == 2) {
                     $this->balikanBarangPinjaman($item->id);
                 }
             }
@@ -179,22 +185,23 @@ class LaporanPekerjaan extends Component
         return redirect()->route('management-tugas.export', ['id' => $laporanPekerjaan->id]);
     }
 
-    public function balikanBarangPinjaman($id_laporan_pekerjaan_barang){
+    public function balikanBarangPinjaman($id_laporan_pekerjaan_barang)
+    {
         $laporanPekerjaanBarang = LaporanPekerjaanBarang::find($id_laporan_pekerjaan_barang);
-        if(!$laporanPekerjaanBarang){
+        if (!$laporanPekerjaanBarang) {
             $message = "Data tidak ditemukan !";
             $this->emit('finishSimpanData', 0, $message);
             return session()->flash('fail', $message);
         }
 
         $barang = Barang::find($laporanPekerjaanBarang->id_barang);
-        if($laporanPekerjaanBarang->laporanPekerjaan->quotation){
+        if ($laporanPekerjaanBarang->laporanPekerjaan->quotation) {
             $id_quotation = $laporanPekerjaanBarang->laporanPekerjaan->quotation->id;
-        }else{
+        } else {
             $id_quotation = null;
         }
         $response = $barang->barangStockChange($laporanPekerjaanBarang->qty, 5, $id_quotation);
-        if($response['status'] == 0){
+        if ($response['status'] == 0) {
             return session()->flash('fail', $response['message']);
         }
 
@@ -214,19 +221,21 @@ class LaporanPekerjaan extends Component
         return session()->flash('success', $message);
     }
 
-    public function resetInputFields(){
+    public function resetInputFields()
+    {
         $this->keterangan_foto = null;
         $this->foto = [];
         $this->signature = null;
         $this->nama_client = null;
     }
 
-    public function base64ToImage($data){
+    public function base64ToImage($data)
+    {
         $image = $data;  // your base64 encoded
         $image = str_replace('data:image/png;base64,', '', $image);
         $image = str_replace(' ', '+', $image);
-        $imageName = Str::random(10).'.'.'png';
-        Storage::disk('public')->put('tanda_tangan/'.$imageName, base64_decode($image));
+        $imageName = Str::random(10) . '.' . 'png';
+        Storage::disk('public')->put('tanda_tangan/' . $imageName, base64_decode($image));
         $this->signature = '/tanda_tangan/' . $imageName;
         $message = "Berhasil memasang tanda tangan";
         activity()->causedBy(HelperController::user())->log("Laporan pekerjaan berhasil di tanda tangani");
@@ -235,9 +244,10 @@ class LaporanPekerjaan extends Component
         // \File::put(storage_path(). '/' . $imageName, base64_decode($image));
     }
 
-    public function hapusFoto($id){
+    public function hapusFoto($id)
+    {
         $laporanPekerjaanFoto = LaporanPekerjaanFoto::find($id);
-        if(!$laporanPekerjaanFoto){
+        if (!$laporanPekerjaanFoto) {
             $message = "Foto tidak ditemukan !";
             return session()->flash('fail', $message);
         }
@@ -247,12 +257,13 @@ class LaporanPekerjaan extends Component
         return session()->flash('success', $message);
     }
 
-    public function addCatatanTeknisi($catatan_teknisi){
-        if($catatan_teknisi != '' || $catatan_teknisi != null){
+    public function addCatatanTeknisi($catatan_teknisi)
+    {
+        if ($catatan_teknisi != '' || $catatan_teknisi != null) {
             CatatanTeknisiPekerjaan::updateOrCreate([
                 'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan,
                 'keterangan' => $catatan_teknisi
-            ],[
+            ], [
                 'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan,
                 'keterangan' => $catatan_teknisi,
                 'status' => null
@@ -260,16 +271,18 @@ class LaporanPekerjaan extends Component
         }
     }
 
-    public function hapusCatatanTeknisi($id){
+    public function hapusCatatanTeknisi($id)
+    {
         $catatanTeknisi = CatatanTeknisiPekerjaan::find($id);
-        if($catatanTeknisi){
+        if ($catatanTeknisi) {
             $catatanTeknisi->delete();
         }
     }
 
-    public function checkCatatanTeknisi($id, $status){
+    public function checkCatatanTeknisi($id, $status)
+    {
         $catatanTeknisi = CatatanTeknisiPekerjaan::find($id);
-        if($catatanTeknisi){
+        if ($catatanTeknisi) {
             $catatanTeknisi->update([
                 'status' => $status
             ]);
