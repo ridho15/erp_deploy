@@ -18,7 +18,10 @@ class LaporanPinjam extends Component
     public $listeners = [
         'simpanLaporanPinjam',
         'setDataLaporanPekerjaanBarangLaporanPinjam',
-        'hapusDataLaporanPekerjaanBarangLaporanPinjam'
+        'hapusDataLaporanPekerjaanBarangLaporanPinjam',
+        'changeBarang',
+        'changeVersion',
+        'changeTipeBarang'
     ];
     public $paginationTheme = 'bootstrap';
     public $cari;
@@ -222,5 +225,17 @@ class LaporanPinjam extends Component
         $this->resetInputFields();
         $this->emit('finisSimpanData', 1, $message);
         return session()->flash('success', $message);
+    }
+
+    public function changeBarang($id_barang){
+        $this->id_barang = $id_barang;
+    }
+
+    public function changeVersion($version){
+        $this->version = $version;
+    }
+
+    public function changeTipeBarang($id_tipe_barang){
+        $this->id_tipe_barang = $id_tipe_barang;
     }
 }

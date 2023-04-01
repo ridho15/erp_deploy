@@ -229,24 +229,30 @@
 
 @push('js')
     <script>
-        $(document).ready(function() {});
+        $(document).ready(function() {
+            select2()
+        });
 
         window.addEventListener('contentChangeLaporanPinjam', function() {
+            select2()
+        })
+
+        function select2() {
             $('#form_laporan_pinjam select[name="id_barang"]').select2();
             $('#form_laporan_pinjam select[name="id_barang"]').on('change', function() {
-                @this.set('id_barang', $(this).val())
+                Livewire.emit('changeBarang', $(this).val())
             })
 
             $('#form_laporan_pinjam select[name="version"]').select2();
             $('#form_laporan_pinjam select[name="version"]').on('change', function() {
-                @this.set('version', $(this).val())
+                Livewire.emit('changeVersion', $(this).val())
             })
 
             $('#form_laporan_pinjam select[name="id_tipe_barang"]').select2();
             $('#form_laporan_pinjam select[name="id_tipe_barang"]').on('change', function() {
-                @this.set('id_tipe_barang', $(this).val())
+                Livewire.emit('changeTipeBarang', $(this).val())
             })
-        })
+        }
 
 
         Livewire.on('onClickEditBarangLaporanPinjam', (id) => {
