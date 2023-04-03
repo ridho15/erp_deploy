@@ -37,53 +37,52 @@ class Kalender extends Component
     public function render()
     {
         $this->listAgenda = [];
-        if($this->tanggalClick){
-            $this->listAgenda = CalenderPenagihan::whereDate('tanggal',$this->tanggalClick)->get();
+        if ($this->tanggalClick) {
+            $this->listAgenda = CalenderPenagihan::whereDate('tanggal', $this->tanggalClick)->get();
         }
-        if($this->tipe != null){
+        if ($this->tipe != null) {
             if ($this->tipe == 1) {
-                $this->listAccounts = PreOrder::whereHas('quotation', function($query){
-                    $query->whereHas('laporanPekerjaan', function($query){
+                $this->listAccounts = PreOrder::whereHas('quotation', function ($query) {
+                    $query->whereHas('laporanPekerjaan', function ($query) {
                         $query->where('signature', '!=', null)
-                        ->where('jam_selesai', '!=', null);
+                            ->where('jam_selesai', '!=', null);
                     });
                 })->where('status', '!=', 3)->orderBy('updated_at', 'DESC')->get();
-            }elseif($this->tipe == 2){
-                $this->listAccounts = SupplierOrder::where('status_pembayaran', '!=',2)
-                ->where('status_order', '!=', 0)
-                ->whereHas('supplier')
-                ->get();
-            }elseif($this->tipe == 4){
+            } elseif ($this->tipe == 2) {
+                $this->listAccounts = SupplierOrder::where('status_pembayaran', '!=', 2)
+                    ->where('status_order', '!=', 0)
+                    ->whereHas('supplier')
+                    ->get();
+            } elseif ($this->tipe == 4) {
                 $this->listAccounts = LaporanPekerjaan::where('signature', null)
-                ->where('jam_selesai', null)
-                ->get();
-            }elseif($this->tipe == 3){
+                    ->where('jam_selesai', null)
+                    ->get();
+            } elseif ($this->tipe == 3) {
                 $this->listAccounts = Quotation::where('status_like', 2)
-                ->get();
+                    ->get();
             }
-        }else{
+        } else {
             $this->listAccounts = [];
         }
 
         $this->listEvents = [];
-        $this->listCalenderPenagihan = CalenderPenagihan::where(function($query){
+        $this->listCalenderPenagihan = CalenderPenagihan::where(function ($query) {
             $query->whereHas('preOrder')
-            ->orWhereHas('supplierOrder')
-            ->orWhereHas('quotation')
-            ->orWhereHas('laporanPekerjaan');
+                ->orWhereHas('supplierOrder')
+                ->orWhereHas('quotation')
+                ->orWhereHas('laporanPekerjaan');
         })
-        ->get();
-
+            ->get();
         foreach ($this->listCalenderPenagihan as $item) {
-            if($item->tanggal != null){
+            if ($item->tanggal != null) {
                 $title = $item->tipe == 1 ? "Receivable" : "Payable";
-                if($item->tipe == 1){
+                if ($item->tipe == 1) {
                     $title = "Receivable - " . $item->preOrder->no_ref;
-                }elseif($item->tipe == 2){
+                } elseif ($item->tipe == 2) {
                     $title = "Payable - " . $item->supplierOrder->no_ref;
-                }elseif($item->tipe == 3){
+                } elseif ($item->tipe == 3) {
                     $title = "Quotation - " . $item->quotation->no_ref;
-                }elseif($item->tipe == 4){
+                } elseif ($item->tipe == 4) {
                     $title = "Laporan Pekerjaan " . $item->laporanPekerjaan->kode_pekerjaan;
                 }
                 array_push($this->listEvents, collect([
@@ -94,11 +93,13 @@ class Kalender extends Component
                 ]));
             }
         }
+
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.laporan.kalender');
     }
 
-    public function simpanCalenderPenagihan(){
+    public function simpanCalenderPenagihan()
+    {
         $this->validate([
             'id_accounts' => 'required|numeric',
             'tipe' => 'required|numeric',
@@ -120,16 +121,18 @@ class Kalender extends Component
         return session()->flash('success', $message);
     }
 
-    public function resetInputFields(){
+    public function resetInputFields()
+    {
         $this->id_accounts = null;
         $this->tipe = null;
         $this->tanggal = null;
         $this->description = null;
     }
 
-    public function updateCalenderPenagihan($id, $tanggal){
+    public function updateCalenderPenagihan($id, $tanggal)
+    {
         $calenderPenagihan = CalenderPenagihan::find($id);
-        if(!$calenderPenagihan){
+        if (!$calenderPenagihan) {
             $message = "Data tidak ditemukan";
             return session()->flash('fail', $message);
         }
@@ -143,13 +146,15 @@ class Kalender extends Component
         return session()->flash('success', $message);
     }
 
-    public function setTanggalClick($tanggal){
+    public function setTanggalClick($tanggal)
+    {
         $this->tanggalClick = date('Y-m-d', strtotime($tanggal));
     }
 
-    public function hapusTanggalAgenda($id){
+    public function hapusTanggalAgenda($id)
+    {
         $calenderPenagihan = CalenderPenagihan::find($id);
-        if(!$calenderPenagihan){
+        if (!$calenderPenagihan) {
             $message = "Data tidak ditemukan";
             return session()->flash('fail', $message);
         }
@@ -162,13 +167,15 @@ class Kalender extends Component
         return session()->flash('success', $message);
     }
 
-    public function showHideForm(){
+    public function showHideForm()
+    {
         $this->showForm = !$this->showForm;
     }
 
-    public function hapusAgenda($id){
+    public function hapusAgenda($id)
+    {
         $calenderPenagihan = CalenderPenagihan::find($id);
-        if(!$calenderPenagihan){
+        if (!$calenderPenagihan) {
             $message = "Data agenda tidak ditemukan";
             return session()->flash('fail', $message);
         }
@@ -179,9 +186,10 @@ class Kalender extends Component
         return session()->flash('success', $message);
     }
 
-    public function setDataAgenda($id){
+    public function setDataAgenda($id)
+    {
         $calenderPenagihan = CalenderPenagihan::find($id);
-        if(!$calenderPenagihan){
+        if (!$calenderPenagihan) {
             $message = "Data agenda tidak ditemukan";
             return session()->flash('fail', $message);
         }

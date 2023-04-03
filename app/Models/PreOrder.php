@@ -41,7 +41,11 @@ class PreOrder extends Model
     ];
 
     public function getTanggalPembuatanAttribute(){
-        return Carbon::make($this->created_at)->locale('id')->isoFormat('dddd MMMM YYYY');
+        if($this->created_at){
+            return Carbon::make($this->created_at)->locale('id')->isoFormat('dddd MMMM YYYY');
+        }else{
+            return null;
+        }
     }
 
     public function getPpnAttribute(){
