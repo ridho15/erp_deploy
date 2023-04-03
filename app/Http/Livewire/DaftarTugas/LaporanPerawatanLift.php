@@ -32,6 +32,7 @@ class LaporanPerawatanLift extends Component
     public $listKondisi;
     public $periode;
     public $pekerjaan = [];
+    public $listPekerjaan = [];
     public $statusPekerjaan;
     public $templateListId;
 
