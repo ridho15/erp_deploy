@@ -8,12 +8,14 @@
         <div class="col-md-4">
             @include('helper.form-pencarian', ['model' => 'cari'])
         </div>
-        <div class="col-md-8 text-end">
-            <button class="btn btn-sm btn-outline btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top"
-                title="Tambah Barang" wire:click="changeTambahBarang" @if ($preOrder->status == 0 || $preOrder->status == 3) disabled @endif>
-                <i class="bi bi-plus-circle"></i> Tambah
-            </button>
-        </div>
+        @if ($preOrder->status == 1)
+            <div class="col-md-8 text-end">
+                <button class="btn btn-sm btn-outline btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Tambah Barang" wire:click="changeTambahBarang">
+                    <i class="bi bi-plus-circle"></i> Tambah
+                </button>
+            </div>
+        @endif
     </div>
     <div class="row mb-5 @if ($tambahBarang == false) d-none @endif">
         <div class="col-md mb-5">
@@ -173,7 +175,8 @@
                             <td>
                                 <a href="{{ route('barang.detail', ['id' => $item->id_barang]) }}" class="text-dark">
                                     {{ $item->barang->sku }}
-                                    <span data-bs-toggle="tooltip" data-bs-placement="top" title="Lihat Detail Barang">
+                                    <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                        title="Lihat Detail Barang">
                                         <i class="bi bi-question-circle"></i>
                                     </span>
                                 </a>
@@ -213,18 +216,19 @@
                     $total = $preOrder->total;
                     if ($preOrder->id_quotation != null) {
                         $ppn = $preOrder->quotation->ppn;
-                    }elseif($preOrder->id_project_unit != null && isset($preOrder->projectUnit->project->customer->ppn)){
+                    } elseif ($preOrder->id_project_unit != null && isset($preOrder->projectUnit->project->customer->ppn)) {
                         $ppn = $preOrder->projectUnit->project->customer->ppn;
                     }
                     $total_bayar = $preOrder->total_bayar_formatted;
                 @endphp
                 <tr>
                     <td colspan="7" class="text-center fw-bold">Subtotal</td>
-                    <td colspan="2" class="text-end fw-bold">Rp. {{ number_format($total,0,',','.') }}</td>
+                    <td colspan="2" class="text-end fw-bold">Rp. {{ number_format($total, 0, ',', '.') }}</td>
                 </tr>
                 <tr>
                     <td colspan="7" class="text-center fw-bold">PPN ({{ $ppn }}%)</td>
-                    <td colspan="2" class="text-end fw-bold">Rp.{{ number_format($preOrder->ppn,0,',','.') }}</td>
+                    <td colspan="2" class="text-end fw-bold">Rp.{{ number_format($preOrder->ppn, 0, ',', '.') }}
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="7" class="text-center fw-bold">Total</td>
