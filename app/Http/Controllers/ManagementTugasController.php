@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\CPU\Helpers;
 use App\Models\CatatanTeknisiPekerjaan;
 use App\Models\LaporanPekerjaan;
+use App\Models\TemplatePekerjaan;
 use App\Models\WebConfig;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -41,7 +42,10 @@ class ManagementTugasController extends Controller
         if (!$laporanPekerjaan) {
             return redirect()->back()->with('fail', 'Data Laporan Pekerjaan tidak ditemukan !');
         }
-        $listTemplatePekerjaan = $laporanPekerjaan->formMaster->templatePekerjaan;
+        $listTemplatePekerjaan = TemplatePekerjaan::where('id_parent', null)->whereHas('detail', function ($query) use($laporanPekerjaan) {
+            $query->where('periode', 'LIKE', '%' . $laporanPekerjaan->periode . '%');
+        })->where('id_form_master', $laporanPekerjaan->id_form_master)->get();
+
         $data['laporanPekerjaan'] = $laporanPekerjaan;
         $data['listTemplatePekerjaan'] = $listTemplatePekerjaan;
         $data['web_logo'] = WebConfig::where('type', 'logo')->first();

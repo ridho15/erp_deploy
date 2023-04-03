@@ -44,8 +44,7 @@ class LaporanPerawatanLift extends Component
 
     public function render()
     {
-        $this->listKondisi = Kondisi::get();
-        $this->listPekerjaan = Pekerjaan::get();
+
         $this->periode = $this->laporanPekerjaan->periode;
         // $this->listTemplatePekerjaan = TemplatePekerjaan::where(function($query){
         //     $query->where('nama_pekerjaan', 'LIKE', '%' . $this->cari . '%')
@@ -60,7 +59,7 @@ class LaporanPerawatanLift extends Component
         // })
         // ->where('id_form_master', $this->laporanPekerjaan->id_form_master)->get();
 
-        $this->listTemplatePekerjaan = TemplatePekerjaan::where('id_parent', null)->whereHas('detail', function($query){
+        $this->listTemplatePekerjaan = TemplatePekerjaan::where('id_parent', null)->whereHas('detail', function ($query) {
             $query->where('periode', 'LIKE', '%' . $this->periode . '%');
         })->where('id_form_master', $this->laporanPekerjaan->id_form_master)->get();
         $this->listLaporanPekerjaanChecklist = LaporanPekerjaanChecklist::where('id_laporan_pekerjaan', $this->id_laporan_pekerjaan)->get();
@@ -74,6 +73,8 @@ class LaporanPerawatanLift extends Component
         $this->id_laporan_pekerjaan = $id_laporan_pekerjaan;
         $this->laporanPekerjaan = LaporanPekerjaan::find($this->id_laporan_pekerjaan);
         $this->periode = $this->laporanPekerjaan->periode;
+        $this->listKondisi = Kondisi::get();
+        $this->listPekerjaan = Pekerjaan::get();
     }
 
     public function setLaporanPekerjaanChecklist($id_kondisi, $id_template_pekerjaan_detail)
@@ -144,7 +145,8 @@ class LaporanPerawatanLift extends Component
         $this->listIdTemplatePekerjaanDetail = [];
     }
 
-    public function simpanKeterangan($keterangan, $id_laporan_pekerjaan_detail){
+    public function simpanKeterangan($keterangan, $id_laporan_pekerjaan_detail)
+    {
         LaporanPekerjaanChecklist::updateOrCreate([
             'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan,
             'id_template_pekerjaan_detail' => $id_laporan_pekerjaan_detail,
@@ -159,7 +161,8 @@ class LaporanPerawatanLift extends Component
         return session()->flash('success', $message);
     }
 
-    public function setKondisi($kondisi, $id_template_pekerjaan_detail){
+    public function setKondisi($kondisi, $id_template_pekerjaan_detail)
+    {
         LaporanPekerjaanChecklist::updateOrCreate([
             'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan,
             'id_template_pekerjaan_detail' => $id_template_pekerjaan_detail
@@ -174,14 +177,15 @@ class LaporanPerawatanLift extends Component
         return session()->flash('success', $message);
     }
 
-    public function changeStatus($id_template_pekerjaan_detail){
+    public function changeStatus($id_template_pekerjaan_detail)
+    {
         $laporanPekerjaanChecklist = LaporanPekerjaanChecklist::where('id_laporan_pekerjaan', $this->id_laporan_pekerjaan)
-        ->where('id_template_pekerjaan_detail', $id_template_pekerjaan_detail)->first();
-        if($laporanPekerjaanChecklist){
+            ->where('id_template_pekerjaan_detail', $id_template_pekerjaan_detail)->first();
+        if ($laporanPekerjaanChecklist) {
             $laporanPekerjaanChecklist->update([
                 'status' => $laporanPekerjaanChecklist->status == 1 ? 0 : 1,
             ]);
-        }else{
+        } else {
             LaporanPekerjaanChecklist::create([
                 'id_laporan_pekerjaan' => $this->id_laporan_pekerjaan,
                 'id_template_pekerjaan_detail' => $id_template_pekerjaan_detail,
