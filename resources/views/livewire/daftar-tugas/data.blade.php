@@ -234,7 +234,7 @@
                                         No HP
                                     </div>
                                     <div class="col-md-8 col-8 fw-bold">
-                                        : {{ $laporanPekerjaan->projectUnit->project->customer->no_hp }}
+                                        : #1{{ $laporanPekerjaan->projectUnit->project->customer->no_hp_1 }}, #2{{ $laporanPekerjaan->projectUnit->project->customer->no_hp_2 }}
                                     </div>
                                 </div>
                                 <div class="row mb-5">
@@ -242,7 +242,7 @@
                                         Email
                                     </div>
                                     <div class="col-md-8 col-8 fw-bold">
-                                        : {{ $laporanPekerjaan->projectUnit->project->customer->no_hp }}
+                                        : {{ $laporanPekerjaan->projectUnit->project->customer->email }}
                                     </div>
                                 </div>
                                 <div class="row mb-5">
