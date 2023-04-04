@@ -41,48 +41,53 @@ class Data extends Component
             $this->cari = Carbon::parse($this->cari)->locale('id')->isoFormat('YYYY/MM/DD hh:mm:ss');
         }
 
-        if($this->cari != null){
-            $this->listLaporanPekerjaan = LaporanPekerjaan::where(function($query) {
-                $query->where('nomor_lift', 'LIKE', '%'.$this->cari.'%')
-                ->orWhere('keterangan', 'LIKE', '%'.$this->cari.'%')
-                ->orWhere('no_ref', 'LIKE', '%'.$this->cari.'%')
-                ->orWhere('jam_mulai', 'LIKE', '%'.$this->cari.'%')
-                ->orWhere('tanggal_pekerjaan', 'LIKE', '%'.$this->cari.'%');
+        if ($this->cari != null) {
+            $this->listLaporanPekerjaan = LaporanPekerjaan::where(function ($query) {
+                $query->where('nomor_lift', 'LIKE', '%' . $this->cari . '%')
+                    ->orWhere('keterangan', 'LIKE', '%' . $this->cari . '%')
+                    ->orWhere('no_ref', 'LIKE', '%' . $this->cari . '%')
+                    ->orWhere('jam_mulai', 'LIKE', '%' . $this->cari . '%')
+                    ->orWhere('tanggal_pekerjaan', 'LIKE', '%' . $this->cari . '%')
+                    ->orWhereHas('projectUnit', function ($query) {
+                        $query->where('nama_unit', 'LIKE', '%' . $this->cari . '%')
+                            ->orWhere('no_unit', 'LIKE', '%' . $this->cari . '%')->orWhereHas('project', function ($query) {
+                                $query->where('nama', 'LIKE', '%' . $this->cari . '%');
+                            });
+                    });
             })->where('jam_selesai', null)
-            ->where('signature', null)->whereHas('formMaster')->orderBy('created_at', 'DESC')->paginate($this->total_show);
-        }
-        elseif($this->status_pekerjaan != null || $this->tanggal_pekerjaan != null || $this->id_project != null){
-            $this->listLaporanPekerjaan = LaporanPekerjaan::where(function($query) {
-                $query->where('nomor_lift', 'LIKE', '%'.$this->cari.'%')
-                ->orWhere('keterangan', 'LIKE', '%'.$this->cari.'%')
-                ->orWhere('no_ref', 'LIKE', '%'.$this->cari.'%')
-                ->orWhere('jam_mulai', 'LIKE', '%'.$this->cari.'%')
-                ->orWhere('tanggal_pekerjaan', 'LIKE', '%'.$this->cari.'%')
-                ->orWhereHas('projectUnit', function ($query) {
-                    $query->where('no_unit', 'LIKE', '%'.$this->cari.'%')
-                    ->orWhere('nama_unit', 'LIKE', '%' . $this->cari . '%');
-                });
-            })->where(function($query){
+                ->where('signature', null)->whereHas('formMaster')->orderBy('created_at', 'DESC')->paginate($this->total_show);
+        } elseif ($this->status_pekerjaan != null || $this->tanggal_pekerjaan != null || $this->id_project != null) {
+            $this->listLaporanPekerjaan = LaporanPekerjaan::where(function ($query) {
+                $query->where('nomor_lift', 'LIKE', '%' . $this->cari . '%')
+                    ->orWhere('keterangan', 'LIKE', '%' . $this->cari . '%')
+                    ->orWhere('no_ref', 'LIKE', '%' . $this->cari . '%')
+                    ->orWhere('jam_mulai', 'LIKE', '%' . $this->cari . '%')
+                    ->orWhere('tanggal_pekerjaan', 'LIKE', '%' . $this->cari . '%')
+                    ->orWhereHas('projectUnit', function ($query) {
+                        $query->where('no_unit', 'LIKE', '%' . $this->cari . '%')
+                            ->orWhere('nama_unit', 'LIKE', '%' . $this->cari . '%');
+                    });
+            })->where(function ($query) {
                 $query->whereDate('tanggal_pekerjaan', $this->tanggal_pekerjaan)
-                ->orWhere(function($query){
-                    if($this->status_pekerjaan == 0){
-                        $query->where('jam_mulai', null);
-                    }elseif($this->status_pekerjaan == 1){
-                        $query->where('jam_mulai', '!=', null)
-                        ->where('jam_selesai', null)
-                        ->where('signature', null);
-                    }elseif($this->status_pekerjaan == 2){
-                        $query->where('jam_selesai', '!=', null)
-                        ->where('signature', '!=', null);
-                    }
-                })->orWhereHas('projectUnit', function($query){
-                    $query->where('id_project', $this->id_project);
-                });
+                    ->orWhere(function ($query) {
+                        if ($this->status_pekerjaan == 0) {
+                            $query->where('jam_mulai', null);
+                        } elseif ($this->status_pekerjaan == 1) {
+                            $query->where('jam_mulai', '!=', null)
+                                ->where('jam_selesai', null)
+                                ->where('signature', null);
+                        } elseif ($this->status_pekerjaan == 2) {
+                            $query->where('jam_selesai', '!=', null)
+                                ->where('signature', '!=', null);
+                        }
+                    })->orWhereHas('projectUnit', function ($query) {
+                        $query->where('id_project', $this->id_project);
+                    });
             })
-            ->where('jam_selesai', null)
-            ->where('signature', null)
-            ->whereHas('formMaster')->orderBy('created_at', 'DESC')->paginate($this->total_show);
-        }else{
+                ->where('jam_selesai', null)
+                ->where('signature', null)
+                ->whereHas('formMaster')->orderBy('created_at', 'DESC')->paginate($this->total_show);
+        } else {
             $this->listLaporanPekerjaan = LaporanPekerjaan::whereHas('formMaster')->orderBy('created_at', 'DESC')->where('jam_selesai', null)->where('signature', null)->paginate($this->total_show);
         }
 
@@ -131,7 +136,7 @@ class Data extends Component
             return session()->flash('fail', $message);
         }
 
-        if($laporanPekerjaan->quotation){
+        if ($laporanPekerjaan->quotation) {
             $laporanPekerjaan->quotation->update([
                 'id_laporan_pekerjaan' => null
             ]);
@@ -145,13 +150,15 @@ class Data extends Component
         return session()->flash('success', $message);
     }
 
-    public function clearFilter(){
+    public function clearFilter()
+    {
         $this->tanggal_pekerjaan = null;
         $this->status_pekerjaan = null;
         $this->id_project = null;
     }
 
-    public function sendAllData(){
+    public function sendAllData()
+    {
         $managementTugas = LaporanPekerjaan::where('dikirim', 0)->get();
         foreach ($managementTugas as $item) {
             $item->update([
