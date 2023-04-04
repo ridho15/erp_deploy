@@ -16,7 +16,13 @@ class Log extends Component
     protected $listRakLog;
     public function render()
     {
-        $this->listRakLog = RakLog::where('id_rak', $this->id_rak)
+        $this->listRakLog = RakLog::where(function($query){
+            $query->orWhereHas('barang', function($query){
+                $query->where('nama', 'LIKE', '%' . $this->cari . '%')
+                ->orWhere('nomor', 'LIKE', '%' . $this->cari . '%');
+            });
+        })
+        ->where('id_rak', $this->id_rak)
         ->whereHas('barang')
         ->orderBy('updated_at', "DESC")
         ->paginate($this->total_show);
