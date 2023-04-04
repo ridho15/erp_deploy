@@ -21,7 +21,8 @@ class LaporanPinjam extends Component
         'hapusDataLaporanPekerjaanBarangLaporanPinjam',
         'changeBarang',
         'changeVersion',
-        'changeTipeBarang'
+        'changeTipeBarang',
+        'changeTambahBarang'
     ];
     public $paginationTheme = 'bootstrap';
     public $cari;
@@ -209,6 +210,7 @@ class LaporanPinjam extends Component
         $this->id_tipe_barang = $laporanPekerjaanBarang->id_tipe_barang;
         $this->version = $laporanPekerjaanBarang->version;
         $this->estimasi = $laporanPekerjaanBarang->estimasi;
+        $this->tambahBarang = true;
     }
 
     public function hapusDataLaporanPekerjaanBarangLaporanPinjam($id_laporan_pekerjaan_barang){

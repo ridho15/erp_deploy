@@ -257,7 +257,6 @@
 
         Livewire.on('onClickEditBarangLaporanPinjam', (id) => {
             Livewire.emit('setDataLaporanPekerjaanBarangLaporanPinjam', id)
-            @this.set('tambahBarang', true)
         })
 
         Livewire.on('onClickHapusBarangLaporanPinjam', async (id) => {
