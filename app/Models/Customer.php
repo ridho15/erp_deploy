@@ -7,22 +7,39 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Customer extends Model
+class Kostumer extends Model
 {
     use HasFactory, SoftDeletes;
     protected $table = 'customers';
     protected $fillable = [
         'nama',
-        'no_hp',
+        'no_hp_1',
+        'no_hp_2',
+        'telp_1',
+        'telp_2',
         'email',
         'alamat',
         'status',
         'id_barang_customer',
         'barang_customer',
-        'ppn'
+        'ppn',
+        'pic',
     ];
 
-    protected $appends = ['status_formatted', 'kode'];
+    protected $appends = ['status_formatted', 'kode', 'list_barang'];
+
+    public function getListBarangAttribute(){
+        $listIdBarang = json_decode($this->id_barang_customer);
+        $listNamaBarang = [];
+        if (is_array($listIdBarang)) {
+            foreach ($listIdBarang as $item) {
+                $barangCustomer = BarangCustomer::find($item);
+                array_push($listNamaBarang, $barangCustomer->nama_barang);
+            }
+        }
+
+        return $listNamaBarang;
+    }
 
     public function getStatusFormattedAttribute(){
         if($this->status == 1){
@@ -37,11 +54,7 @@ class Customer extends Model
         return 'C' . $helper->format_num($this->id);
     }
 
-    public function laporanPekerjaan(){
-        return $this->hasMany(LaporanPekerjaan::class, 'id_customer');
-    }
-
-    public function project(){
-        return $this->hasMany(ProjectV2::class, 'id_customer');
+    public function customerSales(){
+        return $this->hasMany(CustomerSales::class, 'id_customer');
     }
 }
