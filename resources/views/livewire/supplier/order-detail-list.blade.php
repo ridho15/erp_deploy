@@ -55,7 +55,7 @@
                         <td>{{ $item->keterangan }}</td>
                         <td>
                             <div class="btn-group">
-                                @if ($item->supplierOrder->status_order == 1)
+                                @if ($item->supplierOrder->status_order == 1 || $item->supplierOrder->status_order == 2 || $item->supplierOrder->status_order == 3)
                                     <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Supplier Order Barang" wire:click="$emit('onClickEditOrderBarang', {{ $item->id }})">
                                         <i class="bi bi-pencil-square"></i>
                                     </button>

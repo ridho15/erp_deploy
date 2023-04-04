@@ -25,7 +25,6 @@ class OrderToRak extends Component
         $this->listRak = Rak::get();
         $this->listSupplierOrderDetail = SupplierOrderDetail::where('status_order', 4)
         ->where('id_supplier_order', $this->id_supplier_order)->get();
-
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.supplier.order-to-rak');
     }
