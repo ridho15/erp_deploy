@@ -28,7 +28,7 @@ class Detail extends Component
         ->where(function($query){
             $query->whereHas('barang', function($query){
                 $query->where('nama', 'LIKE', '%' . $this->cari . '%')
-                ->orWhere('id', 'LIKE', '%' . $this->cari . '%');
+                ->orWhere('nomor', 'LIKE', '%' . $this->cari . '%');
             });
         })->paginate($this->total_show);
 

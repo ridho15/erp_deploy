@@ -16,7 +16,8 @@ class FormIsiRak extends Component
         'simpanIsiRak',
         'changeBarang',
         'setIsiRak',
-        'simpanPindahRak'
+        'simpanPindahRak',
+        'changeRak'
     ];
     public $id_isi_rak;
     public $id_rak;
@@ -25,20 +26,21 @@ class FormIsiRak extends Component
     public $listBarang = [];
     public $listRak = [];
     public $barang;
+    public $listIsiRak = [];
     public function render()
     {
-        $this->listRak = Rak::get();
-        $this->listBarang = Barang::get();
-
         $this->dispatchBrowserEvent('contentChange');
         return view('livewire.rak.form-isi-rak');
     }
 
-    public function mount(){
-
+    public function mount()
+    {
+        $this->listRak = Rak::get();
+        $this->listBarang = Barang::get();
     }
 
-    public function simpanIsiRak(){
+    public function simpanIsiRak()
+    {
         $this->validate([
             'id_barang' => 'required|numeric',
             'id_rak' => 'required|numeric',
@@ -52,13 +54,16 @@ class FormIsiRak extends Component
             'jumlah.numeric' => 'Jumlah tidak valid !'
         ]);
 
-        if($this->jumlah == 0){
+        if ($this->jumlah == 0) {
             $message = "Jumlah tidak boleh 0";
             return session()->flash('fail', $message);
         }
 
         $tersediaDiRak = 0;
-        foreach ($this->barang->isiRak as $item) {
+        $isiRak = IsiRak::where('id_barang', $this->barang->id)
+            ->whereHas('rak')
+            ->get();
+        foreach ($isiRak as $item) {
             if ($item->rak && $this->id_isi_rak != $item->id) {
                 $tersediaDiRak += $item->jumlah;
             }
@@ -70,13 +75,13 @@ class FormIsiRak extends Component
         }
 
         $isiRak = IsiRak::where('id_rak', $this->id_rak)
-        ->where('id_barang', $this->id_barang)
-        ->first();
-        if($isiRak && $this->id_isi_rak == null){
+            ->where('id_barang', $this->id_barang)
+            ->first();
+        if ($isiRak && $this->id_isi_rak == null) {
             $isiRak->update([
                 'jumlah' => $isiRak->jumlah + $this->jumlah
             ]);
-        }else{
+        } else {
             IsiRak::updateOrCreate([
                 'id' => $this->id_isi_rak,
             ], [
@@ -103,25 +108,32 @@ class FormIsiRak extends Component
         return session()->flash('success', $message);
     }
 
-    public function setIdRak($id_rak){
+    public function setIdRak($id_rak)
+    {
         $this->id_rak = $id_rak;
     }
 
-    public function resetInputFields(){
+    public function resetInputFields()
+    {
         $this->id_isi_rak = null;
         $this->id_rak = null;
         $this->id_barang = null;
         $this->jumlah = null;
     }
 
-    public function changeBarang($id_barang){
+    public function changeBarang($id_barang)
+    {
         $this->id_barang = $id_barang;
         $this->barang = Barang::find($this->id_barang);
+        $this->listIsiRak = IsiRak::where('id_barang', $this->id_barang)
+            ->whereHas('rak')
+            ->get();
     }
 
-    public function setIsiRak($id){
+    public function setIsiRak($id)
+    {
         $isiRak = IsiRak::find($id);
-        if(!$isiRak){
+        if (!$isiRak) {
             $message = "Data isi rak tidak ditemukan !";
             return session()->flash('fail', $message);
         }
@@ -134,7 +146,8 @@ class FormIsiRak extends Component
         $this->barang = Barang::find($this->id_barang);
     }
 
-    public function simpanPindahRak(){
+    public function simpanPindahRak()
+    {
         $this->validate([
             'id_isi_rak' => 'required|numeric',
             'id_rak' => 'required|numeric',
@@ -149,21 +162,21 @@ class FormIsiRak extends Component
         ]);
 
         $isiRak = IsiRak::find($this->id_isi_rak);
-        if($this->jumlah > $isiRak->jumlah){
+        if ($this->jumlah > $isiRak->jumlah) {
             $message = "Jumlah yang dipindahkan tidak boleh lebih besar dari yang tersedia !";
             return session()->flash('fail', $message);
-        }elseif($this->jumlah == $isiRak->jumlah){
+        } elseif ($this->jumlah == $isiRak->jumlah) {
             $isiRak->update([
                 'id_rak' => $this->id_rak
             ]);
-        }else{
+        } else {
             $isiRakTemp = IsiRak::where('id_rak', $this->id_rak)
-            ->where('id_barang', $this->id_barang)->first();
-            if($isiRakTemp){
+                ->where('id_barang', $this->id_barang)->first();
+            if ($isiRakTemp) {
                 $isiRakTemp->update([
                     'jumlah' => $isiRakTemp->jumlah + $this->jumlah
                 ]);
-            }else{
+            } else {
                 IsiRak::create([
                     'id_rak' => $this->id_rak,
                     'id_barang' => $this->id_barang,
@@ -190,5 +203,10 @@ class FormIsiRak extends Component
         $this->emit('refreshRak');
         $this->emit('finishSimpanData', 1, $message);
         return session()->flash('success', $message);
+    }
+
+    public function changeRak($id_rak)
+    {
+        $this->id_rak = $id_rak;
     }
 }
