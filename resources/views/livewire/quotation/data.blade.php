@@ -30,13 +30,18 @@
                     <h4 class="fw-semibold">Informasi</h4>
                     <ul>
                         <li>
-                            <span>Untuk Status Konfirmasi pada quotation, cara konfirmasi quotation adalah dari pihak project/client dengan cara buka pesan pada <strong>Email</strong> yang sudah dikirimkan quotation, lalu tekan konfirmasi pada pesan yang sudah dikirimkan.</span>
+                            <span>Untuk Status Konfirmasi pada quotation, cara konfirmasi quotation adalah dari pihak
+                                project/client dengan cara buka pesan pada <strong>Email</strong> yang sudah dikirimkan
+                                quotation, lalu tekan konfirmasi pada pesan yang sudah dikirimkan.</span>
                         </li>
                         <li>
-                            <span>Untuk Status pekerjaan pada quotation akan update setelah pekerjaan sedang di kerjakan, pekerjaan selesai, dan semua yang berkaitan tentang pekerjaan yang sudah di buat pada management tugas.</span>
+                            <span>Untuk Status pekerjaan pada quotation akan update setelah pekerjaan sedang di
+                                kerjakan, pekerjaan selesai, dan semua yang berkaitan tentang pekerjaan yang sudah di
+                                buat pada management tugas.</span>
                         </li>
                         <li>
-                            <span>Untuk Status Kirim pada quotation akan update setelah melakukan pengiriman quotation pada customer.</span>
+                            <span>Untuk Status Kirim pada quotation akan update setelah melakukan pengiriman quotation
+                                pada customer.</span>
                         </li>
                     </ul>
                 </div>
@@ -94,9 +99,12 @@
                                 <tr>
                                     <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
                                     <td>{{ $item->no_ref }}</td>
-                                    <td>{{ isset($item->projectUnit->project) ? $item->projectUnit->project->customer->nama : '-' }}</td>
-                                    <td>{{ isset($item->projectUnit->project) ? $item->projectUnit->project->kode : '-'}}</td>
-                                    <td>{{ isset($item->projectUnit->project) ? $item->projectUnit->project->nama : '-' }}</td>
+                                    <td>{{ isset($item->projectUnit->project) ? $item->projectUnit->project->customer->nama : '-' }}
+                                    </td>
+                                    <td>{{ isset($item->projectUnit->project) ? $item->projectUnit->project->kode : '-' }}
+                                    </td>
+                                    <td>{{ isset($item->projectUnit->project) ? $item->projectUnit->project->nama : '-' }}
+                                    </td>
                                     <td>{{ $item->projectUnit->no_unit }} {{ $item->projectUnit->nama_unit }}</td>
                                     <td>
                                         @if (count($item->quotationSales) > 0)
@@ -108,10 +116,20 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if ($item->laporanPekerjaan)
-                                            @if ($item->laporanPekerjaan->jam_selesai != null && $item->laporanPekerjaan->signature)
+                                        @if ($item->id_laporan_pekerjaan != null)
+                                            @if ($item->laporanPekerjaan->jam_selesai != null && $item->laporanPekerjaan->signature != null)
                                                 <span class="badge badge-success">Selesai</span>
-                                            @elseif ($item->laporanPekerjaan->jam_mulai != null)
+                                            @elseif ($item->laporanPekerjaan->jam_mulai != null && $item->laporanPekerjaan->signature == null)
+                                                <span class="badge badge-secondary">Sedang dikerjakan</span>
+                                            @else
+                                                <span class="badge badge-warning">Belum Dikerjakan</span>
+                                            @endif
+                                        @elseif($item->id_project_unit != null)
+                                            @if (
+                                                $item->projectUnit->laporanPekerjaan->jam_selesai != null &&
+                                                    $item->projectUnit->laporanPekerjaan->signature != null)
+                                                <span class="badge badge-success">Selesai</span>
+                                            @elseif ($item->projectUnit->laporanPekerjaan->jam_mulai != null && $item->projectUnit->laporanPekerjaan->signature == null)
                                                 <span class="badge badge-secondary">Sedang dikerjakan</span>
                                             @else
                                                 <span class="badge badge-warning">Belum Dikerjakan</span>
@@ -144,7 +162,7 @@
                                             -
                                         @endif
                                     </td>
-                                    <td>{{ $item->tanggal ? date('d-m-y', strtotime($item->tanggal)) : '-'}}</td>
+                                    <td>{{ $item->tanggal ? date('d-m-y', strtotime($item->tanggal)) : '-' }}</td>
                                     <td>
                                         <div class="btn-group">
                                             <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip"
@@ -225,7 +243,7 @@
                         ])
                     </div>
                     <div class="mb-5">
-                        <label for="" class="form-label">Tanggal Dibuat</label>
+                        <label for="" class="form-label">Tanggal Quotation</label>
                         <input type="date" class="form-control form-control-solid" name="tanggal_dibuat"
                             wire:model="tanggal_dibuat" data-dropdown-parent="#modal_filter"
                             placeholder="Pilih Tanggal" autocomplete="off" required>

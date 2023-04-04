@@ -109,7 +109,7 @@
                         </div>
                     </div>
                 </div>
-                @if ($quotation->id_laporan_pekerjaan != null)
+                @if ($quotation->id_laporan_pekerjaan != null || $quotation->id_project_unit != null)
                     <div class="col-md-4 mb-10">
                         <div class="mb-5 fw-bold">
                             Data Tambahan
@@ -119,7 +119,11 @@
                                 Merk
                             </div>
                             <div class="col-md-8 col-8 fw-bold">
-                                : {{ $quotation->laporanPekerjaan->merk->nama_merk }}
+                                : @if ($quotation->id_laporan_pekerjaan != null)
+                                    {{ $quotation->laporanPekerjaan->merk->nama_merk }}
+                                @elseif($quotation->id_project_unit != null)
+                                    {{ $quotation->projectUnit->laporanPekerjaan->merk->nama_merk }}
+                                @endif
                             </div>
                         </div>
                         <div class="row mb-5">
@@ -127,7 +131,11 @@
                                 Nama Form
                             </div>
                             <div class="col-md-8 col-8 fw-bold">
-                                : {{ $quotation->laporanPekerjaan->formMaster->nama }}
+                                : @if ($quotation->id_laporan_pekerjaan != null)
+                                    {{ $quotation->laporanPekerjaan->formMaster->nama }}
+                                @elseif($quotation->id_project_unit != null)
+                                    {{ $quotation->projectUnit->laporanPekerjaan->formMaster->nama }}
+                                @endif
                             </div>
                         </div>
                         <div class="row mb-5">
@@ -135,7 +143,11 @@
                                 Kode Form
                             </div>
                             <div class="col-md-8 col-8 fw-bold">
-                                : {{ $quotation->laporanPekerjaan->formMaster->kode }}
+                                : @if ($quotation->id_laporan_pekerjaan != null)
+                                    {{ $quotation->laporanPekerjaan->formMaster->kode }}
+                                @elseif($quotation->id_project_unit != null)
+                                    {{ $quotation->projectUnit->laporanPekerjaan->formMaster->kode }}
+                                @endif
                             </div>
                         </div>
                         <div class="row mb-5">
@@ -143,7 +155,11 @@
                                 Nomor Lift
                             </div>
                             <div class="col-md-8 col-8 fw-bold">
-                                : {{ $quotation->laporanPekerjaan->nomor_lift }}
+                                : @if ($quotation->id_laporan_pekerjaan != null)
+                                    {{ $quotation->laporanPekerjaan->nomor_lift }}
+                                @elseif($quotation->id_project_unit != null)
+                                    {{ $quotation->projectUnit->laporanPekerjaan->nomor_lift }}
+                                @endif
                             </div>
                         </div>
                         <div class="row mb-5">
@@ -151,8 +167,12 @@
                                 Teknisi
                             </div>
                             <div class="col-md-8 col-8 fw-bold">
-                                : @if ($quotation->laporanPekerjaan)
+                                : @if ($quotation->id_laporan_pekerjaan != null)
                                     @foreach ($quotation->laporanPekerjaan->teknisi as $item)
+                                        {{ $item->user->name }},
+                                    @endforeach
+                                @elseif($quotation->id_project_unit != null && isset($quotation->projectUnit->laporanPekerjaan->teknisi))
+                                    @foreach ($quotation->projectUnit->laporanPekerjaan->teknisi as $item)
                                         {{ $item->user->name }},
                                     @endforeach
                                 @else

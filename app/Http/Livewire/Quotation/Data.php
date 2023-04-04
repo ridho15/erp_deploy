@@ -36,52 +36,125 @@ class Data extends Component
     public $status_pekerjaan;
     public function render()
     {
-        if($this->cari != null || $this->tanggal_dibuat != null || $this->id_project != null || $this->status_kirim != null || $this->status_konfirmasi != null || $this->status_quotation != null || $this->status_pekerjaan != null){
-            $this->listQuotation = Quotation::where(function($query){
+        if ($this->cari != null || $this->tanggal_dibuat != null || $this->id_project != null || $this->status_kirim != null || $this->status_konfirmasi != null || $this->status_quotation != null || $this->status_pekerjaan != null) {
+            $this->listQuotation = Quotation::where(function ($query) {
                 $query->where('keterangan', 'LIKE', '%' . $this->cari . '%')
-                ->orWhere('id', 'LIKE', '%' . $this->cari . '%')
-                ->orWhere('hal' ,'LIKE', '%' . $this->cari . '%')
-                ->orWhere('nomor_quotation' ,'LIKE', '%' . $this->cari . '%')
-                ->orWhereHas('laporanPekerjaan', function($query){
-                    $query->whereHas('projectUnit', function($query){
-                        $query->whereHas('project', function($query){
-                            $query->where('nama', 'LIKE', '%' . $this->cari . '%')
-                            ->orWhere('kode', 'LIKE', '%' . $this->cari . '$');
+                    ->orWhere('id', 'LIKE', '%' . $this->cari . '%')
+                    ->orWhere('hal', 'LIKE', '%' . $this->cari . '%')
+                    ->orWhere('nomor_quotation', 'LIKE', '%' . $this->cari . '%')
+                    ->orWhereHas('laporanPekerjaan', function ($query) {
+                        $query->whereHas('projectUnit', function ($query) {
+                            $query->whereHas('project', function ($query) {
+                                $query->where('nama', 'LIKE', '%' . $this->cari . '%')
+                                    ->orWhere('kode', 'LIKE', '%' . $this->cari . '$')
+                                    ->orWhereHas('customer', function ($query) {
+                                        $query->where('nama', 'LIKE', '%' . $this->cari . '%');
+                                    });
+                            });
+                        });
+                    })->orWhereHas('projectUnit', function ($query) {
+                        $query->whereHas('project', function ($query) {
+                            $query->where('kode', 'LIKE', '%' . $this->cari . '%')
+                                ->orWhere('nama', 'LIKE', '%' . $this->cari . '%')
+                                ->orWhereHas('customer', function ($query) {
+                                    $query->where('nama', 'LIKE', '%' . $this->cari . '%');
+                                });
                         });
                     });
-                });
             })
-            ->where(function($query){
-                if ($this->tanggal_dibuat != null || $this->id_project != null || $this->status_kirim != null || $this->status_konfirmasi != null || $this->status_quotation != null || $this->status_pekerjaan != null) {
-                    $query->whereDate('created_at', $this->tanggal_dibuat)
-                    ->orWhereHas('laporanPekerjaan', function($query){
-                        $query->whereHas('projectUnit', function($query){
-                            $query->where('id_project', $this->id_project);
-                        })
-                        ->orWhere(function($query){
-                            if($this->status_pekerjaan == 0){
-                                $query->where('jam_mulai', null);
-                            }elseif($this->status_pekerjaan == 1){
+                ->where(function ($query) {
+                    if ($this->tanggal_dibuat != null || $this->id_project != null || $this->status_kirim != null || $this->status_konfirmasi != null || $this->status_quotation != null || $this->status_pekerjaan != null) {
+                        $query->whereDate('tanggal', $this->tanggal_dibuat)
+                            ->orWhereHas('laporanPekerjaan', function ($query) {
+                                $query->wherehas('projectUnit', function ($query) {
+                                    $query->where('id_project', $this->id_project);
+                                })->orWhere(function ($query) {
+                                    if ($this->status_pekerjaan == 0) {
+                                        $query->where('jam_mulai', null)
+                                            ->where('jam_selesai', null)
+                                            ->where('signature', null);
+                                    } elseif ($this->status_pekerjaan == 1) {
+                                        $query->where('jam_mulai', '!=', null)
+                                            ->where('jam_selesai', null)
+                                            ->where('signature', null);
+                                    } elseif ($this->status_pekerjaan == 2) {
+                                        $query->where('jam_mulai', '!=', null)
+                                            ->where('jam_selesai', '!=', null)
+                                            ->where('signature', '!=', null);
+                                    }
+                                });
+                            })->orWhereHas('projectUnit', function ($query) {
+                                $query->where('id_project', $this->id_project)
+                                    ->orWhereHas('laporanPekerjaan', function ($query) {
+                                        if ($this->status_pekerjaan == 0) {
+                                            $query->where('jam_mulai', null)
+                                                ->where('jam_selesai', null)
+                                                ->where('signature', null);
+                                        } elseif ($this->status_pekerjaan == 1) {
+                                            $query->where('jam_mulai', '!=', null)
+                                                ->where('jam_selesai', null)
+                                                ->where('signature', null);
+                                        } elseif ($this->status_pekerjaan == 2) {
+                                            $query->where('jam_mulai', '!=', null)
+                                                ->where('jam_selesai', '!=', null)
+                                                ->where('signature', '!=', null);
+                                        }
+                                    });
+                            })->orWhere('konfirmasi', $this->status_konfirmasi)
+                            ->orWhere('status_like', $this->status_quotation);
+                    }
+                })->where(function ($query) {
+                    if ($this->status_pekerjaan != null) {
+                        $query->whereHas('laporanPekerjaan', function ($query) {
+                            if ($this->status_pekerjaan == 0) {
+                                $query->where('jam_mulai', null)
+                                    ->where('jam_selesai', null)
+                                    ->where('signature', null);
+                            } elseif ($this->status_pekerjaan == 1) {
                                 $query->where('jam_mulai', '!=', null)
-                                ->where('jam_selesai', null)
-                                ->where('signature', null);
-                            }elseif($this->status_pekerjaan == 2){
+                                    ->where('jam_selesai', null)
+                                    ->where('signature', null);
+                            } elseif ($this->status_pekerjaan == 2) {
                                 $query->where('jam_mulai', '!=', null)
-                                ->where('jam_selesai', '!=', null)
-                                ->where('signature', '!=', null);
+                                    ->where('jam_selesai', '!=', null)
+                                    ->where('signature', '!=', null);
                             }
+                        })->orWhereHas('projectUnit', function ($query) {
+                            $query->whereHas('laporanPekerjaan', function ($query) {
+                                if ($this->status_pekerjaan == 0) {
+                                    $query->where('jam_mulai', null)
+                                        ->where('jam_selesai', null)
+                                        ->where('signature', null);
+                                } elseif ($this->status_pekerjaan == 1) {
+                                    $query->where('jam_mulai', '!=', null)
+                                        ->where('jam_selesai', null)
+                                        ->where('signature', null);
+                                } elseif ($this->status_pekerjaan == 2) {
+                                    $query->where('jam_mulai', '!=', null)
+                                        ->where('jam_selesai', '!=', null)
+                                        ->where('signature', '!=', null);
+                                }
+                            });
                         });
-                    })->orWhere('status', $this->status_kirim)
-                    ->orWhere('konfirmasi', $this->status_konfirmasi)
-                    ->orWhere('status_like', $this->status_quotation);
-                }
-            })
-            ->whereHas('projectUnit')
-            ->orderBy('created_at', 'DESC')
-            ->paginate($this->total_show);
-        }else{
+                    }
+                })->where(function ($query) {
+                    if ($this->status_quotation != null) {
+                        $query->where('status_like', $this->status_quotation);
+                    }
+                })->where(function ($query) {
+                    if ($this->status_kirim != null) {
+                        $query->where('status', $this->status_kirim);
+                    }
+                })->where(function ($query) {
+                    if ($this->status_konfirmasi != null) {
+                        $query->where('konfirmasi', $this->status_konfirmasi);
+                    }
+                })
+                ->orderBy('created_at', 'DESC')
+                ->paginate($this->total_show);
+        } else {
             $this->listQuotation = Quotation::orderBy('created_at', 'DESC')
-            ->paginate($this->total_show);
+                ->paginate($this->total_show);
         }
         $data['listQuotation'] = $this->listQuotation;
 
@@ -89,18 +162,20 @@ class Data extends Component
         return view('livewire.quotation.data', $data);
     }
 
-    public function mount(){
+    public function mount()
+    {
         $this->listProject = ProjectV2::get();
     }
 
-    public function hapusQuotation($id){
+    public function hapusQuotation($id)
+    {
         $quotation = Quotation::find($id);
-        if(!$quotation){
+        if (!$quotation) {
             $mesasge = "Data quotaion tidak ditemukan !";
 
             return session()->flash('fail', $mesasge);
         }
-        if($quotation->laporanPekerjaan && $quotation->laporanPekerjaan->jam_selesai != null && $quotation->laporanPekerjaan->signature != null){
+        if ($quotation->laporanPekerjaan && $quotation->laporanPekerjaan->jam_selesai != null && $quotation->laporanPekerjaan->signature != null) {
             $message = 'Quotation tidak dapat di hapus karena pekerjaan di dalam quotation sudah selesai';
             return session()->flash('fail', $message);
         }
@@ -111,16 +186,17 @@ class Data extends Component
         return session()->flash('success', $message);
     }
 
-    public function sendQuotationToCustomer($id){
+    public function sendQuotationToCustomer($id)
+    {
         // Check Quotation
         $quotation = Quotation::find($id);
-        if(!$quotation){
+        if (!$quotation) {
             $mesasge = "Data Quotation tidak ditemukan !";
-            $this->emit('finishRefreshData',0, $mesasge);
+            $this->emit('finishRefreshData', 0, $mesasge);
             return session()->flash('fail', $mesasge);
         }
         $email = $quotation->projectUnit->project->email;
-        if($email == null){
+        if ($email == null) {
             $message = "Email tidak boleh kosong atau email belum terpasang ke project. Silahkan pasang email ke project terlebih dahulu";
             $this->emit('finishRefreshData', 0, $message);
             return session()->flash('fail', $message);
@@ -137,13 +213,14 @@ class Data extends Component
             'id_user' => session()->get('id_user'),
             'tanggal' => now()
         ]);
-        $message= "Quotation Berhasil dikirim";
+        $message = "Quotation Berhasil dikirim";
         activity()->causedBy(HelperController::user())->log($message);
         $this->emit('finishRefreshData', 1, $message);
         return session()->flash('success', $message);
     }
 
-    public function clearFilter(){
+    public function clearFilter()
+    {
         $this->tanggal_dibuat = null;
         $this->id_project = null;
         $this->status_kirim = null;
@@ -152,9 +229,10 @@ class Data extends Component
         $this->status_pekerjaan = null;
     }
 
-    public function quotationGagal($id){
+    public function quotationGagal($id)
+    {
         $quotation = Quotation::find($id);
-        if(!$quotation){
+        if (!$quotation) {
             $message = "Data quotation tidak ditemukan";
             return session()->flash('fail', $message);
         }
@@ -168,9 +246,10 @@ class Data extends Component
         return session()->flash('fail', $message);
     }
 
-    public function quotationBerhasil($id){
+    public function quotationBerhasil($id)
+    {
         $quotation = Quotation::find($id);
-        if(!$quotation){
+        if (!$quotation) {
             $message = "Data quotation tidak ditemukan";
             return session()->flash('fail', $message);
         }
