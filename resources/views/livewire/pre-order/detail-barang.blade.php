@@ -106,7 +106,7 @@
                         data-control="select2" data-placeholder="Pilih Barang" required>
                         <option value="">Pilih</option>
                         @foreach ($listBarang as $item)
-                            <option value="{{ $item->id }}">{{ $item->sku }} {{ $item->nama }}</option>
+                            <option value="{{ $item->id }}">{{ $item->sku }} - {{ $item->nama }}</option>
                         @endforeach
                     </select>
                     @error('id_barang')
