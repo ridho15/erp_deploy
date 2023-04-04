@@ -81,7 +81,13 @@
                             @if ($item->tipe == 1 && $item->id_accounts != null)
                                 <span class="fw-bold">Receivable</span>
                                 <span class="">{{ $item->preOrder->no_ref }}</span>
-                                Dari <span class="fw-bold">{{ $item->preOrder->customer->nama }}</span>
+                                Dari <span class="fw-bold">
+                                    @if ($item->preOrder->id_project_unit != null)
+                                        {{ $item->preOrder->projectUnit->project->customer->nama }}
+                                    @elseif($item->preOrder->id_quotation != null)
+                                        {{ $item->preOrder->quotation->projectUnit->project->customer->nama }}
+                                    @endif
+                                </span>
                                 <p>{{ $item->description }}</p>
                             @elseif($item->tipe == 2 && $item->id_accounts != null)
                                 <span class="fw-bold">Payable</span>
@@ -91,13 +97,19 @@
                             @elseif($item->tipe == 3 && $item->id_accounts != null)
                                 <span class="fw-bold">Quotation</span>
                                 <span class="">{{ $item->quotation->no_ref }}</span>
-                                Dari <span class="fw-bold">{{ $item->quotation->customer->nama }}</span>
+                                Dari <span class="fw-bold">
+                                    @if ($item->preOrder->id_project_unit != null)
+                                        {{ $item->preOrder->projectUnit->project->customer->nama }}
+                                    @elseif($item->preOrder->id_quotation != null)
+                                        {{ $item->preOrder->quotation->projectUnit->project->customer->nama }}
+                                    @endif
+                                </span>
                                 <p>{{ $item->description }}</p>
                             @elseif($item->tipe == 4 && $item->id_accounts != null)
                                 <span class="fw-bold">Laporan Pekerjaan</span>
                                 <span class="">{{ $item->laporanPekerjaan->kode_pekerjaan }}</span>
-                                Dari <span class="fw-bold">{{ $item->laporanPekerjaan->project->nama }}
-                                    ({{ $item->laporanPekerjaan->project->kode }})
+                                Dari <span class="fw-bold">{{ $item->laporanPekerjaan->projectUnit->project->customer->nama }}
+                                    ({{ $item->laporanPekerjaan->projectUnit->project->kode }})
                                 </span>
                                 <p>{{ $item->description }}</p>
                             @endif
