@@ -17,21 +17,18 @@ class TipeBarangSeeder extends Seeder
         TipeBarang::updateOrCreate([
             'id' => 1
         ], [
-            'id' => 1,
             'tipe_barang' => 'Tools',
         ]);
 
         TipeBarang::updateOrCreate([
             'id' => 2
         ], [
-            'id' => 2,
             'tipe_barang' => 'Spareparts',
         ]);
 
         TipeBarang::updateOrCreate([
             'id' => 3
         ], [
-            'id' => 3,
             'tipe_barang' => 'Consumable',
         ]);
     }
