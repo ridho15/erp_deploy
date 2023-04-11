@@ -83,7 +83,7 @@ class Form extends Component
             'deskripsi' => 'nullable|string',
             'harga_modal' => 'required|numeric',
             'version' => 'required|numeric',
-            'nomor' => 'required|numeric',
+            'nomor' => 'required|string',
         ], [
             'nama.required' => 'Nama tidak boleh kosong',
             'nama.string' => 'Nama tidak valid !',
@@ -100,7 +100,7 @@ class Form extends Component
             'harga_modal.required' => 'Harga modal tidak boleh kosong',
             'harga_modal.numeric' => 'Harga modal tidak valid !',
             'nomor.required' => 'SKU tidak boleh kosong',
-            'nomor.numeric' => 'SKU tidak valid !',
+            'nomor.string' => 'SKU tidak valid !',
         ]);
 
         // Check Merk

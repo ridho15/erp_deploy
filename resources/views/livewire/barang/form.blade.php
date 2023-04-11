@@ -25,9 +25,8 @@
                         <div class="row">
                             <div class="mb-5 col-md-6">
                                 <label for="" class="form-label required">SKU</label>
-                                <input type="text" class="form-control form-control-solid"
-                                    name="nomor" wire:model="nomor" placeholder="Masukkan nomor" required>
-                                    <small>Isikan cuman angka saja contoh : 1</small>
+                                <input type="text" class="form-control form-control-solid" name="nomor"
+                                    wire:model="nomor" placeholder="Masukkan nomor" required>
                                 @error('nomor')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -102,8 +101,8 @@
                             <div class="mb-5 col-md-6">
                                 <label for="" class="form-label required">Merk</label>
                                 <select name="id_merk" class="form-select form-select-solid" wire:model='id_merk'
-                                    data-dropdown-parent="#modal_form" data-placeholder="Pilih"
-                                    data-control="select2" required>
+                                    data-dropdown-parent="#modal_form" data-placeholder="Pilih" data-control="select2"
+                                    required>
                                     <option value="">Pilih</option>
                                     @foreach ($listMerk as $item)
                                         <option value="{{ $item->id }}">{{ $item->nama_merk }}</option>
