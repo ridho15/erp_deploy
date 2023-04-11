@@ -28,6 +28,7 @@ use App\Http\Controllers\RakController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TipeBarangController;
+use App\Http\Controllers\UserActivityController;
 use App\Http\Controllers\WebConfigurationController;
 use App\Http\Controllers\WorkerController;
 use App\Models\Barang;
@@ -181,6 +182,10 @@ Route::middleware('auth.user')->group(function () {
         Route::prefix('pekerjaan')->group(function () {
             Route::get('/', [PekerjaanController::class, 'index'])->name('pekerjaan');
         });
+
+        // Route::prefix('user-activity')->group(function(){
+        //     Route::get('/', [UserActivityController::class, 'index'])->name
+        // });
     });
     Route::get('profile-edit', [ProfileController::class, 'edit'])->name('profile.edit');
 

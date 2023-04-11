@@ -33,6 +33,6 @@ class CreatePreOrderDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pre_order_details');
+        Schema::dropIfExists('pre_order_detail');
     }
 }

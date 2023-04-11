@@ -30,6 +30,6 @@ class CreateFormMastersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('form_masters');
+        Schema::dropIfExists('form_master');
     }
 }

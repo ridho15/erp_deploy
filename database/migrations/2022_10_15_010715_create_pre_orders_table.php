@@ -32,6 +32,6 @@ class CreatePreOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pre_orders');
+        Schema::dropIfExists('pre_order');
     }
 }

@@ -30,6 +30,6 @@ class CreateLaporanPekerjaanFotosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('laporan_pekerjaan_fotos');
+        Schema::dropIfExists('laporan_pekerjaan_foto');
     }
 }

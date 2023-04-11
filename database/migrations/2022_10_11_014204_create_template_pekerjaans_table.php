@@ -29,6 +29,6 @@ class CreateTemplatePekerjaansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('template_pekerjaans');
+        Schema::dropIfExists('template_pekerjaan');
     }
 }

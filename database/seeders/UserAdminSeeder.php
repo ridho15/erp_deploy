@@ -16,21 +16,11 @@ class UserAdminSeeder extends Seeder
     public function run()
     {
         User::updateOrCreate([
-            'username' => 'dokgorewind'
+            'username' => 'admin__'
         ], [
-            'username' => 'dokgorewind',
+            'username' => 'admin__',
             'password' => Hash::make('ridho123'),
             'name' => 'Dokgo Rewind',
-            'is_active' => 1,
-            'id_tipe_user' => 1,
-        ]);
-
-        User::updateOrCreate([
-            'username' => 'hidayat'
-        ], [
-            'username' => 'hidayat',
-            'password' => Hash::make('dayat123'),
-            'name' => 'Muhammad Hidayatullah',
             'is_active' => 1,
             'id_tipe_user' => 1,
         ]);

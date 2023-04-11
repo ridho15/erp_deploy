@@ -34,6 +34,6 @@ class CreateTemplatePekerjaanDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('template_pekerjaan_details');
+        Schema::dropIfExists('template_pekerjaan_detail');
     }
 }

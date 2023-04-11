@@ -31,6 +31,6 @@ class CreateLaporanPekerjaanChecklistsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('laporan_pekerjaan_checklists');
+        Schema::dropIfExists('laporan_pekerjaan_checklist');
     }
 }

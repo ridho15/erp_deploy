@@ -34,6 +34,6 @@ class CreateProjectV2STable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_v2_s');
+        Schema::dropIfExists('project_v2');
     }
 }

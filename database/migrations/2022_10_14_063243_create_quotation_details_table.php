@@ -31,6 +31,6 @@ class CreateQuotationDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quotation_details');
+        Schema::dropIfExists('quotation_detail');
     }
 }

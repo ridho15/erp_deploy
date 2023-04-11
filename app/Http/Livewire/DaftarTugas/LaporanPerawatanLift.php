@@ -174,7 +174,7 @@ class LaporanPerawatanLift extends Component
         ]);
 
         $message = 'Berhasil menyimpan data';
-        activity()->causedBy(HelperController::user())->log("Set konfisi lift");
+        activity()->causedBy(HelperController::user())->log("Set Kondisi lift");
         return session()->flash('success', $message);
     }
 

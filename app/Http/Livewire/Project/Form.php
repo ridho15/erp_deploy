@@ -106,7 +106,7 @@ class Form extends Component
         }
 
         $message = "Berhasil menyimpan data";
-        activity()->causedBy(HelperController::user())->log("Menyimpan data project");
+        activity()->causedBy(HelperController::user())->log("Menyimpan data project dengan kode " . $project->kode);
 
         $this->resetInputFields();
         $this->emit('refreshProject');
