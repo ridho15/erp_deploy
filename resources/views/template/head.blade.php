@@ -94,7 +94,8 @@
             width: 10px !important;
             height: 15px !important;
         }
-/*
+
+        /*
         ::-webkit-scrollbar-track {
             background: #f1f1f1 !important;
         }
@@ -106,6 +107,5 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #555 !important;
         } */
-
     </style>
 </head>
