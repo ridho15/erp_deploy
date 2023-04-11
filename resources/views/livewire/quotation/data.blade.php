@@ -124,7 +124,7 @@
                                             @else
                                                 <span class="badge badge-warning">Belum Dikerjakan</span>
                                             @endif
-                                        @elseif($item->id_project_unit != null)
+                                        @elseif($item->id_project_unit != null && isset($item->projectUnit->laporanPekerjaan))
                                             @if (
                                                 $item->projectUnit->laporanPekerjaan->jam_selesai != null &&
                                                     $item->projectUnit->laporanPekerjaan->signature != null)
