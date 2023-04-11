@@ -121,7 +121,7 @@
                             <div class="col-md-8 col-8 fw-bold">
                                 : @if ($quotation->id_laporan_pekerjaan != null)
                                     {{ $quotation->laporanPekerjaan->merk->nama_merk }}
-                                @elseif($quotation->id_project_unit != null)
+                                @elseif($quotation->id_project_unit != null && isset($quotation->projectUnit->laporanPekerjaan->merk))
                                     {{ $quotation->projectUnit->laporanPekerjaan->merk->nama_merk }}
                                 @endif
                             </div>
