@@ -132,7 +132,6 @@ class Form extends Component
 
             return session()->flash('fail', $message);
         }
-
         $formMaster = FormMaster::find($this->id_form_master);
         if (!$formMaster) {
             $message = 'Data form tidak ditemukan !';
@@ -163,7 +162,6 @@ class Form extends Component
         $data['keterangan'] = $this->keterangan;
         $data['service_ke'] = $this->service_ke;
         $data['nama_client'] = $this->nama_client;
-
         $laporanPekerjaan = LaporanPekerjaan::updateOrCreate([
             'id' => $this->id_laporan_pekerjaan,
         ], $data);

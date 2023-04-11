@@ -20,7 +20,7 @@ class Form extends Component
     public $no_hp_2;
     public $telp_1;
     public $telp_2;
-    public $list_id_sales;
+    public $list_id_sales = [];
     public $pic;
     public $produk;
 
