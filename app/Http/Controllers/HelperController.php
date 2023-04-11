@@ -398,13 +398,13 @@ class HelperController extends Controller
                         'active' => 'sales',
                         'route' => 'sales'
                     ]),
-                    collect([
-                        'nama' => 'User Activity',
-                        'icon' => '<span class="bullet bullet-dot"></span>',
-                        'role' => ['Super Admin', 'Manager'],
-                        'active' => 'user-activity',
-                        'route' => 'user-activity'
-                    ]),
+                    // collect([
+                    //     'nama' => 'User Activity',
+                    //     'icon' => '<span class="bullet bullet-dot"></span>',
+                    //     'role' => ['Super Admin', 'Manager'],
+                    //     'active' => 'user-activity',
+                    //     'route' => 'user-activity'
+                    // ]),
                 ]),
             ]),
                 collect([

@@ -22,7 +22,7 @@ class UserAdminSeeder extends Seeder
             'password' => Hash::make('ridho123'),
             'name' => 'Dokgo Rewind',
             'is_active' => 1,
-            'id_tipe_user' => 1,
+            'id_tipe_user' => [1],
         ]);
 
         User::updateOrCreate([
@@ -32,7 +32,7 @@ class UserAdminSeeder extends Seeder
             'password' => Hash::make('adminadmin'),
             'name' => 'Admin',
             'is_active' => 1,
-            'id_tipe_user' => 1,
+            'id_tipe_user' => [1],
         ]);
     }
 }
