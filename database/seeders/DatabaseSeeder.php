@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             UserAdminSeeder::class,
             TipePembayaranSeeder::class,
             FormMasterSeeder::class,
+            TipeBarangSeeder::class,
+            WebConfigSeeder::class,
         ]);
     }
 }
