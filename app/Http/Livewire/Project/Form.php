@@ -48,7 +48,7 @@ class Form extends Component
             'penanggung_jawab' => 'required|string',
             'email' => 'required|email',
             'no_hp' => 'required|numeric|digits_between:11,12',
-            'no_mfg' => 'nullable|numeric',
+            'no_mfg' => 'nullable|string',
             'alamat' => 'required|string',
             'catatan' => 'nullable|string',
             'id_customer' => 'required|numeric',

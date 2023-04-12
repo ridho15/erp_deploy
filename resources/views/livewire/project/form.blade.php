@@ -75,7 +75,7 @@
                             </div>
                             <div class="col-md-6 mb-5">
                                 <label for="" class="form-label">No MFG</label>
-                                <input type="number" class="form-control form-control-solid" name="no_mfg" wire:model="no_mfg" placeholder="Masukkan Nomor MFG" required>
+                                <input type="text" class="form-control form-control-solid" name="no_mfg" wire:model="no_mfg" placeholder="Masukkan Nomor MFG" required>
                                 @error('no_mfg')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
