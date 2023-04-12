@@ -159,7 +159,7 @@
                                     <td>
                                         <div class="btn-group">
                                             <a href="{{ route('management-tugas.export', ['id' => $item->id]) }}"
-                                                class="btn btn-sm btn-icon btn-warning" data-bs-toggle="tooltip"
+                                                class="btn btn-sm btn-icon btn-warning" data-bs-toggle="tooltip" target="_blank"
                                                 data-bs-placement="top" title="Cetak Management Tugas">
                                                 <i class="bi bi-printer"></i>
                                             </a>

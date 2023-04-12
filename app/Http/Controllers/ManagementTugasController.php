@@ -52,8 +52,7 @@ class ManagementTugasController extends Controller
         $data['web_name'] = WebConfig::where('type', 'web_name')->first();
         $data['listCatatanTeknisiPekerjaan'] = CatatanTeknisiPekerjaan::where('id_laporan_pekerjaan', $id)->get();
         $pdf = Pdf::loadView('pdf_view.laporan_pekerjaan', $data);
-
-        return $pdf->download('laporan_pekerjaan_'.strtotime(now()).'.pdf');
+        return $pdf->stream('laporan_pekerjaan_'.strtotime(now()).'.pdf');
 
         return view('pdf_view.laporan_pekerjaan', $data);
     }
