@@ -311,9 +311,10 @@ class Form extends Component
         // }
 
         if ($this->id_purchase_order) {
-            $this->listPurchaseOrder = PreOrder::where('id', $this->id_purchase_order)->get();
+            $this->listPurchaseOrder = PreOrder::where('id', $this->id_purchase_order)->where('status', '!=', 3)->get();
         } else {
             $this->listPurchaseOrder = PreOrder::where('no_ref', '!=', null)
+                ->where('status', '!=', 3)
                 ->get();
         }
     }
