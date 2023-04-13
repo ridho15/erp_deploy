@@ -51,7 +51,7 @@
                             @endif
                         </td>
                         <td>{{ $item->qty }}</td>
-                        <td>{{ $item->version }} V</td>
+                        <td>{{ $item->versionBelong->version }}</td>
                         <td>{{ isset($item->nomorItt) ? $item->nomorItt->nomor_itt : '-' }}</td>
                         <td>{{ $item->tipeBarang ? $item->tipeBarang->tipe_barang : '-' }}</td>
                         <td>{{ $item->catatan_teknisi }}</td>

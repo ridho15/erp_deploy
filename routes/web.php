@@ -29,6 +29,7 @@ use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TipeBarangController;
 use App\Http\Controllers\UserActivityController;
+use App\Http\Controllers\VersionController;
 use App\Http\Controllers\WebConfigurationController;
 use App\Http\Controllers\WorkerController;
 use App\Models\Barang;
@@ -181,6 +182,11 @@ Route::middleware('auth.user')->group(function () {
 
         Route::prefix('pekerjaan')->group(function () {
             Route::get('/', [PekerjaanController::class, 'index'])->name('pekerjaan');
+        });
+
+        Route::prefix('version')->group(function(){
+            Route::get('/', [VersionController::class, 'index'])->name('version');
+            Route::post('/simpan', [VersionController::class, 'simpan'])->name('version.simpan');
         });
 
         // Route::prefix('user-activity')->group(function(){

@@ -128,4 +128,8 @@ class Barang extends Model
     public function rakLog(){
         return $this->hasMany(RakLog::class, 'id_barang');
     }
+
+    public function versionBelong(){
+        return $this->belongsTo(Version::class, 'version')->withDefault();
+    }
 }

@@ -88,7 +88,7 @@
                                         data-control="select2" data-placeholder="Pilih" required>
                                         <option value="">Pilih</option>
                                         @foreach ($listVersion as $item)
-                                            <option value="{{ $item }}">V{{ $item }}</option>
+                                            <option value="{{ $item->id }}">{{ $item->version }}</option>
                                         @endforeach
                                     </select>
                                     @error('version')
@@ -176,9 +176,7 @@
                                     <td>{{ $item->barang->nama }}</td>
                                     <td>{{ $item->tipeBarang ? $item->tipeBarang->tipe_barang : null }}</td>
                                     <td>
-                                        @if ($item->version)
-                                            {{ $item->version }} V
-                                        @endif
+                                        {{ $item->versionBelong->version }}
                                     </td>
                                     <td>{{ $item->barang->satuan->nama_satuan }}</td>
                                     <td>

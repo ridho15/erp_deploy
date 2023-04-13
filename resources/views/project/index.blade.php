@@ -4,6 +4,7 @@
     @livewire('project.data')
     @livewire('project.form')
     @livewire('project.unit')
+    @livewire('import.project')
 @endsection
 
 @section('js')

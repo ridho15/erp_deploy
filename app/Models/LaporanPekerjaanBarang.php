@@ -79,4 +79,8 @@ class LaporanPekerjaanBarang extends Model
     public function nomorItt(){
         return $this->hasOne(NomorItt::class, 'id_laporan_pekerjaan_barang')->orderBy('nomor_itt','ASC');
     }
+
+    public function versionBelong(){
+        return $this->belongsTo(Version::class, 'version')->withDefault();
+    }
 }

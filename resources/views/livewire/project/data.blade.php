@@ -5,6 +5,9 @@
                 Data Project
             </h3>
             <div class="card-toolbar">
+                <button class="btn btn-sm btn-outline btn-outline-success me-3" wire:click="$emit('onClickImport')">
+                    <i class="fa-solid fa-file-import"></i> Import
+                </button>
                 <button class="btn btn-sm btn-outline btn-outline-primary" wire:click="$emit('onClickTambah')"><i
                         class="bi bi-plus-circle"></i> Tambah</button>
             </div>
@@ -60,8 +63,8 @@
                                     <td>
                                         <ul>
                                             @foreach ($item->listUnit as $unit)
-                                            <li>({{ $unit->no_unit }} {{ $unit->nama_unit }})</li>
-                                        @endforeach
+                                                <li>({{ $unit->no_unit }} {{ $unit->nama_unit }})</li>
+                                            @endforeach
                                         </ul>
                                     </td>
                                     <td>{{ $item->no_mfg }}</td>
@@ -158,6 +161,10 @@
         Livewire.on('onClickUnit', (id) => {
             Livewire.emit('setProjectInUnit', id)
             $('#modal_form_unit').modal('show')
+        })
+
+        Livewire.on('onClickImport', () => {
+            $('#modal_import').modal('show')
         })
     </script>
 @endpush

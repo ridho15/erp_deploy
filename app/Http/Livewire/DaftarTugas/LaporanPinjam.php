@@ -9,6 +9,7 @@ use App\Models\LaporanPekerjaanBarang;
 use App\Models\LaporanPekerjaanBarangLog;
 use App\Models\QuotationDetail;
 use App\Models\SupplierOrderDetailTemp;
+use App\Models\Version;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -70,7 +71,7 @@ class LaporanPinjam extends Component
         $this->id_laporan_pekerjaan = $id_laporan_pekerjaan;
         $this->barang = Barang::find($this->id_barang);
         $this->listBarang = Barang::get();
-        $this->listVersion = HelperController::getListVersion();
+        $this->listVersion = Version::get();
     }
 
     public function changeTambahBarang(){

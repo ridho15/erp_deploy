@@ -45,7 +45,7 @@
                                     data-control="select2" data-drodown-parent="#modal_form" required>
                                     <option value="">Pilih</option>
                                     @foreach ($listVersion as $item)
-                                        <option value="{{ $item }}">{{ $item }} V</option>
+                                        <option value="{{ $item->id }}">{{ $item->version }}</option>
                                     @endforeach
                                 </select>
                                 @error('version')

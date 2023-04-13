@@ -7,6 +7,7 @@ use App\Models\Barang;
 use App\Models\Merk;
 use App\Models\Satuan;
 use App\Models\TipeBarang;
+use App\Models\Version;
 use Livewire\Component;
 
 class Form extends Component
@@ -45,11 +46,6 @@ class Form extends Component
 
     public function render()
     {
-        $this->listMerk = Merk::get();
-        $this->listTipeBarang = TipeBarang::get();
-        $this->listSatuan = Satuan::get();
-        $this->listVersion = HelperController::getListVersion();
-
         $this->dispatchBrowserEvent('contentChange');
 
         return view('livewire.barang.form');
@@ -57,6 +53,10 @@ class Form extends Component
 
     public function mount()
     {
+        $this->listMerk = Merk::get();
+        $this->listTipeBarang = TipeBarang::get();
+        $this->listSatuan = Satuan::get();
+        $this->listVersion = Version::get();
     }
 
     public function resetInputFields()

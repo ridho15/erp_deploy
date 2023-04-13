@@ -5,13 +5,19 @@
                 Data Pekerja
             </h3>
             <div class="card-toolbar">
+                <button class="btn btn-sm btn-outline btn-outline-success me-3" wire:click="$emit('onClickImport')">
+                    <i class="fa-solid fa-file-import"></i> Import
+                </button>
                 <button class="btn btn-sm btn-outline btn-outline-primary" wire:click="$emit('onClickTambah')"><i
                         class="bi bi-plus-circle"></i> Tambah</button>
             </div>
         </div>
         <div class="card-body">
             <div class="text-center">
-                @include('helper.simple-loading', ['target' => 'cari,refreshUser', 'message' => 'Memuat data...'])
+                @include('helper.simple-loading', [
+                    'target' => 'cari,refreshUser',
+                    'message' => 'Memuat data...',
+                ])
             </div>
             <div class="row mb-5">
                 <div class="col-md-3">
@@ -36,41 +42,43 @@
                     </thead>
                     <tbody>
                         @if (count($listUser) > 0)
-                        @foreach ($listUser as $index => $item)
-                        <tr>
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $item->name }}</td>
-                            <td>{{ $item->username }}</td>
-                            <td>
-                                <?= $item->is_active_formatted ?>
-                            </td>
-                            <td>
-                                {{ $item->nama_tipe_user }}
-                            </td>
-                            <td>{{ $item->jabatan }}</td>
-                            <td>{{ $item->email }}</td>
-                            <td>{{ $item->phone }}</td>
-                            <td>
-                                <div class="btn-group">
-                                    <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip"
-                                        data-bs-placement="top" title="Edit Worker"
-                                        wire:click="$emit('onClickEdit', {{ $item->id }})">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip"
-                                        data-bs-placement="top" title="Hapus Worker"
-                                        wire:click="$emit('onClickHapus', {{ $item->id }})">
-                                        <i class="bi bi-trash-fill"></i>
-                                    </button>
-                                </div>
-                            </td>
+                            @foreach ($listUser as $index => $item)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->username }}</td>
+                                    <td>
+                                        <?= $item->is_active_formatted ?>
+                                    </td>
+                                    <td>
+                                        {{ $item->nama_tipe_user }}
+                                    </td>
+                                    <td>{{ $item->jabatan }}</td>
+                                    <td>{{ $item->email }}</td>
+                                    <td>{{ $item->phone }}</td>
+                                    <td>
+                                        @if ($item->username != 'admin')
+                                            <div class="btn-group">
+                                                <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" title="Edit Worker"
+                                                    wire:click="$emit('onClickEdit', {{ $item->id }})">
+                                                    <i class="bi bi-pencil-square"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" title="Hapus Worker"
+                                                    wire:click="$emit('onClickHapus', {{ $item->id }})">
+                                                    <i class="bi bi-trash-fill"></i>
+                                                </button>
+                                            </div>
+                                        @endif
+                                    </td>
 
-                        </tr>
-                        @endforeach
+                                </tr>
+                            @endforeach
                         @else
-                        <tr>
-                            <td colspan="6" class="text-center text-gray-500">Tidak ada data</td>
-                        </tr>
+                            <tr>
+                                <td colspan="6" class="text-center text-gray-500">Tidak ada data</td>
+                            </tr>
                         @endif
                     </tbody>
                 </table>
@@ -81,8 +89,8 @@
 </div>
 
 @push('js')
-<script>
-    $(document).ready(function () {
+    <script>
+        $(document).ready(function() {
 
         });
 
@@ -95,9 +103,9 @@
             Livewire.emit('setDataUser', id)
         })
 
-        Livewire.on('onClickHapus',async(id) => {
+        Livewire.on('onClickHapus', async (id) => {
             const response = await alertConfirm('Peringatan !', "Apakah kamu yakin ingin menghapus data ?");
-            if(response.isConfirmed == true){
+            if (response.isConfirmed == true) {
                 Livewire.emit('hapusUser', id)
             }
         })
@@ -105,5 +113,9 @@
         Livewire.on("finishDataUser", (status, message) => {
             alertMessage(status, message)
         })
-</script>
+
+        Livewire.on('onClickImport', () => {
+            $('#modal_import').modal('show')
+        })
+    </script>
 @endpush

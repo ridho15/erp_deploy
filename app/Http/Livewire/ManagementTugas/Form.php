@@ -196,24 +196,26 @@ class Form extends Component
                     ]);
                 }
             }
-        } elseif (isset($unit->purchaseOrder) && $this->id_laporan_pekerjaan == null) {
-            $purchaseOrder = $unit->purchaseOrder;
-            foreach ($purchaseOrder->preOrderDetail as $item) {
-                LaporanPekerjaanBarang::updateOrCreate([
-                    'id_laporan_pekerjaan' => $laporanPekerjaan->id,
-                    'id_barang' => $item->id_barang,
-                    'qty' => $item->qty,
-                    'status' => 0
-                ], [
-                    'id_laporan_pekerjaan' => $laporanPekerjaan->id,
-                    'id_barang' => $item->id_barang,
-                    'qty' => $item->qty,
-                    'status' => 1,
-                    'konfirmasi' => 0,
-                    'peminjam' => session()->get('id_user')
-                ]);
-            }
         }
+
+        // if (isset($unit->purchaseOrder) && $this->id_laporan_pekerjaan == null) {
+        //     $purchaseOrder = $unit->purchaseOrder;
+        //     foreach ($purchaseOrder->preOrderDetail as $item) {
+        //         LaporanPekerjaanBarang::updateOrCreate([
+        //             'id_laporan_pekerjaan' => $laporanPekerjaan->id,
+        //             'id_barang' => $item->id_barang,
+        //             'qty' => $item->qty,
+        //             'status' => 0
+        //         ], [
+        //             'id_laporan_pekerjaan' => $laporanPekerjaan->id,
+        //             'id_barang' => $item->id_barang,
+        //             'qty' => $item->qty,
+        //             'status' => 1,
+        //             'konfirmasi' => 0,
+        //             'peminjam' => session()->get('id_user')
+        //         ]);
+        //     }
+        // }
 
         $message = 'Data berhasil disimpan';
         activity()->causedBy(HelperController::user())->log("Menyimpan data management tugas");

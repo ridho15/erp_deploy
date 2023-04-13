@@ -54,11 +54,7 @@
                                     <td>{{ $item->merk ? $item->merk->nama_merk : '-' }}</td>
                                     <td>{{ $item->stock }}</td>
                                     <td>{{ $item->satuan->nama_satuan }}</td>
-                                    <td>
-                                        @if ($item->version != null)
-                                            V{{ $item->version }}
-                                        @endif
-                                    </td>
+                                    <td>{{ $item->versionBelong->version }}</td>
                                     <td>{{ $item->harga_formatted }}</td>
                                     <td>{{ $item->harga_modal_formatted }}</td>
                                     <td>{{ $item->min_stock }}</td>

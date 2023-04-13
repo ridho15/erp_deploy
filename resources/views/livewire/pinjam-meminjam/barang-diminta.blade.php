@@ -80,7 +80,7 @@
                                 @endif
                             @endif
                         </td>
-                        <td>{{ $item->version }} V</td>
+                        <td>{{ $item->versionBelong->version }}</td>
                         <td>{{ $item->tipeBarang ? $item->tipeBarang->tipe_barang : '-' }}</td>
                         <td>{{ $item->catatan_teknisi }}</td>
                         <td>{{ $item->userPeminjam ? $item->userPeminjam->name : '-' }}</td>

@@ -3,13 +3,13 @@
 namespace App\Http\Livewire\Import;
 
 use App\Http\Controllers\HelperController;
-use App\Imports\ImportSupplier;
+use App\Imports\ImportForm;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Maatwebsite\Excel\Validators\ValidationException;
 use Throwable;
 
-class Supplier extends Component
+class Form extends Component
 {
     use WithFileUploads;
     public $listeners = [
@@ -20,7 +20,7 @@ class Supplier extends Component
     public $file;
     public function render()
     {
-        return view('livewire.import.supplier');
+        return view('livewire.import.form');
     }
 
     public function clearFile()
@@ -38,13 +38,13 @@ class Supplier extends Component
             'file.max' => 'Ukuran file terlalu besar, maximal 5000 Kb'
         ]);
         try {
-            activity()->causedBy(HelperController::user())->log("Melakukan import data supplier");
+            activity()->causedBy(HelperController::user())->log("Melakukan import data form master");
             // (new ImportSales)->import($this->file, 'local', ExcelSecond::XLSX);
-            $import = new ImportSupplier;
+            $import = new ImportForm;
             $import->import($this->file);
-            $message = "Berhasil melakukan import data supplier";
+            $message = "Berhasil melakukan import data form master";
             $this->file = null;
-            $this->emit('refreshDataSupplier');
+            $this->emit('refreshForm');
             return session()->flash('success', $message);
         } catch (ValidationException $e) {
             $failures = $e->failures();

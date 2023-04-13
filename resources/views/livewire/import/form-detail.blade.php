@@ -3,7 +3,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">Import Sales</h3>
+                    <h3 class="modal-title">Import Barang</h3>
                     <!--begin::Close-->
                     <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
                         aria-label="Close">
@@ -26,14 +26,15 @@
                         <table class="table table-rounded table-striped border gy-7 gs-7">
                             <thead>
                                 <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
-                                    <th class="required">nama</th>
-                                    <th>no_hp</th>
-                                    <th>nama_perusahaan</th>
-                                    <th>alamat</th>
+                                    <th class="required">nama_pekerjaan</th>
+                                    <th>parent</th>
+                                    <th>keterangan</th>
+                                    <th>periode</th>
                                 </tr>
                             </thead>
                         </table>
                     </div>
+                    <small>Jika tidak memiliki parent silahkan dikosongkan saja, jika ingin mengisi parent silahkan isikan nama parent saja</small>
 
                     <div class="text-center mt-7">
 
