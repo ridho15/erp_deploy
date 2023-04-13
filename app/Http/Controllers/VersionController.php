@@ -42,4 +42,18 @@ class VersionController extends Controller
         activity()->causedBy(HelperController::user())->log("Menyimpan data version " . $request->version);
         return redirect()->back()->with('success', 'Berhasil menyimpan data version');
     }
+
+    public function hapus($id){
+        $version = Version::find($id);
+        if(!$version){
+            $message = "Data version tidak ditemukan !";
+
+            return redirect()->back()->with('fail', $message);
+        }
+
+        $version->delete();
+        activity()->causedBy(HelperController::user())->log("Menghapus data version");
+
+        return redirect()->back()->with('success', 'Berhasil menghapus data version');
+    }
 }

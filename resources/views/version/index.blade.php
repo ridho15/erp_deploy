@@ -13,6 +13,7 @@
             </div>
         </div>
         <div class="card-body">
+            @include('helper.alert-message')
             <div class="row mb-5">
                 <div class="col-md-2 col-4">
                     <form data-kt-search-element="form" class="d-none d-lg-block w-100 position-relative mb-5 mb-lg-0"
@@ -66,17 +67,20 @@
                                 <td>{{ $item->version }}</td>
                                 <td class="text-end">
                                     <div class="btn-group">
-                                        <button class="btn btn-sm btn-icon btn-success" data-bs-toggle="tooltip"
-                                            data-bs-placement="top" title="Edit Version"
-                                            wire:click="$emit('onClickEdit', {{ $item->id }})">
+                                        <button class="btn btn-sm btn-icon btn-success btn-edit" data-item="{{ $item }}" data-bs-toggle="tooltip" id="button_edit"
+                                            data-bs-placement="top" title="Edit Version">
                                             <i class="bi bi-pencil-square"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-icon btn-danger" data-bs-toggle="tooltip"
-                                            data-bs-placement="top" title="Hapus Version"
-                                            wire:click="$emit('onClickHapus', {{ $item->id }})">
+                                        <button class="btn btn-sm btn-icon btn-danger btn-hapus" data-bs-toggle="tooltip" data-id="{{ $item->id }}" id="button_hapus"
+                                            data-bs-placement="top" title="Hapus Version">
                                             <i class="bi bi-trash-fill"></i>
                                         </button>
                                     </div>
+
+                                    <form action="{{ route('version.hapus', ['id' => $item->id]) }}" method="POST" id="form_hapus_{{ $item->id }}">
+                                        @method('DELETE')
+                                        @csrf
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
@@ -147,11 +151,20 @@
             $('#modal_form').modal('show')
         })
 
-        $('.btn-edit').on('click', function() {
+        $('#button_edit').on('click', function() {
             item = $(this).data('item')
+            console.log(item);
             $('#id_version').val(item.id)
             $('input[name="version"]').val(item.version)
             $('#modal_form').modal('show')
+        })
+
+        $('#button_hapus').on('click', async function () {
+            const id = $(this).data('id')
+            const response = await alertConfirm('Peringatan !', "Apakah kamu yakin ingin menghapus data version")
+            if(response.isConfirmed == true){
+                $('#form_hapus_' + id).submit()
+            }
         })
     </script>
 @endsection

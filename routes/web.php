@@ -187,6 +187,7 @@ Route::middleware('auth.user')->group(function () {
         Route::prefix('version')->group(function(){
             Route::get('/', [VersionController::class, 'index'])->name('version');
             Route::post('/simpan', [VersionController::class, 'simpan'])->name('version.simpan');
+            Route::delete('/hapus/{id}', [VersionController::class, 'hapus'])->name('version.hapus');
         });
 
         // Route::prefix('user-activity')->group(function(){
