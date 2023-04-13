@@ -49,7 +49,7 @@ class Form extends Component
             'email' => 'required|email',
             'no_hp' => 'required|numeric|digits_between:11,12',
             'no_mfg' => 'nullable|string',
-            'alamat' => 'required|string',
+            'alamat' => 'required|string|max:255',
             'catatan' => 'nullable|string',
             'id_customer' => 'required|numeric',
             'tanggal' => 'nullable|string',

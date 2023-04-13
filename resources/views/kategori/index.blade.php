@@ -4,6 +4,7 @@
     @livewire('kategori.form')
     @livewire('kategori.barang')
     @livewire('kategori.tambah-barang-kategori')
+    @livewire('import.kategori')
 @endsection
 
 @section('js')

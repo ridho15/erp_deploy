@@ -3,6 +3,7 @@
 @section('content')
     @livewire('kondisi.data')
     @livewire('kondisi.form')
+    @livewire('import.kondisi')
 @endsection
 
 @section('js')

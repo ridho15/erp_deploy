@@ -52,7 +52,7 @@ class Form extends Component
 
         $message = 'Berhasil manambahkan Tipe Pembayaran';
         activity()->causedBy(HelperController::user())->log("Menambah atau mengedit tipe pembayaran");
-        $this->emit('refreshUser');
+        $this->emit('refreshTipePembayaran');
         $this->resetInputFields();
 
         return $this->emit('finishSimpanData', 1, $message);

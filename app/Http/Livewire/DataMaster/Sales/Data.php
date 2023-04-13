@@ -25,7 +25,7 @@ class Data extends Component
             ->orWhere('no_hp', 'LIKE', '%' . $this->cari . '%')
             ->orWhere('alamat', 'LIKE', '%' . $this->cari . '%')
             ->orWhere('nama_perusahaan', 'LIKE', '%' . $this->cari . '%');
-        })->paginate($this->total_show);
+        })->orderBy('created_at', 'DESC')->paginate($this->total_show);
 
         $data['listSales'] = $this->listSales;
         return view('livewire.data-master.sales.data', $data);

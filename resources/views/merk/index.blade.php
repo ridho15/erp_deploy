@@ -3,6 +3,7 @@
 @section('content')
     @livewire('merk.data')
     @livewire('merk.form')
+    @livewire('import.merk')
 @endsection
 
 @section('js')

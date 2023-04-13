@@ -6,11 +6,11 @@
     @include('pdf_view.header')
     <div class="text-center fw-bold mb-10" style="font-size: 12pt">Laporan Pekerjaan</div>
     <div class="mb-10">
-        <div style="float: left; width: 50%">
+        <div style="float: left; width: 70%">
             <div>
                 <table>
                     <tr>
-                        <td>Nomor Form</td>
+                        <td style="width: 100px">Nomor Form</td>
                         <td>:
                             <span class="fw-bold">{{ $laporanPekerjaan->no_ref }}</span>
                         </td>
@@ -47,7 +47,7 @@
                 </table>
             </div>
         </div>
-        <div style="float: right; width: 50%">
+        <div style="float: right; width: 30%">
             <div>
                 <table>
                     <tr>
@@ -88,7 +88,7 @@
     <br>
     <br>
     <br>
-    <div class="mb-10">
+    <div class="mb-10" style="margin-top: 20px">
         <div class="py-3 px-5"
             style="border: 1px solid black; border-top-left-radius: 10px; border-top-right-radius: 10px">
             Catatan Teknisi dan Keterangan Pekerja :
@@ -168,11 +168,11 @@
         @include('pdf_view.header')
         <div class="text-center fw-bold mb-10" style="font-size: 13pt">Laporan Perawatan Lift</div>
         <div class="mb-10">
-            <div style="float: left; width: 50%">
+            <div style="float: left; width: 70%">
                 <div>
                     <table>
                         <tr>
-                            <td>Nomor Form</td>
+                            <td style="width: 100px">Nomor Form</td>
                             <td>: {{ $laporanPekerjaan->no_ref }}</td>
                         </tr>
                         <tr>
@@ -202,7 +202,7 @@
                     </table>
                 </div>
             </div>
-            <div style="float: right; width: 50%">
+            <div style="float: right; width: 30%">
                 <div>
                     <table>
                         <tr>
@@ -231,7 +231,7 @@
         <br>
         <br>
         <br>
-        <div>
+        <div style="margin-top: 25px">
             @php
                 $periode = $laporanPekerjaan->periode;
             @endphp

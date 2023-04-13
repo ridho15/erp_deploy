@@ -1,13 +1,30 @@
-hr{
+/* Bootstrap 5 CSS and icons included */
+:root {
+    --colorPrimaryNormal: #00b3bb;
+    --colorPrimaryDark: #00979f;
+    --colorPrimaryGlare: #00cdd7;
+    --colorPrimaryHalf: #80d9dd;
+    --colorPrimaryQuarter: #bfecee;
+    --colorPrimaryEighth: #dff5f7;
+    --colorPrimaryPale: #f3f5f7;
+    --colorPrimarySeparator: #f3f5f7;
+    --colorPrimaryOutline: #dff5f7;
+    --colorButtonNormal: #00b3bb;
+    --colorButtonHover: #00cdd7;
+    --colorLinkNormal: #00979f;
+    --colorLinkHover: #00cdd7;
+}
+
+hr {
     opacity: 0.1 !important;
 }
 
-.image-hover div{
+.image-hover div {
     /* background-color: rgba(0, 0, 0, 0); */
     opacity: 0;
 }
 
-.image-hover:hover div{
+.image-hover:hover div {
     background-color: rgba(0, 0, 0, 0.3);
     opacity: 1;
     cursor: pointer;
@@ -17,7 +34,7 @@ hr{
     left: 0;
     top: 0;
     width: 400px;
-    height:200px;
+    height: 200px;
 }
 
 .wrapper {
@@ -30,17 +47,17 @@ hr{
     user-select: none;
 }
 
-.sticky{
+.sticky {
     position: sticky !important;
     top: 0px;
     z-index: 90;
 }
 
-th{
+th {
     background-color: white !important;
     z-index: 90;
 }
 
-.fixed{
+.fixed {
     position: fixed !important;
 }

@@ -5,6 +5,9 @@
                 Data Sales
             </h3>
             <div class="card-toolbar">
+                <button class="btn btn-sm btn-outline btn-outline-success me-3" wire:click="$emit('onClickImport')">
+                    <i class="fa-solid fa-file-import"></i> Import
+                </button>
                 <button class="btn btn-sm btn-outline btn-outline-primary" wire:click="$emit('onClickTambah')"><i class="bi bi-plus-circle"></i> Tambah</button>
             </div>
         </div>
@@ -18,7 +21,6 @@
                     @include('helper.form-pencarian', ['model' => 'cari'])
                 </div>
             </div>
-
             <div class="table-responsive">
                 <table class="table table-rounded table-striped border gy-7 gs-7">
                  <thead>
@@ -85,6 +87,10 @@
             if(response.isConfirmed == true){
                 Livewire.emit('hapusSales', id)
             }
+        })
+
+        Livewire.on('onClickImport', () => {
+            $('#modal_import').modal('show')
         })
     </script>
 @endpush

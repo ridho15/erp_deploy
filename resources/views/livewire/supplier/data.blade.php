@@ -5,6 +5,7 @@
                 Data Supplier
             </h3>
             <div class="card-toolbar">
+
                 <button class="btn btn-sm btn-outline btn-outline-primary" wire:click="$emit('onClickTambah')"><i class="bi bi-plus-circle"></i> Tambah</button>
             </div>
         </div>
@@ -103,6 +104,10 @@
 
         Livewire.on("finishDataSupplier", (status, message) => {
             alertMessage(status, message)
+        })
+
+        Livewire.on('onClickImport', () => {
+            $('#modal_import').modal('show')
         })
     </script>
 @endpush

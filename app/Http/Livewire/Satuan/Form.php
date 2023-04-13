@@ -57,7 +57,7 @@ class Form extends Component
 
         $message = 'Berhasil manambahkan Satuan';
         activity()->causedBy(HelperController::user())->log("Menambah / mengedit data satuan");
-        $this->emit('refreshUser');
+        $this->emit('refreshSatuan');
         $this->resetInputFields();
 
         return $this->emit('finishSimpanData', 1, $message);

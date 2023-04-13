@@ -3,6 +3,7 @@
 @section('content')
     @livewire('pekerjaan.data')
     @livewire('pekerjaan.form')
+    @livewire('import.pekerjaan')
 @endsection
 
 @section('js')

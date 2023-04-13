@@ -12,7 +12,7 @@ class Data extends Component
     use WithPagination;
     public $paginationTheme = 'bootstrap';
     public $listeners = [
-        'refreshUser' => '$refresh',
+        'refreshSatuan' => '$refresh',
         'clickTambah',
         'hapusSatuan',
     ];

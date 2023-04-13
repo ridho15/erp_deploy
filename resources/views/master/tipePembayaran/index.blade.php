@@ -3,6 +3,7 @@
 @section('content')
     @livewire('tipe-pembayaran.data')
     @livewire('tipe-pembayaran.form')
+    @livewire('import.tipe-pembayaran')
 @endsection
 
 @section('js')
