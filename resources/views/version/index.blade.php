@@ -5,9 +5,9 @@
         <div class="card-header">
             <h3 class="card-title">Daftar Version</h3>
             <div class="card-toolbar">
-                {{-- <button class="btn btn-sm btn-outline btn-outline-success me-3">
+                <button class="btn btn-sm btn-outline btn-outline-success me-3 btn-import">
                     <i class="fa-solid fa-file-import"></i> Import
-                </button> --}}
+                </button>
                 <button class="btn btn-sm btn-outline btn-outline-primary btn-tambah"><i class="bi bi-plus-circle"></i>
                     Tambah</button>
             </div>
@@ -90,6 +90,8 @@
         </div>
     </div>
 
+    @livewire('import.version')
+
     <div class="modal fade" tabindex="-1" id="modal_form">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -165,6 +167,10 @@
             if(response.isConfirmed == true){
                 $('#form_hapus_' + id).submit()
             }
+        })
+
+        $('.btn-import').on('click', function(){
+            $('#modal_import').modal('show')
         })
     </script>
 @endsection
