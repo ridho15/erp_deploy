@@ -139,7 +139,7 @@
                         Nomor PO
                     </div>
                     <div class="col-md-8 col-8 fw-bold">
-                        : @if (isset($laporanPekerjaan->purchaseOrder))
+                        : @if ($laporanPekerjaan->id_purchase_order != null)
                             {{ $laporanPekerjaan->purchaseOrder->no_ref }}
                         @else
                             -
