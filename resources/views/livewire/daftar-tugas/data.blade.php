@@ -234,7 +234,8 @@
                                         No HP
                                     </div>
                                     <div class="col-md-8 col-8 fw-bold">
-                                        : #1{{ $laporanPekerjaan->projectUnit->project->customer->no_hp_1 }}, #2{{ $laporanPekerjaan->projectUnit->project->customer->no_hp_2 }}
+                                        : #1{{ $laporanPekerjaan->projectUnit->project->customer->no_hp_1 }},
+                                        #2{{ $laporanPekerjaan->projectUnit->project->customer->no_hp_2 }}
                                     </div>
                                 </div>
                                 <div class="row mb-5">
@@ -312,7 +313,7 @@
                                         Nomor PO
                                     </div>
                                     <div class="col-md-8 col-8 fw-bold">
-                                        : @if (isset($laporanPekerjaan->projectUnit->purchaseOrder))
+                                        : @if ($laporanPekerjaan->id_purchase_order != null)
                                             {{ $laporanPekerjaan->projectUnit->purchaseOrder->no_ref }}
                                         @else
                                             -
@@ -453,12 +454,12 @@
                                         {{ $laporanPekerjaan->catatan_pelanggan }}
                                     </div>
                                 </div>
-                                @if (isset($laporanPekerjaan->projectUnit->purchaseOrder))
+                                @if ($laporanPekerjaan->id_purchase_order != null)
                                     <div class="my-5">
                                         <label for="" class="form-label">Data Barang</label>
                                     </div>
                                     @php
-                                        $listPreOrderDetail = $laporanPekerjaan->projectUnit->purchaseOrder->preOrderDetail;
+                                        $listPreOrderDetail = $laporanPekerjaan->purchaseOrder->preOrderDetail;
                                     @endphp
                                     <div class="table-responsive">
                                         <table class="table table-rounded table-striped border gy-7 gs-7">

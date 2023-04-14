@@ -190,4 +190,8 @@ class PreOrder extends Model
     public function agendaPenagihan(){
         return $this->hasOne(CalenderPenagihan::class, 'id_accounts')->where('tipe', 2);
     }
+
+    public function laporanPekerjaan(){
+        return $this->hasOne(LaporanPekerjaan::class, 'id_purchase_order');
+    }
 }
