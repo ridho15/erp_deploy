@@ -4,7 +4,8 @@
     <div class="card shadow-sm">
         <div class="card-header">
             <h3 class="card-title">
-                <a href="{{ route('management-tugas') }}" class="btn btn-sm btn-icon btn-light me-5" data-bs-toggle="tooltip" data-bs-placement="top" title="Kembali">
+                <a href="{{ route('management-tugas') }}" class="btn btn-sm btn-icon btn-light me-5" data-bs-toggle="tooltip"
+                    data-bs-placement="top" title="Kembali">
                     <i class="fa-solid fa-arrow-left"></i>
                 </a>
                 Detail Management Tugas
@@ -19,7 +20,9 @@
                         <span class="badge badge-secondary">Belum Dikerjakan</span>
                     @endif
                 </div>
-                <a href="{{ route('management-tugas.export', ['id' => $laporanPekerjaan->id]) }}" class="btn btn-sm btn-outline btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Cetak PDF">
+                <a href="{{ route('management-tugas.export', ['id' => $laporanPekerjaan->id]) }}"
+                    class="btn btn-sm btn-outline btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Cetak PDF">
                     <i class="bi bi-printer"></i> Cetak
                 </a>
             </div>
@@ -43,7 +46,8 @@
                             No HP
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : #1{{ $laporanPekerjaan->projectUnit->project->customer->no_hp_1 }}, #2{{ $laporanPekerjaan->projectUnit->project->customer->no_hp_2 }}
+                            : #1{{ $laporanPekerjaan->projectUnit->project->customer->no_hp_1 }},
+                            #2{{ $laporanPekerjaan->projectUnit->project->customer->no_hp_2 }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -80,7 +84,8 @@
                             Nama
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $laporanPekerjaan->projectUnit->project ? $laporanPekerjaan->projectUnit->project->nama : '-' }}
+                            :
+                            {{ $laporanPekerjaan->projectUnit->project ? $laporanPekerjaan->projectUnit->project->nama : '-' }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -88,7 +93,8 @@
                             Kode
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $laporanPekerjaan->projectUnit->project ? $laporanPekerjaan->projectUnit->project->kode : '-' }}
+                            :
+                            {{ $laporanPekerjaan->projectUnit->project ? $laporanPekerjaan->projectUnit->project->kode : '-' }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -96,7 +102,8 @@
                             No Unit
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $laporanPekerjaan->projectUnit->no_unit }} {{ $laporanPekerjaan->projectUnit->nama_unit }}
+                            : {{ $laporanPekerjaan->projectUnit->no_unit }}
+                            {{ $laporanPekerjaan->projectUnit->nama_unit }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -104,7 +111,8 @@
                             No MFG
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $laporanPekerjaan->projectUnit->project ? $laporanPekerjaan->projectUnit->project->no_mfg : '-' }}
+                            :
+                            {{ $laporanPekerjaan->projectUnit->project ? $laporanPekerjaan->projectUnit->project->no_mfg : '-' }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -112,7 +120,8 @@
                             Alamat
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : {{ $laporanPekerjaan->projectUnit->project ? $laporanPekerjaan->projectUnit->project->alamat : '-' }}
+                            :
+                            {{ $laporanPekerjaan->projectUnit->project ? $laporanPekerjaan->projectUnit->project->alamat : '-' }}
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -120,8 +129,8 @@
                             Nomor PO
                         </div>
                         <div class="col-md-8 col-8 fw-bold">
-                            : @if (isset($laporanPekerjaan->projectUnit->purchaseOrder))
-                                {{ $laporanPekerjaan->projectUnit->purchaseOrder->no_ref }}
+                            : @if (isset($laporanPekerjaan->purchaseOrder))
+                                {{ $laporanPekerjaan->purchaseOrder->no_ref }}
                             @else
                                 -
                             @endif
@@ -258,16 +267,16 @@
                         </div>
                         <div class="col-md-8 col-8">
                             : @if (count($laporanPekerjaan->catatanTeknisiPekerjaan) > 0)
-                                    @foreach ($laporanPekerjaan->catatanTeknisiPekerjaan as $item)
-                                        <div class="col-md fw-bold">
-                                            {{ $item->keterangan }} ({{ $item->status == 1 ? "Ya" : "Tidak" }}),
-                                        </div>
-                                    @endforeach
-                                @else
-                                    <div class="col-md-12 text-center text-gray-500">
-                                        Belum ada catatan
+                                @foreach ($laporanPekerjaan->catatanTeknisiPekerjaan as $item)
+                                    <div class="col-md fw-bold">
+                                        {{ $item->keterangan }} ({{ $item->status == 1 ? 'Ya' : 'Tidak' }}),
                                     </div>
-                                @endif
+                                @endforeach
+                            @else
+                                <div class="col-md-12 text-center text-gray-500">
+                                    Belum ada catatan
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <div class="row mb-5">
@@ -297,7 +306,10 @@
                                 @foreach ($laporanPekerjaan->laporanPekerjaanFoto as $item)
                                     <div class="col-md-4">
                                         <a href="{{ asset('storage' . $item->file) }}" target="blank">
-                                            <img src="{{ asset('storage' . $item->file) }}" class="border rounded img-fluid" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $item->keterangan }}" alt="Foto Pekerjaan">
+                                            <img src="{{ asset('storage' . $item->file) }}"
+                                                class="border rounded img-fluid" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" title="{{ $item->keterangan }}"
+                                                alt="Foto Pekerjaan">
                                         </a>
                                     </div>
                                 @endforeach
@@ -315,30 +327,30 @@
                     </div>
                     <div class="table-responsive">
                         <table class="table table-rounded table-striped border gy-7 gs-7">
-                         <thead>
-                          <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
-                           <th>No</th>
-                           <th>SKU</th>
-                           <th>Nama Barang</th>
-                           <th>Qty</th>
-                          </tr>
-                         </thead>
-                         <tbody>
-                            @if (count($laporanPekerjaan->laporanPekerjaanBarang) > 0)
-                                @foreach ($laporanPekerjaan->laporanPekerjaanBarang as $index => $item)
-                                    <tr>
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ $item->barang->sku }}</td>
-                                        <td>{{ $item->barang->nama }}</td>
-                                        <td style="text-align: end">{{ $item->qty }}</td>
-                                    </tr>
-                                @endforeach
-                            @else
-                                <tr>
-                                    <td colspan="6" class="text-center text-gray-500">Tidak ada barang</td>
+                            <thead>
+                                <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
+                                    <th>No</th>
+                                    <th>SKU</th>
+                                    <th>Nama Barang</th>
+                                    <th>Qty</th>
                                 </tr>
-                            @endif
-                         </tbody>
+                            </thead>
+                            <tbody>
+                                @if (count($laporanPekerjaan->laporanPekerjaanBarang) > 0)
+                                    @foreach ($laporanPekerjaan->laporanPekerjaanBarang as $index => $item)
+                                        <tr>
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>{{ $item->barang->sku }}</td>
+                                            <td>{{ $item->barang->nama }}</td>
+                                            <td style="text-align: end">{{ $item->qty }}</td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td colspan="6" class="text-center text-gray-500">Tidak ada barang</td>
+                                    </tr>
+                                @endif
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -349,7 +361,7 @@
 
 @section('js')
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
 
         });
     </script>

@@ -162,6 +162,7 @@ class Form extends Component
         $data['keterangan'] = $this->keterangan;
         $data['service_ke'] = $this->service_ke;
         $data['nama_client'] = $this->nama_client;
+        $data['id_purchase_order'] = $this->id_purchase_order;
         $laporanPekerjaan = LaporanPekerjaan::updateOrCreate([
             'id' => $this->id_laporan_pekerjaan,
         ], $data);
@@ -241,6 +242,7 @@ class Form extends Component
         $this->service_ke = null;
         $this->id_quotation = null;
         $this->nama_client = null;
+        $this->id_purchase_order = null;
     }
 
     public function setDataManagementTugas($id)
@@ -275,18 +277,20 @@ class Form extends Component
         $this->id_project = $laporanPekerjaan->projectUnit->id_project;
         $this->id_customer = $laporanPekerjaan->projectUnit->project->id_customer;
 
-        $projectUnit = ProjectUnit::find($this->id_project_unit);
-        if ($projectUnit && $projectUnit->purchaseOrder) {
-            $this->id_purchase_order = $projectUnit->purchaseOrder->id;
-        }
+        // $projectUnit = ProjectUnit::find($this->id_project_unit);
+        // if ($projectUnit && $projectUnit->purchaseOrder) {
+        //     $this->id_purchase_order = $projectUnit->purchaseOrder->id;
+        // }
 
-        if ($this->id_purchase_order) {
-            $this->listPurchaseOrder = PreOrder::where('id', $this->id_purchase_order)->where('status', '!=', '3')->get();
-        } else {
-            $this->listPurchaseOrder = PreOrder::where('no_ref', '!=', null)
-                ->where('status', '!=', 3)
-                ->get();
-        }
+        // if ($this->id_purchase_order) {
+        //     $this->listPurchaseOrder = PreOrder::where('id', $this->id_purchase_order)->where('status', '!=', '3')->get();
+        // } else {
+        //     $this->listPurchaseOrder = PreOrder::where('no_ref', '!=', null)
+        //         ->where('status', '!=', 3)
+        //         ->get();
+        // }
+
+        $this->id_purchase_order = $laporanPekerjaan->id_purchase_order;
     }
 
     public function changeCustomer($id_customer)

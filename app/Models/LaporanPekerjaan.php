@@ -33,6 +33,7 @@ class LaporanPekerjaan extends Model
         'service_ke',
         'no_ref',
         'nama_client',
+        'id_purchase_order'
     ];
 
     protected $appends = [
@@ -137,5 +138,9 @@ class LaporanPekerjaan extends Model
 
     public function agendaLaporanPekerjaan(){
         return $this->hasOne(CalenderPenagihan::class, 'id_accounts')->where('tipe', 4);
+    }
+
+    public function purchaseOrder(){
+        return $this->belongsTo(purchaseOrder::class, 'id_purcahse_order')->withDefault();
     }
 }
