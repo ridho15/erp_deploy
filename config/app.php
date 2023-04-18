@@ -51,9 +51,9 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://erp.medialatihan.com'),
+    'url' => env('APP_URL', 'https://lrmltd.net'),
 
-    'asset_url' => env('ASSET_URL', 'https://erp.medialatihan.com/master/public/'),
+    'asset_url' => env('ASSET_URL', 'https://lrmltd.net/'),
 
     /*
     |--------------------------------------------------------------------------
