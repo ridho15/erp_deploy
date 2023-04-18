@@ -23,7 +23,9 @@ class Data extends Component
             ->orWhere('alamat', 'LIKE', '%' . $this->cari . '%')
             ->orWhere('catatan', 'LIKE', '%' . $this->cari . '%')
             ->orWhere('tanggal', 'LIKE', '%' . $this->cari . '%')
-            ->orWhere('penanggung_jawab', 'LIKE', '%' . $this->cari . '%')
+            ->orWhere('tanggal', 'LIKE', '%' . $this->cari . '%')
+            ->orWhere('email', 'LIKE', '%' . $this->cari . '%')
+            ->orWhere('total_pekerjaan', 'LIKE', '%' . $this->cari . '%')
             ->orWhereHas('customer', function($query){
                 $query->where('nama', 'LIKE', '%' . $this->cari . '%');
             });
