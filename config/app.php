@@ -51,9 +51,9 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://lrmltd.net'),
+    'url' => env('APP_URL', 'https://mgk.lrmltd.net/'),
 
-    'asset_url' => env('ASSET_URL', 'https://lrmltd.net/'),
+    'asset_url' => env('ASSET_URL', 'https://mgk.lrmltd.net/'),
 
     /*
     |--------------------------------------------------------------------------
