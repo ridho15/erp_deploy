@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'asset_url' => env("ASSET_URL", "https://mgk.lrmltd.net/"),
+    'asset_url' => env("ASSET_URL", "https://mgk.lrmltd.net"),
 
     /*
     |--------------------------------------------------------------------------
@@ -68,7 +68,7 @@ return [
     |
     */
 
-    'app_url' => env("APP_URL", "https://mgk.lrmltd.net/"),
+    'app_url' => env("APP_URL", "https://mgk.lrmltd.net"),
 
     /*
     |--------------------------------------------------------------------------
