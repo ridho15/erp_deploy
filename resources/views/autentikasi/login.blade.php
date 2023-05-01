@@ -17,9 +17,9 @@
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="Login | PT.Media Global Kencana" />
-    <meta property="og:url" content="https://keenthemes.com/metronic" />
-    <meta property="og:site_name" content="Keenthemes | Metronic" />
-    <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
+    <meta property="og:url" content="https://mgk.lrmltd.net/" />
+    <meta property="og:site_name" content="Mitra Global Kencana" />
+    <link rel="canonical" href="https://mgk.lrmltd.net/" />
     <link rel="shortcut icon" href="{{ asset('/assets/images/icon.png') }}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <link href="{{ asset('/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
