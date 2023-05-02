@@ -33,7 +33,7 @@ class ImportCustomer implements ToModel, WithValidation, WithHeadingRow, SkipsEm
             'email' => $row['email'],
             'alamat' => $row['alamat'],
             'status' => $status,
-            'barang_customer' => $row['barang_perlengkapan'],
+            'barang_customer' => $row['barang_customer'],
             'ppn' => $row['ppn'],
             'pic' => $row['pic'],
         ]);
@@ -49,7 +49,7 @@ class ImportCustomer implements ToModel, WithValidation, WithHeadingRow, SkipsEm
             'telp_2' => 'nullable|string',
             'email' => 'required|string|email',
             'alamat' => 'nullable|string',
-            'barang_perlengkapan' => 'nullable|string',
+            'barang_customer' => 'nullable|string',
             'ppn' => 'required|numeric',
             'pic' => 'nullable|string'
         ];
