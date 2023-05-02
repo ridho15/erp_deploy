@@ -25,11 +25,11 @@ class ImportProject implements ToModel, WithValidation, WithHeadingRow
     {
         $tanggal = Date::excelToDateTimeObject($row['tanggal']);
         $customer = Customer::where('nama', 'LIKE', '%' . $row['customer'] . '%')
-        ->first();
+            ->first();
 
-        if($customer){
+        if ($customer) {
             $id_customer = $customer->id;
-        }else{
+        } else {
             $id_customer = 0;
         }
         $project = ProjectV2::create([
@@ -50,8 +50,8 @@ class ImportProject implements ToModel, WithValidation, WithHeadingRow
         $listNama = explode(",", $row['pic']);
         foreach ($listNama as $nama) {
             $sales = Sales::where('nama', 'LIKE', '%' . $nama . '%')
-            ->first();
-            if($sales){
+                ->first();
+            if ($sales) {
                 SalesProject::create([
                     'id_project' => $project->id,
                     'id_sales' => $sales->id
@@ -66,7 +66,6 @@ class ImportProject implements ToModel, WithValidation, WithHeadingRow
         return [
             'kode' => 'required|string',
             'nama' => 'required|string',
-            'no_mfg' => 'nullable|string',
             'alamat' => 'string|string|max:255',
             'customer' => 'required|string',
             'catatan' => 'nullable|string',
