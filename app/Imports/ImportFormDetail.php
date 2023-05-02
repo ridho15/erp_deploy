@@ -6,12 +6,13 @@ use App\Models\TemplatePekerjaan;
 use App\Models\TemplatePekerjaanDetail;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\Importable;
+use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
-class ImportFormDetail implements ToModel, WithValidation, WithHeadingRow
+class ImportFormDetail implements ToModel, WithValidation, WithHeadingRow, SkipsEmptyRows
 {
     use Importable;
 

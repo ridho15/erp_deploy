@@ -6,11 +6,12 @@ use App\Models\TipeUser;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\Importable;
+use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
-class ImportWorker implements ToModel, WithValidation, WithHeadingRow
+class ImportWorker implements ToModel, WithValidation, WithHeadingRow, SkipsEmptyRows
 {
     use Importable;
     /**

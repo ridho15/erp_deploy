@@ -4,11 +4,12 @@ namespace App\Imports;
 
 use App\Models\Supplier;
 use Maatwebsite\Excel\Concerns\Importable;
+use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
-class ImportSupplier implements ToModel, WithValidation, WithHeadingRow
+class ImportSupplier implements ToModel, WithValidation, WithHeadingRow, SkipsEmptyRows
 {
     use Importable;
     /**

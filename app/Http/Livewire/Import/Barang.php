@@ -54,10 +54,12 @@ class Barang extends Component
             foreach ($failures as $failure) {
                 $message = $message . $failure->attribute() . ' - ' . $failure->errors()[0] . ", ";
             }
-
+            $this->emit('refreshDataBarang');
             return session()->flash('fail', $message);
         } catch (Throwable $e) {
+            $this->emit('refreshDataBarang');
             return session()->flash('fail', $e->getMessage());
         }
+        $this->emit('refreshDataBarang');
     }
 }

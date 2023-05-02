@@ -7,11 +7,12 @@ use App\Models\Merk;
 use App\Models\Satuan;
 use App\Models\TipeBarang;
 use Maatwebsite\Excel\Concerns\Importable;
+use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
-class ImportBarang implements ToModel, WithValidation, WithHeadingRow
+class ImportBarang implements ToModel, WithValidation, WithHeadingRow, SkipsEmptyRows
 {
     use Importable;
     /**
