@@ -49,15 +49,17 @@ class Project extends Component
             return session()->flash('success', $message);
         } catch (ValidationException $e) {
             $failures = $e->failures();
-
             $message = '';
             foreach ($failures as $failure) {
                 $message = $message . $failure->attribute() . ' - ' . $failure->errors()[0] . ", ";
             }
-
+            $this->emit('refreshProject');
             return session()->flash('fail', $message);
         } catch (Throwable $e) {
+            $this->emit('refreshProject');
             return session()->flash('fail', $e->getMessage());
         }
+
+        $this->emit('refreshProject');
     }
 }
