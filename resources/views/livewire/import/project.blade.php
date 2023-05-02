@@ -31,7 +31,7 @@
                                     <th>penanggung_jawab</th>
                                     <th>no_mfg</th>
                                     <th class="required">alamat</th>
-                                    <th>customer</th>
+                                    <th class="required">customer</th>
                                     <th>no_hp</th>
                                     <th>email</th>
                                     <th>pic</th>
