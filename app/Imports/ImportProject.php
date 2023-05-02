@@ -80,6 +80,18 @@ class ImportProject implements ToModel, WithValidation, WithHeadingRow
 
     public function customValidationMessages()
     {
-        return [];
+        return [
+            'kode.required' => 'Kode tidak boleh kosong',
+            'kode.string' => 'Kode tidak valid !',
+            'nama.required' => 'Nama tidak boleh kosong',
+            'nama.string' => 'Nama tidak valid !',
+            'alamat.required' => 'Alamat tidak boleh kosong',
+            'alamat.string' => 'Alamat tidak valid !',
+            'customer.required' => 'Customer tidak boleh kosong',
+            'customer.string' => 'Customer tidak valid !',
+            'map.string' => 'Map tidak valid !',
+            'total_pekerjaan.string' => 'Total pekerjaan tidak valid !',
+            'email.string' => 'email tidak valid !',
+        ];
     }
 }
