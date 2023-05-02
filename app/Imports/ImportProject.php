@@ -32,7 +32,9 @@ class ImportProject implements ToModel, WithValidation, WithHeadingRow
         } else {
             $id_customer = 0;
         }
-        $project = ProjectV2::create([
+        $project = ProjectV2::updateOrCreate([
+            'kode' => $row['kode']
+        ],[
             'kode' => $row['kode'],
             'nama' => $row['nama'],
             'penanggung_jawab' => $row['penanggung_jawab'],
