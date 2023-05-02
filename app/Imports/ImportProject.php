@@ -39,7 +39,7 @@ class ImportProject implements ToModel, WithValidation, WithHeadingRow
             'no_mfg' => $row['no_mfg'],
             'alamat' => $row['alamat'],
             'id_customer' => $id_customer,
-            'no_hp' => $row['no_hp'],
+            'no_hp' => str_replace('-', '', $row['no_hp']),
             'email' => $row['email'],
             'catatan' => $row['catatan'],
             'tanggal' => $tanggal,
