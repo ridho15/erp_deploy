@@ -92,7 +92,7 @@ class ImportProject implements ToModel, WithValidation, WithHeadingRow
             'customer.required' => 'Customer tidak boleh kosong',
             'customer.string' => 'Customer tidak valid !',
             'map.string' => 'Map tidak valid !',
-            'total_pekerjaan.string' => 'Total pekerjaan tidak valid !',
+            'total_pekerjaan.numeric' => 'Total pekerjaan tidak valid. Total pekerjaan harus angka !',
             'email.string' => 'email tidak valid !',
         ];
     }
