@@ -26,7 +26,7 @@
                         <table class="table table-rounded table-striped border gy-7 gs-7">
                             <thead>
                                 <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
-                                    <th>nama</th>
+                                    <th class="required">nama</th>
                                     <th>no_hp_1</th>
                                     <th>no_hp_2</th>
                                     <th>telp_1</th>

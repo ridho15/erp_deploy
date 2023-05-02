@@ -26,15 +26,15 @@
                         <table class="table table-rounded table-striped border gy-7 gs-7">
                             <thead>
                                 <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
-                                    <th>sku</th>
-                                    <th>nama</th>
+                                    <th class="required">sku</th>
+                                    <th class="required">nama</th>
                                     <th>stock</th>
                                     <th>min_stock</th>
                                     <th>harga</th>
                                     <th>harga_modal</th>
                                     <th>merk</th>
-                                    <th>satuan</th>
-                                    <th>tipe_barang</th>
+                                    <th class="required">satuan</th>
+                                    <th class="required">tipe_barang</th>
                                     <th>version</th>
                                     <th>deskripsi</th>
                                 </tr>
