@@ -44,7 +44,7 @@
                         @if (count($listUser) > 0)
                             @foreach ($listUser as $index => $item)
                                 <tr>
-                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ ($page - 1) * $total_show + $index + 1 }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->username }}</td>
                                     <td>
