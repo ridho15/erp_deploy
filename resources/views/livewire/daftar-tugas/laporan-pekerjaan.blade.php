@@ -362,17 +362,13 @@
                 e.preventDefault();
                 Livewire.emit('addCatatanTeknisi', catatan_teknisi)
                 return false;
-            } else if (keyCode === 'Enter') {
+            }
+            else if (keyCode === 'Enter') {
                 e.preventDefault();
                 Livewire.emit('addCatatanTeknisi', catatan_teknisi)
                 return false;
             }
         })
 
-        $('input[name="catatan_teknisi"]').on('change', function() {
-            e.preventDefault();
-            Livewire.emit('addCatatanTeknisi', catatan_teknisi)
-            return false;
-        })
     </script>
 @endpush
