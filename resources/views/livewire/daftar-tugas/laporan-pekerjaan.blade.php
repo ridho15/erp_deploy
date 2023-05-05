@@ -357,8 +357,8 @@
 
         $('input[name="catatan_teknisi"]').on('keyup keypress', function(e) {
             var keyCode = e.keyCode || e.which;
-            console.log(keyCode);
-            $('#keycode').html(keyCode)
+            // console.log(keyCode);
+            // $('#keycode').html(keyCode)
             const catatan_teknisi = $(this).val();
             if (keyCode === 13) {
                 e.preventDefault();
@@ -370,6 +370,13 @@
                 Livewire.emit('addCatatanTeknisi', catatan_teknisi)
                 return false;
             }
+
+            else if (keyCode === 229) {
+                e.preventDefault();
+                Livewire.emit('addCatatanTeknisi', catatan_teknisi)
+                return false;
+            }
+
         })
 
         // $('input[name="catatan_teknisi"]').on('change', function(){
