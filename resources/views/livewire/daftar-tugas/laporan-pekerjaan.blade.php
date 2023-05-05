@@ -358,8 +358,6 @@
 
         $('input[name="catatan_teknisi"]').on('keyup keypress', function(e) {
             var keyCode = e.keyCode || e.which;
-            console.log(keyCode);
-            $('#keycode').html(keyCode)
             const catatan_teknisi = $(this).val();
             if (keyCode === 13) {
                 e.preventDefault();
@@ -379,17 +377,17 @@
 
         })
 
-        const catatanTeknisi = document.querySelector('input[type="catatan_teknisi"]');
+        // const catatanTeknisi = document.querySelector('input[type="catatan_teknisi"]');
 
-        catatanTeknisi.addEventListener("blur", (event) => {
-            Livewire.emit('addCatatanTeknisi', catatan_teknisi)
-            return false;
-        });
-
-        // $('input[name="catatan_teknisi"]').on('blur', function(e) {
-        //     e.preventDefault();
+        // catatanTeknisi.addEventListener("blur", (event) => {
         //     Livewire.emit('addCatatanTeknisi', catatan_teknisi)
         //     return false;
-        // })
+        // });
+
+        $('input[name="catatan_teknisi"]').on('change', function(e) {
+            e.preventDefault();
+            Livewire.emit('addCatatanTeknisi', $(this).val())
+            return false;
+        })
     </script>
 @endpush
