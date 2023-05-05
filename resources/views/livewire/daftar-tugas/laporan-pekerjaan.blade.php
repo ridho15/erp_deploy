@@ -379,12 +379,12 @@
 
         })
 
-        // $('input[name="catatan_teknisi"]').on('change', function(){
-        //     e.preventDefault();
-        //     Livewire.emit('addCatatanTeknisi', catatan_teknisi)
-        //     $(this).val(null)
-        //     return false;
-        // })
+        $('input[name="catatan_teknisi"]').on('change', function(){
+            e.preventDefault();
+            Livewire.emit('addCatatanTeknisi', catatan_teknisi)
+            $(this).val(null)
+            return false;
+        })
 
     </script>
 @endpush
