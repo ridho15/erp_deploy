@@ -379,18 +379,17 @@
 
         })
 
-        // const catatanTeknisi = document.querySelector('input[type="catatan_teknisi"]');
+        const catatanTeknisi = document.querySelector('input[type="catatan_teknisi"]');
 
-        // catatanTeknisi.addEventListener("blur", (event) => {
+        catatanTeknisi.addEventListener("blur", (event) => {
+            Livewire.emit('addCatatanTeknisi', catatan_teknisi)
+            return false;
+        });
+
+        // $('input[name="catatan_teknisi"]').on('blur', function(e) {
         //     e.preventDefault();
         //     Livewire.emit('addCatatanTeknisi', catatan_teknisi)
         //     return false;
-        // });
-
-        $('input[name="catatan_teknisi"]').on('blur', function(e) {
-            e.preventDefault();
-            Livewire.emit('addCatatanTeknisi', catatan_teknisi)
-            return false;
-        })
+        // })
     </script>
 @endpush
