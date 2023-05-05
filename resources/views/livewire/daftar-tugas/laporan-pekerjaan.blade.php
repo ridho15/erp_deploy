@@ -10,8 +10,8 @@
         </div>
         <div class="card-body">
             <div class="alert alert-dismissible bg-light-primary d-flex flex-column flex-sm-row p-5 mb-10">
-                <span class="svg-icon svg-icon-primary svg-icon-2hx"><svg width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                <span class="svg-icon svg-icon-primary svg-icon-2hx"><svg width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path opacity="0.3"
                             d="M5.78001 21.115L3.28001 21.949C3.10897 22.0059 2.92548 22.0141 2.75004 21.9727C2.57461 21.9312 2.41416 21.8418 2.28669 21.7144C2.15923 21.5869 2.06975 21.4264 2.0283 21.251C1.98685 21.0755 1.99507 20.892 2.05201 20.7209L2.886 18.2209L7.22801 13.879L10.128 16.774L5.78001 21.115Z"
                             fill="currentColor" />
@@ -122,7 +122,8 @@
                                     <tr>
                                         <td>
                                             <button type="button" class="btn btn-sm btn-icon btn-light-active-danger"
-                                                data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Catatan"
+                                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                                title="Hapus Catatan"
                                                 wire:click="hapusCatatanTeknisi({{ $item->id }})">
                                                 <i class="fa-solid fa-trash-can text-danger"></i>
                                             </button>
@@ -364,8 +365,7 @@
                 e.preventDefault();
                 Livewire.emit('addCatatanTeknisi', catatan_teknisi)
                 return false;
-            }
-            else if (keyCode === 'Enter') {
+            } else if (keyCode === 'Enter') {
                 e.preventDefault();
                 Livewire.emit('addCatatanTeknisi', catatan_teknisi)
                 return false;
@@ -379,12 +379,18 @@
 
         })
 
-        $('input[name="catatan_teknisi"]').on('change', function(){
+        // const catatanTeknisi = document.querySelector('input[type="catatan_teknisi"]');
+
+        // catatanTeknisi.addEventListener("blur", (event) => {
+        //     e.preventDefault();
+        //     Livewire.emit('addCatatanTeknisi', catatan_teknisi)
+        //     return false;
+        // });
+
+        $('input[name="catatan_teknisi"]').on('blur', function(e) {
             e.preventDefault();
             Livewire.emit('addCatatanTeknisi', catatan_teknisi)
-            $(this).val(null)
             return false;
         })
-
     </script>
 @endpush
