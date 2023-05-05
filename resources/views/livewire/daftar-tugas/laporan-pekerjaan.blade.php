@@ -2,7 +2,7 @@
     <div class="card shadow-sm" role="tabpanel">
         <div class="card-header">
             <h3 class="card-title">
-                Laporan Pekerjaan
+                Laporan Pekerjaan <span id="keycode"></span>
             </h3>
             <div class="card-toolbar">
 
@@ -357,6 +357,8 @@
 
         $('input[name="catatan_teknisi"]').on('keyup keypress', function(e) {
             var keyCode = e.keyCode || e.which;
+            console.log(keyCode);
+            $('#keycode').html(keyCode)
             const catatan_teknisi = $(this).val();
             if (keyCode === 13) {
                 e.preventDefault();
@@ -370,12 +372,12 @@
             }
         })
 
-        $('input[name="catatan_teknisi"]').on('change', function(){
-            e.preventDefault();
-            Livewire.emit('addCatatanTeknisi', catatan_teknisi)
-            $(this).val(null)
-            return false;
-        })
+        // $('input[name="catatan_teknisi"]').on('change', function(){
+        //     e.preventDefault();
+        //     Livewire.emit('addCatatanTeknisi', catatan_teknisi)
+        //     $(this).val(null)
+        //     return false;
+        // })
 
     </script>
 @endpush
