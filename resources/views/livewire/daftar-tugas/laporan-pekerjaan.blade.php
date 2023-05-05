@@ -97,7 +97,8 @@
                 <div class="row mb-5">
                     <div class="mb-5 col-md-6">
                         <label for="" class="form-label">Nama Client</label>
-                        <input type="text" name="nama_client" class="form-control form-control-solid" wire:model='nama_client' placeholder="Masukkan nama client">
+                        <input type="text" name="nama_client" class="form-control form-control-solid"
+                            wire:model='nama_client' placeholder="Masukkan nama client">
                         @error('nama_client')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -361,7 +362,17 @@
                 e.preventDefault();
                 Livewire.emit('addCatatanTeknisi', catatan_teknisi)
                 return false;
+            } else if (keyCode === 'Enter') {
+                e.preventDefault();
+                Livewire.emit('addCatatanTeknisi', catatan_teknisi)
+                return false;
             }
+        })
+
+        $('input[name="catatan_teknisi"]').on('change', function() {
+            e.preventDefault();
+            Livewire.emit('addCatatanTeknisi', catatan_teknisi)
+            return false;
         })
     </script>
 @endpush
