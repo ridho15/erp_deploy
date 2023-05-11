@@ -249,7 +249,47 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col-md-4 text-center mb-5">
+                    <div class="col-md-4">
+
+                        <div class="border rounded p-5 text-center text-gray-500">
+                            @if ($signature)
+                                <img src="{{ asset('storage/' . $signature) }}" class="img-fluid" alt="">
+                            @else
+                                <button type="button" class="btn btn-sm btn-primary" wire:click="$emit('onClickTandaTangan')">
+                                    <i class="fas fa-signature"></i> Tanda Tangan</button>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="text-end">
+                    <button class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Simpan Laporan">
+                        <i class="fa-solid fa-floppy-disk"></i> Simpan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div wire:ignore.self class="modal fade" tabindex="-1" id="modal_tanda_tangan" wire:ignore.self>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Form Tanda Tangan</h3>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <span class="svg-icon svg-icon-1">
+                            <i class="bi bi-x-circle"></i>
+                        </span>
+                    </div>
+                    <!--end::Close-->
+                </div>
+
+                <div class="modal-body">
+                    @include('helper.alert-message')
+                    <div class="text-center mb-5">
                         <label for="" class="form-label">Tanda Tangan</label>
                         <div class="position-relative">
                             <canvas id="signature-pad" class="signature-pad border rounded w-100"
@@ -276,15 +316,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="text-end">
-                    <button class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top"
-                        title="Simpan Laporan">
-                        <i class="fa-solid fa-floppy-disk"></i> Simpan
-                    </button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
+
 </div>
 
 @push('js')
@@ -354,6 +392,10 @@
                 var data = signaturePad.toDataURL('image/png');
                 Livewire.emit('base64ToImage', data)
             }
+        })
+
+        Livewire.on('onClickTandaTangan', () => {
+            $('#modal_tanda_tangan').modal('show')
         })
 
         $('input[name="catatan_teknisi"]').on('keyup keypress', function(e) {
