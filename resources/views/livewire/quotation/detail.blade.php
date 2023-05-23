@@ -152,9 +152,13 @@
                             <td>{{ $index + 1 }}</td>
                             <td>
                                 @if ($item->barangGambar->count() > 0)
-                                <img src="{{ asset('storage' . $item->barangGambar->first()->file) }}" alt="" class="rounded" style="height: 200px; width: 200px; object-fit: cover">
+                                    <a href="{{ asset('storage' . $item->barangGambar) }}" target="_blank">
+                                        <img src="{{ asset('storage' . $item->barangGambar->first()->file) }}"
+                                            alt="" class="rounded"
+                                            style="height: 200px; width: 200px; object-fit: cover">
+                                    </a>
                                 @else
-                                <small class="text-center">Tidak ada gambar</small>
+                                    <small class="text-center">Tidak ada gambar</small>
                                 @endif
                             </td>
                             <td>{{ $item->barang->sku }}</td>
